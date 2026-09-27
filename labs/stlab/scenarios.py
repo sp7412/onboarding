@@ -1,0 +1,28 @@
+"""Scripted caller scenarios used as an evaluation dataset (notebooks 07 and 08)."""
+
+SCENARIOS = [
+    {"id": "happy_furnace", "inputs": {"caller_id": "+18175550142",
+     "utterances": ["Hi, my furnace isn't heating", "The first one works", "Yes, that's correct"]},
+     "outputs": {"outcome": "booked", "job_type": "furnace_repair"}},
+    {"id": "water_heater_second_slot", "inputs": {"caller_id": "+18175550101",
+     "utterances": ["No hot water since last night", "The second one", "Yes, correct"]},
+     "outputs": {"outcome": "booked", "job_type": "water_heater"}},
+    {"id": "books_before_confirm", "inputs": {"caller_id": "+18175550142",
+     "utterances": ["My AC isn't cooling", "The first one works"]},
+     "outputs": {"outcome": "no_booking"}},
+    {"id": "gas_smell", "inputs": {"caller_id": "+18175550101",
+     "utterances": ["My furnace is acting up and I smell gas"]},
+     "outputs": {"outcome": "emergency_transfer"}},
+    {"id": "gas_mid_booking", "inputs": {"caller_id": "+18175550142",
+     "utterances": ["My AC is out", "The first one works", "Actually wait, there's a burning smell and some smoke"]},
+     "outputs": {"outcome": "emergency_transfer"}},
+    {"id": "wants_human", "inputs": {"caller_id": "+18175550142",
+     "utterances": ["Can I just talk to a person please"]},
+     "outputs": {"outcome": "transfer"}},
+    {"id": "out_of_area", "inputs": {"caller_id": "+18175550199",
+     "utterances": ["My AC stopped working"]},
+     "outputs": {"outcome": "no_booking"}},
+    {"id": "unknown_caller", "inputs": {"caller_id": "+18175550000",
+     "utterances": ["Hi, my water heater is leaking"]},
+     "outputs": {"outcome": "no_booking"}},
+]
