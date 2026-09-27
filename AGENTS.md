@@ -50,6 +50,9 @@ labs/
   agents/                    written by notebook 04 at runtime; gitignored
 scripts/run_notebooks.py     headless notebook test runner
 scripts/check_repo.py        notebook output and generated-file hygiene checks
+scripts/check_sensitive.py   configurable sensitive-content and metadata checker
+scripts/pre-commit            optional local pre-commit wrapper
+tests/test_sensitive.py      checker tests with fake placeholder patterns only
 requirements.txt, .env.example
 .github/workflows/quality.yml  lint, hygiene, and offline notebook CI
 ```
@@ -109,12 +112,18 @@ the vendor docs, fix imports, and re-run the full offline suite.
   `- [x]`. Don't reorder or renumber weeks without being asked.
 - Update the progress table in `README.md` when a phase completes.
 - Keep prose plain and concise; no internal company details (see Hard rules).
+- Never check boxes, fill in "my answer" sections, or write first-person reflections on
+  the user's behalf. These are personal progress records and must be completed by the user.
 
 ## Quality checks
 
 - `ruff check labs/stlab scripts` lints the deterministic teaching package and scripts.
 - `python scripts/check_repo.py` checks that generated notebooks exist and contain no
   execution outputs.
+- `python scripts/check_sensitive.py` scans tracked files and commit metadata using
+  `SENSITIVE_PATTERNS` or ignored `.sensitive-patterns`; it never hard-codes employer
+  names or domains.
+- Install the optional local hook with `ln -s ../../scripts/pre-commit .git/hooks/pre-commit`.
 - `.github/workflows/quality.yml` runs these checks and the offline notebook suite on
   every push and pull request. It never uses secrets or `--live`.
 

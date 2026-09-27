@@ -9,3 +9,4 @@ labs/agents/
 .opencode/
 .claude/
 .cursor/
+.sensitive-patterns

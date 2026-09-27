@@ -67,6 +67,17 @@ To run the offline test suite without activating the environment:
 Never use `--live` in CI. Live runs can cost money and must use personal credentials
 and fictional data.
 
+## Local Sensitive-Content Hook
+
+Install the repository's optional pre-commit check with:
+
+```bash
+ln -s ../../scripts/pre-commit .git/hooks/pre-commit
+```
+
+For private local patterns, set `SENSITIVE_PATTERNS` or create the ignored
+`.sensitive-patterns` file. Never commit the pattern file.
+
 ## Progress
 
 | Phase | Status |

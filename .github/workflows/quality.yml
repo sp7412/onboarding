@@ -12,6 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -23,5 +25,9 @@ jobs:
         run: python -m unittest discover -s tests -p 'test_*.py'
       - name: Check repository hygiene
         run: python scripts/check_repo.py
+      - name: Check sensitive content
+        env:
+          SENSITIVE_PATTERNS: ${{ secrets.SENSITIVE_PATTERNS }}
+        run: python scripts/check_sensitive.py
       - name: Run offline notebooks
         run: python scripts/run_notebooks.py
