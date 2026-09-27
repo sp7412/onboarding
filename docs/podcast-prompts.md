@@ -1,6 +1,6 @@
 # Podcast Prompts (NotebookLM Audio Overviews)
 
-Five review episodes generated with Google NotebookLM. Use them for commutes and walks
+Five technical review episodes and four coaching episodes, generated with Google NotebookLM. Use them for commutes and walks
 **after** the matching readings, not instead of them. The hosts are good at concepts and
 intuition, weaker on exact API names, config values and numbers. Treat the
 [reading guide](reading-guide.md) and labs as the source of truth.
@@ -26,46 +26,6 @@ intuition, weaker on exact API names, config values and numbers. Treat the
 
 ```text
 The listener is a senior ML engineer from the defense industry who starts as a Senior AI Engineer on ServiceTitan's voice-agent team in a few weeks. He knows ML deeply but not the trades industry or SaaS. Explain how a residential HVAC/plumbing contractor runs: the inbound call, booking, capacity, dispatch, memberships, and why missed calls cost revenue. Then explain what ServiceTitan's AI Voice Agents do, how they escalate to human CSRs, and how they fit the Atlas AI strategy. End with 5 questions he should ask his new team. Stick to the sources; don't speculate about internal systems.
-```
-
-## Coaching Episode 6: Entering Well and Learning Fast
-- [ ] Generated · [ ] Listened
-- **When:** before day one, after reading `docs/first-90-days-playbook.md`
-- **Sources:** `docs/first-90-days-playbook.md`; `plan/30-60-90-checklist.md`; `templates/1on1-questions.md`; `templates/onboarding-log.md`
-- **Format / length:** Coaching · Default
-
-```text
-Act as an experienced executive coach for a senior engineer entering a product SaaS company after a long defense-program career. Use only the supplied sources. Help the listener build a first-week operating system: how to align with the manager, create a learning agenda, distinguish observed facts from inferences, build relationships without seeming transactional, and choose a small early win. Explain what to do, what to avoid, and what evidence to collect. End with a 10-minute preparation exercise for the first manager 1:1.
-```
-
-## Coaching Episode 7: From Defense Rigor to Product Judgment
-- [ ] Generated · [ ] Listened
-- **When:** week 1, after reading the SaaS transition section
-- **Sources:** `docs/first-90-days-playbook.md`; `docs/servicetitan-101.md`; `docs/how-a-contractor-works.md`; `docs/evaluating-voice-agents.md`
-- **Format / length:** Debate · Default
-
-```text
-Act as two coaches debating how a rigorous defense-trained ML engineer should adapt to a customer-facing product team. One coach protects the strengths of formal analysis, safety cases, traceability, and edge-case thinking. The other coach pushes for shorter feedback loops, reversible experiments, customer outcomes, pragmatic scope, and comfort with ambiguity. Use the fictional contractor voice-agent workflow as the running example. Do not invent company practices. Converge on five behaviors to keep, five behaviors to change, and three phrases for communicating uncertainty without blocking progress.
-```
-
-## Coaching Episode 8: Choosing and Selling the First Win
-- [ ] Generated · [ ] Listened
-- **When:** end of days 1–30, before the 30-day memo
-- **Sources:** `docs/first-90-days-playbook.md`; `plan/30-60-90-checklist.md`; `templates/30-day-memo.md`; `templates/design-doc.md`; `docs/evaluating-voice-agents.md`
-- **Format / length:** Coaching · Longer
-
-```text
-Coach a senior AI engineer through selecting a first project for days 31–60. Compare three fictional options: an evaluation harness, an emergency/OOD escalation guardrail, and a latency reduction. For each, ask what evidence, owner, denominator, baseline, rollout plan, guardrail, and rollback trigger are required. Teach the listener how to avoid choosing the most technically interesting project instead of the most valuable and reversible one. Finish by role-playing a five-minute manager conversation where the engineer proposes one project, states the uncertainty, asks for a decision, and negotiates a measurable definition of success.
-```
-
-## Coaching Episode 9: Stakeholders, Feedback, and Difficult Signals
-- [ ] Generated · [ ] Listened
-- **When:** weeks 3–4, before the day-30 review
-- **Sources:** `docs/first-90-days-playbook.md`; `plan/30-60-90-checklist.md`; `templates/1on1-questions.md`; `templates/weekly-status.md`; `docs/call-anatomy.md`
-- **Format / length:** Coaching · Default
-
-```text
-Act as a practical coach preparing a new senior engineer for stakeholder conversations. Use the supplied sources and fictional call scenarios only. Teach how to interview a manager, PM, infrastructure owner, evaluation owner, and support/CSR partner; how to ask questions that reveal ownership and failure costs; how to receive feedback without becoming defensive; and how to handle conflicting requests. Include role-play scenarios: a PM wants speed, an infrastructure owner warns about reliability, and a support partner reports caller frustration. End with a compact weekly update template containing progress, decisions needed, learning, and risks.
 ```
 
 ## Episode 2: Anatomy of a Real-Time Voice Agent
@@ -108,12 +68,49 @@ Audience: a senior engineer deciding how much agency to give an LLM in a phone-b
 Audience: a new Senior AI Engineer whose likely highest-leverage contribution is evaluating voice-agent quality. Cover error analysis on real traces, building eval datasets from failures, code checks vs LLM-as-judge, reliability across repeated trials (pass^k from tau-bench), dual-control scenarios where the caller must act, and tracing with LangSmith. Then connect it to his 30/60/90 plan: how to pick a first project, set a baseline, measure impact, and present wins in contractor outcomes like booked jobs and missed calls. Give concrete, actionable advice.
 ```
 
-## Episode 10: LiveKit 101 Production Course
+---
+
+## Coaching episodes
+
+Career-coaching episodes built from the playbook and checklist. NotebookLM's audio formats are
+Deep Dive, Brief, Critique and Debate, so use **Deep Dive** and let the prompt set the coaching style.
+
+### Coaching Episode 6: Entering Well and Learning Fast
 - [ ] Generated · [ ] Listened
-- **When:** week of Oct 5, after reading-guide item 11A and before or alongside lab 04
-- **Sources:** the [LiveKit 101 playlist](https://www.youtube.com/playlist?list=PLWx-Xa8RhJxXuv8fu2Qz9rj2MPb4qgXir); `docs/voice-agent-architecture.md`; labs 03–04
-- **Format / length:** Course recap · Default
+- **When:** before day one, after reading `docs/first-90-days-playbook.md`
+- **Sources:** `docs/first-90-days-playbook.md`; `plan/30-60-90-checklist.md`; `templates/1on1-questions.md`; `templates/onboarding-log.md`
+- **Format / length:** Deep Dive · Default
 
 ```text
-You are coaching an experienced ML and signal-processing engineer through the supplied LiveKit 101 production voice-agent video course. Summarize the playlist as a sequence of architectural decisions, not a feature tour. Explain rooms and participants, agent sessions, VAD and turn detection, interruptions, tools, handoffs, telephony, deployment, and observability. For every topic, distinguish framework mechanism from application-owned policy and state. Compare the course examples with the raw Realtime event protocol and the deterministic simulators in labs 01–04. End with five concrete experiments to run in lab 04 and a short production-readiness checklist. Do not invent private company architecture or claim that a simulator is a real service.
+Act as an experienced executive coach for a senior engineer entering a product SaaS company after a long defense-program career. Use only the supplied sources. Help the listener build a first-week operating system: how to align with the manager, create a learning agenda, distinguish observed facts from inferences, build relationships without seeming transactional, and choose a small early win. Explain what to do, what to avoid, and what evidence to collect. End with a 10-minute preparation exercise for the first manager 1:1.
+```
+
+### Coaching Episode 7: From Defense Rigor to Product Judgment
+- [ ] Generated · [ ] Listened
+- **When:** week 1, after reading the SaaS transition section
+- **Sources:** `docs/first-90-days-playbook.md`; `docs/servicetitan-101.md`; `docs/how-a-contractor-works.md`; `docs/evaluating-voice-agents.md`
+- **Format / length:** Debate · Default
+
+```text
+Act as two coaches debating how a rigorous defense-trained ML engineer should adapt to a customer-facing product team. One coach protects the strengths of formal analysis, safety cases, traceability, and edge-case thinking. The other coach pushes for shorter feedback loops, reversible experiments, customer outcomes, pragmatic scope, and comfort with ambiguity. Use the fictional contractor voice-agent workflow as the running example. Do not invent company practices. Converge on five behaviors to keep, five behaviors to change, and three phrases for communicating uncertainty without blocking progress.
+```
+
+### Coaching Episode 8: Choosing and Selling the First Win
+- [ ] Generated · [ ] Listened
+- **When:** end of days 1–30, before the 30-day memo
+- **Sources:** `docs/first-90-days-playbook.md`; `plan/30-60-90-checklist.md`; `templates/30-day-memo.md`; `templates/design-doc.md`; `docs/evaluating-voice-agents.md`
+- **Format / length:** Deep Dive · Longer
+
+```text
+Coach a senior AI engineer through selecting a first project for days 31–60. Compare three fictional options: an evaluation harness, an emergency/OOD escalation guardrail, and a latency reduction. For each, ask what evidence, owner, denominator, baseline, rollout plan, guardrail, and rollback trigger are required. Teach the listener how to avoid choosing the most technically interesting project instead of the most valuable and reversible one. Finish by role-playing a five-minute manager conversation where the engineer proposes one project, states the uncertainty, asks for a decision, and negotiates a measurable definition of success.
+```
+
+### Coaching Episode 9: Stakeholders, Feedback, and Difficult Signals
+- [ ] Generated · [ ] Listened
+- **When:** weeks 3–4, before the day-30 review
+- **Sources:** `docs/first-90-days-playbook.md`; `plan/30-60-90-checklist.md`; `templates/1on1-questions.md`; `templates/weekly-status.md`; `docs/call-anatomy.md`
+- **Format / length:** Deep Dive · Default
+
+```text
+Act as a practical coach preparing a new senior engineer for stakeholder conversations. Use the supplied sources and fictional call scenarios only. Teach how to interview a manager, PM, infrastructure owner, evaluation owner, and support/CSR partner; how to ask questions that reveal ownership and failure costs; how to receive feedback without becoming defensive; and how to handle conflicting requests. Include role-play scenarios: a PM wants speed, an infrastructure owner warns about reliability, and a support partner reports caller frustration. End with a compact weekly update template containing progress, decisions needed, learning, and risks.
 ```
