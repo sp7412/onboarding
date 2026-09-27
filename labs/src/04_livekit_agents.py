@@ -346,6 +346,13 @@ else:
 # %% [markdown]
 # `judge()` uses an LLM to grade intent, a small built-in LLM-as-judge. Notebook 07 does the same thing at dataset scale with LangSmith.
 #
+# ## Next: the official starter
+#
+# This notebook writes agent files by hand so every line is visible. For the path a team would use to
+# start a real service (Agent Builder prototype, the `lk` CLI with `agent-starter-python`, the text-mode
+# `lk agent debugger`, and the mock reschedule/cancel tools), follow
+# [`docs/livekit-hands-on.md`](../docs/livekit-hands-on.md).
+#
 # ## Where LiveKit stops
 #
 # - It moves audio, detects turns, and handles interruptions. It does not know your booking rules.

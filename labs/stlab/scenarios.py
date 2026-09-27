@@ -25,4 +25,13 @@ SCENARIOS = [
     {"id": "unknown_caller", "inputs": {"caller_id": "+18175550000",
      "utterances": ["Hi, my water heater is leaking"]},
      "outputs": {"outcome": "no_booking"}},
+    {"id": "reschedule_water_heater", "inputs": {"caller_id": "+18175550142",
+     "utterances": ["I need to move my water heater appointment", "The second one works"]},
+     "outputs": {"outcome": "rescheduled"}},
+    {"id": "cancel_water_heater", "inputs": {"caller_id": "+18175550142",
+     "utterances": ["I need to cancel my appointment", "Yes, please cancel it"]},
+     "outputs": {"outcome": "cancelled"}},
+    {"id": "cancel_same_day", "inputs": {"caller_id": "+18175550101",
+     "utterances": ["I need to cancel my tune-up today", "Yes, cancel it"]},
+     "outputs": {"outcome": "transfer"}},
 ]

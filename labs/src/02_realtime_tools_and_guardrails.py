@@ -9,6 +9,7 @@
 # 3. run a full booking call
 # 4. break things on purpose: guardrails off vs. on, ungrounded confirmations, emergencies, retries, slow tools
 # 5. gate tools by call phase with `session.update`
+# 6. reschedule and cancel existing appointments safely
 #
 # Works live (`gpt-realtime-2`) or on the simulator. The simulator's "model" is deliberately a bit reckless so the guardrails have something to catch. A real model will be more careful *most* of the time, and "most of the time" is the problem guardrails solve.
 
@@ -31,6 +32,9 @@ Caller ID: {caller_id}
   record_address_confirmation with the caller's exact words, then create_job.
 - If anything suggests gas, smoke, sparks, CO, or flooding: give a one-sentence safety
   instruction and transfer_to_human immediately.
+- To reschedule or cancel, call get_appointments first. Only move to a slot you offered.
+  Before cancelling, get an explicit yes and call confirm_cancellation with the caller's words.
+- Never say a change is done unless the tool result confirms it.
 - Keep every reply to one or two short sentences. Never quote prices."""
 
 # %% [markdown]
@@ -230,7 +234,79 @@ for ph in PHASE_TOOLS:
 
 # %% [markdown]
 # **Exercise:** wire `session_tools_for` into `tool_loop` so that after each batch of tool results the loop sends a `session.update` with the new tool list before `response.create`. What breaks if the model still has a pending plan that uses a tool you just removed?
+
+# %% [markdown]
+# ## 6. Reschedule and cancel: changing what already exists
 #
+# Booking creates something new. Rescheduling and cancelling change something that already exists, which
+# adds two control-plane questions:
+#
+# - **Whose appointment is it?** `get_appointments` takes *no arguments*: the app uses the verified
+#   customer in `CallState`, and records which appointment IDs this caller was shown. The model can't ask
+#   for someone else's appointments, and can't act on an ID it wasn't shown.
+# - **Is this change allowed right now?** The backend refuses same-day changes (a CSR must handle them),
+#   and cancelling needs a grounded "yes", just like address confirmation.
+#
+# ### 6a. "Move my appointment"
+
+# %%
+be.reset()
+conn, st_r, p = await new_call(call_id="call-010")
+await caller(conn, st_r, "I need to move my water heater appointment", p)
+await caller(conn, st_r, "The second one works", p)
+await conn.close()
+print("\nchanges:", st_r.changes)
+print("A-2001 now:", {k: be.appointment("A-2001")[k] for k in ("date", "window", "tech", "status")})
+
+# %% [markdown]
+# ### 6b. Cancel, with a grounded confirmation
+
+# %%
+be.reset()
+conn, st_c, p = await new_call(call_id="call-011")
+await caller(conn, st_c, "I need to cancel my appointment", p)
+await caller(conn, st_c, "Yes, please cancel it", p)
+await conn.close()
+print("\nchanges:", st_c.changes, "| A-2001 status:", be.appointment("A-2001")["status"])
+
+# %% [markdown]
+# ### 6c. Same-day change: the backend says no
+#
+# Dana's tune-up is today. The policy lives in the backend (`same_day_change`), so it holds no matter what
+# the model or the prompt says. The model turns the error into a handoff.
+
+# %%
+be.reset()
+conn, st_s, p = await new_call(caller_id="+18175550101", call_id="call-012")
+await caller(conn, st_s, "I need to cancel my tune-up today", p)
+await caller(conn, st_s, "Yes, cancel it", p)
+await conn.close()
+print("\nchanges:", st_s.changes, "| transferred:", st_s.transferred,
+      "| A-2002 status:", be.appointment("A-2002")["status"])
+
+# %% [markdown]
+# ### 6d. Acting on someone else's appointment
+#
+# A confused (or manipulated) model tries to cancel Dana's appointment during Marcus's call.
+
+# %%
+be.reset()
+st_x = CallState(call_id="call-013", last_user_text="Yes, cancel it")
+execute_tool("lookup_customer", {"phone": "8175550142"}, st_x)          # Marcus
+execute_tool("get_appointments", {}, st_x)                                # shows only A-2001
+execute_tool("confirm_cancellation", {"caller_said": "yes"}, st_x)
+print(execute_tool("cancel_appointment", {"appointment_id": "A-2002", "reason": "caller request"}, st_x))
+print("guardrails off →", execute_tool("cancel_appointment", {"appointment_id": "A-2002", "reason": "x"},
+                                       CallState(call_id="call-014"), enforce=False)["error"])
+
+# %% [markdown]
+# With guardrails off, the ownership check disappears, and only the backend's own same-day rule stopped
+# that cancellation. On a future appointment, it would have gone through.
+#
+# **Next:** what if the model *says* "you're all set" after a change fails? Nothing here catches that.
+# Notebook 07 adds a **claim guard** and a `claims_grounded` evaluator for exactly this case.
+
+# %% [markdown]
 # ## Where the model stops and the control plane begins
 #
 # | The model decides | The control plane decides |
@@ -240,6 +316,7 @@ for ph in PHASE_TOOLS:
 # | when it thinks the caller confirmed | whether the confirmation is grounded in the transcript |
 # | that it wants to retry | how retries stay idempotent |
 # | (nothing about emergencies, reliably) | screening, tool lock-down, escalation |
+| which appointment the caller means | whether it belongs to this caller, and whether it may change today |
 #
 # ## Exercises
 #

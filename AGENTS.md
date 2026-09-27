@@ -33,6 +33,7 @@ docs/                        public-source domain and technical study guides
   reading-guide.md           ranked reading/watch list; verify every link before adding entries
   references.md              complete bibliography; add a row for every new external link
   podcast-prompts.md         NotebookLM episode prompts mapped to reading-guide items
+  livekit-hands-on.md        LiveKit Agent Builder / lk CLI / mock-tools track
 plan/30-60-90-checklist.md   week-by-week checklist (GitHub task-list checkboxes)
 study-guide/                 study guide (.md generated from the .docx; both committed)
 templates/                   blank docs: onboarding log, 1:1 questions, weekly status,
@@ -80,15 +81,15 @@ Teaching fixtures, not production code. Keep them small and deterministic.
 | Module | Purpose |
 |---|---|
 | `env.py` | `.env` loader, `have(service)`, `status()`; honors `STLAB_NO_DOTENV=1` |
-| `backend.py` | mock home-services backend (customers, slots, idempotent `create_job`, `PolicyError`, `LATENCY_MS`) |
-| `tools.py` | Realtime tool schemas, `CallState`, guarded `execute_tool` (the control-plane boundary) |
+| `backend.py` | mock home-services backend (customers, slots, seeded appointments A-2001/A-2002, idempotent `create_job` / `reschedule_appointment` / `cancel_appointment`, same-day-change policy, `PolicyError`, `LATENCY_MS`) |
+| `tools.py` | Realtime tool schemas, `CallState` (incl. `changes` for claim grounding), guarded `execute_tool` (ownership, offered slots, grounded confirmations) |
 | `fake_realtime.py` | offline OpenAI Realtime simulator (GA event names) with a rule-based "brain" |
 | `realtime.py` | `connect(live=None)` live-or-fake client, `EventPrinter` |
 | `loop.py` | reusable Realtime tool loop |
 | `turn_sim.py` | VAD / endpointing / barge-in simulator |
 | `scripted_model.py` | fake LangChain chat model with `bind_tools` for offline `create_agent` |
 | `booking_graph.py` | LangGraph booking workflow + `advance()` helper |
-| `scenarios.py` | eval dataset used by notebooks 07–08 |
+| `scenarios.py` | eval dataset used by notebooks 07–08 (booking, reschedule, cancel, emergencies) |
 
 Conventions: the simulators must emit the same event/field names as the real APIs; if you
 change the fake brain or backend, re-run notebooks 01, 02, 07, and 08 (they depend on

@@ -268,6 +268,10 @@ def brain(items, session, overrides):
     last = items[-1] if items else {}
     user_texts = [_text_of(i) for i in items if i.get("role") == "user"]
     alltext = " ".join(user_texts).lower()
+    appts = (outputs.get("get_appointments") or {}).get("appointments")
+    intent = "cancel" if "cancel" in alltext else (
+        "reschedule" if re.search(r"\b(reschedul\w*|move|change my appointment|push)\b", alltext) else None)
+    overclaim = bool((session.get("x_sim") or {}).get("overclaim"))   # simulate a model that overstates success
 
     # 1) react to a tool result
     if last.get("type") == "function_call_output":
@@ -275,6 +279,11 @@ def brain(items, session, overrides):
         out = outputs.get(name, {})
         if not out.get("ok", True):
             err = out.get("error")
+            if name in ("reschedule_appointment", "cancel_appointment") and overclaim:
+                return [{"kind": "say", "text": "All set, that's taken care of for you."}]   # a false claim!
+            if err == "same_day_change" and "transfer_to_human" in tools:
+                return [{"kind": "say", "text": "Same-day changes need a team member. Let me connect you."},
+                        {"kind": "call", "name": "transfer_to_human", "args": {"reason": "same-day change request"}}]
             if err == "address_not_confirmed" and customer:
                 return [{"kind": "say", "text": f"Before I lock that in, can you confirm the service address is {customer['address']}?"}]
             if err == "emergency_escalation_required" and "transfer_to_human" in tools:
@@ -293,6 +302,26 @@ def brain(items, session, overrides):
                 return [{"kind": "say", "text": "I don't have anything open soon. Let me connect you with the office."}]
             opts = "; or ".join(_fmt_slot(s) for s in slots[:2])
             return [{"kind": "say", "text": f"I can do {opts}. Which works best?"}]
+        if name == "get_appointments":
+            if not appts:
+                return [{"kind": "say", "text": "I don't see any upcoming appointments on your account."}]
+            a = _pick_appt(appts, alltext)
+            when = f"{a['label']} on {a['weekday']} {a['date'][5:]}, {a['window']}"
+            if intent == "cancel":
+                return [{"kind": "say", "text": f"I see your {when}. Do you want me to cancel it?"}]
+            if customer and "find_slots" in tools:
+                return [{"kind": "say", "text": f"I see your {when}. Let me find another time."},
+                        {"kind": "call", "name": "find_slots", "args": {"job_type": a["job_type"],
+                                                                        "zip_code": customer["zip"]}}]
+            return [{"kind": "say", "text": f"I see your {when}. What would you like to do?"}]
+        if name == "reschedule_appointment":
+            a = out["appointment"]
+            return [{"kind": "say", "text": f"Done. Your appointment is moved to {a['date']}, {a['window']} with {a['tech']}."}]
+        if name == "confirm_cancellation":
+            return [{"kind": "say", "text": "Okay."}]
+        if name == "cancel_appointment":
+            a = out["appointment"]
+            return [{"kind": "say", "text": f"Your appointment on {a['date']} is cancelled."}]
         if name == "record_address_confirmation":
             return [{"kind": "say", "text": "Great, address confirmed."}]
         if name == "create_job":
@@ -313,6 +342,22 @@ def brain(items, session, overrides):
         (None if customer else re.search(r"caller id[:\s]+(\+?\d{10,11})", instr.lower()))
     if phone and not customer and "lookup_customer" in tools:
         return [{"kind": "call", "name": "lookup_customer", "args": {"phone": phone.group(1)}}]
+    if intent and customer and appts is None and "get_appointments" in tools:
+        return [{"kind": "say", "text": "Sure, let me pull up your appointments."},
+                {"kind": "call", "name": "get_appointments", "args": {}}]
+    if intent == "reschedule" and appts and slots and "reschedule_appointment" in tools and \
+            any(w in said for w in ("yes", "works", "first", "second", "sure", "that one")):
+        idx = 1 if "second" in said else 0
+        return [{"kind": "call", "name": "reschedule_appointment",
+                 "args": {"appointment_id": _pick_appt(appts, alltext)["id"], "new_slot_id": slots[idx]["id"]}}]
+    if intent == "cancel" and appts and "cancel_appointment" in tools and \
+            any(w in said for w in ("yes", "yeah", "please", "go ahead")):
+        steps = []
+        if "confirm_cancellation" in tools:
+            steps.append({"kind": "call", "name": "confirm_cancellation", "args": {"caller_said": said.split(",")[0].strip()}})
+        steps.append({"kind": "call", "name": "cancel_appointment",
+                      "args": {"appointment_id": _pick_appt(appts, alltext)["id"], "reason": "caller request"}})
+        return steps
     if slots and any(w in said for w in ("yes", "yeah", "works", "first", "second", "correct", "sure", "that one")):
         idx = 1 if "second" in said else 0
         steps = []
@@ -337,6 +382,16 @@ def brain(items, session, overrides):
     if not said:
         return [{"kind": "say", "text": "Thanks for calling Benbrook Comfort Services, this is the virtual assistant. How can I help?"}]
     return [{"kind": "say", "text": "Got it. Can you tell me a bit more about what's happening with the system?"}]
+
+
+def _pick_appt(appts, text):
+    """Prefer the appointment whose job type the caller mentioned; else the soonest."""
+    for w, j in JOB_WORDS:
+        if w in text + " ":
+            match = [a for a in appts if a["job_type"] == j]
+            if match:
+                return match[0]
+    return appts[0]
 
 
 def _paraphrase(text: str) -> str:

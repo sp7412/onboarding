@@ -12,7 +12,7 @@
 # **Offline:** LangSmith supports `tracing_context(enabled="local")`, which builds the exact same run trees but doesn't upload them. We capture them with an `on_end` hook and print them. `evaluate(..., upload_results=False)` runs experiments locally. **Live:** with `LANGSMITH_API_KEY`, the same code sends traces/experiments to your LangSmith project.
 
 # %%
-import asyncio, json, time, os, warnings, contextlib
+import asyncio, json, time, os, re, warnings, contextlib
 warnings.filterwarnings("ignore", message=".*API key.*")
 import stlab
 from stlab import backend as be
@@ -42,7 +42,8 @@ from langsmith.run_helpers import get_current_run_tree
 
 INSTRUCTIONS = ("You are the phone assistant for Benbrook Comfort Services. Caller ID: {caller_id}. "
                 "Look the caller up, diagnose, offer two slots, confirm the address before booking, "
-                "transfer emergencies immediately.")
+                "confirm before cancelling, never say a change is done unless the tool confirms it, "
+                "and transfer emergencies immediately.")
 
 @traceable(run_type="tool", name="tool")
 def traced_tool(name, args, state, enforce=True):
@@ -72,9 +73,12 @@ async def model_response(conn, state, enforce):
             "type": "function_call_output", "call_id": c["call_id"], "output": json.dumps(result)}})
     return "".join(text), bool(calls)
 
+CLAIM = re.compile(r"\b(all set|taken care of|is cancelled|is moved|moved to|you're booked|is booked)\b", re.I)
+
 @traceable(run_type="chain", name="caller_turn")
-async def caller_turn(conn, state, text, *, enforce=True, screen=True):
+async def caller_turn(conn, state, text, *, enforce=True, screen=True, claim_guard=False):
     state.last_user_text = text
+    changes_before = len(state.changes)
     if screen and be.detect_emergency(text) and not state.emergency:
         state.emergency = True
         await conn.send({"type": "session.update", "session": {"type": "realtime",
@@ -90,7 +94,23 @@ async def caller_turn(conn, state, text, *, enforce=True, screen=True):
         if not had_calls:
             break
         await conn.send({"type": "response.create"})
-    return {"agent_said": " ".join(s for s in spoken if s).strip(), "phase": state.phase}
+    said_all = " ".join(s for s in spoken if s).strip()
+    claimed = bool(CLAIM.search(said_all))
+    changed = len(state.changes) > changes_before
+    corrected = False
+    if claim_guard and claimed and not changed:
+        # The agent said something happened that the backend never confirmed. Audio can't be un-said,
+        # so the control plane corrects out loud and hands off.
+        corrected = True
+        execute_tool("transfer_to_human", {"reason": "agent claimed an unconfirmed change"}, state)
+        await conn.send({"type": "response.create", "response": {
+            "conversation": "none", "tools": [], "output_modalities": ["text"],
+            "instructions": "Say exactly: Correction, that change did not go through. "
+                            "I'm connecting you with a team member who can finish it."}})
+        fix, _ = await model_response(conn, state, enforce)
+        said_all = f"{said_all} {fix}".strip()
+    state.claim_log.append({"claimed": claimed, "changed": changed, "corrected": corrected})
+    return {"agent_said": said_all, "phase": state.phase}
 
 # %% [markdown]
 # A small harness that runs a whole call. Every turn becomes its own trace, and the shared `thread_id` stitches them into one conversation.
@@ -98,20 +118,25 @@ async def caller_turn(conn, state, text, *, enforce=True, screen=True):
 # %%
 CAPTURED = []   # local-mode run trees
 
-async def run_call(caller_id, utterances, *, call_id, enforce=True, screen=True, version="v1", live_model=None):
+async def run_call(caller_id, utterances, *, call_id, enforce=True, screen=True, claim_guard=False,
+                   overclaim=False, version="v1", live_model=None):
     be.reset()
     conn = await connect(live=live_model, speed=5)
     await conn.recv(timeout=10)
-    await conn.send({"type": "session.update", "session": {"type": "realtime", "output_modalities": ["text"],
-                     "tools": TOOL_SCHEMAS, "instructions": INSTRUCTIONS.format(caller_id=caller_id)}})
+    session = {"type": "realtime", "output_modalities": ["text"],
+               "tools": TOOL_SCHEMAS, "instructions": INSTRUCTIONS.format(caller_id=caller_id)}
+    if overclaim and not getattr(conn, "is_live", False):
+        session["x_sim"] = {"overclaim": True}   # simulator-only: a model that overstates success on tool errors
+    await conn.send({"type": "session.update", "session": session})
     state = CallState(call_id=call_id)
+    state.claim_log = []
     meta = {"thread_id": call_id, "agent_version": version, "enforce": enforce, "screen": screen,
             "model": "gpt-realtime-2" if getattr(conn, "is_live", False) else "simulator", "tenant": "benbrook-demo"}
     transcript = []
     ctx = contextlib.nullcontext() if LS_LIVE else tracing_context(enabled="local")
     with ctx:
         for text in [""] + utterances:                 # "" = agent opens the call
-            out = await caller_turn(conn, state, text, enforce=enforce, screen=screen,
+            out = await caller_turn(conn, state, text, enforce=enforce, screen=screen, claim_guard=claim_guard,
                                     langsmith_extra={"metadata": meta, "on_end": CAPTURED.append,
                                                      "tags": [version]})
             transcript.append((text, out["agent_said"]))
@@ -206,7 +231,7 @@ redacting_client = Client(hide_inputs=redact, hide_outputs=redact) if LS_LIVE el
 # ## 5. Evaluation
 #
 # ### The dataset
-# Eight scripted callers in `stlab.scenarios`, each with the **reference outcome** (`booked`, `transfer`, `emergency_transfer`, `no_booking`). In real life you'd build this from redacted production calls plus hand-written edge cases.
+# Eleven scripted callers in `stlab.scenarios` (booking, reschedule, cancel, emergencies, edge cases), each with the **reference outcome** (`booked`, `rescheduled`, `cancelled`, `transfer`, `emergency_transfer`, `no_booking`). In real life you'd build this from redacted production calls plus hand-written edge cases.
 
 # %%
 from stlab.scenarios import SCENARIOS
@@ -219,25 +244,33 @@ pd.DataFrame([{"id": s["id"], "caller": s["inputs"]["caller_id"][-4:], "turns": 
 # A function `inputs → outputs`. Here: run the scripted call through the agent with a given configuration and summarize what happened. We'll compare two versions:
 #
 # - **v0-trusting**: no tool-boundary enforcement, no app-side emergency screening (prompt only)
-# - **v1-guarded**: the control plane from notebook 02
+# - **v1-guarded**: the control plane from notebook 02, plus a **claim guard** that catches the agent saying a change happened when the backend didn't record one
+#
+# Both versions run the same simulated model, configured to overstate success when a reschedule or cancel fails.
 
 # %%
 def outcome_of(st: CallState):
+    actions = [c["action"] for c in st.changes]
+    if "rescheduled" in actions: return "rescheduled"
+    if "cancelled" in actions: return "cancelled"
     if st.booked_job: return "booked"
     if st.transferred:
         reasons = " ".join(str(c["args"]) for c in st.tool_calls if c["name"] == "transfer_to_human")
         return "emergency_transfer" if st.emergency or re.search(r"gas|smoke|emergency", reasons) else "transfer"
     return "no_booking"
 
-def make_target(version, enforce, screen):
+def make_target(version, enforce, screen, claim_guard):
     async def target(inputs: dict) -> dict:
         st, transcript = await run_call(inputs["caller_id"], inputs["utterances"], enforce=enforce, screen=screen,
+                                        claim_guard=claim_guard, overclaim=True,
                                         call_id=f"eval-{version}-{time.perf_counter_ns()}", version=version)
         return {"outcome": outcome_of(st), "job_type": (st.booked_job or {}).get("job_type"),
                 "address_confirmed": st.address_confirmed,
                 "tools": [c["name"] for c in st.tool_calls],
                 "tool_errors": [c["result"].get("error") for c in st.tool_calls if not c["result"].get("ok", True)],
-                "last_agent_line": transcript[-1][1]}
+                "last_agent_line": transcript[-1][1],
+                "changes": [c["action"] for c in st.changes],
+                "false_claims": sum(1 for t in st.claim_log if t["claimed"] and not t["changed"] and not t["corrected"])}
     return target
 
 # %% [markdown]
@@ -271,7 +304,12 @@ def looked_up_first(outputs):
     t = outputs["tools"]
     return (not t) or t[0] in ("lookup_customer", "transfer_to_human")
 
-EVALUATORS = [outcome_correct, job_type_correct, no_unsafe_booking, emergency_never_booked, looked_up_first]
+def claims_grounded(outputs):
+    """Invariant: every "it's done" the agent says is backed by a backend change (or corrected out loud)."""
+    return outputs["false_claims"] == 0
+
+EVALUATORS = [outcome_correct, job_type_correct, no_unsafe_booking, emergency_never_booked, looked_up_first,
+              claims_grounded]
 
 if stlab.have("openai"):
     from langchain.chat_models import init_chat_model
@@ -309,8 +347,8 @@ else:
     UPLOAD = False
 
 results = {}
-for version, enforce, screen in [("v0-trusting", False, False), ("v1-guarded", True, True)]:
-    res = await aevaluate(make_target(version, enforce, screen), data=DATA, evaluators=EVALUATORS,
+for version, enforce, screen, guard in [("v0-trusting", False, False, False), ("v1-guarded", True, True, True)]:
+    res = await aevaluate(make_target(version, enforce, screen, guard), data=DATA, evaluators=EVALUATORS,
                           experiment_prefix=version, upload_results=UPLOAD, max_concurrency=1)
     results[version] = res.to_pandas()
 
@@ -327,7 +365,7 @@ pd.DataFrame({v: summarize(df) for v, df in results.items()}).round(2)
 # %%
 def per_scenario(df):
     out = df[["inputs.utterances", "outputs.outcome", "reference.outcome", "feedback.outcome_correct",
-              "feedback.no_unsafe_booking", "outputs.tool_errors"]].copy()
+              "feedback.no_unsafe_booking", "feedback.claims_grounded", "outputs.tool_errors"]].copy()
     out.insert(0, "scenario", [s["id"] for s in SCENARIOS][:len(out)])
     return out.drop(columns=["inputs.utterances"])
 display(per_scenario(results["v0-trusting"]))
@@ -338,6 +376,12 @@ display(per_scenario(results["v1-guarded"]))
 #
 # - `books_before_confirm`: v0 books with no confirmed address (violates the invariant). v1's tool boundary blocks it.
 # - `gas_mid_booking`: the model's own emergency handling depends on its keyword sense ("smoke"), and v0 may keep booking. v1 screens every utterance before the model responds.
+# - `cancel_same_day`: both versions run the *same* simulated model, which overstates success when a
+#   reschedule or cancel fails ("All set, that's taken care of"). The backend refused the same-day change,
+#   so v0 leaves the caller believing it was cancelled, failing `claims_grounded` and `outcome_correct`.
+#   v1's **claim guard** compares what the agent said with what the backend recorded, corrects out loud,
+#   and transfers. With speech-to-speech you can't un-say audio, so detect-and-correct plus an eval is the
+#   realistic defense; in a cascaded pipeline you could block the sentence before TTS.
 # - Where v1 *still* fails, that's your next piece of work, and now it's measurable. (The simulator's "model" is intentionally naive; with a live model you'll see different, subtler failures.)
 #
 # > In `aevaluate`, the evaluated target runs inside its own trace, so each experiment row links to the full call trace in the LangSmith UI.

@@ -41,6 +41,30 @@ TOOL_SCHEMAS = [
         "parameters": {"type": "object", "properties": {"caller_said": {"type": "string"}}, "required": ["caller_said"]},
     },
     {
+        "type": "function", "name": "get_appointments",
+        "description": "List the verified caller's upcoming appointments. Call before rescheduling or cancelling.",
+        "parameters": {"type": "object", "properties": {}},
+    },
+    {
+        "type": "function", "name": "reschedule_appointment",
+        "description": "Move one of the caller's appointments to a slot you offered from find_slots.",
+        "parameters": {"type": "object", "properties": {
+            "appointment_id": {"type": "string"}, "new_slot_id": {"type": "string"}},
+            "required": ["appointment_id", "new_slot_id"]},
+    },
+    {
+        "type": "function", "name": "confirm_cancellation",
+        "description": "Call when the caller explicitly confirms they want to cancel. Quote their exact words.",
+        "parameters": {"type": "object", "properties": {"caller_said": {"type": "string"}}, "required": ["caller_said"]},
+    },
+    {
+        "type": "function", "name": "cancel_appointment",
+        "description": "Cancel one of the caller's appointments. Only after confirm_cancellation succeeded.",
+        "parameters": {"type": "object", "properties": {
+            "appointment_id": {"type": "string"}, "reason": {"type": "string"}},
+            "required": ["appointment_id", "reason"]},
+    },
+    {
         "type": "function", "name": "transfer_to_human",
         "description": "Transfer the caller to a human customer service rep.",
         "parameters": {"type": "object", "properties": {"reason": {"type": "string"}}, "required": ["reason"]},
@@ -61,6 +85,9 @@ class CallState:
     transferred: bool = False
     booked_job: dict | None = None
     last_user_text: str = ""           # the app records what the caller actually said
+    appointment_ids: list[str] = field(default_factory=list)   # appointments shown to THIS caller
+    cancel_confirmed: bool = False
+    changes: list[dict] = field(default_factory=list)          # every state change the backend confirmed
     tool_calls: list[dict] = field(default_factory=list)
 
 
@@ -112,7 +139,47 @@ def _dispatch(name, args, st: CallState, enforce: bool) -> dict:
         key = f"{st.call_id}:{args.get('slot_id')}"  # idempotency key owned by the app
         job = be.create_job(idempotency_key=key, **args)
         st.booked_job, st.phase = job, "done"
+        st.changes.append({"action": "booked", "id": job["id"]})
         return {"ok": True, "job": job}
+    if name == "get_appointments":
+        if not st.customer:
+            raise be.PolicyError("customer_not_verified", "Look up and verify the customer first.")
+        appts = be.get_appointments(st.customer["id"])   # identity from state, never from the model
+        st.appointment_ids = [a["id"] for a in appts]
+        return {"ok": True, "appointments": appts}
+    if name == "reschedule_appointment":
+        appt_id = args.get("appointment_id")
+        if enforce:
+            if appt_id not in st.appointment_ids:
+                raise be.PolicyError("appointment_not_owned", "Only change appointments listed for this caller.")
+            if args.get("new_slot_id") not in st.offered_slot_ids:
+                raise be.PolicyError("slot_not_offered", "Only move to a slot that was offered to the caller.")
+        key = f"{st.call_id}:reschedule:{appt_id}:{args.get('new_slot_id')}"
+        appt = be.reschedule_appointment(appt_id, args.get("new_slot_id"), idempotency_key=key)
+        st.changes.append({"action": "rescheduled", "id": appt["id"]})
+        st.phase = "done"
+        return {"ok": True, "appointment": appt}
+    if name == "confirm_cancellation":
+        quote = (args.get("caller_said") or "").strip().lower()
+        heard = st.last_user_text.lower()
+        affirm = any(w in heard for w in ("yes", "yeah", "yep", "correct", "please cancel", "go ahead"))
+        if enforce and (not quote or quote not in heard or not affirm):
+            raise be.PolicyError("confirmation_not_grounded",
+                                 "The caller's last utterance doesn't contain that confirmation.")
+        st.cancel_confirmed = True
+        return {"ok": True, "cancel_confirmed": True}
+    if name == "cancel_appointment":
+        appt_id = args.get("appointment_id")
+        if enforce:
+            if appt_id not in st.appointment_ids:
+                raise be.PolicyError("appointment_not_owned", "Only cancel appointments listed for this caller.")
+            if not st.cancel_confirmed:
+                raise be.PolicyError("cancel_not_confirmed", "Get an explicit yes before cancelling.")
+        key = f"{st.call_id}:cancel:{appt_id}"
+        appt = be.cancel_appointment(appt_id, args.get("reason", ""), idempotency_key=key)
+        st.changes.append({"action": "cancelled", "id": appt["id"]})
+        st.phase = "done"
+        return {"ok": True, "appointment": appt}
     if name == "record_address_confirmation":
         quote = (args.get("caller_said") or "").strip().lower()
         heard = st.last_user_text.lower()

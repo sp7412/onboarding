@@ -45,7 +45,17 @@ _TECHS = [
 _WINDOWS = [(8, 10), (10, 12), (13, 15), (15, 17)]
 
 # Simulated backend latency in milliseconds per operation (tweak in notebooks!)
-LATENCY_MS = {"lookup_customer": 120, "find_slots": 450, "create_job": 300}
+LATENCY_MS = {"lookup_customer": 120, "find_slots": 450, "create_job": 300,
+              "get_appointments": 150, "reschedule_appointment": 300, "cancel_appointment": 250}
+
+# Existing appointments (booked before the call). BASE_DATE is "today" in the simulation,
+# so A-2002 is a same-day appointment, which policy says only a human CSR may change.
+_SEED_APPOINTMENTS = [
+    {"id": "A-2001", "customer_id": "C-1002", "job_type": "water_heater", "day": 2, "tech_id": "T-02", "start": 10,
+     "summary": "Annual water heater flush"},
+    {"id": "A-2002", "customer_id": "C-1001", "job_type": "hvac_tuneup", "day": 0, "tech_id": "T-01", "start": 13,
+     "summary": "Comfort Club maintenance visit"},
+]
 
 _state: dict = {}
 
@@ -65,8 +75,19 @@ def reset(seed_booked: bool = True) -> None:
         for i, sid in enumerate(sorted(slots)):
             if i % 3 == 0:
                 slots[sid]["status"] = "booked"
+    appointments = {}
+    for a in _SEED_APPOINTMENTS:
+        day = BASE_DATE + dt.timedelta(days=a["day"])
+        sid = f"S-{day:%m%d}-{a['tech_id']}-{a['start']:02d}"
+        slot = slots[sid]
+        slot["status"] = "booked"
+        appointments[a["id"]] = {"id": a["id"], "customer_id": a["customer_id"], "slot_id": sid,
+                                 "job_type": a["job_type"], "summary": a["summary"], "date": slot["date"],
+                                 "window": f"{slot['start']}-{slot['end']}", "tech": slot["tech"],
+                                 "status": "scheduled"}
     _state.clear()
-    _state.update(customers=copy.deepcopy(_SEED_CUSTOMERS), slots=slots, jobs={}, idem={}, log=[])
+    _state.update(customers=copy.deepcopy(_SEED_CUSTOMERS), slots=slots, jobs={}, idem={}, log=[],
+                  appointments=appointments)
 
 
 reset()
@@ -142,11 +163,79 @@ def create_job(customer_id: str, slot_id: str, job_type: str, summary: str,
     slot["status"] = "booked"
     job = {"id": "J-" + uuid.uuid4().hex[:6].upper(), "customer_id": customer_id, "slot_id": slot_id,
            "job_type": job_type, "summary": summary, "date": slot["date"], "window": f"{slot['start']}-{slot['end']}",
-           "tech": slot["tech"]}
+           "tech": slot["tech"], "status": "scheduled"}
     _state["jobs"][job["id"]] = job
     _state["idem"][idempotency_key] = job["id"]
     _audit("create_job", job_id=job["id"])
     return copy.deepcopy(job)
+
+
+def _find_appointment(appointment_id: str) -> dict:
+    appt = _state["appointments"].get(appointment_id) or _state["jobs"].get(appointment_id)
+    if appt is None:
+        raise PolicyError("unknown_appointment", f"No appointment {appointment_id}.")
+    return appt
+
+
+def _check_changeable(appt: dict) -> None:
+    if appt.get("status") != "scheduled":
+        raise PolicyError("not_changeable", f"Appointment {appt['id']} is {appt.get('status')}.")
+    if appt["date"] == BASE_DATE.isoformat():
+        raise PolicyError("same_day_change", "Same-day appointments can only be changed by a CSR.")
+
+
+def get_appointments(customer_id: str) -> list[dict]:
+    """Upcoming scheduled appointments for a customer (seeded ones plus jobs booked this session)."""
+    _sleep("get_appointments")
+    everything = list(_state["appointments"].values()) + list(_state["jobs"].values())
+    out = [a for a in everything if a["customer_id"] == customer_id and a.get("status") == "scheduled"]
+    out.sort(key=lambda a: (a["date"], a["window"]))
+    _audit("get_appointments", customer_id=customer_id, n=len(out))
+    return [{**copy.deepcopy(a), "label": JOB_TYPES[a["job_type"]]["label"],
+             "weekday": dt.date.fromisoformat(a["date"]).strftime("%A")} for a in out]
+
+
+def reschedule_appointment(appointment_id: str, new_slot_id: str, idempotency_key: str) -> dict:
+    """Move an appointment to a new open slot. Idempotent on `idempotency_key`."""
+    _sleep("reschedule_appointment")
+    if idempotency_key in _state["idem"]:
+        appt = _find_appointment(_state["idem"][idempotency_key])
+        return {**copy.deepcopy(appt), "replayed": True}
+    appt = _find_appointment(appointment_id)
+    _check_changeable(appt)
+    new = _state["slots"].get(new_slot_id)
+    if new is None:
+        raise PolicyError("unknown_slot", f"No slot {new_slot_id}.")
+    if new["status"] != "open":
+        raise PolicyError("slot_unavailable", f"Slot {new_slot_id} is no longer available.")
+    if JOB_TYPES[appt["job_type"]]["skill"] not in new["skills"]:
+        raise PolicyError("skill_mismatch", f"{new['tech']} can't do {appt['job_type']}.")
+    _state["slots"][appt["slot_id"]]["status"] = "open"      # free the old slot
+    new["status"] = "booked"
+    appt.update(slot_id=new_slot_id, date=new["date"], window=f"{new['start']}-{new['end']}", tech=new["tech"])
+    _state["idem"][idempotency_key] = appt["id"]
+    _audit("reschedule_appointment", appointment_id=appt["id"], new_slot_id=new_slot_id)
+    return copy.deepcopy(appt)
+
+
+def cancel_appointment(appointment_id: str, reason: str, idempotency_key: str) -> dict:
+    """Cancel an appointment and free its slot. Idempotent on `idempotency_key`."""
+    _sleep("cancel_appointment")
+    if idempotency_key in _state["idem"]:
+        appt = _find_appointment(_state["idem"][idempotency_key])
+        return {**copy.deepcopy(appt), "replayed": True}
+    appt = _find_appointment(appointment_id)
+    _check_changeable(appt)
+    _state["slots"][appt["slot_id"]]["status"] = "open"
+    appt.update(status="cancelled", cancel_reason=reason)
+    _state["idem"][idempotency_key] = appt["id"]
+    _audit("cancel_appointment", appointment_id=appt["id"])
+    return copy.deepcopy(appt)
+
+
+def appointment(appointment_id: str) -> dict:
+    """Read one appointment's current state (for tests and evaluators)."""
+    return copy.deepcopy(_find_appointment(appointment_id))
 
 
 def detect_emergency(text: str) -> bool:

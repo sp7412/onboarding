@@ -33,16 +33,17 @@ the exact lab map and prerequisites.
 
 | Path | What's there |
 |---|---|
-| [`plan/30-60-90-checklist.md`](plan/30-60-90-checklist.md) | Watkins-inspired operating plan with 30/60/90 outcomes, weekly actions, stakeholder work, and exit criteria |
+| [`plan/30-60-90-checklist.md`](plan/30-60-90-checklist.md) | Week-by-week checklist from pre-start through day 90 |
 | [`study-guide/`](study-guide/) | Voice-agent study guide (Markdown + original .docx) |
 | [`docs/`](docs/) | Public-source domain primer, technical architecture, reading list, evaluation guide, and first-90-days playbook |
 | [`docs/reading-guide.md`](docs/reading-guide.md) | Ranked blogs, papers and talks with four takeaways each (start here for reading) |
 | [`docs/references.md`](docs/references.md) | Complete bibliography of every external source in the repo |
 | [`docs/podcast-prompts.md`](docs/podcast-prompts.md) | Five NotebookLM podcast prompts for review listening |
+| [`docs/livekit-hands-on.md`](docs/livekit-hands-on.md) | LiveKit track: Agent Builder → `lk` starter → fake ServiceTitan tools with guardrails |
 | [`labs/`](labs/) | Nine Jupyter tutorials: OpenAI Realtime, LiveKit, LangChain/LangGraph, LangSmith, capstone |
 | [`labs/solutions/`](labs/solutions/) | Offline-safe solution notes for the lab exercises |
 | [`templates/`](templates/) | Onboarding log, 1:1 questions, weekly status, 30-day memo, design doc, 90-day retro |
-| [`notes/`](notes/) | Public-safe personal notes: glossary, study-question answer |
+| [`notes/`](notes/) | Public-safe personal notes: original conversation notes, glossary, study-question answer |
 | [`scripts/run_notebooks.py`](scripts/run_notebooks.py) | Headless test runner: executes the notebooks offline |
 | [`AGENTS.md`](AGENTS.md) | Instructions for AI coding agents working in this repo (`CLAUDE.md` points to it) |
 
