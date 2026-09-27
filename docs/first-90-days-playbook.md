@@ -1,77 +1,232 @@
 # First 90 Days Playbook
 
-This complements the [30/60/90 checklist](../plan/30-60-90-checklist.md). It is a
-public-safe operating guide, not a prediction of ServiceTitan's internal processes.
+This is a public-safe, Watkins-inspired operating plan for entering a senior AI
+engineering role. It uses the broad ideas of preparing, learning quickly, diagnosing
+the situation, securing early wins, and negotiating success; it is not a reproduction
+of any book or a prediction of ServiceTitan's internal processes.
 
-## First 30 Days: Build A Map
+Use this document to decide **how to operate**. Use the [30/60/90 checklist](../plan/30-60-90-checklist.md)
+to decide **what to do each week**.
 
-- Ask your manager for the outcomes that matter, the decision rights you have, and the
-  first reversible contribution that would build trust.
-- In 1:1s, ask for examples: "What does a good call look like?", "Where does quality
-  degrade?", and "Which metric has a trustworthy denominator?"
-- Trace one representative flow end to end, then draw it with owners, sources of truth,
-  failure boundaries, and observability gaps.
-- Listen to or review only data you are authorized to access. Record patterns, not
-  customer-identifying details.
-- Ship a small documentation, test, or logging change before proposing a broad redesign.
+## The Objective
 
-The 30-day memo should separate **observed**, **inferred**, and **unknown**. Include
-three risks with evidence, not a catalog of hypothetical concerns.
+By day 90, you should have:
 
-## Days 31–60: Pick A Measurable Slice
+1. a trustworthy map of the product, customer workflow, architecture, owners, and
+   quality metrics;
+2. relationships strong enough to make decisions and get help quickly;
+3. one small, reversible improvement shipped with a measured contractor outcome; and
+4. a clear next-quarter proposal based on evidence rather than first impressions.
 
-Choose one problem with a clear owner, baseline, reversible rollout, and customer-facing
-outcome. Good candidates include:
+Do not optimize for appearing busy. Optimize for increasing the team's confidence that
+you understand the system, choose good problems, and can deliver safely.
 
-- a regression dataset and evaluator for a recurring failure;
-- a guardrail or escalation path with a measurable false-positive tradeoff;
-- a latency waterfall and one targeted reduction in dead air.
+## Before Day One: Prepare
 
-Write the design doc before building. Define the denominator, baseline period, slices,
-rollback signal, and what will not change. Review it with the manager and a senior peer.
+### Define your learning agenda
 
-## Days 61–90: Ship And Multiply
+Write one question under each heading before starting:
 
-- Roll out to a test cohort or behind a flag.
-- Compare before/after outcomes and include null or negative results.
-- Add monitoring, a runbook, and an owner.
-- Share the approach so another engineer can reproduce the measurement.
-- Propose the next problem only after showing what the first change taught you.
+| Area | Question |
+|---|---|
+| Customer | What does a contractor consider a successful call and a successful job? |
+| Product | Which workflow is the team trying to improve, and for whom? |
+| Technology | Where do transport, model, workflow, policy, and systems of record meet? |
+| Quality | Which failures are unsafe, expensive, or merely awkward? |
+| Team | Who owns each decision, metric, and operational boundary? |
+| Business | Which outcome matters: booked work, missed leads, CSR effort, speed, or retention? |
 
-## Running Effective 1:1s
+Keep a separate evidence log with three columns: **observed**, **inferred**, and
+**unknown**. This prevents a plausible architecture story from becoming an assumed fact.
 
-Bring three items:
+### Prepare a first-week contract
 
-1. **Progress:** what changed since the last meeting.
-2. **Decision:** what you need the manager to choose or unblock.
-3. **Learning:** what evidence changed your understanding.
+Ask your manager to agree on:
 
-Send a short pre-read when the topic needs context. Do not turn the meeting into a
-status dump; use it for tradeoffs, feedback, and prioritization.
+- what success looks like at days 30, 60, and 90;
+- the first small contribution that is useful and reversible;
+- who should help you learn the system;
+- how often and in what format to communicate;
+- what access, privacy, and production-safety boundaries apply.
 
-## From Defense Programs To Product SaaS
+## Days 1–30: Learn, Diagnose, And Earn Trust
 
-Your rigor transfers well: explicit assumptions, failure analysis, traceability,
-verification, and attention to edge cases. The operating context changes:
+### Build the map
 
-- feedback arrives continuously from customers, operators, and production telemetry;
-- the best first version is often smaller and reversible rather than comprehensive;
+Trace one representative interaction end to end, with authorized data only:
+
+```text
+customer request → transport → turn detection → model → tools/workflow
+→ source of truth → response/transfer → trace and outcome metric
+```
+
+For every boundary, record:
+
+- owner and on-call path;
+- authoritative state;
+- allowed and forbidden actions;
+- timeout, retry, and rollback behavior;
+- observable evidence;
+- your confidence: high, medium, or low.
+
+### Diagnose the situation
+
+Do not assume the team needs a rewrite. Classify the current situation using evidence:
+
+| Situation | Signals | Your response |
+|---|---|---|
+| **Turnaround** | serious quality, reliability, or trust failures | stabilize, measure, reduce risk, then improve |
+| **Realignment** | good components but unclear ownership, priorities, or metrics | clarify strategy, interfaces, and decision rights |
+| **Accelerated growth** | demand is rising faster than process or capacity | add structure, automation, and scalable evaluation |
+| **Sustaining success** | results are healthy and the system is well understood | improve incrementally without creating needless disruption |
+
+This is a working hypothesis, not a label to announce. Review it with your manager
+after you have enough evidence.
+
+### Build relationships deliberately
+
+In the first month, meet people who represent different views of the system:
+
+- manager: outcomes, priorities, decision rights;
+- PM or product partner: customer problem and tradeoffs;
+- senior engineer: architecture, review norms, operational risk;
+- infrastructure/telephony owner: transport, latency, incidents;
+- evaluation/observability owner: definitions, datasets, monitoring;
+- support or CSR-facing partner: caller effort and failure cost.
+
+Ask each person:
+
+1. What should I understand sooner than most new engineers do?
+2. What failure is most costly or embarrassing?
+3. What would a useful contribution look like in the next month?
+4. Where is the source of truth, and who can explain it?
+
+### Secure an early learning win
+
+Choose a change that is:
+
+- useful even if your larger hypothesis is wrong;
+- small enough to review in one sitting;
+- safe to roll back;
+- measurable or clearly reduces future uncertainty;
+- visible to the people who will depend on it.
+
+Good examples are a missing test, a trace field, a runbook correction, a redacted
+regression case, or a small documentation fix. Avoid a broad prompt rewrite as your
+first proof of value.
+
+### Day-30 contract
+
+Review a one-page memo with your manager. It should state:
+
+- how the system works, with confidence levels;
+- what you observed from customers, operators, and telemetry;
+- three risks and the evidence for each;
+- what remains unknown;
+- your situation diagnosis and alternatives considered;
+- the proposed day-60 deliverable and its success metric;
+- support or decisions you need from your manager.
+
+## Days 31–60: Align, Design, And Deliver
+
+### Negotiate success
+
+Before building, agree in writing on:
+
+- the problem and eligible population;
+- baseline period and denominator;
+- primary outcome and guardrail metrics;
+- scope and explicit non-goals;
+- decision-maker and reviewers;
+- rollout cohort or flag;
+- rollback trigger and owner;
+- weekly communication rhythm.
+
+This is not bureaucracy. It prevents a technically successful project from being judged
+against a different definition of success later.
+
+### Choose one measurable slice
+
+Potential slices for a voice-agent team include:
+
+- an evaluator that turns reviewed failures into regression tests;
+- a guardrail or escalation path for restricted/OOD calls;
+- a latency waterfall and one targeted dead-air reduction;
+- a reliability improvement for retries, timeouts, or handoffs.
+
+Pick one. A senior contribution is often the discipline to say no to the other three.
+
+### Design before implementation
+
+Write the design doc and review it with the manager and a senior peer. Include the
+baseline, alternatives, failure modes, privacy implications, rollout, monitoring, and
+what evidence would cause you to stop. Ship in thin increments and report learning,
+including null results.
+
+### Day-60 contract
+
+Show:
+
+- baseline versus current result, with denominator and slices;
+- what shipped and what remains behind a flag;
+- safety and quality guardrails;
+- feedback from operators or customers, if authorized;
+- the next decision: continue, change direction, or stop.
+
+Ask directly: **What should I do more of, less of, or differently?**
+
+## Days 61–90: Own, Ship, And Multiply
+
+### Turn contribution into ownership
+
+- complete the rollout or make the stop decision;
+- measure before/after and document uncertainty;
+- add monitoring and a debugging/runbook path;
+- identify a durable owner and escalation path;
+- teach the approach to at least one other person;
+- propose the next-quarter problem and why now.
+
+### Day-90 contract
+
+The review should answer:
+
+1. What changed for customers, contractors, operators, or engineers?
+2. What was the baseline, and how reliable is the comparison?
+3. What did not work, and what did you learn?
+4. What do you now own?
+5. What is the next-quarter proposal, with expected impact and risks?
+
+## Weekly Operating Rhythm
+
+| Habit | Output |
+|---|---|
+| Daily learning log | one observed fact, one uncertainty, one next question |
+| Weekly manager update | done, next, blocked; include one decision needed |
+| One relationship conversation | a new perspective on product, system, or customers |
+| Quality review | a call, trace, regression case, or metric slice, as authorized |
+| Friday review | update assumptions, risks, checklist, and next week's learning goal |
+
+## Moving From Defense Programs To Product SaaS
+
+Keep the rigor: explicit assumptions, testable claims, failure analysis, traceability,
+and disciplined release criteria. Change the operating loop:
+
+- feedback is continuous and often incomplete;
 - ambiguity is a product input, not only a requirements defect;
-- uptime, cost, latency, support burden, and customer effort matter alongside model
-  accuracy;
-- a technically correct feature that does not improve a contractor outcome is not yet a
-  product win.
+- small reversible experiments beat large up-front designs;
+- cost, latency, support burden, and customer effort matter with accuracy;
+- a technically correct feature is not a product win unless it improves an outcome.
 
-Keep the discipline, shorten the feedback loop, and make uncertainty visible early.
+The goal is not to abandon rigor. It is to apply rigor at the speed of learning.
 
 ## Communicating Wins
 
-Frame updates as:
+Use this format:
 
 > For **[eligible population]**, we changed **[behavior]**. The baseline was
 > **[denominator and period]**; after **[rollout]**, **[customer/contractor outcome]**
-> moved from **[before]** to **[after]**, with **[safety/quality guard]** unchanged or
-> improved. The remaining uncertainty is **[unknown]**.
+> moved from **[before]** to **[after]**, while **[safety/quality guard]** was
+> **[unchanged/improved]**. Remaining uncertainty: **[unknown]**.
 
 Never invent an internal metric or claim production impact before it is measured and
 approved for sharing.

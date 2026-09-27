@@ -33,7 +33,7 @@ the exact lab map and prerequisites.
 
 | Path | What's there |
 |---|---|
-| [`plan/30-60-90-checklist.md`](plan/30-60-90-checklist.md) | Week-by-week checklist from pre-start through day 90 |
+| [`plan/30-60-90-checklist.md`](plan/30-60-90-checklist.md) | Watkins-inspired operating plan with 30/60/90 outcomes, weekly actions, stakeholder work, and exit criteria |
 | [`study-guide/`](study-guide/) | Voice-agent study guide (Markdown + original .docx) |
 | [`docs/`](docs/) | Public-source domain primer, technical architecture, reading list, evaluation guide, and first-90-days playbook |
 | [`docs/reading-guide.md`](docs/reading-guide.md) | Ranked blogs, papers and talks with four takeaways each (start here for reading) |
