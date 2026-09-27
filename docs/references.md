@@ -56,6 +56,7 @@ PP = [podcast prompts](podcast-prompts.md) episode number.
 | [agent-starter-python](https://github.com/livekit-examples/agent-starter-python) | Template repo | LiveKit hands-on |
 | [uv (Python package manager)](https://docs.astral.sh/uv/) | Docs | LiveKit hands-on |
 | [Turns overview](https://docs.livekit.io/agents/logic/turns/) | Docs | RG 11, RL, PP 2 |
+| [LiveKit 101: Build Production-Ready Voice AI Agents](https://www.youtube.com/playlist?list=PLWx-Xa8RhJxXuv8fu2Qz9rj2MPb4qgXir) | Official video course playlist | RG 11A, PP 10 |
 | [Telephony](https://docs.livekit.io/telephony/) | Docs | RL |
 | [Using a transformer to improve end-of-turn detection](https://livekit.com/blog/using-a-transformer-to-improve-end-of-turn-detection) | Blog | RG 12, PP 2 |
 

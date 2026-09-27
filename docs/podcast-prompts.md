@@ -107,3 +107,13 @@ Audience: a senior engineer deciding how much agency to give an LLM in a phone-b
 ```text
 Audience: a new Senior AI Engineer whose likely highest-leverage contribution is evaluating voice-agent quality. Cover error analysis on real traces, building eval datasets from failures, code checks vs LLM-as-judge, reliability across repeated trials (pass^k from tau-bench), dual-control scenarios where the caller must act, and tracing with LangSmith. Then connect it to his 30/60/90 plan: how to pick a first project, set a baseline, measure impact, and present wins in contractor outcomes like booked jobs and missed calls. Give concrete, actionable advice.
 ```
+
+## Episode 10: LiveKit 101 Production Course
+- [ ] Generated · [ ] Listened
+- **When:** week of Oct 5, after reading-guide item 11A and before or alongside lab 04
+- **Sources:** the [LiveKit 101 playlist](https://www.youtube.com/playlist?list=PLWx-Xa8RhJxXuv8fu2Qz9rj2MPb4qgXir); `docs/voice-agent-architecture.md`; labs 03–04
+- **Format / length:** Course recap · Default
+
+```text
+You are coaching an experienced ML and signal-processing engineer through the supplied LiveKit 101 production voice-agent video course. Summarize the playlist as a sequence of architectural decisions, not a feature tour. Explain rooms and participants, agent sessions, VAD and turn detection, interruptions, tools, handoffs, telephony, deployment, and observability. For every topic, distinguish framework mechanism from application-owned policy and state. Compare the course examples with the raw Realtime event protocol and the deterministic simulators in labs 01–04. End with five concrete experiments to run in lab 04 and a short production-readiness checklist. Do not invent private company architecture or claim that a simulator is a real service.
+```

@@ -134,6 +134,16 @@ replace it. Check items off (`- [x]`) as you finish them.
   4. Preemptive generation: starting the LLM before the turn is final.
 - **Pairs with:** labs 03 and 04
 
+### 11A. LiveKit 101: Build Production-Ready Voice AI Agents
+- [ ] <https://www.youtube.com/playlist?list=PLWx-Xa8RhJxXuv8fu2Qz9rj2MPb4qgXir> · official video course playlist · 2–4 h (sample first, then choose modules)
+- **Why:** a practical, official LiveKit course that connects agent sessions, turn handling, tools, handoffs, deployment, and production concerns. Treat it as a multi-video course, not one talk.
+- **Look for:**
+  1. Which responsibilities belong to the transport/session framework versus application code.
+  2. How the examples handle interruptions, tools, state, and human handoffs.
+  3. Which deployment and observability concerns appear before production.
+  4. What differs from the deterministic `stlab` simulators and the raw Realtime protocol in labs 01–04.
+- **Pairs with:** labs 03–04 and [`docs/voice-agent-architecture.md`](voice-agent-architecture.md)
+
 ### 12. Using a transformer to improve end-of-turn detection (LiveKit)
 - [ ] <https://livekit.com/blog/using-a-transformer-to-improve-end-of-turn-detection> · blog · 15 min
 - **Why:** the design behind LiveKit's semantic turn detector, and a nice small-model ML problem.
