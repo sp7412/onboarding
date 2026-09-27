@@ -15,10 +15,23 @@ contractor, one architecture layer at a time:
 | 07 | langsmith_tracing_evals | tracing, waterfall, redaction, evaluation | optional LangSmith/OpenAI |
 | 08 | capstone_talker_thinker | talker + thinker + latency budget + study-question answer | optional |
 
-## Quick start
+## Learning Path
+
+For each notebook, follow this loop:
+
+1. Read the objective and the "Where it stops" summary.
+2. Run the cells offline and inspect the event/state transitions, not just the final output.
+3. Answer the check-your-understanding questions from memory.
+4. Attempt the graded exercise and run its self-check.
+5. Compare with the matching note in [`solutions/`](solutions/) only after attempting it.
+
+The exercises are deliberately small and deterministic. A complete lab is usually 30–60
+minutes; labs 04, 07, and 08 can take 60–90 minutes if you do the optional live work.
+
+## Quick Start
 
 ```bash
-python -m venv .venv && source .venv/bin/activate
+python3.12 -m venv .venv && source .venv/bin/activate
 pip install -r ../requirements.txt
 cp ../.env.example .env        # optional: add keys
 jupyter lab
@@ -49,3 +62,6 @@ python agents/realtime_agent.py dev              # connect to LiveKit Cloud
   langchain 1.4, langsmith 0.14, and the GA Realtime event protocol (gpt-realtime-2).
 - Use personal/free-tier accounts; never put employer or customer data in these labs.
 - `src/` holds the percent-format sources; `python build_nb.py` regenerates the notebooks.
+- Edit `src/*.py`, never the generated `.ipynb` files. The repository check verifies that
+  generated notebooks contain no outputs.
+- `solutions/` contains answer sketches, not a substitute for running the exercises.
