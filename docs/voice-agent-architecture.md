@@ -101,5 +101,33 @@ authority that decides whether an action is allowed.
 - The workflow owns a durable process, not the system of record itself.
 - Observability records what is instrumented; it does not enforce runtime policy.
 
-See the original [`study-guide/`](../study-guide/) for the longer reference material
-and the labs for executable examples.
+## Where Each Component Stops
+
+| Component | Owns | Stops at |
+|---|---|---|
+| LiveKit / transport | Media, rooms, participants, turn handling, interruptions, and session lifecycle | Business rules, source-of-truth state, authorization, and what the agent should do |
+| Realtime model | Speech understanding, response generation, context, and proposed tool calls | Tool execution, authoritative facts, durable state, policy enforcement, and knowing exactly what audio was heard |
+| LangChain / LangGraph | Model/tool orchestration, middleware, workflow transitions, checkpoints, and interrupts | Audio transport, turn-taking, systems of record, and defining allowed actions |
+| LangSmith | Traces, metadata, datasets, evaluators, experiments, and monitoring | Runtime enforcement, uninstrumented audio timing, and deciding what success means |
+| Application control plane | Identity, authorization, policy, evidence grounding, phase state, idempotency, safety, escalation, redaction, and outcome definitions | It delegates mechanisms to vendors and decisions to product/compliance owners |
+
+## Latency Worksheet
+
+Fill this in with measured values from the labs or an authorized test environment. The
+right-hand values are planning categories, not vendor guarantees.
+
+| Stage | Your measurement | Planning category |
+|---|---:|---:|
+| End of caller speech → turn committed | | endpointing delay |
+| Turn committed → first model audio | | model time to first audio |
+| Simple tool round trip | | backend and control-plane latency |
+| Multi-step workflow | | off the hot path or masked with filler |
+| Network and playout buffering | | transport latency |
+| Caller stops → useful answer | | total customer-perceived latency |
+
+The labs provide executable evidence for these boundaries: lab 01 demonstrates
+cancellation and truncation, lab 02 blocks an early booking, lab 05 separates context
+from state, lab 06 makes confirmation a graph edge, and lab 08 passes verbatim transcript
+evidence to the thinker.
+
+See the labs for executable examples.

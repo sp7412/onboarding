@@ -30,17 +30,16 @@ LangChain/LangGraph, LangSmith).
 
 ```
 README.md                    start-here path + overview + progress table
-PLAN.md                      audit and improvement plan
 docs/                        public-source domain and technical study guides
-  reading-guide.md           ranked reading/watch list; verify every link before adding entries
+  reading-guide.md           canonical ranked reading/watch list; verify every link before adding entries
   references.md              complete bibliography; add a row for every new external link
   podcast-prompts.md         NotebookLM episode prompts mapped to reading-guide items
   livekit-hands-on.md        LiveKit Agent Builder / lk CLI / mock-tools track
 plan/30-60-90-checklist.md   week-by-week checklist (GitHub task-list checkboxes)
-study-guide/                 study guide (.md generated from the .docx; both committed)
+study-guide/                 archived source document and pointer to canonical architecture guide
 templates/                   blank docs: onboarding log, 1:1 questions, weekly status,
                              30-day memo, design doc, 90-day retro
-notes/                       public-safe notes: glossary, study-question answer
+notes/                       public-safe notes: glossary, study-question template/model answer
 labs/
   00_…08_*.ipynb             generated notebooks, DO NOT hand-edit
   src/*.py                   notebook sources (jupytext "percent" format), EDIT THESE

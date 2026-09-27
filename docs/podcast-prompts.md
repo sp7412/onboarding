@@ -93,6 +93,30 @@ You are coaching an experienced ML and signal-processing engineer through the su
 ---
 
 ## Episode 3: The Model vs. The Application: Where the Control Plane Begins
+- [ ] Generated · [ ] Listened
+- **When:** week of Oct 12, after reading-guide items 5, 7, 8, 13, 14
+- **Sources:** reading-guide items 5, 7, 8, 13, 14; `docs/voice-agent-architecture.md`
+- **Format / length:** Debate · Default
+
+```text
+EPISODE 3: THE MODEL VS. THE APPLICATION: WHERE THE CONTROL PLANE BEGINS
+Format: Debate · Length: Default
+
+SOURCES (NotebookLM → Add source → Website / YouTube):
+https://www.youtube.com/watch?v=-OXiljTJxQU
+https://openai.com/index/advancing-voice-intelligence-with-new-models-in-the-api/
+https://developers.openai.com/api/docs/guides/voice-agents
+https://developers.openai.com/api/docs/guides/realtime
+https://developers.openai.com/cookbook/examples/realtime_prompting_guide
+https://raw.githubusercontent.com/sp7412/onboarding/main/docs/voice-agent-architecture.md
+
+CUSTOMIZE PROMPT (Audio Overview → Customize):
+Frame this around one question: where does the realtime voice model's responsibility stop and the application's control plane begin? One host argues for giving the model more autonomy (reasoning effort, preambles, tool calling); the other argues for enforcing rules in code (tool-boundary validation, grounding confirmations in the actual transcript, idempotent bookings, emergency screening, limiting tools by call phase). Use a home-services booking call as the running example. Converge on practical guidance for a senior engineer designing guardrails.
+```
+
+---
+
+## Episode 3: The Model vs. The Application: Where the Control Plane Begins
 - [ ] Generated · [ ] Listened · **When:** Week of Oct 12, after reading-guide items 5, 7, 8, 13, 14
 
 ```text
@@ -105,7 +129,7 @@ https://openai.com/index/advancing-voice-intelligence-with-new-models-in-the-api
 https://developers.openai.com/api/docs/guides/voice-agents
 https://developers.openai.com/api/docs/guides/realtime
 https://developers.openai.com/cookbook/examples/realtime_prompting_guide
-https://raw.githubusercontent.com/sp7412/onboarding/main/study-guide/voice-agent-study-guide.md
+https://raw.githubusercontent.com/sp7412/onboarding/main/docs/voice-agent-architecture.md
 
 CUSTOMIZE PROMPT (Audio Overview → Customize):
 Frame this around one question: where does the realtime voice model's responsibility stop and the application's control plane begin? One host argues for giving the model more autonomy (reasoning effort, preambles, tool calling); the other argues for enforcing rules in code (tool-boundary validation, grounding confirmations in the actual transcript, idempotent bookings, emergency screening, limiting tools by call phase). Use a home-services booking call as the running example. Converge on practical guidance for a senior engineer designing guardrails.

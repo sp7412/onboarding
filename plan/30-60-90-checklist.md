@@ -51,7 +51,7 @@ access, and scope with the manager after starting.
 
 ### Week of Oct 19 — Prepare relationships and logistics
 
-- [ ] Read the [`docs/reading-list.md`](../docs/reading-list.md) items paired to any unfinished lab.
+- [ ] Read the [`docs/reading-guide.md`](../docs/reading-guide.md) items paired to any unfinished lab.
 - [ ] Read [`docs/call-anatomy.md`](../docs/call-anatomy.md) and annotate likely failure modes.
 - [ ] Finalize manager, PM, infrastructure, evaluation, and support questions.
 - [ ] Prepare a personal first-week plan and take at least two full days off before Oct 26.

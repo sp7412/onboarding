@@ -5,7 +5,7 @@ All links were checked on Sept 27, 2026. For *what to read first and why*, use t
 [reading guide](reading-guide.md); this page is the complete bibliography.
 
 **Where each is cited:** RG = [reading guide](reading-guide.md) item number ·
-RL = [reading list](reading-list.md) · 101 = [ServiceTitan 101](servicetitan-101.md) ·
+RL = [reading guide](reading-guide.md) · 101 = [ServiceTitan 101](servicetitan-101.md) ·
 PP = [podcast prompts](podcast-prompts.md) episode number.
 
 ## ServiceTitan (company and products)

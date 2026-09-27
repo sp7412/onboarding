@@ -103,6 +103,31 @@ replace it. Check items off (`- [x]`) as you finish them.
 
 ## Tier 2: The stack in depth (before day 1 if possible)
 
+### Official documentation quick reference
+
+Use these official pages for API behavior and pair them with the labs. The linked pages
+were checked during the repository update where the vendor site allowed automated access.
+OpenAI's documentation returned an automated-access 403 to the checker but the URLs are
+official; vendor documentation can move, so search for the page title if a link moves.
+
+| Read | Why | Time | Pair with |
+|---|---|---:|---|
+| [OpenAI Realtime overview](https://developers.openai.com/api/docs/guides/realtime) | Session model, audio turns, streaming, and tool calling | 30 min | Lab 01 |
+| [OpenAI Realtime reference](https://platform.openai.com/docs/api-reference/realtime) | Raw client/server event names and fields | 30 min | Labs 01–02 |
+| [LiveKit Agents overview](https://docs.livekit.io/agents/) | Agent sessions, workers, tools, and voice pipeline | 30 min | Lab 04 |
+| [LiveKit turn handling](https://docs.livekit.io/agents/logic/turns.md) | VAD, endpointing, interruptions, and semantic turn detection | 25 min | Lab 03 |
+| [LiveKit telephony](https://docs.livekit.io/telephony.md) | SIP concepts and call transport boundaries | 20 min | Lab 04, optional |
+| [LangChain agents](https://docs.langchain.com/oss/python/langchain/agents) | `create_agent`, tools, middleware, and model/tool loops | 35 min | Lab 05 |
+| [LangGraph overview](https://docs.langchain.com/oss/python/langgraph/overview) | Explicit stateful workflows and durable execution | 25 min | Lab 06 |
+| [LangGraph persistence](https://docs.langchain.com/oss/python/langgraph/persistence) | Checkpoints, threads, and resume behavior | 20 min | Lab 06 |
+| [LangSmith observability](https://docs.langchain.com/langsmith/observability) | Traces, runs, metadata, and debugging | 25 min | Lab 07 |
+| [LangSmith evaluation](https://docs.langchain.com/langsmith/evaluation) | Datasets, evaluators, experiments, and online evaluation | 30 min | Labs 07–08 |
+
+For each page, write down three boundaries: what mechanism the vendor provides, what
+state or policy remains the application's responsibility, and which event, metric, or
+failure would prove your understanding. Do not copy vendor examples containing real
+credentials, customer information, or live audio into this public repository.
+
 ### 9. Building Effective Agents (Anthropic)
 - [ ] <https://www.anthropic.com/engineering/building-effective-agents> · essay · 30 min
 - **Why:** the clearest framework for *how much* agency to give an LLM, which is central to voice-agent design.
