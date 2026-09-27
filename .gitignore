@@ -5,3 +5,7 @@ __pycache__/
 *.db
 labs/agents/
 *.zip
+# local AI-tool state (can contain machine names and endpoints)
+.opencode/
+.claude/
+.cursor/

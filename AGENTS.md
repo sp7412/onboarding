@@ -11,6 +11,8 @@ LangChain/LangGraph, LangSmith).
 
 ## Hard rules
 
+00. **Never commit tool or machine state.** No `.opencode/`, `.claude/`, `.cursor/`, caches, hostnames,
+   internal endpoints, or employer names or email addresses. Check `git status` before every commit.
 0. **Links must be real.** Link-check every URL you add (HTTP 200 on the final page). Never
    construct URLs from a site's naming pattern. Add new external links to `docs/references.md`.
 
