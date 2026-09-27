@@ -16,3 +16,17 @@
 - What's the biggest risk to voice agent quality right now?
 - What do you wish new engineers understood sooner?
 - What breaks most often, and how do you find out?
+
+## Fictional example
+
+These are sample notes from an invented team called Northstar Mechanical. Replace them
+with real, authorized notes after starting; do not put employer-confidential material in
+this public repository.
+
+- **Manager:** Success at day 30 means a system map and one small merged change; the
+  first project should improve a contractor outcome, not just a model score.
+- **PM:** The useful denominator is eligible service calls, split by intent and outcome.
+- **Evaluation owner:** Review a small, redacted failure set every week and promote
+  confirmed failures to regression cases.
+- **Infrastructure peer:** Ask who owns turn timing, transfer behavior, and rollback.
+- **Support partner:** Listen for repeated caller effort, not only explicit complaints.

@@ -42,6 +42,7 @@ labs/
   agents/                    written by notebook 04 at runtime; gitignored
 scripts/run_notebooks.py     headless notebook test runner
 scripts/check_repo.py        notebook output and generated-file hygiene checks
+tests/test_stlab.py          focused standard-library tests for deterministic fixtures
 requirements.txt, .env.example
 .github/workflows/quality.yml  lint, hygiene, and offline notebook CI
 ```
@@ -107,6 +108,7 @@ the vendor docs, fix imports, and re-run the full offline suite.
 - `ruff check labs/stlab scripts` lints the deterministic teaching package and scripts.
 - `python scripts/check_repo.py` checks that generated notebooks exist and contain no
   execution outputs.
+- `python -m unittest discover -s tests -p 'test_*.py'` runs focused fixture tests.
 - `.github/workflows/quality.yml` runs these checks and the offline notebook suite on
   every push and pull request. It never uses secrets or `--live`.
 
