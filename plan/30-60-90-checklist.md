@@ -22,7 +22,7 @@ access, and scope with the manager after starting.
 
 - [ ] Read the [domain primer](../docs/servicetitan-101.md) and [contractor
   lifecycle](../docs/how-a-contractor-works.md).
-- [x] Run labs 00–03 offline with Python 3.12. (Verified locally: 9/9 full suite passed.)
+- [ ] Run labs 00–03 offline with Python 3.12.
 - [ ] Write one question each for customer, product, technology, quality, team, and business.
 - [ ] Start an evidence log with **observed / inferred / unknown** columns.
 - [ ] Draft the manager's first-1:1 questions in [`templates/1on1-questions.md`](../templates/1on1-questions.md).
@@ -32,7 +32,7 @@ access, and scope with the manager after starting.
 ### Week of Oct 5 — Build technical depth
 
 - [ ] Read [`docs/voice-agent-architecture.md`](../docs/voice-agent-architecture.md).
-- [x] Complete labs 04–06 and compare realtime, cascaded, and workflow paths. (Verified locally offline.)
+- [ ] Complete labs 04–06 and compare realtime, cascaded, and workflow paths.
 - [ ] Measure the lab latency categories; label simulated versus live measurements.
 - [ ] Break the fictional agent five ways: interruption, slow number, backchannel, emergency phrase, wrong address.
 - [ ] Write a first hypothesis about where the application control plane begins.
@@ -41,9 +41,9 @@ access, and scope with the manager after starting.
 
 ### Week of Oct 12 — Build evaluation judgment
 
-- [x] Complete labs 07–08. (Verified locally offline.)
+- [ ] Complete labs 07–08.
 - [ ] Read [`docs/evaluating-voice-agents.md`](../docs/evaluating-voice-agents.md).
-- [x] Write the answer in [`notes/study-question.md`](../notes/study-question.md).
+- [ ] Write the answer in [`notes/study-question.md`](../notes/study-question.md).
 - [ ] Define three hard invariants and three softer quality questions for a fictional call set.
 - [ ] Prepare a one-page list of assumptions that must be tested after joining.
 - [ ] LiveKit hands-on Phase 3: fake ServiceTitan tools (reschedule/cancel) behind the control plane.
