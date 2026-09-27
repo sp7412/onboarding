@@ -19,6 +19,8 @@ documents I'll write along the way.
 | [`labs/`](labs/) | Nine Jupyter tutorials: OpenAI Realtime, LiveKit, LangChain/LangGraph, LangSmith, capstone |
 | [`templates/`](templates/) | Onboarding log, 1:1 questions, weekly status, 30-day memo, design doc, 90-day retro |
 | [`notes/`](notes/) | Public-safe personal notes: glossary, study-question answer |
+| [`scripts/run_notebooks.py`](scripts/run_notebooks.py) | Headless test runner: executes the notebooks offline |
+| [`AGENTS.md`](AGENTS.md) | Instructions for AI coding agents working in this repo (`CLAUDE.md` points to it) |
 
 ## Getting started with the labs
 

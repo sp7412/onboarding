@@ -10,7 +10,12 @@ KEYS = {
 
 
 def load_env(path: str | None = None) -> None:
-    """Load KEY=VALUE lines from a .env file (searches cwd and parents)."""
+    """Load KEY=VALUE lines from a .env file (searches cwd and parents).
+
+    Set STLAB_NO_DOTENV=1 to skip loading (used by scripts/run_notebooks.py offline runs).
+    """
+    if os.environ.get("STLAB_NO_DOTENV"):
+        return
     candidates = [Path(path)] if path else [p / ".env" for p in [Path.cwd(), *Path.cwd().parents]]
     for p in candidates:
         if p.is_file():
