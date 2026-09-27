@@ -10,7 +10,7 @@ ServiceTitan describes its platform as cloud software for the trades, including
 contractors in plumbing, HVAC, electrical, and related home and commercial services.
 Its public product pages group capabilities around customer acquisition, field service
 operations, financial workflows, and business intelligence. Start with the [company
-overview](https://www.servicetitan.com/company) and [platform overview](https://www.servicetitan.com/platform).
+overview](https://www.servicetitan.com/company) and [platform overview](https://www.servicetitan.com/features).
 
 The important mental model is not "a chatbot for a consumer." The paying customer is
 typically a contractor business. That business uses software to turn demand into
@@ -24,19 +24,18 @@ or unnecessary CSR work.
 Public product material distinguishes residential and commercial contractors and
 describes workflows involving office staff, technicians, and business owners. Do not
 infer the exact workflows, permissions, or systems used by any particular customer.
-The public [residential solutions page](https://www.servicetitan.com/industries/residential)
-and [commercial solutions page](https://www.servicetitan.com/industries/commercial)
+The public [industries page](https://www.servicetitan.com/industries)
 are useful starting points.
 
 ## Product Vocabulary
 
 These are public product references, not claims about an internal implementation:
 
-- [Contact Center Pro](https://www.servicetitan.com/products/contact-center-pro) addresses contact-center workflows.
-- [Scheduling Pro](https://www.servicetitan.com/products/scheduling-pro) addresses scheduling and booking workflows.
-- [Dispatch Pro](https://www.servicetitan.com/products/dispatch-pro) addresses dispatch operations.
-- [Atlas](https://www.servicetitan.com/products/atlas) is presented publicly as an AI assistant for the trades.
-- [AI Voice Agents](https://www.servicetitan.com/products/ai-voice-agents) is the public product page for voice-agent capabilities.
+- [Contact Center Pro](https://www.servicetitan.com/features/pro/contact-center) addresses contact-center workflows.
+- [Scheduling Pro](https://www.servicetitan.com/features/pro/scheduling) addresses scheduling and booking workflows.
+- [Dispatch Pro](https://www.servicetitan.com/features/pro/dispatch) addresses dispatch operations.
+- [Atlas](https://www.servicetitan.com/features/atlas) is presented publicly as an AI assistant for the trades.
+- [AI Voice Agents](https://www.servicetitan.com/features/pro/virtual-agent) is the public product page for voice-agent capabilities.
 
 Read the pages as product context. They do not reveal private system boundaries,
 production metrics, customer data, or team ownership. Those are questions to ask after
@@ -61,7 +60,6 @@ For pre-start study, focus on four outcomes:
 ## Public Sources
 
 - [ServiceTitan company](https://www.servicetitan.com/company)
-- [ServiceTitan platform](https://www.servicetitan.com/platform)
-- [ServiceTitan residential solutions](https://www.servicetitan.com/industries/residential)
-- [ServiceTitan commercial solutions](https://www.servicetitan.com/industries/commercial)
+- [ServiceTitan platform](https://www.servicetitan.com/features)
+- [ServiceTitan industries](https://www.servicetitan.com/industries)
 - [ServiceTitan products](https://www.servicetitan.com/products)

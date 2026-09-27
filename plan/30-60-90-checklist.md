@@ -10,14 +10,17 @@ Adjust dates once the team's rhythm is clear.
 - [ ] Create free-tier accounts (OpenAI, LiveKit Cloud, LangSmith) under a personal email
 - [ ] Run lab 01 §5 live and hear real Realtime audio
 - [ ] Note 3 things that surprised me about the event protocol
+- [ ] Reading guide items 1–4 (`docs/reading-guide.md`)
 
 ### Week of Oct 5: Stack depth
 - [ ] Labs 04–06; run `realtime_agent.py console` and talk to it
+- [ ] Reading guide items 5–10
 - [ ] Fill in the latency worksheet in the study guide with real numbers
 - [ ] Break the agent 5 ways (interrupt, read a phone number slowly, say "uh-huh," mention gas, confirm the wrong address) and log what happened
 
 ### Week of Oct 12: Evaluation + synthesis
 - [ ] Labs 07–08; write my answer to the study question in [`notes/study-question.md`](../notes/study-question.md)
+- [ ] Reading guide items 11–14
 
 ### Week of Oct 19: Domain + logistics
 - [ ] Watch ServiceTitan's Pantheon 2025 keynote and the Pro Products session
@@ -36,6 +39,7 @@ Adjust dates once the team's rhythm is clear.
 - [ ] Get the dev environment running locally
 - [ ] Read all of the team's architecture docs
 - [ ] Start the onboarding log (internal copy, from `templates/onboarding-log.md`); 5 minutes daily
+- [ ] Reading guide Tier 3 (items 15–23) across weeks 1–4
 
 ### Week 2 (Nov 2–6): Map the system
 - [ ] Trace one real production call end to end: telephony → transport → model → tools → scheduling backend → traces

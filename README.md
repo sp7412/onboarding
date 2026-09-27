@@ -19,9 +19,9 @@ the complete path is useful offline.
 
 | Week | Time | Focus | Deliverable |
 |---|---:|---|---|
-| Sept 28 | 4–6 h | Read [`docs/servicetitan-101.md`](docs/servicetitan-101.md), [`docs/how-a-contractor-works.md`](docs/how-a-contractor-works.md), and labs 00–03 | Explain the contractor job lifecycle and draw the control-plane boundary |
-| Oct 5 | 5–7 h | Read [`docs/voice-agent-architecture.md`](docs/voice-agent-architecture.md), then labs 04–06 | Compare cascaded and realtime paths; demonstrate guarded booking and resume |
-| Oct 12 | 4–6 h | Read [`docs/evaluating-voice-agents.md`](docs/evaluating-voice-agents.md), then labs 07–08 | Produce a small eval report and complete the study-question answer |
+| Sept 28 | 4–6 h | Reading guide items 1–4; read [`docs/servicetitan-101.md`](docs/servicetitan-101.md), [`docs/how-a-contractor-works.md`](docs/how-a-contractor-works.md), and labs 00–03 | Explain the contractor job lifecycle and draw the control-plane boundary |
+| Oct 5 | 5–7 h | Reading guide items 5–10; read [`docs/voice-agent-architecture.md`](docs/voice-agent-architecture.md), then labs 04–06 | Compare cascaded and realtime paths; demonstrate guarded booking and resume |
+| Oct 12 | 4–6 h | Reading guide items 11–14; read [`docs/evaluating-voice-agents.md`](docs/evaluating-voice-agents.md), then labs 07–08 | Produce a small eval report and complete the study-question answer |
 | Oct 19 | 3–5 h | Review [`docs/reading-list.md`](docs/reading-list.md), [`docs/first-90-days-playbook.md`](docs/first-90-days-playbook.md), and templates | Prepare manager questions, a first-PR hypothesis, and a measurable 30-day plan |
 
 For each lab, read the objective first, run the offline cells, do the understanding
@@ -36,6 +36,7 @@ the exact lab map and prerequisites.
 | [`plan/30-60-90-checklist.md`](plan/30-60-90-checklist.md) | Week-by-week checklist from pre-start through day 90 |
 | [`study-guide/`](study-guide/) | Voice-agent study guide (Markdown + original .docx) |
 | [`docs/`](docs/) | Public-source domain primer, technical architecture, reading list, evaluation guide, and first-90-days playbook |
+| [`docs/reading-guide.md`](docs/reading-guide.md) | Ranked blogs, papers and talks with four takeaways each (start here for reading) |
 | [`labs/`](labs/) | Nine Jupyter tutorials: OpenAI Realtime, LiveKit, LangChain/LangGraph, LangSmith, capstone |
 | [`labs/solutions/`](labs/solutions/) | Offline-safe solution notes for the lab exercises |
 | [`templates/`](templates/) | Onboarding log, 1:1 questions, weekly status, 30-day memo, design doc, 90-day retro |

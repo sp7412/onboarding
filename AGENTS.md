@@ -27,6 +27,7 @@ LangChain/LangGraph, LangSmith).
 README.md                    start-here path + overview + progress table
 PLAN.md                      audit and improvement plan
 docs/                        public-source domain and technical study guides
+  reading-guide.md           ranked reading/watch list; verify every link before adding entries
 plan/30-60-90-checklist.md   week-by-week checklist (GitHub task-list checkboxes)
 study-guide/                 study guide (.md generated from the .docx; both committed)
 templates/                   blank docs: onboarding log, 1:1 questions, weekly status,
