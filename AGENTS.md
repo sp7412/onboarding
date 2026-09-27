@@ -11,6 +11,9 @@ LangChain/LangGraph, LangSmith).
 
 ## Hard rules
 
+0. **Links must be real.** Link-check every URL you add (HTTP 200 on the final page). Never
+   construct URLs from a site's naming pattern. Add new external links to `docs/references.md`.
+
 1. **This repo is public.** Never add ServiceTitan internal information: internal code,
    architecture, metrics, customer data, call recordings or transcripts, names of internal
    systems, or anything learned under employment. If a request would add such content, stop
@@ -28,6 +31,8 @@ README.md                    start-here path + overview + progress table
 PLAN.md                      audit and improvement plan
 docs/                        public-source domain and technical study guides
   reading-guide.md           ranked reading/watch list; verify every link before adding entries
+  references.md              complete bibliography; add a row for every new external link
+  podcast-prompts.md         NotebookLM episode prompts mapped to reading-guide items
 plan/30-60-90-checklist.md   week-by-week checklist (GitHub task-list checkboxes)
 study-guide/                 study guide (.md generated from the .docx; both committed)
 templates/                   blank docs: onboarding log, 1:1 questions, weekly status,
@@ -42,7 +47,6 @@ labs/
   agents/                    written by notebook 04 at runtime; gitignored
 scripts/run_notebooks.py     headless notebook test runner
 scripts/check_repo.py        notebook output and generated-file hygiene checks
-tests/test_stlab.py          focused standard-library tests for deterministic fixtures
 requirements.txt, .env.example
 .github/workflows/quality.yml  lint, hygiene, and offline notebook CI
 ```
@@ -108,7 +112,6 @@ the vendor docs, fix imports, and re-run the full offline suite.
 - `ruff check labs/stlab scripts` lints the deterministic teaching package and scripts.
 - `python scripts/check_repo.py` checks that generated notebooks exist and contain no
   execution outputs.
-- `python -m unittest discover -s tests -p 'test_*.py'` runs focused fixture tests.
 - `.github/workflows/quality.yml` runs these checks and the offline notebook suite on
   every push and pull request. It never uses secrets or `--live`.
 
