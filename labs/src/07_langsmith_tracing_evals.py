@@ -374,3 +374,14 @@ else:
 # 1. Add a `turns_to_book` evaluator (fewer is better) and a summary evaluator that reports the booking rate across the dataset.
 # 2. Add span metadata for `phase` at each turn and build a chart of where calls end (phase funnel).
 # 3. With a live realtime model, run v1 three times (`num_repetitions=3`). Which scenarios are flaky? What does flakiness tell you about where to add structure (notebook 06)?
+
+# %% [markdown]
+# ## Check your understanding
+#
+# 1. Which latency components are invisible to a basic model/tool trace?
+# 2. Which invariants should be code evaluators rather than LLM-judge criteria?
+# 3. How does a reviewed production failure become a regression case?
+#
+# **Graded exercise:** add an evaluator for `looked_up_first` or `turns_to_book`, run it
+# on the fictional scenarios, and report the denominator. See
+# [`solutions/07_langsmith_tracing_evals.md`](../solutions/07_langsmith_tracing_evals.md).

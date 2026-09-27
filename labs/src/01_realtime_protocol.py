@@ -253,3 +253,14 @@ else:
 # 1. Re-run section 3 with a longer, messier caller utterance. Does the effort/latency curve change shape?
 # 2. In section 4, set `interrupt_response: False` and re-run. What happens to the greeting? When would you want that?
 # 3. Set `create_response: False`. Now *your* code must decide when to call `response.create`. Why might a control plane want that power (hint: emergency screening before the model replies)?
+
+# %% [markdown]
+# ## Check your understanding
+#
+# 1. What is the difference between a conversation item and a response?
+# 2. Why must local audio playout be stopped on cancellation?
+# 3. What does `conversation.item.truncate` reconcile?
+#
+# **Graded exercise:** modify the simulator turn so the caller interrupts after a
+# different number of words, then assert that the stored assistant transcript contains
+# no more words than were actually played. See [`solutions/01_realtime_protocol.md`](../solutions/01_realtime_protocol.md).

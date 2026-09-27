@@ -158,3 +158,14 @@ print("Adaptive (acoustic barge-in classifier)");   display(compare(mode="adapti
 # 1. Build a caller who spells an email address letter by letter with long pauses. Find settings with zero cut-offs and a response gap < 800 ms.
 # 2. Change `Sound(3800, 900, "tv")` to 2500 ms. Which modes fail? What would you log to detect this in production (notebook 07)?
 # 3. Suppose the *agent* is reading a 4-item list and the caller says "the second one": is that an interruption you want to honor instantly? Sketch the policy.
+
+# %% [markdown]
+# ## Check your understanding
+#
+# 1. How do VAD and endpointing differ?
+# 2. What is the cost of increasing a fixed silence timer?
+# 3. Why can a duration-only interruption detector mistake a TV for a caller?
+#
+# **Graded exercise:** sweep endpointing delays and choose the shortest setting with zero
+# premature cutoffs for the phone-number example. Record the tradeoff in one sentence.
+# See [`solutions/03_turn_taking_and_interruptions.md`](../solutions/03_turn_taking_and_interruptions.md).

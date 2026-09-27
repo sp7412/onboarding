@@ -306,3 +306,14 @@ print("what the model saw:", r["messages"][0].content)
 # 1. With a live model, time 5 full bookings and count model round-trips per booking. What's the p50 wall-clock? Would you put this between a caller and the next word?
 # 2. Move the `slot not offered` check from `booking_guard` into the `create_job` tool itself. Which location is better, and why might you keep both?
 # 3. Add a `SummarizationMiddleware` and simulate a 40-turn call. What facts must survive summarization (hint: they should be in *state*, not only in messages)?
+
+# %% [markdown]
+# ## Check your understanding
+#
+# 1. What belongs in runtime context versus agent state?
+# 2. Why can middleware be useful but still not define product policy by itself?
+# 3. Why is a multi-round agent loop usually a poor direct audio hot path?
+#
+# **Graded exercise:** add a middleware assertion that blocks `create_job` when the slot
+# was not offered, then show the invariant survives a reckless model call. See
+# [`solutions/05_langchain_create_agent.md`](../solutions/05_langchain_create_agent.md).

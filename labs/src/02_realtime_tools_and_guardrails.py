@@ -246,3 +246,13 @@ for ph in PHASE_TOOLS:
 # 1. Add a `max 2 slot offers per call` rule. Where does the counter live?
 # 2. Make `create_job` fail randomly 20% of the time (`be.create_job` raising). What should the agent say, and after how many failures should the control plane force `transfer_to_human`?
 # 3. With a live key, remove the address-confirmation sentence from `INSTRUCTIONS` and run section 3 five times. How often does the model try to book early? That count is exactly what an evaluator in notebook 07 should measure.
+
+# %% [markdown]
+# ## Check your understanding
+#
+# 1. Which facts should come from the backend rather than the model?
+# 2. Why is transcript grounding stronger than a model's paraphrase?
+# 3. What should happen when a tool times out after committing its side effect?
+#
+# **Graded exercise:** add a maximum-offered-slots policy and assert that a request for
+# more slots returns a structured policy error. Solution: [`solutions/02_realtime_tools_and_guardrails.md`](../solutions/02_realtime_tools_and_guardrails.md).

@@ -24,7 +24,9 @@ LangChain/LangGraph, LangSmith).
 ## Layout
 
 ```
-README.md                    overview + progress table
+README.md                    start-here path + overview + progress table
+PLAN.md                      audit and improvement plan
+docs/                        public-source domain and technical study guides
 plan/30-60-90-checklist.md   week-by-week checklist (GitHub task-list checkboxes)
 study-guide/                 study guide (.md generated from the .docx; both committed)
 templates/                   blank docs: onboarding log, 1:1 questions, weekly status,
@@ -35,9 +37,12 @@ labs/
   src/*.py                   notebook sources (jupytext "percent" format), EDIT THESE
   build_nb.py                src/*.py → *.ipynb
   stlab/                     shared teaching package (see below)
+  solutions/                 offline-safe solution sketches for graded exercises
   agents/                    written by notebook 04 at runtime; gitignored
 scripts/run_notebooks.py     headless notebook test runner
+scripts/check_repo.py        notebook output and generated-file hygiene checks
 requirements.txt, .env.example
+.github/workflows/quality.yml  lint, hygiene, and offline notebook CI
 ```
 
 ## Setup and commands
@@ -46,7 +51,8 @@ requirements.txt, .env.example
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 cd labs && python build_nb.py            # rebuild notebooks after editing labs/src/*.py
-cd .. && python scripts/run_notebooks.py # run all notebooks offline; must print 9/9 passed
+cd .. && python scripts/check_repo.py     # generated notebooks present and output-free
+python scripts/run_notebooks.py           # run all notebooks offline; must print 9/9 passed
 python scripts/run_notebooks.py 02 06    # run a subset by filename prefix
 python scripts/run_notebooks.py --live   # use keys from .env (costs money; ask first)
 ```
@@ -57,6 +63,7 @@ python scripts/run_notebooks.py --live   # use keys from .env (costs money; ask 
   `# %% [markdown]` (markdown; each line prefixed with `# `).
 - After editing: `cd labs && python build_nb.py`, then run the notebook test for that prefix.
 - Commit the `src/*.py` change **and** the regenerated `.ipynb` together.
+- Run `python scripts/check_repo.py`; committed notebooks must contain no outputs.
 - Top-level `await` is used in notebooks (Jupyter supports it). `%%writefile` cells in 04
   generate `labs/agents/*.py`.
 
@@ -93,6 +100,14 @@ the vendor docs, fix imports, and re-run the full offline suite.
   `- [x]`. Don't reorder or renumber weeks without being asked.
 - Update the progress table in `README.md` when a phase completes.
 - Keep prose plain and concise; no internal company details (see Hard rules).
+
+## Quality checks
+
+- `ruff check labs/stlab scripts` lints the deterministic teaching package and scripts.
+- `python scripts/check_repo.py` checks that generated notebooks exist and contain no
+  execution outputs.
+- `.github/workflows/quality.yml` runs these checks and the offline notebook suite on
+  every push and pull request. It never uses secrets or `--live`.
 
 ## Commits
 

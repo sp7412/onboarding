@@ -277,3 +277,14 @@ for r in TREES[1:3]:
 # 2. **Precompute:** start `find_slots` in the background as soon as `triage` classifies the job, before the caller finishes talking. What does that do to `answer_audio_ms`, and what does it cost when the caller changes their mind?
 # 3. **Evaluate the capstone:** point notebook 07's `aevaluate` at `run_call` and add an evaluator for `first_audio_ms < 1000`.
 # 4. **Write the README** for your GitHub capstone repo using the table above plus your measured numbers.
+
+# %% [markdown]
+# ## Check your understanding
+#
+# 1. What evidence must cross from talker to thinker for a confirmation decision?
+# 2. Why does filler reduce perceived dead air but not tool latency?
+# 3. Which metrics belong to the transport, workflow, and business outcome layers?
+#
+# **Graded exercise:** add an evaluator asserting that routine booking never occurs for
+# an emergency utterance, then compare verbatim and paraphrased inputs. See
+# [`solutions/08_capstone_talker_thinker.md`](../solutions/08_capstone_talker_thinker.md).

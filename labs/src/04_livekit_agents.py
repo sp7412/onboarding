@@ -358,3 +358,14 @@ else:
 # 1. Run both `realtime_agent.py` and `cascaded_agent.py` in console mode and log end-of-speech → first-audio for 10 turns each. Fill in the latency worksheet in the study guide.
 # 2. Add a `session.say("This call may be recorded for quality.", allow_interruptions=False)` disclosure at the start. Where should the decision to play it live?
 # 3. Add a `BillingAgent` handoff with its own tools. What `CallState` should carry across the handoff, and what should not?
+
+# %% [markdown]
+# ## Check your understanding
+#
+# 1. Which parts of a LiveKit session are transport concerns rather than business policy?
+# 2. What must be persisted outside `userdata` if a call needs durable recovery?
+# 3. Why should a booking commit be protected from interruption?
+#
+# **Graded exercise:** inspect the generated agent and list three application-owned
+# invariants that remain enforced if the model or transport changes. Answer key:
+# [`solutions/04_livekit_agents.md`](../solutions/04_livekit_agents.md).

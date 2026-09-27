@@ -179,3 +179,14 @@ print(execute_tool("create_job", {"customer_id": "C-1002", "slot_id": st.offered
 # 1. Add a rule to `_dispatch` in `stlab/tools.py`: members (`membership == "Comfort Club"`) get the first slot of the day; non-members can't book 8am slots. Where should this rule live, and why not in the prompt?
 # 2. Change `LATENCY_MS["find_slots"]` to 2500 and re-run section 4. In notebook 02 you'll see what that does to a live conversation.
 # 3. Write down your first-draft answer to the study question in one paragraph. You'll revise it in notebook 08.
+
+# %% [markdown]
+# ## Check your understanding
+#
+# 1. Which layer owns the source of truth for a booking?
+# 2. Why is an idempotency key application-owned rather than model-generated?
+# 3. Name one rule that belongs at the tool boundary instead of only in instructions.
+#
+# **Graded exercise:** add a `membership`-based policy to `stlab/tools.py`, then demonstrate
+# one allowed and one blocked booking. Your assertion should inspect the returned error code.
+# A solution sketch is in [`solutions/00_setup_and_mental_model.md`](../solutions/00_setup_and_mental_model.md).

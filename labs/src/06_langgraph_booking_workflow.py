@@ -316,3 +316,14 @@ ADVANCE_BOOKING_TOOL = {
 # 1. Add a `reschedule` path: identify → find existing job → offer new slots → confirm → move job. Which new side effects need idempotency keys?
 # 2. Replace `parse_yes_no` with an LLM that returns `yes | no | unclear`, and route `unclear` back to `confirm_address` once before escalating.
 # 3. Add a node-level timeout policy: if `find_slots` takes > 2 s, return a "we'll text you options" outcome. Where does that timeout belong: graph, tool, or talker?
+
+# %% [markdown]
+# ## Check your understanding
+#
+# 1. Why are side effects before an interrupt dangerous?
+# 2. What does a checkpointer preserve, and what does it not replace?
+# 3. Which graph edge guarantees that booking requires address confirmation?
+#
+# **Graded exercise:** add an `unclear` confirmation branch that asks once more before
+# escalation, then assert that an unclear answer cannot reach `book`. See
+# [`solutions/06_langgraph_booking_workflow.md`](../solutions/06_langgraph_booking_workflow.md).

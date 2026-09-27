@@ -105,7 +105,10 @@ def find_slots(state: CallGraphState):
 
 def choose_slot(state: CallGraphState):
     s = state["slots"]
-    fmt = lambda x: f"{x['weekday']} at {int(x['start'][:2]) % 12 or 12}{'am' if int(x['start'][:2]) < 12 else 'pm'} with {x['tech']}"
+    def fmt(x):
+        hour = int(x["start"][:2])
+        return f"{x['weekday']} at {hour % 12 or 12}{'am' if hour < 12 else 'pm'} with {x['tech']}"
+
     prompt = "I can do " + " or ".join(fmt(x) for x in s) + ". Which works?"
     heard = ask(prompt)
     idx = parse_choice(heard, len(s))

@@ -354,7 +354,6 @@ def _paraphrase(text: str) -> str:
 def _workflow_brain(items):
     """Talker mode: forward every caller turn to advance_booking and speak what it returns."""
     last = items[-1] if items else {}
-    calls = {i["call_id"]: i for i in items if i.get("type") == "function_call"}
     if last.get("type") == "function_call_output":
         try:
             out = json.loads(last["output"])
