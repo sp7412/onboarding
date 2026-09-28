@@ -22,7 +22,7 @@
 |---|---|---|
 | Core | Call tracking, scheduling, dispatching, end-customer communications, marketing automation, estimating, job costing, sales, inventory, payroll integration | [1] |
 | FinTech | Payment processing and third-party consumer financing | [1] |
-| Pro | Add-ons such as Phones Pro, Contact Center Pro, Marketing Pro and AI products; Scheduling Pro and Dispatch Pro have their own product pages | [1][7][8] |
+| Pro | Add-ons such as Phones Pro, Contact Center Pro, Marketing Pro and AI products. The website's Pro menu lists AI Virtual Agent, Marketing Pro, Contact Center Pro, Pricebook Pro, Fleet Pro, Scheduling Pro, Dispatch Pro and Field Pro (formerly Sales Pro) | [1][7][8] |
 
 Office staff use the platform in a browser; technicians mainly use the mobile app. [1]
 

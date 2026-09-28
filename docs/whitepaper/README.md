@@ -6,10 +6,9 @@ company, product architecture, customer, metric, roadmap, or operating policy.
 
 ## Status
 
-Research pass completed September 27, 2026. Chapters 01, 02, 06, 07, 09, 10 and 11 and
-Appendix A were rebuilt from primary sources (SEC filings, the FCC, BLS, state-law
-surveys); chapters 04 and 05 gained sourced evidence sections. Chapters 03, 08 and 12–14
-are synthesis chapters that rely on the rest.
+Research passes completed September 27–28, 2026. Every chapter is now built on public
+primary sources where they exist (SEC filings, the FCC, BLS, regulators, vendor
+documentation), with analysis labeled. Chapter 14 is a working brief for the first 90 days.
 
 **Essentials path (about 2 hours):** 00 → 01 → 02 → 06 → 07 → 10 → 11 → 14.
 

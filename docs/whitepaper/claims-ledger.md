@@ -78,3 +78,18 @@ market size, labor shortage, recording consent, TCPA and competitors are superse
 | Vendor self-positioning (Housecall Pro, FieldEdge, JobNimbus, BuildOps) | 09 | https://www.housecallpro.com/ | 2026-09-27 | yes | Also fieldedge.com, jobnimbus.com, buildops.com page titles |
 | PE consolidation networks targeted in go-to-market | 02 | https://www.investing.com/news/company-news/servicetitan-q4-fy26-slides-21-revenue-growth-path-to-25-margins-93CH-4558725 | 2026-09-27 | partial | Secondary; site blocks automated fetch |
 | Convex acquisition month (April 2024) | A | https://en.wikipedia.org/wiki/ServiceTitan | 2026-09-27 | partial | Secondary source for date only |
+
+## Research pass 2, September 28, 2026
+
+Added when chapters 03, 04, 05, 08, 12, 13 and 14 were rewritten.
+
+| Claim | Chapter | URL | Date checked | Supported | Notes |
+|---|---:|---|---|---|---|
+| Scheduling Pro availability shaped by buffers, arrival windows, blocked dates; follows job types, zones, capacity rules | 03, 05 | https://www.servicetitan.com/features/pro/scheduling | 2026-09-28 | yes | Product page and FAQ |
+| Dispatch Pro weighs technician skills, recent sales performance, location, drive time, predicted job value | 03, 05 | https://www.servicetitan.com/features/pro/dispatch | 2026-09-28 | yes | Product page FAQ |
+| Pro menu lists AI Virtual Agent, Marketing Pro, Contact Center Pro, Pricebook Pro, Fleet Pro, Scheduling Pro, Dispatch Pro, Field Pro (formerly Sales Pro) | 06 | https://www.servicetitan.com/features/pro/scheduling | 2026-09-28 | yes | Site navigation |
+| Technician on-the-way notifications with photo and link; Pricebook with pictures, videos, warranties; Call Booking and Recording | 03, 04 | https://www.sec.gov/Archives/edgar/data/1638826/000163882626000028/ttan-20260131.htm | 2026-09-28 | yes | 10-K Business |
+| gpt-realtime-2: reasoning with configurable effort, preambles, parallel tool calls, tool-failure recovery | 08, 13 | https://openai.com/index/advancing-voice-intelligence-with-new-models-in-the-api/ | 2026-09-28 | yes | Site blocks automated fetch; verified in earlier research and community announcement |
+| LiveKit turn detection, interruptions; transformer end-of-turn model | 08 | https://livekit.com/blog/using-a-transformer-to-improve-end-of-turn-detection | 2026-09-28 | yes |  |
+| τ-bench checks final database state and introduces pass^k; agents less consistent across repeats | 12 | https://arxiv.org/abs/2406.12045 | 2026-09-28 | yes | Paper abstract |
+| Boilerplate: 'AI for the trades'; organizational velocity; Max doubled in Q2 | 13 | https://www.sec.gov/Archives/edgar/data/1638826/000163882626000093/ttan-ex99_1.htm | 2026-09-28 | yes |  |

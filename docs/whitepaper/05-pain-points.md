@@ -1,188 +1,79 @@
 # 05 - Pain Points
 
-**Estimated reading time:** 8 minutes
+**Estimated reading time:** 8 minutes · **Facts as of:** September 27, 2026
 
 ## Five Takeaways
 
-1. Public product pages frame missed calls, booking availability, after-hours demand, and dispatch efficiency as contractor problems the products address. [1][2][3]
-2. A product page demonstrates vendor positioning, not prevalence or causal impact.
-3. Each pain point should become a falsifiable hypothesis with a baseline, denominator, guardrail, and time window.
-4. The highest-risk failure is not merely a poor answer; it is an incorrect state change such as an unauthorized or wrong booking.
-5. Internal priority, trusted metric, and actual economic impact are [unverified] until validated with authorized operational data.
+1. Contractors' core problem is converting demand into profitable, well-matched work with
+   scarce people: technicians, CSRs and dispatchers.
+2. The phone sits at the center: missed, abandoned and badly handled calls are lost revenue,
+   and ServiceTitan builds products specifically to recover them. [1]
+3. Skilled labor is structurally short: BLS projects tens of thousands of openings a year in
+   HVAC and plumbing, mostly to replace workers who leave. [2][3]
+4. Demand is volatile (season and weather), and many businesses still run on fragmented or
+   rudimentary tools. [1]
+5. Analysis: the best AI products relieve a *scarce resource* (CSR time, technician time,
+   owner attention) without creating new work, like cleaning up bad bookings.
 
-## Public Evidence (Research Pass, September 2026)
+## The pain-point map
 
-| Pain point | Public evidence | Source |
-|---|---|---|
-| Missed and abandoned calls | ServiceTitan built Virtual Agents for overflow and after-hours calls and Second Chance Leads for unbooked calls, both framed as capturing revenue that would otherwise be lost | [R1] |
-| Technician shortage | BLS: ~40,100 HVAC and ~44,000 plumbing openings a year through 2034, mostly replacing workers who leave or retire | [R2][R3] |
-| Demand volatility | 10-K: demand peaks in summer and with extreme weather | [R1] |
-| Fragmented tools | 10-K: many trades businesses still rely on rudimentary workflows; incumbent tools rarely integrate the full lifecycle | [R1] |
-| Missed-call value | An AI-voice vendor's founders contrast a small missed restaurant order with a missed HVAC installation worth tens of thousands of dollars (a vendor framing, and the high end) | [R4] |
+| Pain | Who feels it | Evidence | How it's handled today | Where AI helps (and doesn't) |
+|---|---|---|---|---|
+| **Missed and abandoned calls** | Owner, CSRs | ServiceTitan built Virtual Agents and Second Chance Leads to capture revenue that would otherwise be lost [1] | Overflow routing, voicemail, answering services | Booking overflow/after-hours calls; flagging unbooked calls. Doesn't fix bad capacity data |
+| **After-hours coverage** | Owner, on-call staff | Virtual Agents target after-hours calls [1] | On-call rotations, answering services | Always-on booking and triage; emergencies still need humans |
+| **Technician shortage** | Owner, dispatcher | BLS: ~40,100 HVAC and ~44,000 plumbing openings/yr through 2034, mostly replacement [2][3] | Hiring, training, overtime | Better matching (Dispatch Pro weighs skills, location, drive time, predicted value) [4]; can't create technicians |
+| **Demand volatility** | Everyone | 10-K: summer and extreme weather drive demand [1] | Overtime, turning work away | Elastic phone capacity on peak days |
+| **CSR turnover and training** | Call-center manager | General industry pain; no neutral statistic found | Scripts, shadowing, call review | Consistent handling; coaching from transcripts. Agents also need "training" (evals) |
+| **Scheduling and capacity mismatch** | Dispatcher, CSR | Scheduling rules for job types, zones and capacity [5] | Manual juggling | Capacity-aware booking; risk of confidently wrong bookings |
+| **Marketing waste** | Owner, marketing | Marketing Pro measures ads and connects to bookings [1] | Guesswork on which ads work | Attribution from call to job to invoice |
+| **Fragmented tools** | Owner, office | 10-K: many trades businesses rely on rudimentary workflows [1] | Spreadsheets, paper, point tools | Integrated data makes agents possible; fragmented data makes them brittle |
+| **Cash flow** | Owner, office | FinTech payments and financing offerings [1] | Paper invoices, late collection | Faster invoicing and payment; agents should stay out of card handling (chapter 10) |
 
-R1. ServiceTitan Form 10-K, fiscal 2026: <https://www.sec.gov/Archives/edgar/data/1638826/000163882626000028/ttan-20260131.htm>
-R2. BLS, HVAC mechanics and installers: <https://www.bls.gov/ooh/installation-maintenance-and-repair/heating-air-conditioning-and-refrigeration-mechanics-and-installers.htm>
-R3. BLS, plumbers, pipefitters and steamfitters: <https://www.bls.gov/ooh/construction-and-extraction/plumbers-pipefitters-and-steamfitters.htm>
-R4. Fortune, Term Sheet on Avoca (April 27, 2026): <https://www.fortune.com/2026/04/27/avoca-ai-agents-missed-calls-hvac-plumbing-roofing-kleiner-perkins-chen-shrivastava-braswell/>
+## Missed calls: why this is the headline pain
 
-## Pain-Point Taxonomy
+The phone is where marketing spend turns into revenue. Analysis: a caller who reaches
+voicemail can simply call the next contractor on the list. The 10-K describes Virtual Agents handling
+overflow and after-hours calls, and Second Chance Leads using AI to find unbooked
+interactions worth retrying, both framed as capturing revenue that may otherwise be lost. [1]
+An AI-voice vendor's founders make the same point more vividly, contrasting a small missed
+restaurant order with a missed HVAC installation worth tens of thousands of dollars. [6]
+That's the high end: many calls are small service tickets, existing-customer questions or
+not bookable at all. The economic case is real but must be measured on bookable calls
+(chapter 11).
 
-| Pain point | Public evidence | Engineering translation | Outcome to measure |
-|---|---|---|---|
-| Missed calls | Contact Center Pro says it aims to reduce missed calls and centralize calls. [1] | Detect unanswered/abandoned paths; preserve callback and transfer context. | Answered-call rate, qualified lead recovery, transfer correctness. |
-| After-hours coverage | Scheduling Pro describes booking 24/7; Contact Center Pro describes overflow and after-hours AI handling. [1][2] | Gate actions by schedule, capacity, and escalation policy. | Eligible bookings, safe containment, after-hours escalation. |
-| Capacity mismatch | AI Virtual Agent and Scheduling Pro describe real-time or configured availability. [1][2] | Recheck availability at commit; make slot selection and policy observable. | Valid booking rate, conflict rate, reschedule rate. |
-| Dispatch mismatch | Dispatch Pro describes assignment using skill, location, drive time, and performance. [3] | Treat assignment as constrained optimization with human override. | Assignment validity, travel-time proxy, rework or reassignment. |
-| Data and handoff gaps | Contact Center Pro describes linking calls to jobs and summaries. [1] | Carry structured context across agent, CSR, job, and review systems. | Handoff completeness, correction rate, review time. |
+## Labor: the constraint behind everything
 
-## What Cannot Be Generalized
+BLS projects HVAC employment to grow 8% from 2024 to 2034, with about 40,100 openings a
+year, and plumbing 4% with about 44,000 openings a year; in both, most openings replace
+workers who retire or leave. [2][3] Training takes years (apprenticeships or programs plus
+on-the-job learning), and most states license plumbers. [2][3] Analysis: when technician
+hours are the bottleneck, booking *more* jobs is worth less than booking the *right* jobs
+into the right slots. A voice agent that optimizes booking rate alone can hurt.
 
-The pages do not establish that any listed pain has a universal frequency, cost, or rank.
-The Contact Center Pro page reports customer-specific results, including fewer missed
-calls and increased booking rate for Bonney Plumbing, Electrical, Heating and Air. [1]
-Those results remain attributed to that case study. The page does not establish that the
-same change will occur for another contractor, trade, geography, staffing model, or
-baseline.
+## What we couldn't establish from public sources
 
-The following remain **[unverified]**: general missed-call cost, CSR turnover, technician
-shortage, marketing waste, cash-flow impact, schedule mismatch prevalence, and customer
-expectation failure rates. The correct next step is measurement design, not a borrowed
-benchmark.
+Neutral, industry-wide figures for call mix, missed-call rates, CSR turnover and the average
+value of a missed call weren't found in public primary sources. Vendor figures exist but are
+marketing claims. These are good questions for internal data after joining.
 
-## Turning A Pain Point Into A Testable Claim
+## What this means for a voice-agent engineer
 
-“Missed calls are expensive” may be true for a particular contractor, but it is not yet
-a testable claim. A testable version names the population, time window, baseline, and
-desired outcome: among inbound calls in a defined channel and period, does a configured
-answering path increase the share that reaches a valid outcome without increasing unsafe
-or incorrect transactions? The result can then be measured without pretending that all
-calls, contractors, or seasons are alike.
+- Tie every agent improvement to a specific pain and a measurable outcome (recovered
+  bookings, fewer abandoned calls, CSR hours saved).
+- Respect the scarcest resource: technician time. Evaluate booking *quality*, not just count.
+- Expect peak days to stress everything at once; test there.
 
-The same discipline applies to “AI books more jobs.” The denominator could be all calls,
-qualified new leads, eligible requests, or calls presented to the agent. The numerator
-could be proposed bookings, committed bookings, or bookings that remained valid after a
-later correction. These quantities are not interchangeable. Public product pages describe
-capabilities and customer results, but they do not settle a universal definition. [1][2]
+## Questions to validate after joining
 
-## Missed Calls And Lead Recovery
-
-The Contact Center Pro page positions centralized call handling as a way to miss fewer
-leads and reports a customer case with fewer missed calls. [1] The engineering problem
-has at least three layers: detecting that a call was not answered, preserving enough
-context to recover it, and determining whether recovery produced a valid business
-outcome. A callback task with no intent or contact context may be operationally weak even
-if the call was technically logged.
-
-Useful measures include answered-call rate, abandonment rate, callback completion,
-qualified-request rate, transfer correctness, and later correction. A system should
-distinguish a caller who hung up before any interaction from a caller whose call was
-answered but abandoned during a long workflow. Without that distinction, a single
-“missed” number can hide different interventions.
-
-## After-Hours Coverage
-
-Scheduling Pro publicly promotes booking outside ordinary office coverage, and Contact
-Center Pro positions AI for after-hours and overflow. [1][2] The benefit hypothesis is
-that an eligible caller can reach a useful outcome when a human CSR is unavailable. The
-guardrails are that the agent must honor service area, capacity, job-type, identity,
-disclosure, and escalation policies.
-
-An after-hours test should compare equivalent periods or a randomized routing policy when
-possible. It should report eligible requests separately from unsupported requests. A
-higher containment rate is not an improvement if it comes from failing to transfer a
-caller who needed a human. The release criterion should include unsafe non-escalation and
-incorrect booking, not only speed or containment.
-
-## CSR Turnover And Knowledge Transfer
-
-CSR turnover is listed in the plan as a research gap, not a sourced industry statistic.
-The public pages do support a narrower engineering question: can call summaries,
-classification, and structured context reduce the amount of information a human must
-reconstruct? Contact Center Pro publicly describes summaries, sentiment analysis, and
-second-chance leads. [1]
-
-That question can be tested without claiming a turnover rate. Measure review time,
-correction rate, handoff completeness, time to first useful action, and agreement between
-the summary and transcript or tool trace. A summary should never be the only evidence for
-a financial commitment or safety decision. The human needs access to the underlying call
-and the authoritative operation result.
-
-## Technician And Dispatcher Constraints
-
-“Technician shortage” and “dispatch inefficiency” are distinct claims. The public
-Dispatch Pro page describes skill, performance, location, drive time, goal-based settings,
-and job-value prediction. [3] This supports an engineering model of constrained
-assignment. It does not establish how common a shortage is or that any public percentage
-applies broadly.
-
-A voice agent can make this problem worse by booking demand without checking the same
-constraints used downstream. Therefore, booking and dispatch tests should share job type,
-required skill, location, duration, and capacity fixtures. The measured outcomes can be
-valid booking, reassignment, conflict, drive-time proxy, and human override. Any revenue
-or efficiency result must identify its customer, period, baseline, and method.
-
-## Marketing Waste And Attribution
-
-The public product catalog includes marketing and lead-generation capabilities. [2] It
-does not establish a general rate of wasted marketing spend or prove that a voice agent
-caused an increase in return. An attribution design should preserve the source channel,
-campaign, call, qualification state, booking state, and later job outcome. It should also
-account for callers who would have booked through another channel.
-
-The safe claim is therefore conditional: better capture and correct routing may improve
-the observable path from lead to job if the baseline and counterfactual support that
-interpretation. This is a `Hypothesis:`, not a result. A controlled holdout or a carefully
-matched comparison is stronger than before-and-after totals alone.
-
-## Data Silos And Cash Flow
-
-The workflow model in chapter 03 identifies customer, job, schedule, dispatch, invoice,
-payment, and follow-up as potentially different state boundaries. The public products
-page names accounting and payments among the broader platform capabilities. [2] That
-does not prove the absence or presence of silos for any customer.
-
-The engineering response is to make cross-system state explicit. A tool response should
-identify the operation, record identifier, status, timestamp, and retry behavior. Payment
-questions should be routed through the authorized payment flow rather than collected as
-free-form sensitive text. Cash-flow impact should be measured with a defined attribution
-window and reconciled financial source, not inferred from bookings.
-
-## Failure Modes And Falsifiable Hypotheses
-
-Each pain point should produce both a benefit hypothesis and a harm hypothesis:
-
-| Pain point | Benefit hypothesis | Harm to rule out |
-|---|---|---|
-| Missed calls | More callers reach a valid outcome. | More low-quality callbacks or duplicate leads. |
-| After hours | More eligible requests are handled safely. | Restricted requests are contained instead of escalated. |
-| Capacity | More valid options are presented. | Stale availability creates conflicts. |
-| Dispatch | Better assignments reduce avoidable rework. | Optimization favors a proxy while violating policy. |
-| Handoffs | Humans receive better context. | Summaries omit decisive facts or overstate certainty. |
-
-The second column is often more important than the first. A system that improves a
-headline metric while creating silent state errors is not a successful automation.
-
-## Engineer Implications
-
-**Analysis:** For each pain point, define `population`, `eligible denominator`, `desired
-state`, `guardrails`, and `review label` before selecting a model metric. A booking-rate
-increase without eligibility and correctness is not sufficient evidence of improvement.
-
-**Hypothesis:** A small offline suite can expose the most important transaction failures:
-wrong customer, unoffered slot, missing confirmation, duplicate retry, restricted request
-booked, and transfer without useful context. Live monitoring can then add latency,
-distribution shift, and human-review outcomes.
-
-## Validation Questions
-
-- Which pain point is highest priority, and who owns its baseline?
-- What is the trusted denominator for booking, containment, and missed-call measures?
-- Which safety and privacy metrics are release-blocking?
-- How are weather, seasonality, trade, customer type, and after-hours slices defined?
-- What customer outcomes can be attributed to the system rather than to demand or staffing changes?
+- Which pain do customers cite most when they buy Virtual Agents?
+- What is the real distribution of call types and job values reaching the agent?
+- Where do agent bookings create downstream work (reschedules, cancellations, callbacks)?
 
 ## Sources
 
-1. ServiceTitan, “AI-Powered Contact Center for the Trades | Contact Center Pro,” checked September 27, 2026: <https://www.servicetitan.com/features/pro/contact-center>
-2. ServiceTitan, “Scheduling Pro,” checked September 27, 2026: <https://www.servicetitan.com/features/pro/scheduling>
-3. ServiceTitan, “Dispatch Pro,” checked September 27, 2026: <https://www.servicetitan.com/features/pro/dispatch>
+1. ServiceTitan Form 10-K, fiscal 2026: <https://www.sec.gov/Archives/edgar/data/1638826/000163882626000028/ttan-20260131.htm>
+2. BLS, HVAC mechanics and installers: <https://www.bls.gov/ooh/installation-maintenance-and-repair/heating-air-conditioning-and-refrigeration-mechanics-and-installers.htm>
+3. BLS, plumbers, pipefitters and steamfitters: <https://www.bls.gov/ooh/construction-and-extraction/plumbers-pipefitters-and-steamfitters.htm>
+4. ServiceTitan, Dispatch Pro: <https://www.servicetitan.com/features/pro/dispatch>
+5. ServiceTitan, Scheduling Pro: <https://www.servicetitan.com/features/pro/scheduling>
+6. Fortune, Term Sheet on Avoca (April 27, 2026): <https://www.fortune.com/2026/04/27/avoca-ai-agents-missed-calls-hvac-plumbing-roofing-kleiner-perkins-chen-shrivastava-braswell/>

@@ -1,193 +1,118 @@
 # 04 - The Contact Center
 
-**Estimated reading time:** 7 minutes
+**Estimated reading time:** 8 minutes · **Facts as of:** September 27, 2026
 
 ## Five Takeaways
 
-1. Contact Center Pro is publicly positioned as a trades-focused contact-center product with multi-location call handling. [1]
-2. Its page describes calls linked to jobs and an inbox intended to centralize interactions. [1]
-3. The page positions AI Virtual Agents for overflow and after-hours handling, booking, confirmation, rescheduling, and escalation. [1]
-4. Published customer outcomes are attributed to named customer cases and are not general industry benchmarks. [1]
-5. Public sources do not establish general call mix, peak distribution, CSR turnover, missed-call cost, or staffing requirements. Those items are [unverified].
+1. For most residential contractors the phone is the front door, and the contact center
+   (from one office manager to a multi-location team of CSRs) decides how much demand
+   becomes booked work.
+2. Demand is peaky: summer heat and cold snaps drive surges, exactly when staff are
+   stretched. [1]
+3. Coverage gaps (overflow, lunch, nights, weekends) are traditionally filled by voicemail,
+   answering services or callbacks, which book poorly. ServiceTitan's Virtual Agents target
+   precisely these gaps. [1][2]
+4. Contact centers are managed by numbers: answer speed, abandonment, call duration, booking
+   rate, with call recordings and transcripts for coaching. [1]
+5. Analysis: an AI agent joins this operation as a new kind of CSR, so it must be measured,
+   reviewed and escalated like one, alongside the humans.
 
-## Public Evidence (Research Pass, September 2026)
+## Who answers the phone
 
-- **Seasonality is documented.** ServiceTitan's 10-K says trades demand tends to rise in its
-  fiscal second quarter (May–July) with summer heat, and that extreme weather such as cold
-  spikes drives furnace and repair demand. [R1] Analysis: contact centers face their worst
-  load on exactly these days.
-- **Contact-center KPIs already exist in the product.** Phones Pro routes calls through the
-  platform so businesses can see which CSR took each call and report abandonment rate and
-  average call duration, with transcripts and escalation alerts. [R1]
-- **Informed booking.** Call Booking and Recording auto-fills caller details and shows CSRs
-  property details and history as the call arrives. [R1]
-- **Missed-call recovery is a product category.** The 10-K describes Second Chance Leads (AI
-  flags unbooked calls worth another attempt) and Virtual Agents for overflow and
-  after-hours calls. [R1]
+Small contractors often have an owner or office manager answering calls between other work.
+Larger ones run dedicated CSR teams, and multi-location operators centralize them. Contact
+Center Pro is positioned for this: an omnichannel, multi-location, AI-powered cloud contact
+center with a Universal Inbox across channels and businesses. [1][3]
+
+## What calls look like
+
+Typical inbound call types (a general taxonomy; mixes vary widely by trade and business):
+
+| Call type | What the agent must do | Notes |
+|---|---|---|
+| New service request | Qualify, offer windows, book | The revenue call |
+| Emergency | Safety instruction, escalate | Gas, CO, electrical, flooding, no heat in freezing weather |
+| Existing appointment | Confirm, reschedule, cancel, "where's my tech?" | Needs identity and ownership checks |
+| Membership | Book maintenance visits, answer plan questions | Priority rules for members |
+| Estimate or sales follow-up | Route to sales advisor | High value, not for scripts |
+| Billing and payments | Route to office | Payment data rules apply (chapter 10) |
+| Vendors, spam, wrong numbers | Classify, end politely | Pollutes metrics if counted as bookable |
+
+ServiceTitan's Virtual Agents include AI call classification, and Second Chance Leads flags
+unbooked calls worth retrying, both signs that call classification is itself a product
+problem. [1][2]
+
+## Peaks, overflow and after-hours
+
+The 10-K says customer demand rises in summer and with extreme weather such as cold spikes.
+[1] Analysis: phone traffic follows the same curve, so the hardest hours for staffing are
+the most valuable hours for revenue. Contractors cover gaps in a few ways:
+
+- **Overflow routing** to other CSRs or locations
+- **Voicemail and callbacks**, which risk losing callers to competitors
+- **Answering services**, which usually take messages rather than book into the schedule
+- **AI agents**, which can book directly into capacity when integrated with the system of
+  record; ServiceTitan's Virtual Agents handle overflow and after-hours calls to book,
+  reschedule and confirm. [1]
+
+## How contact centers are managed
+
+Phones Pro routes calls through the platform so the business knows which CSR handled each
+call and can report KPIs such as abandonment and average duration; it also provides call
+transcripts and automated escalation alerts. [1] Call Booking and Recording shows CSRs the
+caller's property details and history as the call starts. [1]
+
+Common management metrics: speed to answer, abandonment, booking rate on bookable calls,
+average handle time, escalations, and quality scores from reviewed recordings.
+
+**Staffing analysis.** Contact-center staffing follows queueing math: when arrival rates
+spike, a fixed team's wait times rise sharply rather than linearly, so modest surges can
+produce large abandonment. That nonlinearity is what makes elastic, AI-based overflow
+valuable on peak days.
+
+## Escalation as a feature
+
+The Virtual Agent product page says calls outside defined rules or needing human judgment
+can be escalated or transferred to a live CSR. [2] Analysis: good escalation is
+**warm** (context passed along: who, where, what, urgency, what was offered and done),
+**fast**, and **measured** (escalation reasons are one of the best signals of where the
+agent needs work).
+
+## Quality review
+
+Transcripts, summaries and call classification make AI calls reviewable. [2] Analysis: the
+same review loop that coaches human CSRs (listen, score, coach) should feed the agent's
+evaluation dataset, turning bad calls into regression tests (lab 07).
+
+## Public Evidence
+
 - **Labor constraints upstream.** BLS projects about 40,100 HVAC and 44,000 plumbing
-  openings a year through 2034, mostly replacement demand. [R2][R3]
+  openings a year through 2034, mostly replacement demand. [4][5] Analysis: office and CSR
+  roles compete in the same local labor markets, though BLS data here covers technicians only.
+- **Vendor framing of missed calls.** An AI-voice vendor's founders contrast a small missed
+  restaurant order with a missed HVAC installation worth tens of thousands of dollars;
+  treat that as the high end, not the average. [6]
+- **Customer-reported results.** The Virtual Agent page quotes one customer's 80–85% booking
+  rate; that is a testimonial, not a benchmark. [2]
 
-R1. ServiceTitan Form 10-K, fiscal 2026: <https://www.sec.gov/Archives/edgar/data/1638826/000163882626000028/ttan-20260131.htm>
-R2. BLS, HVAC mechanics and installers: <https://www.bls.gov/ooh/installation-maintenance-and-repair/heating-air-conditioning-and-refrigeration-mechanics-and-installers.htm>
-R3. BLS, plumbers, pipefitters and steamfitters: <https://www.bls.gov/ooh/construction-and-extraction/plumbers-pipefitters-and-steamfitters.htm>
+## What this means for a voice-agent engineer
 
-## Public Operating Picture
+- Design for **peak days**: load, latency and graceful fallback when everything spikes at once.
+- Make the agent **comparable to human CSRs** on the same metrics and denominators.
+- Treat **escalation reasons and call classification** as first-class outputs.
 
-The Contact Center Pro page describes a multi-location contact center built for the
-trades, with calls in one inbox and calls linked to the appropriate job. [1] It also
-describes AI Manager Assist features such as call summaries, sentiment analysis, and
-second-chance lead identification. [1] These are product-page descriptions and should be
-treated as positioning until implementation and performance are independently validated.
+## Questions to validate after joining
 
-The same page positions AI Virtual Agents for overflow and after-hours calls and lists
-booking based on real capacity, appointment rescheduling and confirmation, and live
-escalation. [1] A useful operational interpretation is a constrained workflow with a
-human fallback, not an unconstrained FAQ bot.
-
-## Contact Center Work Is Not One Intent
-
-An inbound contact center is a routing system as much as a conversation system. The
-caller may want to start service, ask about an existing appointment, reschedule, confirm,
-provide information, request an estimate, discuss a membership, report a problem, or
-reach a person. The public Contact Center Pro page names calls linked to jobs, an inbox,
-manager-assist functions, and AI Virtual Agent capabilities. [1] It does not publish a
-general distribution of intents. This chapter therefore treats the list as a design
-inventory, not a call-mix statistic.
-
-Each intent should have an allowed action set. A confirmation may require retrieval but
-not mutation. A reschedule requires retrieval, eligibility, a new proposed window, and a
-confirmed mutation. A new booking requires intake and availability. A request that is
-outside configuration should produce a transfer or callback task. The model may choose
-which path to propose, but a policy layer should determine which tools are callable.
-
-## Peaks, Overflow, And After Hours
-
-The product page explicitly positions AI Virtual Agents for overflow and after-hours
-handling. [1] Scheduling Pro also publicly describes booking at any time and a customer
-experience that can capture requests outside ordinary office coverage. [2] These sources
-support a deployment pattern, not a universal claim that demand peaks at a particular
-hour or that after-hours calls are more valuable.
-
-An after-hours experiment should define the baseline first. Is the comparison a voicemail,
-an answering service, a callback queue, a human night shift, or no response? What counts
-as an eligible call? What is the allowed transfer destination? What happens when the
-caller requests an unsafe or unsupported action? A good experiment measures valid
-completion and safe escalation alongside answer rate, containment, and booking.
-
-Overflow has a similar requirement. If the agent handles calls only when a queue is full,
-the routing policy should be observable. Otherwise a change in staffing, advertising, or
-weather can be mistaken for an AI effect. The public page's customer outcomes are
-attributed to Bonney Plumbing, Electrical, Heating and Air and should not be generalized.
-[1]
-
-## CSR Workflow And Manager Review
-
-The Contact Center Pro page describes AI call summaries, sentiment analysis, and second-
-chance lead identification. [1] These features suggest a manager-review workflow in
-which a human can inspect calls and recover missed opportunities. They do not establish
-how a contractor defines sentiment, lead quality, review priority, or success.
-
-For engineering, summaries should be treated as derived evidence rather than an
-authoritative business record. A summary can omit a negation, confuse a proposed slot
-with a booked slot, or misstate who made a commitment. A useful review interface should
-link summary fields to transcript spans, tool calls, backend results, and transfer
-outcomes. When a reviewer corrects a field, that correction can become a labeled example
-or an evaluation case, subject to privacy and retention policy.
-
-## Capacity-Aware Booking
-
-The public product language emphasizes real capacity and links calls to jobs. [1] This
-is stronger than a generic calendar promise because the valid answer depends on the
-contractor's configured operating model. It still does not disclose the schema or
-conflict behavior. The agent should ask only questions needed to select a job type and
-retrieve eligible options. It should read back the exact selected window and confirm
-before commit. A successful tool response, not the model's intention, determines whether
-the agent may say “booked.”
-
-## Human Escalation As A Product Feature
-
-Escalation is not an admission that the agent failed. It is a controlled outcome for
-unsupported, ambiguous, high-risk, or customer-preferred interactions. The public AI
-Virtual Agent page lists live escalation and configurable greetings, job types, dispatch
-fee messaging, transcripts, summaries, and call classification. [3] Those capabilities
-make escalation design explicit: when to transfer, what context to send, what the caller
-hears during transfer, and what happens if no human answers.
-
-A transfer without context simply moves the cost to another queue. A useful transfer
-packet should include the reason, verified facts, caller's desired outcome, options
-already offered, and any error or restriction returned by the backend. Metrics should
-separate transfer rate from transfer correctness and resolution after transfer.
-
-## Attributed Outcomes And Measurement Discipline
-
-The page reports 60% fewer missed calls, a 17% increase in booking rate, a 97% lead-to-
-booked-call rate, and an 11% booking increase for Bonney. [1] These statements are
-customer-case-study material presented by the vendor. They do not disclose enough here
-to establish a common denominator, comparison period, selection process, or causal effect
-for another contractor. They should be retained only with attribution and caveats.
-
-The measurement design should record call id, channel, tenant or location scope,
-timestamp, intent, eligibility, action, transfer, backend result, and later correction or
-cancellation. Privacy controls and retention rules are not specified by these product
-pages and remain deployment questions. Aggregate numbers should be sliceable by trade,
-time, new/existing customer, after-hours status, and failure mode.
-
-## Queue Design And Fallback
-
-Even a successful AI path needs a queue model. The queue may contain a live transfer,
-callback request, unresolved booking, review task, or exception generated by a backend.
-These are different work items. A single “escalated” label hides whether a human received
-the caller, whether the context arrived, and whether the issue was resolved.
-
-The fallback state should be designed before the agent is deployed. If the agent cannot
-reach a human, it should tell the caller what will happen next and record the minimum
-context needed for that next action. If the call is urgent or unsafe, a generic callback
-promise may be insufficient; the applicable policy owner must define the route. This
-chapter does not state a universal emergency protocol.
-
-## Quality Review As A Feedback Loop
-
-Manager review can turn production failures into a maintained evaluation set. A reviewer
-can label intent, eligibility, confirmation quality, transfer quality, and backend-state
-agreement. The labels should preserve uncertainty and disagreement rather than forcing a
-false binary. Repeated failures can become targeted offline tests, while sampled online
-checks can detect distribution changes after a prompt, model, policy, or configuration
-change.
-
-The feedback loop must respect privacy and retention rules. Public product pages describe
-transcripts and summaries, but do not specify a universal retention schedule or access
-policy. [2] Those controls remain deployment requirements to validate with the relevant
-owners.
-
-## Attributed Outcomes
-
-The page reports that Bonney Plumbing, Electrical, Heating and Air saw 60% fewer missed
-calls and a 17% increase in booking rate, while the page headline also says bookings
-increased by 11%. [1] These figures are customer-case-study claims presented by the
-vendor; the page does not provide enough context here to treat them as comparable or
-causal estimates for all contractors. They should remain attributed, dated, and paired
-with denominator and study-design questions.
-
-## Engineer Implications
-
-**Analysis:** A call-center agent needs explicit routing states: in scope, needs more
-information, safe to book, needs a human, and emergency or restricted. Each state should
-have allowed tools, required evidence, transfer context, and observable outcomes.
-
-**Hypothesis:** Overflow and after-hours are good candidates for controlled experiments
-because the baseline, transfer policy, and eligibility rules can be defined before
-optimizing conversational style. The experiment must measure missed-escalation and
-workflow correctness alongside containment or booking.
-
-## Validation Questions
-
-- What are the actual inbound intents and their proportions by time and season?
-- What are the queue, transfer, callback, and after-hours service-level definitions?
-- Which calls may be booked, confirmed, or rescheduled without a human?
-- What context must accompany a transfer, and how is transfer success measured?
-- What denominators, dates, and counterfactuals support every customer outcome claim?
+- What share of calls reaches the agent as overflow vs. after-hours, and how does it change
+  on peak days?
+- What does a warm transfer carry today, and what do CSRs wish it carried?
+- How are agent calls reviewed, and by whom?
 
 ## Sources
 
-1. ServiceTitan, “AI-Powered Contact Center for the Trades | Contact Center Pro,” checked September 27, 2026: <https://www.servicetitan.com/features/pro/contact-center>
-2. ServiceTitan, “AI Virtual Agent,” checked September 27, 2026: <https://www.servicetitan.com/features/pro/virtual-agent>
+1. ServiceTitan Form 10-K, fiscal 2026 (Business; Seasonality): <https://www.sec.gov/Archives/edgar/data/1638826/000163882626000028/ttan-20260131.htm>
+2. ServiceTitan, AI Virtual Agent: <https://www.servicetitan.com/features/pro/virtual-agent>
+3. ServiceTitan, Contact Center Pro: <https://www.servicetitan.com/features/pro/contact-center>
+4. BLS, HVAC mechanics and installers: <https://www.bls.gov/ooh/installation-maintenance-and-repair/heating-air-conditioning-and-refrigeration-mechanics-and-installers.htm>
+5. BLS, plumbers, pipefitters and steamfitters: <https://www.bls.gov/ooh/construction-and-extraction/plumbers-pipefitters-and-steamfitters.htm>
+6. Fortune, Term Sheet on Avoca (April 27, 2026): <https://www.fortune.com/2026/04/27/avoca-ai-agents-missed-calls-hvac-plumbing-roofing-kleiner-perkins-chen-shrivastava-braswell/>
