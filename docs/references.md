@@ -6,7 +6,7 @@ All links were checked on Sept 27, 2026. For *what to read first and why*, use t
 
 **Where each is cited:** RG = [reading guide](reading-guide.md) item number ·
 RL = [reading guide](reading-guide.md) · 101 = [ServiceTitan 101](servicetitan-101.md) ·
-PP = [podcast prompts](podcast-prompts.md) episode number.
+PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](whitepaper/README.md) chapter.
 
 ## ServiceTitan (company and products)
 
@@ -16,14 +16,14 @@ PP = [podcast prompts](podcast-prompts.md) episode number.
 | [Webinar recap: AI Voice Agents for call booking](https://www.servicetitan.com/blog/webinar-recap-ai-voice-agents-call-booking) | Blog | RG 2, PP 1 |
 | [Pantheon 2025 press release: Atlas and the AI suite](https://www.servicetitan.com/press/servicetitan-introducing-the-next-evolution-of-ai-at-pantheon-2025-keynote) | Press release | RG 3, PP 1 |
 | [Pantheon 2025 keynote recap: Atlas](https://www.servicetitan.com/blog/pantheon-2025-vahe-keynote-atlas) | Blog | RG 3, PP 1 |
-| [Contact Center Pro](https://www.servicetitan.com/features/pro/contact-center) | Product page | 101 |
-| [Scheduling Pro](https://www.servicetitan.com/features/pro/scheduling) | Product page | 101 |
-| [Dispatch Pro](https://www.servicetitan.com/features/pro/dispatch) | Product page | 101 |
-| [Atlas](https://www.servicetitan.com/features/atlas) | Product page | 101 |
-| [Company overview](https://www.servicetitan.com/company) | Company page | 101 |
-| [Features overview](https://www.servicetitan.com/features) | Product index | 101 |
-| [Industries served](https://www.servicetitan.com/industries) | Product index | 101 |
-| [Products overview](https://www.servicetitan.com/products) | Product index | 101 |
+| [Contact Center Pro](https://www.servicetitan.com/features/pro/contact-center) | Product page | 101, WP 04-05, 06-07, 11-12, 14 |
+| [Scheduling Pro](https://www.servicetitan.com/features/pro/scheduling) | Product page | 101, WP 03, 05, 06-07 |
+| [Dispatch Pro](https://www.servicetitan.com/features/pro/dispatch) | Product page | 101, WP 03, 05, 06, 11-12 |
+| [Atlas](https://www.servicetitan.com/features/atlas) | Product page | 101, WP 06, 13 |
+| [Company overview](https://www.servicetitan.com/company) | Company page | 101, WP 00-01 |
+| [Features overview](https://www.servicetitan.com/features) | Product index | 101, WP 06 |
+| [Industries served](https://www.servicetitan.com/industries) | Product index | 101, WP 02 |
+| [Products overview](https://www.servicetitan.com/products) | Product index | 101, WP 01, 06, 11 |
 
 ## Voice-agent fundamentals
 
@@ -81,7 +81,7 @@ PP = [podcast prompts](podcast-prompts.md) episode number.
 | [A Field Guide to Rapidly Improving AI Products (Hamel Husain)](https://hamel.dev/blog/posts/field-guide/) | Blog | RG 15, PP 5 |
 | [Using LLM-as-a-Judge (Hamel Husain)](https://hamel.dev/blog/posts/llm-judge/) | Blog | RG 22, PP 5 |
 | [LangSmith evaluation concepts](https://docs.langchain.com/langsmith/evaluation-concepts) | Docs | RG 21, PP 5 |
-| [LangSmith evaluation](https://docs.langchain.com/langsmith/evaluation) | Docs | RL |
+| [LangSmith evaluation](https://docs.langchain.com/langsmith/evaluation) | Docs | RL, WP 08, 14 |
 | [LangSmith observability concepts](https://docs.langchain.com/langsmith/observability-concepts) | Docs | RG 21, PP 5 |
 | [LangSmith observability](https://docs.langchain.com/langsmith/observability) | Docs | RL |
 | [Patterns for Building LLM-based Systems & Products (Eugene Yan)](https://eugeneyan.com/writing/llm-patterns/) | Essay | RG 24 |
@@ -93,6 +93,14 @@ PP = [podcast prompts](podcast-prompts.md) episode number.
 | [τ-bench: tool-agent-user interaction in real-world domains](https://arxiv.org/abs/2406.12045) | Paper (2024) | RG 16, PP 5 |
 | [τ²-bench: conversational agents in a dual-control environment](https://arxiv.org/abs/2506.07982) | Paper (2025) | RG 17, PP 5 |
 | [Moshi: a speech-text foundation model for real-time dialogue](https://arxiv.org/abs/2410.00037) | Paper (2024) | RG 26 |
+
+## Regulation and public safety
+
+| Source | Type | Cited in |
+|---|---|---|
+| [EPA Section 608](https://www.epa.gov/section608) | Government | WP 10, 12, Appendix A |
+| [PCI DSS](https://www.pcisecuritystandards.org/standards/pci-dss/) | Standard overview | WP 10, 12 |
+| [California DOJ CCPA FAQ](https://oag.ca.gov/privacy/ccpa) | Government FAQ | WP 10, 12 |
 
 ## Background
 

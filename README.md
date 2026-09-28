@@ -36,6 +36,7 @@ the exact lab map and prerequisites.
 | [`plan/30-60-90-checklist.md`](plan/30-60-90-checklist.md) | Watkins-inspired operating plan with 30/60/90 outcomes, weekly actions, stakeholder work, and exit criteria |
 | [`study-guide/`](study-guide/) | Voice-agent study guide (Markdown + original .docx) |
 | [`docs/`](docs/) | Public-source domain primer, technical architecture, reading list, evaluation guide, and first-90-days playbook |
+| [`docs/whitepaper/`](docs/whitepaper/) | Public-source background whitepaper: chapters 00–14, appendices, source ledger, and integration plan |
 | [`docs/reading-guide.md`](docs/reading-guide.md) | Ranked blogs, papers and talks with four takeaways each (start here for reading) |
 | [`docs/references.md`](docs/references.md) | Complete bibliography of every external source in the repo |
 | [`docs/podcast-prompts.md`](docs/podcast-prompts.md) | NotebookLM podcast prompts: five technical episodes plus coaching episodes |
