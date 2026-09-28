@@ -1,45 +1,61 @@
 # 00 - Introduction
 
-**Estimated reading time:** 5 minutes
+**Estimated reading time:** 6 minutes · **Facts as of:** September 27, 2026
 
-## Five Takeaways
+## Executive Summary
 
-1. This is public-source research, not an internal description.
-2. `Fact` means a source supports the narrow statement; `Analysis` is interpretation;
-   `Hypothesis` is a testable possibility; `[unverified]` is an open gap.
-3. Customer outcomes remain attributed to the named customer case study.
-4. The paper's central engineering lens is workflow correctness at state-changing
-   boundaries.
-5. Public pages cannot establish private architecture, ownership, pricing, adoption, or
-   roadmap.
+**The company.** ServiceTitan (Nasdaq: TTAN, public since December 2024) sells a cloud
+platform that runs trades businesses (HVAC, plumbing, electrical, garage door, pest
+control, landscaping, roofing and more) from the first phone call to the final payment.
+In fiscal 2026 its roughly 10,800 Active Customers invoiced $82.1 billion through the
+platform, and it earned about $961 million in revenue, roughly 1.2% of that volume. It
+guides to $1.14 billion in fiscal 2027 revenue. (Chapter 01)
+
+**The industry.** Trades spending in the U.S. and Canada is estimated at about $1.5
+trillion a year. Demand is seasonal and weather-driven, and skilled labor is the binding
+constraint: BLS projects about 40,000 HVAC and 44,000 plumbing openings a year through
+2034. (Chapter 02)
+
+**The workflow and the contact center.** Revenue starts with a phone call. Contractors
+must answer, qualify, and book the right job into real technician capacity, often on the
+busiest days of the year, with CSR teams that are hard to staff after hours. (Chapters
+03–05)
+
+**The products.** The platform is organized as Core, FinTech and Pro add-ons. The phone
+stack (Phones Pro, Contact Center Pro, AI Virtual Agents) is a product line of its own, and
+AI now spans the platform through Atlas and the Max "Agentic Operating System" program.
+(Chapters 06–07)
+
+**The voice agent.** Virtual Agents handle overflow and after-hours calls: booking with
+capacity rules, rescheduling, confirmations, membership handling, and live escalation. It
+competes with well-funded AI-native vendors that integrate with ServiceTitan from outside.
+(Chapters 07–09)
+
+**The constraints.** AI-voiced outbound calls need prior express consent under the TCPA;
+recording consent varies by state; AI disclosure laws are emerging; payments and personal
+data carry their own rules. These belong in the agent's policy layer. (Chapter 10)
+
+**How to judge success.** The core metric is revenue captured correctly: booked jobs that
+fit capacity and don't unravel, measured against honest baselines that account for
+seasonality. (Chapter 11)
+
+**For you.** The highest-leverage engineering work is at the boundaries where the agent
+changes state or makes claims: tool validation, grounding, escalation, and evaluation.
+(Chapters 12–14)
 
 ## How To Read This Paper
 
-Chapters 01–05 establish the company positioning, trade vocabulary, fictional lifecycle,
-contact-center context, and pain-point taxonomy. Chapters 06–14 apply that foundation to
-products, voice agents, technology, competition, compliance, economics, risk, future
-directions, and engineering implications. The appendices record dated public milestones
-and sources.
+- **Essentials path (about 2 hours):** 00 → 01 → 02 → 06 → 07 → 10 → 11 → 14.
+- **Full path:** chapters in order, then the appendices.
 
-The paper uses narrow claims on purpose. A product page demonstrates positioning and
-declared capability, not prevalence or causal impact. A customer case study is useful
-evidence about that customer's reported experience, not an industry benchmark. A public
-technology document describes an available mechanism, not the deployment topology of any
-particular company.
+## Sourcing Conventions
 
-## Scope And Open Validation
-
-The package omits unsupported market sizes, labor statistics, call-mix distributions,
-turnover rates, competitor rankings, legal conclusions, private metrics, internal owners,
-and roadmap timing. Where those questions matter, the chapter states `[unverified]` and
-lists what evidence would be needed. The claims ledger is the QA companion to the reader-
-facing chapters.
-
-**Analysis:** The most useful result of a public primer is not confidence about unknown
-internals. It is a sharper set of questions and a vocabulary for validating them safely.
-
-## Sources
-
-1. ServiceTitan, company page: <https://www.servicetitan.com/company>
-2. ServiceTitan, products page: <https://www.servicetitan.com/products>
-3. ServiceTitan, industries page: <https://www.servicetitan.com/industries>
+- Every factual claim cites a public source; numbers carry an "as of" date.
+- **Analysis** marks interpretation. **Hypothesis** marks a testable guess.
+- Company-reported and customer-reported results are attributed, never presented as
+  general benchmarks.
+- Primary sources (SEC filings, regulators, BLS) are preferred; secondary sources are
+  labeled.
+- Nothing here describes internal systems, architecture, owners, pricing or roadmap.
+  Those are listed as questions to validate after joining.
+- `[unverified]` marks gaps. The [claims ledger](claims-ledger.md) records verification.

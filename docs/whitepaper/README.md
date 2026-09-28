@@ -6,10 +6,12 @@ company, product architecture, customer, metric, roadmap, or operating policy.
 
 ## Status
 
-Chapters 00–14 and appendices A–B are drafted from public sources, with explicit gaps for
-claims that could not be verified. Chapters 01–05 are the expanded foundation chapters;
-later chapters are bounded synthesis rather than a claim of complete market, legal,
-competitive, or internal coverage. [`PLAN.md`](PLAN.md) remains the integration checklist.
+Research pass completed September 27, 2026. Chapters 01, 02, 06, 07, 09, 10 and 11 and
+Appendix A were rebuilt from primary sources (SEC filings, the FCC, BLS, state-law
+surveys); chapters 04 and 05 gained sourced evidence sections. Chapters 03, 08 and 12–14
+are synthesis chapters that rely on the rest.
+
+**Essentials path (about 2 hours):** 00 → 01 → 02 → 06 → 07 → 10 → 11 → 14.
 
 ## Reading Order
 
@@ -37,8 +39,7 @@ validation before it can be stated as fact.
 
 ## Scope Gaps
 
-No chapter in this package asserts a general market size, labor-shortage statistic,
-call-mix distribution, CSR turnover rate, missed-call cost, universal KPI benchmark,
-pricing, implementation result, internal ownership, competitor ranking, legal conclusion,
-or private roadmap. Those items remain `[unverified]` or are phrased as validation
-questions.
+Public sources can't establish internal architecture, owners, pricing, adoption, private
+metrics or roadmap, and this paper doesn't claim them. Industry-wide call-mix, CSR
+turnover and missed-call cost statistics from neutral sources remain gaps; figures from
+vendors are attributed as vendor claims.

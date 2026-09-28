@@ -1,170 +1,170 @@
 # 01 - Company
 
-**Estimated reading time:** 7 minutes
+**Estimated reading time:** 10 minutes · **Facts as of:** September 27, 2026 (latest filing:
+fiscal Q2 2027 results, released September 8, 2026)
 
 ## Five Takeaways
 
-1. The company describes its origin as building software to help the founders' fathers run contracting businesses. [1]
-2. Its public mission is to serve home and commercial services contractors with tools, training, and support. [1]
-3. The company page says it has more than 11,800 trade customers as of the page checked on September 27, 2026. [1]
-4. The public product catalog presents a family of offerings for contractors across multiple industries, rather than a single call product. [2]
-5. Analysis: a voice agent in this setting is a workflow and transaction component, not only a speech interface.
+1. ServiceTitan is a public company (Nasdaq: TTAN) since December 2024. It sells a cloud
+   platform that runs a trades business end to end: calls, booking, dispatch, estimates,
+   invoicing, payments and marketing. [1][4]
+2. Scale: about 10,800 Active Customers and $82.1 billion of Gross Transaction Volume (GTV)
+   in fiscal 2026, with revenue of about $961 million; fiscal 2027 revenue guidance is
+   $1.139–1.144 billion. [1][2][5]
+3. Revenue is mostly **platform** revenue: subscriptions plus usage (largely payments),
+   with net dollar retention above 110% and gross dollar retention above 95%. [1][2]
+4. Strategy has shifted explicitly to AI: Atlas (an agentic AI layer) was introduced in
+   fiscal 2026, and leadership now describes the product as an "Agentic Operating System"
+   for the trades, with the Max program scaling to 700+ locations. [1][2]
+5. Analysis: the company earns roughly 1% of the money flowing through its customers'
+   businesses. Every AI product, voice agents included, is a bet on raising that share by
+   capturing revenue customers would otherwise lose.
 
-## Public Description
+## What the company is
 
-The company page says Ara and Vahe originally built the business to help their fathers
-run contracting businesses and describes a mission to serve people in the field-services
-trades. [1] This is company-authored history and positioning, not an independently
-verified account of founding circumstances. The same page identifies Ara Mahdessian as
-co-founder and CEO and Vahe Kuzoyan as co-founder and president. [1]
+ServiceTitan describes itself as the software platform that powers the trades. [2] Its
+annual report describes the platform as an operating system covering the key workflows of
+a trades business, used through a browser in the office and a mobile app in the field,
+mainly by technicians. [1] It serves many trades; the IPO prospectus names plumbing,
+electrical, HVAC, garage door, pest control and landscaping among others. [3]
 
-The page states “more than 11,800 trade customers” as of the page checked on September
-27, 2026. [1] This is a company-reported figure with no denominator, methodology, or
-independent audit presented on that page; it should not be converted into market share.
+The founders are Ara Mahdessian (co-founder and CEO) and Vahe Kuzoyan (co-founder and
+president). [2][6] The prospectus frames the origin story around their parents' contracting
+businesses: long evenings spent on books, invoices and next-day scheduling done by hand.
+[3] That story matters for an engineer because it is still the product thesis: automate
+the office work that stands between a contractor and the next job.
 
-## Reading Public Positioning Carefully
+## Customers
 
-The company page is useful because it states the problem the company says it exists to
-solve. It is not a neutral market survey. Its language combines an origin story, a mission
-statement, a customer count, named founders, and links to products and industries. Those
-are different kinds of evidence. The origin story is a first-person company account. The
-customer count is a dated public assertion. The product and industry links are catalog
-evidence. None of them, alone, establishes how customers operate, what capabilities are
-adopted, or which product produces a particular outcome.
+The company counts a customer as a parent organization billed in the prior three months;
+**Active Customers** are those with more than $10,000 of annualized billings. As of January
+31, 2026 it had about 10,800 Active Customers, representing over 97% of annualized
+billings. [1] A year earlier the figure was about 9,500. [7]
 
-This distinction matters for an engineer. A product page can tell us what an external
-user may reasonably expect the vendor to offer. It cannot tell us the hidden invariants
-that make a workflow safe. For example, a page may describe booking against capacity,
-but a public reader still does not know the exact conflict policy, permissions model,
-retry semantics, or audit record. Those are implementation questions and must remain
-validation questions in this paper.
+Customers range from family businesses with a handful of employees to national
+enterprises, including franchise networks and other aggregations whose combined businesses
+generate over $1 billion of annual GTV. The key decision maker is typically the business
+owner. [1]
 
-The public catalog also uses several levels of abstraction. The company page points to
-commercial and residential solutions and to industry pages. The products page describes
-a family of offerings, including ServiceTitan and other products. [2] The industries page
-then presents trade-specific language. [3] This is a useful map of intended audiences,
-not a data model. A product family can share a brand while having different workflows,
-entitlements, deployment histories, or integration boundaries. A trade page can describe
-a customer need without implying that every customer has that need.
+**GTV** is the total dollars customers invoice their own end customers through the
+platform; the company uses it as a proxy for customer revenue. [2] GTV was $68.5 billion in
+fiscal 2025 and $82.1 billion in fiscal 2026. [1] In fiscal Q2 2027 (May–July 2026) GTV was
+$26.8 billion, up 17% year over year. [2]
 
-## Company, Product, And Customer Are Different Objects
+Analysis: $82.1 billion across about 10,800 Active Customers averages roughly $7.6 million
+of invoiced revenue per customer per year. The distribution is certainly skewed (a few
+very large multi-location customers, many small ones), so treat the average as an order of
+magnitude, not a typical customer.
 
-For research purposes, it helps to keep three objects separate:
+## Business model
 
-1. **Company:** the legal and organizational entity described by company and investor
-   materials. This paper does not infer private structure, reporting lines, or priorities.
-2. **Product catalog:** the public set of products, features, and solution categories.
-   Catalog language is evidence of positioning and intended capability.
-3. **Customer workflow:** the contractor's actual people, policies, schedules, data, and
-   outcomes. Customer workflow evidence requires customer-specific documentation or
-   authorized operational data.
+The platform is sold as three groups of offerings: **Core**, **FinTech** and **Pro**. [1]
 
-Confusing these objects creates predictable research errors. A catalog feature becomes an
-assumed universal workflow. A customer case study becomes an industry benchmark. A public
-mission becomes an assumption about internal priorities. The whitepaper avoids those
-conversions. Where a section moves from source to interpretation, it says `Analysis:` or
-`Hypothesis:` explicitly.
+- **Core** is the entry point: call tracking, scheduling, dispatching, end-customer
+  communications, marketing automation, estimating, job costing, sales, inventory and
+  payroll integration. [1]
+- **FinTech** covers payment processing and third-party consumer financing. [1]
+- **Pro** products are add-ons with deeper capability in one area, for example Phones Pro,
+  Contact Center Pro, Marketing Pro, Scheduling and Dispatch Pro. [1] Chapter 06 covers them.
 
-## Public Company Status And Financial Questions
+Revenue is reported as **platform** revenue (subscription plus usage) and professional
+services. In fiscal Q2 2027, subscription revenue was $212.4 million, usage revenue $72.1
+million and professional services $8.3 million, for total revenue of $292.8 million, up
+21%. [2] Usage revenue grows with customer activity, especially payments volume, so part of
+ServiceTitan's revenue rises and falls with contractors' own business.
 
-The plan calls for public listing, revenue language, acquisitions, and investor material.
-This version does not add those claims because the accessible source set used for this
-pass does not provide a verified, stable filing extract that can support them at chapter
-level. The investor-relations URL is a valid place to continue the work, but a link's
-existence is not evidence for a particular date, revenue figure, acquisition, or segment
-definition. A later revision should cite the exact filing or investor document, state its
-period and “as of” date, and distinguish reported results from analysis.
+The company measures **share of wallet** as the portion of customer GTV it earns, and aims
+to grow it by selling add-on products into existing customers. [1] Analysis: fiscal 2026
+revenue of about $961 million on $82.1 billion of GTV is about 1.2%.
 
-This restraint is especially important for a public company. Numbers can change because
-of fiscal periods, definitions, acquisitions, restatements, or page updates. A sentence
-such as “the company serves X customers” is incomplete unless it identifies whether X is
-customers, locations, users, or service professionals and when the count was measured.
-The current company page supplies a customer-count phrase, but not the denominator or
-methodology needed for a market-share calculation. [1]
+Retention is high: gross dollar retention was over 95% in each of fiscal 2024–2026, and net
+dollar retention has stayed above 110%. [1][2] The 10-K attributes this to customers
+deploying the platform "end-to-end" as the primary interface for their employees. [1]
 
-## Engineer Lens: Workflow Correctness
+## Financial trajectory
 
-The public description points toward a platform that connects operational work rather
-than a standalone voice experience. The products page names mission-critical areas such
-as marketing, scheduling, dispatch, contact center, pricebook, sales, fleet, and payments.
-[2] Even without access to internal boundaries, the implication for an AI engineer is
-clear: a voice interaction may cross from conversation into business state.
+| Period | Revenue | Growth | Notes | Source |
+|---|---|---|---|---|
+| Fiscal 2026 (to Jan 31, 2026) | ~$961M | +24% | ~$1B annualized run rate exiting the year; free cash flow ~$85M | [5] |
+| Fiscal Q2 2027 (to Jul 31, 2026) | $292.8M | +21% | Non-GAAP operating margin 15.2%; non-GAAP FCF $50.5M; GAAP operating loss $27.6M | [2] |
+| Fiscal 2027 guidance | $1.139–1.144B | — | Non-GAAP operating income $152–154M | [2] |
 
-That crossing creates a layered correctness problem:
+Two details are useful context for an engineering hire. First, the company remains
+GAAP-unprofitable mainly because of stock-based compensation, but is profitable on a
+non-GAAP basis and cash-generative. [2] Second, in fiscal Q2 2027 research and development
+expense ($100.6M) exceeded sales and marketing ($77.0M), up from $73.1M a year earlier. [2]
+Analysis: that is consistent with the stated plan to invest in AI and "organizational
+velocity."
 
-- **Perception:** What did the caller say, and with what confidence?
-- **Interpretation:** What intent, entity, urgency, and constraints are present?
-- **Policy:** Is the request allowed for this caller, trade, location, and job type?
-- **Availability:** Is the proposed resource still eligible at commit time?
-- **Mutation:** Did exactly one authorized state change occur?
-- **Evidence:** Can a human later see what was proposed, confirmed, rejected, or transferred?
+## History and corporate milestones
 
-Speech quality is necessary but not sufficient. A fluent answer that invents a slot or
-claims a booking that failed is a product failure even if the transcript sounds natural.
-Conversely, a transfer that preserves the caller's structured context may be a successful
-outcome even if the agent does not contain the call. This is an analysis, not a claim about
-any private system.
+- **IPO.** ServiceTitan priced 8.8 million shares at $71 on December 11, 2024 and began
+  trading on the Nasdaq Global Select Market as TTAN on December 12. [4] The shares opened
+  and closed at $101 on day one; the offering raised about $625 million and the closing
+  price valued the company at about $8.9 billion. [6]
+- **Acquisitions (capability-led).** The prospectus describes trade-specific tools gained
+  through **Aspire** (commercial landscaping) and **FieldRoutes** (pest, lawn care), which it
+  sells alongside the main ServiceTitan product. [3] The fiscal 2026 10-K also describes
+  **Convex** (sales and marketing intelligence for contractors serving commercial buildings)
+  and **Conduit Tech** (LiDAR-based HVAC design and load calculations). [1]
+- **Leadership.** The company named Abhishek Mathur CTO and said internal AI adoption would
+  be led across all functions to speed up development. [8]
 
-## A Public-Source Operating Model
+See Appendix A for a dated timeline.
 
-The public pages support a bounded model for future research. Demand arrives through a
-channel. A contractor's configured workflow collects enough information to decide what
-can happen next. Scheduling and dispatch use operational constraints. Contact-center
-tools connect conversations to jobs. AI may assist with intake, retrieval, booking, or
-handoff. The actual authority for a transaction must be defined by the product and
-contractor configuration, not inferred from a marketing sentence.
+## Strategy: from system of record to agentic operating system
 
-This model also explains why the paper keeps asking about ownership. A voice agent should
-not silently become the source of truth for a customer record, a schedule, a price, or a
-payment. It can gather facts, request a proposal, present an option, and call an
-authorized operation. The operation should validate its own preconditions and return an
-outcome that the agent can state accurately.
+Three strands are visible in public filings and results:
 
-## What Remains Open
+1. **Land and expand.** Customers land on Core, then adopt FinTech and Pro add-ons,
+   raising share of wallet. [1]
+2. **AI products.** The 10-K says the company launched purpose-built AI add-ons and, in
+   fiscal 2026, introduced **Atlas**, an agentic AI layer described as the next evolution of
+   its Titan Intelligence engine. [1] It argues it has the three ingredients for AI:
+   large proprietary data, similar customer profiles with common workflows, and an
+   end-to-end platform where insights can be acted on. [1]
+3. **Max.** In fiscal 2027 results, leadership frames the product as an **Agentic Operating
+   System for the Trades**. [2] Max pairs the platform's AI with hands-on help; management
+   said it doubled enrolled Max locations in Q2 and expects more than 700 by fiscal
+   year-end. [2] On the fiscal 2026 call, management cited customer-reported pilot outcomes
+   such as higher average ticket and improved EBITDA margins. [5] These are
+   management-reported, early, and from a selected pilot group; don't treat them as
+   typical results.
 
-The following questions are intentionally unresolved: current segment mix; public versus
-internal definitions of a customer; product attach rates; pricing and packaging; actual
-API and permission boundaries; revenue attribution; roadmap; and the relationship between
-catalog capabilities and customer adoption. The answers should come from authorized
-materials or exact public filings, not from extrapolation.
+## Risks the company itself names
 
-## Public Product and Segment Language
+The 10-K risk factors are a useful map of what could go wrong. Relevant ones for a
+voice-agent engineer: competitors may incorporate AI faster or better; results are
+seasonal and weather-driven; industry factors such as consolidation, contractor
+marketplaces, supply chain and labor shortages can affect demand; and laws such as the
+TCPA restrict calls and texts to consumers without prior consent. [1]
 
-The products page describes a family of companies and solutions serving contractors
-across multiple industries. [2] Its public categories include residential and
-commercial solutions, enterprise and franchise contexts, and products such as
-ServiceTitan, FieldRoutes, Aspire, Convex, and Conduit. [2] These labels establish
-public positioning only; they do not establish product boundaries, adoption, pricing,
-revenue mix, or technical integration details.
+## What this means for a voice-agent engineer
 
-The public industries page lists HVAC, plumbing, electrical, garage door, chimney,
-roofing, irrigation, water treatment, septic, painting, pool service, landscaping,
-lawn care, pest control, and other adjacent categories. [3] It also distinguishes
-commercial and residential contractors. [3] It does not provide a validated industry
-market-size synthesis or customer segment mix.
+- **Your metric is their revenue.** GTV is invoiced customer revenue, and share of wallet
+  is the company's own yardstick. A voice agent that books jobs a contractor would have
+  missed shows up in GTV, in usage revenue, and in the case for add-on adoption.
+- **Retention is the moat, so trust is the constraint.** With gross dollar retention above
+  95%, a bad AI experience that damages a contractor's customer relationships is a
+  bigger business risk than a missed feature.
+- **The AI strategy is company-level, not a side project.** Atlas, Max and Virtual Agents
+  are in the annual report and on every earnings call.
 
-## Engineer Implications
+## Questions to validate after joining
 
-**Analysis:** A workflow platform creates correctness obligations at the point where a
-conversation changes business state. Speech recognition and response quality matter,
-but a successful interaction also needs identity, scope, authorization, availability,
-confirmation, idempotency, and audit evidence. The agent should propose through tools;
-the system of record and policy layer should decide whether a mutation is legal.
-
-**Hypothesis:** The most durable engineering leverage is likely to come from explicit
-workflow contracts and evaluation slices by trade, role, and transaction, rather than
-from treating every call as an unconstrained conversation.
-
-## Validation Questions
-
-- What are the current customer and product segment definitions?
-- Which public customer-count figures have a documented “as of” date and denominator?
-- Which product capabilities are authoritative for scheduling, dispatch, payments, and calls?
-- What are the supported workflow states and permission boundaries for voice actions?
-- Which outcomes are company-reported, customer-reported, or independently measured?
+- How do Virtual Agents, Contact Center Pro and Atlas relate organizationally and
+  technically?
+- Which metrics does leadership use to judge voice-agent success (booking rate, GTV
+  influenced, attach rate, retention)?
+- How are Max learnings fed back into general-availability products?
 
 ## Sources
 
-1. ServiceTitan, “About ServiceTitan - The operating system for the trades,” company page, checked September 27, 2026: <https://www.servicetitan.com/company>
-2. ServiceTitan, “ServiceTitan Product Offerings,” products page, checked September 27, 2026: <https://www.servicetitan.com/products>
-3. ServiceTitan, “Industries We Serve,” industries page, checked September 27, 2026: <https://www.servicetitan.com/industries>
+1. ServiceTitan Form 10-K, fiscal year ended January 31, 2026 (Business; Risk Factors; MD&A): <https://www.sec.gov/Archives/edgar/data/1638826/000163882626000028/ttan-20260131.htm>
+2. ServiceTitan fiscal Q2 2027 results (Form 8-K Exhibit 99.1, September 8, 2026): <https://www.sec.gov/Archives/edgar/data/1638826/000163882626000093/ttan-ex99_1.htm>
+3. ServiceTitan IPO prospectus (Form 424B4, December 2024): <https://www.sec.gov/Archives/edgar/data/1638826/000119312524277099/d577298d424b4.htm>
+4. ServiceTitan, "ServiceTitan Announces Pricing of Initial Public Offering" (December 11, 2024): <https://servicetitan.com/press/servicetitan-announces-ipo-pricing>
+5. Yahoo Finance, "ServiceTitan Q4 Earnings Call Highlights" (March 2026): <https://finance.yahoo.com/news/servicetitan-q4-earnings-call-highlights-031828218.html>
+6. CNBC, "ServiceTitan pops 42% in Nasdaq debut" (December 12, 2024): <https://www.cnbc.com/2024/12/12/servicetitan-starts-trading-on-nasdaq-after-ipo.html>
+7. ServiceTitan fiscal 2025 results (March 13, 2025): <https://investors.servicetitan.com/news-releases/news-release-details/servicetitan-announces-fiscal-fourth-quarter-and-full-year>
+8. The Motley Fool, ServiceTitan Q4 fiscal 2026 earnings call transcript (March 12, 2026): <https://www.fool.com/earnings/call-transcripts/2026/03/12/servicetitan-ttan-q4-2026-earnings-transcript/>

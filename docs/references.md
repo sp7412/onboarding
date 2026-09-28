@@ -108,6 +108,38 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 |---|---|---|
 | [Software Is Changing (Again) (Andrej Karpathy)](https://www.youtube.com/watch?v=LCEmiRjPEtQ) | Talk | RG 27 |
 
+## Background whitepaper (primary and secondary sources)
+
+| Source | Type | Cited in |
+|---|---|---|
+| <https://buildops.com/> | Company page | Whitepaper |
+| <https://docs.fcc.gov/public/attachments/FCC-24-17A1.pdf> | Regulator | Whitepaper |
+| <https://en.wikipedia.org/wiki/ServiceTitan> | Press / analyst | Whitepaper |
+| <https://fieldedge.com/> | Company page | Whitepaper |
+| <https://finance.yahoo.com/news/servicetitan-q4-earnings-call-highlights-031828218.html> | Press / analyst | Whitepaper |
+| <https://infobytes.orrick.com/2025-04-25/utah-enacts-ai-disclosure-law-for-consumer-transactions> | Legal analysis | Whitepaper |
+| <https://investors.servicetitan.com/news-releases/news-release-details/servicetitan-announces-fiscal-fourth-quarter-and-full-year> | Company page | Whitepaper |
+| <https://servicetitan.com/press/servicetitan-announces-ipo-pricing> | Company page | Whitepaper |
+| <https://viirtue.com/call-recording-consent-laws-by-state-2026-guide/> | Legal analysis | Whitepaper |
+| <https://wsgr.com/en/insights/fcc-rules-ai-generated-voices-are-artificial-under-the-tcpa.html> | Legal analysis | Whitepaper |
+| <https://www.avoca.ai/> | Company page | Whitepaper |
+| <https://www.bls.gov/ooh/construction-and-extraction/plumbers-pipefitters-and-steamfitters.htm> | Government data | Whitepaper |
+| <https://www.bls.gov/ooh/installation-maintenance-and-repair/heating-air-conditioning-and-refrigeration-mechanics-and-installers.htm> | Government data | Whitepaper |
+| <https://www.cnbc.com/2024/12/12/servicetitan-starts-trading-on-nasdaq-after-ipo.html> | Press / analyst | Whitepaper |
+| <https://www.fool.com/earnings/call-transcripts/2026/03/12/servicetitan-ttan-q4-2026-earnings-transcript/> | Press / analyst | Whitepaper |
+| <https://www.fortune.com/2026/04/27/avoca-ai-agents-missed-calls-hvac-plumbing-roofing-kleiner-perkins-chen-shrivastava-braswell/> | Press / analyst | Whitepaper |
+| <https://www.housecallpro.com/> | Company page | Whitepaper |
+| <https://www.investing.com/news/company-news/servicetitan-q4-fy26-slides-21-revenue-growth-path-to-25-margins-93CH-4558725> | Press / analyst | Whitepaper |
+| <https://www.jobnimbus.com/> | Company page | Whitepaper |
+| <https://www.justia.com/50-state-surveys/recording-phone-calls-and-conversations/> | Legal analysis | Whitepaper |
+| <https://www.kleinerperkins.com/perspectives/avoca-bringing-ai-to-the-backbone-of-the-real-economy/> | Company page | Whitepaper |
+| <https://www.sec.gov/Archives/edgar/data/0001638826/000163882626000044/ttan-ex99_1.htm> | SEC filing | Whitepaper |
+| <https://www.sec.gov/Archives/edgar/data/1638826/000119312524277099/d577298d424b4.htm> | SEC filing | Whitepaper |
+| <https://www.sec.gov/Archives/edgar/data/1638826/000163882626000009/ttan-ex99_1.htm> | SEC filing | Whitepaper |
+| <https://www.sec.gov/Archives/edgar/data/1638826/000163882626000028/ttan-20260131.htm> | SEC filing | Whitepaper |
+| <https://www.sec.gov/Archives/edgar/data/1638826/000163882626000093/ttan-ex99_1.htm> | SEC filing | Whitepaper |
+| <https://www.twilio.com/docs/messaging/compliance/a2p-10dlc> | Company page | Whitepaper |
+
 ## Maintaining this page
 - Add a row whenever a new external link appears anywhere in the repo.
 - Link-check before committing; never construct URLs from a site's naming pattern.

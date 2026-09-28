@@ -10,6 +10,27 @@
 4. Published customer outcomes are attributed to named customer cases and are not general industry benchmarks. [1]
 5. Public sources do not establish general call mix, peak distribution, CSR turnover, missed-call cost, or staffing requirements. Those items are [unverified].
 
+## Public Evidence (Research Pass, September 2026)
+
+- **Seasonality is documented.** ServiceTitan's 10-K says trades demand tends to rise in its
+  fiscal second quarter (May–July) with summer heat, and that extreme weather such as cold
+  spikes drives furnace and repair demand. [R1] Analysis: contact centers face their worst
+  load on exactly these days.
+- **Contact-center KPIs already exist in the product.** Phones Pro routes calls through the
+  platform so businesses can see which CSR took each call and report abandonment rate and
+  average call duration, with transcripts and escalation alerts. [R1]
+- **Informed booking.** Call Booking and Recording auto-fills caller details and shows CSRs
+  property details and history as the call arrives. [R1]
+- **Missed-call recovery is a product category.** The 10-K describes Second Chance Leads (AI
+  flags unbooked calls worth another attempt) and Virtual Agents for overflow and
+  after-hours calls. [R1]
+- **Labor constraints upstream.** BLS projects about 40,100 HVAC and 44,000 plumbing
+  openings a year through 2034, mostly replacement demand. [R2][R3]
+
+R1. ServiceTitan Form 10-K, fiscal 2026: <https://www.sec.gov/Archives/edgar/data/1638826/000163882626000028/ttan-20260131.htm>
+R2. BLS, HVAC mechanics and installers: <https://www.bls.gov/ooh/installation-maintenance-and-repair/heating-air-conditioning-and-refrigeration-mechanics-and-installers.htm>
+R3. BLS, plumbers, pipefitters and steamfitters: <https://www.bls.gov/ooh/construction-and-extraction/plumbers-pipefitters-and-steamfitters.htm>
+
 ## Public Operating Picture
 
 The Contact Center Pro page describes a multi-location contact center built for the

@@ -10,6 +10,21 @@
 4. The highest-risk failure is not merely a poor answer; it is an incorrect state change such as an unauthorized or wrong booking.
 5. Internal priority, trusted metric, and actual economic impact are [unverified] until validated with authorized operational data.
 
+## Public Evidence (Research Pass, September 2026)
+
+| Pain point | Public evidence | Source |
+|---|---|---|
+| Missed and abandoned calls | ServiceTitan built Virtual Agents for overflow and after-hours calls and Second Chance Leads for unbooked calls, both framed as capturing revenue that would otherwise be lost | [R1] |
+| Technician shortage | BLS: ~40,100 HVAC and ~44,000 plumbing openings a year through 2034, mostly replacing workers who leave or retire | [R2][R3] |
+| Demand volatility | 10-K: demand peaks in summer and with extreme weather | [R1] |
+| Fragmented tools | 10-K: many trades businesses still rely on rudimentary workflows; incumbent tools rarely integrate the full lifecycle | [R1] |
+| Missed-call value | An AI-voice vendor's founders contrast a small missed restaurant order with a missed HVAC installation worth tens of thousands of dollars (a vendor framing, and the high end) | [R4] |
+
+R1. ServiceTitan Form 10-K, fiscal 2026: <https://www.sec.gov/Archives/edgar/data/1638826/000163882626000028/ttan-20260131.htm>
+R2. BLS, HVAC mechanics and installers: <https://www.bls.gov/ooh/installation-maintenance-and-repair/heating-air-conditioning-and-refrigeration-mechanics-and-installers.htm>
+R3. BLS, plumbers, pipefitters and steamfitters: <https://www.bls.gov/ooh/construction-and-extraction/plumbers-pipefitters-and-steamfitters.htm>
+R4. Fortune, Term Sheet on Avoca (April 27, 2026): <https://www.fortune.com/2026/04/27/avoca-ai-agents-missed-calls-hvac-plumbing-roofing-kleiner-perkins-chen-shrivastava-braswell/>
+
 ## Pain-Point Taxonomy
 
 | Pain point | Public evidence | Engineering translation | Outcome to measure |

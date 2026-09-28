@@ -9,11 +9,12 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SECRET_PATTERNS = [
-    r"\bsk-[A-Za-z0-9_-]{20,}\b",
+    r"\bsk-(?!placeholder)[A-Za-z0-9_-]{20,}\b",
     r"\blsv2_[A-Za-z0-9_-]{20,}\b",
     r"-----BEGIN [A-Z ]*PRIVATE KEY-----",
-    r"\b(?:LIVEKIT_API_SECRET|API_SECRET)\s*=\s*[^\s#]+",
-    r"\b(?:OPENAI_API_KEY|LANGSMITH_API_KEY|LIVEKIT_API_SECRET)\s*=\s*[^\s#]+",
+    # KEY=value on one line ([ \t], not \s, so an empty value can't match the next line);
+    # values of 8+ chars without "...", so placeholders like "sk-...", "lsv2_..." and "<key>" pass.
+    r"\b(?:OPENAI_API_KEY|LANGSMITH_API_KEY|LIVEKIT_API_SECRET|API_SECRET)[ \t]*=[ \t]*(?!<)(?![^\s#]*\.\.\.)[^\s#]{8,}",
 ]
 FORBIDDEN_PREFIXES = (".opencode/", ".claude/", ".cursor/")
 
