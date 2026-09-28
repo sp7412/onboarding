@@ -37,7 +37,7 @@ access, and scope with the manager after starting.
 - [ ] Break the fictional agent five ways: interruption, slow number, backchannel, emergency phrase, wrong address.
 - [ ] Write a first hypothesis about where the application control plane begins.
 - [ ] [LiveKit hands-on](../docs/livekit-hands-on.md) Phases 1–2: Agent Builder prototype, `lk` starter and debugger.
-- [ ] Reading guide items 5–10; podcast episode 2.
+- [ ] Reading guide items 5–10; podcast episodes 2, 10 and 11.
 
 ### Week of Oct 12 — Build evaluation judgment
 
@@ -47,7 +47,7 @@ access, and scope with the manager after starting.
 - [ ] Define three hard invariants and three softer quality questions for a fictional call set.
 - [ ] Prepare a one-page list of assumptions that must be tested after joining.
 - [ ] LiveKit hands-on Phase 3: fake ServiceTitan tools (reschedule/cancel) behind the control plane.
-- [ ] Reading guide items 11–14; podcast episodes 3 and 4.
+- [ ] Reading guide items 11–14; podcast episodes 3, 4 and 12.
 
 ### Week of Oct 19 — Prepare relationships and logistics
 
@@ -55,7 +55,7 @@ access, and scope with the manager after starting.
 - [ ] Read [`docs/call-anatomy.md`](../docs/call-anatomy.md) and annotate likely failure modes.
 - [ ] Finalize manager, PM, infrastructure, evaluation, and support questions.
 - [ ] Prepare a personal first-week plan and take at least two full days off before Oct 26.
-- [ ] Podcast episode 5 and coaching episode 6.
+- [ ] Podcast episodes 5 and 13, and coaching episode 6.
 - [ ] Do not create employer accounts, access employer data, or copy internal information into this public repo.
 
 ## Days 1–30: Understand And Earn Trust

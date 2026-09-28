@@ -1,6 +1,7 @@
 # Podcast Prompts (NotebookLM Audio Overviews)
 
-Six technical review episodes and four coaching episodes. Each episode below is **one
+Six technical episodes, three company-and-context episodes built on the
+[background whitepaper](whitepaper/README.md), and four coaching episodes. Each episode below is **one
 self-contained block**: copy it, then follow the steps. Listen **after** the matching readings,
 not instead of them. The hosts are good at concepts, weaker on exact API names, config values and
 numbers, so treat the [reading guide](reading-guide.md) and labs as the source of truth.
@@ -26,7 +27,7 @@ Episodes are listed in **listening order**; numbers match references elsewhere i
 ---
 
 ## Episode 1: The Business: ServiceTitan, Contractors, and AI Voice Agents
-- [ ] Generated · [ ] Listened · **When:** Week of Sept 28, after reading-guide items 1–3
+- [ ] Generated · [ ] Listened · **When:** Week of Sept 28, after reading-guide items 1–3 and whitepaper chapters 01–03
 
 ```text
 EPISODE 1: THE BUSINESS: SERVICETITAN, CONTRACTORS, AND AI VOICE AGENTS
@@ -37,8 +38,10 @@ https://www.servicetitan.com/features/pro/virtual-agent
 https://www.servicetitan.com/blog/webinar-recap-ai-voice-agents-call-booking
 https://www.servicetitan.com/press/servicetitan-introducing-the-next-evolution-of-ai-at-pantheon-2025-keynote
 https://www.servicetitan.com/blog/pantheon-2025-vahe-keynote-atlas
-https://raw.githubusercontent.com/sp7412/onboarding/main/docs/servicetitan-101.md
-https://raw.githubusercontent.com/sp7412/onboarding/main/docs/how-a-contractor-works.md
+https://raw.githubusercontent.com/sp7412/onboarding/main/docs/whitepaper/01-company.md
+https://raw.githubusercontent.com/sp7412/onboarding/main/docs/whitepaper/02-the-trades-industry.md
+https://raw.githubusercontent.com/sp7412/onboarding/main/docs/whitepaper/03-how-a-contractor-works.md
+https://raw.githubusercontent.com/sp7412/onboarding/main/docs/whitepaper/05-pain-points.md
 https://raw.githubusercontent.com/sp7412/onboarding/main/notes/glossary.md
 
 CUSTOMIZE PROMPT (Audio Overview → Customize):
@@ -92,26 +95,21 @@ You are coaching an experienced ML and signal-processing engineer through the su
 
 ---
 
-## Episode 3: The Model vs. The Application: Where the Control Plane Begins
-- [ ] Generated · [ ] Listened
-- **When:** week of Oct 12, after reading-guide items 5, 7, 8, 13, 14
-- **Sources:** reading-guide items 5, 7, 8, 13, 14; `docs/voice-agent-architecture.md`
-- **Format / length:** Debate · Default
+## Episode 11: The Company by the Numbers
+- [ ] Generated · [ ] Listened · **When:** Week of Oct 5, after whitepaper chapters 01, 06 and 11
 
 ```text
-EPISODE 3: THE MODEL VS. THE APPLICATION: WHERE THE CONTROL PLANE BEGINS
-Format: Debate · Length: Default
+EPISODE 11: THE COMPANY BY THE NUMBERS
+Format: Deep Dive · Length: Default
 
 SOURCES (NotebookLM → Add source → Website / YouTube):
-https://www.youtube.com/watch?v=-OXiljTJxQU
-https://openai.com/index/advancing-voice-intelligence-with-new-models-in-the-api/
-https://developers.openai.com/api/docs/guides/voice-agents
-https://developers.openai.com/api/docs/guides/realtime
-https://developers.openai.com/cookbook/examples/realtime_prompting_guide
-https://raw.githubusercontent.com/sp7412/onboarding/main/docs/voice-agent-architecture.md
+https://raw.githubusercontent.com/sp7412/onboarding/main/docs/whitepaper/01-company.md
+https://raw.githubusercontent.com/sp7412/onboarding/main/docs/whitepaper/06-product-landscape.md
+https://raw.githubusercontent.com/sp7412/onboarding/main/docs/whitepaper/11-economics-and-metrics.md
+https://raw.githubusercontent.com/sp7412/onboarding/main/docs/whitepaper/appendix-a-timeline.md
 
 CUSTOMIZE PROMPT (Audio Overview → Customize):
-Frame this around one question: where does the realtime voice model's responsibility stop and the application's control plane begin? One host argues for giving the model more autonomy (reasoning effort, preambles, tool calling); the other argues for enforcing rules in code (tool-boundary validation, grounding confirmations in the actual transcript, idempotent bookings, emergency screening, limiting tools by call phase). Use a home-services booking call as the running example. Converge on practical guidance for a senior engineer designing guardrails.
+The listener is a senior ML engineer about to join ServiceTitan's AI voice-agent team. Using only the sources, explain how the company makes money and how leadership measures success: gross transaction volume, share of wallet, active customers, net and gross dollar retention, and the Core, FinTech and Pro structure. Walk through the phone products (Phones Pro, Contact Center Pro, AI Virtual Agents) and the AI strategy (Titan Intelligence, Atlas, Max). Keep company-reported results clearly attributed and call out which figures are analysis. End with how a voice-agent engineer should connect their work to these numbers, in contractor terms like booked jobs and recovered revenue.
 ```
 
 ---
@@ -157,6 +155,24 @@ Audience: a senior engineer deciding how much agency to give an LLM in a phone-b
 
 ---
 
+## Episode 12: Rules of the Road: Regulation and Risk
+- [ ] Generated · [ ] Listened · **When:** Week of Oct 12, after whitepaper chapters 10 and 12
+
+```text
+EPISODE 12: RULES OF THE ROAD: REGULATION AND RISK
+Format: Debate · Length: Default
+
+SOURCES (NotebookLM → Add source → Website / YouTube):
+https://raw.githubusercontent.com/sp7412/onboarding/main/docs/whitepaper/10-regulation-and-compliance.md
+https://raw.githubusercontent.com/sp7412/onboarding/main/docs/whitepaper/12-risks-and-failure-modes.md
+https://docs.fcc.gov/public/attachments/FCC-24-17A1.pdf
+
+CUSTOMIZE PROMPT (Audio Overview → Customize):
+Stage a debate for a senior engineer building AI phone agents for home-services contractors. One host argues for shipping capabilities fast (outbound reminders, broader automation, fewer handoffs); the other argues for compliance and safety first. Cover the FCC ruling that AI-generated voices are artificial under the TCPA, state call-recording consent, AI disclosure rules like Utah's, business texting registration, payment card data, privacy rights, emergency calls, false confirmations and wrong bookings. Make clear this is general education, not legal advice. Converge on a concrete list of design controls and evaluations that let the team move fast safely.
+```
+
+---
+
 ## Episode 5: Evals, Observability, and Winning the First 90 Days
 - [ ] Generated · [ ] Listened · **When:** Week of Oct 19, after lab 07
 
@@ -178,6 +194,25 @@ https://raw.githubusercontent.com/sp7412/onboarding/main/docs/first-90-days-play
 
 CUSTOMIZE PROMPT (Audio Overview → Customize):
 Audience: a new Senior AI Engineer whose likely highest-leverage contribution is evaluating voice-agent quality. Cover error analysis on real traces, building eval datasets from failures, code checks vs LLM-as-judge, reliability across repeated trials (pass^k from tau-bench), dual-control scenarios where the caller must act, and tracing with LangSmith. Then connect it to his 30/60/90 plan: how to pick a first project, set a baseline, measure impact, and present wins in contractor outcomes like booked jobs and missed calls. Give concrete, actionable advice.
+```
+
+---
+
+## Episode 13: The Competitive Arena and What Comes Next
+- [ ] Generated · [ ] Listened · **When:** Week of Oct 19, after whitepaper chapters 07, 09, 13 and 14
+
+```text
+EPISODE 13: THE COMPETITIVE ARENA AND WHAT COMES NEXT
+Format: Deep Dive · Length: Longer
+
+SOURCES (NotebookLM → Add source → Website / YouTube):
+https://raw.githubusercontent.com/sp7412/onboarding/main/docs/whitepaper/07-ai-voice-agents.md
+https://raw.githubusercontent.com/sp7412/onboarding/main/docs/whitepaper/09-competitive-landscape.md
+https://raw.githubusercontent.com/sp7412/onboarding/main/docs/whitepaper/13-future-directions.md
+https://raw.githubusercontent.com/sp7412/onboarding/main/docs/whitepaper/14-implications-and-open-questions.md
+
+CUSTOMIZE PROMPT (Audio Overview → Customize):
+Brief a senior ML engineer starting on ServiceTitan's voice-agent team. Using only the sources, explain what AI Virtual Agents do and how they're deployed, who competes (field-service software vendors named in the company's filings and AI-native voice vendors that integrate from outside), and the stated direction toward an Agentic Operating System with Atlas and Max. Keep stated direction separate from hypotheses and don't rank competitors. Then turn to the listener: the leverage areas for an engineer strong in evaluation, out-of-distribution detection and latency, the testable hypotheses to check in the first 60 days, and the best questions to ask each stakeholder.
 ```
 
 ---
