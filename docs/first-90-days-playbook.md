@@ -25,7 +25,8 @@ you understand the system, choose good problems, and can deliver safely.
 
 The checkpoint outcomes, mirrored from the [30/60/90 checklist](../plan/30-60-90-checklist.md),
 which holds the canonical list. Use these to test yourself before each review; the checklist's
-checkboxes track completion.
+checkboxes track completion. If you edit one list, edit both — or better, edit the checklist and
+re-copy here.
 
 **Day 30 — Understand**
 

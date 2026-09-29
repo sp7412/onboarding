@@ -41,7 +41,8 @@ private system. Product names are linked in [`docs/servicetitan-101.md`](../docs
 | Field service management | Software and processes for scheduling, dispatching, and completing work in the field |
 | Flat-rate pricing | Pricing a defined service rather than billing only by time and materials |
 | Furnace repair | Fictional job type in the labs representing heating-system service |
-| GTV (gross transaction value) | Total dollar value of customer invoices processed through a platform; ServiceTitan reports it in public filings as a core business metric |
+| Gross dollar retention (GDR) | Revenue retained from an existing customer cohort before upsells and churn; ServiceTitan reported over 95% in fiscal 2024–2026 |
+| GTV (gross transaction volume) | The total dollars customers invoice their own end customers through a platform; ServiceTitan reports it in public filings as a core business metric and proxy for customer revenue |
 | HVAC | Heating, ventilation, and air conditioning |
 | Inbound lead | A new service opportunity arriving through a call, form, message, or other channel |
 | Idempotency key | An application-owned key that makes a retried transaction return the same result instead of duplicating it |
