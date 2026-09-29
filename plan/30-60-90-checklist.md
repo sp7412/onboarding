@@ -22,31 +22,31 @@ access, and scope with the manager after starting.
 
 - [ ] Read the [domain primer](../docs/servicetitan-101.md) and [contractor
   lifecycle](../docs/how-a-contractor-works.md).
-- [ ] Run labs 00–03 offline with Python 3.12.
+- [ ] Run labs 00–03 offline with Python 3.12 (needs a laptop).
 - [ ] Write one question each for customer, product, technology, quality, team, and business.
 - [ ] Start an evidence log with **observed / inferred / unknown** columns.
 - [ ] Draft the manager's first-1:1 questions in [`templates/1on1-questions.md`](../templates/1on1-questions.md).
 - [ ] [Reading guide](../docs/reading-guide.md) items 1–4.
-- [ ] [Podcast](../docs/podcast-prompts.md) episode 1.
+- [ ] [Podcast](../docs/podcast-prompts.md) episodes 1 and 6 (coaching: entering well — it's scheduled before day one).
 
 ### Week of Oct 5 — Build technical depth
 
 - [ ] Read [`docs/voice-agent-architecture.md`](../docs/voice-agent-architecture.md).
-- [ ] Complete labs 04–06 and compare realtime, cascaded, and workflow paths.
-- [ ] Measure the lab latency categories; label simulated versus live measurements.
-- [ ] Break the fictional agent five ways: interruption, slow number, backchannel, emergency phrase, wrong address.
+- [ ] Complete labs 04–06 and compare realtime, cascaded, and workflow paths (needs a laptop).
+- [ ] Measure the lab latency categories; label simulated versus live measurements (needs a laptop).
+- [ ] Break the fictional agent five ways: interruption, slow number, backchannel, emergency phrase, wrong address (needs a laptop).
 - [ ] Write a first hypothesis about where the application control plane begins.
-- [ ] [LiveKit hands-on](../docs/livekit-hands-on.md) Phases 1–2: Agent Builder prototype, `lk` starter and debugger.
+- [ ] [LiveKit hands-on](../docs/livekit-hands-on.md) Phases 1–2: Agent Builder prototype, `lk` starter and debugger (needs a laptop).
 - [ ] Reading guide items 5–10; podcast episodes 2, 10 and 11.
 
 ### Week of Oct 12 — Build evaluation judgment
 
-- [ ] Complete labs 07–08.
+- [ ] Complete labs 07–08 (needs a laptop).
 - [ ] Read [`docs/evaluating-voice-agents.md`](../docs/evaluating-voice-agents.md).
 - [ ] Write the answer in [`notes/study-question.md`](../notes/study-question.md).
 - [ ] Define three hard invariants and three softer quality questions for a fictional call set.
 - [ ] Prepare a one-page list of assumptions that must be tested after joining.
-- [ ] LiveKit hands-on Phase 3: fake ServiceTitan tools (reschedule/cancel) behind the control plane.
+- [ ] LiveKit hands-on Phase 3: fake ServiceTitan tools (reschedule/cancel) behind the control plane (needs a laptop).
 - [ ] Reading guide items 11–14; podcast episodes 3, 4 and 12.
 
 ### Week of Oct 19 — Prepare relationships and logistics
@@ -55,7 +55,7 @@ access, and scope with the manager after starting.
 - [ ] Read [`docs/call-anatomy.md`](../docs/call-anatomy.md) and annotate likely failure modes.
 - [ ] Finalize manager, PM, infrastructure, evaluation, and support questions.
 - [ ] Prepare a personal first-week plan and take at least two full days off before Oct 26.
-- [ ] Podcast episodes 5 and 13, and coaching episode 6.
+- [ ] Podcast episodes 5 and 13.
 - [ ] Do not create employer accounts, access employer data, or copy internal information into this public repo.
 
 ## Days 1–30: Understand And Earn Trust
@@ -67,7 +67,7 @@ access, and scope with the manager after starting.
 - [ ] Confirm authorized access and data-handling rules before reviewing calls or traces.
 - [ ] Meet manager, PM/product partner, senior engineer, and evaluation/observability partner.
 - [ ] Start the internal copy of [`templates/onboarding-log.md`](../templates/onboarding-log.md).
-- [ ] Get the development environment running and make a list of setup gaps.
+- [ ] Get the development environment running and make a list of setup gaps (needs a laptop).
 
 **Output:** written success contract, stakeholder list, access plan, and learning agenda.
 - [ ] Reading guide Tier 3 (items 15–23), spread across weeks 1–4.

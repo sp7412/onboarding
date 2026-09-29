@@ -21,6 +21,36 @@ By day 90, you should have:
 Do not optimize for appearing busy. Optimize for increasing the team's confidence that
 you understand the system, choose good problems, and can deliver safely.
 
+## Exit Criteria At A Glance
+
+The checkpoint outcomes, mirrored from the [30/60/90 checklist](../plan/30-60-90-checklist.md),
+which holds the canonical list. Use these to test yourself before each review; the checklist's
+checkboxes track completion.
+
+**Day 30 — Understand**
+
+- I can explain the customer/job lifecycle and production architecture without relying on a diagram.
+- I can name the owner and source of truth for each major boundary.
+- I have a stakeholder map and a reviewed learning agenda.
+- I have shipped at least one useful, low-risk contribution.
+- My top risks distinguish evidence from inference.
+- The day-60 problem, baseline plan, and success metric are agreed in writing.
+
+**Day 60 — Contribute**
+
+- Show baseline versus current results with denominators and slices.
+- Demonstrate safety/quality guardrails and rollback behavior.
+- Confirm the project is still the right bet; stop or re-scope if evidence says otherwise.
+- Agree on the day-90 rollout, ownership, and next-quarter decision.
+
+**Day 90 — Own**
+
+- I can explain the customer outcome, baseline, and measured result of my contribution.
+- One deliverable is rolled out, safely stopped, or explicitly re-scoped with evidence.
+- Monitoring, runbook, rollback, and ownership are clear.
+- I am a reliable contact for at least one technical or quality area.
+- The next-quarter proposal has been reviewed and prioritized.
+
 ## Before Day One: Prepare
 
 ### Define your learning agenda

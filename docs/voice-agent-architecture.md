@@ -129,5 +129,3 @@ The labs provide executable evidence for these boundaries: lab 01 demonstrates
 cancellation and truncation, lab 02 blocks an early booking, lab 05 separates context
 from state, lab 06 makes confirmation a graph edge, and lab 08 passes verbatim transcript
 evidence to the thinker.
-
-See the labs for executable examples.

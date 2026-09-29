@@ -24,8 +24,7 @@ or unnecessary CSR work.
 Public product material distinguishes residential and commercial contractors and
 describes workflows involving office staff, technicians, and business owners. Do not
 infer the exact workflows, permissions, or systems used by any particular customer.
-The public [industries page](https://www.servicetitan.com/industries)
-are useful starting points.
+The public [industries page](https://www.servicetitan.com/industries) is a useful starting point.
 
 ## Product Vocabulary
 

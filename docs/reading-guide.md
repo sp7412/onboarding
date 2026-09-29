@@ -47,7 +47,7 @@ replace it. Check items off (`- [x]`) as you finish them.
   2. The "first call to final invoice" automation framing. Voice is the first step of that chain.
   3. The Max program: pairing Pro products with expert guidance. Think about what that implies for adoption and support.
   4. The recurring argument that ServiceTitan's data is the moat. Where does your work use that data?
-- **Pairs with:** `notes/glossary.md`
+- **Pairs with:** [`notes/glossary.md`](../notes/glossary.md)
 
 ### 4. Voice AI & Voice Agents: An Illustrated Primer
 - [ ] <https://voiceaiandvoiceagents.com/> · long-form guide · 2–3 h (can be split)

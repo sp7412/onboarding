@@ -10,7 +10,21 @@ tutorial notebooks, and templates for the documents I'll write along the way.
 > recordings. Internal notes belong in company systems. This repo is for my own
 > learning, public material, and blank templates.
 
-## Start Here
+## Start here in 5 minutes
+
+1. Read [`docs/servicetitan-101.md`](docs/servicetitan-101.md) (5 min) — what the company does and the
+   mental model: a voice agent inside a contractor's booking workflow, not a chatbot.
+2. Skim [`plan/30-60-90-checklist.md`](plan/30-60-90-checklist.md) "Pre-Start" (3 min) — this week's
+   concrete tasks; the `site/` folder builds them into an interactive checklist.
+3. Do reading-guide [item 1](docs/reading-guide.md) (15 min) — the AI Voice Agent product page, with
+   four things to look for.
+4. Open [`notes/study-question.md`](notes/study-question.md) (1 min) — the one question everything
+   else builds toward answering.
+
+Reading on a phone works for steps 1–4; labs need a laptop. After that, follow the weekly
+path below.
+
+## The Full Path
 
 The path assumes an experienced ML or signal-processing engineer who is new to
 contractor software and production voice agents. It is designed for roughly 5–7 hours
@@ -36,10 +50,10 @@ the exact lab map and prerequisites.
 | [`plan/30-60-90-checklist.md`](plan/30-60-90-checklist.md) | Watkins-inspired operating plan with 30/60/90 outcomes, weekly actions, stakeholder work, and exit criteria |
 | [`study-guide/`](study-guide/) | Voice-agent study guide (Markdown + original .docx) |
 | [`docs/`](docs/) | Public-source domain primer, technical architecture, reading list, evaluation guide, and first-90-days playbook |
-| [`docs/whitepaper/`](docs/whitepaper/) | Public-source background whitepaper: chapters 00–14, appendices, source ledger, and integration plan |
+| [`docs/whitepaper/`](docs/whitepaper/) | Public-source background whitepaper: chapters 00–14, appendices, and source ledger |
 | [`docs/reading-guide.md`](docs/reading-guide.md) | Ranked blogs, papers and talks with four takeaways each (start here for reading) |
 | [`docs/references.md`](docs/references.md) | Complete bibliography of every external source in the repo |
-| [`docs/podcast-prompts.md`](docs/podcast-prompts.md) | NotebookLM podcast prompts: five technical episodes plus coaching episodes |
+| [`docs/podcast-prompts.md`](docs/podcast-prompts.md) | NotebookLM podcast prompts: six technical and three company-context episodes plus four coaching episodes |
 | [`docs/livekit-hands-on.md`](docs/livekit-hands-on.md) | LiveKit track: Agent Builder → `lk` starter → fake ServiceTitan tools with guardrails |
 | [`labs/`](labs/) | Nine Jupyter tutorials: OpenAI Realtime, LiveKit, LangChain/LangGraph, LangSmith, capstone |
 | [`labs/solutions/`](labs/solutions/) | Offline-safe solution notes for the lab exercises |
