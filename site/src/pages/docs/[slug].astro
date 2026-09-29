@@ -1,0 +1,25 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import DocBody from "../../components/DocBody.astro";
+import { loadContent } from "../../lib/content/repo";
+
+export function getStaticPaths() {
+  return loadContent().docs.map((doc) => ({
+    params: { slug: doc.slug },
+    props: { doc },
+  }));
+}
+
+const { doc } = Astro.props;
+---
+
+<BaseLayout title={`${doc.title} · Path to Integration`} description={doc.title}>
+  <p class="crumb muted"><a href="/">Journey</a> / docs</p>
+  <h1>{doc.title}</h1>
+  <DocBody body={doc.body} />
+</BaseLayout>
+
+<style>
+  .crumb { font-size: 0.9rem; }
+  h1 { margin-bottom: var(--s6); }
+</style>

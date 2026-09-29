@@ -1,0 +1,55 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="About this site · Path to Integration"
+  description="How this site works: build-time content from the repository's Markdown, browser-only progress storage, and the public-safe rule."
+>
+  <h1>About this site</h1>
+
+  <section class="card">
+    <h2>No accounts, no tracking</h2>
+    <p>
+      This site is a static bundle. There is no backend, no analytics, no cookies and
+      no third-party scripts. Nothing you do here is sent anywhere.
+    </p>
+    <h2>Where your progress lives</h2>
+    <p>
+      Every checkbox and quiz answer is stored only in your browser's
+      <code>localStorage</code>, keyed by stable content IDs derived from the source
+      text. Clearing your browser data for this site erases your progress. A later
+      phase adds export/import (JSON and Markdown) so you can back up or move it.
+    </p>
+    <h2>The content is the repository</h2>
+    <p>
+      The checklist, reading guide, podcast blocks, whitepaper, glossary, labs and
+      templates are parsed from this repo's Markdown at build time — the site never
+      rewrites or duplicates that content by hand. If a source file changes shape in
+      a way the parsers don't expect, the build fails instead of silently dropping
+      content.
+    </p>
+    <h2>The public-safe rule</h2>
+    <p>
+      This repository is public and deliberately contains no employer-internal
+      information: no internal code, architecture, metrics, customer data, call
+      recordings, or names of internal systems. The site adds no new sources; public
+      vendor pages and documents linked from the repo's reading guide are attributed
+      there. If anything here looks like internal material, it shouldn't be — flag it.
+    </p>
+    <h2>Accessibility</h2>
+    <p>
+      The site targets WCAG 2.1 AA: keyboard navigation, visible focus, semantic
+      landmarks, alt text on all art, and a <code>prefers-reduced-motion</code> path
+      that removes animation. If something is hard to use with a keyboard or a screen
+      reader, that's a bug.
+    </p>
+  </section>
+</BaseLayout>
+
+<style>
+  h1 { margin-bottom: var(--s6); }
+  .card { padding: var(--s6); }
+  .card h2 { margin-top: var(--s6); font-size: 1.2rem; }
+  .card h2:first-child { margin-top: 0; }
+</style>

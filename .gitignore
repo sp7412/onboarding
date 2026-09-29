@@ -10,3 +10,8 @@ labs/agents/
 .claude/
 .cursor/
 .sensitive-patterns
+
+# site build artifacts and toolchain
+site/node_modules/
+site/dist/
+site/.astro/

@@ -1,0 +1,42 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p class="muted">
+      A personal onboarding journey for a senior AI engineer joining a voice-agent team.
+      Progress is stored only in this browser — no accounts, no analytics, no trackers.
+    </p>
+    <nav aria-label="Footer">
+      <a href="/about">About this site</a>
+      <a href="/glossary">Glossary</a>
+      <a href="https://github.com/sp7412/onboarding">Source repository</a>
+    </nav>
+    <p class="muted copyright">© {year} · Built with Astro · Deployed on GitHub Pages</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--panel-edge);
+    background: var(--panel);
+  }
+  .footer-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: var(--s8) var(--s4);
+    display: grid;
+    gap: var(--s3);
+    font-size: 0.92rem;
+  }
+  .footer-inner p { margin: 0; }
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s4);
+  }
+  nav a { color: var(--cyan); text-decoration: none; }
+  nav a:hover { text-decoration: underline; }
+  .copyright { font-size: 0.85rem; }
+</style>

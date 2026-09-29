@@ -1,0 +1,508 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { loadContent } from "../lib/content/repo";
+
+const content = loadContent();
+
+const stages = [
+  {
+    stage: "pre-start",
+    label: "Pre-start",
+    window: "Sept 28 – Oct 25",
+    href: "/checklist#pre-start",
+    desc: "Domain, reading, labs 00–03, questions for the team.",
+  },
+  {
+    stage: "d30",
+    label: "Days 1–30",
+    window: "Understand and earn trust",
+    href: "/checklist#d30",
+    desc: "Ramp on real calls and systems; ship something small.",
+  },
+  {
+    stage: "d60",
+    label: "Days 31–60",
+    window: "Align, design, contribute",
+    href: "/checklist#d60",
+    desc: "Own a design review; contribute to a production service.",
+  },
+  {
+    stage: "d90",
+    label: "Days 61–90",
+    window: "Own and multiply",
+    href: "/checklist#d90",
+    desc: "Lead a project end to end; multiply through others.",
+  },
+  {
+    stage: "done",
+    label: "Day 90+",
+    window: "Trophy",
+    href: "/achievements",
+    desc: "Badge wall, quizzes, the full journey complete.",
+  },
+];
+
+const essentialChapters = content.whitepaper.chapters.filter((c) => c.essentials).length;
+const labCount = content.labs.length;
+const readingCount = content.reading.items.length;
+const episodeCount = content.podcasts.length;
+const glossaryCount = content.glossary.length;
+const itemCount = content.checklistItems.length;
+
+const RING_R = 20;
+const RING_C = 2 * Math.PI * RING_R;
+const PRE_START_PCT = 0.68; // placeholder until Phase 2 reads real localStorage progress
+---
+
+<BaseLayout
+  title="Path to Integration · Onboarding"
+  description="An interactive journey from pre-start through day 90 of joining a voice-agent AI team."
+>
+  <section class="hero" aria-labelledby="hero-title">
+    <svg
+      class="hero-art"
+      viewBox="0 0 1440 480"
+      preserveAspectRatio="xMidYMid slice"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <defs>
+        <radialGradient id="heroGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#37e0ff" stop-opacity="0.35"></stop>
+          <stop offset="45%" stop-color="#37e0ff" stop-opacity="0.12"></stop>
+          <stop offset="100%" stop-color="#37e0ff" stop-opacity="0"></stop>
+        </radialGradient>
+      </defs>
+      <rect width="1440" height="480" fill="var(--navy)"></rect>
+      <pattern id="heroGrid" width="48" height="48" patternUnits="userSpaceOnUse">
+        <circle cx="1.5" cy="1.5" r="1.5" fill="#1e2c4f" opacity="0.55"></circle>
+      </pattern>
+      <rect width="1440" height="480" fill="url(#heroGrid)"></rect>
+      <g
+        fill="none"
+        stroke="#3e7bff"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        opacity="0.9"
+      >
+        <path d="M0 80 H420 L500 160 H760"></path>
+        <path d="M0 160 H300 L380 240 H700 L760 200"></path>
+        <path d="M0 240 H560 L640 300 H760"></path>
+        <path d="M0 320 H340 L420 380 H700 L760 320"></path>
+        <path d="M0 400 H480 L560 340 H760"></path>
+      </g>
+      <g fill="#1e2c4f">
+        <circle cx="420" cy="80" r="5"></circle>
+        <circle cx="300" cy="160" r="5"></circle>
+        <circle cx="560" cy="240" r="5"></circle>
+        <circle cx="340" cy="320" r="5"></circle>
+        <circle cx="480" cy="400" r="5"></circle>
+        <circle cx="500" cy="160" r="5"></circle>
+        <circle cx="380" cy="240" r="5"></circle>
+        <circle cx="640" cy="300" r="5"></circle>
+        <circle cx="420" cy="380" r="5"></circle>
+      </g>
+      <g fill="none" stroke="#37e0ff" stroke-width="1.5" opacity="0.6">
+        <circle cx="980" cy="240" r="70"></circle>
+        <circle cx="980" cy="240" r="100"></circle>
+        <circle cx="980" cy="240" r="130"></circle>
+      </g>
+      <circle cx="980" cy="240" r="210" fill="url(#heroGlow)"></circle>
+      <g
+        fill="none"
+        stroke="#37e0ff"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M760 240 H910"></path>
+        <path d="M1050 240 H1200 L1240 200 H1440"></path>
+        <path d="M1050 240 H1140 L1180 280 H1440"></path>
+      </g>
+      <g fill="#37e0ff">
+        <circle cx="910" cy="240" r="4"></circle>
+        <circle cx="1240" cy="200" r="4"></circle>
+        <circle cx="1180" cy="280" r="4"></circle>
+      </g>
+    </svg>
+    <div class="hero-inner">
+      <p class="tag">Pre-start · Sept 28 – Oct 25</p>
+      <h1 id="hero-title">From first call to day 90.</h1>
+      <p class="hero-sub muted">
+        A game-like onboarding journey built from this repository's own study guides,
+        labs and templates. Check things off — progress is saved in this browser.
+      </p>
+      <div class="hero-actions">
+        <a class="btn" href="/checklist#pre-start">Start the pre-start stage</a>
+        <a class="btn btn-secondary" href="/reading">Browse the reading guide</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats card" aria-label="What's on this site">
+    <div class="stat">
+      <span class="stat-num">{itemCount}</span>
+      <span class="stat-label">checklist items</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">{readingCount}</span>
+      <span class="stat-label">readings</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">{episodeCount}</span>
+      <span class="stat-label">podcast episodes</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">{essentialChapters}/17</span>
+      <span class="stat-label">essential whitepaper chapters</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">{labCount}</span>
+      <span class="stat-label">hands-on labs</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">{glossaryCount}</span>
+      <span class="stat-label">glossary terms</span>
+    </div>
+  </section>
+
+  <section class="journey" aria-labelledby="journey-title">
+    <div class="section-head">
+      <h2 id="journey-title">The journey</h2>
+      <a class="see-all" href="/checklist">Full checklist →</a>
+    </div>
+    <ol class="stage-row">
+      {stages.map((s, i) => (
+        <li class:list={["stage", { active: i === 0 }]}>
+          <a href={s.href}>
+            <span class="node" aria-hidden="true">
+              <svg viewBox="0 0 48 48" width="48" height="48">
+                <circle cx="24" cy="24" r={RING_R} class="ring-track"></circle>
+                <circle
+                  cx="24"
+                  cy="24"
+                  r={RING_R}
+                  class="ring-fill"
+                  stroke-dasharray={RING_C}
+                  stroke-dashoffset={i === 0 ? RING_C * (1 - PRE_START_PCT) : RING_C}
+                ></circle>
+                <circle cx="24" cy="24" r="6" class="node-core"></circle>
+              </svg>
+              <span class="stage-index">{i + 1}</span>
+            </span>
+            <span class="stage-label">{s.label}</span>
+            <span class="stage-window muted">{s.window}</span>
+            <span class="stage-desc muted">{s.desc}</span>
+            {i === 0 && <span class="tag tag-green stage-now">Active stage</span>}
+          </a>
+        </li>
+      ))}
+    </ol>
+    <p class="muted journey-note">
+      Progress rings, the self-drawing map and "Continue where I left off" arrive with the
+      Phase 2 interactive map — checklist checks already save in this browser.
+    </p>
+  </section>
+
+  <section class="library" aria-labelledby="library-title">
+    <div class="section-head">
+      <h2 id="library-title">The library</h2>
+    </div>
+    <div class="grid">
+      <a class="lib-card" href="/reading">
+        <span class="lib-title">Reading guide</span>
+        <span class="lib-desc muted">
+          {readingCount} ranked items with why/look-for prompts and tier filters.
+        </span>
+      </a>
+      <a class="lib-card" href="/podcasts">
+        <span class="lib-title">Podcast studio</span>
+        <span class="lib-desc muted">
+          {episodeCount} episodes in listening order; one-tap copy blocks for NotebookLM.
+        </span>
+      </a>
+      <a class="lib-card" href="/whitepaper">
+        <span class="lib-title">Whitepaper</span>
+        <span class="lib-desc muted">
+          17 chapters; the {essentialChapters}-chapter essentials path is the bounded 2-hour route.
+        </span>
+      </a>
+      <a class="lib-card" href="/labs">
+        <span class="lib-title">Labs 00–08</span>
+        <span class="lib-desc muted">
+          {labCount} notebooks that run offline; each has a graded exercise.
+        </span>
+      </a>
+    </div>
+    <div class="grid grid-secondary">
+      <a class="lib-card" href="/checklist">
+        <span class="lib-title">Checklist</span>
+        <span class="lib-desc muted">{itemCount} week-by-week tasks, saved locally.</span>
+      </a>
+      <a class="lib-card" href="/architecture">
+        <span class="lib-title">Architecture explorer</span>
+        <span class="lib-desc muted">Where each component stops — and your control plane begins.</span>
+      </a>
+      <a class="lib-card" href="/simulations/turn-taking">
+        <span class="lib-title">Simulations</span>
+        <span class="lib-desc muted">Turn-taking, guardrails and latency — play with the ideas on a phone.</span>
+      </a>
+      <a class="lib-card" href="/glossary">
+        <span class="lib-title">Glossary</span>
+        <span class="lib-desc muted">{glossaryCount} terms with flashcards and stage quizzes.</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="next card">
+    <h2>Continue where you left off</h2>
+    <p class="muted">
+      The persistent Continue button lands in Phase 2 with the interactive map. For now:
+      the checklist saves your checks in this browser and restores them on every visit.
+    </p>
+    <a class="btn" href="/checklist#pre-start">Open the checklist</a>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative;
+    border: 1px solid var(--panel-edge);
+    border-radius: var(--r3);
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .hero-art {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    padding: var(--s16) var(--s6);
+    max-width: 720px;
+    display: grid;
+    gap: var(--s4);
+    justify-items: start;
+  }
+  .hero h1 {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    margin: 0;
+    line-height: 1.15;
+  }
+  .hero-sub {
+    margin: 0;
+    max-width: 56ch;
+    font-size: 1.05rem;
+  }
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s3);
+    margin-top: var(--s2);
+  }
+
+  /* ---------- Stats strip ---------- */
+  .stats {
+    margin-top: var(--s6);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s4) var(--s12);
+    padding: var(--s6);
+  }
+  .stat {
+    display: grid;
+    gap: 2px;
+  }
+  .stat-num {
+    font-family: var(--font-head);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--cyan);
+  }
+  .stat-label {
+    font-size: 0.88rem;
+    color: var(--ink-dim);
+  }
+
+  /* ---------- Journey ---------- */
+  .journey {
+    margin-top: var(--s12);
+  }
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--s4);
+  }
+  .see-all {
+    font-size: 0.95rem;
+  }
+  .stage-row {
+    list-style: none;
+    margin: var(--s4) 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--s3);
+  }
+  .stage a {
+    display: grid;
+    gap: var(--s1);
+    justify-items: start;
+    height: 100%;
+    background: var(--panel);
+    border: 1px solid var(--panel-edge);
+    border-radius: var(--r2);
+    padding: var(--s4);
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+  }
+  .stage a:hover {
+    border-color: var(--cyan);
+    box-shadow: var(--glow);
+    transform: translateY(-2px);
+  }
+  .stage.active a {
+    border-color: color-mix(in srgb, var(--cyan) 55%, var(--panel-edge));
+    box-shadow: var(--glow);
+  }
+  .node {
+    position: relative;
+    width: 48px;
+    height: 48px;
+    margin-bottom: var(--s2);
+  }
+  .node svg {
+    width: 48px;
+    height: 48px;
+    transform: rotate(-90deg);
+  }
+  .ring-track {
+    fill: var(--navy);
+    stroke: var(--panel-edge);
+    stroke-width: 3;
+  }
+  .ring-fill {
+    fill: none;
+    stroke: var(--green);
+    stroke-width: 3;
+    stroke-linecap: round;
+  }
+  .node-core {
+    fill: var(--blue);
+  }
+  .stage-index {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--ink);
+  }
+  .stage-label {
+    font-family: var(--font-head);
+    font-weight: 700;
+    color: var(--ink);
+    font-size: 1.02rem;
+  }
+  .stage-window {
+    font-size: 0.85rem;
+  }
+  .stage-desc {
+    font-size: 0.9rem;
+    line-height: 1.45;
+  }
+  .stage-now {
+    margin-top: var(--s2);
+  }
+  .journey-note {
+    margin: var(--s4) 0 0;
+    font-size: 0.92rem;
+  }
+
+  /* ---------- Library ---------- */
+  .library {
+    margin-top: var(--s12);
+  }
+  .grid {
+    margin-top: var(--s4);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--s3);
+  }
+  .grid-secondary {
+    margin-top: var(--s3);
+  }
+  .lib-card {
+    display: grid;
+    gap: var(--s1);
+    align-content: start;
+    background: var(--panel);
+    border: 1px solid var(--panel-edge);
+    border-radius: var(--r2);
+    padding: var(--s4);
+    color: inherit;
+    text-decoration: none;
+    transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+  }
+  .lib-card:hover {
+    border-color: var(--cyan);
+    box-shadow: var(--glow);
+    transform: translateY(-2px);
+  }
+  .lib-title {
+    font-family: var(--font-head);
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .lib-desc {
+    font-size: 0.9rem;
+    line-height: 1.45;
+  }
+
+  /* ---------- Next ---------- */
+  .next {
+    margin-top: var(--s12);
+    display: grid;
+    gap: var(--s3);
+    justify-items: start;
+    padding: var(--s6);
+  }
+  .next h2 {
+    margin: 0;
+  }
+  .next p {
+    margin: 0;
+  }
+
+  @media (max-width: 960px) {
+    .stage-row {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 560px) {
+    .hero-inner {
+      padding: var(--s12) var(--s4);
+    }
+    .stage-row {
+      grid-template-columns: 1fr;
+    }
+    .grid {
+      grid-template-columns: 1fr;
+    }
+    .stats {
+      gap: var(--s4) var(--s6);
+    }
+  }
+</style>

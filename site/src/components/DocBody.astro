@@ -1,0 +1,122 @@
+---
+import { repoLinkToRoute } from "../lib/content/repo";
+
+interface Props {
+  body: string;
+}
+
+const { body } = Astro.props;
+
+/**
+ * Minimal, safe markdown-to-HTML for repo doc pages: headings, paragraphs,
+ * lists, code fences, tables are rendered as plain readable HTML. Escapes HTML
+ * first; then maps repo-relative links to site routes via repoLinkToRoute.
+ */
+function esc(s: string): string {
+  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+function inline(s: string): string {
+  let out = esc(s);
+  // `[text](target)` — rewrite repo-relative targets, keep external as-is.
+  out = out.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (full, text: string, target: string) => {
+    const route = repoLinkToRoute(target);
+    const href = route ?? (target.startsWith("http") ? target : "#");
+    const external = href.startsWith("http");
+    const rel = external ? ' rel="noopener noreferrer"' : "";
+    return `<a href="${href}"${rel}>${text}</a>`;
+  });
+  out = out.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+  out = out.replace(/(^|\s)\*([^*\s][^*]*)\*/g, "$1<em>$2</em>");
+  out = out.replace(/`([^`]+)`/g, "<code>$1</code>");
+  return out;
+}
+
+function render(md: string): string {
+  const lines = md.split("\n");
+  const out: string[] = [];
+  let inCode = false;
+  let listOpen: "ul" | "ol" | null = null;
+  let para: string[] = [];
+
+  const closePara = () => {
+    if (para.length) {
+      out.push(`<p>${para.map(inline).join("<br />")}</p>`);
+      para = [];
+    }
+  };
+  const closeList = () => {
+    if (listOpen) {
+      out.push(`</${listOpen}>`);
+      listOpen = null;
+    }
+  };
+
+  for (const raw of lines) {
+    const line = raw.replace(/\s+$/, "");
+    if (line.startsWith("```")) {
+      closePara();
+      closeList();
+      out.push(inCode ? "</code></pre>" : "<pre><code>");
+      inCode = !inCode;
+      continue;
+    }
+    if (inCode) {
+      out.push(esc(raw));
+      continue;
+    }
+    if (line.startsWith("|")) {
+      closePara();
+      closeList();
+      const cells = line.split("|").slice(1, -1).map((c) => c.trim());
+      if (cells.every((c) => /^:?-{2,}:?$/.test(c) || c === "")) continue;
+      out.push(`<p class="table-row">${cells.map(inline).join(" · ")}</p>`);
+      continue;
+    }
+    if (line.startsWith("### ")) { closePara(); closeList(); out.push(`<h3>${inline(line.slice(4))}</h3>`); continue; }
+    if (line.startsWith("## ")) { closePara(); closeList(); out.push(`<h2>${inline(line.slice(3))}</h2>`); continue; }
+    if (/^\s*[-*] /.test(line)) {
+      closePara();
+      if (listOpen !== "ul") { closeList(); out.push("<ul>"); listOpen = "ul"; }
+      out.push(`<li>${inline(line.replace(/^\s*[-*] /, ""))}</li>`);
+      continue;
+    }
+    if (/^\s*\d+\. /.test(line)) {
+      closePara();
+      if (listOpen !== "ol") { closeList(); out.push("<ol>"); listOpen = "ol"; }
+      out.push(`<li>${inline(line.replace(/^\s*\d+\. /, ""))}</li>`);
+      continue;
+    }
+    if (line.startsWith("> ")) { closePara(); closeList(); out.push(`<blockquote><p>${inline(line.slice(2))}</p></blockquote>`); continue; }
+    if (line.trim() === "") { closePara(); closeList(); continue; }
+    para.push(line.trim());
+  }
+  closePara();
+  closeList();
+  if (inCode) out.push("</code></pre>");
+  return out.join("\n");
+}
+
+const html = render(body);
+---
+
+<div class="doc-body" set:html={html} />
+
+<style>
+  .doc-body { max-width: 76ch; }
+  .doc-body h2 { margin-top: var(--s8); font-size: 1.45rem; }
+  .doc-body h3 { margin-top: var(--s6); font-size: 1.15rem; }
+  .doc-body blockquote {
+    margin: var(--s4) 0;
+    padding: var(--s2) var(--s4);
+    border-left: 3px solid var(--cyan);
+    background: var(--panel);
+    border-radius: 0 var(--r1) var(--r1) 0;
+  }
+  .doc-body .table-row {
+    border-bottom: 1px solid var(--panel-edge);
+    padding: var(--s1) 0;
+    margin: 0;
+    font-size: 0.95rem;
+  }
+</style>
