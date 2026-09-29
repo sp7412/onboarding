@@ -4,7 +4,7 @@ Guidance for AI coding agents (Claude Code, Codex, Cursor, etc.) working in this
 
 ## What this repo is
 
-Seth Patterson's personal onboarding workspace for a Senior AI Engineer role at ServiceTitan
+A personal onboarding workspace for a Senior AI Engineer role at ServiceTitan
 (start date Oct 26, 2026): a 30/60/90 plan, a voice-agent study guide, blank templates, and
 nine Jupyter tutorials on the real-time voice-agent stack (OpenAI Realtime, LiveKit,
 LangChain/LangGraph, LangSmith).
