@@ -12,6 +12,8 @@
 #
 # **Live vs. offline.** If `OPENAI_API_KEY` is set, `connect()` opens a WebSocket to `wss://api.openai.com/v1/realtime?model=gpt-realtime-2`. Otherwise it returns `FakeRealtime`, a simulator that speaks the same event protocol with a scripted "brain". Force either with `LIVE = True/False`.
 #
+# Background: read [`docs/speech-to-speech-models.md`](../docs/speech-to-speech-models.md) first for how these models work and the current lineup (the labs target `gpt-realtime-2`; `gpt-realtime-2.1` and `-mini` shipped in July 2026).
+#
 # Reference: OpenAI Realtime API guide and client/server event reference (developers.openai.com). Model names change; check the models page.
 
 # %%

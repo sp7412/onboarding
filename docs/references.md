@@ -42,6 +42,14 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [Advancing voice intelligence with new models in the API (gpt-realtime-2)](https://openai.com/index/advancing-voice-intelligence-with-new-models-in-the-api/) | Announcement | RG 7, PP 3 |
 | [Voice agents guide](https://developers.openai.com/api/docs/guides/voice-agents) | Docs | RG 8, PP 3 |
 | [Realtime API guide](https://developers.openai.com/api/docs/guides/realtime) | Docs | RG 13, RL, PP 3 |
+| [GPT-Realtime-2.1 model page](https://developers.openai.com/api/docs/models/gpt-realtime-2.1) | Model docs | Speech-to-speech doc |
+| [GPT-Realtime-2.1 Mini model page](https://developers.openai.com/api/docs/models/gpt-realtime-2.1-mini) | Model docs | Speech-to-speech doc |
+| [GPT-Realtime-2 model page](https://developers.openai.com/api/docs/models/gpt-realtime-2) | Model docs | Speech-to-speech doc |
+| [GPT-Realtime-Whisper model page](https://developers.openai.com/api/docs/models/gpt-realtime-whisper) | Model docs | Speech-to-speech doc |
+| [GPT-Realtime-Translate model page](https://developers.openai.com/api/docs/models/gpt-realtime-translate) | Model docs | Speech-to-speech doc |
+| [gpt-realtime-2.1 release announcement](https://community.openai.com/t/new-realtime-models-on-the-api-gpt-realtime-2-1-and-gpt-realtime-2-1-mini/1385896) | Announcement | Speech-to-speech doc |
+| [OpenAI API changelog](https://developers.openai.com/api/docs/changelog) | Changelog | Speech-to-speech doc |
+| [Hello GPT-4o](https://openai.com/index/hello-gpt-4o/) | Announcement | Speech-to-speech doc |
 | [Realtime API reference](https://platform.openai.com/docs/api-reference/realtime) | API reference | RL |
 | [Realtime prompting guide](https://developers.openai.com/cookbook/examples/realtime_prompting_guide) | Cookbook | RG 14, PP 3 |
 

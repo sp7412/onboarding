@@ -3,6 +3,9 @@
 This is a vendor-neutral reference architecture illustrated with the vendors used in
 the labs. The mock backend and simulator are fictional teaching fixtures.
 
+For how speech-to-speech models themselves work, and when to choose them over a cascaded
+pipeline, see [Speech-to-speech models](speech-to-speech-models.md).
+
 ## Reference Architecture
 
 ```mermaid

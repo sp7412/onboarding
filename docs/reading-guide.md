@@ -87,7 +87,7 @@ replace it. Check items off (`- [x]`) as you finish them.
   2. Spoken preambles ("let me check that") while tools run.
   3. The larger context window: what it enables for long calls, and what it doesn't fix (state still belongs in the app).
   4. The companion models (streaming transcription, live translation) and where they'd fit in a contractor's call center.
-- **Pairs with:** lab 01 §3
+- **Pairs with:** lab 01 §3; background: [`speech-to-speech-models.md`](speech-to-speech-models.md)
 
 ### 8. OpenAI voice agents guide
 - [ ] <https://developers.openai.com/api/docs/guides/voice-agents> · docs · 30 min
