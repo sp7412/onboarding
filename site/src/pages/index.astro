@@ -49,6 +49,12 @@ const stages = [
 ];
 
 const comingSoon = (key: string) => !routeByKey(key)!.built;
+const essentialChapters = content.whitepaper.chapters.filter((c) => c.essentials).length;
+const labCount = content.labs.length;
+const readingCount = content.reading.items.length;
+const episodeCount = content.podcasts.length;
+const glossaryCount = content.glossary.length;
+const itemCount = content.checklistItems.length;
 const libraryCards = [
   ["reading", "Reading guide", `${readingCount} ranked items with why/look-for prompts and tier filters.`],
   ["podcasts", "Podcast studio", `${episodeCount} episodes in listening order; one-tap copy blocks for NotebookLM.`],
@@ -59,13 +65,6 @@ const libraryCards = [
   ["simulations", "Simulations", "Turn-taking, guardrails and latency — play with the ideas on a phone."],
   ["glossary", "Glossary", `${glossaryCount} terms with flashcards and stage quizzes.`],
 ] as const;
-
-const essentialChapters = content.whitepaper.chapters.filter((c) => c.essentials).length;
-const labCount = content.labs.length;
-const readingCount = content.reading.items.length;
-const episodeCount = content.podcasts.length;
-const glossaryCount = content.glossary.length;
-const itemCount = content.checklistItems.length;
 
 const RING_R = 20;
 const RING_C = 2 * Math.PI * RING_R;
@@ -152,7 +151,11 @@ const PRE_START_PCT = 0.68; // placeholder until Phase 2 reads real localStorage
         labs and templates. Check things off — progress is saved in this browser.
       </p>
       <div class="hero-actions">
-        <span class="btn" aria-disabled="true">Start the pre-start stage · Coming soon</span>
+        {comingSoon("checklist") ? (
+          <span class="btn" aria-disabled="true">Start the pre-start stage · Coming soon</span>
+        ) : (
+          <a class="btn" href={url(`${routeByKey("checklist")!.path}#pre-start`)}>Start the pre-start stage</a>
+        )}
         <span class="btn btn-secondary" aria-disabled="true">Browse the reading guide · Coming soon</span>
       </div>
     </div>
@@ -188,7 +191,7 @@ const PRE_START_PCT = 0.68; // placeholder until Phase 2 reads real localStorage
   <section class="journey" aria-labelledby="journey-title">
     <div class="section-head">
       <h2 id="journey-title">The journey</h2>
-      <span class="see-all" aria-disabled="true">Full checklist · Coming soon</span>
+      {comingSoon("checklist") ? <span class="see-all" aria-disabled="true">Full checklist · Coming soon</span> : <a class="see-all" href={url("/checklist")}>Full checklist →</a>}
     </div>
     <ol class="stage-row">
       {stages.map((s, i) => (
@@ -270,7 +273,7 @@ const PRE_START_PCT = 0.68; // placeholder until Phase 2 reads real localStorage
       The persistent Continue button lands in Phase 2 with the interactive map. For now:
       the checklist saves your checks in this browser and restores them on every visit.
     </p>
-    <span class="btn" aria-disabled="true">Open the checklist · Coming soon</span>
+    {comingSoon("checklist") ? <span class="btn" aria-disabled="true">Open the checklist · Coming soon</span> : <a class="btn" href={url("/checklist#pre-start")}>Open the checklist</a>}
   </section>
 </BaseLayout>
 

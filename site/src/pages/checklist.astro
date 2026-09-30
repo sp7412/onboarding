@@ -1,0 +1,98 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import DocBody from "../components/DocBody.astro";
+import { loadContent } from "../lib/content/repo";
+import { url } from "../lib/url";
+
+const { checklist } = loadContent();
+const stageId = (stage: string) => stage;
+---
+
+<BaseLayout
+  title="Checklist · Path to Integration"
+  description="A week-by-week checklist for the first 90 days of onboarding."
+>
+  <p class="crumb muted"><a href={url("/")}>Journey</a> / checklist</p>
+  <h1>{checklist.title}</h1>
+  <div class="intro">
+    {checklist.intro.map((line) => <p>{line}</p>)}
+  </div>
+
+  <nav class="stage-nav card" aria-label="Checklist stages">
+    {checklist.stages.map((stage) => <a href={url(`#${stageId(stage.stage)}`)}>{stage.stageLabel}</a>)}
+  </nav>
+
+  <div class="checklist">
+    {checklist.stages.map((stage) => (
+      <section id={stageId(stage.stage)} class="stage-section" aria-labelledby={`${stage.stage}-title`}>
+        <div class="section-head">
+          <h2 id={`${stage.stage}-title`}>{stage.stageLabel}</h2>
+          <span class="tag">{stage.itemCount} items</span>
+        </div>
+        {stage.weeks.map((week) => (
+          <section class="week card" id={week.weekSlug}>
+            <h3>{week.week}</h3>
+            {week.output && <p class="output"><strong>Output:</strong> {week.output}</p>}
+            <ul>
+              {week.items.map((item) => (
+                <li class:list={{ "exit-criterion": item.isExitCriterion }}>
+                  <label>
+                    <input type="checkbox" data-check-id={item.id} />
+                    <span><DocBody body={item.text} sourcePath="plan/30-60-90-checklist.md" /></span>
+                  </label>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))}
+      </section>
+    ))}
+  </div>
+
+  {checklist.watchouts.length > 0 && (
+    <section class="watchouts card" aria-labelledby="watchouts-title">
+      <h2 id="watchouts-title">Watch-outs</h2>
+      <ul>{checklist.watchouts.map((watchout) => <li><DocBody body={watchout} sourcePath="plan/30-60-90-checklist.md" /></li>)}</ul>
+    </section>
+  )}
+</BaseLayout>
+
+<script>
+  const key = "path-to-integration-checklist";
+  const saved = JSON.parse(localStorage.getItem(key) ?? "{}");
+  const boxes = document.querySelectorAll<HTMLInputElement>("input[data-check-id]");
+  boxes.forEach((box) => {
+    const id = box.dataset.checkId;
+    if (!id) return;
+    box.checked = Boolean(saved[id]);
+    box.addEventListener("change", () => {
+      saved[id] = box.checked;
+      localStorage.setItem(key, JSON.stringify(saved));
+    });
+  });
+</script>
+
+<style>
+  h1 { margin-bottom: var(--s4); }
+  .crumb { font-size: 0.9rem; }
+  .intro { max-width: 76ch; margin-bottom: var(--s6); }
+  .intro p { margin: var(--s2) 0; }
+  .stage-nav { display: flex; flex-wrap: wrap; gap: var(--s2) var(--s4); margin-bottom: var(--s12); }
+  .stage-nav a { text-decoration: none; }
+  .stage-section { scroll-margin-top: 96px; margin-bottom: var(--s12); }
+  .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s4); }
+  .section-head h2 { margin-bottom: var(--s4); }
+  .week { margin-top: var(--s4); }
+  .week h3 { margin-top: 0; font-size: 1.05rem; }
+  .week ul, .watchouts ul { list-style: none; padding: 0; margin: var(--s4) 0 0; display: grid; gap: var(--s3); }
+  .week li { border-top: 1px solid var(--panel-edge); padding-top: var(--s3); }
+  .week label { display: grid; grid-template-columns: auto 1fr; gap: var(--s3); align-items: start; cursor: pointer; }
+  .week input { accent-color: var(--green); margin-top: 0.45rem; }
+  .week li:has(input:checked) { opacity: 0.6; }
+  .week li:has(input:checked) :global(.doc-body) { text-decoration: line-through; }
+  .output { color: var(--ink-dim); font-size: 0.92rem; }
+  .watchouts { margin-top: var(--s8); }
+  .watchouts h2 { margin-top: 0; }
+  :global(.doc-body) { max-width: none; }
+  :global(.doc-body p) { margin: 0; }
+</style>

@@ -6,5 +6,8 @@ export function url(path: string): string {
   const [pathname, suffix = ""] = path.split(/([?#].*)/, 2);
   const base = BASE.endsWith("/") ? BASE.slice(0, -1) : BASE;
   const cleanPath = pathname.replace(/^\/+/, "");
-  return `${base}/${cleanPath}${suffix}`;
+  const directoryPath = cleanPath && !cleanPath.endsWith("/") && !cleanPath.split("/").pop()?.includes(".")
+    ? `${cleanPath}/`
+    : cleanPath;
+  return `${base}/${directoryPath}${suffix}`;
 }

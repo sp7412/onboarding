@@ -30,6 +30,7 @@ const resolveTarget = (value, from) => {
   else if (clean.startsWith(base)) {
     const relative = clean.slice(base.length);
     file = relative.endsWith("/") ? path.join(dist, relative, "index.html") : path.join(dist, relative);
+    if (fs.existsSync(file) && fs.statSync(file).isDirectory()) file = path.join(file, "index.html");
     if (!fs.existsSync(file) && fs.existsSync(`${file}.html`)) file = `${file}.html`;
     if (!fs.existsSync(file) && fs.existsSync(path.join(file, "index.html"))) file = path.join(file, "index.html");
   } else return null;
