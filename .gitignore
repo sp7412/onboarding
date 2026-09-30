@@ -15,3 +15,6 @@ labs/agents/
 site/node_modules/
 site/dist/
 site/.astro/
+
+# nlm podcast automation state
+.nlm-podcasts.json

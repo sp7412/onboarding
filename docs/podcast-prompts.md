@@ -24,6 +24,26 @@ numbers, so treat the [reading guide](reading-guide.md) and labs as the source o
 
 Episodes are listed in **listening order**; numbers match references elsewhere in the repo.
 
+## Optional: create episodes from the command line
+
+`scripts/podcasts_to_nlm.py` reads the blocks below and, for each episode, creates a notebook,
+adds its sources and requests the Audio Overview with the block's format, length and prompt,
+using the unofficial [`nlm` CLI](https://github.com/jacob-bd/notebooklm-mcp-cli).
+
+```bash
+pipx install notebooklm-mcp-cli      # provides `nlm`
+nlm login                            # personal Google account only
+python scripts/podcasts_to_nlm.py                # dry run: prints every command
+python scripts/podcasts_to_nlm.py --run --episodes 1
+```
+
+- Consumer NotebookLM has no public API. `nlm` drives its internal interface with your saved
+  browser session, so it can break without notice. Use a personal account on a personal
+  machine, never a work account or work laptop.
+- Sites that block automated imports (OpenAI's pages often do) are reported as failed; save
+  those pages as PDFs and add them with `nlm source add <notebook-id> --file page.pdf --wait`.
+- Progress is saved in `.nlm-podcasts.json` (gitignored), so reruns skip finished episodes.
+
 ---
 
 ## Episode 1: The Business: ServiceTitan, Contractors, and AI Voice Agents
