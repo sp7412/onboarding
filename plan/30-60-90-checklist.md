@@ -18,6 +18,20 @@ access, and scope with the manager after starting.
 
 ## Pre-Start: Prepare (Now–Oct 25)
 
+## Canonical pre-start path
+
+Follow this table in order. It is the single pre-start schedule. Each week ends with one
+artifact or demonstration. The total is designed for 4–6 hours per week.
+
+| Week | Read/watch/listen/run | Time | Active deliverable |
+|---|---|---:|---|
+| Sept 28 | Read docs 101 and contractor lifecycle; read speech-to-speech background; read/watch reading-guide items 1–4 and 11B; run labs 00–03; listen to podcast episodes 1 and 6 | 4–6 h | A one-page contractor lifecycle map with the application control-plane boundary and six observed/inferred/unknown questions |
+| Oct 5 | Read architecture; read/watch reading-guide items 5–10; run labs 04–06; complete LiveKit hands-on Phases 1–2; listen to episodes 2, 10 and 11 | 4–6 h | A comparison of cascaded, realtime and workflow paths plus five simulated failure observations |
+| Oct 12 | Read evaluation guide and reading-guide items 11–14; run labs 07–08; complete LiveKit hands-on Phase 3; listen to episodes 3, 4 and 12 | 4–6 h | A fictional eval report, study-question draft, and capstone evidence matrix |
+| Oct 19 | Read only items paired with unfinished labs; read call anatomy and first-90-days playbook; listen to episodes 5 and 13; review templates and capstone rubric | 3–4 h | Manager-question set, first-PR hypothesis, personal first-week plan, and capstone open-criteria list |
+
+The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubric.md).
+
 ### Week of Sept 28 — Build the learning agenda
 
 - [ ] Read the [domain primer](../docs/servicetitan-101.md) and [contractor
@@ -44,6 +58,7 @@ access, and scope with the manager after starting.
 ### Week of Oct 12 — Build evaluation judgment
 
 - [ ] Complete labs 07–08 (needs a laptop).
+- [ ] Use [`docs/capstone-rubric.md`](../docs/capstone-rubric.md) to collect pass/fail evidence.
 - [ ] Read [`docs/evaluating-voice-agents.md`](../docs/evaluating-voice-agents.md).
 - [ ] Write the answer in [`notes/study-question.md`](../notes/study-question.md).
 - [ ] Define three hard invariants and three softer quality questions for a fictional call set.

@@ -26,17 +26,11 @@ path below.
 
 ## The Full Path
 
-The path assumes an experienced ML or signal-processing engineer who is new to
-contractor software and production voice agents. It is designed for roughly 5–7 hours
-per week before the start date. Use only personal accounts for optional live exercises;
-the complete path is useful offline.
-
-| Week | Time | Focus | Deliverable |
-|---|---:|---|---|
-| Sept 28 | 4–6 h | Reading guide items 1–4; read [`docs/servicetitan-101.md`](docs/servicetitan-101.md), [`docs/how-a-contractor-works.md`](docs/how-a-contractor-works.md), and labs 00–03 | Explain the contractor job lifecycle and draw the control-plane boundary |
-| Oct 5 | 5–7 h | Reading guide items 5–10; read [`docs/voice-agent-architecture.md`](docs/voice-agent-architecture.md), then labs 04–06 | Compare cascaded and realtime paths; demonstrate guarded booking and resume |
-| Oct 12 | 4–6 h | Reading guide items 11–14; read [`docs/evaluating-voice-agents.md`](docs/evaluating-voice-agents.md), then labs 07–08 | Produce a small eval report and complete the study-question answer |
-| Oct 19 | 3–5 h | Review [`docs/reading-guide.md`](docs/reading-guide.md), [`docs/first-90-days-playbook.md`](docs/first-90-days-playbook.md), and templates | Prepare manager questions, a first-PR hypothesis, and a measurable 30-day plan |
+The path assumes an experienced ML or signal-processing engineer who is new to contractor
+software and production voice agents. Follow the single, canonical four-week schedule in the
+[`Pre-Start canonical path`](plan/30-60-90-checklist.md#canonical-pre-start-path) (4–6 hours
+per week). Use only personal accounts for optional live exercises; the complete path is useful
+offline. Finish with the [`capstone rubric`](docs/capstone-rubric.md).
 
 For each lab, read the objective first, run the offline cells, do the understanding
 questions without looking at the answer key, then attempt the graded exercise. The

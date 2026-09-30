@@ -19,6 +19,9 @@ contractor, one architecture layer at a time:
 
 ## Learning Path
 
+The final acceptance test is [`docs/capstone-rubric.md`](../docs/capstone-rubric.md). Read it
+before lab 08 so the capstone evidence you collect is deliberate rather than retrospective.
+
 For each notebook, follow this loop:
 
 1. Read the objective and the "Where it stops" summary.
