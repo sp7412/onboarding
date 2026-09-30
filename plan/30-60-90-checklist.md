@@ -22,6 +22,7 @@ access, and scope with the manager after starting.
 
 - [ ] Read the [domain primer](../docs/servicetitan-101.md) and [contractor
   lifecycle](../docs/how-a-contractor-works.md).
+- [ ] Watch LiveKit's "Voice Agent Pipeline Explained" before lab 03 ([reading guide](../docs/reading-guide.md) item 11B).
 - [ ] Run labs 00–03 offline with Python 3.12 (needs a laptop).
 - [ ] Write one question each for customer, product, technology, quality, team, and business.
 - [ ] Start an evidence log with **observed / inferred / unknown** columns.

@@ -169,6 +169,16 @@ credentials, customer information, or live audio into this public repository.
   4. What differs from the deterministic `stlab` simulators and the raw Realtime protocol in labs 01–04.
 - **Pairs with:** labs 03–04 and [`docs/voice-agent-architecture.md`](voice-agent-architecture.md)
 
+### 11B. Voice Agent Pipeline Explained: VAD, STT, LLM & TTS (LiveKit 101, video 2)
+- [ ] <https://www.youtube.com/watch?v=SPB2T-eLrOg> · video · watch before lab 03
+- **Why:** the one video from the LiveKit 101 course to watch first. It walks through the exact pipeline labs 03 and 04 build on, so the labs make more sense with it fresh in mind.
+- **Look for:**
+  1. What each stage (voice activity detection, speech-to-text, LLM, text-to-speech) is responsible for, and what it hands to the next.
+  2. Where latency accumulates across the stages, and which stages can overlap or stream.
+  3. How the pipeline decides the caller has finished speaking, and how interruptions are handled.
+  4. Which parts are framework configuration versus application logic, which is the study question in miniature.
+- **Pairs with:** lab 03 (turn-taking) and lab 04 (LiveKit agents); podcast episode 10 covers the full playlist
+
 ### 12. Using a transformer to improve end-of-turn detection (LiveKit)
 - [ ] <https://livekit.com/blog/using-a-transformer-to-improve-end-of-turn-detection> · blog · 15 min
 - **Why:** the design behind LiveKit's semantic turn detector, and a nice small-model ML problem.
