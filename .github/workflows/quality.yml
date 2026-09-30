@@ -31,3 +31,15 @@ jobs:
         run: python scripts/check_sensitive.py
       - name: Run offline notebooks
         run: python scripts/run_notebooks.py
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.1.38
+      - name: Install site dependencies
+        working-directory: site
+        run: bun install --frozen-lockfile
+      - name: Build site
+        working-directory: site
+        run: bun run build
+      - name: Check site accessibility
+        working-directory: site
+        run: bun run test:a11y

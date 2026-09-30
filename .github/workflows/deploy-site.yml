@@ -45,6 +45,9 @@ jobs:
       - name: Check built-site links
         working-directory: site
         run: node scripts/check-links.mjs
+      - name: Check site accessibility
+        working-directory: site
+        run: bun run test:a11y
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

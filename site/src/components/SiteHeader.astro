@@ -31,7 +31,7 @@ const isActive = (href: string) =>
         {routes.map((route) => (
           <li>
             {route.built ? (
-              <a href={url(route.path)} aria-current={isActive(route.path) ? "page" : undefined}>{route.label}</a>
+              <a href={url(route.path)} aria-current={isActive(route.path) ? "page" : undefined} data-nav-link>{route.label}</a>
             ) : (
               <span aria-disabled="true" title="Coming soon">{route.label} <small>Coming soon</small></span>
             )}
@@ -43,13 +43,22 @@ const isActive = (href: string) =>
 </header>
 
 <script>
-  const toggle = document.querySelector<HTMLElement>("[data-nav-toggle]");
+  const toggle = document.querySelector<HTMLButtonElement>("[data-nav-toggle]");
   const nav = document.querySelector<HTMLElement>("[data-nav]");
   if (toggle && nav) {
-    toggle.addEventListener("click", () => {
-      const open = toggle.getAttribute("aria-expanded") === "true";
-      toggle.setAttribute("aria-expanded", String(!open));
-      nav.classList.toggle("open");
+    const firstLink = nav.querySelector<HTMLAnchorElement>("[data-nav-link]");
+    const setOpen = (open: boolean, restore = false) => {
+      toggle.setAttribute("aria-expanded", String(open));
+      nav.classList.toggle("open", open);
+      if (open) firstLink?.focus();
+      else if (restore) toggle.focus();
+    };
+    toggle.addEventListener("click", () => setOpen(toggle.getAttribute("aria-expanded") !== "true"));
+    nav.addEventListener("click", (event) => {
+      if ((event.target as HTMLElement).closest("[data-nav-link]")) setOpen(false);
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && toggle.getAttribute("aria-expanded") === "true") setOpen(false, true);
     });
   }
 </script>
