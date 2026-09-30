@@ -1,0 +1,106 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const docPages = [
+  { href: "/", label: "The journey home" },
+  { href: "/checklist", label: "30/60/90 checklist" },
+  { href: "/reading", label: "Reading guide" },
+  { href: "/podcasts", label: "Podcast prompts" },
+  { href: "/whitepaper", label: "Whitepaper" },
+  { href: "/architecture", label: "Architecture guide" },
+  { href: "/glossary", label: "Glossary" },
+  { href: "/labs", label: "Notebook labs" },
+  { href: "/templates", label: "Templates" },
+  { href: "/about", label: "About this site" },
+];
+---
+
+<BaseLayout
+  title="Page not found · Path to Integration"
+  description="That route isn't wired up yet."
+>
+  <section class="card lost">
+    <p class="code" aria-hidden="true">ERR_ROUTE_NOT_FOUND</p>
+    <h1>Signal lost</h1>
+    <p class="lede">
+      The trace you followed doesn't resolve. Either the page hasn't been built
+      yet, or the address has a typo.
+    </p>
+
+    <h2>Where did you mean to go?</h2>
+    <ul class="routes">
+      {
+        docPages.map((p) => (
+          <li>
+            <a href={p.href}>{p.label}</a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <h2>Looking for something specific?</h2>
+    <p>
+      The search box on the{" "}
+      <a href="/checklist">checklist page</a> filters every item as you type, so
+      it's the fastest way to find one item across 90 days.
+    </p>
+
+    <p class="repo-hint">
+      Spotted a broken link from another page? File it on the{" "}
+      <a href="https://github.com/sp7412/onboarding">repository issues page</a>.
+    </p>
+  </section>
+</BaseLayout>
+
+<style>
+  .lost {
+    max-width: 44rem;
+    margin-inline: auto;
+    padding: var(--s8) var(--s6);
+  }
+  .code {
+    font-family: var(--font-mono, "IBM Plex Mono", monospace);
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--danger);
+    margin-bottom: var(--s2);
+  }
+  h1 {
+    font-size: clamp(2rem, 6vw, 2.8rem);
+    line-height: 1.1;
+    margin-bottom: var(--s4);
+  }
+  .lede {
+    color: var(--ink-dim);
+    font-size: 1.1rem;
+    max-width: 34rem;
+  }
+  h2 {
+    margin-top: var(--s6);
+    font-size: 1.15rem;
+  }
+  .routes {
+    list-style: none;
+    padding: 0;
+    margin: var(--s4) 0 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+    gap: var(--s2);
+  }
+  .routes a {
+    display: block;
+    padding: var(--s2) var(--s3);
+    border: 1px solid var(--panel-edge);
+    border-radius: 0.4rem;
+    background: color-mix(in srgb, var(--panel) 60%, transparent);
+  }
+  .routes a:hover {
+    border-color: var(--cyan);
+  }
+  .repo-hint {
+    margin-top: var(--s6);
+    color: var(--ink-dim);
+    font-size: 0.95rem;
+  }
+</style>
