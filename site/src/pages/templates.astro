@@ -1,4 +1,5 @@
 ---
+import Icon from "../components/Icon.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import DocBody from "../components/DocBody.astro";
 import { loadContent, TEMPLATE_FILES } from "../lib/content/repo";
@@ -7,7 +8,7 @@ const { templates } = loadContent();
 ---
 <BaseLayout title="Templates · Path to Integration" description="Templates for the documents the checklist asks for.">
   <p class="crumb muted"><a href={url("/")}>Journey</a> / templates</p>
-  <h1>Templates</h1>
+  <div class="page-title"><Icon name="template" badge size={22} tone="cyan" /><h1>Templates</h1></div>
   <p class="page-lede">Copy a template into your own notes. After you start, keep filled-in versions in company systems, not in this public repo.</p>
   <nav class="toc" aria-label="Templates">{templates.map((t) => <a href={`#${t.slug}`}>{t.title}</a>)}</nav>
   {templates.map((t, i) => (

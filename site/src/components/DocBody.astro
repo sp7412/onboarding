@@ -26,31 +26,58 @@ const { html } = renderMarkdown(body, {
 <div class="doc-body" set:html={html} />
 
 <style is:global>
-  .doc-body { max-width: 76ch; }
-  .doc-body h2 { margin-top: var(--s8); font-size: 1.45rem; }
-  .doc-body h3 { margin-top: var(--s6); font-size: 1.15rem; }
-  .doc-body blockquote {
-    margin: var(--s4) 0;
-    padding: var(--s2) var(--s4);
-    border-left: 3px solid var(--cyan);
-    background: var(--panel);
-    border-radius: 0 var(--r1) var(--r1) 0;
+  .doc-body { max-width: 72ch; font-size: 1.0625rem; line-height: 1.72; }
+  .doc-body > p, .doc-body li > p { margin: 0 0 1em; }
+  .doc-body p { margin: 0 0 1em; }
+  .doc-body strong { color: #fff; font-weight: 600; }
+  .doc-body a { overflow-wrap: anywhere; }
+  .doc-body code { overflow-wrap: anywhere; font-size: 0.88em; background: #16213d; }
+  .doc-body ul, .doc-body ol { padding-left: 1.35em; margin: 0 0 1.1em; }
+  .doc-body li { margin: 0.4em 0; }
+  .doc-body li::marker { color: var(--cyan); }
+  .doc-body h2 {
+    margin: 2.2em 0 0.7em; padding-top: 0.9em; font-size: 1.5rem;
+    border-top: 1px solid var(--panel-edge);
   }
-  .doc-body .table-wrap { overflow-x: auto; margin: var(--s4) 0; }
-  .doc-body table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
-  .doc-body th, .doc-body td { border-bottom: 1px solid var(--panel-edge); padding: var(--s2) var(--s3); text-align: left; vertical-align: top; }
-  .doc-body th { color: var(--cyan); font-family: var(--font-head); font-weight: 500; }
-  .doc-body pre { background: var(--panel); border: 1px solid var(--panel-edge); border-radius: var(--r1); padding: var(--s4); overflow-x: auto; white-space: pre-wrap; }
-  .doc-body figure.mermaid-src figcaption { font-size: 0.9rem; color: var(--ink-dim); margin-bottom: var(--s2); }
-  .doc-body figure.mermaid-src { margin: var(--s4) 0; }
-  .doc-body ul.task-list { list-style: none; padding-left: var(--s2); }
-  .doc-body label.task { display: inline-flex; gap: var(--s2); align-items: flex-start; }
-  .doc-body label.task input { margin-top: 0.35em; accent-color: var(--green); }
-  .doc-body hr { border: 0; border-top: 1px solid var(--panel-edge); margin: var(--s8) 0; }
-  .doc-body .table-row {
-    border-bottom: 1px solid var(--panel-edge);
-    padding: var(--s1) 0;
-    margin: 0;
-    font-size: 0.95rem;
+  .doc-body h3 { margin: 1.8em 0 0.5em; font-size: 1.18rem; color: #cfe7ff; }
+  .doc-body h4 { margin: 1.4em 0 0.4em; font-size: 1.02rem; color: var(--ink-dim); text-transform: none; }
+  .doc-body > h2:first-child, .doc-body > h3:first-child { border-top: 0; padding-top: 0; margin-top: 0.4em; }
+  .doc-body blockquote {
+    margin: 1.2em 0; padding: 0.9em 1.1em; border-left: 3px solid var(--cyan);
+    background: linear-gradient(90deg, rgba(55,224,255,0.08), rgba(17,28,51,0.9));
+    border-radius: 0 var(--r2) var(--r2) 0;
+  }
+  .doc-body blockquote p:last-child { margin-bottom: 0; }
+  /* Takeaways callout */
+  .doc-body h2#five-takeaways + ol, .doc-body h2#five-takeaways + ul,
+  .doc-body h2#key-takeaways + ol, .doc-body h2#key-takeaways + ul {
+    background: linear-gradient(180deg, #12214a, #0f1b38); border: 1px solid #25407a;
+    border-radius: var(--r2); padding: 1em 1.2em 1em 2.3em; box-shadow: var(--glow);
+  }
+  /* Sources: quieter */
+  .doc-body h2#sources + ol, .doc-body h2#sources + ul { font-size: 0.92rem; color: var(--ink-dim); }
+  .doc-body .table-wrap {
+    overflow-x: auto; margin: 1.2em 0; border: 1px solid var(--panel-edge); border-radius: var(--r2);
+    background: linear-gradient(90deg, #0f1a33 30%, transparent), linear-gradient(90deg, transparent, #0f1a33 70%) 100% 0,
+      radial-gradient(farthest-side at 0 50%, rgba(55,224,255,.25), transparent), radial-gradient(farthest-side at 100% 50%, rgba(55,224,255,.25), transparent) 100% 0;
+    background-repeat: no-repeat; background-size: 40px 100%, 40px 100%, 14px 100%, 14px 100%;
+    background-attachment: local, local, scroll, scroll;
+  }
+  .doc-body table { border-collapse: collapse; width: 100%; font-size: 0.93rem; line-height: 1.5; min-width: 32rem; }
+  .doc-body th, .doc-body td { border-bottom: 1px solid var(--panel-edge); padding: 0.6em 0.8em; text-align: left; vertical-align: top; }
+  .doc-body thead th { color: var(--cyan); font-family: var(--font-head); font-weight: 500; background: #0d1731; position: sticky; top: 0; }
+  .doc-body tbody tr:nth-child(even) td { background: rgba(255,255,255,0.015); }
+  .doc-body pre { background: #0d1731; border: 1px solid var(--panel-edge); border-radius: var(--r2); padding: 1em; overflow-x: auto; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 0.86rem; }
+  .doc-body figure.mermaid-src { margin: 1.2em 0; }
+  .doc-body figure.mermaid-src figcaption { font-size: 0.9rem; color: var(--ink-dim); margin-bottom: 0.5em; }
+  .doc-body ul.task-list { list-style: none; padding-left: 0.2em; }
+  .doc-body label.task, .doc-body span.task { display: inline-flex; gap: 0.6em; align-items: flex-start; }
+  .doc-body .task input { margin-top: 0.4em; width: 1.05rem; height: 1.05rem; accent-color: var(--green); flex: none; }
+  .doc-body hr { border: 0; border-top: 1px solid var(--panel-edge); margin: 2.2em 0; }
+  @media (max-width: 560px) {
+    .doc-body { font-size: 1rem; line-height: 1.68; }
+    .doc-body h2 { font-size: 1.3rem; }
+    .doc-body h3 { font-size: 1.1rem; }
+    .doc-body table { font-size: 0.88rem; }
   }
 </style>

@@ -26,6 +26,22 @@ export interface RenderResult {
 
 const REPO = "https://github.com/sp7412/onboarding/blob/main/";
 
+/** Short, readable link text for a long URL: host + last path segment. */
+export function prettyUrl(u: string): string {
+  try {
+    const url = new URL(u);
+    const host = url.hostname.replace(/^www\./, "");
+    const parts = url.pathname.split("/").filter(Boolean);
+    const full = host + (parts.length ? "/" + parts.join("/") : "") + (url.search ? url.search : "");
+    if (full.length <= 44) return full;
+    const last = parts[parts.length - 1] ?? "";
+    const tail = last.length > 30 ? last.slice(0, 28) + "…" : last;
+    return tail ? `${host}/…/${tail}` : host;
+  } catch {
+    return u;
+  }
+}
+
 export function esc(s: string): string {
   return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
@@ -59,7 +75,7 @@ export function renderMarkdown(md: string, opts: RenderOptions): RenderResult {
   };
 
   const anchor = (url: string, external: boolean, textHtml: string) =>
-    `<a href="${esc(url)}"${external ? ' rel="noopener noreferrer" target="_blank"' : ""}>${textHtml}</a>`;
+    `<a href="${esc(url)}"${external ? ` rel="noopener noreferrer" target="_blank" title="${esc(url)}"` : ""}>${textHtml}</a>`;
 
   function inline(src: string, allowLinks = true): string {
     const slots: string[] = [];
@@ -71,12 +87,12 @@ export function renderMarkdown(md: string, opts: RenderOptions): RenderResult {
         const { url, external } = href(target);
         return hold(anchor(url, external, inline(text, false)));
       });
-      s = s.replace(/<((?:https?:\/\/|mailto:)[^>\s]+)>/g, (_m, u: string) => hold(anchor(u, true, esc(u))));
+      s = s.replace(/<((?:https?:\/\/|mailto:)[^>\s]+)>/g, (_m, u: string) => hold(anchor(u, true, esc(prettyUrl(u)))));
     }
     s = esc(s);
     if (allowLinks) {
       s = s.replace(/(^|[\s(])(https?:\/\/[^\s<)\u0000]+[^\s<).,;:!?\u0000])/g, (_m, pre: string, u: string) =>
-        `${pre}${hold(anchor(u.replace(/&amp;/g, "&"), true, u))}`);
+        `${pre}${hold(anchor(u.replace(/&amp;/g, "&"), true, esc(prettyUrl(u.replace(/&amp;/g, "&")))))}`);
     }
     s = s.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
     s = s.replace(/(^|[\s(])\*([^*\s][^*]*?)\*(?=[\s).,;:!?]|$)/g, "$1<em>$2</em>");

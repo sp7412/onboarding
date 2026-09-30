@@ -1,0 +1,25 @@
+---
+import { ICONS } from "../lib/icons";
+interface Props { name: keyof typeof ICONS | string; size?: number; badge?: boolean; tone?: "cyan" | "green" | "gold" | "blue"; label?: string }
+const { name, size = 24, badge = false, tone = "cyan", label } = Astro.props;
+const d = ICONS[name] ?? ICONS.compass;
+---
+{badge ? (
+  <span class={`icon-badge tone-${tone}`} style={`--badge:${size * 2}px`} aria-hidden={label ? undefined : "true"} role={label ? "img" : undefined} aria-label={label}>
+    <svg viewBox="0 0 24 24" width={size} height={size} fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d={d} /></svg>
+  </span>
+) : (
+  <svg class="icon" viewBox="0 0 24 24" width={size} height={size} fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={d} /></svg>
+)}
+<style is:global>
+  .icon-badge {
+    display: inline-grid; place-items: center; flex: none;
+    width: var(--badge); height: var(--badge); border-radius: 50%;
+    background: radial-gradient(circle at 50% 35%, #16264a, #0c1630 70%);
+    border: 1.5px solid currentColor; box-shadow: 0 0 18px -4px currentColor, inset 0 0 12px -6px currentColor;
+  }
+  .icon-badge.tone-cyan { color: var(--cyan); }
+  .icon-badge.tone-green { color: var(--green); }
+  .icon-badge.tone-gold { color: var(--gold); }
+  .icon-badge.tone-blue { color: var(--blue); }
+</style>

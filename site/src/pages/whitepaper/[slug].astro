@@ -1,4 +1,5 @@
 ---
+import Icon from "../../components/Icon.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import DocBody from "../../components/DocBody.astro";
 import { loadContent } from "../../lib/content/repo";
@@ -18,11 +19,12 @@ const file = `docs/whitepaper/${chapter.slug}.md`;
 ---
 <BaseLayout title={`${chapter.title} · Whitepaper`} description={chapter.title}>
   <p class="crumb muted"><a href={url("/")}>Journey</a> / <a href={url("/whitepaper")}>whitepaper</a></p>
-  <h1>{chapter.title}</h1>
+  <div class="page-title"><Icon name="whitepaper" badge size={22} tone="cyan" /><h1>{chapter.title}</h1></div>
   {chapter.sections.length > 2 && (
-    <nav class="toc" aria-label="In this chapter">
-      {chapter.sections.map((s) => <a href={`#${anchorFor(s)}`}>{s}</a>)}
-    </nav>
+    <details class="toc-box card">
+      <summary>In this chapter ({chapter.sections.length} sections)</summary>
+      <nav aria-label="In this chapter"><ol>{chapter.sections.map((s) => <li><a href={`#${anchorFor(s)}`}>{s}</a></li>)}</ol></nav>
+    </details>
   )}
   <DocBody body={chapter.body} sourcePath={file} idPrefix={`whitepaper-${chapter.slug}`} />
   <div class="card chapter-end">
@@ -34,6 +36,10 @@ const file = `docs/whitepaper/${chapter.slug}.md`;
   </div>
 </BaseLayout>
 <style>
+  .toc-box { margin: 0 0 var(--s8); max-width: 72ch; }
+  .toc-box summary { cursor: pointer; font-weight: 600; }
+  .toc-box ol { margin: var(--s3) 0 0; padding-left: 1.3em; columns: 2 16rem; }
+  .toc-box li { margin: 0.25em 0; break-inside: avoid; }
   .chapter-end { margin-top: var(--s12); display: grid; gap: var(--s4); }
   .pager { display: flex; justify-content: space-between; gap: var(--s4); flex-wrap: wrap; }
 </style>

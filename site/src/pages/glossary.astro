@@ -1,4 +1,5 @@
 ---
+import Icon from "../components/Icon.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { loadContent } from "../lib/content/repo";
 import { renderMarkdown } from "../lib/markdown";
@@ -10,7 +11,7 @@ const terms = [...glossary].sort((a, b) => a.term.localeCompare(b.term));
 ---
 <BaseLayout title="Glossary · Path to Integration" description="Trades, contact-center and voice-AI terms.">
   <p class="crumb muted"><a href={url("/")}>Journey</a> / glossary</p>
-  <h1>Glossary</h1>
+  <div class="page-title"><Icon name="glossary" badge size={22} tone="cyan" /><h1>Glossary</h1></div>
   <p class="page-lede">{terms.length} terms. Search, or switch to flashcards to test yourself.</p>
   <div class="gloss-tools">
     <label>Search <input type="search" id="gloss-q" placeholder="e.g. booking rate" /></label>

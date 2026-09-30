@@ -1,0 +1,140 @@
+---
+import { ICONS } from "../lib/icons";
+// Original illustration: onboarding materials flow along circuit traces into a bright
+// core, then climb a stepped path of milestones (learn → team → launch) to a trophy.
+const cards = [
+  { x: 40, y: 64, icon: "search", tilt: -4 },
+  { x: 150, y: 118, icon: "shield", tilt: 3 },
+  { x: 52, y: 214, icon: "doc", tilt: 2 },
+  { x: 160, y: 272, icon: "briefcase", tilt: -3 },
+];
+const traces = [
+  "M150 96 H300 L340 136 H430 L470 176 H548",
+  "M262 150 H330 L370 190 H520 L548 214",
+  "M164 250 H300 L340 230 H548",
+  "M272 306 H340 L380 266 H500 L548 246",
+  "M120 350 H280 L330 390 H460 L520 330 L548 262",
+  "M60 40 H240 L290 90 H400 L440 130",
+];
+const steps = [
+  { x: 660, y: 356, w: 110, h: 40 },
+  { x: 760, y: 312, w: 110, h: 84 },
+  { x: 860, y: 264, w: 110, h: 132 },
+  { x: 960, y: 212, w: 110, h: 184 },
+  { x: 1060, y: 158, w: 110, h: 238 },
+];
+const badges = [
+  { cx: 740, cy: 270, icon: "book", tone: "#37e0ff" },
+  { cx: 850, cy: 222, icon: "team", tone: "#37e0ff" },
+  { cx: 952, cy: 168, icon: "rocket", tone: "#4ade80" },
+];
+const figure = (x: number, y: number, s = 1) =>
+  `M${x} ${y - 30 * s}a${5 * s} ${5 * s} 0 1 0 0.01 0 M${x} ${y - 24 * s}v${13 * s} M${x} ${y - 20 * s}l${-7 * s} ${7 * s} M${x} ${y - 20 * s}l${8 * s} ${-4 * s} M${x} ${y - 11 * s}l${-6 * s} ${11 * s} M${x} ${y - 11 * s}l${7 * s} ${9 * s}`;
+---
+<svg class="hero-illustration" viewBox="0 0 1200 420" role="img" aria-labelledby="hero-art-title">
+  <title id="hero-art-title">Study materials flow along circuit lines into a glowing core, then up a stepped path of milestones to a trophy.</title>
+  <defs>
+    <radialGradient id="ha-core" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="1" />
+      <stop offset="0.18" stop-color="#b9f6ff" stop-opacity="0.95" />
+      <stop offset="0.45" stop-color="#37e0ff" stop-opacity="0.45" />
+      <stop offset="1" stop-color="#37e0ff" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="ha-trace" x1="0" x2="1">
+      <stop offset="0" stop-color="#3e7bff" stop-opacity="0.35" />
+      <stop offset="1" stop-color="#37e0ff" />
+    </linearGradient>
+    <linearGradient id="ha-rise" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#37e0ff" />
+      <stop offset="1" stop-color="#4ade80" />
+    </linearGradient>
+    <linearGradient id="ha-step" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3e7bff" stop-opacity="0.55" />
+      <stop offset="1" stop-color="#3e7bff" stop-opacity="0.06" />
+    </linearGradient>
+    <linearGradient id="ha-card" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2a4a8f" />
+      <stop offset="1" stop-color="#15254a" />
+    </linearGradient>
+    <filter id="ha-glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="b" />
+      <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
+    </filter>
+    <pattern id="ha-dots" width="36" height="36" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.2" fill="#2a3b66" />
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="420" fill="url(#ha-dots)" opacity="0.7" />
+
+  <!-- wave ribbons under the traces -->
+  <path d="M0 330 C180 280 300 380 470 320 S620 250 700 300 S900 400 1200 330 V420 H0z" fill="#3e7bff" opacity="0.08" />
+  <path d="M0 360 C200 320 320 410 520 350 S760 300 900 360 S1080 420 1200 380 V420 H0z" fill="#37e0ff" opacity="0.06" />
+
+  <!-- circuit traces into the core -->
+  <g fill="none" stroke="url(#ha-trace)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    {traces.map((d) => <path d={d} />)}
+  </g>
+  <g fill="#37e0ff" filter="url(#ha-glow)">
+    <circle cx="300" cy="96" r="3.5" /><circle cx="370" cy="190" r="3.5" /><circle cx="340" cy="230" r="3.5" />
+    <circle cx="380" cy="266" r="3.5" /><circle cx="330" cy="390" r="3.5" /><circle cx="290" cy="90" r="3.5" /><circle cx="440" cy="130" r="4" />
+  </g>
+
+  <!-- document cards -->
+  {cards.map((c) => (
+    <g transform={`translate(${c.x} ${c.y}) rotate(${c.tilt} 55 60)`}>
+      <rect width="110" height="120" rx="12" fill="url(#ha-card)" stroke="#5b8cff" stroke-opacity="0.6" />
+      <rect x="10" y="10" width="90" height="100" rx="8" fill="none" stroke="#9cc0ff" stroke-opacity="0.18" />
+      <g transform="translate(31 36) scale(2)" fill="none" stroke="#cfe2ff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d={ICONS[c.icon]} /></g>
+    </g>
+  ))}
+
+  <!-- gear accent -->
+  <g transform="translate(398 318) scale(1.6)" fill="none" stroke="#3e7bff" stroke-width="1.6" stroke-linecap="round" opacity="0.8"><path d={ICONS.gear} /></g>
+
+  <!-- the core -->
+  <circle cx="600" cy="230" r="120" fill="url(#ha-core)" opacity="0.55" />
+  <circle cx="600" cy="230" r="46" fill="none" stroke="#37e0ff" stroke-width="2" opacity="0.8" />
+  <circle cx="600" cy="230" r="70" fill="none" stroke="#37e0ff" stroke-width="1" opacity="0.35" stroke-dasharray="4 8" />
+  <circle cx="600" cy="230" r="22" fill="url(#ha-core)" filter="url(#ha-glow)" />
+  <g stroke="#b9f6ff" stroke-width="1.5" opacity="0.7" filter="url(#ha-glow)">
+    <path d="M600 160v-26 M600 300v26 M530 230h-26 M670 230h26 M551 181l-14-14 M649 279l14 14 M649 181l14-14 M551 279l-14 14" />
+  </g>
+  <circle cx="548" cy="176" r="4" fill="#37e0ff" /><circle cx="548" cy="214" r="4" fill="#37e0ff" /><circle cx="548" cy="246" r="4" fill="#37e0ff" /><circle cx="548" cy="262" r="4" fill="#37e0ff" />
+
+  <!-- stepped path -->
+  {steps.map((s) => (
+    <g>
+      <rect x={s.x} y={s.y} width={s.w} height={s.h} fill="url(#ha-step)" />
+      <path d={`M${s.x} ${s.y} h${s.w}`} stroke="#5b8cff" stroke-width="2" />
+    </g>
+  ))}
+  <g fill="none" stroke="#e8eefa" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d={figure(700, 356)} opacity="0.85" />
+    <path d={figure(905, 264)} opacity="0.95" />
+  </g>
+
+  <!-- rising progress line with milestone badges -->
+  <path d="M646 262 C700 300 720 284 740 270 S820 236 850 222 S930 188 952 168 S1060 118 1112 92" fill="none" stroke="url(#ha-rise)" stroke-width="3" stroke-linecap="round" filter="url(#ha-glow)" />
+  <path d="M1098 84 l18 6 -8 16" fill="none" stroke="#4ade80" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+  {badges.map((b) => (
+    <g>
+      <circle cx={b.cx} cy={b.cy} r="26" fill="#0c1630" stroke={b.tone} stroke-width="2" filter="url(#ha-glow)" />
+      <g transform={`translate(${b.cx - 13} ${b.cy - 13}) scale(1.08)`} fill="none" stroke={b.tone} stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d={ICONS[b.icon]} /></g>
+    </g>
+  ))}
+  <g>
+    <circle cx="1130" cy="70" r="34" fill="#1a1a0c" stroke="#f5c044" stroke-width="2.5" filter="url(#ha-glow)" />
+    <g transform="translate(1112 52) scale(1.5)" fill="none" stroke="#f5c044" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d={ICONS.trophy} /></g>
+  </g>
+
+  <!-- stars -->
+  <g fill="#b9f6ff">
+    <path d="M760 70l2 6 6 2-6 2-2 6-2-6-6-2 6-2z" opacity="0.8" />
+    <path d="M1010 60l1.5 4.5 4.5 1.5-4.5 1.5-1.5 4.5-1.5-4.5-4.5-1.5 4.5-1.5z" opacity="0.6" />
+    <path d="M500 60l1.5 4.5 4.5 1.5-4.5 1.5-1.5 4.5-1.5-4.5-4.5-1.5 4.5-1.5z" opacity="0.5" />
+  </g>
+</svg>
+<style>
+  .hero-illustration { width: 100%; height: auto; display: block; }
+</style>

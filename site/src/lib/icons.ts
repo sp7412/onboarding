@@ -1,0 +1,23 @@
+/** Line icons on a 24×24 grid (stroke = currentColor). Original artwork for this site. */
+export const ICONS: Record<string, string> = {
+  book: "M4 5h6a2 2 0 0 1 2 2v12a2 2 0 0 0-2-2H4z M20 5h-6a2 2 0 0 0-2 2v12a2 2 0 0 1 2-2h6z",
+  team: "M8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M16 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M2 20c0-3 3-5 6-5s6 2 6 5 M10 20c0-3 3-5 6-5s6 2 6 5",
+  rocket: "M12 2c4 2 6 6 6 10l-3 3H9l-3-3c0-4 2-8 6-10z M9 15l-3 4 4-1 M15 15l3 4-4-1 M12 8.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z",
+  trophy: "M8 4h8v5a4 4 0 0 1-8 0z M8 6H5a3 3 0 0 0 3 4 M16 6h3a3 3 0 0 1-3 4 M12 13v4 M8 20h8 M10 17h4",
+  search: "M10 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M4 17c0-3 3-4.5 6-4.5 M15 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M17.5 14.5L21 18",
+  shield: "M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z M9 12l2 2 4-4",
+  doc: "M6 3h8l4 4v14H6z M14 3v4h4 M9 12h6 M9 15h6 M9 18h4",
+  briefcase: "M4 8h16v11H4z M9 8V5h6v3 M4 13h16",
+  gear: "M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z M12 2v3 M12 19v3 M2 12h3 M19 12h3 M4.9 4.9l2.1 2.1 M17 17l2.1 2.1 M4.9 19.1L7 17 M17 7l2.1-2.1",
+  headset: "M4 13v-1a8 8 0 0 1 16 0v1 M4 13h3v5H4z M17 13h3v5h-3z M20 18a4 4 0 0 1-4 3h-3",
+  plan: "M8 3h8v3H8z M6 4.5H5v16.5h14V4.5h-1 M8 11l2 2 4-4 M8 17h8",
+  chart: "M4 20V4 M4 20h16 M8 16v-4 M12 16V8 M16 16v-6",
+  flask: "M9 3h6 M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3 M7.5 15h9",
+  mic: "M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3z M5 11a7 7 0 0 0 14 0 M12 18v3",
+  layers: "M12 3l9 4.5-9 4.5-9-4.5z M3 12l9 4.5 9-4.5 M3 16.5L12 21l9-4.5",
+  wave: "M2 12h3l2-6 3 12 3-9 2 3h7",
+  glossary: "M5 4h11a2 2 0 0 1 2 2v14H7a2 2 0 0 1-2-2z M5 18a2 2 0 0 1 2-2h11 M9 8h5 M9 11h5",
+  template: "M5 3h14v18H5z M8 7h8 M8 11h8 M8 15h5",
+  whitepaper: "M6 3h9l3 3v15H6z M9 9h6 M9 12h6 M9 15h6 M9 18h3",
+  compass: "M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z M15.5 8.5l-2 5-5 2 2-5z",
+};

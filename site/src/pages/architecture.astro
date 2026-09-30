@@ -1,4 +1,5 @@
 ---
+import Icon from "../components/Icon.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import DocBody from "../components/DocBody.astro";
 import { readRepoFile } from "../lib/content/repo";
@@ -17,7 +18,7 @@ const layers = [
 ---
 <BaseLayout title="Architecture · Path to Integration" description="Where each component of a voice agent stops, and where the control plane begins.">
   <p class="crumb muted"><a href={url("/")}>Journey</a> / architecture</p>
-  <h1>Architecture explorer</h1>
+  <div class="page-title"><Icon name="layers" badge size={22} tone="cyan" /><h1>Architecture explorer</h1></div>
   <p class="page-lede">Open each layer to see what it owns and where it stops. Then write your own answer on the <a href={url("/docs/study-question")}>study question</a> page.</p>
   <div class="layers">
     {layers.map((l, i) => (

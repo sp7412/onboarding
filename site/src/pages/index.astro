@@ -1,6 +1,8 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { loadContent } from "../lib/content/repo";
+import HeroArt from "../components/HeroArt.astro";
+import Icon from "../components/Icon.astro";
 import { routeByKey } from "../lib/routes";
 import { url } from "../lib/url";
 
@@ -66,6 +68,10 @@ const libraryCards = [
   ["glossary", "Glossary", `${glossaryCount} terms with search and flashcards.`],
 ] as const;
 
+const LIB_ICONS: Record<string, string> = {
+  reading: "book", podcasts: "mic", whitepaper: "whitepaper", labs: "flask",
+  checklist: "plan", architecture: "layers", simulations: "wave", glossary: "glossary",
+};
 const RING_R = 20;
 const RING_C = 2 * Math.PI * RING_R;
 const PRE_START_PCT = 0; // real progress is painted client-side from localStorage
@@ -79,73 +85,7 @@ const orderedIds = content.checklistItems.map((i) => i.id);
   description="An interactive journey from pre-start through day 90 of joining a voice-agent AI team."
 >
   <section class="hero" aria-labelledby="hero-title">
-    <svg
-      class="hero-art"
-      viewBox="0 0 1440 480"
-      preserveAspectRatio="xMidYMid slice"
-      aria-hidden="true"
-      focusable="false"
-    >
-      <defs>
-        <radialGradient id="heroGlow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="#37e0ff" stop-opacity="0.35"></stop>
-          <stop offset="45%" stop-color="#37e0ff" stop-opacity="0.12"></stop>
-          <stop offset="100%" stop-color="#37e0ff" stop-opacity="0"></stop>
-        </radialGradient>
-      </defs>
-      <rect width="1440" height="480" fill="var(--navy)"></rect>
-      <pattern id="heroGrid" width="48" height="48" patternUnits="userSpaceOnUse">
-        <circle cx="1.5" cy="1.5" r="1.5" fill="#1e2c4f" opacity="0.55"></circle>
-      </pattern>
-      <rect width="1440" height="480" fill="url(#heroGrid)"></rect>
-      <g
-        fill="none"
-        stroke="#3e7bff"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        opacity="0.9"
-      >
-        <path d="M0 80 H420 L500 160 H760"></path>
-        <path d="M0 160 H300 L380 240 H700 L760 200"></path>
-        <path d="M0 240 H560 L640 300 H760"></path>
-        <path d="M0 320 H340 L420 380 H700 L760 320"></path>
-        <path d="M0 400 H480 L560 340 H760"></path>
-      </g>
-      <g fill="#1e2c4f">
-        <circle cx="420" cy="80" r="5"></circle>
-        <circle cx="300" cy="160" r="5"></circle>
-        <circle cx="560" cy="240" r="5"></circle>
-        <circle cx="340" cy="320" r="5"></circle>
-        <circle cx="480" cy="400" r="5"></circle>
-        <circle cx="500" cy="160" r="5"></circle>
-        <circle cx="380" cy="240" r="5"></circle>
-        <circle cx="640" cy="300" r="5"></circle>
-        <circle cx="420" cy="380" r="5"></circle>
-      </g>
-      <g fill="none" stroke="#37e0ff" stroke-width="1.5" opacity="0.6">
-        <circle cx="980" cy="240" r="70"></circle>
-        <circle cx="980" cy="240" r="100"></circle>
-        <circle cx="980" cy="240" r="130"></circle>
-      </g>
-      <circle cx="980" cy="240" r="210" fill="url(#heroGlow)"></circle>
-      <g
-        fill="none"
-        stroke="#37e0ff"
-        stroke-width="2.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <path d="M760 240 H910"></path>
-        <path d="M1050 240 H1200 L1240 200 H1440"></path>
-        <path d="M1050 240 H1140 L1180 280 H1440"></path>
-      </g>
-      <g fill="#37e0ff">
-        <circle cx="910" cy="240" r="4"></circle>
-        <circle cx="1240" cy="200" r="4"></circle>
-        <circle cx="1180" cy="280" r="4"></circle>
-      </g>
-    </svg>
+    <div class="hero-visual"><HeroArt /></div>
     <div class="hero-inner">
       <p class="tag">Pre-start · Sept 28 – Oct 25</p>
       <h1 id="hero-title">From first call to day 90.</h1>
@@ -249,32 +189,12 @@ const orderedIds = content.checklistItems.map((i) => i.id);
       <h2 id="library-title">The library</h2>
     </div>
     <div class="grid">
-      {libraryCards.slice(0, 4).map(([key, label, desc]) =>
-        comingSoon(key) ? (
-          <span class="lib-card" aria-disabled="true">
-            <span class="lib-title">{label}</span><span class="lib-desc muted">{desc}</span>
-            <span class="tag">Coming soon</span>
-          </span>
-        ) : (
-          <a class="lib-card" href={url(routeByKey(key)!.path)}>
-            <span class="lib-title">{label}</span><span class="lib-desc muted">{desc}</span>
-          </a>
-        )
-      )}
-    </div>
-    <div class="grid grid-secondary">
-      {libraryCards.slice(4).map(([key, label, desc]) =>
-        comingSoon(key) ? (
-          <span class="lib-card" aria-disabled="true">
-            <span class="lib-title">{label}</span><span class="lib-desc muted">{desc}</span>
-            <span class="tag">Coming soon</span>
-          </span>
-        ) : (
-          <a class="lib-card" href={url(routeByKey(key)!.path)}>
-            <span class="lib-title">{label}</span><span class="lib-desc muted">{desc}</span>
-          </a>
-        )
-      )}
+      {libraryCards.map(([key, label, desc]) => (
+        <a class="lib-card" href={url(routeByKey(key)!.path)}>
+          <Icon name={LIB_ICONS[key] ?? "compass"} badge size={20} tone={key === "simulations" ? "green" : "cyan"} />
+          <span class="lib-text"><span class="lib-title">{label}</span><span class="lib-desc muted">{desc}</span></span>
+        </a>
+      ))}
     </div>
   </section>
 
@@ -316,18 +236,19 @@ const orderedIds = content.checklistItems.map((i) => i.id);
     border-radius: var(--r3);
     overflow: hidden;
     isolation: isolate;
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    align-items: center;
+    background:
+      radial-gradient(900px 400px at 75% 40%, rgba(55, 224, 255, 0.10), transparent 60%),
+      linear-gradient(180deg, #0d1834, #0a1224);
   }
-  .hero-art {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-  }
+  .hero-visual { order: 2; padding: var(--s6) var(--s4) var(--s6) 0; }
   .hero-inner {
+    order: 1;
     position: relative;
     z-index: 1;
-    padding: var(--s16) var(--s6);
-    max-width: 720px;
+    padding: var(--s12) var(--s8);
     display: grid;
     gap: var(--s4);
     justify-items: start;
@@ -352,9 +273,9 @@ const orderedIds = content.checklistItems.map((i) => i.id);
   /* ---------- Stats strip ---------- */
   .stats {
     margin-top: var(--s6);
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--s4) var(--s12);
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: var(--s4);
     padding: var(--s6);
   }
   .stat {
@@ -485,17 +406,18 @@ const orderedIds = content.checklistItems.map((i) => i.id);
     margin-top: var(--s3);
   }
   .lib-card {
-    display: grid;
-    gap: var(--s1);
-    align-content: start;
-    background: var(--panel);
+    display: flex;
+    gap: var(--s4);
+    align-items: flex-start;
+    padding: var(--s4) var(--s4);
     border: 1px solid var(--panel-edge);
     border-radius: var(--r2);
-    padding: var(--s4);
-    color: inherit;
+    background: linear-gradient(180deg, #111c33, #0e1830);
+    color: var(--ink);
     text-decoration: none;
-    transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+    transition: border-color .2s, transform .2s;
   }
+  .lib-text { display: grid; gap: var(--s1); }
   .lib-card:hover {
     border-color: var(--cyan);
     box-shadow: var(--glow);
@@ -527,6 +449,10 @@ const orderedIds = content.checklistItems.map((i) => i.id);
   }
 
   @media (max-width: 960px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-visual { order: 0; padding: var(--s4) var(--s4) 0; }
+    .hero-inner { padding: var(--s6) var(--s6) var(--s8); }
+    .stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .stage-row {
       grid-template-columns: repeat(2, 1fr);
     }
@@ -535,17 +461,19 @@ const orderedIds = content.checklistItems.map((i) => i.id);
     }
   }
   @media (max-width: 560px) {
+    .hero-actions { width: 100%; }
+    .hero-actions .btn { flex: 1 1 100%; text-align: center; justify-content: center; }
+    .stats { padding: var(--s4); gap: var(--s3); }
+    .stat-num { font-size: 1.3rem; }
+    .stat-label { font-size: 0.8rem; }
     .hero-inner {
-      padding: var(--s12) var(--s4);
+      padding: var(--s4) var(--s4) var(--s6);
     }
     .stage-row {
       grid-template-columns: 1fr;
     }
     .grid {
       grid-template-columns: 1fr;
-    }
-    .stats {
-      gap: var(--s4) var(--s6);
     }
   }
 </style>

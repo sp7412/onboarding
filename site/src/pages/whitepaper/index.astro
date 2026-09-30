@@ -1,4 +1,5 @@
 ---
+import Icon from "../../components/Icon.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import DocBody from "../../components/DocBody.astro";
 import { loadContent, readRepoFile } from "../../lib/content/repo";
@@ -8,7 +9,7 @@ const readme = readRepoFile("docs/whitepaper/README.md");
 ---
 <BaseLayout title="Background whitepaper · Path to Integration" description="The company, the trades, the contact center, voice AI, regulation and risk.">
   <p class="crumb muted"><a href={url("/")}>Journey</a> / whitepaper</p>
-  <h1>Background whitepaper</h1>
+  <div class="page-title"><Icon name="whitepaper" badge size={22} tone="cyan" /><h1>Background whitepaper</h1></div>
   <p class="page-lede">Essentials path (about two hours): chapters marked <span class="tag">Essential</span>. Mark each chapter read at the bottom of its page.</p>
   <div class="grid-cards">
     {whitepaper.chapters.map((c) => (

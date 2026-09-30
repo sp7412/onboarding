@@ -1,4 +1,5 @@
 ---
+import Icon from "../components/Icon.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import DocBody from "../components/DocBody.astro";
 import { loadContent } from "../lib/content/repo";
@@ -13,7 +14,7 @@ const stageId = (stage: string) => stage;
   description="A week-by-week checklist for the first 90 days of onboarding."
 >
   <p class="crumb muted"><a href={url("/")}>Journey</a> / checklist</p>
-  <h1>{checklist.title}</h1>
+  <div class="page-title"><Icon name="plan" badge size={22} tone="cyan" /><h1>{checklist.title}</h1></div>
   <div class="intro">
     {checklist.intro.map((line) => <p>{line}</p>)}
   </div>
