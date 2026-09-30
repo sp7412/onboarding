@@ -1,6 +1,8 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { loadContent } from "../lib/content/repo";
+import { routeByKey } from "../lib/routes";
+import { url } from "../lib/url";
 
 const content = loadContent();
 
@@ -9,38 +11,54 @@ const stages = [
     stage: "pre-start",
     label: "Pre-start",
     window: "Sept 28 – Oct 25",
-    href: "/checklist#pre-start",
+    route: "checklist",
+    anchor: "pre-start",
     desc: "Domain, reading, labs 00–03, questions for the team.",
   },
   {
     stage: "d30",
     label: "Days 1–30",
     window: "Understand and earn trust",
-    href: "/checklist#d30",
+    route: "checklist",
+    anchor: "d30",
     desc: "Ramp on real calls and systems; ship something small.",
   },
   {
     stage: "d60",
     label: "Days 31–60",
     window: "Align, design, contribute",
-    href: "/checklist#d60",
+    route: "checklist",
+    anchor: "d60",
     desc: "Own a design review; contribute to a production service.",
   },
   {
     stage: "d90",
     label: "Days 61–90",
     window: "Own and multiply",
-    href: "/checklist#d90",
+    route: "checklist",
+    anchor: "d90",
     desc: "Lead a project end to end; multiply through others.",
   },
   {
     stage: "done",
     label: "Day 90+",
     window: "Trophy",
-    href: "/achievements",
+    route: "achievements",
     desc: "Badge wall, quizzes, the full journey complete.",
   },
 ];
+
+const comingSoon = (key: string) => !routeByKey(key)!.built;
+const libraryCards = [
+  ["reading", "Reading guide", `${readingCount} ranked items with why/look-for prompts and tier filters.`],
+  ["podcasts", "Podcast studio", `${episodeCount} episodes in listening order; one-tap copy blocks for NotebookLM.`],
+  ["whitepaper", "Whitepaper", `17 chapters; the ${essentialChapters}-chapter essentials path is the bounded 2-hour route.`],
+  ["labs", "Labs 00–08", `${labCount} notebooks that run offline; each has a graded exercise.`],
+  ["checklist", "Checklist", `${itemCount} week-by-week tasks, saved locally.`],
+  ["architecture", "Architecture explorer", "Where each component stops — and your control plane begins."],
+  ["simulations", "Simulations", "Turn-taking, guardrails and latency — play with the ideas on a phone."],
+  ["glossary", "Glossary", `${glossaryCount} terms with flashcards and stage quizzes.`],
+] as const;
 
 const essentialChapters = content.whitepaper.chapters.filter((c) => c.essentials).length;
 const labCount = content.labs.length;
@@ -134,8 +152,8 @@ const PRE_START_PCT = 0.68; // placeholder until Phase 2 reads real localStorage
         labs and templates. Check things off — progress is saved in this browser.
       </p>
       <div class="hero-actions">
-        <a class="btn" href="/checklist#pre-start">Start the pre-start stage</a>
-        <a class="btn btn-secondary" href="/reading">Browse the reading guide</a>
+        <span class="btn" aria-disabled="true">Start the pre-start stage · Coming soon</span>
+        <span class="btn btn-secondary" aria-disabled="true">Browse the reading guide · Coming soon</span>
       </div>
     </div>
   </section>
@@ -170,12 +188,13 @@ const PRE_START_PCT = 0.68; // placeholder until Phase 2 reads real localStorage
   <section class="journey" aria-labelledby="journey-title">
     <div class="section-head">
       <h2 id="journey-title">The journey</h2>
-      <a class="see-all" href="/checklist">Full checklist →</a>
+      <span class="see-all" aria-disabled="true">Full checklist · Coming soon</span>
     </div>
     <ol class="stage-row">
       {stages.map((s, i) => (
         <li class:list={["stage", { active: i === 0 }]}>
-          <a href={s.href}>
+          {comingSoon(s.route) ? (
+          <span class="stage-card" aria-disabled="true">
             <span class="node" aria-hidden="true">
               <svg viewBox="0 0 48 48" width="48" height="48">
                 <circle cx="24" cy="24" r={RING_R} class="ring-track"></circle>
@@ -194,8 +213,14 @@ const PRE_START_PCT = 0.68; // placeholder until Phase 2 reads real localStorage
             <span class="stage-label">{s.label}</span>
             <span class="stage-window muted">{s.window}</span>
             <span class="stage-desc muted">{s.desc}</span>
-            {i === 0 && <span class="tag tag-green stage-now">Active stage</span>}
+            {comingSoon(s.route) && <span class="tag stage-now">Coming soon</span>}
+          </span>
+          ) : (
+          <a class="stage-card" href={url(`${routeByKey(s.route)!.path}#${s.anchor ?? ""}`)}>
+            <span class="node" aria-hidden="true"><span class="stage-index">{i + 1}</span></span>
+            <span class="stage-label">{s.label}</span><span class="stage-window muted">{s.window}</span><span class="stage-desc muted">{s.desc}</span>
           </a>
+          )}
         </li>
       ))}
     </ol>
@@ -210,48 +235,32 @@ const PRE_START_PCT = 0.68; // placeholder until Phase 2 reads real localStorage
       <h2 id="library-title">The library</h2>
     </div>
     <div class="grid">
-      <a class="lib-card" href="/reading">
-        <span class="lib-title">Reading guide</span>
-        <span class="lib-desc muted">
-          {readingCount} ranked items with why/look-for prompts and tier filters.
-        </span>
-      </a>
-      <a class="lib-card" href="/podcasts">
-        <span class="lib-title">Podcast studio</span>
-        <span class="lib-desc muted">
-          {episodeCount} episodes in listening order; one-tap copy blocks for NotebookLM.
-        </span>
-      </a>
-      <a class="lib-card" href="/whitepaper">
-        <span class="lib-title">Whitepaper</span>
-        <span class="lib-desc muted">
-          17 chapters; the {essentialChapters}-chapter essentials path is the bounded 2-hour route.
-        </span>
-      </a>
-      <a class="lib-card" href="/labs">
-        <span class="lib-title">Labs 00–08</span>
-        <span class="lib-desc muted">
-          {labCount} notebooks that run offline; each has a graded exercise.
-        </span>
-      </a>
+      {libraryCards.slice(0, 4).map(([key, label, desc]) => (
+        {comingSoon(key) ? (
+          <span class="lib-card" aria-disabled="true">
+            <span class="lib-title">{label}</span><span class="lib-desc muted">{desc}</span>
+            <span class="tag">Coming soon</span>
+          </span>
+        ) : (
+          <a class="lib-card" href={url(routeByKey(key)!.path)}>
+            <span class="lib-title">{label}</span><span class="lib-desc muted">{desc}</span>
+          </a>
+        )}
+      ))}
     </div>
     <div class="grid grid-secondary">
-      <a class="lib-card" href="/checklist">
-        <span class="lib-title">Checklist</span>
-        <span class="lib-desc muted">{itemCount} week-by-week tasks, saved locally.</span>
-      </a>
-      <a class="lib-card" href="/architecture">
-        <span class="lib-title">Architecture explorer</span>
-        <span class="lib-desc muted">Where each component stops — and your control plane begins.</span>
-      </a>
-      <a class="lib-card" href="/simulations/turn-taking">
-        <span class="lib-title">Simulations</span>
-        <span class="lib-desc muted">Turn-taking, guardrails and latency — play with the ideas on a phone.</span>
-      </a>
-      <a class="lib-card" href="/glossary">
-        <span class="lib-title">Glossary</span>
-        <span class="lib-desc muted">{glossaryCount} terms with flashcards and stage quizzes.</span>
-      </a>
+      {libraryCards.slice(4).map(([key, label, desc]) => (
+        {comingSoon(key) ? (
+          <span class="lib-card" aria-disabled="true">
+            <span class="lib-title">{label}</span><span class="lib-desc muted">{desc}</span>
+            <span class="tag">Coming soon</span>
+          </span>
+        ) : (
+          <a class="lib-card" href={url(routeByKey(key)!.path)}>
+            <span class="lib-title">{label}</span><span class="lib-desc muted">{desc}</span>
+          </a>
+        )}
+      ))}
     </div>
   </section>
 
@@ -261,7 +270,7 @@ const PRE_START_PCT = 0.68; // placeholder until Phase 2 reads real localStorage
       The persistent Continue button lands in Phase 2 with the interactive map. For now:
       the checklist saves your checks in this browser and restores them on every visit.
     </p>
-    <a class="btn" href="/checklist#pre-start">Open the checklist</a>
+    <span class="btn" aria-disabled="true">Open the checklist · Coming soon</span>
   </section>
 </BaseLayout>
 

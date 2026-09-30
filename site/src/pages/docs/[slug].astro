@@ -2,6 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import DocBody from "../../components/DocBody.astro";
 import { loadContent } from "../../lib/content/repo";
+import { url } from "../../lib/url";
 
 export function getStaticPaths() {
   return loadContent().docs.map((doc) => ({
@@ -14,9 +15,9 @@ const { doc } = Astro.props;
 ---
 
 <BaseLayout title={`${doc.title} · Path to Integration`} description={doc.title}>
-  <p class="crumb muted"><a href="/">Journey</a> / docs</p>
+  <p class="crumb muted"><a href={url("/")}>Journey</a> / docs</p>
   <h1>{doc.title}</h1>
-  <DocBody body={doc.body} />
+  <DocBody body={doc.body} sourcePath={doc.repoPath} />
 </BaseLayout>
 
 <style>

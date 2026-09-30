@@ -1,5 +1,10 @@
 ---
+import { routeByKey } from "../lib/routes";
+import { url } from "../lib/url";
+
 const year = new Date().getFullYear();
+const about = routeByKey("about")!;
+const glossary = routeByKey("glossary")!;
 ---
 
 <footer class="site-footer">
@@ -9,8 +14,8 @@ const year = new Date().getFullYear();
       Progress is stored only in this browser — no accounts, no analytics, no trackers.
     </p>
     <nav aria-label="Footer">
-      <a href="/about">About this site</a>
-      <a href="/glossary">Glossary</a>
+      <a href={url(about.path)}>About this site</a>
+      <span aria-disabled="true">{glossary.label} <small>Coming soon</small></span>
       <a href="https://github.com/sp7412/onboarding">Source repository</a>
     </nav>
     <p class="muted copyright">© {year} · Built with Astro · Deployed on GitHub Pages</p>
@@ -37,6 +42,8 @@ const year = new Date().getFullYear();
     gap: var(--s4);
   }
   nav a { color: var(--cyan); text-decoration: none; }
+  nav span { color: var(--ink-dim); }
+  nav small { color: var(--amber); }
   nav a:hover { text-decoration: underline; }
   .copyright { font-size: 0.85rem; }
 </style>

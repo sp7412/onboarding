@@ -4,5 +4,6 @@ import { defineConfig } from "astro/config";
 export default defineConfig({
   site: "https://sp7412.github.io",
   base: "/onboarding",
+  trailingSlash: "always",
   output: "static",
 });

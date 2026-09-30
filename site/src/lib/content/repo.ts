@@ -93,16 +93,16 @@ const TEMPLATE_FILES = [
 /** Map a repo-relative markdown link target to a site route, or null to keep external. */
 export function repoLinkToRoute(target: string): string | null {
   const clean = target.replace(/^\.\.?\//, "").split("#")[0];
-  if (clean.startsWith("docs/whitepaper/")) return `/whitepaper/${clean.split("/")[2]?.replace(/\.md$/, "")}`;
+  if (clean.startsWith("docs/whitepaper/")) return null;
   if (DOC_PAGES.some((d) => d.repoPath === clean)) return `/docs/${path.basename(clean, ".md")}`;
-  if (clean.startsWith("templates/")) return `/templates#${path.basename(clean, ".md")}`;
-  if (clean === "docs/reading-guide.md") return "/reading";
-  if (clean === "docs/podcast-prompts.md") return "/podcasts";
+  if (clean.startsWith("templates/")) return null;
+  if (clean === "docs/reading-guide.md") return null;
+  if (clean === "docs/podcast-prompts.md") return null;
   if (clean === "docs/livekit-hands-on.md") return "/docs/livekit-hands-on";
-  if (clean === "notes/study-question.md") return "/architecture#study-question";
-  if (clean === "notes/glossary.md") return "/glossary";
-  if (clean.startsWith("labs/")) return "/labs";
-  if (clean === "plan/30-60-90-checklist.md") return "/checklist";
+  if (clean === "notes/study-question.md") return null;
+  if (clean === "notes/glossary.md") return null;
+  if (clean.startsWith("labs/")) return null;
+  if (clean === "plan/30-60-90-checklist.md") return null;
   return null;
 }
 

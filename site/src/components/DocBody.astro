@@ -1,11 +1,13 @@
 ---
 import { repoLinkToRoute } from "../lib/content/repo";
+import { url } from "../lib/url";
 
 interface Props {
   body: string;
+  sourcePath: string;
 }
 
-const { body } = Astro.props;
+const { body, sourcePath } = Astro.props;
 
 /**
  * Minimal, safe markdown-to-HTML for repo doc pages: headings, paragraphs,
@@ -20,8 +22,13 @@ function inline(s: string): string {
   let out = esc(s);
   // `[text](target)` — rewrite repo-relative targets, keep external as-is.
   out = out.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (full, text: string, target: string) => {
-    const route = repoLinkToRoute(target);
-    const href = route ?? (target.startsWith("http") ? target : "#");
+      const repoTarget = resolveRepoPath(sourcePath, target);
+      const route = repoLinkToRoute(repoTarget);
+      const href = route
+        ? url(route)
+        : target.startsWith("http")
+          ? target
+          : `https://github.com/sp7412/onboarding/blob/main/${repoTarget}`;
     const external = href.startsWith("http");
     const rel = external ? ' rel="noopener noreferrer"' : "";
     return `<a href="${href}"${rel}>${text}</a>`;
@@ -30,6 +37,18 @@ function inline(s: string): string {
   out = out.replace(/(^|\s)\*([^*\s][^*]*)\*/g, "$1<em>$2</em>");
   out = out.replace(/`([^`]+)`/g, "<code>$1</code>");
   return out;
+}
+
+function resolveRepoPath(from: string, target: string): string {
+  const [pathname, hash] = target.split("#", 2);
+  const parts = [...from.split("/").slice(0, -1), ...pathname.split("/")];
+  const resolved: string[] = [];
+  for (const part of parts) {
+    if (!part || part === ".") continue;
+    if (part === "..") resolved.pop();
+    else resolved.push(part);
+  }
+  return `${resolved.join("/")}${hash ? `#${hash}` : ""}`;
 }
 
 function render(md: string): string {

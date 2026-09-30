@@ -1,18 +1,9 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { routes } from "../lib/routes";
+import { url } from "../lib/url";
 
-const docPages = [
-  { href: "/", label: "The journey home" },
-  { href: "/checklist", label: "30/60/90 checklist" },
-  { href: "/reading", label: "Reading guide" },
-  { href: "/podcasts", label: "Podcast prompts" },
-  { href: "/whitepaper", label: "Whitepaper" },
-  { href: "/architecture", label: "Architecture guide" },
-  { href: "/glossary", label: "Glossary" },
-  { href: "/labs", label: "Notebook labs" },
-  { href: "/templates", label: "Templates" },
-  { href: "/about", label: "About this site" },
-];
+const docPages = routes.filter((route) => route.built);
 ---
 
 <BaseLayout
@@ -32,7 +23,7 @@ const docPages = [
       {
         docPages.map((p) => (
           <li>
-            <a href={p.href}>{p.label}</a>
+            <a href={url(p.path)}>{p.label}</a>
           </li>
         ))
       }
@@ -41,7 +32,7 @@ const docPages = [
     <h2>Looking for something specific?</h2>
     <p>
       The search box on the{" "}
-      <a href="/checklist">checklist page</a> filters every item as you type, so
+      <span>checklist page</span> is coming soon, so
       it's the fastest way to find one item across 90 days.
     </p>
 

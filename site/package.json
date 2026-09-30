@@ -7,7 +7,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "check": "astro check",
+    "check": "astro check && node scripts/check-links.mjs",
     "test": "vitest run"
   },
   "dependencies": {

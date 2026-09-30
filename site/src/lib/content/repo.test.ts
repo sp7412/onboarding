@@ -73,12 +73,12 @@ describe("real repo content", () => {
 describe("repoLinkToRoute", () => {
   it("maps docs and whitepaper links to site routes", () => {
     expect(repoLinkToRoute("../docs/servicetitan-101.md")).toBe("/docs/servicetitan-101");
-    expect(repoLinkToRoute("../docs/whitepaper/01-company.md")).toBe("/whitepaper/01-company");
-    expect(repoLinkToRoute("../docs/reading-guide.md")).toBe("/reading");
-    expect(repoLinkToRoute("../docs/podcast-prompts.md")).toBe("/podcasts");
-    expect(repoLinkToRoute("../notes/study-question.md")).toBe("/architecture#study-question");
-    expect(repoLinkToRoute("../notes/glossary.md")).toBe("/glossary");
-    expect(repoLinkToRoute("../templates/design-doc.md")).toBe("/templates#design-doc");
+    expect(repoLinkToRoute("../docs/whitepaper/01-company.md")).toBeNull();
+    expect(repoLinkToRoute("../docs/reading-guide.md")).toBeNull();
+    expect(repoLinkToRoute("../docs/podcast-prompts.md")).toBeNull();
+    expect(repoLinkToRoute("../notes/study-question.md")).toBeNull();
+    expect(repoLinkToRoute("../notes/glossary.md")).toBeNull();
+    expect(repoLinkToRoute("../templates/design-doc.md")).toBeNull();
   });
 
   it("returns null for unmapped or external targets", () => {
