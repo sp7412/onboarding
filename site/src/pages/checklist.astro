@@ -16,7 +16,7 @@ const stageId = (stage: string) => stage;
   <p class="crumb muted"><a href={url("/")}>Journey</a> / checklist</p>
   <div class="page-title"><Icon name="plan" badge size={22} tone="cyan" /><h1>{checklist.title}</h1></div>
   <div class="intro">
-    {checklist.intro.map((line) => <p>{line}</p>)}
+    {checklist.intro.map((para) => <DocBody body={para} sourcePath="plan/30-60-90-checklist.md" />)}
   </div>
 
   <nav class="stage-nav card" aria-label="Checklist stages">
@@ -39,7 +39,7 @@ const stageId = (stage: string) => stage;
                 <li id={item.id} class:list={{ "exit-criterion": item.isExitCriterion }}>
                   <label>
                     <input type="checkbox" data-check-id={item.id} />
-                    <span><DocBody body={item.text} sourcePath="plan/30-60-90-checklist.md" /></span>
+                    <div><DocBody body={item.text} sourcePath="plan/30-60-90-checklist.md" /></div>
                   </label>
                 </li>
               ))}

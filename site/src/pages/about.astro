@@ -1,6 +1,7 @@
 ---
 import Icon from "../components/Icon.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { url } from "../lib/url";
 ---
 
 <BaseLayout
@@ -17,10 +18,11 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     </p>
     <h2>Where your progress lives</h2>
     <p>
-      Every checkbox and quiz answer is stored only in your browser's
-      <code>localStorage</code>, keyed by stable content IDs derived from the source
-      text. Clearing your browser data for this site erases your progress. A later
-      phase adds export/import (JSON and Markdown) so you can back up or move it.
+      Every checkbox is stored only in your browser's <code>localStorage</code>,
+      keyed by stable content IDs derived from the source text. Clearing your
+      browser data for this site erases your progress. Use the
+      <a href={url("/progress")}>Progress page</a> to export a JSON backup and
+      import it on another device — export before switching browsers or clearing site data.
     </p>
     <h2>The content is the repository</h2>
     <p>

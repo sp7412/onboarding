@@ -70,11 +70,22 @@ export function parseChecklist(markdown: string, file: string): ChecklistDoc {
   const title = titleLine!.slice(2).trim();
 
   // Intro = everything before the first `## ` heading that isn't the title.
+  // Wrapped lines belong to the same markdown paragraph, so join on blank lines
+  // (keeping lines split here broke links that wrap across two source lines).
   const firstHeading = lines.findIndex((l) => l.startsWith("## "));
   expectCondition(file, "at least one `## ` section", firstHeading !== -1);
-  const intro = lines
-    .slice(1, firstHeading)
-    .filter((l) => !l.startsWith("#") && l.trim() !== "");
+  const intro: string[] = [];
+  let introPara: string[] = [];
+  for (const line of lines.slice(1, firstHeading)) {
+    if (line.startsWith("#")) continue;
+    if (line.trim() === "") {
+      if (introPara.length) intro.push(introPara.join(" "));
+      introPara = [];
+    } else {
+      introPara.push(line.trim());
+    }
+  }
+  if (introPara.length) intro.push(introPara.join(" "));
 
   const doc: ChecklistDoc = { title, intro, stages: [], watchouts: [] };
 
