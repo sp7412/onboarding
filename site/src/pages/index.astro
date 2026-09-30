@@ -235,8 +235,8 @@ const PRE_START_PCT = 0.68; // placeholder until Phase 2 reads real localStorage
       <h2 id="library-title">The library</h2>
     </div>
     <div class="grid">
-      {libraryCards.slice(0, 4).map(([key, label, desc]) => (
-        {comingSoon(key) ? (
+      {libraryCards.slice(0, 4).map(([key, label, desc]) =>
+        comingSoon(key) ? (
           <span class="lib-card" aria-disabled="true">
             <span class="lib-title">{label}</span><span class="lib-desc muted">{desc}</span>
             <span class="tag">Coming soon</span>
@@ -245,12 +245,12 @@ const PRE_START_PCT = 0.68; // placeholder until Phase 2 reads real localStorage
           <a class="lib-card" href={url(routeByKey(key)!.path)}>
             <span class="lib-title">{label}</span><span class="lib-desc muted">{desc}</span>
           </a>
-        )}
-      ))}
+        )
+      )}
     </div>
     <div class="grid grid-secondary">
-      {libraryCards.slice(4).map(([key, label, desc]) => (
-        {comingSoon(key) ? (
+      {libraryCards.slice(4).map(([key, label, desc]) =>
+        comingSoon(key) ? (
           <span class="lib-card" aria-disabled="true">
             <span class="lib-title">{label}</span><span class="lib-desc muted">{desc}</span>
             <span class="tag">Coming soon</span>
@@ -259,8 +259,8 @@ const PRE_START_PCT = 0.68; // placeholder until Phase 2 reads real localStorage
           <a class="lib-card" href={url(routeByKey(key)!.path)}>
             <span class="lib-title">{label}</span><span class="lib-desc muted">{desc}</span>
           </a>
-        )}
-      ))}
+        )
+      )}
     </div>
   </section>
 
