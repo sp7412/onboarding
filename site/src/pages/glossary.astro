@@ -1,0 +1,77 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { loadContent } from "../lib/content/repo";
+import { renderMarkdown } from "../lib/markdown";
+import { url } from "../lib/url";
+const { glossary } = loadContent();
+const meaningHtml = (m: string) =>
+  renderMarkdown(m, { sourcePath: "notes/glossary.md", resolveRepoLink: () => null }).html.replace(/^<p>|<\/p>$/g, "");
+const terms = [...glossary].sort((a, b) => a.term.localeCompare(b.term));
+---
+<BaseLayout title="Glossary · Path to Integration" description="Trades, contact-center and voice-AI terms.">
+  <p class="crumb muted"><a href={url("/")}>Journey</a> / glossary</p>
+  <h1>Glossary</h1>
+  <p class="page-lede">{terms.length} terms. Search, or switch to flashcards to test yourself.</p>
+  <div class="gloss-tools">
+    <label>Search <input type="search" id="gloss-q" placeholder="e.g. booking rate" /></label>
+    <button type="button" id="flash-toggle" class="btn">Flashcards</button>
+  </div>
+  <section id="flash" class="card" hidden>
+    <p class="muted" id="flash-count"></p>
+    <h2 id="flash-term"></h2>
+    <div id="flash-meaning" hidden></div>
+    <div class="flash-actions">
+      <button type="button" class="btn" id="flash-reveal">Show meaning</button>
+      <button type="button" class="btn" id="flash-next">Next term</button>
+    </div>
+  </section>
+  <dl id="gloss-list">
+    {terms.map((t) => (
+      <div class="term" data-term={t.term.toLowerCase()} data-meaning={t.meaning.toLowerCase()}>
+        <dt id={t.id}>{t.term}</dt>
+        <dd set:html={meaningHtml(t.meaning)} />
+      </div>
+    ))}
+  </dl>
+</BaseLayout>
+<script>
+  const q = document.getElementById("gloss-q") as HTMLInputElement;
+  const rows = [...document.querySelectorAll<HTMLElement>("#gloss-list .term")];
+  q.addEventListener("input", () => {
+    const v = q.value.trim().toLowerCase();
+    rows.forEach((r) => (r.hidden = Boolean(v) && !r.dataset.term!.includes(v) && !r.dataset.meaning!.includes(v)));
+  });
+  const flash = document.getElementById("flash")!;
+  const term = document.getElementById("flash-term")!;
+  const meaning = document.getElementById("flash-meaning")!;
+  const count = document.getElementById("flash-count")!;
+  let order: HTMLElement[] = [];
+  let pos = 0;
+  const show = () => {
+    const r = order[pos];
+    term.textContent = r.querySelector("dt")!.textContent;
+    meaning.innerHTML = r.querySelector("dd")!.innerHTML;
+    meaning.hidden = true;
+    count.textContent = `Card ${pos + 1} of ${order.length}`;
+  };
+  document.getElementById("flash-toggle")!.addEventListener("click", () => {
+    flash.hidden = !flash.hidden;
+    if (!flash.hidden) {
+      order = [...rows].sort(() => Math.random() - 0.5);
+      pos = 0;
+      show();
+    }
+  });
+  document.getElementById("flash-reveal")!.addEventListener("click", () => (meaning.hidden = false));
+  document.getElementById("flash-next")!.addEventListener("click", () => { pos = (pos + 1) % order.length; show(); });
+</script>
+<style>
+  .gloss-tools { display: flex; gap: var(--s4); align-items: end; flex-wrap: wrap; margin-bottom: var(--s6); }
+  .gloss-tools input { display: block; margin-top: var(--s1); padding: var(--s2) var(--s3); background: var(--panel); color: var(--ink); border: 1px solid var(--panel-edge); border-radius: var(--r1); min-width: 16rem; }
+  #flash { margin-bottom: var(--s8); max-width: 60ch; }
+  .flash-actions { display: flex; gap: var(--s3); margin-top: var(--s4); }
+  dl { max-width: 80ch; }
+  .term { border-bottom: 1px solid var(--panel-edge); padding: var(--s3) 0; }
+  dt { font-family: var(--font-head); color: var(--cyan); }
+  dd { margin: var(--s1) 0 0; }
+</style>

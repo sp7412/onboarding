@@ -1,0 +1,25 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import DocBody from "../components/DocBody.astro";
+import { loadContent, TEMPLATE_FILES } from "../lib/content/repo";
+import { url } from "../lib/url";
+const { templates } = loadContent();
+---
+<BaseLayout title="Templates · Path to Integration" description="Templates for the documents the checklist asks for.">
+  <p class="crumb muted"><a href={url("/")}>Journey</a> / templates</p>
+  <h1>Templates</h1>
+  <p class="page-lede">Copy a template into your own notes. After you start, keep filled-in versions in company systems, not in this public repo.</p>
+  <nav class="toc" aria-label="Templates">{templates.map((t) => <a href={`#${t.slug}`}>{t.title}</a>)}</nav>
+  {templates.map((t, i) => (
+    <section class="card tpl" id={t.slug}>
+      <h2>{t.title}</h2>
+      <DocBody body={t.body} sourcePath={`templates/${TEMPLATE_FILES[i]}`} idPrefix={`template-${t.slug}`} />
+      <details><summary>Copy as Markdown</summary><pre><code>{t.body}</code></pre></details>
+    </section>
+  ))}
+</BaseLayout>
+<style>
+  .tpl { margin-bottom: var(--s6); max-width: 80ch; }
+  details summary { cursor: pointer; font-weight: 600; margin-top: var(--s4); }
+  pre { background: var(--navy); border: 1px solid var(--panel-edge); border-radius: var(--r1); padding: var(--s4); overflow-x: auto; white-space: pre-wrap; }
+</style>

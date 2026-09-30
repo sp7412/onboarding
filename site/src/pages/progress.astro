@@ -1,0 +1,81 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { loadContent, readRepoFile } from "../lib/content/repo";
+import { renderMarkdown } from "../lib/markdown";
+import { url } from "../lib/url";
+const content = loadContent();
+const ids = (file: string, prefix: string) =>
+  renderMarkdown(readRepoFile(file), { sourcePath: file, idPrefix: prefix, resolveRepoLink: () => null }).checkIds;
+const sections = [
+  { name: "Checklist", href: "/checklist", ids: content.checklistItems.map((i) => i.id) },
+  { name: "Reading guide", href: "/reading", ids: ids("docs/reading-guide.md", "reading") },
+  { name: "Podcasts", href: "/podcasts", ids: ids("docs/podcast-prompts.md", "podcasts") },
+  { name: "Whitepaper chapters", href: "/whitepaper", ids: content.whitepaper.chapters.map((c) => `whitepaper-read-${c.slug}`) },
+  { name: "Labs", href: "/labs", ids: content.labs.map((l) => `lab-done-${l.number}`) },
+];
+---
+<BaseLayout title="Progress · Path to Integration" description="Your onboarding progress, saved in this browser.">
+  <p class="crumb muted"><a href={url("/")}>Journey</a> / progress</p>
+  <h1>Your progress</h1>
+  <p class="page-lede">Everything is stored only in this browser. Export a backup before switching devices or clearing browser data.</p>
+  <div class="grid-cards">
+    {sections.map((s) => (
+      <a class="card prog" href={url(s.href)} data-ids={JSON.stringify(s.ids)}>
+        <h3>{s.name}</h3>
+        <p class="count muted">0 of {s.ids.length}</p>
+        <div class="progress-bar"><span></span></div>
+      </a>
+    ))}
+  </div>
+  <section class="card tools">
+    <h2>Backup</h2>
+    <div class="btns">
+      <button type="button" class="btn" id="export">Export progress</button>
+      <label class="btn btn-secondary">Import progress <input type="file" id="import" accept="application/json" hidden /></label>
+      <button type="button" class="btn btn-secondary" id="reset">Reset everything</button>
+    </div>
+    <p class="muted" id="status" role="status"></p>
+  </section>
+</BaseLayout>
+<script>
+  const KEY = "path-to-integration-checklist";
+  const load = (): Record<string, boolean> => { try { return JSON.parse(localStorage.getItem(KEY) ?? "{}"); } catch { return {}; } };
+  const paint = () => {
+    const saved = load();
+    document.querySelectorAll<HTMLElement>(".prog").forEach((card) => {
+      const ids: string[] = JSON.parse(card.dataset.ids ?? "[]");
+      const done = ids.filter((id) => saved[id]).length;
+      card.querySelector(".count")!.textContent = `${done} of ${ids.length}`;
+      (card.querySelector(".progress-bar span") as HTMLElement).style.width = ids.length ? `${(100 * done) / ids.length}%` : "0";
+    });
+  };
+  paint();
+  const status = document.getElementById("status")!;
+  document.getElementById("export")!.addEventListener("click", () => {
+    const blob = new Blob([JSON.stringify(load(), null, 2)], { type: "application/json" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "onboarding-progress.json";
+    a.click();
+    status.textContent = "Exported.";
+  });
+  document.getElementById("import")!.addEventListener("change", async (e) => {
+    const f = (e.target as HTMLInputElement).files?.[0];
+    if (!f) return;
+    try {
+      const data = JSON.parse(await f.text());
+      localStorage.setItem(KEY, JSON.stringify({ ...load(), ...data }));
+      paint();
+      status.textContent = "Imported and merged.";
+    } catch { status.textContent = "That file isn't a valid progress export."; }
+  });
+  document.getElementById("reset")!.addEventListener("click", () => {
+    if (confirm("Clear all saved progress in this browser?")) { localStorage.removeItem(KEY); paint(); status.textContent = "Progress cleared."; }
+  });
+</script>
+<style>
+  .prog { text-decoration: none; color: inherit; display: grid; gap: var(--s2); }
+  .prog h3 { margin: 0; }
+  .tools { max-width: 60ch; }
+  .btns { display: flex; gap: var(--s3); flex-wrap: wrap; }
+</style>

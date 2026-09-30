@@ -1,0 +1,54 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import DocBody from "../components/DocBody.astro";
+import { loadContent, readRepoFile } from "../lib/content/repo";
+import { renderMarkdown } from "../lib/markdown";
+import { url } from "../lib/url";
+const { labs } = loadContent();
+const readme = readRepoFile("labs/README.md");
+const md = (s: string) => renderMarkdown(s, { sourcePath: "labs/README.md", resolveRepoLink: () => null }).html;
+const REPO = "https://github.com/sp7412/onboarding";
+---
+<BaseLayout title="Labs · Path to Integration" description="Nine Jupyter tutorials that run offline.">
+  <p class="crumb muted"><a href={url("/")}>Journey</a> / labs</p>
+  <h1>Labs</h1>
+  <p class="page-lede">Nine notebooks that run offline on your laptop with simulators; add API keys to go live. Run them in order.</p>
+  <section class="card setup">
+    <h2>Set up once</h2>
+    <pre><code>git clone {REPO}.git
+cd onboarding
+python -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+cd labs && jupyter lab</code></pre>
+  </section>
+  {labs.map((lab) => (
+    <section class="card lab" id={`lab-${lab.number}`}>
+      <div class="lab-head">
+        <h2>Lab {lab.number}: {lab.title.replace(/^\d+\s*·\s*/, "")}</h2>
+        <label class="done"><input type="checkbox" data-check-id={`lab-done-${lab.number}`} /> Done</label>
+      </div>
+      <p class="muted">{lab.time} · keys: {lab.keys}</p>
+      <div set:html={md(lab.goal)} />
+      {lab.sections.length > 0 && (
+        <details><summary>What's inside ({lab.sections.length} sections)</summary><ul>{lab.sections.map((s) => <li>{s}</li>)}</ul></details>
+      )}
+      {lab.questions.length > 0 && (
+        <details><summary>Check your understanding</summary><div set:html={md(lab.questions.join("\n\n"))} /></details>
+      )}
+      {lab.exercise && (<details><summary>Graded exercise</summary><div set:html={md(lab.exercise)} /></details>)}
+      <p class="links">
+        <a href={`https://nbviewer.org/github/sp7412/onboarding/blob/main/labs/${lab.number}_${lab.slug}.ipynb`} rel="noopener noreferrer" target="_blank">Preview on nbviewer</a>
+        <a href={`${REPO}/blob/main/labs/src/${lab.number}_${lab.slug}.py`} rel="noopener noreferrer" target="_blank">Source</a>
+      </p>
+    </section>
+  ))}
+  <details class="card"><summary>Labs README</summary><DocBody body={readme} sourcePath="labs/README.md" /></details>
+</BaseLayout>
+<style>
+  .setup, .lab { margin-bottom: var(--s6); max-width: 80ch; }
+  .lab-head { display: flex; justify-content: space-between; align-items: baseline; gap: var(--s4); flex-wrap: wrap; }
+  .lab-head h2 { margin: 0; font-size: 1.25rem; }
+  .links { display: flex; gap: var(--s4); flex-wrap: wrap; }
+  details summary { cursor: pointer; font-weight: 600; margin: var(--s2) 0; }
+  pre { background: var(--navy); border: 1px solid var(--panel-edge); border-radius: var(--r1); padding: var(--s4); overflow-x: auto; }
+</style>

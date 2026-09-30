@@ -1,0 +1,40 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import DocBody from "../components/DocBody.astro";
+import { readRepoFile } from "../lib/content/repo";
+import { url } from "../lib/url";
+const body = readRepoFile("docs/voice-agent-architecture.md");
+
+const layers = [
+  { name: "Caller and telephony", owns: "The phone network, SIP trunks, call transfer.", stops: "Knows nothing about the conversation or the business.", go: [["Lab 04", "/labs#lab-04"], ["Whitepaper ch. 08", "/whitepaper/08-technology-landscape"]] },
+  { name: "Transport (LiveKit)", owns: "Low-latency audio, rooms, voice activity detection, turn commit, interruption plumbing, playout.", stops: "Decides when a turn ends, not what to say or whether an action is allowed.", go: [["Lab 03", "/labs#lab-03"], ["LiveKit hands-on", "/docs/livekit-hands-on"]] },
+  { name: "Realtime model", owns: "Hearing, reasoning and speaking; proposing tool calls.", stops: "Never executes tools, owns no durable state, can't unsay audio.", go: [["Speech-to-speech models", "/docs/speech-to-speech-models"], ["Lab 01", "/labs#lab-01"]] },
+  { name: "Orchestration (LangChain / LangGraph)", owns: "Multi-step workflows, durable state, retries, human-in-the-loop.", stops: "Isn't the audio hot path or the system of record.", go: [["Labs 05–06", "/labs#lab-05"]] },
+  { name: "Control plane (the application)", owns: "Identity, policy at the tool boundary, grounding, idempotency, escalation, compliance.", stops: "This is where the business rules live.", go: [["Lab 02", "/labs#lab-02"], ["Whitepaper ch. 12", "/whitepaper/12-risks-and-failure-modes"]] },
+  { name: "Systems of record", owns: "Customers, schedule, jobs, billing.", stops: "The source of truth; agents read and write it only through the control plane.", go: [["How a contractor works", "/docs/how-a-contractor-works"]] },
+  { name: "Observability and evaluation (LangSmith)", owns: "Traces, datasets, evaluators, experiments.", stops: "Observes and scores; enforces nothing at runtime.", go: [["Lab 07", "/labs#lab-07"], ["Evaluating voice agents", "/docs/evaluating-voice-agents"]] },
+];
+---
+<BaseLayout title="Architecture · Path to Integration" description="Where each component of a voice agent stops, and where the control plane begins.">
+  <p class="crumb muted"><a href={url("/")}>Journey</a> / architecture</p>
+  <h1>Architecture explorer</h1>
+  <p class="page-lede">Open each layer to see what it owns and where it stops. Then write your own answer on the <a href={url("/docs/study-question")}>study question</a> page.</p>
+  <div class="layers">
+    {layers.map((l, i) => (
+      <details class="card layer" open={i === 4}>
+        <summary><span class="idx">{i + 1}</span> {l.name}</summary>
+        <p><strong>Owns:</strong> {l.owns}</p>
+        <p><strong>Stops at:</strong> {l.stops}</p>
+        <p class="go">{l.go.map(([t, h]) => <a href={url(h)}>{t}</a>)}</p>
+      </details>
+    ))}
+  </div>
+  <h2>Reference architecture</h2>
+  <DocBody body={body} sourcePath="docs/voice-agent-architecture.md" />
+</BaseLayout>
+<style>
+  .layers { display: grid; gap: var(--s3); margin: var(--s6) 0 var(--s12); max-width: 80ch; }
+  .layer summary { cursor: pointer; font-family: var(--font-head); font-size: 1.1rem; }
+  .layer .idx { display: inline-grid; place-items: center; width: 1.6em; height: 1.6em; border-radius: 50%; border: 1px solid var(--cyan); color: var(--cyan); font-size: 0.85rem; margin-right: var(--s2); }
+  .layer .go { display: flex; gap: var(--s4); flex-wrap: wrap; }
+</style>

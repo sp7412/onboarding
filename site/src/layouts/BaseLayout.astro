@@ -32,5 +32,46 @@ const { title, description = "An interactive journey from pre-start through day 
       <slot />
     </main>
     <SiteFooter />
+    <script>
+      // Progress: every checkbox with data-check-id is saved in this browser only.
+      const KEY = "path-to-integration-checklist";
+      const load = () => {
+        try { return JSON.parse(localStorage.getItem(KEY) ?? "{}"); } catch { return {}; }
+      };
+      const saved: Record<string, boolean> = load();
+      document.querySelectorAll<HTMLInputElement>("input[data-check-id]").forEach((box) => {
+        const id = box.dataset.checkId!;
+        box.checked = Boolean(saved[id]);
+        box.addEventListener("change", () => {
+          const now = load();
+          now[id] = box.checked;
+          localStorage.setItem(KEY, JSON.stringify(now));
+          document.dispatchEvent(new CustomEvent("progress-changed"));
+        });
+      });
+
+      // Copy buttons on every code block.
+      document.querySelectorAll<HTMLPreElement>("pre").forEach((pre) => {
+        if (pre.dataset.noCopy !== undefined) return;
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "copy-btn";
+        btn.textContent = "Copy";
+        btn.addEventListener("click", async () => {
+          const text = pre.querySelector("code")?.textContent ?? pre.textContent ?? "";
+          try {
+            await navigator.clipboard.writeText(text);
+            btn.textContent = "Copied";
+          } catch {
+            btn.textContent = "Select and copy";
+          }
+          setTimeout(() => (btn.textContent = "Copy"), 1600);
+        });
+        const wrap = document.createElement("div");
+        wrap.className = "copy-wrap";
+        pre.replaceWith(wrap);
+        wrap.append(btn, pre);
+      });
+    </script>
   </body>
 </html>

@@ -225,3 +225,20 @@ pre code {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Copy buttons and shared page helpers */
+.copy-wrap { position: relative; }
+.copy-btn {
+  position: absolute; top: var(--s2); right: var(--s2);
+  background: var(--navy); color: var(--cyan); border: 1px solid var(--panel-edge);
+  border-radius: var(--r1); padding: 2px var(--s3); font: 600 0.8rem var(--font-body); cursor: pointer;
+}
+.copy-btn:hover, .copy-btn:focus-visible { border-color: var(--cyan); }
+.page-lede { max-width: 72ch; color: var(--ink-dim); margin-bottom: var(--s8); }
+.crumb { font-size: 0.9rem; }
+.toc { display: flex; flex-wrap: wrap; gap: var(--s2) var(--s4); margin: var(--s4) 0 var(--s8); font-size: 0.95rem; }
+.grid-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--s4); margin: var(--s6) 0; }
+.grid-cards .card h3 { margin-top: 0; }
+.progress-bar { height: 8px; background: var(--panel-edge); border-radius: 99px; overflow: hidden; }
+.progress-bar > span { display: block; height: 100%; background: var(--green); width: 0; transition: width .3s; }
+@media (prefers-reduced-motion: reduce) { .progress-bar > span { transition: none; } }

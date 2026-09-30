@@ -44,7 +44,7 @@ const stages = [
     label: "Day 90+",
     window: "Trophy",
     route: "achievements",
-    desc: "Badge wall, quizzes, the full journey complete.",
+    desc: "See your progress across every section and back it up.",
   },
 ];
 
@@ -56,19 +56,22 @@ const episodeCount = content.podcasts.length;
 const glossaryCount = content.glossary.length;
 const itemCount = content.checklistItems.length;
 const libraryCards = [
-  ["reading", "Reading guide", `${readingCount} ranked items with why/look-for prompts and tier filters.`],
+  ["reading", "Reading guide", `${readingCount} ranked items, each with why it matters and what to look for.`],
   ["podcasts", "Podcast studio", `${episodeCount} episodes in listening order; one-tap copy blocks for NotebookLM.`],
   ["whitepaper", "Whitepaper", `17 chapters; the ${essentialChapters}-chapter essentials path is the bounded 2-hour route.`],
   ["labs", "Labs 00–08", `${labCount} notebooks that run offline; each has a graded exercise.`],
   ["checklist", "Checklist", `${itemCount} week-by-week tasks, saved locally.`],
   ["architecture", "Architecture explorer", "Where each component stops — and your control plane begins."],
   ["simulations", "Simulations", "Turn-taking, guardrails and latency — play with the ideas on a phone."],
-  ["glossary", "Glossary", `${glossaryCount} terms with flashcards and stage quizzes.`],
+  ["glossary", "Glossary", `${glossaryCount} terms with search and flashcards.`],
 ] as const;
 
 const RING_R = 20;
 const RING_C = 2 * Math.PI * RING_R;
-const PRE_START_PCT = 0.68; // placeholder until Phase 2 reads real localStorage progress
+const PRE_START_PCT = 0; // real progress is painted client-side from localStorage
+const stageIds: Record<string, string[]> = {};
+for (const item of content.checklistItems) (stageIds[item.stage] ??= []).push(item.id);
+const orderedIds = content.checklistItems.map((i) => i.id);
 ---
 
 <BaseLayout
@@ -156,7 +159,8 @@ const PRE_START_PCT = 0.68; // placeholder until Phase 2 reads real localStorage
         ) : (
           <a class="btn" href={url(`${routeByKey("checklist")!.path}#pre-start`)}>Start the pre-start stage</a>
         )}
-        <span class="btn btn-secondary" aria-disabled="true">Browse the reading guide · Coming soon</span>
+        <a class="btn btn-secondary" href={url("/reading")}>Browse the reading guide</a>
+        <a class="btn btn-secondary" id="continue-btn" href={url("/checklist")} hidden>Continue where I left off</a>
       </div>
     </div>
   </section>
@@ -219,8 +223,15 @@ const PRE_START_PCT = 0.68; // placeholder until Phase 2 reads real localStorage
             {comingSoon(s.route) && <span class="tag stage-now">Coming soon</span>}
           </span>
           ) : (
-          <a class="stage-card" href={url(`${routeByKey(s.route)!.path}#${s.anchor ?? ""}`)}>
-            <span class="node" aria-hidden="true"><span class="stage-index">{i + 1}</span></span>
+          <a class="stage-card" href={url(s.anchor ? `${routeByKey(s.route)!.path}#${s.anchor}` : routeByKey(s.route)!.path)}>
+            <span class="node" aria-hidden="true">
+              <svg viewBox="0 0 48 48" width="48" height="48">
+                <circle cx="24" cy="24" r={RING_R} class="ring-track"></circle>
+                <circle cx="24" cy="24" r={RING_R} class="ring-fill" stroke-dasharray={RING_C} stroke-dashoffset={RING_C} data-ring-ids={JSON.stringify(stageIds[s.stage] ?? [])}></circle>
+                <circle cx="24" cy="24" r="6" class="node-core"></circle>
+              </svg>
+              <span class="stage-index">{i + 1}</span>
+            </span>
             <span class="stage-label">{s.label}</span><span class="stage-window muted">{s.window}</span><span class="stage-desc muted">{s.desc}</span>
           </a>
           )}
@@ -228,8 +239,8 @@ const PRE_START_PCT = 0.68; // placeholder until Phase 2 reads real localStorage
       ))}
     </ol>
     <p class="muted journey-note">
-      Progress rings, the self-drawing map and "Continue where I left off" arrive with the
-      Phase 2 interactive map — checklist checks already save in this browser.
+      Rings fill as you check items off. Progress is saved only in this browser; see
+      <a href={url("/progress")}>Progress</a> to export a backup.
     </p>
   </section>
 
@@ -270,12 +281,32 @@ const PRE_START_PCT = 0.68; // placeholder until Phase 2 reads real localStorage
   <section class="next card">
     <h2>Continue where you left off</h2>
     <p class="muted">
-      The persistent Continue button lands in Phase 2 with the interactive map. For now:
-      the checklist saves your checks in this browser and restores them on every visit.
+      Your checks are saved in this browser. This button jumps to the first unchecked item
+      on the checklist.
     </p>
-    {comingSoon("checklist") ? <span class="btn" aria-disabled="true">Open the checklist · Coming soon</span> : <a class="btn" href={url("/checklist#pre-start")}>Open the checklist</a>}
+    <a class="btn" id="continue-btn-2" href={url("/checklist#pre-start")}>Go to my next task</a>
   </section>
 </BaseLayout>
+
+<script define:vars={{ orderedIds, checklistUrl: url("/checklist") }}>
+  const KEY = "path-to-integration-checklist";
+  let saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch {}
+  document.querySelectorAll("[data-ring-ids]").forEach((ring) => {
+    const ids = JSON.parse(ring.getAttribute("data-ring-ids") || "[]");
+    const c = Number(ring.getAttribute("stroke-dasharray"));
+    const done = ids.filter((id) => saved[id]).length;
+    ring.setAttribute("stroke-dashoffset", String(ids.length ? c * (1 - done / ids.length) : c));
+  });
+  const next = orderedIds.find((id) => !saved[id]);
+  const btn = document.getElementById("continue-btn");
+  if (btn && next && Object.keys(saved).length) {
+    btn.setAttribute("href", `${checklistUrl}#${next}`);
+    btn.hidden = false;
+  }
+  const btn2 = document.getElementById("continue-btn-2");
+  if (btn2 && next) btn2.setAttribute("href", `${checklistUrl}#${next}`);
+</script>
 
 <style>
   /* ---------- Hero ---------- */

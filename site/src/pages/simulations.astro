@@ -1,0 +1,191 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { url } from "../lib/url";
+import traces from "../data/guardrail-traces.json";
+---
+<BaseLayout title="Simulations · Path to Integration" description="Turn-taking, guardrails and latency, playable in the browser.">
+  <p class="crumb muted"><a href={url("/")}>Journey</a> / simulations</p>
+  <h1>Simulations</h1>
+  <p class="page-lede">Three small simulations of the ideas in the labs. They are teaching models, not real voice systems; the labs run the full versions in Python.</p>
+  <nav class="toc" aria-label="Simulations">
+    <a href="#turn-taking">Turn-taking</a><a href="#guardrails">Guardrails</a><a href="#latency">Latency budget</a>
+  </nav>
+
+  <section id="turn-taking" class="card sim">
+    <h2>1. Turn-taking: when is the caller done?</h2>
+    <p>A caller reads a phone number with pauses. Orange labels are pauses mid-thought; red lines are where the agent decides the caller finished. Mirrors <a href={url("/labs#lab-03")}>lab 03</a>.</p>
+    <div class="controls">
+      <label><span>Silence timer (min delay): <output id="tt-min-o"></output> ms</span><input type="range" id="tt-min" min="200" max="1500" step="50" value="500" /></label>
+      <label class="check"><input type="checkbox" id="tt-sem" /> Semantic end-of-turn detection</label>
+      <label><span>Max delay when not done: <output id="tt-max-o"></output> ms</span><input type="range" id="tt-max" min="1000" max="3000" step="100" value="2500" /></label>
+      <label><span>End-of-turn model accuracy: <output id="tt-acc-o"></output></span><input type="range" id="tt-acc" min="0.5" max="1" step="0.05" value="0.9" /></label>
+      <label><span>Line noise: <output id="tt-noise-o"></output></span><input type="range" id="tt-noise" min="0.05" max="0.35" step="0.01" value="0.12" /></label>
+    </div>
+    <svg id="tt-svg" viewBox="0 0 1000 220" role="img" aria-label="Speech probability over time with turn commits"></svg>
+    <p id="tt-score" class="score" role="status"></p>
+  </section>
+
+  <section id="guardrails" class="card sim">
+    <h2>2. Guardrails: the control plane on and off</h2>
+    <p>Replays scripted calls through the lab's simulator, recorded from <code>labs/stlab</code>. Flip the control plane off and watch which tool calls go through. Mirrors <a href={url("/labs#lab-02")}>lab 02</a>; lab 07 adds a claim guard on top.</p>
+    <div class="controls">
+      <label>Scenario <select id="gr-scn"></select></label>
+      <label class="check"><input type="checkbox" id="gr-on" checked /> Control plane on</label>
+    </div>
+    <ol id="gr-steps" class="steps"></ol>
+    <p id="gr-outcome" class="score" role="status"></p>
+  </section>
+
+  <section id="latency" class="card sim">
+    <h2>3. Latency budget: time to first sound</h2>
+    <p>Adjust each stage and compare with a roughly one-second target. A spoken preamble ("one moment…") hides a slow tool without making it faster. Mirrors <a href={url("/labs#lab-08")}>lab 08</a>.</p>
+    <div class="controls" id="lat-controls"></div>
+    <label class="check"><input type="checkbox" id="lat-filler" checked /> Agent says "one moment while I check" before the tool runs (a spoken preamble)</label>
+    <div id="lat-bars" class="bars"></div>
+  </section>
+</BaseLayout>
+
+<script define:vars={{ traces }}>
+  window.__traces = traces;
+</script>
+
+<script>
+  // ---------- 1. Turn-taking (port of labs/stlab/turn_sim.py) ----------
+  type Seg = { kind: "speech" | "pause"; ms: number; text?: string; complete?: boolean };
+  const FRAME = 20;
+  const CALL: Seg[] = [
+    { kind: "speech", ms: 1600, text: "Yeah my number is 817 555", complete: false },
+    { kind: "pause", ms: 800 },
+    { kind: "speech", ms: 900, text: "0142", complete: true },
+    { kind: "pause", ms: 1800 },
+    { kind: "speech", ms: 1400, text: "and the unit is a Trane, model", complete: false },
+    { kind: "pause", ms: 950 },
+    { kind: "speech", ms: 1200, text: "XR14 I think", complete: true },
+    { kind: "pause", ms: 2000 },
+  ];
+  const rng = (seed: number) => () => { seed |= 0; seed = (seed + 0x6d2b79f5) | 0; let t = Math.imul(seed ^ (seed >>> 15), 1 | seed); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+  const normal = (r: () => number) => Math.sqrt(-2 * Math.log(r() || 1e-9)) * Math.cos(2 * Math.PI * r());
+  function timeline(noise: number) {
+    const r = rng(7); const prob: number[] = []; const spans: { start: number; end: number; text: string; complete: boolean }[] = []; let t = 0;
+    for (const s of CALL) {
+      const n = Math.max(1, Math.floor(s.ms / FRAME));
+      for (let k = 0; k < n; k++) {
+        if (s.kind === "speech") { let p = 0.85 + normal(r) * noise; if (r() < 0.06) p = 0.2 + r() * 0.3; prob.push(Math.min(1, Math.max(0, p))); }
+        else prob.push(Math.min(1, Math.abs(0.08 + Math.abs(normal(r) * noise))));
+      }
+      if (s.kind === "speech") spans.push({ start: t, end: t + n * FRAME, text: s.text!, complete: s.complete! });
+      t += n * FRAME;
+    }
+    return { prob, spans };
+  }
+  function vad(prob: number[], thr = 0.5, minSpeech = 100, minSil = 200) {
+    let on = false, above = 0, below = 0; return prob.map((p) => { if (p >= thr) { above += FRAME; below = 0; } else { below += FRAME; above = 0; } if (!on && above >= minSpeech) on = true; else if (on && below >= minSil) on = false; return on; });
+  }
+  function endpoint(v: boolean[], spans: any[], minD: number, maxD: number, sem: boolean, acc: number) {
+    const r = rng(1); const commits: number[] = []; let i = 0;
+    while (i < v.length) {
+      if (v[i] && i + 1 < v.length && !v[i + 1]) {
+        const off = (i + 1) * FRAME; let delay = minD;
+        if (sem) { const span = [...spans].reverse().find((s) => s.start <= off); const truth = span ? span.complete : true; const pred = r() < acc ? truth : !truth; delay = pred ? minD : maxD; }
+        let j = i + 1, resumed = false;
+        while (j < v.length && (j - i - 1) * FRAME < delay) { if (v[j]) { resumed = true; break; } j++; }
+        if (!resumed) commits.push(off + delay);
+        i = j;
+      } else i++;
+    }
+    return commits;
+  }
+  function score(commits: number[], spans: any[]) {
+    let premature = 0; const gaps: number[] = [];
+    for (const c of commits) { const prev = spans.filter((s) => s.end <= c); const last = prev[prev.length - 1]; if (last && !last.complete) premature++; else if (last) gaps.push(c - last.end); }
+    return { premature, gap: gaps.length ? Math.round(gaps.reduce((a, b) => a + b, 0) / gaps.length) : null };
+  }
+  const $ = (id: string) => document.getElementById(id) as HTMLInputElement;
+  function drawTT() {
+    const minD = +$("tt-min").value, maxD = +$("tt-max").value, acc = +$("tt-acc").value, noise = +$("tt-noise").value, sem = $("tt-sem").checked;
+    ($("tt-min-o") as any).value = minD; ($("tt-max-o") as any).value = maxD; ($("tt-acc-o") as any).value = acc.toFixed(2); ($("tt-noise-o") as any).value = noise.toFixed(2);
+    const { prob, spans } = timeline(noise); const v = vad(prob); const commits = endpoint(v, spans, minD, maxD, sem, acc); const sc = score(commits, spans);
+    const total = prob.length * FRAME, X = (ms: number) => (ms / total) * 1000, Y = (p: number) => 200 - p * 160;
+    let svg = "";
+    let k = 0; while (k < v.length) { if (v[k]) { const s = k; while (k < v.length && v[k]) k++; svg += `<rect x="${X(s * FRAME)}" y="${Y(1)}" width="${X((k - s) * FRAME)}" height="160" fill="rgba(62,123,255,0.18)"/>`; } else k++; }
+    svg += `<polyline fill="none" stroke="#37e0ff" stroke-width="1.2" points="${prob.map((p, i) => `${X(i * FRAME).toFixed(1)},${Y(p).toFixed(1)}`).join(" ")}"/>`;
+    for (const s of spans) svg += `<text x="${X(s.start)}" y="30" font-size="13" fill="${s.complete ? "#4ade80" : "#f5c044"}">${s.text}</text>`;
+    for (const c of commits) svg += `<line x1="${X(c)}" x2="${X(c)}" y1="35" y2="205" stroke="#ff7a6b" stroke-dasharray="5 4" stroke-width="2"/>`;
+    svg += `<text x="0" y="218" font-size="12" fill="#a8b5d1">0 s</text><text x="960" y="218" font-size="12" fill="#a8b5d1">${(total / 1000).toFixed(1)} s</text>`;
+    document.getElementById("tt-svg")!.innerHTML = svg;
+    document.getElementById("tt-score")!.textContent = `Premature cut-offs: ${sc.premature} · Average response gap after the caller really finished: ${sc.gap ?? "n/a"} ms`;
+  }
+  ["tt-min", "tt-max", "tt-acc", "tt-noise", "tt-sem"].forEach((id) => $(id).addEventListener("input", drawTT));
+  drawTT();
+
+  // ---------- 2. Guardrails replay ----------
+  const traces = (window as any).__traces as any[];
+  const sel = document.getElementById("gr-scn") as HTMLSelectElement;
+  sel.innerHTML = traces.map((t, i) => `<option value="${i}">${t.id.replace(/_/g, " ")}</option>`).join("");
+  const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;");
+  function drawGR() {
+    const t = traces[+sel.value]; const run = $("gr-on").checked ? t.guarded : t.unguarded;
+    document.getElementById("gr-steps")!.innerHTML = run.steps.map((s: any) => {
+      if (s.kind === "caller") return `<li class="st caller"><strong>Caller:</strong> ${esc(s.text)}</li>`;
+      if (s.kind === "agent") return `<li class="st agent"><strong>Agent:</strong> ${esc(s.text)}</li>`;
+      if (s.kind === "policy") return `<li class="st policy"><strong>Control plane:</strong> ${esc(s.text)}</li>`;
+      const args = Object.entries(s.args).map(([k, v]) => `${k}=${esc(String(v))}`).join(", ");
+      return `<li class="st tool ${s.ok ? "ok" : "blocked"}"><strong>${s.ok ? "✓ Allowed" : "✗ Blocked"}:</strong> <code>${s.name}(${args})</code>${s.ok ? "" : ` — ${esc(s.error ?? "")}: ${esc(s.message ?? "")}`}</li>`;
+    }).join("");
+    const good = run.outcome === t.expected;
+    document.getElementById("gr-outcome")!.innerHTML = `Outcome: <strong>${run.outcome.replace(/_/g, " ")}</strong> · expected: ${t.expected.replace(/_/g, " ")} · <span class="${good ? "good" : "bad"}">${good ? "correct" : "wrong"}</span>`;
+  }
+  sel.addEventListener("change", drawGR); $("gr-on").addEventListener("change", drawGR);
+  sel.value = String(Math.max(0, traces.findIndex((t) => t.id === "books_before_confirm")));
+  drawGR();
+
+  // ---------- 3. Latency budget ----------
+  const stages = [
+    ["endpoint", "Endpointing (caller stops → turn committed)", 100, 1500, 500],
+    ["network", "Network and buffering", 50, 400, 150],
+    ["ttft", "Model time to first token", 150, 2500, 400],
+    ["tool", "Tool call (e.g. find open slots)", 0, 4000, 1500],
+    ["tts", "Speech synthesis to first audio", 30, 600, 120],
+  ] as const;
+  const box = document.getElementById("lat-controls")!;
+  box.innerHTML = stages.map(([k, label, min, max, val]) => `<label><span>${label}: <output id="lat-${k}-o"></output> ms</span><input type="range" id="lat-${k}" min="${min}" max="${max}" step="10" value="${val}"/></label>`).join("");
+  function drawLat() {
+    const v: Record<string, number> = {}; stages.forEach(([k]) => { v[k] = +$(`lat-${k}`).value; ($(`lat-${k}-o`) as any).value = v[k]; });
+    const base = v.endpoint + v.network + v.ttft;
+    const answer = base + v.tool + v.ttft + v.tts;
+    const filler = $("lat-filler").checked && v.tool > 0;
+    const first = filler ? base + v.tts : answer;
+    const max = Math.max(answer, 1200);
+    const bar = (label: string, ms: number, cls: string) => `<div class="bar-row"><span class="bar-label">${label}</span><span class="bar ${cls}" style="width:${(ms / max) * 100}%"></span><span class="bar-val">${ms} ms</span></div>`;
+    document.getElementById("lat-bars")!.innerHTML =
+      bar("First sound the caller hears", first, first <= 1000 ? "good" : "bad") + bar("The actual answer", answer, answer <= 1000 ? "good" : "warn") +
+      `<p class="muted">Target: about 1,000 ms to first sound. ${filler ? "The preamble covers the tool call; the answer still takes as long." : ""}</p>`;
+  }
+  stages.forEach(([k]) => $(`lat-${k}`).addEventListener("input", drawLat)); $("lat-filler").addEventListener("change", drawLat);
+  drawLat();
+</script>
+
+<style is:global>
+  .sim { margin-bottom: var(--s8); max-width: 90ch; }
+  .sim .controls { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: var(--s3) var(--s6); margin: var(--s4) 0; }
+  .sim .controls label { display: grid; gap: var(--s1); font-size: 0.95rem; align-content: start; }
+  .sim label.check { display: flex !important; flex-direction: row; gap: var(--s2); align-items: center; }
+  .sim label.check input { width: 1.1rem; height: 1.1rem; accent-color: var(--cyan); }
+  .sim .controls input[type="range"] { width: 100%; accent-color: var(--cyan); }
+  .sim select { background: var(--panel); color: var(--ink); border: 1px solid var(--panel-edge); border-radius: var(--r1); padding: var(--s2); }
+  .sim #tt-svg { width: 100%; height: auto; background: var(--navy); border-radius: var(--r1); }
+  .sim .score { margin-top: var(--s3); }
+  .sim .steps { display: grid; gap: var(--s2); padding-left: var(--s6); }
+  .sim .st.caller { color: var(--ink); }
+  .sim .st.agent { color: var(--cyan); }
+  .sim .st.policy { color: var(--gold); }
+  .sim .st.tool.ok { color: var(--green); }
+  .sim .st.tool.blocked { color: var(--danger); }
+  .sim .good { color: var(--green); font-weight: 600; }
+  .sim .bad { color: var(--danger); font-weight: 600; }
+  .sim .bars { display: grid; gap: var(--s3); margin-top: var(--s4); }
+  .sim .bar-row { display: grid; grid-template-columns: 14rem 1fr 5rem; align-items: center; gap: var(--s3); }
+  .sim .bar { height: 14px; border-radius: 99px; background: var(--blue); min-width: 2px; }
+  .sim .bar.good { background: var(--green); } .bar.bad { background: var(--danger); } .bar.warn { background: var(--gold); }
+  @media (max-width: 640px) { .sim .bar-row { grid-template-columns: 1fr; } }
+</style>

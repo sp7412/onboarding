@@ -130,3 +130,9 @@ the vendor docs, fix imports, and re-run the full offline suite.
 
 Small, focused commits with imperative messages (e.g. "Fix barge-in timing in fake realtime").
 Run the offline notebook suite before committing any change under `labs/`.
+
+## Site simulations data
+
+The Guardrails simulation on the site replays recorded runs of `labs/stlab`. After changing
+`labs/stlab/fake_realtime.py`, `tools.py`, `backend.py` or `scenarios.py`, run
+`python scripts/export_site_sims.py` and commit the updated `site/src/data/guardrail-traces.json`.

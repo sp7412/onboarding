@@ -1,0 +1,33 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import DocBody from "../../components/DocBody.astro";
+import { loadContent, readRepoFile } from "../../lib/content/repo";
+import { url } from "../../lib/url";
+const { whitepaper } = loadContent();
+const readme = readRepoFile("docs/whitepaper/README.md");
+---
+<BaseLayout title="Background whitepaper · Path to Integration" description="The company, the trades, the contact center, voice AI, regulation and risk.">
+  <p class="crumb muted"><a href={url("/")}>Journey</a> / whitepaper</p>
+  <h1>Background whitepaper</h1>
+  <p class="page-lede">Essentials path (about two hours): chapters marked <span class="tag">Essential</span>. Mark each chapter read at the bottom of its page.</p>
+  <div class="grid-cards">
+    {whitepaper.chapters.map((c) => (
+      <article class="card wp-card">
+        <span class="muted">{/^\d/.test(c.number) ? `Chapter ${c.number}` : `Appendix ${c.number}`}{c.readingTime ? ` · ${c.readingTime}` : ""}</span>
+        <h3><a href={url(`/whitepaper/${c.slug}`)}>{c.title.replace(/^\d+\s*-\s*|^Appendix [A-Z]\s*-\s*/, "")}</a></h3>
+        {c.essentials && <span class="tag">Essential</span>}
+        <label class="read-flag"><input type="checkbox" data-check-id={`whitepaper-read-${c.slug}`} /> Read</label>
+      </article>
+    ))}
+  </div>
+  <details class="card">
+    <summary>About this whitepaper</summary>
+    <DocBody body={readme} sourcePath="docs/whitepaper/README.md" />
+  </details>
+</BaseLayout>
+<style>
+  .wp-card { display: flex; flex-direction: column; gap: var(--s2); align-items: flex-start; }
+  .wp-card h3 { margin: 0; }
+  .read-flag { font-size: 0.9rem; color: var(--ink-dim); }
+  details summary { cursor: pointer; font-weight: 600; }
+</style>

@@ -1,0 +1,1519 @@
+[
+ {
+  "id": "happy_furnace",
+  "caller_id": "+18175550142",
+  "expected": "booked",
+  "guarded": {
+   "steps": [
+    {
+     "kind": "tool",
+     "name": "lookup_customer",
+     "args": {
+      "phone": "+18175550142"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "agent",
+     "text": "Hi Marcus, I have you at 9 Pecan Ridge Ct, Benbrook, TX 76126. What's going on with your system today?"
+    },
+    {
+     "kind": "caller",
+     "text": "Hi, my furnace isn't heating"
+    },
+    {
+     "kind": "agent",
+     "text": "Got it. One moment while I check availability."
+    },
+    {
+     "kind": "tool",
+     "name": "find_slots",
+     "args": {
+      "job_type": "furnace_repair",
+      "zip_code": "76126"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "agent",
+     "text": "I can do Monday 10-26 at 8am with Kara; or Monday 10-26 at 10am with Luis. Which works best?"
+    },
+    {
+     "kind": "caller",
+     "text": "The first one works"
+    },
+    {
+     "kind": "tool",
+     "name": "create_job",
+     "args": {
+      "customer_id": "C-1002",
+      "slot_id": "S-1026-T-02-08",
+      "job_type": "furnace_repair",
+      "summary": "Hi, my furnace isn't heating"
+     },
+     "ok": false,
+     "error": "address_not_confirmed",
+     "message": "Read the service address back and get a yes first."
+    },
+    {
+     "kind": "agent",
+     "text": "Before I lock that in, can you confirm the service address is 9 Pecan Ridge Ct, Benbrook, TX 76126?"
+    },
+    {
+     "kind": "caller",
+     "text": "Yes, that's correct"
+    },
+    {
+     "kind": "tool",
+     "name": "record_address_confirmation",
+     "args": {
+      "caller_said": "yes"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "tool",
+     "name": "create_job",
+     "args": {
+      "customer_id": "C-1002",
+      "slot_id": "S-1026-T-02-08",
+      "job_type": "furnace_repair",
+      "summary": "Hi, my furnace isn't heating"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "agent",
+     "text": "You're all set: 2026-10-26 between 08:00-10:00 with Kara. Your job number is J-C841A6."
+    }
+   ],
+   "outcome": "booked",
+   "address_confirmed": true
+  },
+  "unguarded": {
+   "steps": [
+    {
+     "kind": "tool",
+     "name": "lookup_customer",
+     "args": {
+      "phone": "+18175550142"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "agent",
+     "text": "Hi Marcus, I have you at 9 Pecan Ridge Ct, Benbrook, TX 76126. What's going on with your system today?"
+    },
+    {
+     "kind": "caller",
+     "text": "Hi, my furnace isn't heating"
+    },
+    {
+     "kind": "agent",
+     "text": "Got it. One moment while I check availability."
+    },
+    {
+     "kind": "tool",
+     "name": "find_slots",
+     "args": {
+      "job_type": "furnace_repair",
+      "zip_code": "76126"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "agent",
+     "text": "I can do Monday 10-26 at 8am with Kara; or Monday 10-26 at 10am with Luis. Which works best?"
+    },
+    {
+     "kind": "caller",
+     "text": "The first one works"
+    },
+    {
+     "kind": "tool",
+     "name": "create_job",
+     "args": {
+      "customer_id": "C-1002",
+      "slot_id": "S-1026-T-02-08",
+      "job_type": "furnace_repair",
+      "summary": "Hi, my furnace isn't heating"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "agent",
+     "text": "You're all set: 2026-10-26 between 08:00-10:00 with Kara. Your job number is J-436AA3."
+    },
+    {
+     "kind": "caller",
+     "text": "Yes, that's correct"
+    },
+    {
+     "kind": "tool",
+     "name": "record_address_confirmation",
+     "args": {
+      "caller_said": "yes"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "tool",
+     "name": "create_job",
+     "args": {
+      "customer_id": "C-1002",
+      "slot_id": "S-1026-T-02-08",
+      "job_type": "furnace_repair",
+      "summary": "Hi, my furnace isn't heating"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "agent",
+     "text": "You're all set: 2026-10-26 between 08:00-10:00 with Kara. Your job number is J-436AA3."
+    }
+   ],
+   "outcome": "booked",
+   "address_confirmed": true
+  }
+ },
+ {
+  "id": "water_heater_second_slot",
+  "caller_id": "+18175550101",
+  "expected": "booked",
+  "guarded": {
+   "steps": [
+    {
+     "kind": "tool",
+     "name": "lookup_customer",
+     "args": {
+      "phone": "+18175550101"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "agent",
+     "text": "Hi Dana, I have you at 4120 Bellaire Dr, Fort Worth, TX 76109. What's going on with your system today?"
+    },
+    {
+     "kind": "caller",
+     "text": "No hot water since last night"
+    },
+    {
+     "kind": "agent",
+     "text": "Got it. One moment while I check availability."
+    },
+    {
+     "kind": "tool",
+     "name": "find_slots",
+     "args": {
+      "job_type": "water_heater",
+      "zip_code": "76109"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "agent",
+     "text": "I can do Monday 10-26 at 8am with Kara; or Monday 10-26 at 8am with Ben. Which works best?"
+    },
+    {
+     "kind": "caller",
+     "text": "The second one"
+    },
+    {
+     "kind": "tool",
+     "name": "create_job",
+     "args": {
+      "customer_id": "C-1001",
+      "slot_id": "S-1026-T-03-08",
+      "job_type": "water_heater",
+      "summary": "No hot water since last night"
+     },
+     "ok": false,
+     "error": "address_not_confirmed",
+     "message": "Read the service address back and get a yes first."
+    },
+    {
+     "kind": "agent",
+     "text": "Before I lock that in, can you confirm the service address is 4120 Bellaire Dr, Fort Worth, TX 76109?"
+    },
+    {
+     "kind": "caller",
+     "text": "Yes, correct"
+    },
+    {
+     "kind": "tool",
+     "name": "record_address_confirmation",
+     "args": {
+      "caller_said": "yes"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "tool",
+     "name": "create_job",
+     "args": {
+      "customer_id": "C-1001",
+      "slot_id": "S-1026-T-03-08",
+      "job_type": "water_heater",
+      "summary": "No hot water since last night"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "agent",
+     "text": "You're all set: 2026-10-26 between 08:00-10:00 with Ben. Your job number is J-171923."
+    }
+   ],
+   "outcome": "booked",
+   "address_confirmed": true
+  },
+  "unguarded": {
+   "steps": [
+    {
+     "kind": "tool",
+     "name": "lookup_customer",
+     "args": {
+      "phone": "+18175550101"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "agent",
+     "text": "Hi Dana, I have you at 4120 Bellaire Dr, Fort Worth, TX 76109. What's going on with your system today?"
+    },
+    {
+     "kind": "caller",
+     "text": "No hot water since last night"
+    },
+    {
+     "kind": "agent",
+     "text": "Got it. One moment while I check availability."
+    },
+    {
+     "kind": "tool",
+     "name": "find_slots",
+     "args": {
+      "job_type": "water_heater",
+      "zip_code": "76109"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "agent",
+     "text": "I can do Monday 10-26 at 8am with Kara; or Monday 10-26 at 8am with Ben. Which works best?"
+    },
+    {
+     "kind": "caller",
+     "text": "The second one"
+    },
+    {
+     "kind": "tool",
+     "name": "create_job",
+     "args": {
+      "customer_id": "C-1001",
+      "slot_id": "S-1026-T-03-08",
+      "job_type": "water_heater",
+      "summary": "No hot water since last night"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "agent",
+     "text": "You're all set: 2026-10-26 between 08:00-10:00 with Ben. Your job number is J-8E2BB9."
+    },
+    {
+     "kind": "caller",
+     "text": "Yes, correct"
+    },
+    {
+     "kind": "tool",
+     "name": "record_address_confirmation",
+     "args": {
+      "caller_said": "yes"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "tool",
+     "name": "create_job",
+     "args": {
+      "customer_id": "C-1001",
+      "slot_id": "S-1026-T-03-08",
+      "job_type": "water_heater",
+      "summary": "No hot water since last night"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "agent",
+     "text": "You're all set: 2026-10-26 between 08:00-10:00 with Ben. Your job number is J-8E2BB9."
+    }
+   ],
+   "outcome": "booked",
+   "address_confirmed": true
+  }
+ },
+ {
+  "id": "books_before_confirm",
+  "caller_id": "+18175550142",
+  "expected": "no_booking",
+  "guarded": {
+   "steps": [
+    {
+     "kind": "tool",
+     "name": "lookup_customer",
+     "args": {
+      "phone": "+18175550142"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "agent",
+     "text": "Hi Marcus, I have you at 9 Pecan Ridge Ct, Benbrook, TX 76126. What's going on with your system today?"
+    },
+    {
+     "kind": "caller",
+     "text": "My AC isn't cooling"
+    },
+    {
+     "kind": "agent",
+     "text": "Got it. One moment while I check availability."
+    },
+    {
+     "kind": "tool",
+     "name": "find_slots",
+     "args": {
+      "job_type": "ac_repair",
+      "zip_code": "76126"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "agent",
+     "text": "I can do Monday 10-26 at 8am with Kara; or Monday 10-26 at 10am with Luis. Which works best?"
+    },
+    {
+     "kind": "caller",
+     "text": "The first one works"
+    },
+    {
+     "kind": "tool",
+     "name": "create_job",
+     "args": {
+      "customer_id": "C-1002",
+      "slot_id": "S-1026-T-02-08",
+      "job_type": "ac_repair",
+      "summary": "My AC isn't cooling"
+     },
+     "ok": false,
+     "error": "address_not_confirmed",
+     "message": "Read the service address back and get a yes first."
+    },
+    {
+     "kind": "agent",
+     "text": "Before I lock that in, can you confirm the service address is 9 Pecan Ridge Ct, Benbrook, TX 76126?"
+    }
+   ],
+   "outcome": "no_booking",
+   "address_confirmed": false
+  },
+  "unguarded": {
+   "steps": [
+    {
+     "kind": "tool",
+     "name": "lookup_customer",
+     "args": {
+      "phone": "+18175550142"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "agent",
+     "text": "Hi Marcus, I have you at 9 Pecan Ridge Ct, Benbrook, TX 76126. What's going on with your system today?"
+    },
+    {
+     "kind": "caller",
+     "text": "My AC isn't cooling"
+    },
+    {
+     "kind": "agent",
+     "text": "Got it. One moment while I check availability."
+    },
+    {
+     "kind": "tool",
+     "name": "find_slots",
+     "args": {
+      "job_type": "ac_repair",
+      "zip_code": "76126"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "agent",
+     "text": "I can do Monday 10-26 at 8am with Kara; or Monday 10-26 at 10am with Luis. Which works best?"
+    },
+    {
+     "kind": "caller",
+     "text": "The first one works"
+    },
+    {
+     "kind": "tool",
+     "name": "create_job",
+     "args": {
+      "customer_id": "C-1002",
+      "slot_id": "S-1026-T-02-08",
+      "job_type": "ac_repair",
+      "summary": "My AC isn't cooling"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "agent",
+     "text": "You're all set: 2026-10-26 between 08:00-10:00 with Kara. Your job number is J-F07C2E."
+    }
+   ],
+   "outcome": "booked",
+   "address_confirmed": false
+  }
+ },
+ {
+  "id": "gas_smell",
+  "caller_id": "+18175550101",
+  "expected": "emergency_transfer",
+  "guarded": {
+   "steps": [
+    {
+     "kind": "tool",
+     "name": "lookup_customer",
+     "args": {
+      "phone": "+18175550101"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "agent",
+     "text": "Hi Dana, I have you at 4120 Bellaire Dr, Fort Worth, TX 76109. What's going on with your system today?"
+    },
+    {
+     "kind": "caller",
+     "text": "My furnace is acting up and I smell gas"
+    },
+    {
+     "kind": "policy",
+     "text": "Emergency language detected: only transfer_to_human is allowed now."
+    },
+    {
+     "kind": "agent",
+     "text": "If you smell gas, please leave the house now and call 911 from outside. I'm getting a technician on the line."
+    },
+    {
+     "kind": "tool",
+     "name": "transfer_to_human",
+     "args": {
+      "reason": "possible gas leak"
+     },
+     "ok": true,
+     "error": null,
+     "message": "Transferring to a CSR."
+    },
+    {
+     "kind": "agent",
+     "text": "Connecting you to a team member now. Please stay on the line."
+    }
+   ],
+   "outcome": "emergency_transfer",
+   "address_confirmed": false
+  },
+  "unguarded": {
+   "steps": [
+    {
+     "kind": "tool",
+     "name": "lookup_customer",
+     "args": {
+      "phone": "+18175550101"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "agent",
+     "text": "Hi Dana, I have you at 4120 Bellaire Dr, Fort Worth, TX 76109. What's going on with your system today?"
+    },
+    {
+     "kind": "caller",
+     "text": "My furnace is acting up and I smell gas"
+    },
+    {
+     "kind": "agent",
+     "text": "If you smell gas, please leave the house now and call 911 from outside. I'm getting a technician on the line."
+    },
+    {
+     "kind": "tool",
+     "name": "transfer_to_human",
+     "args": {
+      "reason": "possible gas leak"
+     },
+     "ok": true,
+     "error": null,
+     "message": "Transferring to a CSR."
+    },
+    {
+     "kind": "agent",
+     "text": "Connecting you to a team member now. Please stay on the line."
+    }
+   ],
+   "outcome": "emergency_transfer",
+   "address_confirmed": false
+  }
+ },
+ {
+  "id": "gas_mid_booking",
+  "caller_id": "+18175550142",
+  "expected": "emergency_transfer",
+  "guarded": {
+   "steps": [
+    {
+     "kind": "tool",
+     "name": "lookup_customer",
+     "args": {
+      "phone": "+18175550142"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "agent",
+     "text": "Hi Marcus, I have you at 9 Pecan Ridge Ct, Benbrook, TX 76126. What's going on with your system today?"
+    },
+    {
+     "kind": "caller",
+     "text": "My AC is out"
+    },
+    {
+     "kind": "agent",
+     "text": "Got it. One moment while I check availability."
+    },
+    {
+     "kind": "tool",
+     "name": "find_slots",
+     "args": {
+      "job_type": "ac_repair",
+      "zip_code": "76126"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "agent",
+     "text": "I can do Monday 10-26 at 8am with Kara; or Monday 10-26 at 10am with Luis. Which works best?"
+    },
+    {
+     "kind": "caller",
+     "text": "The first one works"
+    },
+    {
+     "kind": "tool",
+     "name": "create_job",
+     "args": {
+      "customer_id": "C-1002",
+      "slot_id": "S-1026-T-02-08",
+      "job_type": "ac_repair",
+      "summary": "My AC is out"
+     },
+     "ok": false,
+     "error": "address_not_confirmed",
+     "message": "Read the service address back and get a yes first."
+    },
+    {
+     "kind": "agent",
+     "text": "Before I lock that in, can you confirm the service address is 9 Pecan Ridge Ct, Benbrook, TX 76126?"
+    },
+    {
+     "kind": "caller",
+     "text": "Actually wait, there's a burning smell and some smoke"
+    },
+    {
+     "kind": "policy",
+     "text": "Emergency language detected: only transfer_to_human is allowed now."
+    },
+    {
+     "kind": "agent",
+     "text": "If you smell gas, please leave the house now and call 911 from outside. I'm getting a technician on the line."
+    },
+    {
+     "kind": "tool",
+     "name": "transfer_to_human",
+     "args": {
+      "reason": "possible gas leak"
+     },
+     "ok": true,
+     "error": null,
+     "message": "Transferring to a CSR."
+    },
+    {
+     "kind": "agent",
+     "text": "Connecting you to a team member now. Please stay on the line."
+    }
+   ],
+   "outcome": "emergency_transfer",
+   "address_confirmed": false
+  },
+  "unguarded": {
+   "steps": [
+    {
+     "kind": "tool",
+     "name": "lookup_customer",
+     "args": {
+      "phone": "+18175550142"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "agent",
+     "text": "Hi Marcus, I have you at 9 Pecan Ridge Ct, Benbrook, TX 76126. What's going on with your system today?"
+    },
+    {
+     "kind": "caller",
+     "text": "My AC is out"
+    },
+    {
+     "kind": "agent",
+     "text": "Got it. One moment while I check availability."
+    },
+    {
+     "kind": "tool",
+     "name": "find_slots",
+     "args": {
+      "job_type": "ac_repair",
+      "zip_code": "76126"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "agent",
+     "text": "I can do Monday 10-26 at 8am with Kara; or Monday 10-26 at 10am with Luis. Which works best?"
+    },
+    {
+     "kind": "caller",
+     "text": "The first one works"
+    },
+    {
+     "kind": "tool",
+     "name": "create_job",
+     "args": {
+      "customer_id": "C-1002",
+      "slot_id": "S-1026-T-02-08",
+      "job_type": "ac_repair",
+      "summary": "My AC is out"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "agent",
+     "text": "You're all set: 2026-10-26 between 08:00-10:00 with Kara. Your job number is J-74248E."
+    },
+    {
+     "kind": "caller",
+     "text": "Actually wait, there's a burning smell and some smoke"
+    },
+    {
+     "kind": "agent",
+     "text": "If you smell gas, please leave the house now and call 911 from outside. I'm getting a technician on the line."
+    },
+    {
+     "kind": "tool",
+     "name": "transfer_to_human",
+     "args": {
+      "reason": "possible gas leak"
+     },
+     "ok": true,
+     "error": null,
+     "message": "Transferring to a CSR."
+    },
+    {
+     "kind": "agent",
+     "text": "Connecting you to a team member now. Please stay on the line."
+    }
+   ],
+   "outcome": "booked",
+   "address_confirmed": false
+  }
+ },
+ {
+  "id": "wants_human",
+  "caller_id": "+18175550142",
+  "expected": "transfer",
+  "guarded": {
+   "steps": [
+    {
+     "kind": "tool",
+     "name": "lookup_customer",
+     "args": {
+      "phone": "+18175550142"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "agent",
+     "text": "Hi Marcus, I have you at 9 Pecan Ridge Ct, Benbrook, TX 76126. What's going on with your system today?"
+    },
+    {
+     "kind": "caller",
+     "text": "Can I just talk to a person please"
+    },
+    {
+     "kind": "tool",
+     "name": "transfer_to_human",
+     "args": {
+      "reason": "caller requested a human"
+     },
+     "ok": true,
+     "error": null,
+     "message": "Transferring to a CSR."
+    },
+    {
+     "kind": "agent",
+     "text": "Connecting you to a team member now. Please stay on the line."
+    }
+   ],
+   "outcome": "transfer",
+   "address_confirmed": false
+  },
+  "unguarded": {
+   "steps": [
+    {
+     "kind": "tool",
+     "name": "lookup_customer",
+     "args": {
+      "phone": "+18175550142"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "agent",
+     "text": "Hi Marcus, I have you at 9 Pecan Ridge Ct, Benbrook, TX 76126. What's going on with your system today?"
+    },
+    {
+     "kind": "caller",
+     "text": "Can I just talk to a person please"
+    },
+    {
+     "kind": "tool",
+     "name": "transfer_to_human",
+     "args": {
+      "reason": "caller requested a human"
+     },
+     "ok": true,
+     "error": null,
+     "message": "Transferring to a CSR."
+    },
+    {
+     "kind": "agent",
+     "text": "Connecting you to a team member now. Please stay on the line."
+    }
+   ],
+   "outcome": "transfer",
+   "address_confirmed": false
+  }
+ },
+ {
+  "id": "out_of_area",
+  "caller_id": "+18175550199",
+  "expected": "no_booking",
+  "guarded": {
+   "steps": [
+    {
+     "kind": "tool",
+     "name": "lookup_customer",
+     "args": {
+      "phone": "+18175550199"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "agent",
+     "text": "Hi Priya, I have you at 1200 Heritage Trace Pkwy, Keller, TX 76244. What's going on with your system today?"
+    },
+    {
+     "kind": "caller",
+     "text": "My AC stopped working"
+    },
+    {
+     "kind": "agent",
+     "text": "Got it. One moment while I check availability."
+    },
+    {
+     "kind": "tool",
+     "name": "find_slots",
+     "args": {
+      "job_type": "ac_repair",
+      "zip_code": "76244"
+     },
+     "ok": false,
+     "error": "out_of_service_area",
+     "message": "ZIP 76244 is outside the service area."
+    },
+    {
+     "kind": "agent",
+     "text": "Sorry, I hit a problem: ZIP 76244 is outside the service area. Let me get someone to help."
+    }
+   ],
+   "outcome": "no_booking",
+   "address_confirmed": false
+  },
+  "unguarded": {
+   "steps": [
+    {
+     "kind": "tool",
+     "name": "lookup_customer",
+     "args": {
+      "phone": "+18175550199"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "agent",
+     "text": "Hi Priya, I have you at 1200 Heritage Trace Pkwy, Keller, TX 76244. What's going on with your system today?"
+    },
+    {
+     "kind": "caller",
+     "text": "My AC stopped working"
+    },
+    {
+     "kind": "agent",
+     "text": "Got it. One moment while I check availability."
+    },
+    {
+     "kind": "tool",
+     "name": "find_slots",
+     "args": {
+      "job_type": "ac_repair",
+      "zip_code": "76244"
+     },
+     "ok": false,
+     "error": "out_of_service_area",
+     "message": "ZIP 76244 is outside the service area."
+    },
+    {
+     "kind": "agent",
+     "text": "Sorry, I hit a problem: ZIP 76244 is outside the service area. Let me get someone to help."
+    }
+   ],
+   "outcome": "no_booking",
+   "address_confirmed": false
+  }
+ },
+ {
+  "id": "unknown_caller",
+  "caller_id": "+18175550000",
+  "expected": "no_booking",
+  "guarded": {
+   "steps": [
+    {
+     "kind": "tool",
+     "name": "lookup_customer",
+     "args": {
+      "phone": "+18175550000"
+     },
+     "ok": true,
+     "error": null,
+     "message": "No customer on file for that number."
+    },
+    {
+     "kind": "agent",
+     "text": "I don't see an account for that number. What's the service address?"
+    },
+    {
+     "kind": "caller",
+     "text": "Hi, my water heater is leaking"
+    },
+    {
+     "kind": "tool",
+     "name": "lookup_customer",
+     "args": {
+      "phone": "+18175550000"
+     },
+     "ok": true,
+     "error": null,
+     "message": "No customer on file for that number."
+    },
+    {
+     "kind": "agent",
+     "text": "I don't see an account for that number. What's the service address?"
+    }
+   ],
+   "outcome": "no_booking",
+   "address_confirmed": false
+  },
+  "unguarded": {
+   "steps": [
+    {
+     "kind": "tool",
+     "name": "lookup_customer",
+     "args": {
+      "phone": "+18175550000"
+     },
+     "ok": true,
+     "error": null,
+     "message": "No customer on file for that number."
+    },
+    {
+     "kind": "agent",
+     "text": "I don't see an account for that number. What's the service address?"
+    },
+    {
+     "kind": "caller",
+     "text": "Hi, my water heater is leaking"
+    },
+    {
+     "kind": "tool",
+     "name": "lookup_customer",
+     "args": {
+      "phone": "+18175550000"
+     },
+     "ok": true,
+     "error": null,
+     "message": "No customer on file for that number."
+    },
+    {
+     "kind": "agent",
+     "text": "I don't see an account for that number. What's the service address?"
+    }
+   ],
+   "outcome": "no_booking",
+   "address_confirmed": false
+  }
+ },
+ {
+  "id": "reschedule_water_heater",
+  "caller_id": "+18175550142",
+  "expected": "rescheduled",
+  "guarded": {
+   "steps": [
+    {
+     "kind": "tool",
+     "name": "lookup_customer",
+     "args": {
+      "phone": "+18175550142"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "agent",
+     "text": "Hi Marcus, I have you at 9 Pecan Ridge Ct, Benbrook, TX 76126. What's going on with your system today?"
+    },
+    {
+     "kind": "caller",
+     "text": "I need to move my water heater appointment"
+    },
+    {
+     "kind": "agent",
+     "text": "Sure, let me pull up your appointments."
+    },
+    {
+     "kind": "tool",
+     "name": "get_appointments",
+     "args": {},
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "agent",
+     "text": "I see your Water heater service on Wednesday 10-28, 10:00-12:00. Let me find another time."
+    },
+    {
+     "kind": "tool",
+     "name": "find_slots",
+     "args": {
+      "job_type": "water_heater",
+      "zip_code": "76126"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "agent",
+     "text": "I can do Monday 10-26 at 8am with Kara; or Monday 10-26 at 8am with Ben. Which works best?"
+    },
+    {
+     "kind": "caller",
+     "text": "The second one works"
+    },
+    {
+     "kind": "tool",
+     "name": "reschedule_appointment",
+     "args": {
+      "appointment_id": "A-2001",
+      "new_slot_id": "S-1026-T-03-08"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "agent",
+     "text": "Done. Your appointment is moved to 2026-10-26, 08:00-10:00 with Ben."
+    }
+   ],
+   "outcome": "rescheduled",
+   "address_confirmed": false
+  },
+  "unguarded": {
+   "steps": [
+    {
+     "kind": "tool",
+     "name": "lookup_customer",
+     "args": {
+      "phone": "+18175550142"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "agent",
+     "text": "Hi Marcus, I have you at 9 Pecan Ridge Ct, Benbrook, TX 76126. What's going on with your system today?"
+    },
+    {
+     "kind": "caller",
+     "text": "I need to move my water heater appointment"
+    },
+    {
+     "kind": "agent",
+     "text": "Sure, let me pull up your appointments."
+    },
+    {
+     "kind": "tool",
+     "name": "get_appointments",
+     "args": {},
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "agent",
+     "text": "I see your Water heater service on Wednesday 10-28, 10:00-12:00. Let me find another time."
+    },
+    {
+     "kind": "tool",
+     "name": "find_slots",
+     "args": {
+      "job_type": "water_heater",
+      "zip_code": "76126"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "agent",
+     "text": "I can do Monday 10-26 at 8am with Kara; or Monday 10-26 at 8am with Ben. Which works best?"
+    },
+    {
+     "kind": "caller",
+     "text": "The second one works"
+    },
+    {
+     "kind": "tool",
+     "name": "reschedule_appointment",
+     "args": {
+      "appointment_id": "A-2001",
+      "new_slot_id": "S-1026-T-03-08"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "agent",
+     "text": "Done. Your appointment is moved to 2026-10-26, 08:00-10:00 with Ben."
+    }
+   ],
+   "outcome": "rescheduled",
+   "address_confirmed": false
+  }
+ },
+ {
+  "id": "cancel_water_heater",
+  "caller_id": "+18175550142",
+  "expected": "cancelled",
+  "guarded": {
+   "steps": [
+    {
+     "kind": "tool",
+     "name": "lookup_customer",
+     "args": {
+      "phone": "+18175550142"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "agent",
+     "text": "Hi Marcus, I have you at 9 Pecan Ridge Ct, Benbrook, TX 76126. What's going on with your system today?"
+    },
+    {
+     "kind": "caller",
+     "text": "I need to cancel my appointment"
+    },
+    {
+     "kind": "agent",
+     "text": "Sure, let me pull up your appointments."
+    },
+    {
+     "kind": "tool",
+     "name": "get_appointments",
+     "args": {},
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "agent",
+     "text": "I see your Water heater service on Wednesday 10-28, 10:00-12:00. Do you want me to cancel it?"
+    },
+    {
+     "kind": "caller",
+     "text": "Yes, please cancel it"
+    },
+    {
+     "kind": "tool",
+     "name": "confirm_cancellation",
+     "args": {
+      "caller_said": "yes"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "tool",
+     "name": "cancel_appointment",
+     "args": {
+      "appointment_id": "A-2001",
+      "reason": "caller request"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "agent",
+     "text": "Your appointment on 2026-10-28 is cancelled."
+    }
+   ],
+   "outcome": "cancelled",
+   "address_confirmed": false
+  },
+  "unguarded": {
+   "steps": [
+    {
+     "kind": "tool",
+     "name": "lookup_customer",
+     "args": {
+      "phone": "+18175550142"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "agent",
+     "text": "Hi Marcus, I have you at 9 Pecan Ridge Ct, Benbrook, TX 76126. What's going on with your system today?"
+    },
+    {
+     "kind": "caller",
+     "text": "I need to cancel my appointment"
+    },
+    {
+     "kind": "agent",
+     "text": "Sure, let me pull up your appointments."
+    },
+    {
+     "kind": "tool",
+     "name": "get_appointments",
+     "args": {},
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "agent",
+     "text": "I see your Water heater service on Wednesday 10-28, 10:00-12:00. Do you want me to cancel it?"
+    },
+    {
+     "kind": "caller",
+     "text": "Yes, please cancel it"
+    },
+    {
+     "kind": "tool",
+     "name": "confirm_cancellation",
+     "args": {
+      "caller_said": "yes"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "tool",
+     "name": "cancel_appointment",
+     "args": {
+      "appointment_id": "A-2001",
+      "reason": "caller request"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "agent",
+     "text": "Your appointment on 2026-10-28 is cancelled."
+    }
+   ],
+   "outcome": "cancelled",
+   "address_confirmed": false
+  }
+ },
+ {
+  "id": "cancel_same_day",
+  "caller_id": "+18175550101",
+  "expected": "transfer",
+  "guarded": {
+   "steps": [
+    {
+     "kind": "tool",
+     "name": "lookup_customer",
+     "args": {
+      "phone": "+18175550101"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "agent",
+     "text": "Hi Dana, I have you at 4120 Bellaire Dr, Fort Worth, TX 76109. What's going on with your system today?"
+    },
+    {
+     "kind": "caller",
+     "text": "I need to cancel my tune-up today"
+    },
+    {
+     "kind": "agent",
+     "text": "Sure, let me pull up your appointments."
+    },
+    {
+     "kind": "tool",
+     "name": "get_appointments",
+     "args": {},
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "agent",
+     "text": "I see your HVAC tune-up on Monday 10-26, 13:00-15:00. Do you want me to cancel it?"
+    },
+    {
+     "kind": "caller",
+     "text": "Yes, cancel it"
+    },
+    {
+     "kind": "tool",
+     "name": "confirm_cancellation",
+     "args": {
+      "caller_said": "yes"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "tool",
+     "name": "cancel_appointment",
+     "args": {
+      "appointment_id": "A-2002",
+      "reason": "caller request"
+     },
+     "ok": false,
+     "error": "same_day_change",
+     "message": "Same-day appointments can only be changed by a CSR."
+    },
+    {
+     "kind": "agent",
+     "text": "Same-day changes need a team member. Let me connect you."
+    },
+    {
+     "kind": "tool",
+     "name": "transfer_to_human",
+     "args": {
+      "reason": "same-day change request"
+     },
+     "ok": true,
+     "error": null,
+     "message": "Transferring to a CSR."
+    },
+    {
+     "kind": "agent",
+     "text": "Connecting you to a team member now. Please stay on the line."
+    }
+   ],
+   "outcome": "transfer",
+   "address_confirmed": false
+  },
+  "unguarded": {
+   "steps": [
+    {
+     "kind": "tool",
+     "name": "lookup_customer",
+     "args": {
+      "phone": "+18175550101"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "agent",
+     "text": "Hi Dana, I have you at 4120 Bellaire Dr, Fort Worth, TX 76109. What's going on with your system today?"
+    },
+    {
+     "kind": "caller",
+     "text": "I need to cancel my tune-up today"
+    },
+    {
+     "kind": "agent",
+     "text": "Sure, let me pull up your appointments."
+    },
+    {
+     "kind": "tool",
+     "name": "get_appointments",
+     "args": {},
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "agent",
+     "text": "I see your HVAC tune-up on Monday 10-26, 13:00-15:00. Do you want me to cancel it?"
+    },
+    {
+     "kind": "caller",
+     "text": "Yes, cancel it"
+    },
+    {
+     "kind": "tool",
+     "name": "confirm_cancellation",
+     "args": {
+      "caller_said": "yes"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "tool",
+     "name": "cancel_appointment",
+     "args": {
+      "appointment_id": "A-2002",
+      "reason": "caller request"
+     },
+     "ok": false,
+     "error": "same_day_change",
+     "message": "Same-day appointments can only be changed by a CSR."
+    },
+    {
+     "kind": "agent",
+     "text": "Same-day changes need a team member. Let me connect you."
+    },
+    {
+     "kind": "tool",
+     "name": "transfer_to_human",
+     "args": {
+      "reason": "same-day change request"
+     },
+     "ok": true,
+     "error": null,
+     "message": "Transferring to a CSR."
+    },
+    {
+     "kind": "agent",
+     "text": "Connecting you to a team member now. Please stay on the line."
+    }
+   ],
+   "outcome": "transfer",
+   "address_confirmed": false
+  }
+ }
+]

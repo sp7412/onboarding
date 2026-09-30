@@ -15,7 +15,8 @@ const glossary = routeByKey("glossary")!;
     </p>
     <nav aria-label="Footer">
       <a href={url(about.path)}>About this site</a>
-      <span aria-disabled="true">{glossary.label} <small>Coming soon</small></span>
+      <a href={url(glossary.path)}>{glossary.label}</a>
+      <a href={url("/docs/references")}>References</a>
       <a href="https://github.com/sp7412/onboarding">Source repository</a>
     </nav>
     <p class="muted copyright">© {year} · Built with Astro · Deployed on GitHub Pages</p>

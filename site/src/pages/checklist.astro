@@ -35,7 +35,7 @@ const stageId = (stage: string) => stage;
             {week.output && <p class="output"><strong>Output:</strong> {week.output}</p>}
             <ul>
               {week.items.map((item) => (
-                <li class:list={{ "exit-criterion": item.isExitCriterion }}>
+                <li id={item.id} class:list={{ "exit-criterion": item.isExitCriterion }}>
                   <label>
                     <input type="checkbox" data-check-id={item.id} />
                     <span><DocBody body={item.text} sourcePath="plan/30-60-90-checklist.md" /></span>
@@ -57,20 +57,7 @@ const stageId = (stage: string) => stage;
   )}
 </BaseLayout>
 
-<script>
-  const key = "path-to-integration-checklist";
-  const saved = JSON.parse(localStorage.getItem(key) ?? "{}");
-  const boxes = document.querySelectorAll<HTMLInputElement>("input[data-check-id]");
-  boxes.forEach((box) => {
-    const id = box.dataset.checkId;
-    if (!id) return;
-    box.checked = Boolean(saved[id]);
-    box.addEventListener("change", () => {
-      saved[id] = box.checked;
-      localStorage.setItem(key, JSON.stringify(saved));
-    });
-  });
-</script>
+
 
 <style>
   h1 { margin-bottom: var(--s4); }

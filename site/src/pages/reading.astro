@@ -1,0 +1,14 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import DocBody from "../components/DocBody.astro";
+import { readRepoFile } from "../lib/content/repo";
+import { url } from "../lib/url";
+const body = readRepoFile("docs/reading-guide.md");
+const title = body.split("\n").find((l) => l.startsWith("# "))!.slice(2);
+---
+<BaseLayout title={`${title} · Path to Integration`} description="Ranked blogs, docs, papers and talks with what to look for in each.">
+  <p class="crumb muted"><a href={url("/")}>Journey</a> / reading</p>
+  <h1>{title}</h1>
+  <p class="page-lede">Work top to bottom. Check items off as you finish them; progress is saved in this browser.</p>
+  <DocBody body={body} sourcePath="docs/reading-guide.md" idPrefix="reading" />
+</BaseLayout>

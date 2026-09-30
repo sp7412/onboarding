@@ -1,0 +1,39 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import DocBody from "../../components/DocBody.astro";
+import { loadContent } from "../../lib/content/repo";
+import { url } from "../../lib/url";
+import { slugify } from "../../lib/content/ids";
+const anchorFor = (text: string) => slugify(text.replace(/[`*_[\]()]/g, "")) || "section";
+
+export function getStaticPaths() {
+  const chapters = loadContent().whitepaper.chapters;
+  return chapters.map((chapter, i) => ({
+    params: { slug: chapter.slug },
+    props: { chapter, prev: chapters[i - 1] ?? null, next: chapters[i + 1] ?? null },
+  }));
+}
+const { chapter, prev, next } = Astro.props;
+const file = `docs/whitepaper/${chapter.slug}.md`;
+---
+<BaseLayout title={`${chapter.title} · Whitepaper`} description={chapter.title}>
+  <p class="crumb muted"><a href={url("/")}>Journey</a> / <a href={url("/whitepaper")}>whitepaper</a></p>
+  <h1>{chapter.title}</h1>
+  {chapter.sections.length > 2 && (
+    <nav class="toc" aria-label="In this chapter">
+      {chapter.sections.map((s) => <a href={`#${anchorFor(s)}`}>{s}</a>)}
+    </nav>
+  )}
+  <DocBody body={chapter.body} sourcePath={file} idPrefix={`whitepaper-${chapter.slug}`} />
+  <div class="card chapter-end">
+    <label><input type="checkbox" data-check-id={`whitepaper-read-${chapter.slug}`} /> I've read this chapter</label>
+    <nav class="pager" aria-label="Chapters">
+      {prev ? <a href={url(`/whitepaper/${prev.slug}`)}>← {prev.title}</a> : <span />}
+      {next ? <a href={url(`/whitepaper/${next.slug}`)}>{next.title} →</a> : <a href={url("/whitepaper")}>All chapters</a>}
+    </nav>
+  </div>
+</BaseLayout>
+<style>
+  .chapter-end { margin-top: var(--s12); display: grid; gap: var(--s4); }
+  .pager { display: flex; justify-content: space-between; gap: var(--s4); flex-wrap: wrap; }
+</style>

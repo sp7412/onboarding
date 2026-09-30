@@ -1,0 +1,14 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import DocBody from "../components/DocBody.astro";
+import { readRepoFile } from "../lib/content/repo";
+import { url } from "../lib/url";
+const body = readRepoFile("docs/podcast-prompts.md");
+const title = body.split("\n").find((l) => l.startsWith("# "))!.slice(2);
+---
+<BaseLayout title={`${title} · Path to Integration`} description="Copy-paste NotebookLM prompts for review episodes.">
+  <p class="crumb muted"><a href={url("/")}>Journey</a> / podcasts</p>
+  <h1>{title}</h1>
+  <p class="page-lede">Each episode is one block: tap <strong>Copy</strong>, then paste the sources and prompt into NotebookLM.</p>
+  <DocBody body={body} sourcePath="docs/podcast-prompts.md" idPrefix="podcasts" />
+</BaseLayout>

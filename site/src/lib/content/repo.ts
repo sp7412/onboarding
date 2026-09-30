@@ -62,6 +62,10 @@ function read(repoRelative: string): string {
   return fs.readFileSync(p, "utf8");
 }
 
+export function readRepoFile(repoRelative: string): string {
+  return read(repoRelative);
+}
+
 function parseDoc(repoRelative: string): RepoDoc {
   const body = read(repoRelative);
   const lines = body.split("\n");
@@ -80,9 +84,12 @@ export const DOC_PAGES: { repoPath: string; icon: string }[] = [
   { repoPath: "docs/evaluating-voice-agents.md", icon: "evaluation" },
   { repoPath: "docs/livekit-hands-on.md", icon: "labs" },
   { repoPath: "docs/first-90-days-playbook.md", icon: "plan" },
+  { repoPath: "docs/references.md", icon: "reading" },
+  { repoPath: "notes/study-question.md", icon: "notes" },
+  { repoPath: "notes/conversation-notes.md", icon: "notes" },
 ];
 
-const TEMPLATE_FILES = [
+export const TEMPLATE_FILES = [
   "onboarding-log.md",
   "1on1-questions.md",
   "weekly-status.md",
@@ -91,19 +98,29 @@ const TEMPLATE_FILES = [
   "90-day-retro.md",
 ];
 
-/** Map a repo-relative markdown link target to a site route, or null to keep external. */
+/**
+ * Map a repo-relative path (optionally with #hash) to a site route, or null to
+ * link to the file on GitHub instead.
+ */
 export function repoLinkToRoute(target: string): string | null {
-  const clean = target.replace(/^\.\.?\//, "").split("#")[0];
-  if (clean.startsWith("docs/whitepaper/")) return null;
-  if (DOC_PAGES.some((d) => d.repoPath === clean)) return `/docs/${path.basename(clean, ".md")}`;
-  if (clean.startsWith("templates/")) return null;
-  if (clean === "docs/reading-guide.md") return null;
-  if (clean === "docs/podcast-prompts.md") return null;
-  if (clean === "docs/livekit-hands-on.md") return "/docs/livekit-hands-on";
-  if (clean === "notes/study-question.md") return null;
-  if (clean === "notes/glossary.md") return null;
-  if (clean.startsWith("labs/")) return null;
-  if (clean === "plan/30-60-90-checklist.md") return null;
+  const [rawPath, hash] = target.replace(/^\.\.?\//, "").split("#", 2);
+  const clean = rawPath.replace(/\/$/, "");
+  const withHash = (route: string) => (hash ? `${route}#${hash}` : route);
+  if (clean === "" || clean === "README.md") return withHash("/");
+  if (clean === "docs/whitepaper" || clean === "docs/whitepaper/README.md") return withHash("/whitepaper");
+  if (clean.startsWith("docs/whitepaper/") && clean.endsWith(".md")) {
+    const slug = path.basename(clean, ".md");
+    if (slug === "claims-ledger") return null;
+    return withHash(`/whitepaper/${slug}`);
+  }
+  if (DOC_PAGES.some((d) => d.repoPath === clean)) return withHash(`/docs/${path.basename(clean, ".md")}`);
+  if (clean === "docs/reading-guide.md") return withHash("/reading");
+  if (clean === "docs/podcast-prompts.md") return withHash("/podcasts");
+  if (clean === "notes/glossary.md") return withHash("/glossary");
+  if (clean === "plan/30-60-90-checklist.md") return withHash("/checklist");
+  if (clean === "templates" || clean === "templates/README.md") return "/templates";
+  if (clean.startsWith("templates/") && clean.endsWith(".md")) return `/templates#${path.basename(clean, ".md")}`;
+  if (clean === "labs" || clean === "labs/README.md") return withHash("/labs");
   return null;
 }
 
