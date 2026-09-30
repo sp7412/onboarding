@@ -1,5 +1,7 @@
 # Real-Time Voice Agent Labs (ServiceTitan onboarding)
 
+**Facts as of: September 30, 2026 · Last reviewed: September 30, 2026**
+
 Nine hands-on Jupyter tutorials that build a phone agent for a fictional HVAC/plumbing
 contractor, one architecture layer at a time:
 
@@ -58,7 +60,7 @@ python agents/realtime_agent.py dev              # connect to LiveKit Cloud
 
 ## Notes
 
-- Model names and SDK APIs change quickly; verified against livekit-agents 1.8.2,
+- Model names and SDK APIs change quickly; verified against livekit-agents 1.8.3,
   langchain 1.4, langsmith 0.14, and the GA Realtime event protocol (gpt-realtime-2).
 - Use personal/free-tier accounts; never put employer or customer data in these labs.
 - `src/` holds the percent-format sources; `python build_nb.py` regenerates the notebooks.

@@ -93,3 +93,12 @@ Added when chapters 03, 04, 05, 08, 12, 13 and 14 were rewritten.
 | LiveKit turn detection, interruptions; transformer end-of-turn model | 08 | https://livekit.com/blog/using-a-transformer-to-improve-end-of-turn-detection | 2026-09-28 | yes |  |
 | τ-bench checks final database state and introduces pass^k; agents less consistent across repeats | 12 | https://arxiv.org/abs/2406.12045 | 2026-09-28 | yes | Paper abstract |
 | Boilerplate: 'AI for the trades'; organizational velocity; Max doubled in Q2 | 13 | https://www.sec.gov/Archives/edgar/data/1638826/000163882626000093/ttan-ex99_1.htm | 2026-09-28 | yes |  |
+
+## Verification pass, September 30, 2026
+
+| Claim | Chapter | URL | Date checked | Supported | Notes |
+|---|---:|---|---|---|---|
+| Agent Builder prototypes browser agents, supports cascaded LiveKit Inference models, and does not support realtime-model plugins | 08 | https://docs.livekit.io/agents/start/builder/ | 2026-09-30 | yes | Current public documentation; realtime work belongs in the Python SDK path. |
+| LiveKit Python quickstart uses `lk agent init`, `uv sync`, `AgentSession`, and supports realtime models through the OpenAI plugin | 08 | https://docs.livekit.io/agents/start/voice-ai/ | 2026-09-30 | yes | Current public documentation; local examples checked with livekit-agents 1.8.3. |
+| LiveKit turn handling supports turn-detector, realtime-model, VAD, STT endpointing, and manual modes | 08 | https://docs.livekit.io/agents/logic/turns/ | 2026-09-30 | yes | Current public documentation. |
+| OpenAI realtime model names, prices, context limits, modalities, and changelog dates in the speech-to-speech note | 08 | https://developers.openai.com/api/docs/models/gpt-realtime-2.1 | 2026-09-30 | unverified | Automated proxy-backed fetch returned HTTP 403; values remain source-attributed notes and were not guessed or changed. |

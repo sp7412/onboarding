@@ -1,9 +1,15 @@
 # Speech-To-Speech Models
 
-How realtime voice models like OpenAI's `gpt-realtime` family work, the current lineup, and
-when to use them instead of a cascaded pipeline for a phone agent. Facts as of September 29,
-2026; model names and prices change often, so check the [OpenAI models
+**Facts as of: September 29, 2026 · Last reviewed: September 30, 2026**
+
+How realtime voice models like OpenAI's `gpt-realtime` family work, the reported lineup, and
+when to use them instead of a cascaded pipeline for a phone agent. Model names and prices change
+often, so check the [OpenAI models
 pages](https://developers.openai.com/api/docs/models/gpt-realtime-2.1) before relying on them.
+
+**Verification note:** the OpenAI model pages and changelog returned HTTP 403 to the automated
+proxy-backed fetch on September 30, 2026. The model names and numeric values below remain
+source-attributed research notes, not independently verified current pricing or limits.
 
 > **On the name "GPT Live".** OpenAI doesn't sell a model by that name. It most likely
 > refers to the Realtime API's speech-to-speech models (`gpt-realtime-*`), which the labs

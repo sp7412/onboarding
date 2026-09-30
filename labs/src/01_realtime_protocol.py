@@ -10,7 +10,11 @@
 # 4. see barge-in (cancellation) and **truncation**, the thing most homegrown voice loops get wrong
 # 5. (live only) get audio back and play it
 #
-# **Live vs. offline.** If `OPENAI_API_KEY` is set, `connect()` opens a WebSocket to `wss://api.openai.com/v1/realtime?model=gpt-realtime-2`. Otherwise it returns `FakeRealtime`, a simulator that speaks the same event protocol with a scripted "brain". Force either with `LIVE = True/False`.
+# **Live vs. offline.** If `OPENAI_API_KEY` is set, `connect()` opens a WebSocket to the
+# OpenAI Realtime endpoint for `gpt-realtime-2`. Otherwise it returns `FakeRealtime`, a
+# simulator that speaks the same event protocol with a scripted "brain". Force either with
+# `LIVE = True/False`. The OpenAI developer pages returned HTTP 403 to the automated check on
+# September 30, 2026; verify the current model and protocol before a live run.
 #
 # Background: read [`docs/speech-to-speech-models.md`](../docs/speech-to-speech-models.md) first for how these models work and the current lineup (the labs target `gpt-realtime-2`; `gpt-realtime-2.1` and `-mini` shipped in July 2026).
 #

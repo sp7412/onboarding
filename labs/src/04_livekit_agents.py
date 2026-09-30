@@ -12,7 +12,9 @@
 #
 # Requirements: `livekit-agents[openai,silero,turn-detector]` (1.x). For `dev` mode and the cascaded pipeline you need a LiveKit Cloud project (free tier) and `LIVEKIT_URL`, `LIVEKIT_API_KEY`, `LIVEKIT_API_SECRET`. The realtime agent also needs `OPENAI_API_KEY`.
 #
-# API names below match `livekit-agents` 1.8. LiveKit moves quickly, so check docs.livekit.io/agents if an import fails.
+# API names below were checked against `livekit-agents` 1.8.3 on September 30, 2026. LiveKit
+# moves quickly, so check the current docs if an import fails. Agent Builder uses cascaded
+# LiveKit Inference models; the realtime model examples below are Python SDK examples.
 
 # %% [markdown]
 # ## 1. Object model

@@ -1,5 +1,12 @@
 # LiveKit Hands-On Track: from no-code prototype to a guarded scheduling agent
 
+**Facts as of: September 30, 2026 · Last reviewed: September 30, 2026**
+
+LiveKit verification note: checked against the current Agent Builder, Voice AI quickstart,
+Python starter, CLI, and turn-handling documentation. The local examples were checked with
+`livekit-agents` 1.8.3. Agent Builder currently supports cascaded STT–LLM–TTS agents and does
+not support realtime-model plugins; the realtime path below is the Python SDK path.
+
 This track follows the plan in [`notes/conversation-notes.md`](../notes/conversation-notes.md):
 prototype in the browser, rebuild in Python with LiveKit's official starter, then add fake
 ServiceTitan tools behind the same control plane the labs use. It complements
@@ -28,8 +35,8 @@ Docs: <https://docs.livekit.io/agents/start/builder/>
   Be concise and conversational.
   Never claim that an appointment was changed unless the scheduling tool confirms the change.
   ```
-- [ ] Pick models. Start with the default cascaded STT → LLM → TTS pipeline; note which realtime
-      models the builder offers today.
+- [ ] Pick the default cascaded STT → LLM → TTS pipeline. Agent Builder does not currently
+      support realtime-model plugins; compare realtime models in Phase 2 after converting to code.
 - [ ] Preview in the browser and try all five:
   1. "Hi, I need someone to look at my AC."
   2. "Move my appointment to tomorrow afternoon."
@@ -52,7 +59,7 @@ Docs: <https://docs.livekit.io/agents/start/builder/>
 ## Phase 2: The official Python starter (~1.5 h)
 
 The LiveKit CLI can clone the `agent-starter-python` template and configure your environment. The
-starter README documents version **2.18.8 or later**.
+current starter README documents LiveKit CLI version **2.18.8 or later**.
 Starter: <https://github.com/livekit-examples/agent-starter-python>
 
 ```bash
@@ -93,8 +100,9 @@ from livekit.plugins import openai
 session = AgentSession(llm=openai.realtime.RealtimeModel(model="gpt-realtime-2", voice="marin"))
 ```
 
-(Install the plugin with `uv add "livekit-agents[openai]"` if it isn't already there. Check which
-realtime model version your team uses; `gpt-realtime-2.1` shipped in July 2026.)
+(Install the plugin with `uv add "livekit-agents[openai]"` if it isn't already there. The lab
+keeps its `gpt-realtime-2` target; check the current OpenAI model page before choosing a newer
+snapshot.)
 
 - [ ] Compare cascaded vs realtime on the five Phase 1 prompts. Record end-of-speech → first-audio
       for each in the latency worksheet (`study-guide/`).
