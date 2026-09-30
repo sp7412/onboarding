@@ -4,11 +4,12 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import DocBody from "../components/DocBody.astro";
 import { readRepoFile } from "../lib/content/repo";
 import { url } from "../lib/url";
+import { jargonSpan } from "../lib/jargon";
 const body = readRepoFile("docs/voice-agent-architecture.md");
 
 const layers = [
   { name: "Caller and telephony", owns: "The phone network, SIP trunks, call transfer.", stops: "Knows nothing about the conversation or the business.", go: [["Lab 04", "/labs#lab-04"], ["Whitepaper ch. 08", "/whitepaper/08-technology-landscape"]] },
-  { name: "Transport (LiveKit)", owns: "Low-latency audio, rooms, voice activity detection, turn commit, interruption plumbing, playout.", stops: "Decides when a turn ends, not what to say or whether an action is allowed.", go: [["Lab 03", "/labs#lab-03"], ["LiveKit hands-on", "/docs/livekit-hands-on"]] },
+  { name: "Transport (LiveKit)", owns: "Low-latency audio, rooms, " + jargonSpan("vad-long", "voice activity detection") + ", turn commit, interruption plumbing, playout.", stops: "Decides when a turn ends, not what to say or whether an action is allowed.", go: [["Lab 03", "/labs#lab-03"], ["LiveKit hands-on", "/docs/livekit-hands-on"]] },
   { name: "Realtime model", owns: "Hearing, reasoning and speaking; proposing tool calls.", stops: "Never executes tools, owns no durable state, can't unsay audio.", go: [["Speech-to-speech models", "/docs/speech-to-speech-models"], ["Lab 01", "/labs#lab-01"]] },
   { name: "Orchestration (LangChain / LangGraph)", owns: "Multi-step workflows, durable state, retries, human-in-the-loop.", stops: "Isn't the audio hot path or the system of record.", go: [["Labs 05–06", "/labs#lab-05"]] },
   { name: "Control plane (the application)", owns: "Identity, policy at the tool boundary, grounding, idempotency, escalation, compliance.", stops: "This is where the business rules live.", go: [["Lab 02", "/labs#lab-02"], ["Whitepaper ch. 12", "/whitepaper/12-risks-and-failure-modes"]] },
@@ -24,7 +25,7 @@ const layers = [
     {layers.map((l, i) => (
       <details class="card layer" open={i === 4}>
         <summary><span class="idx">{i + 1}</span> {l.name}</summary>
-        <p><strong>Owns:</strong> {l.owns}</p>
+        <p><strong>Owns:</strong> <span set:html={l.owns} /></p>
         <p><strong>Stops at:</strong> {l.stops}</p>
         <p class="go">{l.go.map(([t, h]) => <a href={url(h)}>{t}</a>)}</p>
       </details>

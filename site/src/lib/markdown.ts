@@ -6,6 +6,7 @@
  * code (mermaid shown as source with a GitHub link), and horizontal rules.
  */
 import { contentId, slugify } from "./content/ids";
+import { markupJargon } from "./jargon";
 
 export interface RenderOptions {
   /** Repo-relative path of the source file (used to resolve relative links). */
@@ -254,5 +255,5 @@ export function renderMarkdown(md: string, opts: RenderOptions): RenderResult {
     return html;
   }
 
-  return { html: out.join("\n"), checkIds, headings };
+  return { html: markupJargon(out.join("\n")), checkIds, headings };
 }

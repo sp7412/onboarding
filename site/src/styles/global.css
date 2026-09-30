@@ -255,3 +255,51 @@ pre code {
 .page-title h1 { margin: 0; }
 .btn[hidden] { display: none !important; }
 @media (max-width: 560px) { .page-title { gap: var(--s3); } .page-title .icon-badge { --badge: 40px !important; } .page-title .icon-badge svg { width: 18px; height: 18px; } }
+
+/* ---------- Jargon tooltips (first use per page) ---------- */
+.jargon {
+  position: relative;
+  border-bottom: 1px dashed color-mix(in srgb, var(--cyan) 60%, transparent);
+  cursor: help;
+}
+.jargon:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; border-radius: 2px; }
+.jargon-tip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(2px);
+  width: max-content;
+  max-width: 19rem;
+  padding: 8px 11px;
+  border-radius: var(--r1);
+  border: 1px solid var(--panel-edge);
+  background: #0d1834;
+  color: var(--ink);
+  font-size: 0.85rem;
+  line-height: 1.45;
+  text-align: left;
+  white-space: normal;
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 140ms ease, transform 140ms ease;
+  z-index: 70;
+  pointer-events: none;
+}
+.jargon-tip strong {
+  display: block;
+  color: var(--cyan);
+  font-family: var(--font-head);
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+  margin-bottom: 2px;
+  text-transform: uppercase;
+}
+.jargon:hover .jargon-tip,
+.jargon:focus .jargon-tip,
+.jargon:focus-within .jargon-tip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+@media (max-width: 560px) { .jargon-tip { left: auto; right: min(0px, calc(-1 * (100vw - 100%) / 2)); max-width: min(19rem, 72vw); } }

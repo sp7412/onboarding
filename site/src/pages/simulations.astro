@@ -2,6 +2,7 @@
 import Icon from "../components/Icon.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { url } from "../lib/url";
+import { jargonSpan } from "../lib/jargon";
 import traces from "../data/guardrail-traces.json";
 ---
 <BaseLayout title="Simulations · Path to Integration" description="Turn-taking, guardrails and latency, playable in the browser.">
@@ -14,7 +15,7 @@ import traces from "../data/guardrail-traces.json";
 
   <section id="turn-taking" class="card sim">
     <h2>1. Turn-taking: when is the caller done?</h2>
-    <p>A caller reads a phone number with pauses. Orange labels are pauses mid-thought; red lines are where the agent decides the caller finished. Mirrors <a href={url("/labs#lab-03")}>lab 03</a>.</p>
+    <p>A caller reads a phone number with pauses. Orange labels are pauses mid-thought; red lines are where the agent commits to a turn — that decision is <Fragment set:html={jargonSpan("endpointing", "endpointing")} />. Mirrors <a href={url("/labs#lab-03")}>lab 03</a>.</p>
     <div class="controls">
       <label><span>Silence timer (min delay): <output id="tt-min-o"></output> ms</span><input type="range" id="tt-min" min="200" max="1500" step="50" value="500" /></label>
       <label class="check"><input type="checkbox" id="tt-sem" /> Semantic end-of-turn detection</label>
@@ -39,7 +40,7 @@ import traces from "../data/guardrail-traces.json";
 
   <section id="latency" class="card sim">
     <h2>3. Latency budget: time to first sound</h2>
-    <p>Adjust each stage and compare with a roughly one-second target. A spoken preamble ("one moment…") hides a slow tool without making it faster. Mirrors <a href={url("/labs#lab-08")}>lab 08</a>.</p>
+    <p>Adjust each stage and compare with a roughly one-second target. A spoken preamble ("one moment…") hides a slow tool without making it faster, and the model's <Fragment set:html={jargonSpan("ttft", "time to first token")} /> is its thinking time before the answer starts. Mirrors <a href={url("/labs#lab-08")}>lab 08</a>.</p>
     <div class="controls" id="lat-controls"></div>
     <label class="check"><input type="checkbox" id="lat-filler" checked /> Agent says "one moment while I check" before the tool runs (a spoken preamble)</label>
     <div id="lat-bars" class="bars"></div>

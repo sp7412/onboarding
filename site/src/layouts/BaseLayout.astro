@@ -50,6 +50,17 @@ const { title, description = "An interactive journey from pre-start through day 
         });
       });
 
+      // Jargon tooltips: keep only the first occurrence per page; later ones
+      // unwrap to their plain text (dropping the hidden tooltip markup).
+      let firstJargon = true;
+      document.querySelectorAll<HTMLElement>(".jargon").forEach((el) => {
+        if (firstJargon) {
+          firstJargon = false;
+        } else {
+          el.replaceWith(el.firstChild ?? document.createTextNode(""));
+        }
+      });
+
       // Copy buttons on every code block.
       document.querySelectorAll<HTMLPreElement>("pre").forEach((pre) => {
         if (pre.dataset.noCopy !== undefined) return;
