@@ -86,7 +86,8 @@ export function renderMarkdown(md: string, opts: RenderOptions): RenderResult {
     if (allowLinks) {
       s = s.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (_m, text: string, target: string) => {
         const { url, external } = href(target);
-        return hold(anchor(url, external, inline(text, false)));
+        const linkText = text.replace(/\u0000(\d+)\u0000/g, (_slot, i: string) => slots[Number(i)] ?? "");
+        return hold(anchor(url, external, inline(linkText || target, false)));
       });
       s = s.replace(/<((?:https?:\/\/|mailto:)[^>\s]+)>/g, (_m, u: string) => hold(anchor(u, true, esc(prettyUrl(u)))));
     }

@@ -117,6 +117,7 @@ export function repoLinkToRoute(target: string): string | null {
   if (DOC_PAGES.some((d) => d.repoPath === clean)) return withHash(`/docs/${path.basename(clean, ".md")}`);
   if (clean === "docs/reading-guide.md") return withHash("/reading");
   if (clean === "docs/podcast-prompts.md") return withHash("/podcasts");
+  if (clean === "docs/capstone-rubric.md") return withHash("/docs/capstone-rubric");
   if (clean === "notes/glossary.md") return withHash("/glossary");
   if (clean === "plan/30-60-90-checklist.md") return withHash("/checklist");
   if (clean === "templates" || clean === "templates/README.md") return "/templates";
