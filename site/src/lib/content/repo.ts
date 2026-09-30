@@ -140,16 +140,16 @@ export function loadContent(): ContentBundle {
 
   const labReadme = read("labs/README.md");
   const labRows = parseLabsReadme(labReadme, "labs/README.md");
-  const TIME_BY_NUMBER: Record<string, string> = {
-    "00": "30–60 minutes", "01": "30–60 minutes", "02": "30–60 minutes",
-    "03": "30–60 minutes", "04": "60–90 minutes", "05": "30–60 minutes",
-    "06": "30–60 minutes", "07": "60–90 minutes", "08": "60–90 minutes",
-  };
   const labs = labRows.map((row) => {
     const filename = `${row.number}_${row.slug}.py`;
     const source = read(`labs/src/${filename}`);
-    return parseLabSource(filename, source, { keys: row.keys, time: TIME_BY_NUMBER[row.number] ?? "30–60 minutes" });
+    expectCondition("labs/README.md", `source ${filename}`, fs.existsSync(path.join(REPO_ROOT, "labs/src", filename)));
+    expectCondition("labs/README.md", `generated ${row.number} notebook`, fs.existsSync(path.join(REPO_ROOT, "labs", `${row.number}_${row.slug}.ipynb`)));
+    return parseLabSource(filename, source, { keys: row.keys, time: row.time });
   });
+  const sourceLabs = fs.readdirSync(path.join(REPO_ROOT, "labs/src")).filter((f) => /^\d{2}_.+\.py$/.test(f));
+  const notebookLabs = fs.readdirSync(path.join(REPO_ROOT, "labs")).filter((f) => /^\d{2}_.+\.ipynb$/.test(f));
+  expectCondition("labs", "exactly matching source and generated lab sets", sourceLabs.length === 9 && notebookLabs.length === 9);
 
   const docs = DOC_PAGES.map((d) => parseDoc(d.repoPath));
   const templates = TEMPLATE_FILES.map((f) => parseDoc(`templates/${f}`));

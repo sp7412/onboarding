@@ -197,15 +197,21 @@ describe("parseGlossary", () => {
 
 describe("lab parsing", () => {
   const readmeRow = parseLabsReadme(
-    `| # | Notebook | Layer | Keys needed |
-|---|---|---|---|
-| 03 | turn_taking_and_interruptions | VAD, endpointing, barge-in (simulator) | none |
-`,
+    [
+      "| # | Notebook | Layer | Keys needed | Time |",
+      "|---|---|---|---|---|",
+      ...Array.from({ length: 9 }, (_, i) => `| ${String(i).padStart(2, "0")} | lab_${i} | layer | none | 30–60 minutes |`),
+    ].join("\n"),
     "labs/README.md",
   );
 
   it("parses the readme table row", () => {
-    expect(readmeRow).toEqual([{ number: "03", slug: "turn_taking_and_interruptions", layer: "VAD, endpointing, barge-in (simulator)", keys: "none" }]);
+    expect(readmeRow).toHaveLength(9);
+    expect(readmeRow[3]).toEqual({ number: "03", slug: "lab_3", layer: "layer", keys: "none", time: "30–60 minutes" });
+  });
+
+  it("rejects duplicate or incomplete lab tables", () => {
+    expect(() => parseLabsReadme(`| 00 | x | layer | none | 30–60 minutes |\n| 00 | y | layer | none | 30–60 minutes |`, "broken.md")).toThrow(ContentError);
   });
 
   it("splits percent cells and strips the leading hashes from markdown", () => {

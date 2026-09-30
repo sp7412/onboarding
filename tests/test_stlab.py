@@ -27,6 +27,20 @@ class BackendTests(unittest.TestCase):
             be.find_slots("ac_repair", "99999")
         self.assertEqual(area.exception.code, "out_of_service_area")
 
+    def test_backend_mutations_validate_customer_and_job_type(self):
+        slot = be.find_slots("furnace_repair", "76126")[0]
+        with self.assertRaises(be.PolicyError) as customer:
+            be.create_job("C-9999", slot["id"], "furnace_repair", "No heat", "bad-customer")
+        self.assertEqual(customer.exception.code, "unknown_customer")
+        with self.assertRaises(be.PolicyError) as job_type:
+            be.create_job("C-1002", slot["id"], "pool_cleaning", "Pool", "bad-job")
+        self.assertEqual(job_type.exception.code, "unknown_job_type")
+
+    def test_backend_appointment_ownership_is_enforced(self):
+        with self.assertRaises(be.PolicyError) as error:
+            be.cancel_appointment("A-2001", "test", "ownership", customer_id="C-1001")
+        self.assertEqual(error.exception.code, "appointment_not_owned")
+
 
 class ToolBoundaryTests(unittest.TestCase):
     def setUp(self):

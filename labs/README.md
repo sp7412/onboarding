@@ -5,17 +5,17 @@
 Nine hands-on Jupyter tutorials that build a phone agent for a fictional HVAC/plumbing
 contractor, one architecture layer at a time:
 
-| # | Notebook | Layer | Keys needed |
-|---|---|---|---|
-| 00 | setup_and_mental_model | architecture + mock backend | none |
-| 01 | realtime_protocol | OpenAI Realtime events, effort vs latency, barge-in, truncation | optional OpenAI |
-| 02 | realtime_tools_and_guardrails | tool loop + control-plane boundary | optional OpenAI |
-| 03 | turn_taking_and_interruptions | VAD, endpointing, barge-in (simulator) | none |
-| 04 | livekit_agents | LiveKit agents (writes runnable programs to `agents/`) | OpenAI + LiveKit to run live |
-| 05 | langchain_create_agent | tools, state, context, middleware | optional OpenAI |
-| 06 | langgraph_booking_workflow | durable workflow, interrupts, crash/resume | none |
-| 07 | langsmith_tracing_evals | tracing, waterfall, redaction, evaluation | optional LangSmith/OpenAI |
-| 08 | capstone_talker_thinker | talker + thinker + latency budget + study-question answer | optional |
+| # | Notebook | Layer | Keys needed | Time |
+|---|---|---|---|---|
+| 00 | setup_and_mental_model | architecture + mock backend | none | 30–60 minutes |
+| 01 | realtime_protocol | OpenAI Realtime events, effort vs latency, barge-in, truncation | optional OpenAI | 30–60 minutes |
+| 02 | realtime_tools_and_guardrails | tool loop + control-plane boundary | optional OpenAI | 30–60 minutes |
+| 03 | turn_taking_and_interruptions | VAD, endpointing, barge-in (simulator) | none | 30–60 minutes |
+| 04 | livekit_agents | LiveKit agents (writes runnable programs to `agents/`) | OpenAI + LiveKit to run live | 60–90 minutes |
+| 05 | langchain_create_agent | tools, state, context, middleware | optional OpenAI | 30–60 minutes |
+| 06 | langgraph_booking_workflow | durable workflow, interrupts, crash/resume | none | 30–60 minutes |
+| 07 | langsmith_tracing_evals | tracing, waterfall, redaction, evaluation | optional LangSmith/OpenAI | 60–90 minutes |
+| 08 | capstone_talker_thinker | talker + thinker + latency budget + study-question answer | optional | 60–90 minutes |
 
 ## Learning Path
 

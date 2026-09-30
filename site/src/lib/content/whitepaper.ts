@@ -73,6 +73,7 @@ export function parseWhitepaperChapter(filename: string, markdown: string): Whit
 export function parseWhitepaperOrder(readme: string, file: string): string[] {
   // Reading Order list: `1. [00 - Introduction](00-introduction.md)`
   const order = [...readme.matchAll(/^\d+\.\s+\[[^\]]+\]\(([^)]+\.md)\)/gm)].map((m) => m[1]);
-  expectCondition(file, "a numbered reading order of at least 15 chapters", order.length >= 15, `got ${order.length}`);
+  expectCondition(file, "a numbered reading order of exactly 17 chapters", order.length === 17, `got ${order.length}`);
+  expectCondition(file, "unique whitepaper files", new Set(order).size === order.length);
   return order;
 }

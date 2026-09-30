@@ -166,7 +166,8 @@ def _dispatch(name, args, st: CallState, enforce: bool) -> dict:
             if args.get("new_slot_id") not in st.offered_slot_ids:
                 raise be.PolicyError("slot_not_offered", "Only move to a slot that was offered to the caller.")
         key = f"{st.call_id}:reschedule:{appt_id}:{args.get('new_slot_id')}"
-        appt = be.reschedule_appointment(appt_id, args.get("new_slot_id"), idempotency_key=key)
+        appt = be.reschedule_appointment(appt_id, args.get("new_slot_id"), idempotency_key=key,
+                                          customer_id=st.customer["id"])
         st.changes.append({"action": "rescheduled", "id": appt["id"]})
         st.phase = "done"
         return {"ok": True, "appointment": appt}
@@ -187,7 +188,8 @@ def _dispatch(name, args, st: CallState, enforce: bool) -> dict:
             if not st.cancel_confirmed:
                 raise be.PolicyError("cancel_not_confirmed", "Get an explicit yes before cancelling.")
         key = f"{st.call_id}:cancel:{appt_id}"
-        appt = be.cancel_appointment(appt_id, args.get("reason", ""), idempotency_key=key)
+        appt = be.cancel_appointment(appt_id, args.get("reason", ""), idempotency_key=key,
+                                      customer_id=st.customer["id"])
         st.changes.append({"action": "cancelled", "id": appt["id"]})
         st.phase = "done"
         return {"ok": True, "appointment": appt}

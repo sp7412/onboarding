@@ -19,12 +19,14 @@ export interface Lab {
 }
 
 /** labs/README.md table rows: `| 00 | setup_and_mental_model | architecture + mock backend | none |` */
-export function parseLabsReadme(markdown: string, file: string): { number: string; slug: string; layer: string; keys: string }[] {
-  const rows = [...markdown.matchAll(/^\| (\d{2}) \| ([a-z0-9_]+) \| (.+?) \| (.+?) \|$/gm)].map(
-    (m) => ({ number: m[1], slug: m[2], layer: m[3], keys: m[4] }),
+export function parseLabsReadme(markdown: string, file: string): { number: string; slug: string; layer: string; keys: string; time: string }[] {
+  const rows = [...markdown.matchAll(/^\| (\d{2}) \| ([a-z0-9_]+) \| (.+?) \| (.+?) \| (30–60 minutes|60–90 minutes) \|$/gm)].map(
+    (m) => ({ number: m[1], slug: m[2], layer: m[3], keys: m[4], time: m[5] }),
   );
-  // Row-shape validation only; the full-table expectation (9 labs) is checked in
-  // the repo integration tests where the real README is parsed.
+  expectCondition(file, "exactly nine lab rows", rows.length === 9, `got ${rows.length}`);
+  const numbers = rows.map((row) => row.number);
+  expectCondition(file, "unique lab numbers", new Set(numbers).size === rows.length);
+  expectCondition(file, "lab numbers 00 through 08", numbers.join(",") === "00,01,02,03,04,05,06,07,08");
   return rows;
 }
 

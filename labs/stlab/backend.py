@@ -153,6 +153,10 @@ def create_job(customer_id: str, slot_id: str, job_type: str, summary: str,
         job = _state["jobs"][_state["idem"][idempotency_key]]
         _audit("create_job", replay=True, job_id=job["id"])
         return {**copy.deepcopy(job), "replayed": True}
+    if customer_id not in {c["id"] for c in _state["customers"].values()}:
+        raise PolicyError("unknown_customer", f"No customer {customer_id}.")
+    if job_type not in JOB_TYPES:
+        raise PolicyError("unknown_job_type", f"Unknown job type '{job_type}'. Valid: {sorted(JOB_TYPES)}")
     slot = _state["slots"].get(slot_id)
     if slot is None:
         raise PolicyError("unknown_slot", f"No slot {slot_id}.")
@@ -170,10 +174,12 @@ def create_job(customer_id: str, slot_id: str, job_type: str, summary: str,
     return copy.deepcopy(job)
 
 
-def _find_appointment(appointment_id: str) -> dict:
+def _find_appointment(appointment_id: str, customer_id: str | None = None) -> dict:
     appt = _state["appointments"].get(appointment_id) or _state["jobs"].get(appointment_id)
     if appt is None:
         raise PolicyError("unknown_appointment", f"No appointment {appointment_id}.")
+    if customer_id is not None and appt.get("customer_id") != customer_id:
+        raise PolicyError("appointment_not_owned", f"Appointment {appointment_id} is not owned by {customer_id}.")
     return appt
 
 
@@ -187,6 +193,8 @@ def _check_changeable(appt: dict) -> None:
 def get_appointments(customer_id: str) -> list[dict]:
     """Upcoming scheduled appointments for a customer (seeded ones plus jobs booked this session)."""
     _sleep("get_appointments")
+    if customer_id not in {c["id"] for c in _state["customers"].values()}:
+        raise PolicyError("unknown_customer", f"No customer {customer_id}.")
     everything = list(_state["appointments"].values()) + list(_state["jobs"].values())
     out = [a for a in everything if a["customer_id"] == customer_id and a.get("status") == "scheduled"]
     out.sort(key=lambda a: (a["date"], a["window"]))
@@ -195,13 +203,14 @@ def get_appointments(customer_id: str) -> list[dict]:
              "weekday": dt.date.fromisoformat(a["date"]).strftime("%A")} for a in out]
 
 
-def reschedule_appointment(appointment_id: str, new_slot_id: str, idempotency_key: str) -> dict:
+def reschedule_appointment(appointment_id: str, new_slot_id: str, idempotency_key: str,
+                           customer_id: str | None = None) -> dict:
     """Move an appointment to a new open slot. Idempotent on `idempotency_key`."""
     _sleep("reschedule_appointment")
     if idempotency_key in _state["idem"]:
         appt = _find_appointment(_state["idem"][idempotency_key])
         return {**copy.deepcopy(appt), "replayed": True}
-    appt = _find_appointment(appointment_id)
+    appt = _find_appointment(appointment_id, customer_id)
     _check_changeable(appt)
     new = _state["slots"].get(new_slot_id)
     if new is None:
@@ -218,13 +227,14 @@ def reschedule_appointment(appointment_id: str, new_slot_id: str, idempotency_ke
     return copy.deepcopy(appt)
 
 
-def cancel_appointment(appointment_id: str, reason: str, idempotency_key: str) -> dict:
+def cancel_appointment(appointment_id: str, reason: str, idempotency_key: str,
+                       customer_id: str | None = None) -> dict:
     """Cancel an appointment and free its slot. Idempotent on `idempotency_key`."""
     _sleep("cancel_appointment")
     if idempotency_key in _state["idem"]:
         appt = _find_appointment(_state["idem"][idempotency_key])
         return {**copy.deepcopy(appt), "replayed": True}
-    appt = _find_appointment(appointment_id)
+    appt = _find_appointment(appointment_id, customer_id)
     _check_changeable(appt)
     _state["slots"][appt["slot_id"]]["status"] = "open"
     appt.update(status="cancelled", cancel_reason=reason)
