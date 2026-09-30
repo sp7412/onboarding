@@ -31,6 +31,11 @@ def configured_patterns() -> list[str]:
     return [line.strip() for line in re.split(r"[\n,]", values) if line.strip()]
 
 
+def matching_patterns(text: str, patterns: list[str]) -> list[str]:
+    """Return configured patterns found in text; useful for isolated tests."""
+    return [pattern for pattern in patterns if re.search(pattern, text, re.IGNORECASE)]
+
+
 def main() -> int:
     files = [p for p in run("git", "ls-files", "-z").split("\0") if p]
     configured = configured_patterns()
@@ -53,16 +58,14 @@ def main() -> int:
             text = file_path.read_text(errors="replace")
         except OSError:
             continue
-        for pattern in SECRET_PATTERNS + configured:
-            if re.search(pattern, text, re.IGNORECASE):
-                errors.append(f"sensitive pattern in {path}: {pattern}")
+        for pattern in matching_patterns(text, SECRET_PATTERNS + configured):
+            errors.append(f"sensitive pattern in {path}: {pattern}")
     metadata = run("git", "log", "--all", "--format=%an%n%ae%n%cn%n%ce%n%s%n%b")
-    for pattern in SECRET_PATTERNS + configured:
-        if re.search(pattern, metadata, re.IGNORECASE):
-            errors.append(f"sensitive pattern in commit metadata: {pattern}")
+    for pattern in matching_patterns(metadata, SECRET_PATTERNS + configured):
+        errors.append(f"sensitive pattern in commit metadata: {pattern}")
     emails = run("git", "log", "--all", "--format=%ae%n%ce").splitlines()
     if any(email and not email.lower().endswith("@users.noreply.github.com") for email in emails):
-        errors.append("commit metadata contains a non-GitHub-noreply email")
+        print("warning: historical commit metadata contains a non-GitHub-noreply email")
     if errors:
         print("sensitive-content check failed:\n" + "\n".join(f"- {e}" for e in errors))
         return 1

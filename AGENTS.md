@@ -12,7 +12,10 @@ LangChain/LangGraph, LangSmith).
 ## Hard rules
 
 00. **Never commit tool or machine state.** No `.opencode/`, `.claude/`, `.cursor/`, caches, hostnames,
-   internal endpoints, or employer names or email addresses. Check `git status` before every commit.
+   internal endpoints, or personal email addresses. Public, pre-employment research about the target
+   company—its website, SEC filings, press, and public talks—is allowed and is the purpose of this repo.
+   Never add internal or confidential information, anything learned under employment, anything taken from
+   a current or former employer's systems, personal data, or secrets. Check `git status` before every commit.
 0. **Links must be real.** Link-check every URL you add (HTTP 200 on the final page). Never
    construct URLs from a site's naming pattern. Add new external links to `docs/references.md`.
 
@@ -120,8 +123,10 @@ the vendor docs, fix imports, and re-run the full offline suite.
 - `python scripts/check_repo.py` checks that generated notebooks exist and contain no
   execution outputs.
 - `python scripts/check_sensitive.py` scans tracked files and commit metadata using
-  `SENSITIVE_PATTERNS` or ignored `.sensitive-patterns`; it never hard-codes employer
-  names or domains.
+   `SENSITIVE_PATTERNS` or ignored `.sensitive-patterns`; it never hard-codes employer
+   names or domains.
+- Sensitive scanning patterns come from the `SENSITIVE_PATTERNS` repository secret in CI or the local,
+  gitignored `.sensitive-patterns` file. Real patterns are never committed; tests use fake placeholders only.
 - Install the optional local hook with `ln -s ../../scripts/pre-commit .git/hooks/pre-commit`.
 - `.github/workflows/quality.yml` runs these checks and the offline notebook suite on
   every push and pull request. It never uses secrets or `--live`.

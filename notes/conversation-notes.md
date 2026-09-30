@@ -1,13 +1,13 @@
 # ServiceTitan / LiveKit Study Notes
 
-*My notes after talking with ServiceTitan (lightly condensed), kept as the starting point for this repo.
-The hands-on plan is expanded in [`docs/livekit-hands-on.md`](../docs/livekit-hands-on.md).*
+*Public pre-employment study notes, lightly condensed, kept as the starting point for this repo.
+ The hands-on plan is expanded in [`docs/livekit-hands-on.md`](../docs/livekit-hands-on.md).*
 
 ## Context
 
-I spoke with someone at ServiceTitan who suggested I look into LiveKit, OpenAI GPT Realtime,
-LangChain and LangSmith. The goal is to understand how these technologies fit together in a modern
-real-time voice AI and agent architecture.
+Public research prompted me to look into LiveKit, OpenAI GPT Realtime, LangChain and LangSmith.
+The goal is to understand how these technologies fit together in a modern real-time voice AI and
+agent architecture.
 
 ## Key concepts
 

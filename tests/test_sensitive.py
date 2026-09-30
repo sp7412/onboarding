@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 import os
-import re
 import tempfile
 import unittest
 from pathlib import Path
@@ -24,7 +23,11 @@ class SensitivePatternTests(unittest.TestCase):
                 self.assertEqual(checker.configured_patterns(), ["acme-internal", "red-team-only"])
 
     def test_fake_pattern_matches_case_insensitively(self):
-        self.assertIsNotNone(re.search("acme-internal", "ACME-INTERNAL", re.IGNORECASE))
+        self.assertEqual(checker.matching_patterns("ACME-INTERNAL", ["acme-internal"]), ["acme-internal"])
+
+    def test_fake_pattern_fails_and_no_patterns_passes(self):
+        self.assertTrue(checker.matching_patterns("contains fake-secret", ["fake-secret"]))
+        self.assertEqual(checker.matching_patterns("ordinary public text", []), [])
 
 
 if __name__ == "__main__":
