@@ -149,6 +149,12 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | <https://www.sec.gov/Archives/edgar/data/1638826/000163882626000093/ttan-ex99_1.htm> | SEC filing | Whitepaper |
 | <https://www.twilio.com/docs/messaging/compliance/a2p-10dlc> | Company page | Whitepaper |
 
+## Books
+
+| Source | Type | Cited in |
+|---|---|---|
+| Michael D. Watkins, *The First 90 Days, Updated and Expanded* (Harvard Business Review Press, 2013; ISBN 9781422188613) | Book | First 90 days playbook |
+
 ## Maintaining this page
 - Add a row whenever a new external link appears anywhere in the repo.
 - Link-check before committing; never construct URLs from a site's naming pattern.

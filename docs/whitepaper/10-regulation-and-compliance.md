@@ -78,9 +78,11 @@ AI laws with different scopes; track them centrally.
 ## 4. Business texting (A2P 10DLC)
 
 Voice agents often send follow-up texts: confirmations, technician-on-the-way messages,
-links. In the U.S., businesses sending application-to-person texts over standard 10-digit
-numbers must register their brand and messaging campaigns with the carrier ecosystem
-(A2P 10DLC); unregistered traffic can be filtered or blocked. [9] Texting also falls under
+links. In the U.S., application-to-person texts sent over standard 10-digit numbers (A2P
+10DLC) generally require the sending business to register its brand and messaging campaigns
+through its messaging provider, and unregistered traffic can be filtered or blocked. [9]
+Exact requirements and exceptions depend on the provider and carriers, so confirm them with
+the platform actually sending the messages. Texting also falls under
 the TCPA's consent rules noted in the 10-K. [7]
 
 ## 5. Payments over the phone (PCI DSS)

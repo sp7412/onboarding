@@ -1,7 +1,8 @@
 # First 90 Days Playbook
 
-This is a public-safe, Watkins-inspired operating plan for entering a senior AI
-engineering role. It uses the broad ideas of preparing, learning quickly, diagnosing
+This is a public-safe operating plan for entering a senior AI engineering role, loosely
+based on Michael D. Watkins, *The First 90 Days, Updated and Expanded* (Harvard Business
+Review Press, 2013; ISBN 9781422188613). It uses the broad ideas of preparing, learning quickly, diagnosing
 the situation, securing early wins, and negotiating success; it is not a reproduction
 of any book or a prediction of ServiceTitan's internal processes.
 

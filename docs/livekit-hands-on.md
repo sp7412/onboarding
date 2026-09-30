@@ -124,7 +124,8 @@ from livekit.agents import Agent, RunContext, function_tool
 from stlab.tools import CallState, execute_tool
 
 INSTRUCTIONS = """You are the scheduling assistant for Benbrook Comfort Services (fictional).
-Look the caller up first. To book, find slots, offer at most two, confirm the address, then book.
+Look the caller up first. To book, find slots, offer at most two, record which one the caller picks (record_slot_choice),
+confirm the address, then book.
 To reschedule or cancel, call get_appointments first; only move to a slot you offered.
 Before cancelling, get an explicit yes and call confirm_cancellation with the caller's exact words.
 Never say a change is done unless the tool result confirms it. Keep replies short."""
@@ -178,7 +179,9 @@ class Assistant(Agent):
         return await run("transfer_to_human", {"reason": reason}, context)
 ```
 
-(Booking tools `record_address_confirmation` and `create_job` follow the same pattern, as in lab 04.)
+(Booking tools `record_slot_choice`, `record_address_confirmation` and `create_job` follow the same
+pattern, as in lab 04. `create_job` is refused until the caller's chosen window and address are both
+recorded in their own words.)
 
 **3. Give the session your per-call state, and record what the caller actually said.** In the
 entrypoint, add `userdata` to the existing `AgentSession(...)` call and register two hooks:

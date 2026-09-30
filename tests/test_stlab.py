@@ -42,6 +42,31 @@ class ToolBoundaryTests(unittest.TestCase):
         self.assertEqual(result["error"], "address_not_confirmed")
         self.assertEqual(be.jobs(), [])
 
+    def _confirm_address(self):
+        self.state.last_user_text = "Yes, that's right"
+        execute_tool("record_address_confirmation", {"caller_said": "yes"}, self.state)
+
+    def test_booking_requires_grounded_slot_choice(self):
+        self._confirm_address()
+        slot = self.state.offered_slot_ids[0]
+        args = {"customer_id": "C-1002", "slot_id": slot, "job_type": "furnace_repair", "summary": "No heat"}
+        self.assertEqual(execute_tool("create_job", args, self.state)["error"], "slot_not_confirmed")
+        self.state.last_user_text = "Hmm, let me think"
+        bad = execute_tool("record_slot_choice", {"slot_id": slot, "caller_said": "the first one"}, self.state)
+        self.assertEqual(bad["error"], "confirmation_not_grounded")
+        self.state.last_user_text = "The first one works"
+        self.assertTrue(execute_tool("record_slot_choice", {"slot_id": slot, "caller_said": "the first one works"},
+                                     self.state)["ok"])
+        other = {**args, "slot_id": self.state.offered_slot_ids[1]}
+        self.assertEqual(execute_tool("create_job", other, self.state)["error"], "slot_not_confirmed")
+        self.assertTrue(execute_tool("create_job", args, self.state)["ok"])
+        self.assertEqual(len(be.jobs()), 1)
+
+    def test_slot_choice_must_be_offered(self):
+        self.state.last_user_text = "Book S-9999"
+        res = execute_tool("record_slot_choice", {"slot_id": "S-9999", "caller_said": "book s-9999"}, self.state)
+        self.assertEqual(res["error"], "slot_not_offered")
+
     def test_emergency_blocks_routine_tools(self):
         self.state.emergency = True
         result = execute_tool("find_slots", {"job_type": "furnace_repair", "zip_code": "76126"}, self.state)

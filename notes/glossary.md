@@ -16,7 +16,7 @@ private system. Product names are linked in [`docs/servicetitan-101.md`](../docs
 | Escalation | Handing a call to a human CSR |
 | Atlas | ServiceTitan's AI assistant (public product) |
 | Contact Center Pro | ServiceTitan's contact-center product, including AI Voice Agents (public product) |
-| A2P 10DLC | Application-to-person messaging over 10-digit long codes: the US carrier framework that requires businesses to register brands and campaigns before texting customers |
+| A2P 10DLC | Application-to-person texting over standard 10-digit US numbers. Carriers and messaging providers generally require the sending business to register its brand and messaging campaigns; exact requirements and exceptions depend on the provider and carrier |
 | Agent handoff | Transfer of a conversation from one automated or human role to another with useful context |
 | Appointment window | A range of time offered for a technician visit, such as 10:00–12:00 |
 | Backchannel | A short listener signal such as "uh-huh" that usually should not interrupt the agent |

@@ -31,14 +31,14 @@ const docPages = routes.filter((route) => route.built);
 
     <h2>Looking for something specific?</h2>
     <p>
-      The search box on the{" "}
-      <span>checklist page</span> is coming soon, so
-      it's the fastest way to find one item across 90 days.
+      Try the <a href={url("/checklist")}>checklist</a> for tasks, the
+      <a href={url("/glossary")}>glossary</a> for terms, or the
+      <a href={url("/docs/references")}>references</a> for every source.
     </p>
 
     <p class="repo-hint">
       Spotted a broken link from another page? File it on the{" "}
-      <a href="https://github.com/sp7412/onboarding">repository issues page</a>.
+      <a href="https://github.com/sp7412/onboarding/issues">repository issues page</a>.
     </p>
   </section>
 </BaseLayout>

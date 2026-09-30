@@ -367,6 +367,10 @@ def brain(items, session, overrides):
         prev = [json.loads(i["arguments"]) for i in items if i.get("type") == "function_call"
                 and i.get("name") == "create_job" and i.get("arguments")]
         slot_id = prev[-1]["slot_id"] if prev and not any(w in said for w in ("first", "second")) else slots[idx]["id"]
+        picked = any(w in said for w in ("first", "second", "works", "that one"))
+        if "record_slot_choice" in tools and (picked or not prev):
+            steps.insert(0, {"kind": "call", "name": "record_slot_choice",
+                             "args": {"slot_id": slot_id, "caller_said": said.strip()}})
         if customer and "create_job" in tools:
             job = next((j for w, j in JOB_WORDS if w in alltext + " "), "ac_repair")
             steps.append({"kind": "call", "name": "create_job", "args": {

@@ -71,7 +71,8 @@ log = logging.getLogger("booking-agent")
 
 INSTRUCTIONS = """You are the phone assistant for Benbrook Comfort Services (HVAC and plumbing).
 Speak in short, warm sentences. Look the caller up first, find out what's wrong, offer at most
-two appointment windows, read the address back and get a clear yes, then book.
+two appointment windows, record which one the caller picks, read the address back and get a clear
+yes, then book.
 If you need a moment for a tool, say so briefly. Never quote prices.
 If anything suggests gas, smoke, sparks, carbon monoxide, or flooding, give one safety
 sentence and transfer to a human."""
@@ -96,6 +97,11 @@ class BookingAgent(Agent):
         water_heater, leak_repair."""
         return await asyncio.to_thread(execute_tool, "find_slots",
                                        {"job_type": job_type, "zip_code": zip_code}, context.userdata)
+
+    @function_tool
+    async def record_slot_choice(self, context: RunContext[CallState], slot_id: str, caller_said: str) -> dict:
+        """Call when the caller picks one of the offered windows. Quote their exact words."""
+        return execute_tool("record_slot_choice", {"slot_id": slot_id, "caller_said": caller_said}, context.userdata)
 
     @function_tool
     async def record_address_confirmation(self, context: RunContext[CallState], caller_said: str) -> dict:

@@ -36,6 +36,13 @@ TOOL_SCHEMAS = [
             "required": ["customer_id", "slot_id", "job_type", "summary"]},
     },
     {
+        "type": "function", "name": "record_slot_choice",
+        "description": "Call when the caller picks one of the windows you offered. Pass that slot_id and quote their exact words.",
+        "parameters": {"type": "object", "properties": {
+            "slot_id": {"type": "string"}, "caller_said": {"type": "string"}},
+            "required": ["slot_id", "caller_said"]},
+    },
+    {
         "type": "function", "name": "record_address_confirmation",
         "description": "Call when the caller explicitly confirms the service address you read back. Quote their exact words.",
         "parameters": {"type": "object", "properties": {"caller_said": {"type": "string"}}, "required": ["caller_said"]},
@@ -81,6 +88,7 @@ class CallState:
     offered_slot_ids: list[str] = field(default_factory=list)
     address_confirmed: bool = False
     slot_confirmed: bool = False
+    chosen_slot_id: str | None = None  # the offered slot the caller actually picked
     emergency: bool = False
     transferred: bool = False
     booked_job: dict | None = None
@@ -136,6 +144,9 @@ def _dispatch(name, args, st: CallState, enforce: bool) -> dict:
                 raise be.PolicyError("address_not_confirmed", "Read the service address back and get a yes first.")
             if args.get("slot_id") not in st.offered_slot_ids:
                 raise be.PolicyError("slot_not_offered", "Only book a slot that was offered to the caller.")
+            if not st.slot_confirmed or args.get("slot_id") != st.chosen_slot_id:
+                raise be.PolicyError("slot_not_confirmed",
+                                     "Record which offered window the caller chose before booking it.")
         key = f"{st.call_id}:{args.get('slot_id')}"  # idempotency key owned by the app
         job = be.create_job(idempotency_key=key, **args)
         st.booked_job, st.phase = job, "done"
@@ -180,6 +191,18 @@ def _dispatch(name, args, st: CallState, enforce: bool) -> dict:
         st.changes.append({"action": "cancelled", "id": appt["id"]})
         st.phase = "done"
         return {"ok": True, "appointment": appt}
+    if name == "record_slot_choice":
+        slot_id = args.get("slot_id")
+        quote = (args.get("caller_said") or "").strip().lower()
+        heard = st.last_user_text.lower()
+        if enforce:
+            if slot_id not in st.offered_slot_ids:
+                raise be.PolicyError("slot_not_offered", "Only record a choice among the offered windows.")
+            if not quote or quote not in heard:
+                raise be.PolicyError("confirmation_not_grounded",
+                                     "The caller's last utterance doesn't contain that choice.")
+        st.slot_confirmed, st.chosen_slot_id = True, slot_id
+        return {"ok": True, "slot_id": slot_id}
     if name == "record_address_confirmation":
         quote = (args.get("caller_said") or "").strip().lower()
         heard = st.last_user_text.lower()

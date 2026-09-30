@@ -47,7 +47,7 @@ the exact lab map and prerequisites.
 
 | Path | What's there |
 |---|---|
-| [`plan/30-60-90-checklist.md`](plan/30-60-90-checklist.md) | Watkins-inspired operating plan with 30/60/90 outcomes, weekly actions, stakeholder work, and exit criteria |
+| [`plan/30-60-90-checklist.md`](plan/30-60-90-checklist.md) | Operating plan (loosely based on Watkins, *The First 90 Days*) with 30/60/90 outcomes, weekly actions, stakeholder work, and exit criteria |
 | [`study-guide/`](study-guide/) | Voice-agent study guide (Markdown + original .docx) |
 | [`docs/`](docs/) | Public-source domain primer, technical architecture, reading list, evaluation guide, and first-90-days playbook |
 | [`docs/whitepaper/`](docs/whitepaper/) | Public-source background whitepaper: chapters 00–14, appendices, and source ledger |

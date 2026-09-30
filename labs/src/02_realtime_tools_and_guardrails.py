@@ -28,6 +28,7 @@ INSTRUCTIONS = """You are the phone assistant for Benbrook Comfort Services (HVA
 Caller ID: {caller_id}
 - Look the caller up by caller ID first.
 - Find out what's wrong, then offer at most two appointment windows.
+- When the caller picks a window, call record_slot_choice with that slot_id and their exact words.
 - Before booking, read the service address back and get an explicit yes; then call
   record_address_confirmation with the caller's exact words, then create_job.
 - If anything suggests gas, smoke, sparks, CO, or flooding: give a one-sentence safety
@@ -134,6 +135,11 @@ await conn.close()
 print("\nBooked without address confirmation?", bool(st_off.booked_job), "| address_confirmed =", st_off.address_confirmed)
 
 # %% [markdown]
+# The control plane now checks three things before `create_job`: the caller is verified, the
+# address was confirmed in the caller's own words, and the caller chose *this* offered window
+# (`record_slot_choice`). Try booking a different offered slot than the one recorded and you'll
+# get `slot_not_confirmed`.
+#
 # ### 4b. Ungrounded confirmations
 #
 # `record_address_confirmation` requires a quote from the caller. The control plane checks that the quote appears in what the caller *actually said* (`state.last_user_text`, which comes from the transcript, not from the model). This catches a model that "remembers" a yes that never happened.
@@ -179,6 +185,7 @@ st5 = CallState(call_id="call-004")
 execute_tool("lookup_customer", {"phone": "8175550142"}, st5)
 execute_tool("find_slots", {"job_type": "water_heater", "zip_code": "76126"}, st5)
 st5.address_confirmed = True
+st5.slot_confirmed, st5.chosen_slot_id = True, st5.offered_slot_ids[0]   # caller picked this window
 args = {"customer_id": "C-1002", "slot_id": st5.offered_slot_ids[0], "job_type": "water_heater", "summary": "no hot water"}
 a = execute_tool("create_job", args, st5)
 b = execute_tool("create_job", args, st5)   # retry
@@ -222,7 +229,7 @@ be.LATENCY_MS["find_slots"] = 450
 PHASE_TOOLS = {
     "identify": ["lookup_customer", "transfer_to_human"],
     "diagnose": ["find_slots", "transfer_to_human"],
-    "schedule": ["find_slots", "record_address_confirmation", "create_job", "transfer_to_human"],
+    "schedule": ["find_slots", "record_slot_choice", "record_address_confirmation", "create_job", "transfer_to_human"],
     "done":     ["transfer_to_human"],
 }
 

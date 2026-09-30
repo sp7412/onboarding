@@ -48,6 +48,17 @@
     },
     {
      "kind": "tool",
+     "name": "record_slot_choice",
+     "args": {
+      "slot_id": "S-1026-T-02-08",
+      "caller_said": "the first one works"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "tool",
      "name": "create_job",
      "args": {
       "customer_id": "C-1002",
@@ -92,7 +103,7 @@
     },
     {
      "kind": "agent",
-     "text": "You're all set: 2026-10-26 between 08:00-10:00 with Kara. Your job number is J-C841A6."
+     "text": "You're all set: 2026-10-26 between 08:00-10:00 with Kara. Your job number is J-7C18E4."
     }
    ],
    "outcome": "booked",
@@ -143,6 +154,17 @@
     },
     {
      "kind": "tool",
+     "name": "record_slot_choice",
+     "args": {
+      "slot_id": "S-1026-T-02-08",
+      "caller_said": "the first one works"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "tool",
      "name": "create_job",
      "args": {
       "customer_id": "C-1002",
@@ -156,7 +178,7 @@
     },
     {
      "kind": "agent",
-     "text": "You're all set: 2026-10-26 between 08:00-10:00 with Kara. Your job number is J-436AA3."
+     "text": "You're all set: 2026-10-26 between 08:00-10:00 with Kara. Your job number is J-3CCB69."
     },
     {
      "kind": "caller",
@@ -187,7 +209,7 @@
     },
     {
      "kind": "agent",
-     "text": "You're all set: 2026-10-26 between 08:00-10:00 with Kara. Your job number is J-436AA3."
+     "text": "You're all set: 2026-10-26 between 08:00-10:00 with Kara. Your job number is J-3CCB69."
     }
    ],
    "outcome": "booked",
@@ -243,6 +265,17 @@
     },
     {
      "kind": "tool",
+     "name": "record_slot_choice",
+     "args": {
+      "slot_id": "S-1026-T-03-08",
+      "caller_said": "the second one"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "tool",
      "name": "create_job",
      "args": {
       "customer_id": "C-1001",
@@ -287,7 +320,7 @@
     },
     {
      "kind": "agent",
-     "text": "You're all set: 2026-10-26 between 08:00-10:00 with Ben. Your job number is J-171923."
+     "text": "You're all set: 2026-10-26 between 08:00-10:00 with Ben. Your job number is J-B861B3."
     }
    ],
    "outcome": "booked",
@@ -338,6 +371,17 @@
     },
     {
      "kind": "tool",
+     "name": "record_slot_choice",
+     "args": {
+      "slot_id": "S-1026-T-03-08",
+      "caller_said": "the second one"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "tool",
      "name": "create_job",
      "args": {
       "customer_id": "C-1001",
@@ -351,7 +395,7 @@
     },
     {
      "kind": "agent",
-     "text": "You're all set: 2026-10-26 between 08:00-10:00 with Ben. Your job number is J-8E2BB9."
+     "text": "You're all set: 2026-10-26 between 08:00-10:00 with Ben. Your job number is J-C65D1D."
     },
     {
      "kind": "caller",
@@ -382,7 +426,7 @@
     },
     {
      "kind": "agent",
-     "text": "You're all set: 2026-10-26 between 08:00-10:00 with Ben. Your job number is J-8E2BB9."
+     "text": "You're all set: 2026-10-26 between 08:00-10:00 with Ben. Your job number is J-C65D1D."
     }
    ],
    "outcome": "booked",
@@ -435,6 +479,17 @@
     {
      "kind": "caller",
      "text": "The first one works"
+    },
+    {
+     "kind": "tool",
+     "name": "record_slot_choice",
+     "args": {
+      "slot_id": "S-1026-T-02-08",
+      "caller_said": "the first one works"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
     },
     {
      "kind": "tool",
@@ -502,6 +557,17 @@
     },
     {
      "kind": "tool",
+     "name": "record_slot_choice",
+     "args": {
+      "slot_id": "S-1026-T-02-08",
+      "caller_said": "the first one works"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "tool",
      "name": "create_job",
      "args": {
       "customer_id": "C-1002",
@@ -515,7 +581,7 @@
     },
     {
      "kind": "agent",
-     "text": "You're all set: 2026-10-26 between 08:00-10:00 with Kara. Your job number is J-F07C2E."
+     "text": "You're all set: 2026-10-26 between 08:00-10:00 with Kara. Your job number is J-DA7253."
     }
    ],
    "outcome": "booked",
@@ -664,6 +730,17 @@
     },
     {
      "kind": "tool",
+     "name": "record_slot_choice",
+     "args": {
+      "slot_id": "S-1026-T-02-08",
+      "caller_said": "the first one works"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "tool",
      "name": "create_job",
      "args": {
       "customer_id": "C-1002",
@@ -754,6 +831,17 @@
     },
     {
      "kind": "tool",
+     "name": "record_slot_choice",
+     "args": {
+      "slot_id": "S-1026-T-02-08",
+      "caller_said": "the first one works"
+     },
+     "ok": true,
+     "error": null,
+     "message": null
+    },
+    {
+     "kind": "tool",
      "name": "create_job",
      "args": {
       "customer_id": "C-1002",
@@ -767,7 +855,7 @@
     },
     {
      "kind": "agent",
-     "text": "You're all set: 2026-10-26 between 08:00-10:00 with Kara. Your job number is J-74248E."
+     "text": "You're all set: 2026-10-26 between 08:00-10:00 with Kara. Your job number is J-774AB3."
     },
     {
      "kind": "caller",

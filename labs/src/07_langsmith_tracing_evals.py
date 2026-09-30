@@ -398,7 +398,7 @@ display(per_scenario(results["v1-guarded"]))
 # %%
 new_case = {"inputs": {"caller_id": "+18175550142",
                        "utterances": ["The AC is out", "the second one works", "yeah, that's the right address"]},
-            "outputs": {"outcome": "booked", "job_type": "ac_repair"}, "metadata": {"source": "prod-flag-2026-11-02"}}
+            "outputs": {"outcome": "booked", "job_type": "ac_repair"}, "metadata": {"source": "fictional-regression-001"}}
 if LS_LIVE:
     Client().create_examples(dataset_name="st-voice-booking-scenarios", examples=[new_case])
     print("added to LangSmith dataset")
