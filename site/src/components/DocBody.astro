@@ -73,6 +73,8 @@ const { html } = renderMarkdown(body, {
   .doc-body ul.task-list { list-style: none; padding-left: 0.2em; }
   .doc-body label.task, .doc-body span.task { display: inline-flex; gap: 0.6em; align-items: flex-start; }
   .doc-body .task input { margin-top: 0.4em; width: 1.05rem; height: 1.05rem; accent-color: var(--green); flex: none; }
+  .doc-body .audio-link { display: inline-flex; flex-direction: column; gap: 0.3em; width: 100%; max-width: 30rem; }
+  .doc-body .audio-link audio { width: 100%; }
   .doc-body hr { border: 0; border-top: 1px solid var(--panel-edge); margin: 2.2em 0; }
   @media (max-width: 560px) {
     .doc-body { font-size: 1rem; line-height: 1.68; }

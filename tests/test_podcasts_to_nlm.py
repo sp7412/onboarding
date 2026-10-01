@@ -27,5 +27,69 @@ class PodcastParserTests(unittest.TestCase):
             p.parse_episodes("```text\nEPISODE 1: X\nFormat: Deep Dive\n```")
 
 
+class ListenLineTests(unittest.TestCase):
+    DOC = ("## Episode 1: One\n- [ ] Generated · [ ] Listened · **When:** now\n\n```text\nx\n```\n"
+           "## Episode 2: Two\n- [ ] Generated · [ ] Listened · **When:** later\n")
+
+    def test_inserts_and_replaces_listen_line(self):
+        once = p.update_listen_lines(self.DOC, {1: {"audio": "https://e.com/a.m4a"}})
+        self.assertIn("- **Listen:** [Episode 1 audio (m4a)](https://e.com/a.m4a)", once)
+        self.assertEqual(once.count("**Listen:**"), 1)
+        twice = p.update_listen_lines(once, {1: {"audio": "https://e.com/b.m4a", "notebook": "https://n.com/x"}})
+        self.assertEqual(twice.count("**Listen:**"), 1)
+        self.assertIn("b.m4a", twice)
+        self.assertIn("[NotebookLM notebook](https://n.com/x)", twice)
+        self.assertNotIn("a.m4a", twice)
+
+    def test_release_url(self):
+        self.assertEqual(p.release_url("o/r", "episode-01.m4a"),
+                         "https://github.com/o/r/releases/download/podcasts/episode-01.m4a")
+
+
+class RunResumeTests(unittest.TestCase):
+    def setUp(self):
+        import json
+        import os
+        import stat
+        import tempfile
+        self.tmp = tempfile.mkdtemp()
+        self.log = os.path.join(self.tmp, "calls.log")
+        fake = os.path.join(self.tmp, "nlm")
+        with open(fake, "w") as f:
+            f.write("#!/bin/sh\n"
+                    f"echo \"$*\" >> {self.log}\n"
+                    "case \"$1 $2\" in\n"
+                    "  \"notebook create\") echo '{\"notebook_id\":\"nb-1\"}';;\n"
+                    "  \"audio create\") [ -f " + os.path.join(self.tmp, "quota") + " ] && echo 'RPC rate limit (RESOURCE_EXHAUSTED)' >&2 && exit 1; echo ok;;\n"
+                    "esac\n")
+        os.chmod(fake, os.stat(fake).st_mode | stat.S_IEXEC)
+        self.fake = fake
+        self.json = json
+        self._state = p.STATE
+        p.STATE = p.Path(self.tmp) / "state.json"
+
+    def tearDown(self):
+        p.STATE = self._state
+
+    def _calls(self):
+        with open(self.log) as f:
+            return f.read().splitlines()
+
+    def test_quota_then_resume_reuses_notebook(self):
+        open(p.Path(self.tmp) / "quota", "w").close()
+        rc = p.main(["--run", "--episodes", "1,2", "--nlm", self.fake, "--delay", "0"])
+        self.assertEqual(rc, 1)
+        calls = self._calls()
+        self.assertEqual(sum(c.startswith("audio create") for c in calls), 1)  # stops after the limit
+        (p.Path(self.tmp) / "quota").unlink()
+        open(self.log, "w").close()
+        rc = p.main(["--run", "--episodes", "1", "--nlm", self.fake, "--delay", "0"])
+        self.assertEqual(rc, 0)
+        calls = self._calls()
+        self.assertFalse(any(c.startswith("notebook create") for c in calls))  # reused
+        self.assertFalse(any(c.startswith("source add") for c in calls))       # no duplicate sources
+        self.assertEqual(sum(c.startswith("audio create") for c in calls), 1)
+
+
 if __name__ == "__main__":
     unittest.main()

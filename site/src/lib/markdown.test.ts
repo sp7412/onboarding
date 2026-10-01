@@ -36,4 +36,9 @@ describe("renderMarkdown", () => {
     const { html } = r("```text\n<https://x.com> **not bold**\n```");
     expect(html).toContain("&lt;https://x.com&gt; **not bold**");
   });
+  it("renders audio links as players with a download link", () => {
+    const { html } = r("- **Listen:** [Episode 1 audio (m4a)](https://github.com/o/r/releases/download/podcasts/episode-01.m4a)");
+    expect(html).toContain('<audio controls preload="none" src="https://github.com/o/r/releases/download/podcasts/episode-01.m4a">');
+    expect(html).toContain(">Episode 1 audio (m4a)</a>");
+  });
 });

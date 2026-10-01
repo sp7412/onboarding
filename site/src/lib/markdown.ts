@@ -75,7 +75,12 @@ export function renderMarkdown(md: string, opts: RenderOptions): RenderResult {
     return { url: REPO + repoPath, external: true };
   };
 
+  const isAudio = (url: string) => /\.(m4a|mp3|wav|ogg)(\?.*)?$/i.test(url);
   const anchor = (url: string, external: boolean, textHtml: string) =>
+    isAudio(url)
+      ? `<span class="audio-link"><audio controls preload="none" src="${esc(url)}"></audio>${plainAnchor(url, external, textHtml)}</span>`
+      : plainAnchor(url, external, textHtml);
+  const plainAnchor = (url: string, external: boolean, textHtml: string) =>
     `<a href="${esc(url)}"${external ? ` rel="noopener noreferrer" target="_blank" title="${esc(url)}"` : ""}>${textHtml}</a>`;
 
   function inline(src: string, allowLinks = true): string {

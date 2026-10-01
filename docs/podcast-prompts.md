@@ -42,7 +42,23 @@ python scripts/podcasts_to_nlm.py --run --episodes 1
   machine, never a work account or work laptop.
 - Sites that block automated imports (OpenAI's pages often do) are reported as failed; save
   those pages as PDFs and add them with `nlm source add <notebook-id> --file page.pdf --wait`.
-- Progress is saved in `.nlm-podcasts.json` (gitignored), so reruns skip finished episodes.
+- Progress is saved in `.nlm-podcasts.json` (gitignored). Reruns reuse each episode's
+  notebook, add only missing sources, and retry only the audio request.
+- NotebookLM limits how many Audio Overviews an account can generate per day. When the limit
+  is hit (`RESOURCE_EXHAUSTED`), the script stops requesting audio; run it again later.
+
+### Put the finished audio in this guide
+
+```bash
+gh auth login                                    # once
+python scripts/podcasts_to_nlm.py --publish      # download, upload, add Listen links
+python scripts/podcasts_to_nlm.py --publish --share   # also link each public notebook
+```
+
+`--publish` downloads each finished episode, uploads it to a GitHub release named
+`podcasts`, and adds a **Listen:** line under that episode below. The site turns those links
+into audio players. Commit and push the updated file to publish them. Release assets in this
+public repo are public; the audio is AI-generated from public sources.
 
 ---
 

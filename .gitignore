@@ -18,3 +18,4 @@ site/.astro/
 
 # nlm podcast automation state
 .nlm-podcasts.json
+build/
