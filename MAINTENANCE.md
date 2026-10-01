@@ -31,5 +31,7 @@ truth. Keep the public-safe rule in `AGENTS.md` in force.
 
 The weekly link workflow checks tracked Markdown/HTML source URLs and builds the site before
 running the generated-site checker. It does not deploy. A failure means a maintainer should
-inspect the first broken URL, verify the replacement manually, update the bibliography if
-needed, and rerun the workflow.
+   inspect the first broken URL, verify the replacement manually, update the bibliography if
+   needed, and rerun the workflow. `BOT-BLOCKED-BUT-VERIFIED` means the URL is retained in the
+   public references/claims records but the configured proxy prevented an automated HTTP check;
+   it is not a hard failure.

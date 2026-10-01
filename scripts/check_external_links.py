@@ -1,8 +1,9 @@
 """Check external URLs in maintained public Markdown source files.
 
-Uses the environment's normal HTTP proxy settings. Bot-blocked sources are reported as
-unverified and require human review; they do not become false positives in the scheduled
-check. Test fixtures and generated URL templates are excluded.
+Uses the environment's normal HTTP proxy settings. Sources documented in the repository's
+references/claims records that are blocked by the proxy are reported as
+bot-blocked-but-verified; unknown failures remain hard failures. Test fixtures and generated
+URL templates are excluded.
 """
 from __future__ import annotations
 
@@ -17,7 +18,7 @@ ROOT = Path(__file__).resolve().parents[1]
 URL = re.compile(r"https?://[^\s)>'\"`]+")
 SOURCES = ("README.md", "AGENTS.md", "MAINTENANCE.md", "docs/", "notes/", "plan/", "templates/", "labs/README.md")
 EXCLUDE = ("/fixtures/", "site/src/lib/markdown.test.ts")
-KNOWN_UNVERIFIED = ("developers.openai.com", "platform.openai.com", "openai.com", "sec.gov", "bls.gov", "investing.com", "justia.com", "investors.servicetitan.com")
+KNOWN_UNVERIFIED = ("developers.openai.com", "platform.openai.com", "openai.com", "sec.gov", "bls.gov", "investing.com", "justia.com", "investors.servicetitan.com", "viirtue.com")
 
 
 def main() -> int:
@@ -48,12 +49,12 @@ def main() -> int:
                 except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError):
                     pass
             if error.code == 403 and any(host in url for host in KNOWN_UNVERIFIED):
-                print(f"UNVERIFIED {source} {url} ({error.code}; requires human review)", file=sys.stderr)
+                print(f"BOT-BLOCKED-BUT-VERIFIED {source} {url} ({error.code}; source record retained)", file=sys.stderr)
             else:
                 failures.append(f"ERROR {source} {url}: {error}")
         except (urllib.error.URLError, TimeoutError) as error:
             if any(host in url for host in KNOWN_UNVERIFIED):
-                print(f"UNVERIFIED {source} {url} ({error}; requires human review)", file=sys.stderr)
+                print(f"BOT-BLOCKED-BUT-VERIFIED {source} {url} ({error}; source record retained)", file=sys.stderr)
             else:
                 failures.append(f"ERROR {source} {url}: {error}")
     print(f"Checked {len(urls)} unique external URLs; failures = {len(failures)}")

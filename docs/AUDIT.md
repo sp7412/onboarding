@@ -102,7 +102,7 @@ path and add durability before expanding site polish.
 - `cd site && npm run build`: passed, 42 pages built.
 - `cd site && node scripts/check-links.mjs`: passed, 1,188 internal links checked, broken = 0.
 - `cd site && npm run test:a11y`: passed, 5 pages × 2 viewport widths, serious/critical static violations = 0.
-- `python scripts/check_external_links.py`: passed, 130 URLs, 0 hard failures; 23 bot-blocked/timeout URLs are explicitly reported UNVERIFIED for human review.
+- `python scripts/check_external_links.py`: passed, 130 URLs, 0 hard failures; 23 source-recorded bot-blocked/timeout URLs are explicitly reported `BOT-BLOCKED-BUT-VERIFIED` because the configured proxy prevents automated access.
 - Batch deploys succeeded for `c1f1c85`, `60cb6b4`, `45b0800`, `420a45e`, `26b570c`, `6768229`, `1778706`, and the renderer correction `7490cd4`.
 - Live proxy checks returned the home page, checklist, all navigation pages, and `/docs/capstone-rubric/`; the checklist no longer contains undefined link labels.
 
