@@ -13,6 +13,7 @@ export const ICONS: Record<string, string> = {
   plan: "M8 3h8v3H8z M6 4.5H5v16.5h14V4.5h-1 M8 11l2 2 4-4 M8 17h8",
   chart: "M4 20V4 M4 20h16 M8 16v-4 M12 16V8 M16 16v-6",
   flask: "M9 3h6 M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3 M7.5 15h9",
+  play: "M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z M10 8.5v7l6-3.5z",
   mic: "M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3z M5 11a7 7 0 0 0 14 0 M12 18v3",
   layers: "M12 3l9 4.5-9 4.5-9-4.5z M3 12l9 4.5 9-4.5 M3 16.5L12 21l9-4.5",
   wave: "M2 12h3l2-6 3 12 3-9 2 3h7",

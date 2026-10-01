@@ -3,6 +3,7 @@ import Icon from "../components/Icon.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { loadContent, readRepoFile } from "../lib/content/repo";
 import { renderMarkdown } from "../lib/markdown";
+import { parseVideos } from "../lib/content/videos";
 import { url } from "../lib/url";
 const content = loadContent();
 const ids = (file: string, prefix: string) =>
@@ -10,6 +11,7 @@ const ids = (file: string, prefix: string) =>
 const sections = [
   { name: "Checklist", href: "/checklist", ids: content.checklistItems.map((i) => i.id) },
   { name: "Reading guide", href: "/reading", ids: ids("docs/reading-guide.md", "reading") },
+  { name: "Videos", href: "/videos", ids: parseVideos(readRepoFile("docs/reading-guide.md"), "docs/reading-guide.md").map((v) => v.id) },
   { name: "Podcasts", href: "/podcasts", ids: ids("docs/podcast-prompts.md", "podcasts") },
   { name: "Whitepaper chapters", href: "/whitepaper", ids: content.whitepaper.chapters.map((c) => `whitepaper-read-${c.slug}`) },
   { name: "Labs", href: "/labs", ids: content.labs.map((l) => `lab-done-${l.number}`) },

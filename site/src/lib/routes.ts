@@ -10,6 +10,7 @@ export const routes: Route[] = [
   { key: "checklist", label: "Checklist", path: "/checklist", built: true },
   { key: "reading", label: "Reading", path: "/reading", built: true },
   { key: "podcasts", label: "Podcasts", path: "/podcasts", built: true },
+  { key: "videos", label: "Videos", path: "/videos", built: true },
   { key: "whitepaper", label: "Whitepaper", path: "/whitepaper", built: true },
   { key: "architecture", label: "Architecture", path: "/architecture", built: true },
   { key: "simulations", label: "Simulations", path: "/simulations", built: true },
