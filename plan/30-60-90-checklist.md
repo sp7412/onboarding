@@ -25,7 +25,7 @@ artifact or demonstration. The total is designed for 4–6 hours per week.
 
 | Week | Read/watch/listen/run | Time | Active deliverable |
 |---|---|---:|---|
-| Sept 28 | Read docs 101 and contractor lifecycle; read speech-to-speech background; read/watch reading-guide items 1–4 and 11B; run labs 00–03; listen to podcast episodes 1 and 6 | 4–6 h | A one-page contractor lifecycle map with the application control-plane boundary and six observed/inferred/unknown questions |
+| Sept 28 | Read docs 101 and contractor lifecycle; read speech-to-speech and GPT-Live-1 background; read/watch reading-guide items 1–4 and 11B; run labs 00–03; listen to podcast episodes 1 and 6 | 4–6 h | A one-page contractor lifecycle map with the application control-plane boundary and six observed/inferred/unknown questions |
 | Oct 5 | Read architecture; read/watch reading-guide items 5–10; run labs 04–06; complete LiveKit hands-on Phases 1–2; listen to episodes 2, 10 and 11 | 4–6 h | A comparison of cascaded, realtime and workflow paths plus five simulated failure observations |
 | Oct 12 | Read evaluation guide and reading-guide items 11–14; watch the LangSmith videos (item 14A); run labs 07–08; complete LiveKit hands-on Phase 3; listen to episodes 3, 4 and 12 | 4–6 h | A fictional eval report, study-question draft, and capstone evidence matrix |
 | Oct 19 | Read only items paired with unfinished labs; read call anatomy and first-90-days playbook; listen to episodes 5 and 13; review templates and capstone rubric | 3–4 h | Manager-question set, first-PR hypothesis, personal first-week plan, and capstone open-criteria list |
@@ -37,6 +37,7 @@ The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubr
 - [ ] Read the [domain primer](../docs/servicetitan-101.md) and [contractor
   lifecycle](../docs/how-a-contractor-works.md).
 - [ ] Read [Speech-to-speech models](../docs/speech-to-speech-models.md) before lab 01.
+- [ ] Read [GPT-Live-1](../docs/gpt-live-1.md) (reading-guide item 7A): OpenAI's full-duplex voice model with delegation.
 - [ ] Watch LiveKit's "Voice Agent Pipeline Explained" before lab 03 ([reading guide](../docs/reading-guide.md) item 11B).
 - [ ] Run labs 00–03 offline with Python 3.12 (needs a laptop).
 - [ ] Write one question each for customer, product, technology, quality, team, and business.

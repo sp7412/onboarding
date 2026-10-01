@@ -16,7 +16,9 @@
 # `LIVE = True/False`. The OpenAI developer pages returned HTTP 403 to the automated check on
 # September 30, 2026; verify the current model and protocol before a live run.
 #
-# Background: read [`docs/speech-to-speech-models.md`](../docs/speech-to-speech-models.md) first for how these models work and the current lineup (the labs target `gpt-realtime-2`; `gpt-realtime-2.1` and `-mini` shipped in July 2026).
+# Background: read [`docs/speech-to-speech-models.md`](../docs/speech-to-speech-models.md) and [`docs/gpt-live-1.md`](../docs/gpt-live-1.md) first. This lab uses the turn-based Realtime protocol; OpenAI's newer full-duplex GPT-Live-1 uses a separate Live API with delegation, which the labs don't simulate.
+#
+# The labs target `gpt-realtime-2`; `gpt-realtime-2.1` and `-mini` shipped in July 2026.
 #
 # Reference: OpenAI Realtime API guide and client/server event reference (developers.openai.com). Model names change; check the models page.
 

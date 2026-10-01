@@ -20,6 +20,8 @@ private system. Product names are linked in [`docs/servicetitan-101.md`](../docs
 | Agent handoff | Transfer of a conversation from one automated or human role to another with useful context |
 | Appointment window | A range of time offered for a technician visit, such as 10:00–12:00 |
 | Backchannel | A short listener signal such as "uh-huh" that usually should not interrupt the agent |
+| Full duplex | A voice model that listens and speaks at the same time (e.g. OpenAI GPT-Live-1), so interruptions and backchannels are handled as they happen rather than turn by turn |
+| Delegation (voice) | A voice model handing reasoning and tool calls to a separate backend model or agent while it keeps talking; GPT-Live-1 supports Responses and client delegation |
 | Barge-in | The caller speaking while the agent is speaking, causing the agent to yield or stop |
 | Baseline | The measured value of a metric before a change, over an agreed period and population. Every before/after claim in this repo requires one (see the playbook and design-doc template) |
 | Booked job | A scheduled work commitment created after required confirmations and policy checks |

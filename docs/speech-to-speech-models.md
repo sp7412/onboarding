@@ -7,14 +7,14 @@ when to use them instead of a cascaded pipeline for a phone agent. Model names a
 often, so check the [OpenAI models
 pages](https://developers.openai.com/api/docs/models/gpt-realtime-2.1) before relying on them.
 
-**Verification note:** the OpenAI model pages and changelog returned HTTP 403 to the automated
-proxy-backed fetch on September 30, 2026. The model names and numeric values below remain
-source-attributed research notes, not independently verified current pricing or limits.
+**Verification note:** the OpenAI model pages returned HTTP 403 to one proxy-backed fetch on
+September 30, 2026, but a direct fetch the same day confirmed the `gpt-realtime-2.1` page
+values below (modalities, 128k context, 32k output, text $4/$24 and audio $32/$64 per 1M tokens).
 
-> **On the name "GPT Live".** OpenAI doesn't sell a model by that name. It most likely
-> refers to the Realtime API's speech-to-speech models (`gpt-realtime-*`), which the labs
-> use, or to ChatGPT's voice mode, which runs on similar technology. Worth confirming with
-> the team.
+> **"GPT Live" is a real model.** OpenAI released **GPT-Live-1** in the API on September 10,
+> 2026: a full-duplex voice model that delegates reasoning and tools to a backend model. It
+> uses its own endpoint and per-minute pricing. See [GPT-Live-1](gpt-live-1.md) for the full
+> explainer. This page covers the turn-based Realtime models the labs use.
 
 ## Five Takeaways
 
@@ -76,6 +76,7 @@ duplex, overlap-aware models like Moshi point to where the field may go.
 | `gpt-realtime-2.1-mini` | Distilled reasoning model for faster, lower-cost voice interactions; better alphanumeric recognition than gpt-realtime-2 | 128k / 32k | $0.60 / $2.40; $10 / $20 | [3] |
 | `gpt-realtime-2` | The May 2026 model the labs target; configurable reasoning effort, stronger instruction following, more reliable tool use | 128k / 32k | $4 / $24; $32 / $64 | [6] |
 | `gpt-realtime-whisper` | Streaming speech-to-text for low-latency transcript deltas; priced by audio duration | 16k / 2k | per audio duration | [4] |
+| `gpt-live-1` | Full-duplex voice model that listens while speaking and delegates reasoning and tool calls to a backend model; its own `v1/live/sessions` endpoint (see [GPT-Live-1](gpt-live-1.md)) | not listed | $0.05 per minute of voice, billed per second; backend billed separately | [11] |
 | `gpt-realtime-translate` | Streaming speech-to-speech *translation* on a dedicated endpoint; returns translated audio and transcripts while audio is still arriving | 16k / 2k | per audio duration | [5] |
 
 Notes:
@@ -161,3 +162,4 @@ unsaid. That's the pattern lab 02 and lab 07 teach.
 8. OpenAI Developer Community, "New Realtime models on the API: gpt-realtime-2.1 and gpt-realtime-2.1-mini" (July 6, 2026): <https://community.openai.com/t/new-realtime-models-on-the-api-gpt-realtime-2-1-and-gpt-realtime-2-1-mini/1385896>
 9. OpenAI API changelog: <https://developers.openai.com/api/docs/changelog>
 10. OpenAI, Realtime API guide: <https://developers.openai.com/api/docs/guides/realtime>
+11. OpenAI, GPT-Live 1 model page: <https://developers.openai.com/api/docs/models/gpt-live-1>

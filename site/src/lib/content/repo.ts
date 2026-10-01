@@ -80,6 +80,7 @@ export const DOC_PAGES: { repoPath: string; icon: string }[] = [
   { repoPath: "docs/how-a-contractor-works.md", icon: "reading" },
   { repoPath: "docs/voice-agent-architecture.md", icon: "architecture" },
   { repoPath: "docs/speech-to-speech-models.md", icon: "architecture" },
+  { repoPath: "docs/gpt-live-1.md", icon: "architecture" },
   { repoPath: "docs/call-anatomy.md", icon: "telephony" },
   { repoPath: "docs/evaluating-voice-agents.md", icon: "evaluation" },
   { repoPath: "docs/livekit-hands-on.md", icon: "labs" },

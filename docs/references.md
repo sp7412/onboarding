@@ -42,6 +42,14 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [Advancing voice intelligence with new models in the API (gpt-realtime-2)](https://openai.com/index/advancing-voice-intelligence-with-new-models-in-the-api/) | Announcement | RG 7, PP 3 |
 | [Voice agents guide](https://developers.openai.com/api/docs/guides/voice-agents) | Docs | RG 8, PP 3 |
 | [Realtime API guide](https://developers.openai.com/api/docs/guides/realtime) | Docs | RG 13, RL, PP 3 |
+| [Build more natural voice experiences with GPT-Live-1 in the API](https://openai.com/index/introducing-gpt-live-1-in-the-api/) | Announcement | RG 7A, PP 3, GPT-Live doc |
+| [Getting started with GPT-Live](https://developers.openai.com/api/docs/guides/live) | Docs | RG 7A, GPT-Live doc |
+| [Delegation and tools in GPT-Live](https://developers.openai.com/api/docs/guides/live-delegation) | Docs | RG 7A, PP 3, GPT-Live doc |
+| [GPT-Live 1 model page](https://developers.openai.com/api/docs/models/gpt-live-1) | Model docs | GPT-Live doc, speech-to-speech doc |
+| [Prompting GPT-Live](https://developers.openai.com/api/docs/guides/live-prompting) | Docs | GPT-Live doc |
+| [Managing GPT-Live sessions](https://developers.openai.com/api/docs/guides/live-conversations) | Docs | GPT-Live doc |
+| [Migrate to GPT-Live](https://developers.openai.com/api/docs/guides/live-migration) | Docs | GPT-Live doc |
+| [GPT-Live partner integrations](https://developers.openai.com/api/docs/guides/live-partner-integrations) | Docs | GPT-Live doc |
 | [GPT-Realtime-2.1 model page](https://developers.openai.com/api/docs/models/gpt-realtime-2.1) | Model docs | Speech-to-speech doc |
 | [GPT-Realtime-2.1 Mini model page](https://developers.openai.com/api/docs/models/gpt-realtime-2.1-mini) | Model docs | Speech-to-speech doc |
 | [GPT-Realtime-2 model page](https://developers.openai.com/api/docs/models/gpt-realtime-2) | Model docs | Speech-to-speech doc |

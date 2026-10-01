@@ -89,6 +89,19 @@ replace it. Check items off (`- [x]`) as you finish them.
   4. The companion models (streaming transcription, live translation) and where they'd fit in a contractor's call center.
 - **Pairs with:** lab 01 §3; background: [`speech-to-speech-models.md`](speech-to-speech-models.md)
 
+### 7A. GPT-Live-1: full-duplex voice with delegation (OpenAI, September 2026)
+- [ ] Launch post: <https://openai.com/index/introducing-gpt-live-1-in-the-api/> · announcement · 10 min
+- [ ] Getting started guide: <https://developers.openai.com/api/docs/guides/live> · docs · 15 min
+- [ ] Delegation and tools: <https://developers.openai.com/api/docs/guides/live-delegation> · docs · 30 min
+- [ ] Repo explainer: [GPT-Live-1](gpt-live-1.md) · guide · 15 min
+- **Why:** likely the "GPT Live" the team suggested. It's OpenAI's newest voice model, and its delegation design is the talker/thinker pattern from lab 08 made into a product.
+- **Look for:**
+  1. What full duplex changes about interruptions, backchannels and noise compared with turn-based Realtime models.
+  2. The split between the live model (conversation) and the backend (reasoning, tools), and when to choose Responses vs client delegation.
+  3. The three ways to send information back (instructions, thinking, commentary), and which one is safe to use before a booking is committed.
+  4. Pricing (per minute, plus backend usage) and concurrency limits, and what they mean for peak call days.
+- **Pairs with:** labs 02, 07 and 08
+
 ### 8. OpenAI voice agents guide
 - [ ] <https://developers.openai.com/api/docs/guides/voice-agents> · docs · 30 min
 - **Why:** OpenAI's reference architecture for voice agents.

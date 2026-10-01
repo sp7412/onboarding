@@ -102,3 +102,14 @@ Added when chapters 03, 04, 05, 08, 12, 13 and 14 were rewritten.
 | LiveKit Python quickstart uses `lk agent init`, `uv sync`, `AgentSession`, and supports realtime models through the OpenAI plugin | 08 | https://docs.livekit.io/agents/start/voice-ai/ | 2026-09-30 | yes | Current public documentation; local examples checked with livekit-agents 1.8.3. |
 | LiveKit turn handling supports turn-detector, realtime-model, VAD, STT endpointing, and manual modes | 08 | https://docs.livekit.io/agents/logic/turns/ | 2026-09-30 | yes | Current public documentation. |
 | OpenAI realtime model names, prices, context limits, modalities, and changelog dates in the speech-to-speech note | 08 | https://developers.openai.com/api/docs/models/gpt-realtime-2.1 | 2026-09-30 | unverified | Automated proxy-backed fetch returned HTTP 403; values remain source-attributed notes and were not guessed or changed. |
+
+## GPT-Live-1 pass, September 30, 2026
+
+| Claim | Chapter | URL | Date checked | Supported | Notes |
+|---|---:|---|---|---|---|
+| GPT-Live-1 released in the API Sept 10, 2026; full duplex; delegates reasoning and tools to a backend model | GPT-Live doc | https://openai.com/index/introducing-gpt-live-1-in-the-api/ | 2026-09-30 | yes | Primary announcement read directly |
+| Model ID, audio/text modalities, Jul 31 2025 cutoff, v1/live/sessions endpoint, $0.05/min billed per second, concurrent-session limits 25/50/200 | GPT-Live doc | https://developers.openai.com/api/docs/models/gpt-live-1 | 2026-09-30 | yes | Model page read directly |
+| Responses vs client delegation; instructions/thinking/commentary appends (500 tokens); app owns permissions and confirmations | GPT-Live doc | https://developers.openai.com/api/docs/guides/live-delegation | 2026-09-30 | yes | Guide read directly |
+| Benchmarks (Full Duplex Bench +30 pts vs Realtime-2.1; turn-taking ~0.80 s vs ~1.41 s; Tau3 86.2% vs 45.7%) | GPT-Live doc | https://openai.com/index/introducing-gpt-live-1-in-the-api/ | 2026-09-30 | yes | Vendor-reported; labeled as such |
+| gpt-realtime-2.1 modalities, 128k context, 32k output, text $4/$24 and audio $32/$64 per 1M tokens | S2S doc | https://developers.openai.com/api/docs/models/gpt-realtime-2.1 | 2026-09-30 | yes | Direct fetch; supersedes the proxy 403 "unverified" row |
+
