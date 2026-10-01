@@ -92,6 +92,15 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [LangSmith evaluation concepts](https://docs.langchain.com/langsmith/evaluation-concepts) | Docs | RG 21, PP 5 |
 | [LangSmith evaluation](https://docs.langchain.com/langsmith/evaluation) | Docs | RL, WP 08, 14 |
 | [LangSmith observability concepts](https://docs.langchain.com/langsmith/observability-concepts) | Docs | RG 21, PP 5 |
+| [What Is LangSmith? Explained in 5 Minutes (LangChain)](https://www.youtube.com/watch?v=kYtnLaJeia8) | Video | RG 14A |
+| [Getting Started with LangSmith (1/8): Tracing](https://www.youtube.com/watch?v=fA9b4D8IsPQ) | Video | RG 14A, PP 5 |
+| [Getting Started with LangSmith (2/8): Types of Runs](https://www.youtube.com/watch?v=WplpUxEyl9o) | Video | RG 14A |
+| [Getting Started with LangSmith (3/8): Debugging with Studio](https://www.youtube.com/watch?v=NJXu-4nDo50) | Video | RG 14A (optional) |
+| [Getting Started with LangSmith (4/8): Playground & Prompts](https://www.youtube.com/watch?v=h4f6bIWGkog) | Video | RG 14A (optional) |
+| [Getting Started with LangSmith (5/8): Datasets & Evaluations](https://www.youtube.com/watch?v=iEgjJyk3aTw) | Video | RG 14A, PP 5 |
+| [Getting Started with LangSmith (6/8): Annotation Queues](https://www.youtube.com/watch?v=rxKYHA-2KS0) | Video | RG 14A (optional) |
+| [Getting Started with LangSmith (7/8): Automations & Online Evaluation](https://www.youtube.com/watch?v=z69cBXTJFZ0) | Video | RG 14A |
+| [Getting Started with LangSmith (8/8): Dashboards](https://www.youtube.com/watch?v=VxsIvf9NdxI) | Video | RG 14A (optional) |
 | [LangSmith observability](https://docs.langchain.com/langsmith/observability) | Docs | RL |
 | [Patterns for Building LLM-based Systems & Products (Eugene Yan)](https://eugeneyan.com/writing/llm-patterns/) | Essay | RG 24 |
 

@@ -209,6 +209,25 @@ credentials, customer information, or live audio into this public repository.
   4. Conversation flow and state described in the prompt vs enforced in code. Where would you draw that line?
 - **Pairs with:** lab 02
 
+### 14A. LangSmith in video: tracing, runs and evaluation (LangChain)
+- [ ] What Is LangSmith? Explained in 5 Minutes: <https://www.youtube.com/watch?v=kYtnLaJeia8> · video · 5 min
+- [ ] Getting Started with LangSmith (1/8), Tracing: <https://www.youtube.com/watch?v=fA9b4D8IsPQ> · video · 9 min
+- [ ] Getting Started with LangSmith (2/8), Types of Runs: <https://www.youtube.com/watch?v=WplpUxEyl9o> · video · 10 min
+- [ ] Getting Started with LangSmith (5/8), Datasets & Evaluations: <https://www.youtube.com/watch?v=iEgjJyk3aTw> · video · 13 min
+- [ ] Getting Started with LangSmith (7/8), Automations & Online Evaluation: <https://www.youtube.com/watch?v=z69cBXTJFZ0> · video · 6 min
+- [ ] Optional (3/8), Debugging with Studio: <https://www.youtube.com/watch?v=NJXu-4nDo50> · video · 10 min
+- [ ] Optional (4/8), Playground & Prompts: <https://www.youtube.com/watch?v=h4f6bIWGkog> · video · 8 min
+- [ ] Optional (6/8), Annotation Queues: <https://www.youtube.com/watch?v=rxKYHA-2KS0> · video · 5 min
+- [ ] Optional (8/8), Dashboards: <https://www.youtube.com/watch?v=VxsIvf9NdxI> · video · 7 min
+- **When:** the first five (about 45 minutes) before lab 07; the optional four anytime after.
+- **Why:** LangChain's official walkthrough of the tool. Lab 07 instruments a voice loop by hand; these videos show what the same traces, runs and experiments look like in the LangSmith UI.
+- **Look for:**
+  1. How a trace breaks down into runs (LLM, tool, chain), and what metadata and tags you can attach. Compare with the call ID and version tags in lab 07 §1.
+  2. Where latency, token usage, errors and inputs/outputs appear for each run, and how you'd find the slowest step of one phone call.
+  3. How datasets, evaluators and experiments fit together, and how that maps to lab 07 §5's offline evaluation.
+  4. What online evaluation and automations add in production, such as sampling live traces, scoring them and routing bad ones to review. That's lab 07 §6's failure-to-regression loop.
+- **Pairs with:** lab 07 (and lab 08 for end-to-end traces)
+
 ---
 
 ## Tier 3: First 30 days

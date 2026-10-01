@@ -207,6 +207,8 @@ https://arxiv.org/pdf/2406.12045
 https://arxiv.org/pdf/2506.07982
 https://docs.langchain.com/langsmith/evaluation-concepts
 https://docs.langchain.com/langsmith/observability-concepts
+https://www.youtube.com/watch?v=fA9b4D8IsPQ
+https://www.youtube.com/watch?v=iEgjJyk3aTw
 https://hamel.dev/blog/posts/llm-judge/
 https://raw.githubusercontent.com/sp7412/onboarding/main/docs/evaluating-voice-agents.md
 https://raw.githubusercontent.com/sp7412/onboarding/main/plan/30-60-90-checklist.md
