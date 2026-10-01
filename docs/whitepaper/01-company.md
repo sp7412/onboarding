@@ -11,8 +11,8 @@
    current [public history page](https://www.servicetitan.com/company) identifies Ara Mahdessian
    and Vahe Kuzoyan as co-founders and describes the product’s origin in their fathers’
    contracting businesses.
-3. The latest filing used here reported about 10,800 **Active Customers** as of January 31,
-   2026. The current company website separately says “more than 11,800 trade customers”; the
+3. The latest filing used here reported about 10,800 **Active Customers** as of January 31, 2026.
+   The current company website separately says “more than 11,800 trade customers”; the
    website does not define that number on the page, so the figures should not be merged.
 4. The fiscal 2026 filing reported $82.1 billion of GTV and about $961 million of revenue.
    GTV is transaction volume flowing through the platform, not accounting revenue.
