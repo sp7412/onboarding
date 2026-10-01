@@ -24,6 +24,7 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [Features overview](https://www.servicetitan.com/features) | Product index | 101, WP 06 |
 | [Industries served](https://www.servicetitan.com/industries) | Product index | 101, WP 02 |
 | [Products overview](https://www.servicetitan.com/products) | Product index | 101, WP 01, 06, 11 |
+| [Conduit](https://www.servicetitan.com/products/conduit) | Product page | WP 01 |
 
 ## Voice-agent fundamentals
 

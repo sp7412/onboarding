@@ -7,6 +7,7 @@ are not stated as facts in the chapters.
 | Claim | Chapter | URL | Date checked | Supported | Notes |
 |---|---:|---|---|---|---|
 | Founders describe building the company to help their fathers' contracting businesses. | 01 | https://www.servicetitan.com/company | 2026-09-27 | partial | Company-authored origin story. |
+| IPO prospectus describes ServiceTitan as founded in 2012. | 01 | https://www.sec.gov/Archives/edgar/data/1638826/000119312524277099/d577298d424b4.htm | 2026-09-30 | unverified | SEC returned HTTP 403 through the configured proxy; claim retained as explicitly attributed and requires direct filing review. |
 | Company page states more than 11,800 trade customers. | 01 | https://www.servicetitan.com/company | 2026-09-27 | partial | Company-reported; no independent denominator on page. |
 | Public product catalog presents offerings for contractors across multiple industries. | 01 | https://www.servicetitan.com/products | 2026-09-27 | yes | Public catalog positioning. |
 | Public industries page lists commercial and residential contractor categories. | 02 | https://www.servicetitan.com/industries | 2026-09-27 | yes | Category list, not market-size evidence. |
@@ -112,4 +113,3 @@ Added when chapters 03, 04, 05, 08, 12, 13 and 14 were rewritten.
 | Responses vs client delegation; instructions/thinking/commentary appends (500 tokens); app owns permissions and confirmations | GPT-Live doc | https://developers.openai.com/api/docs/guides/live-delegation | 2026-09-30 | yes | Guide read directly |
 | Benchmarks (Full Duplex Bench +30 pts vs Realtime-2.1; turn-taking ~0.80 s vs ~1.41 s; Tau3 86.2% vs 45.7%) | GPT-Live doc | https://openai.com/index/introducing-gpt-live-1-in-the-api/ | 2026-09-30 | yes | Vendor-reported; labeled as such |
 | gpt-realtime-2.1 modalities, 128k context, 32k output, text $4/$24 and audio $32/$64 per 1M tokens | S2S doc | https://developers.openai.com/api/docs/models/gpt-realtime-2.1 | 2026-09-30 | yes | Direct fetch; supersedes the proxy 403 "unverified" row |
-
