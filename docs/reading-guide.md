@@ -10,7 +10,7 @@ pairs with.
 - **Tier 3** (first 30 days): orchestration and evaluation depth
 - **Tier 4** (as needed): research and background
 
-All links were checked on Sept 27, 2026. Vendor docs change fast, so if a link moves,
+All links were checked on Oct 3, 2026. Vendor docs change fast, so if a link moves,
 search for the title. The takeaways are prompts for your own reading, not summaries to
 replace it. Check items off (`- [x]`) as you finish them.
 
@@ -191,6 +191,19 @@ credentials, customer information, or live audio into this public repository.
   3. How the pipeline decides the caller has finished speaking, and how interruptions are handled.
   4. Which parts are framework configuration versus application logic, which is the study question in miniature.
 - **Pairs with:** lab 03 (turn-taking) and lab 04 (LiveKit agents); podcast episode 10 covers the full playlist
+
+### 11C. LiveKit 101 bonus videos
+- [ ] [Fix AI Voice Interruptions with Semantic Turn Detection](https://www.youtube.com/watch?v=XbrlOY4Z-Ow) · video · 15 min
+- [ ] [Deploy Voice AI Agents to Production with Full Observability](https://www.youtube.com/watch?v=KENbu2e7myY) · video · 18 min
+- [ ] [Production Voice AI Workflows: Consent and Escalations](https://www.youtube.com/watch?v=bc9kI5TRhX4) · video · 13 min
+- [ ] [Connect Voice Agents to External Services with MCP](https://www.youtube.com/watch?v=lOACxaBLwSI) · video · 15 min
+- **Why:** these modules extend the pipeline lesson into the production concerns most relevant to a booking agent.
+- **Look for:**
+  1. How semantic turn detection reduces premature cutoffs and false interruptions.
+  2. Which traces, metrics, and failure signals matter once an agent is deployed.
+  3. Where consent, escalation, and human handoff belong in the workflow.
+  4. What MCP adds at the integration boundary, and which authorization checks remain application-owned.
+- **Pairs with:** labs 03, 04, 07, and 08
 
 ### 12. Using a transformer to improve end-of-turn detection (LiveKit)
 - [ ] <https://livekit.com/blog/using-a-transformer-to-improve-end-of-turn-detection> · blog · 15 min

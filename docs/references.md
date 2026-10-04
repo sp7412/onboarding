@@ -1,7 +1,7 @@
 # References
 
 Every external source cited anywhere in this repo, in one place, grouped by topic.
-All links were checked on Sept 27, 2026. For *what to read first and why*, use the ranked
+All links were checked on Oct 3, 2026. For *what to read first and why*, use the ranked
 [reading guide](reading-guide.md); this page is the complete bibliography.
 
 **Where each is cited:** RG = [reading guide](reading-guide.md) item number ·
@@ -77,6 +77,10 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [Using a transformer to improve end-of-turn detection](https://livekit.com/blog/using-a-transformer-to-improve-end-of-turn-detection) | Blog | RG 12, PP 2 |
 | [LiveKit 101: Build Production-Ready Voice AI Agents](https://www.youtube.com/playlist?list=PLWx-Xa8RhJxXuv8fu2Qz9rj2MPb4qgXir) | Official video course playlist | RG 11A, PP 10 |
 | [Voice Agent Pipeline Explained: VAD, STT, LLM & TTS (LiveKit)](https://www.youtube.com/watch?v=SPB2T-eLrOg) | Talk (video 2 of LiveKit 101) | RG 11B, PP 10 |
+| [Fix AI Voice Interruptions with Semantic Turn Detection (LiveKit)](https://www.youtube.com/watch?v=XbrlOY4Z-Ow) | Video (LiveKit 101) | RG 11C |
+| [Deploy Voice AI Agents to Production with Full Observability (LiveKit)](https://www.youtube.com/watch?v=KENbu2e7myY) | Video (LiveKit 101) | RG 11C |
+| [Production Voice AI Workflows: Consent and Escalations (LiveKit)](https://www.youtube.com/watch?v=bc9kI5TRhX4) | Video (LiveKit 101) | RG 11C |
+| [Connect Voice Agents to External Services with MCP (LiveKit)](https://www.youtube.com/watch?v=lOACxaBLwSI) | Video (LiveKit 101) | RG 11C |
 
 ## Agents and orchestration (LangChain / LangGraph)
 
