@@ -7,6 +7,8 @@ import { parseWhitepaperChapter, parseWhitepaperOrder, type WhitepaperChapter } 
 import { parseGlossary, type GlossaryTerm } from "./glossary";
 import { parseLabSource, parseLabsReadme, type Lab } from "./labs";
 import { expectCondition } from "./errors";
+import { parseVideoNotes, type VideoNote } from "./video-notes";
+import { parseVideos, type Video } from "./videos";
 
 export interface RepoDoc {
   /** Repo-relative path like "docs/servicetitan-101.md". */
@@ -24,6 +26,8 @@ export interface ContentBundle {
   whitepaper: { order: string[]; chapters: WhitepaperChapter[] };
   glossary: GlossaryTerm[];
   labs: Lab[];
+  videos: Video[];
+  videoNotes: VideoNote[];
   docs: RepoDoc[];
   templates: RepoDoc[];
 }
@@ -134,6 +138,8 @@ export function loadContent(): ContentBundle {
 
   const checklist = parseChecklist(read("plan/30-60-90-checklist.md"), "plan/30-60-90-checklist.md");
   const reading = parseReadingGuide(read("docs/reading-guide.md"), "docs/reading-guide.md");
+  const videos = parseVideos(read("docs/reading-guide.md"), "docs/reading-guide.md");
+  const videoNotes = parseVideoNotes(read("docs/video-notes.md"), "docs/video-notes.md", videos);
   const podcasts = parsePodcastPrompts(read("docs/podcast-prompts.md"), "docs/podcast-prompts.md");
   const glossary = parseGlossary(read("notes/glossary.md"), "notes/glossary.md");
 
@@ -157,6 +163,6 @@ export function loadContent(): ContentBundle {
   const docs = DOC_PAGES.map((d) => parseDoc(d.repoPath));
   const templates = TEMPLATE_FILES.map((f) => parseDoc(`templates/${f}`));
 
-  cached = { checklist, checklistItems: flattenChecklist(checklist), reading, podcasts, whitepaper: { order, chapters }, glossary, labs, docs, templates };
+  cached = { checklist, checklistItems: flattenChecklist(checklist), reading, podcasts, whitepaper: { order, chapters }, glossary, labs, videos, videoNotes, docs, templates };
   return cached;
 }

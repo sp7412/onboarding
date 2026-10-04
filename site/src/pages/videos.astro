@@ -3,9 +3,13 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Icon from "../components/Icon.astro";
 import { readRepoFile } from "../lib/content/repo";
 import { parseVideos, VIDEO_TOPICS, WATCH_WHEN, topicOf } from "../lib/content/videos";
+import { parseVideoNotes, videoId } from "../lib/content/video-notes";
+import { renderMarkdown } from "../lib/markdown";
 import { url } from "../lib/url";
 
 const videos = parseVideos(readRepoFile("docs/reading-guide.md"), "docs/reading-guide.md");
+const videoNotes = parseVideoNotes(readRepoFile("docs/video-notes.md"), "docs/video-notes.md", videos);
+const noteById = new Map(videoNotes.map((note) => [note.id, note]));
 const must = videos.filter((v) => v.mustWatch);
 const mustMinutes = must.reduce((sum, v) => sum + (v.minutes ?? 0), 0);
 const untimed = must.filter((v) => v.minutes === null);
@@ -42,6 +46,19 @@ const groups = VIDEO_TOPICS.map((t) => ({ ...t, videos: videos.filter((v) => top
               {v.title !== v.itemTitle && <p class="muted series">From: {v.itemTitle}</p>}
               {v.isPlaylist && <p class="muted series">{v.time}</p>}
               {v.pairsWith && <p class="muted pairs">Pairs with {v.pairsWith}</p>}
+              {noteById.get(videoId(v.url) ?? "") && (() => {
+                const note = noteById.get(videoId(v.url) ?? "")!;
+                const render = (body: string) => renderMarkdown(body, { sourcePath: "docs/video-notes.md", resolveRepoLink: () => null }).html;
+                return <details class="video-notes">
+                  <summary>Notes and takeaways</summary>
+                  <div class="notes-body">
+                    <div class="doc-body" set:html={render(note.takeaways.map((item, i) => `${i + 1}. ${item}`).join("\n"))} />
+                    <p><strong>Why it matters here:</strong> {note.why}</p>
+                    <p><strong>Questions to discuss:</strong></p>
+                    <div class="doc-body" set:html={render(note.questions.map((item, i) => `${i + 1}. ${item}`).join("\n"))} />
+                  </div>
+                </details>;
+              })()}
               <label class="watched"><input type="checkbox" data-check-id={v.id} /> Watched</label>
             </div>
           </article>
@@ -49,7 +66,7 @@ const groups = VIDEO_TOPICS.map((t) => ({ ...t, videos: videos.filter((v) => top
       </div>
     </section>
   ))}
-  <p class="muted footnote">Reading-guide item numbers and "what to look for" notes are on the <a href={url("/reading")}>Reading</a> page.</p>
+   <p class="muted footnote">Reading-guide item numbers and "what to look for" notes are on the <a href={url("/reading")}>Reading</a> page. <a href="https://github.com/sp7412/onboarding/blob/main/docs/video-notes.md" target="_blank" rel="noopener noreferrer">Read the notes in the repository</a>.</p>
 </BaseLayout>
 <style>
   .topic { margin: var(--s8) 0; }
@@ -73,5 +90,13 @@ const groups = VIDEO_TOPICS.map((t) => ({ ...t, videos: videos.filter((v) => top
   .series, .pairs { font-size: .88rem; margin: 0; }
   .watched { display: inline-flex; gap: var(--s2); align-items: center; font-size: .92rem; }
   .watched input { width: 1.05rem; height: 1.05rem; accent-color: var(--green); }
+  .video-notes { border-top: 1px solid var(--panel-edge); padding-top: var(--s2); }
+  .video-notes summary { color: var(--cyan); cursor: pointer; font-family: var(--font-head); font-size: .9rem; }
+  .notes-body { margin-top: var(--s3); color: var(--ink-dim); font-size: .9rem; line-height: 1.55; }
+  .notes-body p { margin: 0 0 var(--s3); }
+  .notes-body .doc-body { max-width: none; font-size: inherit; line-height: inherit; }
+  .notes-body .doc-body ol { margin: 0 0 var(--s3); padding-left: 1.25rem; }
+  .notes-body .doc-body li { margin: .3em 0; }
+  .notes-body strong { color: var(--ink); }
   .footnote { margin-top: var(--s8); }
 </style>

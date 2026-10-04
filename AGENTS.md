@@ -19,14 +19,10 @@ LangChain/LangGraph, LangSmith).
 0. **Links must be real.** Link-check every URL you add (HTTP 200 on the final page). Never
    construct URLs from a site's naming pattern. Add new external links to `docs/references.md`.
 
-1. **This repo is public.** Never add ServiceTitan internal information: internal code,
-   architecture, metrics, customer data, call recordings or transcripts, names of internal
-   systems, or anything learned under employment. If a request would add such content, stop
-   and ask. Public sources (product pages, conference talks, vendor docs) are fine.
-2. **No secrets.** Never commit `.env`, API keys, tokens, or notebook outputs that contain
+1. **No secrets.** Never commit `.env`, API keys, tokens, or notebook outputs that contain
    them. Keys belong in `.env` (gitignored); `.env.example` holds empty placeholders only.
-3. **Don't commit executed notebook outputs.** Notebooks are stored clean (no outputs).
-4. **Offline-first must keep working.** Every notebook must run end to end with no API keys.
+2. **Don't commit executed notebook outputs.** Notebooks are stored clean (no outputs).
+3. **Offline-first must keep working.** Every notebook must run end to end with no API keys.
    Live-only cells must be gated (e.g. `if stlab.have("openai"):`) and print a skip message.
 
 ## Layout

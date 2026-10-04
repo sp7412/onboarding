@@ -4,6 +4,8 @@ Every external source cited anywhere in this repo, in one place, grouped by topi
 All links were checked on Oct 3, 2026. For *what to read first and why*, use the ranked
 [reading guide](reading-guide.md); this page is the complete bibliography.
 
+Video summaries are collected in [video notes](video-notes.md).
+
 **Where each is cited:** RG = [reading guide](reading-guide.md) item number ·
 RL = [reading guide](reading-guide.md) · 101 = [ServiceTitan 101](servicetitan-101.md) ·
 PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](whitepaper/README.md) chapter.

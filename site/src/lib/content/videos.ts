@@ -87,7 +87,7 @@ export function parseVideos(markdown: string, file: string): Video[] {
 
 export const VIDEO_TOPICS: { key: string; title: string; blurb: string; items: string[] }[] = [
   { key: "voice", title: "Voice agents in practice", blurb: "How production voice agents are designed, from teams that ship them.", items: ["5", "10", "23"] },
-  { key: "livekit", title: "LiveKit", blurb: "The real-time transport layer: pipelines, turn detection, telephony.", items: ["11A", "11B"] },
+  { key: "livekit", title: "LiveKit", blurb: "The real-time transport layer: pipelines, turn detection, telephony.", items: ["11A", "11B", "11C"] },
   { key: "langsmith", title: "LangSmith: tracing and evaluation", blurb: "What traces, runs, datasets and experiments look like in the tool.", items: ["14A"] },
   { key: "background", title: "Background", blurb: "Broader context on building AI products.", items: [] },
 ];
