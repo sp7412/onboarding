@@ -1,13 +1,10 @@
 # ServiceTitan 101
 
-Product names and positioning change; revisit the linked pages before using this as
-current company research.
-
 ## What The Company Does
 
 ServiceTitan describes its platform as cloud software for the trades, including
 contractors in plumbing, HVAC, electrical, and related home and commercial services.
-Its public product pages group capabilities around customer acquisition, field service
+Its product pages group capabilities around customer acquisition, field service
 operations, financial workflows, and business intelligence. Start with the [company
 overview](https://www.servicetitan.com/company) and [platform overview](https://www.servicetitan.com/features).
 
@@ -20,20 +17,19 @@ or unnecessary CSR work.
 
 ## Who Uses It
 
-Public product material distinguishes residential and commercial contractors and
-describes workflows involving office staff, technicians, and business owners. Do not
-infer the exact workflows, permissions, or systems used by any particular customer.
-The public [industries page](https://www.servicetitan.com/industries) is a useful starting point.
+The platform serves residential and commercial contractors, with workflows involving
+office staff, technicians, and business owners. See the [industries page](https://www.servicetitan.com/industries)
+for more detail.
 
 ## Product Vocabulary
 
-Key public product references:
+Product vocabulary:
 
 - [Contact Center Pro](https://www.servicetitan.com/features/pro/contact-center) addresses contact-center workflows.
 - [Scheduling Pro](https://www.servicetitan.com/features/pro/scheduling) addresses scheduling and booking workflows.
 - [Dispatch Pro](https://www.servicetitan.com/features/pro/dispatch) addresses dispatch operations.
-- [Atlas](https://www.servicetitan.com/features/atlas) is presented publicly as an AI assistant for the trades.
-- [AI Voice Agents](https://www.servicetitan.com/features/pro/virtual-agent) is the public product page for voice-agent capabilities.
+- [Atlas](https://www.servicetitan.com/features/atlas) is an AI assistant for the trades.
+- [AI Voice Agents](https://www.servicetitan.com/features/pro/virtual-agent) provide voice-agent capabilities.
 
 ## How AI Fits The Learning Problem
 
@@ -50,7 +46,7 @@ For pre-start study, focus on four outcomes:
 4. Measure customer-visible outcomes such as correct booking, appropriate escalation,
    and dead-air latency rather than optimizing model metrics in isolation.
 
-## Public Sources
+## Explore Next
 
 - [ServiceTitan company](https://www.servicetitan.com/company)
 - [ServiceTitan platform](https://www.servicetitan.com/features)
