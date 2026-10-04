@@ -41,4 +41,8 @@ describe("renderMarkdown", () => {
     expect(html).toContain('<audio controls preload="none" src="https://github.com/o/r/releases/download/podcasts/episode-01.m4a">');
     expect(html).toContain(">Episode 1 audio (m4a)</a>");
   });
+  it("keeps inline code inside link text", () => {
+    const { html } = r("see [`docs/y.md`](y.md)");
+    expect(html).toContain('href="/onboarding/docs/y/"><code>docs/y.md</code></a>');
+  });
 });

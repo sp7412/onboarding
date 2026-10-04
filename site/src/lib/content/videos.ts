@@ -20,6 +20,7 @@ export interface Video {
   isPlaylist: boolean;
   pairsWith?: string;
   why?: string;
+  lookFor: string[];
 }
 
 const LINE = /^- \[[ xX]\] (?:(.+?): )?<(https:\/\/(?:www\.)?youtube\.com\/(?:watch\?v=[\w-]{11}|playlist\?list=[\w-]+))> · (.+)$/;
@@ -45,7 +46,16 @@ export function parseVideos(markdown: string, file: string): Video[] {
     const block = lines.slice(item.start);
     const pairs = block.find((l) => l.startsWith("- **Pairs with:**"))?.replace("- **Pairs with:**", "").trim();
     const why = block.find((l) => l.startsWith("- **Why:**"))?.replace("- **Why:**", "").trim();
-    for (const v of pending) videos.push({ ...v, pairsWith: pairs, why });
+    const start = block.findIndex((l) => l.startsWith("- **Look for:**"));
+    const lookFor: string[] = [];
+    if (start >= 0) {
+      for (const l of block.slice(start + 1)) {
+        const m = l.match(/^\s+\d+\.\s+(.*)$/);
+        if (!m) break;
+        lookFor.push(m[1].trim());
+      }
+    }
+    for (const v of pending) videos.push({ ...v, pairsWith: pairs, why, lookFor });
     pending = [];
   };
   const lines = markdown.split("\n");
@@ -75,8 +85,9 @@ export function parseVideos(markdown: string, file: string): Video[] {
         kind: parts.slice(0, -1).join(" · "),
         time,
         minutes: minutesOf(time),
-        mustWatch: tier > 0 && tier <= 2 && !optional,
+        mustWatch: tier > 0 && tier <= 2 && !optional && !/bonus/i.test(item.title),
         isPlaylist: v[2].includes("playlist?list="),
+        lookFor: [],
       });
     }
   });
@@ -97,6 +108,7 @@ export const WATCH_WHEN: Record<string, string> = {
   "5": "Week of Oct 5",
   "10": "Week of Oct 5",
   "11A": "Week of Oct 5, with lab 04",
+  "11C": "Week of Oct 5, after lab 04",
   "14A": "Week of Oct 12, before lab 07",
   "23": "First 30 days",
   "27": "Anytime",
