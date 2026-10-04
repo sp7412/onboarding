@@ -81,7 +81,7 @@ https://raw.githubusercontent.com/sp7412/onboarding/main/docs/whitepaper/05-pain
 https://raw.githubusercontent.com/sp7412/onboarding/main/notes/glossary.md
 
 CUSTOMIZE PROMPT (Audio Overview → Customize):
-The listener is a senior ML engineer from the defense industry who starts as a Senior AI Engineer on ServiceTitan's voice-agent team in a few weeks. He knows ML deeply but not the trades industry or SaaS. Explain how a residential HVAC/plumbing contractor runs: the inbound call, booking, capacity, dispatch, memberships, and why missed calls cost revenue. Then explain what ServiceTitan's AI Voice Agents do, how they escalate to human CSRs, and how they fit the Atlas AI strategy. End with 5 questions he should ask his new team. Stick to the sources; don't speculate about internal systems.
+The listener is a senior ML engineer from the defense industry who starts as a Senior AI Engineer on ServiceTitan's voice-agent team in a few weeks. He knows ML deeply but not the trades industry or SaaS. Explain how a residential HVAC/plumbing contractor runs: the inbound call, booking, capacity, dispatch, memberships, and why missed calls cost revenue. Then explain what ServiceTitan's AI Voice Agents do, how they escalate to human CSRs, and how they fit the Atlas AI strategy. End with 5 questions he should ask his new team. Stick to the sources.
 ```
 
 ---

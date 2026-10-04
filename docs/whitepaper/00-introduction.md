@@ -56,6 +56,4 @@ changes state or makes claims: tool validation, grounding, escalation, and evalu
   general benchmarks.
 - Primary sources (SEC filings, regulators, BLS) are preferred; secondary sources are
   labeled.
-- Nothing here describes internal systems, architecture, owners, pricing or roadmap.
-  Those are listed as questions to validate after joining.
 - `[unverified]` marks gaps. The [claims ledger](claims-ledger.md) records verification.

@@ -1,10 +1,9 @@
 # First 90 Days Playbook
 
-This is a public-safe operating plan for entering a senior AI engineering role, loosely
-based on Michael D. Watkins, *The First 90 Days, Updated and Expanded* (Harvard Business
-Review Press, 2013; ISBN 9781422188613). It uses the broad ideas of preparing, learning quickly, diagnosing
-the situation, securing early wins, and negotiating success; it is not a reproduction
-of any book or a prediction of ServiceTitan's internal processes.
+This operating plan is loosely based on Michael D. Watkins, *The First 90 Days, Updated
+and Expanded* (Harvard Business Review Press, 2013; ISBN 9781422188613). It uses the
+broad ideas of preparing, learning quickly, diagnosing the situation, securing early
+wins, and negotiating success.
 
 Use this document to decide **how to operate**. Use the [30/60/90 checklist](../plan/30-60-90-checklist.md)
 to decide **what to do each week**.

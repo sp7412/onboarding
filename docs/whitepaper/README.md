@@ -1,8 +1,7 @@
 # Background Whitepaper
 
 This whitepaper is a public-source research primer on contractor workflows and the
-engineering implications of voice agents. It is not an internal description of any
-company, product architecture, customer, metric, roadmap, or operating policy.
+engineering implications of voice agents.
 
 ## Status
 
@@ -38,7 +37,5 @@ validation before it can be stated as fact.
 
 ## Scope Gaps
 
-Public sources can't establish internal architecture, owners, pricing, adoption, private
-metrics or roadmap, and this paper doesn't claim them. Industry-wide call-mix, CSR
-turnover and missed-call cost statistics from neutral sources remain gaps; figures from
-vendors are attributed as vendor claims.
+Industry-wide call-mix, CSR turnover and missed-call cost statistics from neutral sources
+remain gaps; figures from vendors are attributed as vendor claims.

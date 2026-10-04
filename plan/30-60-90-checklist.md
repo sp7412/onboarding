@@ -4,9 +4,8 @@
 measurable outcome.
 
 This checklist is the execution companion to the [First 90 Days
-Playbook](../docs/first-90-days-playbook.md). It is inspired by broadly useful
-first-90-days practices, not a prediction of internal company processes. Adjust dates,
-access, and scope with the manager after starting.
+Playbook](../docs/first-90-days-playbook.md). Adjust dates, access, and scope with the
+manager after starting.
 
 ## The 90-Day Contract
 

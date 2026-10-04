@@ -1,8 +1,7 @@
 # ServiceTitan 101
 
-This is a public-source orientation, not an account of any internal architecture or
-roadmap. Product names and positioning change; revisit the linked pages before using
-this as current company research.
+Product names and positioning change; revisit the linked pages before using this as
+current company research.
 
 ## What The Company Does
 
@@ -28,7 +27,7 @@ The public [industries page](https://www.servicetitan.com/industries) is a usefu
 
 ## Product Vocabulary
 
-These are public product references, not claims about an internal implementation:
+Key public product references:
 
 - [Contact Center Pro](https://www.servicetitan.com/features/pro/contact-center) addresses contact-center workflows.
 - [Scheduling Pro](https://www.servicetitan.com/features/pro/scheduling) addresses scheduling and booking workflows.
@@ -36,17 +35,12 @@ These are public product references, not claims about an internal implementation
 - [Atlas](https://www.servicetitan.com/features/atlas) is presented publicly as an AI assistant for the trades.
 - [AI Voice Agents](https://www.servicetitan.com/features/pro/virtual-agent) is the public product page for voice-agent capabilities.
 
-Read the pages as product context. They do not reveal private system boundaries,
-production metrics, customer data, or team ownership. Those are questions to ask after
-joining, under the relevant access and privacy policies.
-
 ## How AI Fits The Learning Problem
 
 The useful engineering question is: which parts of a customer interaction can be
 handled conversationally, and which actions require authoritative business state,
-policy checks, auditability, or human escalation? The labs model this boundary with a
-fictional contractor and a mock backend. They do not model ServiceTitan's internal
-systems.
+policy checks, auditability, or human escalation? The labs explore this boundary with a
+fictional contractor and a mock backend.
 
 For pre-start study, focus on four outcomes:
 

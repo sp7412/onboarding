@@ -2,8 +2,8 @@
 
 **Estimated reading time:** 8 minutes
 
-This chapter turns the paper into a working brief for the first 90 days. Everything here is
-written as options and hypotheses to test, not conclusions about internal systems.
+This chapter turns the paper into a working brief for the first 90 days. It focuses on
+options and hypotheses to test.
 
 ## Five Takeaways
 
