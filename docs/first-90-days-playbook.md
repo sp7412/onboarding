@@ -162,6 +162,12 @@ Review a one-page memo with your manager. It should state:
 
 ### Negotiate success
 
+Start this conversation in week one with [Setting Goals With Your New Manager](manager-alignment.md).
+Use its first conversation to learn the manager's priorities, expectations, pace, decision rights,
+working norms, and feedback preferences. By the end of week two, turn the discussion into a
+one-page written agreement and ask: "If I hit these, would you consider the first 90 days a
+success?"
+
 Before building, agree in writing on:
 
 - the problem and eligible population;

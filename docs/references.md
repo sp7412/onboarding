@@ -179,6 +179,10 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 |---|---|---|
 | Michael D. Watkins, *The First 90 Days, Updated and Expanded* (Harvard Business Review Press, 2013; ISBN 9781422188613) | Book | First 90 days playbook |
 
+## Onboarding practice
+
+| [Setting Goals With Your New Manager](https://raw.githubusercontent.com/sp7412/onboarding/main/docs/manager-alignment.md) | Repo guide | PP 6 |
+
 ## Maintaining this page
 - Add a row whenever a new external link appears anywhere in the repo.
 - Link-check before committing; never construct URLs from a site's naming pattern.

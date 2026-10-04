@@ -42,6 +42,7 @@ The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubr
 - [ ] Write one question each for customer, product, technology, quality, team, and business.
 - [ ] Start an evidence log with **observed / inferred / unknown** columns.
 - [ ] Draft the manager's first-1:1 questions in [`templates/1on1-questions.md`](../templates/1on1-questions.md).
+- [ ] Read [Setting Goals With Your New Manager](../docs/manager-alignment.md) and prepare the 20-minute pre-1:1 exercise.
 - [ ] [Reading guide](../docs/reading-guide.md) items 1–4.
 - [ ] [Podcast](../docs/podcast-prompts.md) episodes 1 and 6 (coaching: entering well — it's scheduled before day one).
 
@@ -82,6 +83,7 @@ The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubr
 
 - [ ] Complete required HR, security, privacy, and compliance onboarding.
 - [ ] Ask the manager to confirm day-30, day-60, and day-90 outcomes and decision rights.
+- [ ] Hold the first alignment 1:1: priorities, success criteria, pace, working norms, feedback, and close.
 - [ ] Confirm authorized access and data-handling rules before reviewing calls or traces.
 - [ ] Meet manager, PM/product partner, senior engineer, and evaluation/observability partner.
 - [ ] Start the internal copy of [`templates/onboarding-log.md`](../templates/onboarding-log.md).
@@ -97,6 +99,7 @@ The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubr
 - [ ] Ask each owner to correct your map; record disagreements as learning items.
 - [ ] Identify the definition and denominator for the key quality metrics.
 - [ ] Ship the first small PR: documentation, test, logging, or developer-experience fix.
+- [ ] Draft and send the written 30/60/90 agreement to the manager by the end of week 2.
 
 **Output:** reviewed system map, owner map, and first merged contribution.
 

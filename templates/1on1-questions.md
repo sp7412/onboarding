@@ -1,16 +1,21 @@
 # 1:1 Questions
 
 ## First 1:1 with my manager
-1. What does success look like for me at 30, 60 and 90 days?
-2. Which metrics does leadership watch for voice agents?
-3. What's the team's biggest current risk or pain point?
-4. How do you prefer updates: Slack, a doc, or the weekly 1:1?
-5. Who should I meet in my first two weeks?
-6. What's a good first PR to learn the codebase and review norms?
-7. How are production calls evaluated today, and who owns that?
-8. Where do guardrails live today: prompts, tool validation, a policy service, or middleware?
-9. Is the live call path speech-to-speech, cascaded, or both?
-10. What would make you say, at 90 days, "that was a great hire"?
+Use the [manager alignment guide](../docs/manager-alignment.md) to let these flow as a
+conversation rather than a questionnaire.
+
+1. What are the team's top priorities this quarter, and why those?
+2. What gap were you hoping this hire would fill?
+3. What does success look like for me at 30, 60 and 90 days, and how will we know?
+4. Who else will form an opinion of my work, and what matters to them?
+5. What's a realistic ramp, and when do people usually ship their first change?
+6. How do you prefer updates, how often, and how early should I raise problems?
+7. Which decisions can I make independently, which should I run by you, and which need others?
+8. What are the working norms I should know: hours, on-call, response times?
+9. How do you prefer to give feedback, and how often?
+10. What would make you worried at day 30 or 60?
+11. What would make you say, at 90 days, "that was a great hire"?
+12. If I draft 30/60/90 goals from this, can we review them next week?
 
 ## With peers (PM, evals owner, infra, support)
 - What's the biggest risk to voice agent quality right now?

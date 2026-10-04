@@ -266,6 +266,7 @@ Format: Deep Dive · Length: Default
 
 SOURCES (NotebookLM → Add source → Website / YouTube):
 https://raw.githubusercontent.com/sp7412/onboarding/main/docs/first-90-days-playbook.md
+https://raw.githubusercontent.com/sp7412/onboarding/main/docs/manager-alignment.md
 https://raw.githubusercontent.com/sp7412/onboarding/main/plan/30-60-90-checklist.md
 https://raw.githubusercontent.com/sp7412/onboarding/main/templates/1on1-questions.md
 https://raw.githubusercontent.com/sp7412/onboarding/main/templates/onboarding-log.md
