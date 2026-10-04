@@ -16,9 +16,8 @@
    website does not define that number on the page, so the figures should not be merged.
 4. The fiscal 2026 filing reported $82.1 billion of GTV and about $961 million of revenue.
    GTV is transaction volume flowing through the platform, not accounting revenue.
-5. Analysis: the public materials support studying how software, payments, add-ons, and AI
-   may increase customer value; they do not establish that a particular AI feature causes
-   a particular revenue outcome.
+5. Analysis: software, payments, add-ons, and AI may increase customer value, but the
+   effect of a particular AI feature requires measurement.
 
 ## What the company is
 
@@ -30,8 +29,7 @@ and payments.
 
 The company’s public history page names Ara Mahdessian as CEO and co-founder and Vahe Kuzoyan
 as president and co-founder. Its origin story says the founders built the company to help their
-fathers run contracting businesses. That is a company-published history claim, not evidence of
-any private product architecture.
+fathers run contracting businesses.
 
 ## Customers and transaction volume
 
@@ -49,8 +47,8 @@ with the filing’s Active Customer measure.
 **GTV** is transaction volume flowing through the platform and is used by the company as a
 proxy for customer revenue. The fiscal 2026 filing reported $68.5 billion in fiscal 2025 GTV
 and $82.1 billion in fiscal 2026 GTV. The fiscal Q2 2027 results release reported $26.8 billion
-of quarterly GTV, up 17% year over year. These are company-reported measures, not accounting
-revenue.
+of quarterly GTV, up 17% year over year. These are company-reported measures distinct from
+accounting revenue.
 
 Analysis: $82.1 billion divided by approximately 10,800 Active Customers is about $7.6 million
 per Active Customer. This is a rough arithmetic average, not a typical-customer estimate; the
@@ -60,7 +58,7 @@ customer distribution includes large multi-location organizations.
 
 The company describes its offerings across three categories: **Core**, **FinTech**, and **Pro**.
 The fiscal 2026 filing describes Core workflow software, FinTech payment and financing products,
-and Pro add-ons. Public product pages provide the current names and positioning; see the
+and Pro add-ons. See the
 [products overview](https://www.servicetitan.com/products) and [Pro products](https://www.servicetitan.com/features/pro).
 
 Revenue is reported as platform revenue—subscription plus usage revenue—and professional services
@@ -69,8 +67,7 @@ $72.1 million of usage revenue, $8.3 million of professional services and other 
 $292.8 million of total revenue. See the [fiscal Q2 2027 results](https://www.sec.gov/Archives/edgar/data/1638826/000163882626000093/ttan-ex99_1.htm).
 
 Gross dollar retention was over 95% in each of fiscal 2024–2026. Net dollar retention was above
-110% in fiscal Q2 2027. Those are reported company metrics; they are not guarantees about a
-particular product or customer.
+110% in fiscal Q2 2027. Those are reported company metrics.
 
 Analysis: fiscal 2026 revenue of approximately $961 million divided by $82.1 billion of GTV is
 about 1.2%. This arithmetic is not a company-reported share-of-wallet ratio.
@@ -96,11 +93,9 @@ one causal explanation.
   acquisitions including Convex and Conduit Tech. The current website brands the latter product
   as [Conduit](https://www.servicetitan.com/products/conduit).
 - **March 2026:** Public earnings materials and secondary coverage discussed leadership changes
-  and internal AI adoption. Treat those as dated public announcements, not a statement of current
-  leadership unless the current investor page confirms it.
+  and internal AI adoption.
 - **Fiscal 2027:** Management described Max as an “Agentic Operating System for the Trades” and
-  expected more than 700 enrolled locations by fiscal-year end. That is a management expectation,
-  not an achieved count.
+  expected more than 700 enrolled locations by fiscal-year end. That is a management expectation.
 
 ## Strategy and public AI positioning
 
@@ -108,11 +103,10 @@ The fiscal 2026 filing describes Atlas as an evolution of Titan Intelligence and
 common customer workflows, and an end-to-end platform as ingredients for AI products. A public
 [Pantheon 2025 recap](https://www.servicetitan.com/blog/pantheon-2025-vahe-keynote-atlas) describes
 Atlas demos and the Maximize program. These sources establish public positioning and management
-statements; they do not establish private architecture, adoption, or roadmap details.
+statements.
 
 Analysis: the public strategy materials suggest a focus on extending product value across more
-customer workflows. That is an interpretation of public materials, not a claim about an internal
-team’s priorities.
+customer workflows. That is an interpretation of those materials.
 
 ## Risks the company itself names
 
@@ -125,14 +119,13 @@ communication type and recipient. This is general education, not legal advice.
 
 - Treat GTV, usage revenue, booking outcomes, retention, and customer experience as distinct
   concepts. Do not equate GTV with accounting revenue.
-- Treat public product pages and filings as evidence of positioning and reported results, not
-  as a description of private architecture or internal ownership.
+- Use product pages and filings to understand positioning and reported results.
 - For any AI feature, define a denominator, baseline, guardrail, and rollback condition before
   attributing a customer or business outcome.
 
 ## Questions to validate after joining
 
-- Which public product claims correspond to the actual supported workflow and current scope?
+- Which product claims correspond to the actual supported workflow and current scope?
 - Which metrics judge voice-agent success, and what are their denominators?
 - How are model, product, and policy changes evaluated before rollout?
 

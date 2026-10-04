@@ -102,7 +102,7 @@ For every boundary, record:
 
 ### Diagnose the situation
 
-Do not assume the team needs a rewrite. Classify the current situation using evidence:
+Classify the current situation using evidence:
 
 | Situation | Signals | Your response |
 |---|---|---|

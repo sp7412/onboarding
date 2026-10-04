@@ -31,9 +31,8 @@ documentation), with analysis labeled. Chapter 14 is a working brief for the fir
 16. [Appendix A - Timeline](appendix-a-timeline.md)
 17. [Appendix B - Sources](appendix-b-sources.md)
 
-The [claims ledger](claims-ledger.md) is a research QA artifact, not a substitute for
-the chapter source lists. `[unverified]` means the claim needs a source or authorized
-validation before it can be stated as fact.
+The [claims ledger](claims-ledger.md) records the research checks behind the chapter
+source lists. `[unverified]` marks a claim that needs a source or validation.
 
 ## Scope Gaps
 

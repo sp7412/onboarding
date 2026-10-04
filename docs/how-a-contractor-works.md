@@ -61,4 +61,4 @@ flowchart LR
 | Completion to retention | Which follow-up is useful, consented, and measurable? |
 
 The fictional backend in `labs/stlab/backend.py` intentionally stops at customers,
-slots, and jobs. It is a teaching fixture, not a representation of private systems.
+slots, and jobs.

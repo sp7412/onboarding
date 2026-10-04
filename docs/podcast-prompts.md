@@ -126,7 +126,7 @@ https://raw.githubusercontent.com/sp7412/onboarding/main/labs/src/03_turn_taking
 https://raw.githubusercontent.com/sp7412/onboarding/main/labs/src/04_livekit_agents.py
 
 CUSTOMIZE PROMPT (Audio Overview → Customize):
-You are coaching an experienced ML and signal-processing engineer through the supplied LiveKit 101 production voice-agent video course. Summarize the playlist as a sequence of architectural decisions, not a feature tour. Explain rooms and participants, agent sessions, VAD and turn detection, interruptions, tools, handoffs, telephony, deployment, and observability. For every topic, distinguish framework mechanism from application-owned policy and state. Compare the course examples with the raw Realtime event protocol and the deterministic simulators in labs 01–04. End with five concrete experiments to run in lab 04 and a short production-readiness checklist. Do not invent private company architecture or claim that a simulator is a real service.
+You are coaching an experienced ML and signal-processing engineer through the supplied LiveKit 101 production voice-agent video course. Summarize the playlist as a sequence of architectural decisions, not a feature tour. Explain rooms and participants, agent sessions, VAD and turn detection, interruptions, tools, handoffs, telephony, deployment, and observability. For every topic, distinguish framework mechanism from application-owned policy and state. Compare the course examples with the raw Realtime event protocol and the deterministic simulators in labs 01–04. End with five concrete experiments to run in lab 04 and a short production-readiness checklist.
 ```
 
 ---
@@ -290,7 +290,7 @@ https://raw.githubusercontent.com/sp7412/onboarding/main/docs/how-a-contractor-w
 https://raw.githubusercontent.com/sp7412/onboarding/main/docs/evaluating-voice-agents.md
 
 CUSTOMIZE PROMPT (Audio Overview → Customize):
-Act as two coaches debating how a rigorous defense-trained ML engineer should adapt to a customer-facing product team. One coach protects the strengths of formal analysis, safety cases, traceability, and edge-case thinking. The other coach pushes for shorter feedback loops, reversible experiments, customer outcomes, pragmatic scope, and comfort with ambiguity. Use the fictional contractor voice-agent workflow as the running example. Do not invent company practices. Converge on five behaviors to keep, five behaviors to change, and three phrases for communicating uncertainty without blocking progress.
+Act as two coaches debating how a rigorous defense-trained ML engineer should adapt to a customer-facing product team. One coach protects the strengths of formal analysis, safety cases, traceability, and edge-case thinking. The other coach pushes for shorter feedback loops, reversible experiments, customer outcomes, pragmatic scope, and comfort with ambiguity. Use the fictional contractor voice-agent workflow as the running example. Converge on five behaviors to keep, five behaviors to change, and three phrases for communicating uncertainty without blocking progress.
 ```
 
 ---
