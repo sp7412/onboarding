@@ -193,10 +193,10 @@ credentials, customer information, or live audio into this public repository.
 - **Pairs with:** lab 03 (turn-taking) and lab 04 (LiveKit agents); podcast episode 10 covers the full playlist
 
 ### 11C. LiveKit 101 bonus videos
-- [ ] [Fix AI Voice Interruptions with Semantic Turn Detection](https://www.youtube.com/watch?v=XbrlOY4Z-Ow) · video · 15 min
-- [ ] [Deploy Voice AI Agents to Production with Full Observability](https://www.youtube.com/watch?v=KENbu2e7myY) · video · 18 min
-- [ ] [Production Voice AI Workflows: Consent and Escalations](https://www.youtube.com/watch?v=bc9kI5TRhX4) · video · 13 min
-- [ ] [Connect Voice Agents to External Services with MCP](https://www.youtube.com/watch?v=lOACxaBLwSI) · video · 15 min
+- [ ] Fix AI Voice Interruptions with Semantic Turn Detection: <https://www.youtube.com/watch?v=XbrlOY4Z-Ow> · video · 15 min
+- [ ] Deploy Voice AI Agents to Production with Full Observability: <https://www.youtube.com/watch?v=KENbu2e7myY> · video · 18 min
+- [ ] Production Voice AI Workflows: Consent and Escalations: <https://www.youtube.com/watch?v=bc9kI5TRhX4> · video · 13 min
+- [ ] Connect Voice Agents to External Services with MCP: <https://www.youtube.com/watch?v=lOACxaBLwSI> · video · 15 min
 - **Why:** these modules extend the pipeline lesson into the production concerns most relevant to a booking agent.
 - **Look for:**
   1. How semantic turn detection reduces premature cutoffs and false interruptions.
