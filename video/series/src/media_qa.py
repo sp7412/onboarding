@@ -19,6 +19,7 @@ def probe(path: Path, entries: str) -> dict:
 
 def main() -> int:
     report = []
+    failures = []
     for base in EPISODES:
         mp4 = RENDERED / f"{base}-1080p.mp4"
         mp3 = RENDERED / f"{base}.mp3"
@@ -31,10 +32,20 @@ def main() -> int:
         end = stamps[-1][3:6] if stamps else None
         caption_end = (int(end[0]) * 3600 + int(end[1]) * 60 + float(end[2])) if end else None
         duration = float(video["format"]["duration"])
-        report.append({"episode": base, "video": video, "integrated_lufs": float(loudness.group(1)) if loudness else None, "true_peak_db": float(true_peak.group(1)) if true_peak else None, "caption_cues": len(stamps), "caption_end": caption_end, "caption_drift_seconds": round(caption_end - duration, 3) if caption_end is not None else None})
+        lufs = float(loudness.group(1)) if loudness else None
+        peak = float(true_peak.group(1)) if true_peak else None
+        drift = round(caption_end - duration, 3) if caption_end is not None else None
+        if lufs is None or not -17 <= lufs <= -15: failures.append(f"{base}: integrated loudness {lufs} outside -17..-15 LUFS")
+        if peak is None or peak > -1: failures.append(f"{base}: true peak {peak} exceeds -1 dBTP")
+        if drift is None or abs(drift) > 0.2: failures.append(f"{base}: caption drift {drift}s exceeds 200ms")
+        report.append({"episode": base, "video": video, "integrated_lufs": lufs, "true_peak_db": peak, "caption_cues": len(stamps), "caption_end": caption_end, "caption_drift_seconds": drift})
     out = ROOT / "video/series/media-qa.json"
     out.write_text(json.dumps(report, indent=2) + "\n")
     print(json.dumps(report, indent=2))
+    if failures:
+        print("QA failures:\n" + "\n".join(failures))
+        return 1
+    print("Media QA thresholds passed: loudness, true peak, and caption drift.")
     return 0
 
 
