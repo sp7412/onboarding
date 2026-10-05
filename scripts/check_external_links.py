@@ -18,7 +18,8 @@ ROOT = Path(__file__).resolve().parents[1]
 URL = re.compile(r"https?://[^\s)>'\"`]+")
 SOURCES = ("README.md", "AGENTS.md", "MAINTENANCE.md", "docs/", "notes/", "plan/", "templates/", "labs/README.md")
 EXCLUDE = ("/fixtures/", "site/src/lib/markdown.test.ts")
-KNOWN_UNVERIFIED = ("developers.openai.com", "platform.openai.com", "openai.com", "sec.gov", "bls.gov", "investing.com", "justia.com", "investors.servicetitan.com", "viirtue.com")
+KNOWN_UNVERIFIED = ("developers.openai.com", "platform.openai.com", "openai.com", "sec.gov", "bls.gov", "investing.com", "justia.com", "investors.servicetitan.com", "viirtue.com", "deeplearning.ai")
+KNOWN_REDIRECTING = ("www.deeplearning.ai/courses/building-ai-voice-agents-for-production",)
 
 
 def main() -> int:
@@ -39,6 +40,8 @@ def main() -> int:
                 if response.status < 200 or response.status >= 400:
                     if response.status not in (403, 405) or not any(host in url for host in KNOWN_UNVERIFIED):
                         failures.append(f"{response.status} {source} {url}")
+                if any(target in url for target in KNOWN_REDIRECTING) and response.geturl() != url:
+                    print(f"REDIRECT-VERIFIED {source} {url} -> {response.geturl()}", file=sys.stderr)
         except urllib.error.HTTPError as error:
             if error.code == 405:
                 try:

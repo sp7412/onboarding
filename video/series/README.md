@@ -18,6 +18,12 @@ posters, captions, diagrams, and scripts under this directory. It uses no API ke
 voices, uploads, logos, or third-party footage. The narration is an AI-generated voice made
 locally with Kokoro.
 
+Run `python video/series/src/media_qa.py` after downloading the release media locally. It
+reports dimensions, frame rate, duration, integrated loudness, true peak, sentence-level
+caption cue count, and caption drift. The site accessibility smoke test also checks the four
+episode cards at 390px and 1280px static viewport targets, including `preload="none"`, PNG
+posters, caption tracks, and watched controls.
+
 ## Sources
 
 Claims are paraphrased from the following repository documents and the labs named in each

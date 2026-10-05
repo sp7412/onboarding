@@ -73,6 +73,9 @@ export function validateExplainers(items: Explainer[] = EXPLAINERS): void {
       throw new Error(`Invalid explainer asset paths for ${item.id}`);
     }
     if (item.questions.length !== 2) throw new Error(`Explainer ${item.id} needs two questions`);
+    if (!item.posterUrl.includes("/explainers/") || !item.captionsUrl.includes("/explainers/")) {
+      throw new Error(`Explainer ${item.id} must use committed site poster/caption assets`);
+    }
   }
 }
 

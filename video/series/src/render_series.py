@@ -57,16 +57,22 @@ sf.write(r"{out}", np.concatenate(chunks), 24000)
 def make_vtt(ep: str, script: Path, duration: float) -> Path:
     text = narration(script.read_text())
     paragraphs = [p.strip() for p in text.split("\n\n") if p.strip()]
-    words = [len(p.split()) for p in paragraphs]
+    # Sentence-level cues are easier to read and keep caption drift bounded. The renderer
+    # does not have a word-level alignment API, so distribute each paragraph's share by
+    # sentence word count rather than displaying whole multi-sentence paragraphs.
+    cues: list[str] = []
+    for paragraph in paragraphs:
+        cues.extend(s.strip() for s in re.split(r"(?<=[.!?])\s+", paragraph) if s.strip())
+    words = [len(p.split()) for p in cues]
     total = sum(words) or 1
     cursor = 0.0
     lines = ["WEBVTT", ""]
-    for i, (paragraph, count) in enumerate(zip(paragraphs, words), 1):
-        end = duration if i == len(paragraphs) else cursor + duration * count / total
+    for i, (cue, count) in enumerate(zip(cues, words), 1):
+        end = duration if i == len(cues) else cursor + duration * count / total
         def ts(value: float) -> str:
             h = int(value // 3600); m = int(value % 3600 // 60); s = value % 60
             return f"{h:02d}:{m:02d}:{s:06.3f}"
-        lines.extend([str(i), f"{ts(cursor)} --> {ts(end)}", paragraph, ""])
+        lines.extend([str(i), f"{ts(cursor)} --> {ts(end)}", cue, ""])
         cursor = end
     path = CAPTIONS / f"{EPISODES[ep][3]}.vtt"
     path.write_text("\n".join(lines))

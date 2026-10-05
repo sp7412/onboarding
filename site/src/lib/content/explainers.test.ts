@@ -7,6 +7,7 @@ describe("explainer series", () => {
     expect(new Set(EXPLAINERS.map((item) => item.id)).size).toBe(4);
     expect(EXPLAINERS.every((item) => item.videoUrl.includes("/releases/download/explainer-series/"))).toBe(true);
     expect(EXPLAINERS.every((item) => item.posterUrl.includes("/explainers/") && item.captionsUrl.includes("/explainers/"))).toBe(true);
+    expect(EXPLAINERS.every((item) => item.posterUrl.endsWith(".png") && item.captionsUrl.endsWith(".vtt"))).toBe(true);
   });
 
   it("validates captions, posters, audio, and questions", () => {
