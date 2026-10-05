@@ -6,6 +6,8 @@ home-services call: “my AC stopped working.”
 
 ## 1. One call, end to end
 
+![One call flow](../video/series/diagrams/call-flow.png)
+
 ```text
 caller audio → VAD / endpointing → STT or speech model → LLM proposal
              → control-plane checks → tool / workflow → authoritative write
@@ -16,6 +18,8 @@ Measure endpointing, first model sound, tool/workflow time, response generation,
 and playout separately. A spoken preamble can cover dead air; it cannot make the tool faster.
 
 ## 2. Turn-taking
+
+![Turn-taking](../video/series/diagrams/turn-taking.png)
 
 ```text
 speech probability ── silence timer ── possible endpoint
@@ -28,6 +32,8 @@ unnecessary waits, interruption response time, and the difference between genera
 audio the caller actually heard. Cancel, stop playout, and truncate at the heard boundary.
 
 ## 3. Architecture choice
+
+![Architecture choice](../video/series/diagrams/architecture-choice.png)
 
 | | Cascaded | Speech-to-speech | Full duplex + backend |
 |---|---|---|---|
@@ -43,6 +49,8 @@ model changes. Version-specific model names, prices, and vendor benchmarks are a
 2026; OpenAI benchmark numbers are OpenAI-reported.
 
 ## 4. Control-plane checklist
+
+![Control plane](../video/series/diagrams/control-plane.png)
 
 - [ ] Identity comes from the transport/session, not model invention.
 - [ ] Customer ownership and current workflow phase are checked.
