@@ -70,7 +70,9 @@ def make_vtt(ep: str, script: Path, duration: float) -> Path:
     for i, (cue, count) in enumerate(zip(cues, words), 1):
         end = duration if i == len(cues) else cursor + duration * count / total
         def ts(value: float) -> str:
-            h = int(value // 3600); m = int(value % 3600 // 60); s = value % 60
+            h = int(value // 3600)
+            m = int(value % 3600 // 60)
+            s = value % 60
             return f"{h:02d}:{m:02d}:{s:06.3f}"
         lines.extend([str(i), f"{ts(cursor)} --> {ts(end)}", cue, ""])
         cursor = end
@@ -113,7 +115,9 @@ def main() -> int:
     parser.add_argument("--episode", choices=EPISODES)
     parser.add_argument("--all", action="store_true")
     args = parser.parse_args()
-    RENDERED.mkdir(parents=True, exist_ok=True); CAPTIONS.mkdir(exist_ok=True); POSTERS.mkdir(exist_ok=True)
+    RENDERED.mkdir(parents=True, exist_ok=True)
+    CAPTIONS.mkdir(exist_ok=True)
+    POSTERS.mkdir(exist_ok=True)
     eps = list(EPISODES) if args.all or not args.episode else [args.episode]
     for ep in eps:
         script = SCRIPTS / EPISODES[ep][1]

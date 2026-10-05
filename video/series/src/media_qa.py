@@ -35,9 +35,12 @@ def main() -> int:
         lufs = float(loudness.group(1)) if loudness else None
         peak = float(true_peak.group(1)) if true_peak else None
         drift = round(caption_end - duration, 3) if caption_end is not None else None
-        if lufs is None or not -17 <= lufs <= -15: failures.append(f"{base}: integrated loudness {lufs} outside -17..-15 LUFS")
-        if peak is None or peak > -1: failures.append(f"{base}: true peak {peak} exceeds -1 dBTP")
-        if drift is None or abs(drift) > 0.2: failures.append(f"{base}: caption drift {drift}s exceeds 200ms")
+        if lufs is None or not -17 <= lufs <= -15:
+            failures.append(f"{base}: integrated loudness {lufs} outside -17..-15 LUFS")
+        if peak is None or peak > -1:
+            failures.append(f"{base}: true peak {peak} exceeds -1 dBTP")
+        if drift is None or abs(drift) > 0.2:
+            failures.append(f"{base}: caption drift {drift}s exceeds 200ms")
         report.append({"episode": base, "video": video, "integrated_lufs": lufs, "true_peak_db": peak, "caption_cues": len(stamps), "caption_end": caption_end, "caption_drift_seconds": drift})
     out = ROOT / "video/series/media-qa.json"
     out.write_text(json.dumps(report, indent=2) + "\n")

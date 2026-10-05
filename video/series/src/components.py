@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from manim import *
+from manim import *  # noqa: F403
 
 BG = "#0a1224"
 PANEL = "#111c33"

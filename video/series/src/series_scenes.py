@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+# Manim's public API is intentionally imported wholesale for scene readability.
+# ruff: noqa: F403, F405
+
 from manim import *
 from components import *
 

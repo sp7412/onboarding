@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from manim import *
-from components import *
+from manim import *  # noqa: F403, F405
+from components import *  # noqa: F403, F405
 
 config.background_color = BG
 

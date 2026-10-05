@@ -179,6 +179,10 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 |---|---|---|
 | Michael D. Watkins, *The First 90 Days, Updated and Expanded* (Harvard Business Review Press, 2013; ISBN 9781422188613) | Book | First 90 days playbook |
 
+## Explainer series
+
+| [Voice Agents from First Principles release](https://github.com/sp7412/onboarding/releases/tag/explainer-series) | Original local explainer series | Reading guide item 0 |
+
 ## Onboarding practice
 
 | [Setting Goals With Your New Manager](https://raw.githubusercontent.com/sp7412/onboarding/main/docs/manager-alignment.md) | Repo guide | PP 6 |
