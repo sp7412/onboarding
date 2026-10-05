@@ -13,7 +13,7 @@ export interface Explainer {
 }
 
 const RELEASE = "https://github.com/sp7412/onboarding/releases/download/explainer-series";
-const MEDIA = url("/explainers");
+const MEDIA = url("/explainers").replace(/\/$/, "");
 
 export const EXPLAINERS: Explainer[] = [
   {
@@ -69,7 +69,7 @@ export const EXPLAINERS: Explainer[] = [
 export function validateExplainers(items: Explainer[] = EXPLAINERS): void {
   if (new Set(items.map((item) => item.id)).size !== items.length) throw new Error("Explainer IDs must be unique");
   for (const item of items) {
-    if (!item.videoUrl.endsWith("-1080p.mp4") || !item.audioUrl.endsWith(".mp3") || !item.posterUrl.endsWith(".png") || !item.captionsUrl.endsWith(".vtt")) {
+    if (!item.videoUrl.endsWith("-1080p.mp4") || !item.audioUrl.endsWith(".mp3") || !item.posterUrl.endsWith(".jpg") || !item.captionsUrl.endsWith(".vtt")) {
       throw new Error(`Invalid explainer asset paths for ${item.id}`);
     }
     if (item.questions.length !== 2) throw new Error(`Explainer ${item.id} needs two questions`);
