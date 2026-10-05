@@ -85,6 +85,8 @@ export const DOC_PAGES: { repoPath: string; icon: string }[] = [
   { repoPath: "docs/voice-agent-architecture.md", icon: "architecture" },
   { repoPath: "docs/speech-to-speech-models.md", icon: "architecture" },
   { repoPath: "docs/gpt-live-1.md", icon: "architecture" },
+  { repoPath: "docs/build-your-own-voice-agent.md", icon: "labs" },
+  { repoPath: "docs/tools-and-guardrails.md", icon: "guardrails" },
   { repoPath: "docs/call-anatomy.md", icon: "telephony" },
   { repoPath: "docs/evaluating-voice-agents.md", icon: "evaluation" },
   { repoPath: "docs/livekit-hands-on.md", icon: "labs" },

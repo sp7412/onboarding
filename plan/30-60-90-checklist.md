@@ -52,6 +52,7 @@ The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubr
 - [ ] Read [`docs/voice-agent-architecture.md`](../docs/voice-agent-architecture.md).
 - [ ] Watch explainer episodes 3–4: [Voice Agents from First Principles](../docs/reading-guide.md#0-voice-agents-from-first-principles--four-episode-explainer-series).
 - [ ] Complete labs 04–06 and compare realtime, cascaded, and workflow paths (needs a laptop).
+- [ ] Read [Build your own voice agent](../docs/build-your-own-voice-agent.md): the chained vs. GPT-Live implementation differences.
 - [ ] Measure the lab latency categories; label simulated versus live measurements (needs a laptop).
 - [ ] Break the fictional agent five ways: interruption, slow number, backchannel, emergency phrase, wrong address (needs a laptop).
 - [ ] Write a first hypothesis about where the application control plane begins.
@@ -62,6 +63,7 @@ The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubr
 
 - [ ] Watch the must-watch LangSmith videos ([reading guide](../docs/reading-guide.md) item 14A) before lab 07.
 - [ ] Complete labs 07–08 (needs a laptop).
+- [ ] Read [Tools and guardrails](../docs/tools-and-guardrails.md) and run its checklist against the lab tools.
 - [ ] Use [`docs/capstone-rubric.md`](../docs/capstone-rubric.md) to collect pass/fail evidence.
 - [ ] Read [`docs/evaluating-voice-agents.md`](../docs/evaluating-voice-agents.md).
 - [ ] Write the answer in [`notes/study-question.md`](../notes/study-question.md).
