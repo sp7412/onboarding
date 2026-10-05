@@ -1,0 +1,71 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:10.182
+The model says, “I can book Thursday.” But has anything been booked? In a safe voice agent,
+the model proposes. The application decides.
+
+2
+00:00:10.182 --> 00:00:32.316
+Start with identity. The transport knows which session and participant supplied the audio.
+The model can interpret the caller’s words, but it should not invent authority. Before a
+state-changing action, the control plane verifies the customer and checks that the requested
+operation belongs to that customer and current call phase.
+
+3
+00:00:32.316 --> 00:00:45.154
+This boundary is deliberately boring. Boring is good when a voice model is probabilistic.
+It turns “please book it” into a proposed operation with evidence, policy, and an owner.
+
+4
+00:00:45.154 --> 00:01:07.731
+Now draw the slot and address as cards. The system offered Thursday from ten to noon. The
+caller confirmed that slot and the service address. The control plane checks that the chosen
+slot was actually offered and that the address came from the caller’s evidence. A model
+paraphrase is not enough.
+
+5
+00:01:07.731 --> 00:01:22.782
+The same rule applies to spoken claims. Never say “you’re booked” before the authoritative
+write commits. A preamble may say that the system is checking. It must not turn an intention
+into a fact.
+
+6
+00:01:22.782 --> 00:01:50.671
+The caller interrupts during the booking request. This is not only an audio problem. It is a
+write problem. The application needs an idempotency key so a retry does not create a duplicate
+job. It needs an explicit policy for whether an in-flight operation finishes or is cancelled.
+Then the next spoken response must describe the committed result, not the model’s previous
+plan.
+
+7
+00:01:50.671 --> 00:02:03.952
+Observability records the trajectory: proposal, checks, backend response, retry, and final
+outcome. That trace lets evaluation ask whether the workflow was legal, not just whether the
+last sentence sounded confident.
+
+8
+00:02:03.952 --> 00:02:24.315
+Not every request belongs in the booking workflow. Emergency language, a request for a human,
+or an unsupported case can trigger escalation. The control plane defines the evidence, the
+safety guidance allowed before transfer, the context handed to the human, and how missed
+escalations are measured.
+
+9
+00:02:24.315 --> 00:02:38.924
+The model can detect a clue. The application owns the routing policy. That distinction keeps
+an OOD detector from becoming a magic classifier and keeps a safety decision out of a prompt
+alone.
+
+10
+00:02:38.924 --> 00:03:01.501
+Finally, evaluate it repeatedly. Use smoke paths, capability cases, adversarial interruptions,
+and regression failures. Gate hard invariants with deterministic checks: offered slot,
+verified customer, grounded address, no emergency booking, and idempotent retry. Use human or
+judge review for tone and clarity, but never let a soft score override a hard invariant.
+
+11
+00:03:01.501 --> 00:03:15.667
+The control plane owns identity, authorization, evidence grounding, phase state, idempotency,
+safety, escalation, redaction, and outcome definitions. The model can be swapped. Those
+responsibilities cannot disappear. Start with labs 02 and 07.

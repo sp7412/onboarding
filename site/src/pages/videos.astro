@@ -6,6 +6,7 @@ import { parseVideos, VIDEO_TOPICS, WATCH_WHEN, topicOf } from "../lib/content/v
 import { url } from "../lib/url";
 import { renderMarkdown } from "../lib/markdown";
 import { parseVideoNotes, videoId } from "../lib/content/video-notes";
+import { EXPLAINERS } from "../lib/content/explainers";
 
 const videos = parseVideos(readRepoFile("docs/reading-guide.md"), "docs/reading-guide.md");
 const videoNotes = parseVideoNotes(readRepoFile("docs/video-notes.md"), "docs/video-notes.md", videos);
@@ -37,6 +38,31 @@ const md = (s: string) => renderMarkdown(s, { sourcePath: "docs/reading-guide.md
     Checking a video here also checks it in the reading guide. Links open YouTube in a new tab; nothing loads from YouTube until you click.
   </p>
   <nav class="toc" aria-label="Topics">{groups.map((g) => <a href={`#${g.key}`}>{g.title}</a>)}</nav>
+
+  <section class="start-here" id="start-here">
+    <div class="section-head"><h2>Start here: Voice Agents from First Principles</h2><span class="tag tag-green">4 episodes</span></div>
+    <p class="muted series-lede">A local, original explainer series: trace one call, understand turn-taking, choose an architecture, and locate the application control plane.</p>
+    <div class="video-grid">
+      {EXPLAINERS.map((e, index) => (
+        <article class="video-card explainer-card" id={e.id}>
+          <div class="explainer-video">
+            <video controls preload="none" poster={e.posterUrl} aria-label={e.title}>
+              <source src={e.videoUrl} type="video/mp4" />
+              <track kind="captions" src={e.captionsUrl} srclang="en" label="English" default />
+            </video>
+          </div>
+          <div class="body">
+            <div class="tags"><span class="tag tag-green">Episode {index + 1}</span><span class="when">{e.length}</span></div>
+            <h3>{e.title}</h3>
+            <p class="muted series">{e.description}</p>
+            <p class="media-links"><a href={e.audioUrl}>Audio-only MP3</a> · <a href={e.releaseUrl}>Release assets</a></p>
+            <details class="watchfor"><summary>Check yourself</summary><ol>{e.questions.map((question) => <li>{question}</li>)}</ol></details>
+            <label class="watched"><input type="checkbox" data-check-id={`explainer-${e.id}`} /> Watched</label>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
 
   {groups.map((g) => (
     <section class="topic" id={g.key}>
@@ -104,6 +130,12 @@ const md = (s: string) => renderMarkdown(s, { sourcePath: "docs/reading-guide.md
 </BaseLayout>
 <style>
   .topic { margin: var(--s8) 0; }
+  .start-here { margin: var(--s8) 0; }
+  .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s4); }
+  .series-lede { max-width: 70ch; }
+  .explainer-video { background: #080e1b; }
+  .explainer-video video { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: contain; }
+  .media-links { margin: 0; font-size: .88rem; }
   .topic h2 { margin-bottom: var(--s1); }
   .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: var(--s4); margin-top: var(--s4); }
   .video-card { border: 1px solid var(--panel-edge); border-radius: var(--r2); overflow: hidden; background: linear-gradient(180deg, #111c33, #0e1830); display: flex; flex-direction: column; }

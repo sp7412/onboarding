@@ -90,6 +90,7 @@ export const DOC_PAGES: { repoPath: string; icon: string }[] = [
   { repoPath: "docs/livekit-hands-on.md", icon: "labs" },
   { repoPath: "docs/first-90-days-playbook.md", icon: "plan" },
   { repoPath: "docs/manager-alignment.md", icon: "team" },
+  { repoPath: "docs/voice-agents-cheat-sheet.md", icon: "notes" },
   { repoPath: "docs/capstone-rubric.md", icon: "evaluation" },
   { repoPath: "docs/references.md", icon: "reading" },
   { repoPath: "notes/study-question.md", icon: "notes" },

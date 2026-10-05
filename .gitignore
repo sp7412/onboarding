@@ -19,3 +19,12 @@ site/.astro/
 # nlm podcast automation state
 .nlm-podcasts.json
 build/
+
+# rendered media and Manim caches (videos go to GitHub releases, not git)
+media/
+video/series/rendered/
+*.mp4
+*.mov
+*.wav
+*.mp3
+*.m4a

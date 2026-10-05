@@ -35,6 +35,7 @@ The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubr
 
 - [ ] Read the [domain primer](../docs/servicetitan-101.md) and [contractor
   lifecycle](../docs/how-a-contractor-works.md).
+- [ ] Watch explainer episodes 1–2: [Voice Agents from First Principles](../docs/reading-guide.md#0-voice-agents-from-first-principles--four-episode-explainer-series).
 - [ ] Read [Speech-to-speech models](../docs/speech-to-speech-models.md) before lab 01.
 - [ ] Read [GPT-Live-1](../docs/gpt-live-1.md) (reading-guide item 7A): OpenAI's full-duplex voice model with delegation.
 - [ ] Watch LiveKit's "Voice Agent Pipeline Explained" before lab 03 ([reading guide](../docs/reading-guide.md) item 11B).
@@ -49,6 +50,7 @@ The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubr
 ### Week of Oct 5 — Build technical depth
 
 - [ ] Read [`docs/voice-agent-architecture.md`](../docs/voice-agent-architecture.md).
+- [ ] Watch explainer episodes 3–4: [Voice Agents from First Principles](../docs/reading-guide.md#0-voice-agents-from-first-principles--four-episode-explainer-series).
 - [ ] Complete labs 04–06 and compare realtime, cascaded, and workflow paths (needs a laptop).
 - [ ] Measure the lab latency categories; label simulated versus live measurements (needs a laptop).
 - [ ] Break the fictional agent five ways: interruption, slow number, backchannel, emergency phrase, wrong address (needs a laptop).

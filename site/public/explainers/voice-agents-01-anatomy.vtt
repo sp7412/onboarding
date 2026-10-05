@@ -1,0 +1,58 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:12.840
+Imagine saying, “My AC stopped working,” and hearing a useful answer one second later.
+That second is not one event. It is a relay race across audio, models, tools, and playback.
+
+2
+00:00:12.840 --> 00:00:43.489
+The microphone does not hand the model a neat sentence. It hands the transport a stream of
+audio. Voice activity detection estimates whether speech is present. Endpointing decides
+when a turn is committed. Only then does the next stage receive a stable piece of the call.
+In our example, the caller says, “My AC stopped working.” The system turns that sound into a
+turn event, then speech-to-text produces words the reasoning system can inspect.
+
+3
+00:00:43.489 --> 00:01:09.582
+Now watch the pipeline. Endpointing commits the turn. Speech-to-text produces a transcript.
+The language model interprets the request and may propose a tool call, such as finding open
+service slots. The application runs that tool against an authoritative source of truth. The
+result returns to the model. Text-to-speech turns the response into audio, and the transport
+streams that audio back to the caller.
+
+4
+00:01:09.582 --> 00:01:27.392
+Each box has a different owner. Transport owns media and turn boundaries. The model owns
+interpretation and proposed language. The application owns the action. That separation is
+the first principle: a model can suggest “find availability,” but it does not own the
+schedule.
+
+5
+00:01:27.392 --> 00:01:48.515
+Put time under every handoff. Start at the moment the caller stops speaking. Add endpointing
+delay. Add model time to first token or audio. Add the tool or workflow round trip. Add the
+time to generate the response, then network buffering and playout. The caller experiences
+the sum, not the labels.
+
+6
+00:01:48.515 --> 00:02:15.436
+Dead air can come from a slow endpoint decision, a slow first model sound, a backend lookup,
+or buffering at the edge. Measure them separately at p50 and p95, and keep failure cases
+visible. A spoken preamble like “one moment while I check that” can make the wait feel
+intentional. It does not make the tool faster. It changes perceived silence, not the
+waterfall underneath.
+
+7
+00:02:15.436 --> 00:02:44.843
+Suppose the caller accepts a slot. The model may propose booking it, but the application
+still checks identity, policy, the offered slot, and the current phase before writing. The
+workflow commits the authoritative result. Only then should the voice say what happened.
+This is why tracing needs more than model tokens. Connect the caller turn, the model event,
+the tool call, the backend result, and the audio response into one trace.
+
+8
+00:02:44.843 --> 00:03:03.067
+One call is a chain of boundaries: hear, decide, propose, validate, commit, and speak.
+Your job is to measure each boundary instead of arguing from one end-to-end number. The
+question to carry into lab 08 is: **what adds the most latency in your pipeline?**

@@ -18,6 +18,19 @@ replace it. Check items off (`- [x]`) as you finish them.
 
 ## Tier 1: Must-do before day 1
 
+### 0. Voice Agents from First Principles — four-episode explainer series
+- [ ] Episode 1, Anatomy of one call: <https://github.com/sp7412/onboarding/releases/download/explainer-series/voice-agents-01-anatomy-1080p.mp4> · video · 3 min
+- [ ] Episode 2, Turn-taking: <https://github.com/sp7412/onboarding/releases/download/explainer-series/voice-agents-02-turn-taking-1080p.mp4> · video · 4 min
+- [ ] Episode 3, Choosing an architecture: <https://github.com/sp7412/onboarding/releases/download/explainer-series/voice-agents-03-architecture-1080p.mp4> · video · 4 min
+- [ ] Episode 4, The control plane: <https://github.com/sp7412/onboarding/releases/download/explainer-series/voice-agents-04-control-plane-1080p.mp4> · video · 4 min
+- **Why:** A compact visual starting point for tracing one call, understanding turn-taking, choosing an architecture, and locating the application's control plane.
+- **Look for:**
+  1. Which boundary owns each latency segment from caller stop to useful answer.
+  2. Why a pause inside a phone number is not necessarily the end of a turn.
+  3. What cascaded, speech-to-speech, and full-duplex delegation trade off for a booking call.
+  4. Which checks and durable state the application must own regardless of model choice.
+- **Pairs with:** labs 01, 02, 03, 07 and 08; [`voice-agents-cheat-sheet.md`](voice-agents-cheat-sheet.md)
+
 ### 1. ServiceTitan AI Voice Agent product page
 - [ ] <https://www.servicetitan.com/features/pro/virtual-agent> · product page · 15 min
 - **Why:** this is the product you're joining. Read it as a spec of what customers were promised.
