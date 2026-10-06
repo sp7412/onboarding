@@ -1,0 +1,1 @@
+export const lessons = [{ slug: "pass-k", title: "The eight-step booking call", aha: "Reliability compounds: 90% per step becomes about 43% across eight steps.", related: "Lab 07", time: "8 min" }] as const;
