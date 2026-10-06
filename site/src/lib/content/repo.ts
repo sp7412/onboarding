@@ -102,6 +102,9 @@ export const DOC_PAGES: { repoPath: string; icon: string }[] = [
 export const TEMPLATE_FILES = [
   "onboarding-log.md",
   "1on1-questions.md",
+  "working-with-me.md",
+  "pre-mortem.md",
+  "brag-document.md",
   "weekly-status.md",
   "30-day-memo.md",
   "design-doc.md",

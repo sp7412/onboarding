@@ -79,6 +79,8 @@ The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubr
 - [ ] Read the [`docs/reading-guide.md`](../docs/reading-guide.md) items paired to any unfinished lab.
 - [ ] Read [`docs/call-anatomy.md`](../docs/call-anatomy.md) and annotate likely failure modes.
 - [ ] Finalize manager, PM, infrastructure, evaluation, and support questions.
+- [ ] Read reading-guide items 14B–14F (working with your manager, about 75 minutes).
+- [ ] Draft your [working-with-me doc](../templates/working-with-me.md) and start a [brag document](../templates/brag-document.md).
 - [ ] Prepare a personal first-week plan and take at least two full days off before Oct 26.
 - [ ] Podcast episodes 5 and 13.
 - [ ] Do not create employer accounts, access employer data, or copy internal information into this public repo.
@@ -90,6 +92,8 @@ The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubr
 - [ ] Complete required HR, security, privacy, and compliance onboarding.
 - [ ] Ask the manager to confirm day-30, day-60, and day-90 outcomes and decision rights.
 - [ ] Hold the first alignment 1:1: priorities, success criteria, pace, working norms, feedback, and close.
+- [ ] Share your working-with-me doc; ask what your manager is judged on this quarter and for the career ladder for your level.
+- [ ] Agree on remote norms: overlap hours, written updates, and when to use Slack, docs or calls.
 - [ ] Confirm authorized access and data-handling rules before reviewing calls or traces.
 - [ ] Meet manager, PM/product partner, senior engineer, and evaluation/observability partner.
 - [ ] Start the internal copy of [`templates/onboarding-log.md`](../templates/onboarding-log.md).
@@ -106,7 +110,8 @@ The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubr
 - [ ] Ask each owner to correct your map; record disagreements as learning items.
 - [ ] Identify the definition and denominator for the key quality metrics.
 - [ ] Ship the first small PR: documentation, test, logging, or developer-experience fix.
-- [ ] Draft and send the written 30/60/90 agreement to the manager by the end of week 2.
+- [ ] Run the 15-minute [pre-mortem](../templates/pre-mortem.md) with your manager.
+- [ ] Draft and send the written 30/60/90 agreement to the manager by the end of week 2, including the pre-mortem's top risks.
 
 **Output:** reviewed system map, owner map, and first merged contribution.
 
@@ -125,6 +130,7 @@ The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubr
 
 - [ ] Classify the situation hypothesis: turnaround, realignment, accelerated growth, or sustaining success.
 - [ ] Write the [30-day memo](../templates/30-day-memo.md): observed, inferred, unknown, risks, contribution options.
+- [ ] Day-30 calibration: you and your manager rate each goal separately, then compare.
 - [ ] Review it with the manager; revise based on feedback.
 - [ ] Choose one day-60 problem with a clear owner, denominator, baseline, and reversible scope.
 - [ ] Agree in writing on the day-60 deliverable and success/guardrail metrics.
@@ -199,6 +205,7 @@ The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubr
 
 - [ ] Daily: five minutes of evidence-log notes.
 - [ ] Weekly: three-line manager status — done, next, blocked/decision needed.
+- [ ] Weekly: five minutes on the brag document, linked to your goals.
 - [ ] Weekly: one stakeholder conversation outside the immediate pair/team.
 - [ ] Weekly: one authorized call, trace, regression case, or metric slice review.
 - [ ] Friday: update assumptions, risks, checklist, and next week's learning goal.

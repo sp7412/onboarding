@@ -267,6 +267,56 @@ credentials, customer information, or live audio into this public repository.
   4. What online evaluation and automations add in production, such as sampling live traces, scoring them and routing bad ones to review. That's lab 07 §6's failure-to-regression loop.
 - **Pairs with:** lab 07 (and lab 08 for end-to-end traces)
 
+### 14B. Questions for our first 1:1 (Lara Hogan)
+- [ ] <https://larahogan.me/blog/first-one-on-one-questions/> · essay · 10 min
+- **Why:** the questions a good manager asks a new report, from the manager's side.
+- **Look for:**
+  1. Which questions you can answer ahead of time in your "working with me" doc.
+  2. How a manager uses these answers later: for feedback, recognition and support.
+  3. The feedback and recognition preferences you should state explicitly.
+  4. Which questions you'd want to ask your manager back.
+- **Pairs with:** [Setting goals with your new manager](manager-alignment.md)
+
+### 14C. Get your work recognized: write a brag document (Julia Evans)
+- [ ] <https://jvns.ca/blog/brag-documents/> · essay · 15 min
+- **Why:** a running record of your work is how good work gets seen in reviews, especially with a new manager.
+- **Look for:**
+  1. What to include beyond shipped work: glue work, help given, learning.
+  2. How to describe impact, not just activity.
+  3. When to share it: before check-ins, reviews and manager changes.
+  4. How a regular cadence keeps it from becoming a once-a-year scramble.
+- **Pairs with:** the [brag document template](../templates/brag-document.md)
+
+### 14D. Staying aligned with authority (Will Larson, StaffEng)
+- [ ] <https://staffeng.com/guides/staying-aligned-with-authority/> · essay · 20 min
+- **Why:** how senior engineers keep their influence by staying aligned with the people who sponsor their work.
+- **Look for:**
+  1. Why a senior engineer's authority is lent by a sponsor, usually the manager.
+  2. Habits for predicting what your manager would want when they're not in the room.
+  3. How disagreement works without losing alignment.
+  4. Signs you're drifting out of alignment, and how to recover.
+- **Pairs with:** [Setting goals with your new manager](manager-alignment.md)
+
+### 14E. Work on what matters (Will Larson, StaffEng)
+- [ ] <https://staffeng.com/guides/work-on-what-matters/> · essay · 20 min
+- **Why:** choosing work, and pacing yourself, as expectations rise faster than your available time.
+- **Look for:**
+  1. How to tell high-leverage work from work that only looks important.
+  2. Why pacing yourself is part of doing senior work well.
+  3. Which kinds of work are commonly underinvested in, and worth volunteering for.
+  4. How to use this when choosing your first win with your manager.
+- **Pairs with:** the [first 90 days playbook](first-90-days-playbook.md)
+
+### 14F. When your manager isn't supporting you, build a Voltron (Lara Hogan)
+- [ ] <https://larahogan.me/blog/manager-voltron/> · essay · 10 min
+- **Why:** no single manager can give every kind of support; build a crew on purpose from the start.
+- **Look for:**
+  1. The different kinds of support no single manager can provide.
+  2. Where to find each: mentors, peers, sponsors, coaches.
+  3. How to ask for help without making it transactional.
+  4. Which gaps to fill first in a new job.
+- **Pairs with:** "Build your support crew" in [Setting goals with your new manager](manager-alignment.md)
+
 ---
 
 ## Tier 3: First 30 days

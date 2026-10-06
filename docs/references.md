@@ -178,6 +178,18 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | Source | Type | Cited in |
 |---|---|---|
 | Michael D. Watkins, *The First 90 Days, Updated and Expanded* (Harvard Business Review Press, 2013; ISBN 9781422188613) | Book | First 90 days playbook |
+| Camille Fournier, *The Manager's Path* (O'Reilly, 2017) | Book | Manager guide |
+
+## Working with your manager
+
+| Source | Type | Cited in |
+|---|---|---|
+| [Questions for our first 1:1 (Lara Hogan)](https://larahogan.me/blog/first-one-on-one-questions/) | Essay | RG 14B, PP 6, manager guide |
+| [Get your work recognized: write a brag document (Julia Evans)](https://jvns.ca/blog/brag-documents/) | Essay | RG 14C, manager guide, brag template |
+| [Staying aligned with authority (Will Larson)](https://staffeng.com/guides/staying-aligned-with-authority/) | Essay | RG 14D, PP 6, manager guide |
+| [Work on what matters (Will Larson)](https://staffeng.com/guides/work-on-what-matters/) | Essay | RG 14E, manager guide |
+| [When your manager isn't supporting you, build a Voltron (Lara Hogan)](https://larahogan.me/blog/manager-voltron/) | Essay | RG 14F, manager guide |
+| [Radical Candor: our approach (Kim Scott)](https://www.radicalcandor.com/our-approach/) | Web page | Manager guide |
 
 ## Explainer series
 

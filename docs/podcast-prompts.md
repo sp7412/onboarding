@@ -270,9 +270,11 @@ https://raw.githubusercontent.com/sp7412/onboarding/main/docs/manager-alignment.
 https://raw.githubusercontent.com/sp7412/onboarding/main/plan/30-60-90-checklist.md
 https://raw.githubusercontent.com/sp7412/onboarding/main/templates/1on1-questions.md
 https://raw.githubusercontent.com/sp7412/onboarding/main/templates/onboarding-log.md
+https://larahogan.me/blog/first-one-on-one-questions/
+https://staffeng.com/guides/staying-aligned-with-authority/
 
 CUSTOMIZE PROMPT (Audio Overview → Customize):
-Act as an experienced executive coach for a senior engineer entering a product SaaS company after a long defense-program career. Use only the supplied sources. Help the listener build a first-week operating system: how to align with the manager, create a learning agenda, distinguish observed facts from inferences, build relationships without seeming transactional, and choose a small early win. Explain what to do, what to avoid, and what evidence to collect. End with a 10-minute preparation exercise for the first manager 1:1.
+Act as an experienced executive coach for a senior engineer entering a product SaaS company after a long defense-program career. Use only the supplied sources. Help the listener build a first-week operating system: how to align with the manager, create a learning agenda, distinguish observed facts from inferences, build relationships without seeming transactional, and choose a small early win. Explain what to do, what to avoid, and what evidence to collect. Cover the pre-mortem, the working-with-me doc, the brag document, day-30 calibration and remote working norms. End with a 10-minute preparation exercise for the first manager 1:1.
 ```
 
 ---
