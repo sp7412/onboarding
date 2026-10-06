@@ -1,0 +1,112 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Lesson from "../../lib/lessons/Lesson.astro";
+import { url } from "../../lib/url";
+
+const aha = "A booking rate is only meaningful when its denominator is named: 42 bookings is 42% of all calls, but 70% of the calls that were actually bookable.";
+---
+
+<BaseLayout title="The denominator problem · Lessons" description={aha}>
+  <p class="crumb muted"><a href={url("/lessons")}>Lessons</a> / denominator</p>
+  <Lesson slug="denominator" title="The denominator problem" aha={aha} related="Whitepaper 11 · economics and metrics" time="8 min">
+    <div slot="screen-0" class="lesson-content">
+      <p class="prompt">An agent booked 42 calls. Is that a 42% booking rate, or a 70% booking rate?</p>
+      <div class="call-strip" aria-label="100 calls, including 60 bookable calls and 42 bookings">
+        <span class="call-block booked">42 booked</span>
+        <span class="call-block bookable">18 not bookable</span>
+        <span class="call-block other">40 not booked</span>
+      </div>
+      <p class="lesson-summary" aria-live="polite">The numerator stayed fixed. The population underneath it changed.</p>
+    </div>
+
+    <div slot="screen-1" class="lesson-content">
+      <p class="guiding">Keep the 42 bookings fixed. Choose which calls should count underneath them.</p>
+      <fieldset class="mode-picker">
+        <legend>Measure bookings against</legend>
+        <label><input type="radio" name="denominator-mode" value="all-calls" checked /> All calls</label>
+        <label><input type="radio" name="denominator-mode" value="bookable" /> Bookable calls</label>
+      </fieldset>
+      <div class="rate-compare" aria-live="polite">
+        <div><span>Bookings</span><strong>42</strong></div>
+        <div><span class="selected-label">Denominator</span><strong id="denominator-count">100</strong></div>
+        <div><span>Booking rate</span><strong id="denominator-rate">42.0%</strong></div>
+      </div>
+      <p id="denominator-explore" class="lesson-summary">42 bookings / 100 all calls = 42.0%.</p>
+    </div>
+
+    <div slot="screen-2" class="lesson-content">
+      <p class="guiding">Name the rule before comparing performance.</p>
+      <div class="formula"><span>booking rate</span> = <span>booked calls</span> ÷ <span>eligible calls</span></div>
+      <div class="definition-grid">
+        <p><strong>All-calls rate</strong><br /><span>42 ÷ 100 = 42.0%</span><br />Answers: “How many calls became bookings?”</p>
+        <p><strong>Bookable-call rate</strong><br /><span>42 ÷ 60 = 70.0%</span><br />Answers: “How well did we convert eligible demand?”</p>
+      </div>
+      <p class="lesson-summary">A flattering denominator can make a metric look better without changing the work.</p>
+    </div>
+
+    <div slot="screen-3" class="lesson-content">
+      <p class="guiding">Challenge: report the rate honestly. Pick the denominator you would put in a dashboard.</p>
+      <fieldset class="mode-picker challenge-picker">
+        <legend>My dashboard denominator</legend>
+        <label><input type="radio" name="challenge-mode" value="all-calls" /> All calls</label>
+        <label><input type="radio" name="challenge-mode" value="bookable" checked /> Bookable calls</label>
+      </fieldset>
+      <div id="denominator-challenge" class="challenge-answer" aria-live="polite"></div>
+      <p class="lesson-summary">Always show the numerator, denominator, time period, and eligibility rule together.</p>
+    </div>
+  </Lesson>
+</BaseLayout>
+
+<script>
+  import { rateSummary, denominator, percent } from "../../lib/lessons/denominator/model";
+
+  const calls = { allCalls: 100, bookableCalls: 60, bookedCalls: 42 };
+  const modeLabel = (mode: "all-calls" | "bookable") => mode === "all-calls" ? "all calls" : "bookable calls";
+  const updateExplore = (mode: "all-calls" | "bookable") => {
+    document.getElementById("denominator-count")!.textContent = String(denominator(calls, mode));
+    document.getElementById("denominator-rate")!.textContent = `${percent(calls, mode).toFixed(1)}%`;
+    document.getElementById("denominator-explore")!.textContent = rateSummary(calls, mode) + ".";
+  };
+  document.querySelectorAll<HTMLInputElement>('input[name="denominator-mode"]').forEach((input) => {
+    input.addEventListener("change", () => updateExplore(input.value as "all-calls" | "bookable"));
+  });
+  const updateChallenge = (mode: "all-calls" | "bookable") => {
+    const denominatorName = modeLabel(mode);
+    document.getElementById("denominator-challenge")!.textContent = mode === "bookable"
+      ? `Correct for a booking-rate comparison: 42 booked / 60 ${denominatorName} = 70.0%.`
+      : `This is a valid operational rate, but it mixes eligibility with conversion: 42 booked / 100 ${denominatorName} = 42.0%.`;
+  };
+  document.querySelectorAll<HTMLInputElement>('input[name="challenge-mode"]').forEach((input) => {
+    input.addEventListener("change", () => updateChallenge(input.value as "all-calls" | "bookable"));
+  });
+  updateChallenge("bookable");
+</script>
+
+<style>
+  :global(.lesson-header) { position: sticky; top: 0; z-index: 2; padding: var(--s3) 0; background: color-mix(in srgb, var(--navy) 94%, transparent); backdrop-filter: blur(10px); }
+  .lesson-content { display: grid; gap: var(--s6); align-content: center; min-height: 25rem; }
+  .prompt, .guiding { max-width: 60ch; font-size: 1.2rem; }
+  .guiding { color: var(--gold); }
+  .call-strip { display: grid; grid-template-columns: 42fr 18fr 40fr; min-height: 5rem; border: 1px solid var(--panel-edge); border-radius: var(--r2); overflow: hidden; }
+  .call-block { display: grid; place-items: center; padding: var(--s3); text-align: center; font-weight: 600; }
+  .booked { background: color-mix(in srgb, var(--green) 28%, var(--panel)); color: var(--green); }
+  .bookable { background: color-mix(in srgb, var(--gold) 22%, var(--panel)); color: var(--gold); }
+  .other { background: var(--panel); color: var(--ink-dim); }
+  .mode-picker { display: flex; flex-wrap: wrap; gap: var(--s4); border: 0; padding: 0; margin: 0; }
+  .mode-picker legend { width: 100%; color: var(--ink-dim); }
+  .mode-picker label { border: 1px solid var(--panel-edge); border-radius: var(--r2); padding: var(--s3) var(--s4); cursor: pointer; }
+  .mode-picker label:has(input:checked) { border-color: var(--cyan); box-shadow: var(--glow); }
+  .mode-picker input { accent-color: var(--cyan); }
+  .rate-compare { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s3); text-align: center; }
+  .rate-compare div, .challenge-answer, .definition-grid p { background: var(--navy); border: 1px solid var(--panel-edge); border-radius: var(--r2); padding: var(--s4); }
+  .rate-compare span { display: block; color: var(--ink-dim); }
+  .rate-compare strong { display: block; color: var(--cyan); font: 700 clamp(1.8rem, 5vw, 3rem) var(--font-head); }
+  .formula { color: var(--cyan); font: 700 clamp(1.4rem, 5vw, 2.6rem) var(--font-head); text-align: center; }
+  .formula span:nth-child(3) { color: var(--green); }
+  .definition-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--s4); }
+  .definition-grid p { margin: 0; color: var(--ink-dim); }
+  .definition-grid strong, .definition-grid span { color: var(--ink); }
+  .challenge-answer { color: var(--green); font-size: 1.1rem; }
+  .lesson-summary { color: var(--ink-dim); font-size: 1.05rem; margin: 0; }
+  @media (max-width: 600px) { .rate-compare, .definition-grid { grid-template-columns: 1fr; } .call-strip { min-height: 8rem; } .call-block { padding: var(--s2); font-size: .85rem; } }
+</style>

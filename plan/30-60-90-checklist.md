@@ -50,6 +50,7 @@ The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubr
 ### Week of Oct 5 — Build technical depth
 
 - [ ] Read [`docs/voice-agent-architecture.md`](../docs/voice-agent-architecture.md).
+- [ ] Try interactive lessons 4, 6 and 2: [Lessons](/lessons).
 - [ ] Watch explainer episodes 3–4: [Voice Agents from First Principles](../docs/reading-guide.md#0-voice-agents-from-first-principles-four-episode-explainer-) item 0.
 - [ ] Complete labs 04–06 and compare realtime, cascaded, and workflow paths (needs a laptop).
 - [ ] Read [Build your own voice agent](../docs/build-your-own-voice-agent.md): the chained vs. GPT-Live implementation differences.
@@ -64,6 +65,7 @@ The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubr
 - [ ] Watch the must-watch LangSmith videos ([reading guide](../docs/reading-guide.md) item 14A) before lab 07.
 - [ ] Complete labs 07–08 (needs a laptop).
 - [ ] Read [Tools and guardrails](../docs/tools-and-guardrails.md) and run its checklist against the lab tools.
+- [ ] Try interactive lessons 1, 3, 5 and 9: [Lessons](/lessons).
 - [ ] Use [`docs/capstone-rubric.md`](../docs/capstone-rubric.md) to collect pass/fail evidence.
 - [ ] Read [`docs/evaluating-voice-agents.md`](../docs/evaluating-voice-agents.md).
 - [ ] Write the answer in [`notes/study-question.md`](../notes/study-question.md).
@@ -92,6 +94,7 @@ The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubr
 - [ ] Meet manager, PM/product partner, senior engineer, and evaluation/observability partner.
 - [ ] Start the internal copy of [`templates/onboarding-log.md`](../templates/onboarding-log.md).
 - [ ] Get the development environment running and make a list of setup gaps (needs a laptop).
+- [ ] Try interactive lessons 7, 8 and 10: [Lessons](/lessons).
 
 **Output:** written success contract, stakeholder list, access plan, and learning agenda.
 - [ ] Reading guide Tier 3 (items 15–23), spread across weeks 1–4.

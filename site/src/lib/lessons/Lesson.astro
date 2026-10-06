@@ -1,0 +1,92 @@
+---
+export interface Props {
+  slug: string;
+  title: string;
+  aha: string;
+  related: string;
+  time?: string;
+}
+const { slug, title, aha, related, time = "8 min" } = Astro.props;
+const screens = ["Puzzle", "Explore", "Name", "Challenge"];
+---
+
+<section class="lesson-shell" data-lesson={slug} tabindex="0" aria-labelledby={`${slug}-title`}>
+  <header class="lesson-header">
+    <div>
+      <p class="eyebrow">Interactive lesson · {time}</p>
+      <h1 id={`${slug}-title`}>{title}</h1>
+    </div>
+    <p class="lesson-aha"><strong>Aha:</strong> {aha}</p>
+  </header>
+  <div class="lesson-progress" role="tablist" aria-label="Lesson screens">
+    {screens.map((screen, index) => (
+      <button type="button" role="tab" aria-selected={index === 0 ? "true" : "false"} aria-controls={`${slug}-screen-${index}`} data-screen-tab={index}>
+        <span>{index + 1}</span>{screen}
+      </button>
+    ))}
+  </div>
+  <div class="lesson-screens">
+    {[0, 1, 2, 3].map((index) => (
+      <section id={`${slug}-screen-${index}`} class:list={['lesson-screen', { active: index === 0 }]} data-screen={index} role="tabpanel" tabindex="-1" aria-labelledby={`${slug}-screen-title-${index}`}>
+        <h2 id={`${slug}-screen-title-${index}`}><span>{index + 1}</span>{screens[index]}</h2>
+        {index === 0 && <slot name="screen-0" />}
+        {index === 1 && <slot name="screen-1" />}
+        {index === 2 && <slot name="screen-2" />}
+        {index === 3 && <slot name="screen-3" />}
+      </section>
+    ))}
+  </div>
+  <footer class="lesson-footer">
+    <button type="button" class="btn btn-secondary lesson-back" data-lesson-back disabled>Back</button>
+    <p class="muted lesson-related">Related: {related}</p>
+    <button type="button" class="btn lesson-next" data-lesson-next>Next</button>
+  </footer>
+</section>
+
+<script is:inline define:vars={{ slug }}>
+  const root = document.querySelector(`[data-lesson="${slug}"]`);
+  if (root) {
+    const screens = [...root.querySelectorAll('[data-screen]')];
+    const tabs = [...root.querySelectorAll('[data-screen-tab]')];
+    const back = root.querySelector('[data-lesson-back]');
+    const next = root.querySelector('[data-lesson-next]');
+    let current = 0;
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const show = (index) => {
+      current = Math.max(0, Math.min(3, index));
+      screens.forEach((screen, i) => screen.classList.toggle('active', i === current));
+      tabs.forEach((tab, i) => { tab.setAttribute('aria-selected', String(i === current)); tab.classList.toggle('active', i === current); });
+      back.disabled = current === 0;
+      next.textContent = current === 3 ? 'Restart' : 'Next';
+      screens[current].focus({ preventScroll: true });
+      if (!reduced) root.animate([{ opacity: .72 }, { opacity: 1 }], { duration: 320, easing: 'ease-out' });
+    };
+    tabs.forEach((tab, i) => tab.addEventListener('click', () => show(i)));
+    back.addEventListener('click', () => show(current - 1));
+    next.addEventListener('click', () => show(current === 3 ? 0 : current + 1));
+    document.addEventListener('keydown', (event) => {
+      if (!root.matches(':focus-within') && event.target !== document.body) return;
+      if (event.key === 'ArrowRight') { event.preventDefault(); show(current + 1); }
+      if (event.key === 'ArrowLeft') { event.preventDefault(); show(current - 1); }
+    });
+  }
+</script>
+
+<style>
+  .lesson-shell { --lesson-panel: var(--panel); --lesson-edge: var(--panel-edge); max-width: 74rem; margin: 0 auto; }
+  .lesson-header { display: grid; grid-template-columns: 1.2fr 1fr; gap: var(--s8); align-items: end; margin-bottom: var(--s6); }
+  .eyebrow { color: var(--cyan); font-family: var(--font-head); font-size: .82rem; letter-spacing: .08em; text-transform: uppercase; margin: 0 0 var(--s2); }
+  .lesson-header h1 { margin: 0; }
+  .lesson-aha { margin: 0; color: var(--ink-dim); max-width: 42ch; }
+  .lesson-aha strong { color: var(--gold); }
+  .lesson-progress { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--s2); margin-bottom: var(--s4); }
+  .lesson-progress button { border: 1px solid var(--lesson-edge); border-radius: var(--r1); background: var(--lesson-panel); color: var(--ink-dim); padding: var(--s2); cursor: pointer; font: inherit; }
+  .lesson-progress button.active, .lesson-progress button[aria-selected="true"] { color: var(--ink); border-color: var(--cyan); box-shadow: var(--glow); }
+  .lesson-progress span, .lesson-screen h2 span { color: var(--cyan); font-family: var(--font-head); font-weight: 700; margin-right: var(--s2); }
+  .lesson-screen { display: none; min-height: 34rem; border: 1px solid var(--lesson-edge); border-radius: var(--r3); background: radial-gradient(700px 300px at 50% 0%, rgba(62,123,255,.1), transparent 70%), var(--lesson-panel); padding: clamp(var(--s4), 5vw, var(--s8)); }
+  .lesson-screen.active { display: block; }
+  .lesson-screen h2 { margin-top: 0; }
+  .lesson-footer { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: var(--s4); margin-top: var(--s4); }
+  .lesson-related { text-align: center; margin: 0; }
+  @media (max-width: 700px) { .lesson-header { grid-template-columns: 1fr; gap: var(--s3); } .lesson-progress button { font-size: .8rem; } .lesson-screen { min-height: 38rem; padding: var(--s4); } .lesson-footer { grid-template-columns: 1fr 1fr; } .lesson-related { grid-column: 1 / -1; grid-row: 1; } }
+</style>

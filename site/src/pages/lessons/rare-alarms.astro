@@ -1,0 +1,83 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Lesson from "../../lib/lessons/Lesson.astro";
+import { url } from "../../lib/url";
+const aha = "When an alarm is rare, even a sensitive detector can produce mostly false alarms; prevalence and the threshold set the operational cost.";
+---
+<BaseLayout title="Rare alarms · Lessons" description={aha}>
+  <p class="crumb muted"><a href={url("/lessons")}>Lessons</a> / rare alarms</p>
+  <Lesson slug="rare-alarms" title="When a good alarm is mostly wrong" aha={aha} related="Bayes · alert fatigue" time="8 min">
+    <div slot="screen-0" class="lesson-content">
+      <p class="prompt">An alarm catches 90% of real events. In a population where only 1% have the event, how many alerts deserve immediate trust?</p>
+      <div class="alarm-wall" aria-label="Illustration: one true event among many ordinary cases">
+        <span class="real">real event</span>{Array.from({ length: 11 }, () => <span class="quiet" aria-hidden="true">ordinary</span>)}
+      </div>
+      <p class="lesson-summary" aria-live="polite">A strong detector can still be overwhelmed by the ordinary cases.</p>
+    </div>
+    <div slot="screen-1" class="lesson-content">
+      <p class="guiding">Explore the base rate. The grid represents 1,000 illustrative cases.</p>
+      <div class="control-grid" id="rare-alarms-controls"></div>
+      <div id="rare-alarms-counts" class="count-grid" aria-label="Alarm outcome counts"></div>
+      <p id="rare-alarms-explore" class="lesson-summary" aria-live="polite"></p>
+    </div>
+    <div slot="screen-2" class="lesson-content">
+      <p class="guiding">Name the pattern: a positive alarm is not the same thing as a real event.</p>
+      <div class="formula"><span>P(event | alarm)</span> = <strong id="rare-alarms-ppv">15.4%</strong></div>
+      <p class="lesson-summary">This is positive predictive value: among the alarms, the share that are real. Prevalence belongs in the denominator.</p>
+      <p class="illustrative">Illustrative model · 1,000 cases · no production alert policy implied</p>
+    </div>
+    <div slot="screen-3" class="lesson-content">
+      <p class="guiding">Challenge: move the threshold and decide whether reducing false alarms is worth the missed events.</p>
+      <div class="control-grid" id="rare-alarms-challenge-controls"></div>
+      <div id="rare-alarms-threshold" class="threshold-readout"></div>
+      <p id="rare-alarms-cost" class="lesson-summary" aria-live="polite"></p>
+      <p class="illustrative">Illustrative cost units: false alarm = 2, missed event = 20.</p>
+    </div>
+  </Lesson>
+</BaseLayout>
+<script>
+  import { alarmRates, positivePredictiveValue, thresholdMetrics, weightedAlarmCost } from "../../lib/lessons/rare-alarms/model";
+  import { slider, wireSlider } from "../../lib/lessons/controls";
+
+  const controls = document.getElementById("rare-alarms-controls")!;
+  controls.innerHTML = slider("rare-prevalence", "Prevalence (%)", 1, 20, 1, 1) + slider("rare-sensitivity", "Sensitivity (%)", 50, 100, 90, 1);
+  const updateExplore = () => {
+    const prevalence = Number((document.getElementById("rare-prevalence") as HTMLInputElement).value) / 100;
+    const sensitivity = Number((document.getElementById("rare-sensitivity") as HTMLInputElement).value) / 100;
+    const rates = alarmRates(prevalence, sensitivity, 0.95);
+    const labels = [["True alarms", rates.truePositives, "real"], ["Missed events", rates.falseNegatives, "missed"], ["False alarms", rates.falsePositives, "false"], ["Quiet cases", rates.trueNegatives, "quiet"]];
+    document.getElementById("rare-alarms-counts")!.innerHTML = labels.map(([label, count, kind]) => `<div class="count ${kind}"><strong>${Number(count).toFixed(1)}</strong><span>${label}</span></div>`).join("");
+    const ppv = positivePredictiveValue(prevalence, sensitivity, 0.95) * 100;
+    document.getElementById("rare-alarms-ppv")!.textContent = `${ppv.toFixed(1)}%`;
+    document.getElementById("rare-alarms-explore")!.textContent = `${ppv.toFixed(1)}% of alarms are real in this illustrative population.`;
+  };
+  wireSlider("rare-prevalence", updateExplore);
+  wireSlider("rare-sensitivity", updateExplore);
+
+  const challenge = document.getElementById("rare-alarms-challenge-controls")!;
+  challenge.innerHTML = slider("rare-threshold", "Alarm threshold (%)", 0, 100, 30, 1) + slider("rare-fp-cost", "False-alarm cost", 0, 10, 2, 1) + slider("rare-fn-cost", "Missed-event cost", 0, 50, 20, 1);
+  const updateChallenge = () => {
+    const threshold = Number((document.getElementById("rare-threshold") as HTMLInputElement).value);
+    const falsePositiveCost = Number((document.getElementById("rare-fp-cost") as HTMLInputElement).value);
+    const falseNegativeCost = Number((document.getElementById("rare-fn-cost") as HTMLInputElement).value);
+    const metrics = thresholdMetrics(threshold / 100);
+    const cost = weightedAlarmCost(0.01, metrics.sensitivity, metrics.specificity, falsePositiveCost, falseNegativeCost);
+    document.getElementById("rare-alarms-threshold")!.textContent = `${(metrics.sensitivity * 100).toFixed(0)}% sensitivity · ${(metrics.specificity * 100).toFixed(0)}% specificity`;
+    document.getElementById("rare-alarms-cost")!.textContent = `${cost.toFixed(1)} illustrative cost units per 1,000 cases. Higher thresholds quiet more false alarms, but miss more real events.`;
+  };
+  wireSlider("rare-threshold", updateChallenge);
+  wireSlider("rare-fp-cost", updateChallenge);
+  wireSlider("rare-fn-cost", updateChallenge);
+</script>
+<style>
+  .lesson-content { display: grid; gap: var(--s6); align-content: center; min-height: 25rem; }
+  .prompt, .guiding { max-width: 60ch; font-size: 1.2rem; }
+  .guiding { color: var(--gold); }
+  .alarm-wall, .count-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--s2); }
+  .alarm-wall span { padding: var(--s4) var(--s2); border-radius: var(--r1); text-align: center; font-family: var(--font-head); font-size: .8rem; }
+  .real, .count.real strong { background: var(--green); color: var(--navy); } .quiet, .count.quiet strong { background: var(--panel-edge); color: var(--ink-dim); }
+  .control-grid { display: grid; gap: var(--s4); max-width: 40rem; } .lesson-control { display: grid; gap: var(--s2); } .lesson-control input { accent-color: var(--cyan); width: 100%; } .lesson-control output { color: var(--cyan); font-weight: 700; }
+  .count { display: grid; gap: var(--s2); text-align: center; } .count strong { display: grid; place-items: center; min-height: 5rem; border-radius: var(--r1); font-size: 1.6rem; } .count span { color: var(--ink-dim); font-size: .85rem; } .count.false strong { background: var(--gold); color: var(--navy); } .count.missed strong { background: #ef8b8b; color: var(--navy); }
+  .formula { font-family: ui-monospace, monospace; font-size: clamp(1.5rem, 6vw, 3.5rem); color: var(--cyan); text-align: center; } .formula strong { color: var(--green); } .threshold-readout { font-size: 1.5rem; color: var(--cyan); font-family: var(--font-head); } .lesson-summary { color: var(--ink-dim); font-size: 1.05rem; margin: 0; } .illustrative { color: var(--ink-dim); font-size: .85rem; font-style: italic; }
+  @media (max-width: 520px) { .alarm-wall, .count-grid { grid-template-columns: repeat(2, 1fr); } }
+</style>

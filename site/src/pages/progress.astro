@@ -15,6 +15,7 @@ const sections = [
   { name: "Podcasts", href: "/podcasts", ids: ids("docs/podcast-prompts.md", "podcasts") },
   { name: "Whitepaper chapters", href: "/whitepaper", ids: content.whitepaper.chapters.map((c) => `whitepaper-read-${c.slug}`) },
   { name: "Labs", href: "/labs", ids: content.labs.map((l) => `lab-done-${l.number}`) },
+  { name: "Lessons", href: "/lessons", ids: ["lesson-pass-k"] },
 ];
 ---
 <BaseLayout title="Progress · Path to Integration" description="Your onboarding progress, saved in this browser.">

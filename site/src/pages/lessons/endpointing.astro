@@ -1,0 +1,116 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Lesson from "../../lib/lessons/Lesson.astro";
+import { url } from "../../lib/url";
+
+const aha = "Endpointing is a timed decision under context: silence starts the clock, but meaning decides whether the agent should commit.";
+---
+<BaseLayout title="Endpointing · Lessons" description={aha}>
+  <p class="crumb muted"><a href={url("/lessons")}>Lessons</a> / endpointing</p>
+  <Lesson slug="endpointing" title="When is the caller done?" aha={aha} related="Lab 03 · turn-taking simulation" time="8 min">
+    <div slot="screen-0" class="lesson-content">
+      <p class="prompt">The caller pauses after saying, “My number is 817 555…” Should the agent speak now?</p>
+      <div class="conversation" aria-label="A caller pauses mid-sentence">
+        <p><strong>Caller</strong> My number is 817 555<span class="pause">···</span></p>
+        <p class="agent-guess">Agent? <span aria-hidden="true">↔</span></p>
+      </div>
+      <p class="lesson-summary" aria-live="polite">A pause is evidence, not an answer. Explore what the timer and context do with it.</p>
+    </div>
+
+    <div slot="screen-1" class="lesson-content">
+      <p class="guiding">A silence timer measures the gap. Context estimates whether the thought sounds finished.</p>
+      <div class="controls" id="endpointing-controls">
+        <label for="endpointing-silence">Current silence <output id="endpointing-silence-value">700</output> ms</label>
+        <input id="endpointing-silence" type="range" min="0" max="2500" step="50" value="700" />
+        <label for="endpointing-min">Minimum silence <output id="endpointing-min-value">500</output> ms</label>
+        <input id="endpointing-min" type="range" min="200" max="1500" step="50" value="500" />
+        <label for="endpointing-context">Caller context</label>
+        <select id="endpointing-context">
+          <option value="complete">Sounds complete</option>
+          <option value="unfinished">May continue</option>
+        </select>
+      </div>
+      <div class="timer" aria-hidden="true"><span id="endpointing-timer"></span></div>
+      <p id="endpointing-explore" class="lesson-summary" role="status"></p>
+      <details class="accessible-summary">
+        <summary>Accessible summary</summary>
+        <p>The timer begins at the end of speech. A complete-sounding thought can commit after the minimum silence; an unfinished thought stays open unless the maximum silence is reached.</p>
+      </details>
+    </div>
+
+    <div slot="screen-2" class="lesson-content">
+      <p class="guiding">The rule has two clocks and one question:</p>
+      <div class="rule" role="img" aria-label="Wait through minimum silence, use context to commit, and force a decision at maximum silence">
+        <span>silence</span><b>→</b><span>minimum timer</span><b>+</b><span>context</span><b>→</b><strong>commit</strong>
+      </div>
+      <div class="formula"><span>commit</span> = <span>silence ≥ min</span> <em>and</em> <span>thought complete</span></div>
+      <p class="lesson-summary">The minimum protects against cutting off natural pauses. Context protects against waiting forever for a caller who has clearly finished. The maximum is the safety valve.</p>
+    </div>
+
+    <div slot="screen-3" class="lesson-content">
+      <p class="guiding">Challenge: a caller may be listing items. Choose the minimum silence that avoids cutting off a 900 ms pause.</p>
+      <label class="challenge-control" for="endpointing-challenge">Minimum silence <output id="endpointing-challenge-value">500</output> ms</label>
+      <input id="endpointing-challenge" type="range" min="300" max="1500" step="50" value="500" />
+      <div id="endpointing-challenge-visual" class="challenge-bars" aria-hidden="true"></div>
+      <p id="endpointing-challenge-result" class="lesson-summary" role="status"></p>
+      <details class="accessible-summary">
+        <summary>Accessible summary</summary>
+        <p id="endpointing-challenge-a11y"></p>
+      </details>
+    </div>
+  </Lesson>
+</BaseLayout>
+
+<script>
+  import { endpoint, timerProgress } from "../../lib/lessons/endpointing/model";
+
+  const input = (id: string) => document.getElementById(id) as HTMLInputElement;
+  const output = (id: string) => document.getElementById(id)!;
+  const drawExplore = () => {
+    const silence = Number(input("endpointing-silence").value);
+    const min = Number(input("endpointing-min").value);
+    const context = input("endpointing-context").value as "complete" | "unfinished";
+    output("endpointing-silence-value").textContent = String(silence);
+    output("endpointing-min-value").textContent = String(min);
+    const result = endpoint({ silenceMs: silence, minSilenceMs: min, maxSilenceMs: 2000, context });
+    output("endpointing-timer").setAttribute("style", `width: ${timerProgress(silence, 2000) * 100}%`);
+    const message = result.action === "commit"
+      ? `Commit now: the ${context === "complete" ? "complete" : "maximum-timer"} signal wins at ${result.waitMs} ms.`
+      : `Keep listening: ${context === "unfinished" ? "context says the caller may continue" : `${min - silence} ms remain before the minimum`}.`;
+    output("endpointing-explore").textContent = message;
+  };
+  ["endpointing-silence", "endpointing-min", "endpointing-context"].forEach((id) => input(id).addEventListener("input", drawExplore));
+  input("endpointing-context").addEventListener("change", drawExplore);
+  drawExplore();
+
+  const drawChallenge = () => {
+    const min = Number(input("endpointing-challenge").value);
+    const pause = 900;
+    output("endpointing-challenge-value").textContent = String(min);
+    const clears = min > pause;
+    output("endpointing-challenge-visual").innerHTML = `<span class="pause-bar" style="width:${Math.min(100, pause / 15)}%">900 ms pause</span><span class="threshold-bar ${clears ? "clear" : "cut"}" style="width:${Math.min(100, min / 15)}%">${min} ms minimum</span>`;
+    output("endpointing-challenge-result").textContent = clears
+      ? `Good buffer: ${min} ms leaves the 900 ms listing pause open.`
+      : `Too quick: ${min} ms would commit during the 900 ms pause.`;
+    output("endpointing-challenge-a11y").textContent = clears
+      ? `${min} milliseconds is longer than the 900 millisecond pause, so the list stays open.`
+      : `${min} milliseconds is not longer than the 900 millisecond pause, so the agent may cut the caller off.`;
+  };
+  input("endpointing-challenge").addEventListener("input", drawChallenge);
+  drawChallenge();
+</script>
+
+<style>
+  :global(.lesson-shell .lesson-header) { position: sticky; top: 0; z-index: 2; padding: var(--s3) 0; background: var(--panel); }
+  .lesson-content { display: grid; gap: var(--s5); align-content: center; min-height: 25rem; }
+  .prompt, .guiding { max-width: 62ch; font-size: 1.2rem; }
+  .guiding { color: var(--gold); }
+  .conversation { border-left: 3px solid var(--cyan); padding: var(--s3) var(--s5); font-size: clamp(1.3rem, 4vw, 2rem); }
+  .conversation p { margin: 0; }.conversation .agent-guess { color: var(--gold); margin-top: var(--s4); }.pause { color: var(--danger); letter-spacing: .25em; }
+  .controls { display: grid; grid-template-columns: minmax(10rem, 1fr) minmax(10rem, 1fr); gap: var(--s2) var(--s5); max-width: 42rem; align-items: center; }
+  .controls label, .challenge-control { color: var(--ink-dim); }.controls input[type="range"], .challenge-control + input { width: 100%; accent-color: var(--cyan); }.controls select { background: var(--panel); color: var(--ink); border: 1px solid var(--panel-edge); border-radius: var(--r1); padding: var(--s2); }
+  output { color: var(--cyan); font-weight: 700; }.timer { height: 1rem; border-radius: 99px; background: var(--navy); overflow: hidden; }.timer span { display: block; height: 100%; background: linear-gradient(90deg, var(--cyan), var(--gold)); transition: width .2s ease; }
+  .lesson-summary { color: var(--ink-dim); font-size: 1.05rem; margin: 0; }.accessible-summary { color: var(--ink-dim); }.accessible-summary summary { cursor: pointer; color: var(--cyan); font-weight: 600; }.accessible-summary p { max-width: 65ch; }
+  .rule { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: var(--s3); font-family: var(--font-head); font-size: clamp(1.1rem, 3vw, 1.8rem); text-align: center; }.rule span { color: var(--cyan); }.rule strong { color: var(--green); }.rule b { color: var(--gold); }.formula { font-family: ui-monospace, monospace; font-size: clamp(1.2rem, 4vw, 2.5rem); text-align: center; color: var(--cyan); }.formula em { color: var(--ink-dim); font-size: .65em; }.challenge-bars { display: grid; gap: var(--s3); }.pause-bar, .threshold-bar { display: block; min-width: 8rem; padding: var(--s2); border-radius: var(--r1); color: var(--navy); font-weight: 600; }.pause-bar { background: var(--gold); }.threshold-bar { background: var(--danger); }.threshold-bar.clear { background: var(--green); }
+  @media (max-width: 600px) { .controls { grid-template-columns: 1fr; gap: var(--s1); }.controls input, .controls select { margin-bottom: var(--s3); }.rule { gap: var(--s2); }.lesson-content { min-height: 28rem; } }
+</style>

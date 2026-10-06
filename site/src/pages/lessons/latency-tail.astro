@@ -1,0 +1,94 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Lesson from "../../lib/lessons/Lesson.astro";
+import { url } from "../../lib/url";
+
+const aha = "Tail latency compounds across a serial request: eight components with a 5% slow-path rate give a 33.7% chance of at least one slow component.";
+---
+
+<BaseLayout title="Latency tails · Lessons" description={aha}>
+  <p class="crumb muted"><a href={url("/lessons")}>Lessons</a> / latency-tail</p>
+  <Lesson slug="latency-tail" title="The tail hides in the chain" aha={aha} related="Latency budget · Lab 03" time="8 min">
+    <div slot="screen-0" class="lesson-content">
+      <p class="prompt">Every service is usually fast. A voice turn crosses several services. How often does one slow hop spoil the turn?</p>
+      <div class="service-chain" aria-label="A request passing through eight service components">
+        {Array.from({ length: 8 }, (_, i) => <span style={`--i:${i}`}><b>{i + 1}</b><small>hop</small></span>)}
+      </div>
+      <p class="lesson-summary" aria-live="polite">The average hop can look healthy while the chain exposes the tail.</p>
+    </div>
+
+    <div slot="screen-1" class="lesson-content">
+      <p class="guiding">Guiding question: as the chain grows, how quickly does “at least one slow hop” become likely?</p>
+      <div class="control-row" id="latency-tail-controls"></div>
+      <svg id="latency-tail-chart" viewBox="0 0 720 300" role="img" aria-label="Probability of at least one slow component as the number of components increases"></svg>
+      <p id="latency-tail-explore" class="lesson-summary" aria-live="polite"></p>
+    </div>
+
+    <div slot="screen-2" class="lesson-content">
+      <p class="guiding">Name it: the request avoids the tail only when every component avoids it.</p>
+      <div class="formula" aria-label="tail risk equals one minus one minus per component tail rate to the number of components">P(at least one tail) = <strong>1 − (1 − p)<sup>n</sup></strong></div>
+      <div class="legend"><span class="legend-dot"></span> one slow-path probability <strong>p</strong><span class="legend-line"></span> number of serial components <strong>n</strong></div>
+      <p class="lesson-summary">This is not an average-latency problem. It is the probability that any one boundary becomes the slow boundary.</p>
+    </div>
+
+    <div slot="screen-3" class="lesson-content">
+      <p class="guiding">Challenge: keep the chance of a slow hop below 20%. How many 5% tail-prone components can the request contain?</p>
+      <div class="control-row" id="latency-tail-challenge-controls"></div>
+      <div id="latency-tail-challenge-visual" class="challenge-chain" aria-hidden="true"></div>
+      <p id="latency-tail-challenge" class="lesson-summary" aria-live="polite"></p>
+    </div>
+  </Lesson>
+</BaseLayout>
+
+<script>
+  import { componentsWithinTailBudget, tailHitProbability } from "../../lib/lessons/latency-tail/model";
+  import { slider, svgAxes, wireSlider } from "../../lib/lessons/controls";
+
+  const chart = document.getElementById("latency-tail-chart")!;
+  const explore = document.getElementById("latency-tail-explore")!;
+  const controls = document.getElementById("latency-tail-controls")!;
+  controls.innerHTML = slider("latency-tail-rate", "Slow-path chance per component", 1, 15, 5, 1);
+
+  const draw = (ratePercent: number) => {
+    const rate = ratePercent / 100;
+    const values = Array.from({ length: 12 }, (_, i) => tailHitProbability(i + 1, rate));
+    chart.innerHTML = svgAxes(720, 300, "serial components", "tail risk")
+      + `<line class="threshold" x1="56" y1="${258 - 0.2 * 190}" x2="700" y2="${258 - 0.2 * 190}"/>`
+      + `<polyline class="plot" points="${values.map((value, i) => `${70 + i * 55},${258 - value * 190}`).join(" ")}"/>`
+      + values.map((value, i) => `<circle class="plot-dot" cx="${70 + i * 55}" cy="${258 - value * 190}" r="5"/><text class="chart-label" x="${65 + i * 55}" y="282">${i + 1}</text>`).join("");
+    explore.textContent = `${ratePercent}% per component becomes ${(values[7] * 100).toFixed(1)}% tail risk across eight serial components.`;
+  };
+  wireSlider("latency-tail-rate", draw);
+
+  const challengeControls = document.getElementById("latency-tail-challenge-controls")!;
+  challengeControls.innerHTML = slider("latency-tail-budget", "Allowed tail risk", 5, 50, 20, 1);
+  wireSlider("latency-tail-budget", (budgetPercent) => {
+    const budget = budgetPercent / 100;
+    const safe = componentsWithinTailBudget(0.05, budget);
+    const visual = document.getElementById("latency-tail-challenge-visual")!;
+    visual.innerHTML = Array.from({ length: Math.min(safe + 2, 12) }, (_, i) => `<span class="challenge-hop ${i < safe ? "safe" : "tail"}">${i + 1}</span>`).join("");
+    document.getElementById("latency-tail-challenge")!.textContent = `At a 5% per-component tail rate, ${safe} components stay within ${budgetPercent}%; component ${safe + 1} would push the request to ${(tailHitProbability(safe + 1, 0.05) * 100).toFixed(1)}%.`;
+  });
+</script>
+
+<style>
+  .lesson-content { display: grid; gap: var(--s6); align-content: center; min-height: 25rem; }
+  .prompt, .guiding { max-width: 62ch; font-size: 1.2rem; }
+  .guiding { color: var(--gold); }
+  .service-chain, .challenge-chain { display: flex; gap: var(--s2); flex-wrap: wrap; justify-content: center; }
+  .service-chain span, .challenge-hop { display: grid; place-items: center; width: 3.4rem; height: 3.4rem; border: 1px solid var(--cyan); border-radius: var(--r1); background: rgba(62,123,255,.14); color: var(--cyan); animation: drift 2.4s ease-in-out infinite; animation-delay: calc(var(--i) * 90ms); }
+  .service-chain small { color: var(--ink-dim); font-size: .65rem; text-transform: uppercase; }
+  .control-row { max-width: 38rem; }
+  .lesson-control { display: grid; gap: var(--s2); color: var(--ink); }
+  .lesson-control input { accent-color: var(--cyan); width: 100%; }
+  .lesson-control output { color: var(--cyan); font-weight: 700; }
+  #latency-tail-chart { width: 100%; max-height: 21rem; background: rgba(10,18,36,.5); border-radius: var(--r2); }
+  .axis { stroke: var(--panel-edge); stroke-width: 2; } .axis-label, .chart-label { fill: var(--ink-dim); font-size: 14px; } .plot { fill: none; stroke: var(--cyan); stroke-width: 4; } .plot-dot { fill: var(--green); } .threshold { stroke: var(--gold); stroke-dasharray: 7 7; }
+  .formula { color: var(--cyan); font: clamp(1.45rem, 5vw, 3.4rem) ui-monospace, monospace; text-align: center; } .formula strong { color: var(--green); }
+  .legend { display: flex; gap: var(--s2); align-items: center; justify-content: center; color: var(--ink-dim); flex-wrap: wrap; } .legend-dot { width: .7rem; height: .7rem; border-radius: 50%; background: var(--green); } .legend-line { width: 2rem; border-top: 3px solid var(--cyan); }
+  .challenge-hop { animation: none; background: rgba(74,222,128,.18); } .challenge-hop.safe { border-color: var(--green); color: var(--green); } .challenge-hop.tail { border-color: var(--gold); color: var(--gold); background: rgba(245,190,66,.14); }
+  .lesson-summary { color: var(--ink-dim); font-size: 1.05rem; margin: 0; }
+  @keyframes drift { 50% { transform: translateY(-5px); box-shadow: 0 0 18px rgba(62,123,255,.3); } }
+  @media (prefers-reduced-motion: reduce) { .service-chain span { animation: none; } }
+  @media (max-width: 500px) { .service-chain span, .challenge-hop { width: 2.6rem; height: 2.6rem; } }
+</style>

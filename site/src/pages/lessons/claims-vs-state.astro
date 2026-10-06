@@ -1,0 +1,89 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Lesson from "../../lib/lessons/Lesson.astro";
+import { url } from "../../lib/url";
+const aha = "A spoken claim is not database state: confirm durable state after the write, and make retries idempotent.";
+---
+<BaseLayout title="Claims versus state · Lessons" description={aha}>
+  <p class="crumb muted"><a href={url("/lessons")}>Lessons</a> / claims-vs-state</p>
+  <Lesson slug="claims-vs-state" title="Claims versus state" aha={aha} related="Lab 02 · tools and guardrails" time="8 min">
+    <div slot="screen-0" class="lesson-content">
+      <p class="prompt">The agent says, “You’re booked.” Is that a fact, or only a claim?</p>
+      <div class="split-timeline" aria-label="A spoken claim is separate from database state">
+        <section><h3>What was spoken</h3><div class="event claim">You’re booked for Tuesday at 10.</div></section>
+        <section><h3>What the database knows</h3><div class="event state">No appointment yet</div></section>
+      </div>
+      <p class="lesson-summary" aria-live="polite">Words can lead state, lag state, or contradict it.</p>
+    </div>
+    <div slot="screen-1" class="lesson-content">
+      <p class="guiding">Watch the two timelines diverge. Toggle the failure modes a voice system must survive.</p>
+      <div class="control-grid" id="claims-controls">
+        <label><input id="claims-interrupted" type="checkbox" /> Caller interrupts</label>
+        <label><input id="claims-retry" type="checkbox" /> Tool call retries</label>
+        <label><input id="claims-idempotent" type="checkbox" checked /> Idempotency key</label>
+        <label><input id="claims-guard" type="checkbox" checked /> Claim guard</label>
+      </div>
+      <div id="claims-timelines" class="timelines" aria-live="polite"></div>
+      <p id="claims-explore-summary" class="lesson-summary"></p>
+    </div>
+    <div slot="screen-2" class="lesson-content">
+      <p class="guiding">Name the boundary.</p>
+      <div class="principles" aria-label="Claims versus state principles">
+        <article><strong>Claim</strong><span>What the agent says happened.</span></article>
+        <article><strong>State</strong><span>What the system can read back durably.</span></article>
+        <article><strong>Guard</strong><span>Only confirm a claim grounded in current state.</span></article>
+      </div>
+      <p class="lesson-summary">Interruption changes intent. Retry repeats effects. Idempotency turns repetition into one effect.</p>
+    </div>
+    <div slot="screen-3" class="lesson-content">
+      <p class="guiding">Challenge: turn every unsafe path into a safe one.</p>
+      <div class="challenge-actions" id="claims-challenge-controls"></div>
+      <div id="claims-challenge" class="challenge" aria-live="polite"></div>
+      <p class="lesson-summary">A safe voice agent treats speech as a proposal, state as evidence, and writes as guarded side effects.</p>
+    </div>
+  </Lesson>
+</BaseLayout>
+<script>
+  import { simulate, type TimelineEvent } from "../../lib/lessons/claims-vs-state/model";
+  const root = document.querySelector('[data-lesson="claims-vs-state"]');
+  const input = (id: string) => document.getElementById(id) as HTMLInputElement;
+  const render = () => {
+    const result = simulate({ interrupted: input("claims-interrupted").checked, retry: input("claims-retry").checked, idempotent: input("claims-idempotent").checked, claimGuard: input("claims-guard").checked });
+    const line = (event: TimelineEvent) => `<li><b>${event.label}</b><span>${event.detail}</span><small>t+${event.time}</small></li>`;
+    const timelines = document.getElementById("claims-timelines");
+    const summary = document.getElementById("claims-explore-summary");
+    if (timelines && summary) {
+      timelines.innerHTML = `<section><h3>Spoken timeline</h3><ol>${result.spoken.map(line).join("")}</ol></section><section><h3>Database timeline</h3><ol>${result.database.map(line).join("")}</ol></section>`;
+      summary.textContent = result.summary;
+    }
+  };
+  ["claims-interrupted", "claims-retry", "claims-idempotent", "claims-guard"].forEach((id) => input(id).addEventListener("change", render));
+  render();
+  const challenge = document.getElementById("claims-challenge-controls");
+  const challengeText = document.getElementById("claims-challenge");
+  if (challenge && challengeText) {
+    challenge.innerHTML = `<button type="button" data-challenge="retry">Retry the write</button><button type="button" data-challenge="interrupt">Handle interruption</button><button type="button" data-challenge="guard">Ground confirmation</button>`;
+    challenge.querySelectorAll<HTMLButtonElement>("button").forEach((button) => button.addEventListener("click", () => {
+      const kind = button.dataset.challenge;
+      const result = kind === "retry" ? simulate({ retry: true, idempotent: true }) : kind === "interrupt" ? simulate({ interrupted: true }) : simulate();
+      challengeText.textContent = result.summary;
+      challengeText.dataset.outcome = result.outcome;
+    }));
+  }
+  void root;
+</script>
+<style>
+  .lesson-content { display: grid; gap: var(--s5); align-content: center; min-height: 25rem; }
+  .prompt, .guiding { max-width: 60ch; font-size: 1.2rem; }
+  .guiding { color: var(--gold); }
+  .split-timeline, .timelines, .principles { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--s4); }
+  .split-timeline section, .timelines section, .principles article { border: 1px solid var(--panel-edge); border-radius: var(--r2); padding: var(--s4); background: rgba(10,18,36,.45); }
+  h3 { margin-top: 0; color: var(--cyan); }
+  .event { border-left: 4px solid var(--gold); padding: var(--s3); } .event.state { border-color: var(--green); }
+  .control-grid { display: grid; gap: var(--s2); grid-template-columns: repeat(2, 1fr); } .control-grid label { color: var(--ink-dim); } input { accent-color: var(--cyan); }
+  ol { display: grid; gap: var(--s2); padding-left: 1.2rem; margin: 0; } li { padding: var(--s2); background: rgba(255,255,255,.04); } li span, li small { display: block; color: var(--ink-dim); } li small { color: var(--cyan); }
+  .principles { grid-template-columns: repeat(3, 1fr); } .principles article { display: grid; gap: var(--s2); } .principles strong { color: var(--green); font-size: 1.2rem; }
+  .challenge-actions { display: flex; flex-wrap: wrap; gap: var(--s3); } .challenge-actions button { border: 1px solid var(--cyan); border-radius: var(--r1); background: transparent; color: var(--ink); padding: var(--s3); cursor: pointer; font: inherit; } .challenge { min-height: 3rem; color: var(--green); }
+  .lesson-summary { color: var(--ink-dim); font-size: 1.05rem; margin: 0; }
+  @media (max-width: 700px) { .split-timeline, .timelines, .principles, .control-grid { grid-template-columns: 1fr; } }
+</style>
