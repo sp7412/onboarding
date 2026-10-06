@@ -13,6 +13,7 @@ export interface Explainer {
 }
 
 const RELEASE = "https://github.com/sp7412/onboarding/releases/download/explainer-series";
+const RELEASE_PAGE = "https://github.com/sp7412/onboarding/releases/tag/explainer-series";
 const MEDIA = url("/explainers").replace(/\/$/, "");
 
 export const EXPLAINERS: Explainer[] = [
@@ -24,7 +25,7 @@ export const EXPLAINERS: Explainer[] = [
     audioUrl: `${RELEASE}/voice-agents-01-anatomy.mp3`,
     posterUrl: `${MEDIA}/voice-agents-01-anatomy.png`,
     captionsUrl: `${MEDIA}/voice-agents-01-anatomy.vtt`,
-    releaseUrl: RELEASE,
+    releaseUrl: RELEASE_PAGE,
     length: "3:03",
     questions: ["What adds the most latency in your pipeline?", "Which boundary would you instrument first?"],
   },
@@ -36,7 +37,7 @@ export const EXPLAINERS: Explainer[] = [
     audioUrl: `${RELEASE}/voice-agents-02-turn-taking.mp3`,
     posterUrl: `${MEDIA}/voice-agents-02-turn-taking.png`,
     captionsUrl: `${MEDIA}/voice-agents-02-turn-taking.vtt`,
-    releaseUrl: RELEASE,
+    releaseUrl: RELEASE_PAGE,
     length: "2:46",
     questions: ["How should uncertainty about turn completion change behavior?", "Which false interruption costs the caller most?"],
   },
@@ -48,7 +49,7 @@ export const EXPLAINERS: Explainer[] = [
     audioUrl: `${RELEASE}/voice-agents-03-architecture.mp3`,
     posterUrl: `${MEDIA}/voice-agents-03-architecture.png`,
     captionsUrl: `${MEDIA}/voice-agents-03-architecture.vtt`,
-    releaseUrl: RELEASE,
+    releaseUrl: RELEASE_PAGE,
     length: "3:21",
     questions: ["Which trade-off dominates this specific use case?", "What must stay inspectable before speech is played?"],
   },
@@ -60,7 +61,7 @@ export const EXPLAINERS: Explainer[] = [
     audioUrl: `${RELEASE}/voice-agents-04-control-plane.mp3`,
     posterUrl: `${MEDIA}/voice-agents-04-control-plane.png`,
     captionsUrl: `${MEDIA}/voice-agents-04-control-plane.vtt`,
-    releaseUrl: RELEASE,
+    releaseUrl: RELEASE_PAGE,
     length: "3:16",
     questions: ["Which checks must remain outside the model?", "How will repeat trials prove the workflow stayed legal?"],
   },
