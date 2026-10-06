@@ -93,7 +93,7 @@ const aha = "Full duplex changes the rhythm, but the control plane still decides
   verificationButtons.forEach((button) => button.addEventListener("click", () => { verified = button.dataset.verified === "true"; verificationButtons.forEach((item) => item.classList.toggle("active", item === button)); renderChallenge(); }));
   renderChallenge();
 </script>
-<style>
+<style is:global>
   .lesson-header { position: sticky; top: 0; z-index: 2; padding: var(--s3) 0; background: color-mix(in srgb, var(--navy) 94%, transparent); backdrop-filter: blur(12px); }
   .lesson-content { display: grid; gap: var(--s6); align-content: center; min-height: 25rem; }
   .prompt, .guiding { max-width: 62ch; font-size: 1.2rem; }

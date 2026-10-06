@@ -53,7 +53,7 @@ const aha = "Reliability compounds: a task passed 90% of the time succeeds on al
     document.getElementById("pass-k-challenge")!.textContent = `${(result * 100).toFixed(1)}% end-to-end success — ${ok ? "the chain clears 80%." : "the chain misses 80%; raise the per-step bar."}`;
   });
 </script>
-<style>
+<style is:global>
   .lesson-content { display: grid; gap: var(--s6); align-content: center; min-height: 25rem; }
   .prompt, .guiding { max-width: 60ch; font-size: 1.2rem; }
   .guiding { color: var(--gold); }

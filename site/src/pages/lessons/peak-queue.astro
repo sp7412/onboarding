@@ -61,7 +61,7 @@ const aha = "Peak staffing is a queueing decision: a small utilization change ca
     document.getElementById("peak-queue-summary")!.textContent = `At 12 arrivals per hour and 30 minutes average service time, ${staff} agents produce ${format(result.expectedWaitMinutes)} minutes expected wait and ${(result.probabilityOfWaiting * 100).toFixed(0)} percent probability of waiting.`;
   });
 </script>
-<style>
+<style is:global>
   .lesson-content { display: grid; gap: var(--s6); align-content: center; min-height: 25rem; }
   .prompt, .guiding { max-width: 62ch; font-size: 1.2rem; } .guiding { color: var(--gold); }
   .queue-visual { display: flex; gap: var(--s3); align-items: center; justify-content: center; flex-wrap: wrap; }

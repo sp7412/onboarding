@@ -82,7 +82,7 @@ const aha = "A booking rate is only meaningful when its denominator is named: 42
   updateChallenge("bookable");
 </script>
 
-<style>
+<style is:global>
   :global(.lesson-header) { position: sticky; top: 0; z-index: 2; padding: var(--s3) 0; background: color-mix(in srgb, var(--navy) 94%, transparent); backdrop-filter: blur(10px); }
   .lesson-content { display: grid; gap: var(--s6); align-content: center; min-height: 25rem; }
   .prompt, .guiding { max-width: 60ch; font-size: 1.2rem; }
