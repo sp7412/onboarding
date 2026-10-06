@@ -16,6 +16,13 @@ describe("Erlang C peak queue model", () => {
     expect(five.expectedWaitMinutes).toBeLessThan(four.expectedWaitMinutes);
   });
 
+  it("starts below capacity and rises as arrivals approach it", () => {
+    expect(erlangC(8, 30, 5).utilization).toBeCloseTo(0.8, 10);
+    expect(erlangC(6, 30, 5).expectedWaitMinutes).toBeLessThan(erlangC(7, 30, 5).expectedWaitMinutes);
+    expect(erlangC(7, 30, 5).expectedWaitMinutes).toBeLessThan(erlangC(8, 30, 5).expectedWaitMinutes);
+    expect(erlangC(8, 30, 5).expectedWaitMinutes).toBeLessThan(erlangC(9, 30, 5).expectedWaitMinutes);
+  });
+
   it("marks an overloaded queue as unbounded", () => {
     expect(erlangC(10, 60, 5)).toEqual({
       utilization: 2,

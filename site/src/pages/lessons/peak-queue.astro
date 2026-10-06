@@ -18,6 +18,7 @@ const aha = "Peak staffing is a queueing decision: a small utilization change ca
       <p class="guiding">Explore an Erlang C queue. Move arrivals or staff; service time is the average minutes per call.</p>
       <div class="control-grid" id="peak-queue-controls"></div>
       <div class="metric-grid" id="peak-queue-metrics" aria-live="polite"></div>
+      <svg id="peak-queue-chart" viewBox="0 0 720 280" role="img" aria-label="Expected wait in minutes as arrivals per hour increase"></svg>
       <p id="peak-queue-explore" class="lesson-summary"></p>
     </div>
     <div slot="screen-2" class="lesson-content">
@@ -36,18 +37,23 @@ const aha = "Peak staffing is a queueing decision: a small utilization change ca
 </BaseLayout>
 <script>
   import { erlangC } from "../../lib/lessons/peak-queue/model";
-  import { slider, wireSlider } from "../../lib/lessons/controls";
+  import { slider, svgAxes, wireSlider } from "../../lib/lessons/controls";
 
   const format = (value: number) => Number.isFinite(value) ? value.toFixed(1) : "unbounded";
   const controls = document.getElementById("peak-queue-controls")!;
-  controls.innerHTML = slider("peak-arrivals", "Peak arrivals per hour", 4, 24, 12, 1) + slider("peak-staff", "Agents on duty", 1, 12, 5, 1) + slider("peak-service", "Average service minutes", 15, 90, 30, 5);
+  controls.innerHTML = slider("peak-arrivals", "Peak arrivals per hour", 4, 24, 8, 1) + slider("peak-staff", "Agents on duty", 1, 12, 5, 1) + slider("peak-service", "Average service minutes", 15, 90, 30, 5);
+  const chart = document.getElementById("peak-queue-chart")!;
   const draw = () => {
     const arrivals = Number((document.getElementById("peak-arrivals") as HTMLInputElement).value);
     const staff = Number((document.getElementById("peak-staff") as HTMLInputElement).value);
     const service = Number((document.getElementById("peak-service") as HTMLInputElement).value);
     const result = erlangC(arrivals, service, staff);
     document.getElementById("peak-queue-metrics")!.innerHTML = `<div><strong>${(result.utilization * 100).toFixed(0)}%</strong><span>utilization</span></div><div><strong>${(result.probabilityOfWaiting * 100).toFixed(0)}%</strong><span>chance of waiting</span></div><div><strong>${format(result.expectedWaitMinutes)} min</strong><span>expected wait</span></div>`;
-    document.getElementById("peak-queue-explore")!.textContent = result.expectedWaitMinutes === Infinity ? "Capacity is overloaded: the idealized queue cannot catch up." : `${staff} agents absorb ${arrivals} arrivals/hour at ${service} minutes each, but ${(result.probabilityOfWaiting * 100).toFixed(0)}% of callers still wait.`;
+    const points = Array.from({ length: 21 }, (_, i) => { const x = 4 + i; const y = erlangC(x, service, staff).expectedWaitMinutes; return { x, y: Number.isFinite(y) ? Math.min(y, 60) : 60 }; });
+    const yTicks = [0, 15, 30, 45, 60]; const x = (v: number) => 70 + ((v - 4) / 20) * 620; const y = (v: number) => 235 - (v / 60) * 190;
+    const capacity = (staff * 60) / service;
+    chart.innerHTML = svgAxes(720, 280, "arrivals per hour", "wait (min)") + yTicks.map((v) => `<line class="gridline" x1="56" x2="700" y1="${y(v)}" y2="${y(v)}"/><text class="chart-label" x="18" y="${y(v) + 5}">${v}</text>`).join("") + `<line class="capacity" x1="${x(capacity)}" x2="${x(capacity)}" y1="18" y2="235"/><text class="chart-label" x="${Math.min(x(capacity)+5,650)}" y="32">capacity</text><polyline class="plot" points="${points.map((p) => `${x(p.x)},${y(p.y)}`).join(" ")}"/><circle class="marker" cx="${x(arrivals)}" cy="${y(Math.min(result.expectedWaitMinutes,60))}" r="7"/>`;
+    document.getElementById("peak-queue-explore")!.textContent = result.expectedWaitMinutes === Infinity ? "Over capacity: the queue grows without limit." : `${staff} agents at ${arrivals} arrivals/hour: ${result.expectedWaitMinutes.toFixed(1)} minutes expected wait. The chart rises sharply near ${capacity.toFixed(0)} arrivals/hour capacity.`;
   };
   ["peak-arrivals", "peak-staff", "peak-service"].forEach((id) => wireSlider(id, draw));
 
@@ -67,7 +73,8 @@ const aha = "Peak staffing is a queueing decision: a small utilization change ca
   .queue-visual { display: flex; gap: var(--s3); align-items: center; justify-content: center; flex-wrap: wrap; }
   .call, .agent { padding: var(--s3); border-radius: var(--r1); font-family: var(--font-head); font-weight: 700; } .call { background: var(--gold); color: var(--navy); } .agent { background: var(--green); color: var(--navy); } .queue-arrow { color: var(--cyan); font-size: 2rem; }
   .control-grid { display: grid; gap: var(--s4); max-width: 42rem; } .lesson-control { display: grid; gap: var(--s2); color: var(--ink); } .lesson-control input { accent-color: var(--cyan); width: 100%; } .lesson-control output { color: var(--cyan); font-weight: 700; }
-  .metric-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s3); } .metric-grid div { border: 1px solid var(--panel-edge); border-radius: var(--r1); padding: var(--s3); } .metric-grid strong { display: block; color: var(--cyan); font: 700 1.7rem var(--font-head); } .metric-grid span { color: var(--ink-dim); }
+   .metric-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s3); } .metric-grid div { border: 1px solid var(--panel-edge); border-radius: var(--r1); padding: var(--s3); } .metric-grid strong { display: block; color: var(--cyan); font: 700 1.7rem var(--font-head); } .metric-grid span { color: var(--ink-dim); }
+  #peak-queue-chart { width: 100%; max-height: 19rem; background: rgba(10,18,36,.5); border-radius: var(--r2); } .gridline { stroke: var(--panel-edge); stroke-dasharray: 3 5; } .capacity { stroke: var(--gold); stroke-dasharray: 7 7; stroke-width: 2; } .marker { fill: var(--green); } .plot { fill: none; stroke: var(--cyan); stroke-width: 4; } .axis { stroke: var(--panel-edge); stroke-width: 2; } .axis-label, .chart-label { fill: var(--ink-dim); font-size: 14px; }
   .formula { font: 700 clamp(1.6rem, 5vw, 3rem) ui-monospace, monospace; color: var(--cyan); } .formula strong { color: var(--green); } .model-note, .lesson-summary { color: var(--ink-dim); max-width: 70ch; } .challenge-result { padding: var(--s4); border: 1px solid var(--cyan); border-radius: var(--r1); color: var(--ink); font-size: 1.2rem; } .accessible-summary { color: var(--ink-dim); } .accessible-summary summary { cursor: pointer; color: var(--cyan); }
   @media (max-width: 600px) { .metric-grid { grid-template-columns: 1fr; } }
 </style>
