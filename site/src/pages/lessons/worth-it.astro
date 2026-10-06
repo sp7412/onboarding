@@ -1,0 +1,92 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Lesson from "../../lib/lessons/Lesson.astro";
+import { url } from "../../lib/url";
+
+const aha = "A voice agent is worth it when the value of the bookings it adds, after error cost, exceeds its cost per call.";
+---
+<BaseLayout title="Worth it? · Lessons" description={aha}>
+  <p class="crumb muted"><a href={url("/lessons")}>Lessons</a> / worth-it</p>
+  <Lesson slug="worth-it" title="Is the voice agent worth it?" aha={aha} related="Lab 07 · booking economics" time="8 min">
+    <div slot="screen-0" class="lesson-content">
+      <p class="prompt">A cheaper call is not automatically a better system. What has to be true before a voice agent pays for itself?</p>
+      <div class="balance" aria-label="A call has a cost on one side and booking value on the other">
+        <span class="balance-side cost">Cost per call</span><span class="balance-mark" aria-hidden="true">?</span><span class="balance-side value">Value of lift</span>
+      </div>
+      <p class="lesson-summary" aria-live="polite">The unit of analysis is one completed call, not a vague monthly promise.</p>
+    </div>
+
+    <div slot="screen-1" class="lesson-content">
+      <p class="guiding">Explore one call. These illustrative controls show how the economics move.</p>
+      <p class="illustrative">Illustrative scenario: adjust the assumptions; this is not a forecast.</p>
+      <div class="control-grid" id="worth-it-controls" aria-label="Illustrative unit economics controls"></div>
+      <div class="result-card" aria-live="polite">
+        <span>Net value per call</span><strong id="worth-it-net">$0.00</strong>
+      </div>
+      <p id="worth-it-explore" class="lesson-summary"></p>
+    </div>
+
+    <div slot="screen-2" class="lesson-content">
+      <p class="guiding">Name the rule: incremental booking value must cover both the call and the mistakes.</p>
+      <div class="equation" aria-label="Net value equals booking lift value minus expected error cost minus call cost">
+        <span>job value × booking lift</span><b>−</b><span>error cost</span><b>−</b><span>minutes × cost/minute</span><b>=</b><strong>net value</strong>
+      </div>
+      <p class="lesson-summary">The lift is the upside. Error cost is the downside you refuse to hide. Compare both with the marginal cost of the call.</p>
+    </div>
+
+    <div slot="screen-3" class="lesson-content">
+      <p class="guiding">Challenge: tune the assumptions, then decide whether this call clears the break-even line.</p>
+      <p class="illustrative">Illustrative challenge inputs, shown in dollars and percentage points.</p>
+      <div class="control-grid" id="worth-it-challenge-controls" aria-label="Illustrative challenge controls"></div>
+      <div class="decision" id="worth-it-decision" aria-live="polite"></div>
+      <p id="worth-it-challenge" class="lesson-summary"></p>
+    </div>
+  </Lesson>
+</BaseLayout>
+
+<script>
+  import { calculateWorthIt, formatDollars } from "../../lib/lessons/worth-it/model";
+
+  type Control = { id: string; label: string; min: number; max: number; value: number; step: number; suffix: string };
+  const controls: Control[] = [
+    { id: "worth-cost", label: "Cost / minute", min: 0, max: 1, value: 0.2, step: 0.05, suffix: " dollars" },
+    { id: "worth-length", label: "Call length", min: 1, max: 15, value: 5, step: 1, suffix: " minutes" },
+    { id: "worth-lift", label: "Booking lift", min: 0, max: 25, value: 10, step: 1, suffix: "%" },
+    { id: "worth-job", label: "Job value", min: 50, max: 1000, value: 400, step: 25, suffix: " dollars" },
+    { id: "worth-error", label: "Error cost", min: 0, max: 50, value: 8, step: 1, suffix: " dollars" },
+  ];
+
+  const makeControls = (target: HTMLElement, prefix: string) => {
+    target.innerHTML = controls.map((control) => `<label class="lesson-control" for="${prefix}-${control.id}"><span>${control.label} <output id="${prefix}-${control.id}-value">${control.value}${control.suffix === "%" ? "%" : ""}</output></span><input id="${prefix}-${control.id}" type="range" min="${control.min}" max="${control.max}" value="${control.value}" step="${control.step}"></label>`).join("");
+  };
+  const read = (prefix: string) => ({ costPerMinute: Number((document.getElementById(`${prefix}-worth-cost`) as HTMLInputElement).value), callLengthMinutes: Number((document.getElementById(`${prefix}-worth-length`) as HTMLInputElement).value), bookingLift: Number((document.getElementById(`${prefix}-worth-lift`) as HTMLInputElement).value) / 100, jobValue: Number((document.getElementById(`${prefix}-worth-job`) as HTMLInputElement).value), errorCost: Number((document.getElementById(`${prefix}-worth-error`) as HTMLInputElement).value) });
+  const wire = (prefix: string, update: () => void) => controls.forEach((control) => document.getElementById(`${prefix}-${control.id}`)?.addEventListener("input", () => { const input = document.getElementById(`${prefix}-${control.id}`) as HTMLInputElement; document.getElementById(`${prefix}-${control.id}-value`)!.textContent = `${input.value}${control.suffix === "%" ? "%" : ""}`; update(); }));
+
+  const explore = document.getElementById("worth-it-controls")!;
+  makeControls(explore, "explore");
+  const updateExplore = () => { const result = calculateWorthIt(read("explore")); document.getElementById("worth-it-net")!.textContent = formatDollars(result.netValue); document.getElementById("worth-it-explore")!.textContent = `${formatDollars(result.incrementalJobValue)} of lift value − ${formatDollars(result.expectedErrorCost)} error cost − ${formatDollars(result.callCost)} call cost = ${formatDollars(result.netValue)} per call.`; };
+  wire("explore", updateExplore); updateExplore();
+
+  const challenge = document.getElementById("worth-it-challenge-controls")!;
+  makeControls(challenge, "challenge");
+  const updateChallenge = () => { const result = calculateWorthIt(read("challenge")); const decision = document.getElementById("worth-it-decision")!; decision.textContent = result.isWorthIt ? "WORTH IT" : "NOT YET"; decision.className = `decision ${result.isWorthIt ? "positive" : "negative"}`; document.getElementById("worth-it-challenge")!.textContent = `${formatDollars(result.netValue)} net value per call. ${result.isWorthIt ? "The lift clears the break-even line." : "The assumptions do not clear break-even yet."}`; };
+  wire("challenge", updateChallenge); updateChallenge();
+</script>
+
+<style>
+  .lesson-header { position: sticky; top: 0; z-index: 2; padding: var(--s3) 0; background: var(--navy); }
+  .lesson-content { display: grid; gap: var(--s6); align-content: center; min-height: 25rem; }
+  .prompt, .guiding { max-width: 62ch; font-size: 1.2rem; }
+  .guiding { color: var(--gold); }
+  .balance { display: flex; align-items: center; justify-content: center; gap: var(--s4); flex-wrap: wrap; }
+  .balance-side, .balance-mark { padding: var(--s4); border: 1px solid var(--panel-edge); border-radius: var(--r2); font-family: var(--font-head); font-weight: 700; }
+  .balance-side { color: var(--ink); } .cost { background: rgba(251,191,36,.15); } .value { background: rgba(74,222,128,.15); } .balance-mark { color: var(--cyan); font-size: 2rem; }
+  .control-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s4) var(--s6); }
+  .lesson-control { display: grid; gap: var(--s2); color: var(--ink); } .lesson-control input { accent-color: var(--cyan); width: 100%; } .lesson-control output { color: var(--cyan); font-weight: 700; }
+  .result-card { display: flex; justify-content: space-between; align-items: baseline; gap: var(--s4); padding: var(--s4); border: 1px solid var(--panel-edge); border-radius: var(--r2); } .result-card strong { color: var(--green); font: 700 clamp(2rem, 7vw, 4rem) var(--font-head); }
+  .equation { display: flex; align-items: center; justify-content: center; gap: var(--s3); flex-wrap: wrap; color: var(--ink-dim); text-align: center; } .equation b { color: var(--gold); font-size: 1.5rem; } .equation strong { color: var(--cyan); }
+  .decision { width: fit-content; padding: var(--s3) var(--s5); border-radius: 999px; font: 700 1.5rem var(--font-head); letter-spacing: .08em; } .positive { color: var(--navy); background: var(--green); } .negative { color: var(--navy); background: var(--gold); }
+  .lesson-summary { color: var(--ink-dim); font-size: 1.05rem; margin: 0; }
+  .illustrative { color: var(--ink-dim); font-size: .9rem; margin: calc(var(--s6) * -1) 0 0; }
+  @media (max-width: 600px) { .control-grid { grid-template-columns: 1fr; } .balance { gap: var(--s2); } }
+</style>

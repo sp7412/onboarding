@@ -2,7 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Icon from "../../components/Icon.astro";
 import { url } from "../../lib/url";
-const lessons = [{ slug: "pass-k", title: "The eight-step booking call", aha: "Reliability compounds: 90% per step becomes about 43% across eight steps.", time: "8 min", related: "Lab 07" }];
+import { lessons } from "../../lib/lessons/index";
 ---
 <BaseLayout title="Lessons · Path to Integration" description="Interactive guided-discovery lessons for voice-agent engineering.">
   <p class="crumb muted"><a href={url("/")}>Journey</a> / lessons</p>

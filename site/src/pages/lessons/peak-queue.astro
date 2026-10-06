@@ -1,0 +1,73 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Lesson from "../../lib/lessons/Lesson.astro";
+import { url } from "../../lib/url";
+const aha = "Peak staffing is a queueing decision: a small utilization change can turn waiting time from manageable to unbounded.";
+---
+<BaseLayout title="Peak queue · Lessons" description={aha}>
+  <p class="crumb muted"><a href={url("/lessons")}>Lessons</a> / peak queue</p>
+  <Lesson slug="peak-queue" title="The peak-hour queue" aha={aha} related="Lab 02 · turn-taking and latency" time="8 min">
+    <div slot="screen-0" class="lesson-content">
+      <p class="prompt">At peak hour, calls arrive faster than one agent can finish them. Does one extra person really change the experience?</p>
+      <div class="queue-visual" aria-label="Calls arrive into a line served by a small team">
+        <span class="call">CALL</span><span class="call">CALL</span><span class="call">CALL</span><span class="queue-arrow">→</span><span class="agent">AGENT</span><span class="agent">AGENT</span>
+      </div>
+      <p class="lesson-summary" aria-live="polite">A queue is not an average: when capacity is nearly full, small peaks accumulate.</p>
+    </div>
+    <div slot="screen-1" class="lesson-content">
+      <p class="guiding">Explore an Erlang C queue. Move arrivals or staff; service time is the average minutes per call.</p>
+      <div class="control-grid" id="peak-queue-controls"></div>
+      <div class="metric-grid" id="peak-queue-metrics" aria-live="polite"></div>
+      <p id="peak-queue-explore" class="lesson-summary"></p>
+    </div>
+    <div slot="screen-2" class="lesson-content">
+      <p class="guiding">The model is Erlang C: an M/M/c queue with Poisson arrivals, exponential service, identical staff, an unlimited waiting room, and no abandonment.</p>
+      <div class="formula"><span>P(wait)</span> = <strong>c</strong> · the chance an arrival waits before service</div>
+      <p class="model-note">Utilization = arrival rate ÷ (staff × service rate). When utilization reaches 100%, expected wait is unbounded in this idealized model.</p>
+      <p class="lesson-summary">This is a planning illustration, not a forecast. Real calls abandon, vary in duration, and may need different skills.</p>
+    </div>
+    <div slot="screen-3" class="lesson-content">
+      <p class="guiding">Challenge: keep the expected wait under two minutes during a peak of 12 calls per hour.</p>
+      <div class="control-grid" id="peak-queue-challenge-controls"></div>
+      <div id="peak-queue-challenge" class="challenge-result" aria-live="polite"></div>
+      <details class="accessible-summary"><summary>Accessible summary</summary><p id="peak-queue-summary"></p></details>
+    </div>
+  </Lesson>
+</BaseLayout>
+<script>
+  import { erlangC } from "../../lib/lessons/peak-queue/model";
+  import { slider, wireSlider } from "../../lib/lessons/controls";
+
+  const format = (value: number) => Number.isFinite(value) ? value.toFixed(1) : "unbounded";
+  const controls = document.getElementById("peak-queue-controls")!;
+  controls.innerHTML = slider("peak-arrivals", "Peak arrivals per hour", 4, 24, 12, 1) + slider("peak-staff", "Agents on duty", 1, 12, 5, 1) + slider("peak-service", "Average service minutes", 15, 90, 30, 5);
+  const draw = () => {
+    const arrivals = Number((document.getElementById("peak-arrivals") as HTMLInputElement).value);
+    const staff = Number((document.getElementById("peak-staff") as HTMLInputElement).value);
+    const service = Number((document.getElementById("peak-service") as HTMLInputElement).value);
+    const result = erlangC(arrivals, service, staff);
+    document.getElementById("peak-queue-metrics")!.innerHTML = `<div><strong>${(result.utilization * 100).toFixed(0)}%</strong><span>utilization</span></div><div><strong>${(result.probabilityOfWaiting * 100).toFixed(0)}%</strong><span>chance of waiting</span></div><div><strong>${format(result.expectedWaitMinutes)} min</strong><span>expected wait</span></div>`;
+    document.getElementById("peak-queue-explore")!.textContent = result.expectedWaitMinutes === Infinity ? "Capacity is overloaded: the idealized queue cannot catch up." : `${staff} agents absorb ${arrivals} arrivals/hour at ${service} minutes each, but ${(result.probabilityOfWaiting * 100).toFixed(0)}% of callers still wait.`;
+  };
+  ["peak-arrivals", "peak-staff", "peak-service"].forEach((id) => wireSlider(id, draw));
+
+  const challenge = document.getElementById("peak-queue-challenge-controls")!;
+  challenge.innerHTML = slider("challenge-staff", "Agents on duty", 1, 12, 6, 1);
+  wireSlider("challenge-staff", (staff) => {
+    const result = erlangC(12, 30, staff);
+    const passes = result.expectedWaitMinutes < 2;
+    const text = `${staff} agents: ${format(result.expectedWaitMinutes)} minutes expected wait. ${passes ? "Target met." : "Target missed; add capacity or reduce service time."}`;
+    document.getElementById("peak-queue-challenge")!.textContent = text;
+    document.getElementById("peak-queue-summary")!.textContent = `At 12 arrivals per hour and 30 minutes average service time, ${staff} agents produce ${format(result.expectedWaitMinutes)} minutes expected wait and ${(result.probabilityOfWaiting * 100).toFixed(0)} percent probability of waiting.`;
+  });
+</script>
+<style>
+  .lesson-content { display: grid; gap: var(--s6); align-content: center; min-height: 25rem; }
+  .prompt, .guiding { max-width: 62ch; font-size: 1.2rem; } .guiding { color: var(--gold); }
+  .queue-visual { display: flex; gap: var(--s3); align-items: center; justify-content: center; flex-wrap: wrap; }
+  .call, .agent { padding: var(--s3); border-radius: var(--r1); font-family: var(--font-head); font-weight: 700; } .call { background: var(--gold); color: var(--navy); } .agent { background: var(--green); color: var(--navy); } .queue-arrow { color: var(--cyan); font-size: 2rem; }
+  .control-grid { display: grid; gap: var(--s4); max-width: 42rem; } .lesson-control { display: grid; gap: var(--s2); color: var(--ink); } .lesson-control input { accent-color: var(--cyan); width: 100%; } .lesson-control output { color: var(--cyan); font-weight: 700; }
+  .metric-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s3); } .metric-grid div { border: 1px solid var(--panel-edge); border-radius: var(--r1); padding: var(--s3); } .metric-grid strong { display: block; color: var(--cyan); font: 700 1.7rem var(--font-head); } .metric-grid span { color: var(--ink-dim); }
+  .formula { font: 700 clamp(1.6rem, 5vw, 3rem) ui-monospace, monospace; color: var(--cyan); } .formula strong { color: var(--green); } .model-note, .lesson-summary { color: var(--ink-dim); max-width: 70ch; } .challenge-result { padding: var(--s4); border: 1px solid var(--cyan); border-radius: var(--r1); color: var(--ink); font-size: 1.2rem; } .accessible-summary { color: var(--ink-dim); } .accessible-summary summary { cursor: pointer; color: var(--cyan); }
+  @media (max-width: 600px) { .metric-grid { grid-template-columns: 1fr; } }
+</style>

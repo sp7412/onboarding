@@ -1,0 +1,113 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Lesson from "../../lib/lessons/Lesson.astro";
+import { url } from "../../lib/url";
+const aha = "Full duplex changes the rhythm, but the control plane still decides what the model may say: thinking is quiet; commentary is spoken only after verification.";
+---
+<BaseLayout title="Duplex channels · Lessons" description={aha}>
+  <p class="crumb muted"><a href={url("/lessons")}>Lessons</a> / duplex-channels</p>
+  <Lesson slug="duplex-channels" title="Who gets to speak?" aha={aha} related="GPT-Live-1 · delegation" time="8 min">
+    <div slot="screen-0" class="lesson-content">
+      <p class="prompt">The caller says, “Wait, I meant Friday,” while the agent is checking Thursday. Should the agent finish, stop, or listen and continue?</p>
+      <div class="conversation" aria-label="A caller interrupts an agent while it is checking availability">
+        <span class="bubble caller">Caller: “Wait, I meant Friday.”</span>
+        <span class="bubble agent">Agent: “I’m checking Thursday…”</span>
+      </div>
+      <p class="lesson-summary" role="status" aria-live="polite">The architecture determines whether overlap is a failure or a feature.</p>
+    </div>
+    <div slot="screen-1" class="lesson-content">
+      <p class="guiding">Choose the conversation rhythm, then compare what the caller experiences.</p>
+      <div class="mode-controls" role="group" aria-label="Conversation mode">
+        <button type="button" class="mode-button active" data-mode="turn-based">Turn-based</button>
+        <button type="button" class="mode-button" data-mode="full-duplex">Full duplex</button>
+      </div>
+      <div class="mode-card" aria-live="polite">
+        <strong id="duplex-mode-title">Turn-based</strong>
+        <p id="duplex-mode-copy"></p>
+        <div class="timeline" id="duplex-timeline" aria-label="Conversation timeline"></div>
+      </div>
+      <p id="duplex-explore-summary" class="lesson-summary" role="status" aria-live="polite"></p>
+    </div>
+    <div slot="screen-2" class="lesson-content">
+      <p class="guiding">Full duplex separates live conversation from backend delegation. Pick where each update belongs.</p>
+      <div class="channel-grid" role="group" aria-label="Delegation channels">
+        <button type="button" class="channel-button active" data-channel="thinking"><strong>thinking</strong><span>quiet progress</span></button>
+        <button type="button" class="channel-button" data-channel="commentary"><strong>commentary</strong><span>spoken result</span></button>
+      </div>
+      <div class="channel-example" aria-live="polite"><code id="duplex-channel-code"></code><p id="duplex-channel-copy"></p></div>
+      <p class="lesson-summary" role="status" aria-live="polite">The model can speak naturally, but the application still owns truth.</p>
+    </div>
+    <div slot="screen-3" class="lesson-content">
+      <p class="guiding">Challenge: route this update safely: “You’re booked for Friday, 10–12.”</p>
+      <div class="verification" role="group" aria-label="Backend verification state">
+        <button type="button" class="verify-button active" data-verified="false">Not verified</button>
+        <button type="button" class="verify-button" data-verified="true">Backend committed</button>
+      </div>
+      <div class="challenge-controls" role="group" aria-label="Channel choice">
+        <button type="button" class="challenge-button active" data-challenge-channel="thinking">Send to thinking</button>
+        <button type="button" class="challenge-button" data-challenge-channel="commentary">Send to commentary</button>
+      </div>
+      <p id="duplex-challenge" class="challenge-result" role="status" aria-live="polite"></p>
+      <p class="lesson-summary">A full-duplex model handles overlap; your backend guards claims.</p>
+    </div>
+  </Lesson>
+</BaseLayout>
+<script>
+  import { challengeMessage, channelResult, modeSummary } from "../../lib/lessons/duplex-channels/model";
+  const modeButtons = [...document.querySelectorAll<HTMLButtonElement>("[data-mode]")];
+  const modeTitle = document.getElementById("duplex-mode-title")!;
+  const modeCopy = document.getElementById("duplex-mode-copy")!;
+  const timeline = document.getElementById("duplex-timeline")!;
+  const exploreSummary = document.getElementById("duplex-explore-summary")!;
+  const renderMode = (mode: "turn-based" | "full-duplex") => {
+    modeButtons.forEach((button) => button.classList.toggle("active", button.dataset.mode === mode));
+    modeTitle.textContent = mode === "turn-based" ? "Turn-based" : "Full duplex";
+    modeCopy.textContent = modeSummary(mode);
+    timeline.innerHTML = mode === "turn-based"
+      ? '<span class="timeline-agent">agent speaks</span><span class="timeline-gap">wait for turn</span><span class="timeline-caller">caller speaks</span>'
+      : '<span class="timeline-agent">agent speaks</span><span class="timeline-overlap">listen + speak</span><span class="timeline-caller">caller interrupts</span>';
+    exploreSummary.textContent = mode === "turn-based" ? "Predictable turns simplify control, but an interruption waits for the turn boundary." : "Overlap feels natural, so delegate quiet progress and guard anything that could be spoken as fact.";
+  };
+  modeButtons.forEach((button) => button.addEventListener("click", () => renderMode(button.dataset.mode as "turn-based" | "full-duplex")));
+  renderMode("turn-based");
+
+  const channelButtons = [...document.querySelectorAll<HTMLButtonElement>("[data-channel]")];
+  const channelCode = document.getElementById("duplex-channel-code")!;
+  const channelCopy = document.getElementById("duplex-channel-copy")!;
+  channelButtons.forEach((button) => button.addEventListener("click", () => {
+    const channel = button.dataset.channel as "thinking" | "commentary";
+    channelButtons.forEach((item) => item.classList.toggle("active", item === button));
+    const result = channelResult(channel, channel === "commentary");
+    channelCode.textContent = `session.${channel}.append(...)`;
+    channelCopy.textContent = result.reason;
+  }));
+  channelButtons[0].click();
+
+  const challengeChannels = [...document.querySelectorAll<HTMLButtonElement>("[data-challenge-channel]")];
+  const verificationButtons = [...document.querySelectorAll<HTMLButtonElement>("[data-verified]")];
+  const challenge = document.getElementById("duplex-challenge")!;
+  let verified = false;
+  let selectedChannel = "thinking" as "thinking" | "commentary";
+  const renderChallenge = () => { challenge.textContent = challengeMessage(selectedChannel, verified); };
+  challengeChannels.forEach((button) => button.addEventListener("click", () => { selectedChannel = button.dataset.challengeChannel as "thinking" | "commentary"; challengeChannels.forEach((item) => item.classList.toggle("active", item === button)); renderChallenge(); }));
+  verificationButtons.forEach((button) => button.addEventListener("click", () => { verified = button.dataset.verified === "true"; verificationButtons.forEach((item) => item.classList.toggle("active", item === button)); renderChallenge(); }));
+  renderChallenge();
+</script>
+<style>
+  .lesson-header { position: sticky; top: 0; z-index: 2; padding: var(--s3) 0; background: color-mix(in srgb, var(--navy) 94%, transparent); backdrop-filter: blur(12px); }
+  .lesson-content { display: grid; gap: var(--s6); align-content: center; min-height: 25rem; }
+  .prompt, .guiding { max-width: 62ch; font-size: 1.2rem; }
+  .guiding { color: var(--gold); }
+  .conversation { display: grid; gap: var(--s3); max-width: 40rem; margin: 0 auto; width: 100%; }
+  .bubble, .mode-card, .channel-example { border: 1px solid var(--panel-edge); border-radius: var(--r2); padding: var(--s4); background: rgba(10,18,36,.55); }
+  .bubble { width: fit-content; } .bubble.agent { justify-self: end; color: var(--cyan); } .bubble.caller { color: var(--green); }
+  .mode-controls, .verification, .challenge-controls, .channel-grid { display: flex; flex-wrap: wrap; gap: var(--s2); }
+  .mode-button, .channel-button, .verify-button, .challenge-button { border: 1px solid var(--panel-edge); border-radius: var(--r1); background: var(--panel); color: var(--ink-dim); padding: var(--s3) var(--s4); cursor: pointer; font: inherit; }
+  .mode-button.active, .channel-button.active, .verify-button.active, .challenge-button.active { border-color: var(--cyan); color: var(--ink); box-shadow: var(--glow); }
+  .mode-card { max-width: 48rem; } .mode-card strong { color: var(--cyan); font-family: var(--font-head); font-size: 1.4rem; } .mode-card p { margin: var(--s2) 0 var(--s4); }
+  .timeline { display: flex; align-items: center; gap: var(--s2); flex-wrap: wrap; font-size: .9rem; } .timeline span { border-radius: 999px; padding: var(--s2) var(--s3); } .timeline-agent { background: color-mix(in srgb, var(--cyan) 18%, var(--panel)); } .timeline-caller { background: color-mix(in srgb, var(--green) 18%, var(--panel)); } .timeline-gap { color: var(--gold); border: 1px dashed var(--gold); } .timeline-overlap { color: var(--gold); border: 1px solid var(--gold); }
+  .channel-button { display: grid; gap: var(--s1); text-align: left; min-width: 10rem; } .channel-button strong { color: var(--cyan); } .channel-button span { font-size: .85rem; }
+  .channel-example { max-width: 48rem; } .channel-example code { color: var(--gold); } .channel-example p { margin-bottom: 0; }
+  .challenge-result { border-left: 4px solid var(--green); padding: var(--s4); background: color-mix(in srgb, var(--green) 8%, var(--panel)); min-height: 4rem; } .lesson-summary { color: var(--ink-dim); font-size: 1.05rem; margin: 0; }
+  @media (max-width: 700px) { .lesson-content { min-height: 30rem; } }
+</style>

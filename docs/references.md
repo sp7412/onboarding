@@ -182,6 +182,7 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 ## Explainer series
 
 | [Voice Agents from First Principles release](https://github.com/sp7412/onboarding/releases/tag/explainer-series) | Original local explainer series | Reading guide item 0 |
+| [Interactive Educator](https://github.com/Wamikmk/interactive-educator) | Pedagogy inspiration, CC BY 4.0 | Interactive lessons |
 
 ## Onboarding practice
 
