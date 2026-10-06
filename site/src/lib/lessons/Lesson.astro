@@ -29,7 +29,10 @@ const screens = ["Puzzle", "Explore", "Name", "Challenge"];
     {[0, 1, 2, 3].map((index) => (
       <section id={`${slug}-screen-${index}`} class:list={['lesson-screen', { active: index === 0 }]} data-screen={index} role="tabpanel" tabindex="-1" aria-labelledby={`${slug}-screen-title-${index}`}>
         <h2 id={`${slug}-screen-title-${index}`}><span>{index + 1}</span>{screens[index]}</h2>
-        <slot name={`screen-${index}`} />
+        {index === 0 && <slot name="screen-0" />}
+        {index === 1 && <slot name="screen-1" />}
+        {index === 2 && <slot name="screen-2" />}
+        {index === 3 && <slot name="screen-3" />}
       </section>
     ))}
   </div>
