@@ -180,6 +180,14 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | Michael D. Watkins, *The First 90 Days, Updated and Expanded* (Harvard Business Review Press, 2013; ISBN 9781422188613) | Book | First 90 days playbook |
 | Camille Fournier, *The Manager's Path* (O'Reilly, 2017) | Book | Manager guide |
 
+## Pantheon 2026
+
+| Source | Type | Cited in |
+|---|---|---|
+| [ServiceTitan Announcing New and Expanded Capabilities at Pantheon 2026](https://www.globenewswire.com/news-release/2026/10/06/3375320/0/en/servicetitan-announcing-new-and-expanded-capabilities-at-pantheon-2026.html) | Press release | RG 7B, Pantheon brief |
+| [ServiceTitan at Pantheon 2026 (keynote summary and transcript)](https://www.investing.com/news/transcripts/servicetitan-at-pantheon-2026-ai-push-aims-to-make-trades-selfrunning-93CH-4934737) | Transcript | RG 7B, Pantheon brief |
+| [Pantheon 2026: Live coverage from ServiceTitan](https://www.servicetitan.com/blog/pantheon-2026-live-coverage) | Live blog | Pantheon brief |
+
 ## Working with your manager
 
 | Source | Type | Cited in |

@@ -2,6 +2,9 @@
 
 **Estimated reading time:** 8 minutes · **Facts as of:** September 30, 2026 · **Last reviewed:** September 30, 2026
 
+
+> **Update (Pantheon 2026, October 6, 2026):** Max is now available to all residential in-home contractors, with a limited commercial and roofing pilot; the company also announced the Atlas mobile app and Homh. See the [Pantheon 2026 AI roadmap brief](../pantheon-2026-ai-roadmap.md).
+
 ## Five Takeaways
 
 1. ServiceTitan is a public company. Its shares trade on Nasdaq under `TTAN`; the IPO

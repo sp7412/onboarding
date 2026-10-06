@@ -49,6 +49,7 @@ The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubr
 
 ### Week of Oct 5 — Build technical depth
 
+- [ ] Read the [Pantheon 2026 AI roadmap brief](../docs/pantheon-2026-ai-roadmap.md) (reading-guide item 7B); watch the keynote replays when available.
 - [ ] Read [`docs/voice-agent-architecture.md`](../docs/voice-agent-architecture.md).
 - [ ] Try interactive lessons 4, 6 and 2: [Lessons](/lessons).
 - [ ] Watch explainer episodes 3–4: [Voice Agents from First Principles](../docs/reading-guide.md#0-voice-agents-from-first-principles-four-episode-explainer-) item 0.

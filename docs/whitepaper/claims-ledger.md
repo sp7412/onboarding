@@ -113,3 +113,11 @@ Added when chapters 03, 04, 05, 08, 12, 13 and 14 were rewritten.
 | Responses vs client delegation; instructions/thinking/commentary appends (500 tokens); app owns permissions and confirmations | GPT-Live doc | https://developers.openai.com/api/docs/guides/live-delegation | 2026-09-30 | yes | Guide read directly |
 | Benchmarks (Full Duplex Bench +30 pts vs Realtime-2.1; turn-taking ~0.80 s vs ~1.41 s; Tau3 86.2% vs 45.7%) | GPT-Live doc | https://openai.com/index/introducing-gpt-live-1-in-the-api/ | 2026-09-30 | yes | Vendor-reported; labeled as such |
 | gpt-realtime-2.1 modalities, 128k context, 32k output, text $4/$24 and audio $32/$64 per 1M tokens | S2S doc | https://developers.openai.com/api/docs/models/gpt-realtime-2.1 | 2026-09-30 | yes | Direct fetch; supersedes the proxy 403 "unverified" row |
+
+## Pantheon 2026 pass, October 6, 2026
+
+| Claim | Chapter | URL | Date checked | Supported | Notes |
+|---|---:|---|---|---|---|
+| Max available to all residential in-home contractors; limited commercial and roofing pilot; Atlas mobile app; Homh with ChatGPT, Gemini and Claude; AI CSRs get Adaptive Capacity | Pantheon brief, 01, 06, 13 | https://www.globenewswire.com/news-release/2026/10/06/3375320/0/en/servicetitan-announcing-new-and-expanded-capabilities-at-pantheon-2026.html | 2026-10-06 | yes | Official press release; forward-looking caveats noted |
+| Five-level AI maturity model; voice agent evolution and voice-intelligence booking judge; 30 agents across 18 drivers; coordination system's five capabilities; learning loop; 700 Max locations expected by fiscal year-end | Pantheon brief | https://www.investing.com/news/transcripts/servicetitan-at-pantheon-2026-ai-push-aims-to-make-trades-selfrunning-93CH-4934737 | 2026-10-06 | yes | Third-party published transcript (AI-assisted, editor-reviewed); company claims attributed |
+

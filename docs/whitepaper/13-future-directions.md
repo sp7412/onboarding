@@ -5,6 +5,9 @@
 Stated direction is sourced. Everything labeled **Analysis** or **Hypothesis** is this
 paper's interpretation, not company plans.
 
+
+> **Update (Pantheon 2026, October 6, 2026):** Max is now available to all residential in-home contractors, with a limited commercial and roofing pilot; the company also announced the Atlas mobile app and Homh. See the [Pantheon 2026 AI roadmap brief](../pantheon-2026-ai-roadmap.md).
+
 ## Five Takeaways
 
 1. ServiceTitan's stated direction is an **Agentic Operating System for the Trades**:

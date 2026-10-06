@@ -250,6 +250,7 @@ https://raw.githubusercontent.com/sp7412/onboarding/main/docs/whitepaper/07-ai-v
 https://raw.githubusercontent.com/sp7412/onboarding/main/docs/whitepaper/09-competitive-landscape.md
 https://raw.githubusercontent.com/sp7412/onboarding/main/docs/whitepaper/13-future-directions.md
 https://raw.githubusercontent.com/sp7412/onboarding/main/docs/whitepaper/14-implications-and-open-questions.md
+https://raw.githubusercontent.com/sp7412/onboarding/main/docs/pantheon-2026-ai-roadmap.md
 
 CUSTOMIZE PROMPT (Audio Overview → Customize):
 Brief a senior ML engineer starting on ServiceTitan's voice-agent team. Using only the sources, explain what AI Virtual Agents do and how they're deployed, who competes (field-service software vendors named in the company's filings and AI-native voice vendors that integrate from outside), and the stated direction toward an Agentic Operating System with Atlas and Max. Keep stated direction separate from hypotheses and don't rank competitors. Then turn to the listener: the leverage areas for an engineer strong in evaluation, out-of-distribution detection and latency, the testable hypotheses to check in the first 60 days, and the best questions to ask each stakeholder.
