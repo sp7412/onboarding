@@ -4,6 +4,7 @@ import { resolve } from "node:path";
 import { parseVideoNotes, videoId } from "./video-notes";
 import { parseVideos } from "./videos";
 import { ContentError } from "./errors";
+import { EXPLAINERS } from "./explainers";
 
 const guide = readFileSync(resolve(__dirname, "../../../../docs/reading-guide.md"), "utf8");
 const notes = readFileSync(resolve(__dirname, "../../../../docs/video-notes.md"), "utf8");
@@ -14,7 +15,7 @@ describe("parseVideoNotes", () => {
 
   it("parses notes and matches every section to a Videos-page video", () => {
     expect(parsed.length).toBeGreaterThan(0);
-    expect(parsed.every((note) => videos.some((video) => videoId(video.url) === note.id))).toBe(true);
+    expect(parsed.every((note) => videos.some((video) => videoId(video.url) === note.id) || EXPLAINERS.some((e) => e.id === note.id))).toBe(true);
   });
 
   it("limits takeaways and preserves the required metadata", () => {
@@ -30,8 +31,14 @@ describe("parseVideoNotes", () => {
   it("rejects unknown sections and malformed note metadata", () => {
     const base = notes.slice(0, notes.indexOf("\n## ", notes.indexOf("\n## ") + 1));
     expect(() => parseVideoNotes(`${base}\n## Unknown\n- Video: <https://www.youtube.com/watch?v=not-a-video> · 1 min · reading-guide item 5\n- **Takeaways:**\n  1. one\n- **Why it matters here:** Analysis: one\n- **Questions to discuss:**\n  1. one`, "fixture.md", videos)).toThrow(ContentError);
-    expect(() => parseVideoNotes(base.replace("<https://www.youtube.com/watch?v=-OXiljTJxQU>", "missing"), "fixture.md", videos)).toThrow(/valid Video line/);
+    expect(() => parseVideoNotes(base.replace(/<https:[^>]+>/, "missing"), "fixture.md", videos)).toThrow(/valid Video line/);
     const tooMany = base.replace("- **Why it matters here:**", "  5. five\n  6. six\n- **Why it matters here:**");
     expect(() => parseVideoNotes(tooMany, "fixture.md", videos)).toThrow(/no more than five takeaways/);
+  });
+  it("includes notes for the four explainer episodes", () => {
+    for (const id of ["voice-agents-01-anatomy", "voice-agents-02-turn-taking", "voice-agents-03-architecture", "voice-agents-04-control-plane"]) {
+      expect(parsed.some((note) => note.id === id)).toBe(true);
+    }
+    expect(videoId("https://github.com/sp7412/onboarding/releases/download/explainer-series/voice-agents-01-anatomy-1080p.mp4")).toBe("voice-agents-01-anatomy");
   });
 });

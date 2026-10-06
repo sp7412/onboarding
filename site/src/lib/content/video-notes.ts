@@ -1,5 +1,6 @@
 import { expectCondition } from "./errors";
 import type { Video } from "./videos";
+import { EXPLAINERS } from "./explainers";
 
 export interface VideoNote {
   id: string;
@@ -13,6 +14,7 @@ export interface VideoNote {
 }
 
 const URL_RE = /^https:\/\/(?:www\.)?youtube\.com\/watch\?v=([\w-]{11})$/;
+const EXPLAINER_RE = /^https:\/\/github\.com\/sp7412\/onboarding\/releases\/download\/explainer-series\/(voice-agents-\d{2}-[a-z-]+)-1080p\.mp4$/;
 
 function sectionBody(lines: string[], heading: string, file: string, title: string): string[] {
   const start = lines.indexOf(heading);
@@ -33,12 +35,14 @@ function numbered(lines: string[], file: string, title: string, kind: string): s
   return values;
 }
 
+/** YouTube video ID, or the explainer ID for this repo's own explainer series. */
 export function videoId(url: string): string | undefined {
-  return url.match(URL_RE)?.[1];
+  return url.match(URL_RE)?.[1] ?? url.match(EXPLAINER_RE)?.[1];
 }
 
 export function parseVideoNotes(markdown: string, file: string, videos: Video[]): VideoNote[] {
-  const known = new Map(videos.map((video) => [videoId(video.url), video]));
+  const known = new Map<string | undefined, { title: string; itemNumber: string }>(videos.map((video) => [videoId(video.url), video]));
+  for (const e of EXPLAINERS) known.set(e.id, { title: e.title, itemNumber: "0" });
   const lines = markdown.replace(/\r\n/g, "\n").split("\n");
   const headings = lines.map((line, i) => ({ line, i })).filter(({ line }) => /^## /.test(line));
   const notes: VideoNote[] = [];
@@ -53,7 +57,7 @@ export function parseVideoNotes(markdown: string, file: string, videos: Video[])
     expectCondition(file, `note "${title}" to have a valid Video line`, Boolean(match), meta);
     const url = match![1];
     const id = videoId(url);
-    expectCondition(file, `note "${title}" to have a YouTube video URL`, Boolean(id), url);
+    expectCondition(file, `note "${title}" to have a YouTube or explainer video URL`, Boolean(id), url);
     const video = known.get(id!);
     expectCondition(file, `note "${title}" to match a video on the Videos page`, Boolean(video), url);
     const normalizeTitle = (value: string) => value

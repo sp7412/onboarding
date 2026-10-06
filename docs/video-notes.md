@@ -1,5 +1,57 @@
 # Video Notes
 
+## Anatomy of one call
+- Video: <https://github.com/sp7412/onboarding/releases/download/explainer-series/voice-agents-01-anatomy-1080p.mp4> · 3 min · reading-guide item 0
+- **Takeaways:**
+  1. One answer is a relay across boundaries: VAD and endpointing commit the turn, speech-to-text produces words, the model interprets and may propose a tool call, the application runs it, and text-to-speech plus playout return the answer.
+  2. Each stage has a different owner: transport owns media and turn boundaries, the model owns interpretation and proposed language, and the application owns the action.
+  3. The caller experiences the sum of endpointing, first model sound, tool round trip, response generation and playout, so measure each segment separately at p50 and p95.
+  4. A spoken preamble ("one moment while I check") changes perceived silence; it doesn't make the tool faster.
+  5. A useful trace links the caller turn, model event, tool call, backend result and audio response, not just model tokens.
+- **Why it matters here:** Analysis: This is the mental model behind labs 01 and 08 and the latency simulation on this site. When a call feels slow, the first question is which boundary added the time.
+- **Questions to discuss:**
+  1. Which segment of the latency waterfall is largest in the team's production calls, at p50 and at p95?
+  2. Where does a single trace connect the audio turn to the backend write today, and where does it break?
+
+## Turn-taking
+- Video: <https://github.com/sp7412/onboarding/releases/download/explainer-series/voice-agents-02-turn-taking-1080p.mp4> · 4 min · reading-guide item 0
+- **Takeaways:**
+  1. Turn-taking starts with a per-frame speech probability: VAD detects speech, a minimum duration ignores coughs, and a silence timer decides when to close the turn.
+  2. Silence inside a thought, like a caller reading a phone number, can trigger a premature cut-off with a timer alone.
+  3. Semantic end-of-turn detection asks whether the thought sounds complete; it complements VAD, trading a little decision time for fewer cut-offs.
+  4. Backchannels ("uh-huh") and interruptions ("no, the second floor") need different responses, so the agent needs an interruption policy, not just a volume threshold.
+  5. After an interruption, truncate history to what the caller actually heard, and measure both failure directions (cut-offs and waiting too long) by utterance type.
+- **Why it matters here:** Analysis: This is lab 03's simulator and lab 01 section 4's truncation in one picture. Addresses, phone numbers and model numbers are where a booking agent's turn detection gets tested hardest.
+- **Questions to discuss:**
+  1. How should uncertainty about whether the caller has finished change what the agent does next?
+  2. Which false interruption costs the caller the most in a booking call?
+
+## Choosing an architecture
+- Video: <https://github.com/sp7412/onboarding/releases/download/explainer-series/voice-agents-03-architecture-1080p.mp4> · 4 min · reading-guide item 0
+- **Takeaways:**
+  1. Cascaded pipelines add hops but keep a text checkpoint you can inspect, filter or tune, and let you swap stages independently.
+  2. Native speech-to-speech keeps cues like tone and hesitation and can feel more natural with fewer hops, but it's harder to filter before speaking, and audio tokens can cost more.
+  3. Full duplex with delegation listens while speaking and sends reasoning and tools to a backend that returns instructions, thinking or commentary.
+  4. Commentary that claims an outcome ("you're booked") must wait until the backend has committed it; progress messages are fine.
+  5. The architecture moves where latency and uncertainty live, but authorization, grounded evidence, durable state and evaluation stay with the application.
+- **Why it matters here:** Analysis: This connects the speech-to-speech and GPT-Live docs with the build-your-own guide. Whatever the team runs, the control-plane questions are the same.
+- **Questions to discuss:**
+  1. Which architecture does the team run today, and what drove that choice?
+  2. Where would a full-duplex delegation path change the control plane, and where would it stay the same?
+
+## The control plane
+- Video: <https://github.com/sp7412/onboarding/releases/download/explainer-series/voice-agents-04-control-plane-1080p.mp4> · 4 min · reading-guide item 0
+- **Takeaways:**
+  1. The model proposes and the application decides: identity comes from the transport and verified records, and every state-changing operation is checked against the customer and current call phase.
+  2. Confirmations must be grounded: the chosen slot must have been offered, and the caller's own words must support the slot and address; a model paraphrase isn't enough.
+  3. Never say "you're booked" before the authoritative write commits; a preamble can say the system is checking, but can't turn intent into fact.
+  4. Interruptions during a write are a correctness problem: writes must be idempotent, and the application decides whether to finish or cancel, then reports what actually happened.
+  5. Escalation and evaluation are policy too: the model can spot an emergency clue, but the application owns routing; repeat trials gate hard invariants (offered slot, verified customer, grounded address, no emergency booking, idempotent retry) with deterministic checks that no soft quality score can override.
+- **Why it matters here:** Analysis: This is the core of labs 02 and 07, the tools-and-guardrails guide, and probably the day-to-day work on the team: deciding what the agent is allowed to do and proving it did it.
+- **Questions to discuss:**
+  1. Which state-changing actions does the production agent take, and where is each one checked?
+  2. How does the team detect a spoken claim that doesn't match the system of record?
+
 ## Building Effective Voice Agents
 - Video: <https://www.youtube.com/watch?v=-OXiljTJxQU> · 20 min · reading-guide item 5
 - **Takeaways:**

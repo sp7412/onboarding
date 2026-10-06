@@ -57,6 +57,15 @@ const md = (s: string) => renderMarkdown(s, { sourcePath: "docs/reading-guide.md
             <p class="muted series">{e.description}</p>
             <p class="media-links"><a href={e.audioUrl}>Audio-only MP3</a> · <a href={e.releaseUrl}>Release assets</a></p>
             <details class="watchfor"><summary>Check yourself</summary><ol>{e.questions.map((question) => <li>{question}</li>)}</ol></details>
+            {noteById.get(e.id) && (
+              <details class="watchfor">
+                <summary>Notes and takeaways</summary>
+                <div class="doc-body notes" set:html={renderMarkdown(numbered(noteById.get(e.id)!.takeaways), { sourcePath: "docs/video-notes.md", resolveRepoLink: () => null }).html} />
+                <p class="why" set:html={`<strong>Why it matters here:</strong> ${md(noteById.get(e.id)!.why)}`} />
+                <p class="why"><strong>Questions to discuss</strong></p>
+                <div class="doc-body notes" set:html={renderMarkdown(numbered(noteById.get(e.id)!.questions), { sourcePath: "docs/video-notes.md", resolveRepoLink: () => null }).html} />
+              </details>
+            )}
             <label class="watched"><input type="checkbox" data-check-id={`explainer-${e.id}`} /> Watched</label>
           </div>
         </article>
