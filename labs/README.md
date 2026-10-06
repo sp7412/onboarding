@@ -1,9 +1,10 @@
 # Real-Time Voice Agent Labs (ServiceTitan onboarding)
 
-**Facts as of: September 30, 2026 · Last reviewed: September 30, 2026**
+**Facts as of: October 6, 2026 · Last reviewed: October 6, 2026**
 
-Nine hands-on Jupyter tutorials that build a phone agent for a fictional HVAC/plumbing
-contractor, one architecture layer at a time:
+Thirteen hands-on Jupyter tutorials that build a phone agent for a fictional HVAC/plumbing
+contractor, one architecture layer at a time. Labs 09–12 extend it to several agents working
+together (shared context, coordination, learning, agent-to-agent booking):
 
 | # | Notebook | Layer | Keys needed | Time |
 |---|---|---|---|---|
@@ -16,6 +17,10 @@ contractor, one architecture layer at a time:
 | 06 | langgraph_booking_workflow | durable workflow, interrupts, crash/resume | none | 30–60 minutes |
 | 07 | langsmith_tracing_evals | tracing, waterfall, redaction, evaluation | optional LangSmith/OpenAI | 60–90 minutes |
 | 08 | capstone_talker_thinker | talker + thinker + latency budget + study-question answer | optional | 60–90 minutes |
+| 09 | shared_context | context ledger: proposed vs verified facts, permissions, versions | none | 45–60 minutes |
+| 10 | coordination_and_arbitration | shared judgment, requests with consent, arbitration, hard rules | none | 45–60 minutes |
+| 11 | learning_loop | decision log, outcomes, recalibration, confidence calibration | none | 45–60 minutes |
+| 12 | agent_to_agent_booking | booking API for other AI agents: auth, scopes, idempotency, injection | none | 45–60 minutes |
 
 ## Learning Path
 

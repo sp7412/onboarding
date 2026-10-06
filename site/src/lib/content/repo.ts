@@ -166,7 +166,9 @@ export function loadContent(): ContentBundle {
   });
   const sourceLabs = fs.readdirSync(path.join(REPO_ROOT, "labs/src")).filter((f) => /^\d{2}_.+\.py$/.test(f));
   const notebookLabs = fs.readdirSync(path.join(REPO_ROOT, "labs")).filter((f) => /^\d{2}_.+\.ipynb$/.test(f));
-  expectCondition("labs", "exactly matching source and generated lab sets", sourceLabs.length === 9 && notebookLabs.length === 9);
+  const stems = (files: string[]) => files.map((f) => f.replace(/\.(py|ipynb)$/, "")).sort().join(",");
+  expectCondition("labs", "exactly matching source and generated lab sets",
+    sourceLabs.length === labRows.length && stems(sourceLabs) === stems(notebookLabs));
 
   const docs = DOC_PAGES.map((d) => parseDoc(d.repoPath));
   const templates = TEMPLATE_FILES.map((f) => parseDoc(`templates/${f}`));

@@ -1,7 +1,7 @@
 import { expectCondition } from "./errors";
 
 export interface Lab {
-  number: string; // "00" … "08"
+  number: string; // "00", "01", …
   slug: string;
   title: string;
   /** One-paragraph goal (first markdown paragraph after the H1). */
@@ -20,13 +20,14 @@ export interface Lab {
 
 /** labs/README.md table rows: `| 00 | setup_and_mental_model | architecture + mock backend | none |` */
 export function parseLabsReadme(markdown: string, file: string): { number: string; slug: string; layer: string; keys: string; time: string }[] {
-  const rows = [...markdown.matchAll(/^\| (\d{2}) \| ([a-z0-9_]+) \| (.+?) \| (.+?) \| (30–60 minutes|60–90 minutes) \|$/gm)].map(
+  const rows = [...markdown.matchAll(/^\| (\d{2}) \| ([a-z0-9_]+) \| (.+?) \| (.+?) \| (\d+–\d+ minutes) \|$/gm)].map(
     (m) => ({ number: m[1], slug: m[2], layer: m[3], keys: m[4], time: m[5] }),
   );
-  expectCondition(file, "exactly nine lab rows", rows.length === 9, `got ${rows.length}`);
+  expectCondition(file, "at least nine lab rows", rows.length >= 9, `got ${rows.length}`);
   const numbers = rows.map((row) => row.number);
   expectCondition(file, "unique lab numbers", new Set(numbers).size === rows.length);
-  expectCondition(file, "lab numbers 00 through 08", numbers.join(",") === "00,01,02,03,04,05,06,07,08");
+  const expected = rows.map((_, i) => String(i).padStart(2, "0")).join(",");
+  expectCondition(file, "consecutive lab numbers starting at 00", numbers.join(",") === expected, numbers.join(","));
   return rows;
 }
 

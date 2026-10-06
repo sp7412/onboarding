@@ -125,6 +125,22 @@ def lookup_customer(phone: str) -> dict | None:
     return copy.deepcopy(cust) if cust else None
 
 
+def register_external_contact(name: str, phone: str, zip_code: str) -> str:
+    """Customer ID for a booking made by an external assistant (lab 12).
+
+    Reuses the record if the phone is known, otherwise creates an unverified prospect.
+    Callers outside the control plane never learn which happened.
+    """
+    known = _state["customers"].get(phone)
+    if known:
+        return known["id"]
+    cid = "C-" + uuid.uuid4().hex[:4].upper()
+    _state["customers"][phone] = {"id": cid, "name": name, "zip": zip_code, "source": "external_agent",
+                                  "verified": False}
+    _audit("register_external_contact", customer_id=cid)
+    return cid
+
+
 def in_service_area(zip_code: str) -> bool:
     return zip_code in SERVICE_ZIPS
 

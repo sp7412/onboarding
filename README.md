@@ -49,7 +49,7 @@ the exact lab map and prerequisites.
 | [`docs/references.md`](docs/references.md) | Complete bibliography of every external source in the repo |
 | [`docs/podcast-prompts.md`](docs/podcast-prompts.md) | NotebookLM podcast prompts: six technical and three company-context episodes plus four coaching episodes |
 | [`docs/livekit-hands-on.md`](docs/livekit-hands-on.md) | LiveKit track: Agent Builder → `lk` starter → fake ServiceTitan tools with guardrails |
-| [`labs/`](labs/) | Nine Jupyter tutorials: OpenAI Realtime, LiveKit, LangChain/LangGraph, LangSmith, capstone |
+| [`labs/`](labs/) | Thirteen Jupyter tutorials: OpenAI Realtime, LiveKit, LangChain/LangGraph, LangSmith, capstone, and multi-agent coordination (09–12) |
 | [`labs/solutions/`](labs/solutions/) | Offline-safe solution notes for the lab exercises |
 | [`templates/`](templates/) | Onboarding log, 1:1 questions, weekly status, 30-day memo, design doc, 90-day retro |
 | [`notes/`](notes/) | Public-safe personal notes: original conversation notes, glossary, study-question answer |
@@ -65,7 +65,7 @@ cp .env.example .env      # optional; every notebook runs offline without keys
 cd labs && jupyter lab
 ```
 
-Work through `00` → `08` in order. See [`labs/README.md`](labs/README.md) for details.
+Work through `00` → `08` in order, then `09` → `12` for multi-agent systems. See [`labs/README.md`](labs/README.md) for details.
 
 To run the offline test suite without activating the environment:
 

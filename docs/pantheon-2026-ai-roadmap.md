@@ -1,6 +1,6 @@
 # Pantheon 2026: The AI Roadmap Brief
 
-**Facts as of: October 6, 2026 (midday) · Last reviewed: October 6, 2026**
+**Facts as of: October 6, 2026 (evening) · Last reviewed: October 6, 2026**
 
 ServiceTitan's annual user conference, Pantheon, ran October 5–7, 2026 in Orlando. This brief
 covers what was publicly announced and said about AI, and what it means for an engineer
@@ -9,8 +9,9 @@ published keynote transcript and the conference live blog. Company claims are at
 such, and anything marked **Analysis** is this repo's interpretation.
 
 > **Update planned:** this version covers the opening keynote and the official
-> announcements. It will be refreshed after the CTPO's residential keynote, Vahe Kuzoyan's
-> keynote (Oct 6) and the "Charging Ahead with AI and Max" session (Oct 7). Replays are
+> announcements. As of this evening, no transcripts or detailed coverage of the CTPO's
+> residential keynote or Vahe Kuzoyan's keynote (both Oct 6) had been published; they and the
+> "Charging Ahead with AI and Max" session (Oct 7) will be added when available. Replays are
 > available for 90 days. [1][3]
 
 ## Five Takeaways
@@ -90,6 +91,29 @@ behind each judgment improve over time.
 agents, or full Max (all 30 agents, all Pro products and a dedicated specialist). He said 700
 locations are expected on Max by fiscal year-end, and some new customers start directly on Max.
 
+**Details worth noting for the voice team** (second pass through the transcript):
+
+- **Call content feeds other agents' judgment.** Lead scoring was described as using what was
+  said on the call and the customer's tone, alongside details about the home, homeowner and
+  equipment. Dispatch Pro was upgraded to consider every data point about a job, including the
+  ad that produced the lead and what was said on the call.
+- **Booking is multi-channel:** phone, text, web chat and Google. He said the web-chat agent
+  captured new appointments rather than taking them from online scheduling.
+- **The 30 agents span demand** (Google and Meta ads with multi-touch attribution, ad
+  experiments, email campaigns, speed-to-lead for marketplace leads, social publishing,
+  reputation), **booking**, and **revenue** (dispatch, good-better-best proposals with
+  financing, estimate follow-ups, technician coaching). More agents are planned, particularly
+  for the back office.
+- **Demand forecasting drives standing down:** when the schedule is forecast full, demand
+  agents pause and wait for a lighter day.
+- **One command center** lets contractors configure each agent, see its metrics, review the
+  actions it took, and act on insights it raises.
+- **Partial adoption:** customers on individual Pro products get a subset of the agents; the
+  platform was rebuilt so agents have the tools to act, and customers can bring third-party
+  agents or build their own.
+- **New competitive surfaces:** he expects contractors to have to compete in AI-assistant
+  advertising as well as search ads.
+
 **An illustrative profit model** (his example, not a forecast): improving leads, booking rate
 and average ticket by 10% each lifts revenue about 33%, but can roughly double profit, because
 much of the added revenue comes from the same marketing budget and truck rolls.
@@ -141,6 +165,8 @@ From the conference schedule: [1][3]
 - Whitepaper [chapter 01](whitepaper/01-company.md) (company), [chapter 06](whitepaper/06-product-landscape.md) (products), [chapter 13](whitepaper/13-future-directions.md) (future directions)
 - [Tools and guardrails](tools-and-guardrails.md), [Evaluating voice agents](evaluating-voice-agents.md)
 - Lessons: denominator, claims vs. state, worth-it
+- Labs 09–12 (teaching models of the general patterns): shared context ledger, coordination and
+  arbitration, the learning loop, and agent-to-agent booking
 
 ## Sources
 

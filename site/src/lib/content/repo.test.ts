@@ -46,10 +46,10 @@ describe("real repo content", () => {
     expect(bundle.glossary.some((t) => t.term === "Barge-in")).toBe(true);
   });
 
-  it("parses all nine labs with questions and exercises", () => {
-    expect(bundle.labs.map((l) => l.number)).toEqual(["00", "01", "02", "03", "04", "05", "06", "07", "08"]);
+  it("parses every lab with questions and exercises", () => {
+    expect(bundle.labs.map((l) => l.number)).toEqual(Array.from({ length: bundle.labs.length }, (_, i) => String(i).padStart(2, "0")));
     // labs/README.md table shape: 9 rows, numbers 00-08
-    expect(bundle.labs.length).toBe(9);
+    expect(bundle.labs.length).toBe(13);
     for (const lab of bundle.labs) {
       expect(lab.questions.length).toBeGreaterThanOrEqual(2);
       expect(lab.exercise).toBeTruthy();

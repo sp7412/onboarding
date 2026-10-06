@@ -77,6 +77,7 @@ The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubr
 
 ### Week of Oct 19 — Prepare relationships and logistics
 
+- [ ] Run labs 09–10 (shared context; coordination and arbitration) (needs a laptop).
 - [ ] Read the [`docs/reading-guide.md`](../docs/reading-guide.md) items paired to any unfinished lab.
 - [ ] Read [`docs/call-anatomy.md`](../docs/call-anatomy.md) and annotate likely failure modes.
 - [ ] Finalize manager, PM, infrastructure, evaluation, and support questions.
@@ -106,6 +107,7 @@ The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubr
 
 ### Week 2 (Nov 2–6) — Map the system
 
+- [ ] Run labs 11–12 (learning loop; agent-to-agent booking) and compare them with how the team actually shares context between agents.
 - [ ] Trace one authorized interaction end to end: caller → transport → model → tools/workflow → source of truth → traces.
 - [ ] Draw the architecture with owners, state boundaries, retries, and observability.
 - [ ] Ask each owner to correct your map; record disagreements as learning items.
