@@ -10,7 +10,7 @@ const { slug, title, aha, related, time = "8 min" } = Astro.props;
 const screens = ["Puzzle", "Explore", "Name", "Challenge"];
 ---
 
-<section class="lesson-shell" data-lesson={slug} aria-labelledby={`${slug}-title`}>
+<section class="lesson-shell" data-lesson={slug} tabindex="0" aria-labelledby={`${slug}-title`}>
   <header class="lesson-header">
     <div>
       <p class="eyebrow">Interactive lesson · {time}</p>
@@ -64,7 +64,8 @@ const screens = ["Puzzle", "Explore", "Name", "Challenge"];
     tabs.forEach((tab, i) => tab.addEventListener('click', () => show(i)));
     back.addEventListener('click', () => show(current - 1));
     next.addEventListener('click', () => show(current === 3 ? 0 : current + 1));
-    root.addEventListener('keydown', (event) => {
+    document.addEventListener('keydown', (event) => {
+      if (!root.matches(':focus-within') && event.target !== document.body) return;
       if (event.key === 'ArrowRight') { event.preventDefault(); show(current + 1); }
       if (event.key === 'ArrowLeft') { event.preventDefault(); show(current - 1); }
     });
