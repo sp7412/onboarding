@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import numpy as np
 from manim import *  # noqa: F403
 
 BG = "#0a1224"
@@ -12,13 +13,38 @@ BLUE = "#3e7bff"
 GREEN = "#4ade80"
 GOLD = "#f5c044"
 RED = "#ff7a6b"
+# Manim's Cairo renderer uses installed system font names, not webfont files. Helvetica
+# and Monaco are the local macOS sans/mono equivalents used consistently in the renders.
+FONT = "Helvetica"
+MONO = "Monaco"
+SAFE_X = 6.4
+SAFE_Y = 3.25
+TITLE = 64
+HEADING = 44
+BODY = 32
+LABEL = 24
+MIN_TEXT = 22
+
+
+def text(value: str, size: int = BODY, color: str = INK, mono: bool = False) -> Text:
+    return Text(value, font=MONO if mono else FONT, font_size=size, color=color)
+
+
+def design_background() -> VGroup:
+    grid = VGroup()
+    for x in np.arange(-SAFE_X, SAFE_X + 0.01, 0.5):
+        grid.add(Line([x, -SAFE_Y, 0], [x, SAFE_Y, 0], stroke_color=EDGE, stroke_opacity=0.12, stroke_width=1))
+    for y in np.arange(-SAFE_Y, SAFE_Y + 0.01, 0.5):
+        grid.add(Line([-SAFE_X, y, 0], [SAFE_X, y, 0], stroke_color=EDGE, stroke_opacity=0.12, stroke_width=1))
+    vignette = Circle(radius=8, stroke_width=0, fill_color=BLUE, fill_opacity=0.035)
+    return VGroup(vignette, grid)
 
 
 class PipelineBox(VGroup):
     def __init__(self, label: str, color: str = BLUE, width: float = 2.0, height: float = 0.72, **kwargs):
         super().__init__(**kwargs)
         self.box = RoundedRectangle(width=width, height=height, corner_radius=0.1, stroke_color=color, fill_color=PANEL, fill_opacity=1)
-        self.label = Text(label, font_size=22, color=INK).scale_to_fit_width(width - 0.24)
+        self.label = text(label, size=LABEL).scale_to_fit_width(width - 0.24)
         self.add(self.box, self.label)
 
 
@@ -43,7 +69,7 @@ class Timeline(VGroup):
         for i, label in enumerate(labels):
             bar = Rectangle(width=unit - 0.08, height=0.42, stroke_width=0, fill_color=colors[i], fill_opacity=0.9)
             bar.move_to([-width / 2 + unit * (i + 0.5), 0, 0])
-            text = Text(label, font_size=16, color=INK).scale_to_fit_width(unit - 0.12)
+            text = globals()["text"](label, size=MIN_TEXT).scale_to_fit_width(unit - 0.12)
             text.move_to(bar.get_center())
             self.add(VGroup(bar, text))
 
@@ -51,10 +77,10 @@ class Timeline(VGroup):
 class LatencyBar(VGroup):
     def __init__(self, label: str, value: str, width: float = 4.2, color: str = GOLD, **kwargs):
         super().__init__(**kwargs)
-        self.add(Text(label, font_size=19, color=DIM).set_width(2.55).align_to(ORIGIN, LEFT))
+        self.add(text(label, size=LABEL, color=DIM).set_width(2.55).align_to(ORIGIN, LEFT))
         bar = RoundedRectangle(width=width, height=0.24, corner_radius=0.12, stroke_width=0, fill_color=color, fill_opacity=0.9)
         bar.next_to(self[0], RIGHT, buff=0.18)
-        value_text = Text(value, font_size=18, color=INK)
+        value_text = text(value, size=MIN_TEXT, color=INK)
         value_text.next_to(bar, RIGHT, buff=0.15)
         self.add(bar, value_text)
 
@@ -63,8 +89,8 @@ class CallCard(VGroup):
     def __init__(self, title: str, detail: str, color: str = CYAN, **kwargs):
         super().__init__(**kwargs)
         card = RoundedRectangle(width=4.5, height=1.25, corner_radius=0.12, stroke_color=color, fill_color=PANEL, fill_opacity=1)
-        heading = Text(title, font_size=22, color=color)
-        body = Text(detail, font_size=18, color=INK).scale_to_fit_width(4.0)
+        heading = text(title, size=LABEL, color=color)
+        body = text(detail, size=MIN_TEXT, color=INK).scale_to_fit_width(4.0)
         group = VGroup(heading, body).arrange(DOWN, aligned_edge=LEFT, buff=0.16)
         group.move_to(card.get_center())
         self.add(card, group)
@@ -82,13 +108,13 @@ class GuardBadge(VGroup):
     def __init__(self, label: str = "CONTROL PLANE", color: str = GREEN, **kwargs):
         super().__init__(**kwargs)
         badge = RoundedRectangle(width=2.35, height=0.46, corner_radius=0.18, stroke_color=color, fill_color=color, fill_opacity=0.15)
-        text = Text(label, font_size=16, color=color).scale_to_fit_width(2.1)
-        self.add(badge, text)
+        badge_text = text(label, size=MIN_TEXT, color=color).scale_to_fit_width(2.1)
+        self.add(badge, badge_text)
 
 
 def title_card(title: str, subtitle: str):
-    return VGroup(Text(title, font_size=38, color=INK), Text(subtitle, font_size=22, color=CYAN)).arrange(DOWN, buff=0.22)
+    return VGroup(text(title, size=TITLE, color=INK), text(subtitle, size=HEADING, color=CYAN)).arrange(DOWN, buff=0.22)
 
 
 def footer(text: str):
-    return Text(text, font_size=16, color=DIM).to_edge(DOWN, buff=0.28)
+    return globals()["text"](text, size=MIN_TEXT, color=DIM).to_edge(DOWN, buff=0.28)
