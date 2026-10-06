@@ -16,7 +16,6 @@ const screens = ["Puzzle", "Explore", "Name", "Challenge"];
       <p class="eyebrow">Interactive lesson · {time}</p>
       <h1 id={`${slug}-title`}>{title}</h1>
     </div>
-    <p class="lesson-aha"><strong>Aha:</strong> {aha}</p>
   </header>
   <div class="lesson-progress" role="tablist" aria-label="Lesson screens">
     {screens.map((screen, index) => (
@@ -31,7 +30,7 @@ const screens = ["Puzzle", "Explore", "Name", "Challenge"];
         <h2 id={`${slug}-screen-title-${index}`}><span>{index + 1}</span>{screens[index]}</h2>
         {index === 0 && <slot name="screen-0" />}
         {index === 1 && <slot name="screen-1" />}
-        {index === 2 && <slot name="screen-2" />}
+        {index === 2 && <><p class="lesson-aha"><strong>Key idea:</strong> {aha}</p><slot name="screen-2" /></>}
         {index === 3 && <slot name="screen-3" />}
       </section>
     ))}

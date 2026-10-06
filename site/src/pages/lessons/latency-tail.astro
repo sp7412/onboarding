@@ -52,7 +52,7 @@ const aha = "Tail latency compounds across a serial request: eight components wi
   const draw = (ratePercent: number) => {
     const rate = ratePercent / 100;
     const values = Array.from({ length: 12 }, (_, i) => tailHitProbability(i + 1, rate));
-    chart.innerHTML = svgAxes(720, 300, "serial components", "tail risk")
+    chart.innerHTML = svgAxes(720, 300, "serial components", "tail risk (%)") + [0,25,50,75,100].map((v) => `<line class="gridline" x1="56" x2="700" y1="${258 - v * 1.9}" y2="${258 - v * 1.9}"/><text class="chart-label" x="12" y="${263 - v * 1.9}">${v}%</text>`).join("")
       + `<line class="threshold" x1="56" y1="${258 - 0.2 * 190}" x2="700" y2="${258 - 0.2 * 190}"/>`
       + `<polyline class="plot" points="${values.map((value, i) => `${70 + i * 55},${258 - value * 190}`).join(" ")}"/>`
       + values.map((value, i) => `<circle class="plot-dot" cx="${70 + i * 55}" cy="${258 - value * 190}" r="5"/><text class="chart-label" x="${65 + i * 55}" y="282">${i + 1}</text>`).join("");

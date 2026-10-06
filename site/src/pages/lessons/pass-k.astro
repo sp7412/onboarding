@@ -6,25 +6,25 @@ const aha = "Reliability compounds: a task passed 90% of the time succeeds on al
 ---
 <BaseLayout title="Pass-k reliability · Lessons" description={aha}>
   <p class="crumb muted"><a href={url("/lessons")}>Lessons</a> / pass-k</p>
-  <Lesson slug="pass-k" title="The eight-step booking call" aha={aha} related="Lab 07 · τ-bench reading" time="8 min">
+    <Lesson slug="pass-k" title="The eight repeated booking trials" aha={aha} related="Lab 07 · τ-bench reading" time="8 min">
     <div slot="screen-0" class="lesson-content">
-      <p class="prompt">A booking call needs eight separate decisions. Each looks almost reliable. Why do complete calls still fail?</p>
-      <div class="mystery-dots" aria-label="Eight linked decisions; one hidden failure can stop the call">{Array.from({ length: 8 }, (_, i) => <span style={`--i:${i}`}>{i + 1}</span>)}</div>
-      <p class="lesson-summary" aria-live="polite">Eight green-looking steps make one fragile chain.</p>
+      <p class="prompt">A booking task passes nine times out of ten. What happens when we repeat that same task eight times?</p>
+      <div class="mystery-dots" aria-label="Eight repeated booking trials">{Array.from({ length: 8 }, (_, i) => <span style={`--i:${i}`}>{i + 1}</span>)}</div>
+      <p class="lesson-summary" aria-live="polite">Each circle is a whole repeated task, not a step inside one call.</p>
     </div>
     <div slot="screen-1" class="lesson-content">
-      <p class="guiding">Guiding question: what happens when each step is independently reliable?</p>
+      <p class="guiding">Guiding question: what happens when the same task is independently reliable?</p>
       <div class="control-row" id="pass-k-controls"></div>
-      <svg id="pass-k-chart" viewBox="0 0 720 280" role="img" aria-label="Probability of completing every step"></svg>
+      <svg id="pass-k-chart" viewBox="0 0 720 280" role="img" aria-label="Probability of passing every repeated trial"></svg>
       <p id="pass-k-explore" class="lesson-summary" aria-live="polite">Move the slider to see the chain shrink.</p>
     </div>
     <div slot="screen-2" class="lesson-content">
-      <p class="guiding">The formal rule is simple: if each step has probability p, then k successful steps have probability <strong>p<sup>k</sup></strong>.</p>
+      <p class="guiding">The formal rule is simple: if each repeated task has probability p, then k successful trials have probability <strong>p<sup>k</sup></strong>.</p>
       <div class="formula"><span>p</span><sup>k</sup> = <span>0.90</span><sup>8</sup> = <strong>0.4305</strong></div>
-      <p class="lesson-summary">You moved p, the chance each decision is right, and k, the number of decisions. The exponent is the chain.</p>
+      <p class="lesson-summary">You moved p, the chance each trial succeeds, and k, the number of repeats. The exponent is the chain.</p>
     </div>
     <div slot="screen-3" class="lesson-content">
-      <p class="guiding">Challenge: choose the single-trial reliability needed for an eight-step call to reach 80% end-to-end reliability.</p>
+      <p class="guiding">Challenge: choose the single-trial reliability needed for eight repeated booking trials to reach 80% end-to-end reliability.</p>
       <div class="control-row" id="pass-k-challenge-controls"></div>
       <div id="pass-k-challenge-visual" class="challenge-chain" aria-live="polite"></div>
       <p id="pass-k-challenge" class="lesson-summary"></p>
@@ -39,7 +39,7 @@ const aha = "Reliability compounds: a task passed 90% of the time succeeds on al
   const draw = (rate: number) => {
     const svg = document.getElementById("pass-k-chart")!;
     const values = Array.from({ length: 8 }, (_, i) => repeatedSuccess(rate / 100, i + 1));
-    svg.innerHTML = svgAxes(720, 280, "steps", "success") + `<polyline class="plot" points="${values.map((v, i) => `${80 + i * 82},${235 - v * 180}`).join(" ")}"/>` + values.map((v, i) => `<circle class="plot-dot" cx="${80 + i * 82}" cy="${235 - v * 180}" r="6"/><text class="chart-label" x="${75 + i * 82}" y="258">${i + 1}</text>`).join("");
+    svg.innerHTML = svgAxes(720, 280, "repeated trials (k)", "success (%)") + [0,25,50,75,100].map((v) => `<line class="gridline" x1="56" x2="700" y1="${235 - v * 1.8}" y2="${235 - v * 1.8}"/><text class="chart-label" x="18" y="${240 - v * 1.8}">${v}%</text>`).join("") + `<polyline class="plot" points="${values.map((v, i) => `${80 + i * 82},${235 - v * 180}`).join(" ")}"/>` + values.map((v, i) => `<circle class="plot-dot" cx="${80 + i * 82}" cy="${235 - v * 180}" r="6"/><text class="chart-label" x="${75 + i * 82}" y="258">${i + 1}</text>`).join("");
     document.getElementById("pass-k-explore")!.textContent = `${rate}% per step becomes ${(values[7] * 100).toFixed(1)}% across eight steps.`;
   };
   wireSlider("pass-k-rate", draw);
@@ -64,7 +64,7 @@ const aha = "Reliability compounds: a task passed 90% of the time succeeds on al
   .lesson-control input { accent-color: var(--cyan); width: 100%; }
   .lesson-control output { color: var(--cyan); font-weight: 700; }
   #pass-k-chart { width: 100%; max-height: 20rem; background: rgba(10,18,36,.5); border-radius: var(--r2); }
-  .axis { stroke: var(--panel-edge); stroke-width: 2; } .axis-label, .chart-label { fill: var(--ink-dim); font-size: 14px; } .plot { fill: none; stroke: var(--cyan); stroke-width: 4; } .plot-dot { fill: var(--green); }
+  .axis { stroke: var(--panel-edge); stroke-width: 2; } .gridline { stroke: var(--panel-edge); stroke-width: 1; stroke-dasharray: 3 5; } .axis-label, .chart-label { fill: var(--ink-dim); font-size: 14px; } .plot { fill: none; stroke: var(--cyan); stroke-width: 4; } .plot-dot { fill: var(--green); }
   .formula { font-family: ui-monospace, monospace; font-size: clamp(2rem, 8vw, 4rem); color: var(--cyan); text-align: center; } .formula strong { color: var(--green); }
   .challenge-step { background: var(--gold); } .challenge-step.ok { background: var(--green); } .challenge-step.warn { background: var(--gold); }
   .lesson-summary { color: var(--ink-dim); font-size: 1.05rem; margin: 0; }

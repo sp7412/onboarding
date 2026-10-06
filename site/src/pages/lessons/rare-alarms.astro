@@ -17,6 +17,7 @@ const aha = "When an alarm is rare, even a sensitive detector can produce mostly
     <div slot="screen-1" class="lesson-content">
       <p class="guiding">Explore the base rate. The grid represents 1,000 illustrative cases.</p>
       <div class="control-grid" id="rare-alarms-controls"></div>
+      <div id="rare-alarms-dots" class="dot-field" role="img" aria-label="One thousand illustrative case dots"></div>
       <div id="rare-alarms-counts" class="count-grid" aria-label="Alarm outcome counts"></div>
       <p id="rare-alarms-explore" class="lesson-summary" aria-live="polite"></p>
     </div>
@@ -46,7 +47,9 @@ const aha = "When an alarm is rare, even a sensitive detector can produce mostly
     const sensitivity = Number((document.getElementById("rare-sensitivity") as HTMLInputElement).value) / 100;
     const rates = alarmRates(prevalence, sensitivity, 0.95);
     const labels = [["True alarms", rates.truePositives, "real"], ["Missed events", rates.falseNegatives, "missed"], ["False alarms", rates.falsePositives, "false"], ["Quiet cases", rates.trueNegatives, "quiet"]];
-    document.getElementById("rare-alarms-counts")!.innerHTML = labels.map(([label, count, kind]) => `<div class="count ${kind}"><strong>${Number(count).toFixed(1)}</strong><span>${label}</span></div>`).join("");
+    document.getElementById("rare-alarms-counts")!.innerHTML = labels.map(([label, count, kind]) => `<div class="count ${kind}"><strong>${Math.round(Number(count)).toLocaleString()}</strong><span>${label}</span></div>`).join("");
+    const truePos = Math.round(rates.truePositives); const falseNeg = Math.round(rates.falseNegatives); const falsePos = Math.round(rates.falsePositives);
+    document.getElementById("rare-alarms-dots")!.innerHTML = Array.from({ length: 1000 }, (_, i) => { const kind = i < truePos ? "real" : i < truePos + falseNeg ? "missed" : i < truePos + falseNeg + falsePos ? "false" : "quiet"; return `<span class="dot ${kind}" title="${kind}"></span>`; }).join("");
     const ppv = positivePredictiveValue(prevalence, sensitivity, 0.95) * 100;
     document.getElementById("rare-alarms-ppv")!.textContent = `${ppv.toFixed(1)}%`;
     document.getElementById("rare-alarms-explore")!.textContent = `${ppv.toFixed(1)}% of alarms are real in this illustrative population.`;
@@ -73,11 +76,11 @@ const aha = "When an alarm is rare, even a sensitive detector can produce mostly
   .lesson-content { display: grid; gap: var(--s6); align-content: center; min-height: 25rem; }
   .prompt, .guiding { max-width: 60ch; font-size: 1.2rem; }
   .guiding { color: var(--gold); }
-  .alarm-wall, .count-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--s2); }
+  .alarm-wall, .count-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--s2); } .dot-field { display:grid; grid-template-columns:repeat(40,1fr); gap:2px; max-width:42rem; } .dot { aspect-ratio:1; border-radius:50%; background:var(--panel-edge); } .dot.real { background:var(--green); } .dot.missed { background:#ef8b8b; } .dot.false { background:var(--gold); }
   .alarm-wall span { padding: var(--s4) var(--s2); border-radius: var(--r1); text-align: center; font-family: var(--font-head); font-size: .8rem; }
   .real, .count.real strong { background: var(--green); color: var(--navy); } .quiet, .count.quiet strong { background: var(--panel-edge); color: var(--ink-dim); }
   .control-grid { display: grid; gap: var(--s4); max-width: 40rem; } .lesson-control { display: grid; gap: var(--s2); } .lesson-control input { accent-color: var(--cyan); width: 100%; } .lesson-control output { color: var(--cyan); font-weight: 700; }
   .count { display: grid; gap: var(--s2); text-align: center; } .count strong { display: grid; place-items: center; min-height: 5rem; border-radius: var(--r1); font-size: 1.6rem; } .count span { color: var(--ink-dim); font-size: .85rem; } .count.false strong { background: var(--gold); color: var(--navy); } .count.missed strong { background: #ef8b8b; color: var(--navy); }
   .formula { font-family: ui-monospace, monospace; font-size: clamp(1.5rem, 6vw, 3.5rem); color: var(--cyan); text-align: center; } .formula strong { color: var(--green); } .threshold-readout { font-size: 1.5rem; color: var(--cyan); font-family: var(--font-head); } .lesson-summary { color: var(--ink-dim); font-size: 1.05rem; margin: 0; } .illustrative { color: var(--ink-dim); font-size: .85rem; font-style: italic; }
-  @media (max-width: 520px) { .alarm-wall, .count-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .alarm-wall, .count-grid { grid-template-columns: repeat(2, 1fr); } .dot-field { grid-template-columns:repeat(25,1fr); } }
 </style>
