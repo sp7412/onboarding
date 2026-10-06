@@ -48,7 +48,7 @@ const md = (s: string) => renderMarkdown(s, { sourcePath: "docs/reading-guide.md
           <div class="explainer-video">
             <video controls preload="none" poster={e.posterUrl} aria-label={e.title}>
               <source src={e.videoUrl} type="video/mp4" />
-              <track kind="captions" src={e.captionsUrl} srclang="en" label="English" default />
+              <track kind="captions" src={e.captionsUrl} srclang="en" label="English" />
             </video>
           </div>
           <div class="body">
