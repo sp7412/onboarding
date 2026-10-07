@@ -95,6 +95,12 @@ export const DOC_PAGES: { repoPath: string; icon: string }[] = [
   { repoPath: "docs/manager-alignment.md", icon: "team" },
   { repoPath: "docs/voice-agents-cheat-sheet.md", icon: "notes" },
   { repoPath: "docs/capstone-rubric.md", icon: "evaluation" },
+  { repoPath: "docs/earning-autonomy.md", icon: "evaluation" },
+  { repoPath: "docs/hypothesis-map.md", icon: "notes" },
+  { repoPath: "docs/business-metrics.md", icon: "chart" },
+  { repoPath: "docs/field-exercise.md", icon: "team" },
+  { repoPath: "docs/minimum-path.md", icon: "plan" },
+  { repoPath: "docs/after-day-one.md", icon: "notes" },
   { repoPath: "docs/references.md", icon: "reading" },
   { repoPath: "notes/study-question.md", icon: "notes" },
   { repoPath: "notes/conversation-notes.md", icon: "notes" },
@@ -110,6 +116,8 @@ export const TEMPLATE_FILES = [
   "30-day-memo.md",
   "design-doc.md",
   "90-day-retro.md",
+  "hypothesis-log.md",
+  "field-notes.md",
 ];
 
 /**
