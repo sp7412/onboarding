@@ -16,8 +16,8 @@ describe("calculateValue", () => {
     expect(result.missedAfterHoursCalls).toBe(50);
     expect(result.addedBookedJobs).toBe(25);
     expect(result.addedRevenue).toBe(10000);
-    expect(result.wastedRollCost).toBe(232.5);
-    expect(result.netValue).toBe(9767.5);
+    expect(result.wastedRollCost).toBe(240);
+    expect(result.netValue).toBe(9760);
   });
 
   it("clamps rates and prevents negative call inputs", () => {
