@@ -1,4 +1,5 @@
 """Sentence-timed local production for the four approved explainer episodes."""
+# ruff: noqa: E701, E702
 from __future__ import annotations
 
 import json

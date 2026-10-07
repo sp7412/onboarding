@@ -1,8 +1,8 @@
+# ruff: noqa: E701, E702, F401
 from __future__ import annotations
 
 import json
 import re
-import subprocess
 from pathlib import Path
 
 from kokoro import KPipeline
