@@ -24,7 +24,7 @@ const segments = [
     <div slot="screen-1" class="lesson-content">
       <p class="guiding">Change how much evidence there is. Watch the range of error rates it can't yet rule out.</p>
       <div class="control-row" id="ea-controls"></div>
-      <svg id="ea-chart" viewBox="0 0 720 150" role="img" aria-label="95% confidence interval for the error rate against the 5% promotion target and the 10% bar for keeping this level"></svg>
+      <svg id="ea-chart" viewBox="0 0 720 150" role="img" aria-describedby="ea-reason" aria-label="95% confidence interval for the error rate against the 5% promotion target and the 10% bar for keeping this level"></svg>
       <p class="ea-verdict" aria-live="polite"><span id="ea-decision" class="ea-badge">hold</span> <span id="ea-reason"></span></p>
     </div>
 
@@ -33,9 +33,11 @@ const segments = [
       <ul class="ea-rules">
         <li><strong class="promote">Promote</strong> when the <em>upper</em> bound is below the next level's target.</li>
         <li><strong class="demote">Demote</strong> when the <em>lower</em> bound is above the rate this level must keep beating.</li>
-        <li><strong class="hold">Hold</strong> otherwise, including whenever there are too few calls. Thin data is never a reason to demote.</li>
+        <li><strong class="hold">Hold</strong> otherwise, including whenever there are too few calls to promote.</li>
       </ul>
-      <p class="lesson-summary">With zero errors, the upper bound only drops below 5% after <strong id="ea-needed">73</strong> clean calls. The bound is the 95% Wilson interval, which stays honest for small samples and rates near zero.</p>
+      <p class="lesson-summary">The minimum sample gates promotion only. Thin data never demotes, because a wide interval keeps the lower bound low; but clear evidence of harm demotes as soon as it appears, even in a small sample. Losing autonomy should be faster than earning it.</p>
+      <p class="lesson-summary">With zero errors, the upper bound only drops below 5% after <strong id="ea-needed">73</strong> clean calls, and the 200-call minimum still applies before promotion. The bound is the 95% Wilson interval, which stays honest for small samples and rates near zero.</p>
+      <p class="ea-caveat"><strong>Caveat:</strong> a tight bound on an unaudited error definition is not evidence of safety. If the error count only includes what someone happened to catch, the interval is confidently wrong. Lab 14 works through the same calculations offline.</p>
     </div>
 
     <div slot="screen-3" class="lesson-content">
@@ -143,6 +145,7 @@ const segments = [
   .ea-interval.demote { fill: color-mix(in srgb, var(--gold) 35%, transparent); stroke: var(--gold); }
   .ea-observed { fill: var(--ink); }
   .ea-verdict { margin: 0; color: var(--ink-dim); }
+  .ea-caveat { margin: 0; padding: var(--s3) var(--s4); border-left: 3px solid var(--gold); background: color-mix(in srgb, var(--gold) 10%, transparent); color: var(--ink); }
   .ea-badge { display: inline-block; padding: .1rem .6rem; border-radius: 999px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; background: var(--panel); color: var(--cyan); border: 1px solid currentColor; }
   .ea-badge.promote, .ea-rules .promote { color: var(--green); }
   .ea-badge.demote, .ea-rules .demote { color: var(--gold); }

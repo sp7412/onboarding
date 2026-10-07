@@ -6,7 +6,8 @@ Fifteen hands-on Jupyter tutorials that build a phone agent for a fictional HVAC
 contractor, one architecture layer at a time. Labs 09–12 extend it to several agents working
 together (shared context, coordination, learning, agent-to-agent booking). Labs 13–14 are
 capstones on a shared synthetic call dataset: extracting and committing call facts, and
-deciding when an agent has earned more autonomy.
+deciding when an agent has earned more autonomy. The
+[capstone rubric](../docs/capstone-rubric.md) ends with optional pass criteria for labs 09–14.
 
 | # | Notebook | Layer | Keys needed | Time |
 |---|---|---|---|---|

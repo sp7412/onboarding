@@ -30,6 +30,12 @@ export function wilsonInterval(errors: number, n: number, z = 1.96): [number, nu
  * Lab 14's rule for one segment at one level:
  * demote when the lower bound is above the rate this level must keep beating;
  * hold below the minimum sample; promote when the upper bound is below the next target.
+ *
+ * The asymmetry is deliberate and matches labs/stlab/autonomy.py: the minimum sample gates
+ * promotion, not demotion. Too little data never demotes (a wide interval keeps the lower
+ * bound low), but clear evidence of harm demotes as soon as it appears, even in a small
+ * sample. Losing autonomy should be faster than earning it. Parity with the Python policy is
+ * tested against labs/data/autonomy-cases.json.
  */
 export function judge(errors: number, n: number, promoteTarget: number, keepTarget: number,
                       minSamples = 200): Verdict {

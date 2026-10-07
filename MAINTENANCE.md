@@ -39,6 +39,6 @@ running the generated-site checker. It does not deploy. A failure means a mainta
 ## Past audits
 
 - [September 30, 2026 repository audit](docs/AUDIT.md) (historical; superseded counts).
-- October 7, 2026: whole-repo quality pass after the Pantheon, labs 13–14 and whitepaper
+- October 7, 2026 (PR #15): whole-repo quality pass after the Pantheon, labs 13–14 and whitepaper
   15–16 additions. PR CI now also runs the site unit tests, `astro check` and the internal
   link checker, which previously ran only on deploy.

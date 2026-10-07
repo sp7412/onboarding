@@ -66,7 +66,9 @@ Write (in a private copy) a one-page decision memo:
 ## Constraints
 
 - Promotion is per segment. A pooled number never promotes a segment on its own.
-- Too little data is a reason to hold, never to demote.
+- Too little data is a reason to hold, never to demote. Clear evidence of harm is different:
+  lab 14 demotes on the lower bound even before the minimum sample, because losing
+  autonomy should be faster than earning it.
 - Treat any numerator you can't audit as a lower bound on the true error count.
 - Keep it fictional. Don't import anything learned inside a real company.
 
