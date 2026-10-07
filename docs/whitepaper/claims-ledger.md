@@ -121,3 +121,13 @@ Added when chapters 03, 04, 05, 08, 12, 13 and 14 were rewritten.
 | Max available to all residential in-home contractors; limited commercial and roofing pilot; Atlas mobile app; Homh with ChatGPT, Gemini and Claude; AI CSRs get Adaptive Capacity | Pantheon brief, 01, 06, 13 | https://www.globenewswire.com/news-release/2026/10/06/3375320/0/en/servicetitan-announcing-new-and-expanded-capabilities-at-pantheon-2026.html | 2026-10-06 | yes | Official press release; forward-looking caveats noted |
 | Five-level AI maturity model; voice agent evolution and voice-intelligence booking judge; 30 agents across 18 drivers; coordination system's five capabilities; learning loop; 700 Max locations expected by fiscal year-end | Pantheon brief | https://www.investing.com/news/transcripts/servicetitan-at-pantheon-2026-ai-push-aims-to-make-trades-selfrunning-93CH-4934737 | 2026-10-06 | yes | Third-party published transcript (AI-assisted, editor-reviewed); company claims attributed |
 
+
+
+## First-90-days system guide pass, October 6, 2026
+
+| Claim | Chapter | URL | Date checked | Supported | Notes |
+|---|---|---|---|---|---|
+| Voice Intelligence reviews recorded calls, classifies calls as Bookable or Not Bookable, and backs analysis with transcript evidence | Pantheon brief / business metrics | https://help.servicetitan.com/docs/monitor-call-performance-with-voice-intelligence | 2026-10-06 | yes | ServiceTitan help documentation; company claim |
+| Voice Intelligence is intended to make booking-rate numbers more trustworthy by judging whether a call was actually bookable | Pantheon brief / business metrics | https://help.servicetitan.com/release-hub/docs/coming-soon-get-ready-for-voice-intelligence-in-servicetitan-core | 2026-10-06 | yes | ServiceTitan help documentation; company claim |
+| Webchat booking is brought into Virtual Agent alongside voice and text interactions | Hypothesis map | https://help.servicetitan.com/release-hub/docs/book-jobs-from-your-website-with-webchat-in-virtual-agent | 2026-10-06 | yes | ServiceTitan help documentation; company claim |
+| Max is described as using shared context and data across the business so agents can act in coordination | Hypothesis map | https://help.servicetitan.com/docs/an-introduction-to-servicetitan-max-what-it-is-and-why-it-matters | 2026-10-06 | yes | ServiceTitan help documentation; company claim |
