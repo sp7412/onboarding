@@ -2,7 +2,7 @@
 
 **Facts as of: October 6, 2026 · Last reviewed: October 6, 2026**
 
-Thirteen hands-on Jupyter tutorials that build a phone agent for a fictional HVAC/plumbing
+Fifteen hands-on Jupyter tutorials that build a phone agent for a fictional HVAC/plumbing
 contractor, one architecture layer at a time. Labs 09–12 extend it to several agents working
 together (shared context, coordination, learning, agent-to-agent booking):
 
@@ -21,6 +21,8 @@ together (shared context, coordination, learning, agent-to-agent booking):
 | 10 | coordination_and_arbitration | shared judgment, requests with consent, arbitration, hard rules | none | 45–60 minutes |
 | 11 | learning_loop | decision log, outcomes, recalibration, confidence calibration | none | 45–60 minutes |
 | 12 | agent_to_agent_booking | booking API for other AI agents: auth, scopes, idempotency, injection | none | 45–60 minutes |
+| 13 | minimax_capstone | call facts → bookability → lead scoring → dispatch → commit → claim guard | none | 90–120 minutes |
+| 14 | earning_autonomy | promotion policy, SPRT, calibration, drift/OOD, segment-specific autonomy | none | 90–120 minutes |
 
 ## Learning Path
 
@@ -36,7 +38,7 @@ For each notebook, follow this loop:
 5. Compare with the matching note in [`solutions/`](solutions/) only after attempting it.
 
 The exercises are deliberately small and deterministic. A complete lab is usually 30–60
-minutes; labs 04, 07, and 08 can take 60–90 minutes if you do the optional live work.
+minutes; labs 04, 07, 08, 13, and 14 can take 60–120 minutes if you do the optional live work.
 
 ## Quick Start
 
