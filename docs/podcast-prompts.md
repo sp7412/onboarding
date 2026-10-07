@@ -336,3 +336,34 @@ https://raw.githubusercontent.com/sp7412/onboarding/main/docs/call-anatomy.md
 CUSTOMIZE PROMPT (Audio Overview → Customize):
 Act as a practical coach preparing a new senior engineer for stakeholder conversations. Use the supplied sources and fictional call scenarios only. Teach how to interview a manager, PM, infrastructure owner, evaluation owner, and support/CSR partner; how to ask questions that reveal ownership and failure costs; how to receive feedback without becoming defensive; and how to handle conflicting requests. Include role-play scenarios: a PM wants speed, an infrastructure owner warns about reliability, and a support partner reports caller frustration. End with a compact weekly update template containing progress, decisions needed, learning, and risks.
 ```
+
+
+---
+
+## Episode 14: The Voice Agent as the System's Sensor — and Earning Autonomy
+- [ ] Generated · [ ] Listened · **When:** Week of Oct 19, alongside labs 13–14
+
+```text
+EPISODE 14: THE VOICE AGENT AS THE SYSTEM'S SENSOR — AND EARNING AUTONOMY
+Format: Deep Dive · Length: Longer
+
+SOURCES (NotebookLM → Add source → Website / YouTube):
+https://raw.githubusercontent.com/sp7412/onboarding/main/docs/pantheon-2026-ai-roadmap.md
+https://raw.githubusercontent.com/sp7412/onboarding/main/docs/hypothesis-map.md
+https://raw.githubusercontent.com/sp7412/onboarding/main/docs/business-metrics.md
+https://raw.githubusercontent.com/sp7412/onboarding/main/docs/earning-autonomy.md
+https://raw.githubusercontent.com/sp7412/onboarding/main/labs/src/13_minimax_capstone.py
+https://raw.githubusercontent.com/sp7412/onboarding/main/labs/src/14_earning_autonomy.py
+https://www.globenewswire.com/news-release/2026/10/06/3375320/0/en/servicetitan-announcing-new-and-expanded-capabilities-at-pantheon-2026.html
+https://www.servicetitan.com/blog/pantheon-2026-live-coverage
+
+CUSTOMIZE PROMPT (Audio Overview → Customize):
+Coach a senior AI engineer through the shift from building one voice agent to engineering one
+sensor in a coordinated business system. Using only the supplied public sources and synthetic
+lab material, trace a call into structured facts, a separate bookability judgment, lead
+scoring, dispatch, authoritative commit and a grounded spoken claim. Then explain why
+autonomy should be earned: Wilson confidence bounds, sequential testing, asymmetric costs,
+calibration, segment-specific policy and drift/OOD guards. Keep company claims explicitly
+attributed and distinguish the synthetic lab architecture from any internal implementation.
+End with five questions the engineer should ask in week 1.
+```
