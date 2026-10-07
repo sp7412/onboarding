@@ -19,6 +19,7 @@ site/.astro/
 # nlm podcast automation state
 .nlm-podcasts.json
 build/
+private/
 
 # rendered media and Manim caches (videos go to GitHub releases, not git)
 media/
