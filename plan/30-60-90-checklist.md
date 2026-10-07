@@ -27,7 +27,7 @@ artifact or demonstration. The total is designed for 4–6 hours per week.
 | Sept 28 | Read docs 101 and contractor lifecycle; read speech-to-speech and GPT-Live-1 background; read/watch reading-guide items 1–4 and 11B; run labs 00–03; listen to podcast episodes 1 and 6 | 4–6 h | A one-page contractor lifecycle map with the application control-plane boundary and six observed/inferred/unknown questions |
 | Oct 5 | Read architecture; read/watch reading-guide items 5–10; run labs 04–06; complete LiveKit hands-on Phases 1–2; listen to episodes 2, 10 and 11 | 4–6 h | A comparison of cascaded, realtime and workflow paths plus five simulated failure observations |
 | Oct 12 | Read evaluation guide and reading-guide items 11–14; watch the LangSmith videos (item 14A); run labs 07–08; complete LiveKit hands-on Phase 3; listen to episodes 3, 4 and 12 | 4–6 h | A fictional eval report, study-question draft, and capstone evidence matrix |
-| Oct 19 | Read only items paired with unfinished labs; read call anatomy and first-90-days playbook; listen to episodes 5 and 13; review templates and capstone rubric | 3–4 h | Manager-question set, first-PR hypothesis, personal first-week plan, and capstone open-criteria list |
+| Oct 19 | Use the [10-hour minimum path](../docs/minimum-path.md) if time is tight; read the hypothesis map, business metrics, field exercise, and after-day-one boundary; run labs 09–14 as time permits; listen to episodes 5, 13 and 14; review templates and capstone rubric | 4–6 h | System-level question set, Mini-Max/autonomy evidence, first-PR hypothesis, personal first-week plan, and capstone open-criteria list |
 
 The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubric.md).
 
@@ -42,6 +42,7 @@ The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubr
 - [ ] Run labs 00–03 offline with Python 3.12 (needs a laptop).
 - [ ] Write one question each for customer, product, technology, quality, team, and business.
 - [ ] Start an evidence log with **observed / inferred / unknown** columns.
+- [ ] Read the [Pantheon hypothesis map](../docs/hypothesis-map.md) and mark the questions you most need answered in weeks 1–2.
 - [ ] Draft the manager's first-1:1 questions in [`templates/1on1-questions.md`](../templates/1on1-questions.md).
 - [ ] Read [Setting Goals With Your New Manager](../docs/manager-alignment.md) and prepare the 20-minute pre-1:1 exercise.
 - [ ] [Reading guide](../docs/reading-guide.md) items 1–4.
@@ -78,6 +79,8 @@ The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubr
 ### Week of Oct 19 — Prepare relationships and logistics
 
 - [ ] Run labs 09–10 (shared context; coordination and arbitration) (needs a laptop).
+- [ ] Run [lab 13](../labs/13_minimax_capstone.ipynb): trace 20 calls and identify the most costly extraction error.
+- [ ] Read the [business metrics primer](../docs/business-metrics.md) and try the [value calculator](/value-calculator).
 - [ ] Read the [`docs/reading-guide.md`](../docs/reading-guide.md) items paired to any unfinished lab.
 - [ ] Read [`docs/call-anatomy.md`](../docs/call-anatomy.md) and annotate likely failure modes.
 - [ ] Finalize manager, PM, infrastructure, evaluation, and support questions.
@@ -120,6 +123,7 @@ The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubr
 
 ### Week 3 (Nov 9–13) — Learn customer and quality reality
 
+- [ ] Run [lab 14](../labs/14_earning_autonomy.ipynb): defend a promotion policy with a Wilson bound, cost asymmetry, calibration, and drift guard.
 - [ ] Review authorized calls/traces or approved substitutes; record patterns without PII.
 - [ ] Tag successes, failures, and awkward moments; identify the top five patterns.
 - [ ] Meet telephony/infra, support or CSR-facing, and product stakeholders.
