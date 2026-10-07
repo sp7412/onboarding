@@ -1,7 +1,7 @@
 # References
 
 Every external source cited anywhere in this repo, in one place, grouped by topic.
-All links were checked on Oct 3, 2026. For *what to read first and why*, use the ranked
+All links were checked on October 6, 2026. For *what to read first and why*, use the ranked
 [reading guide](reading-guide.md); this page is the complete bibliography.
 
 Video summaries are collected in [video notes](video-notes.md).
@@ -212,3 +212,14 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 - Add a row whenever a new external link appears anywhere in the repo.
 - Link-check before committing; never construct URLs from a site's naming pattern.
 - Public sources only. No internal ServiceTitan material.
+
+
+## System-level onboarding additions
+
+| Source | Type | Cited in |
+|---|---|---|
+| [Voice Intelligence: monitor call performance](https://help.servicetitan.com/docs/monitor-call-performance-with-voice-intelligence) | ServiceTitan help | Hypothesis map, business metrics |
+| [Voice Intelligence: review every recorded call](https://help.servicetitan.com/release-hub/docs/use-voice-intelligence-in-servicetitan-calls-to-review-every-recorded-call) | ServiceTitan help | Hypothesis map, business metrics |
+| [Voice Intelligence: coming soon](https://help.servicetitan.com/release-hub/docs/coming-soon-get-ready-for-voice-intelligence-in-servicetitan-core) | ServiceTitan help | Hypothesis map |
+| [Webchat booking in Virtual Agent](https://help.servicetitan.com/release-hub/docs/book-jobs-from-your-website-with-webchat-in-virtual-agent) | ServiceTitan help | Hypothesis map |
+| [Introduction to ServiceTitan Max](https://help.servicetitan.com/docs/an-introduction-to-servicetitan-max-what-it-is-and-why-it-matters) | ServiceTitan help | Hypothesis map |
