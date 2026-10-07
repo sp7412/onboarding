@@ -2,6 +2,7 @@
 numpy
 pandas
 matplotlib
+jsonschema          # tests: validate the CallFacts contract (lab 13)
 jupyterlab
 websockets>=13
 langchain>=1.0
