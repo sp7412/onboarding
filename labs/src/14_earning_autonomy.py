@@ -151,22 +151,46 @@ display(pd.DataFrame([d.__dict__ | {"segment": name}
 #
 # Naive rule: promote when observed accuracy exceeds 95%.
 #
-# Bounded rule: use a confidence bound, minimum sample size, asymmetric cost, and drift/OOD
-# guard. For the synthetic comparison, an "incident" is a wrong autonomous action.
+# Bounded rule: promote one level at a time using the Wilson upper bound, minimum sample size,
+# asymmetric cost, and the drift/OOD guard. Here, level 3 is the first level that permits
+# autonomous action within configured limits.
 
 # %%
+naive_level = {"HVAC": 0, "plumbing": 0, "electrical": 0}
+bounded_level = {"HVAC": 0, "plumbing": 0, "electrical": 0}
 naive_incidents = 0
 bounded_incidents = 0
-for _, row in weekly.iterrows():
-    if row["error"] and row["week"] >= 2:
-        naive_incidents += 1
-    if row["error"] and row["week"] >= 5:
-        bounded_incidents += 1
+promotion_rows = []
+
+for week in range(1, 7):
+    current = weekly[weekly.week == week]
+    for trade in naive_level:
+        x = current[current.trade == trade]
+        errors = int(x.error.sum())
+        n = len(x)
+        observed_error = errors / n
+        if n >= 100 and observed_error < 0.05:
+            naive_level[trade] = 3
+        bounded = promotion_policy(errors, n, bounded_level[trade], min_samples=100)
+        bounded_level[trade] = bounded.level
+        if naive_level[trade] >= 3:
+            naive_incidents += errors
+        if bounded_level[trade] >= 3:
+            bounded_incidents += errors
+        promotion_rows.append({
+            "week": week, "trade": trade, "naive_level": naive_level[trade],
+            "bounded_level": bounded_level[trade],
+            "bounded_decision": bounded.decision,
+            "observed_error": observed_error,
+        })
+
+promotion_df = pd.DataFrame(promotion_rows)
+display(promotion_df)
 print({
-    "naive_accuracy_threshold_incidents": naive_incidents,
-    "bounded_policy_incidents": bounded_incidents,
+    "naive_policy_incidents_after_autonomy": naive_incidents,
+    "bounded_policy_incidents_after_autonomy": bounded_incidents,
 })
-print("These counts are illustrative simulation outputs, not production estimates.")
+print("Counts are synthetic simulation outputs, not production estimates.")
 
 # %% [markdown]
 # ## Exercises
