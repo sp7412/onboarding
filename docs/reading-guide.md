@@ -16,6 +16,20 @@ replace it. Check items off (`- [x]`) as you finish them.
 
 ---
 
+## System-level additions after Pantheon 2026
+
+If you only have time for a bounded first-90-days route, use the [10-hour minimum path](minimum-path.md),
+then use the [Pantheon hypothesis map](hypothesis-map.md) as your week-1 question list.
+
+- **Mini-Max capstone:** [Lab 13](../labs/13_minimax_capstone.ipynb) — trace how call facts become
+  bookability, lead scoring, dispatch, committed state, and spoken claims.
+- **Earning autonomy:** [Lab 14](../labs/14_earning_autonomy.ipynb) — Wilson bounds, SPRT, cost
+  asymmetry, calibration, drift/OOD, and segment-specific promotion.
+- **Business metrics:** [Business metrics primer](business-metrics.md) — connect voice quality to
+  bookings, revenue, trust, and operating cost.
+- **Field reality:** [Field exercise](field-exercise.md) — hear how contractors actually answer the phone.
+- **Day-one boundary:** [After Day One](after-day-one.md) — freeze the public guide when employment starts.
+
 ## Tier 1: Must-do before day 1
 
 ### 0. Voice Agents from First Principles — four-episode explainer series
