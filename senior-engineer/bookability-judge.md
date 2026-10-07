@@ -46,9 +46,12 @@ Write (in a private copy) one to two pages covering:
    misread (e.g. booking without consent, booking the wrong slot, counting non-leads).
 4. **Judge policy.** Pass / fail / needs_human rules. Include at least one case where the
    agent created a calendar row but the judge should still fail the call.
-5. **Audit sample.** How you would sample calls for human review, and what agreement metric
-   you would track between judge and human.
-6. **Rollout.** How you would shadow the judge before using it for agent evaluation or
+5. **Audit sample.** How you would sample calls for human review (including rare/emergency,
+   ambiguous, and high-value segments), and what agreement metric you would track between judge
+   and human. State how you would handle class imbalance.
+6. **Calibration and abstention.** What evidence would make you trust the judge's confidence,
+   and what uncertainty threshold causes abstention rather than a forced decision.
+7. **Rollout.** How you would shadow the judge before using it for agent evaluation or
    capacity decisions.
 
 ## Constraints
