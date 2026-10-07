@@ -1,6 +1,6 @@
 # Podcast Prompts (NotebookLM Audio Overviews)
 
-Six technical episodes, three company-and-context episodes built on the
+Seven technical episodes, three company-and-context episodes built on the
 [background whitepaper](whitepaper/README.md), and four coaching episodes. Each episode below is **one
 self-contained block**: copy it, then follow the steps. Listen **after** the matching readings,
 not instead of them. The hosts are good at concepts, weaker on exact API names, config values and
