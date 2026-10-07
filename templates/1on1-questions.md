@@ -18,6 +18,8 @@ conversation rather than a questionnaire.
 12. If I draft 30/60/90 goals from this, can we review them next week?
 
 ## With peers (PM, evals owner, infra, support)
+For deeper peer conversations, use the [First-90-Days Question Bank](../docs/first-90-days-question-bank.md). Pick two to four questions that fit the person; the bank expands these prompts into strategy, reliability, success/failure stories, evaluation, autonomy, shared capabilities, operations, and technical judgment.
+
 - What's the biggest risk to voice agent quality right now?
 - What do you wish new engineers understood sooner?
 - What breaks most often, and how do you find out?
