@@ -41,6 +41,10 @@ of which calls were genuinely bookable. Public ServiceTitan material explicitly 
 voice intelligence evaluating calls for bookability; treat that as a company claim, not as a
 description of an internal implementation.
 
+## Value calculator
+
+Try the [illustrative voice-agent value calculator](/value-calculator) with the same concepts. It is a client-side model with no storage.
+
 ## Value bridge
 
 A useful chain is:
