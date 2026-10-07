@@ -1,10 +1,10 @@
 """Build the approved episode-1 timing, audio, and sentence-driven render."""
-# ruff: noqa: E701, E702, F401
 from __future__ import annotations
 
 import json
 import re
 import subprocess
+import sys
 from pathlib import Path
 
 import numpy as np

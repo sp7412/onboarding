@@ -9,7 +9,7 @@
           "codec_name": "h264",
           "width": 1920,
           "height": 1080,
-          "r_frame_rate": "60/1"
+          "r_frame_rate": "30/1"
         },
         {
           "codec_name": "aac",
@@ -17,13 +17,13 @@
         }
       ],
       "format": {
-        "duration": "193.270000"
+        "duration": "183.066667"
       }
     },
-    "integrated_lufs": -16.0,
-    "true_peak_db": -1.2,
-    "caption_cues": 42,
-    "caption_end": 193.27,
+    "integrated_lufs": -16.4,
+    "true_peak_db": -1.1,
+    "caption_cues": 8,
+    "caption_end": 183.067,
     "caption_drift_seconds": 0.0
   },
   {
@@ -36,7 +36,7 @@
           "codec_name": "h264",
           "width": 1920,
           "height": 1080,
-          "r_frame_rate": "60/1"
+          "r_frame_rate": "30/1"
         },
         {
           "codec_name": "aac",
@@ -44,14 +44,14 @@
         }
       ],
       "format": {
-        "duration": "175.350000"
+        "duration": "166.333333"
       }
     },
-    "integrated_lufs": -16.1,
-    "true_peak_db": -1.4,
-    "caption_cues": 36,
-    "caption_end": 175.35,
-    "caption_drift_seconds": 0.0
+    "integrated_lufs": -16.5,
+    "true_peak_db": -1.0,
+    "caption_cues": 9,
+    "caption_end": 166.333,
+    "caption_drift_seconds": -0.0
   },
   {
     "episode": "voice-agents-03-architecture",
@@ -63,7 +63,7 @@
           "codec_name": "h264",
           "width": 1920,
           "height": 1080,
-          "r_frame_rate": "60/1"
+          "r_frame_rate": "30/1"
         },
         {
           "codec_name": "aac",
@@ -71,14 +71,14 @@
         }
       ],
       "format": {
-        "duration": "209.515000"
+        "duration": "200.933333"
       }
     },
-    "integrated_lufs": -16.1,
-    "true_peak_db": -1.4,
-    "caption_cues": 38,
-    "caption_end": 209.515,
-    "caption_drift_seconds": 0.0
+    "integrated_lufs": -16.5,
+    "true_peak_db": -1.2,
+    "caption_cues": 10,
+    "caption_end": 200.933,
+    "caption_drift_seconds": -0.0
   },
   {
     "episode": "voice-agents-04-control-plane",
@@ -90,7 +90,7 @@
           "codec_name": "h264",
           "width": 1920,
           "height": 1080,
-          "r_frame_rate": "60/1"
+          "r_frame_rate": "30/1"
         },
         {
           "codec_name": "aac",
@@ -98,13 +98,13 @@
         }
       ],
       "format": {
-        "duration": "203.425000"
+        "duration": "195.666667"
       }
     },
-    "integrated_lufs": -16.0,
-    "true_peak_db": -1.4,
-    "caption_cues": 41,
-    "caption_end": 203.425,
+    "integrated_lufs": -16.5,
+    "true_peak_db": -1.0,
+    "caption_cues": 11,
+    "caption_end": 195.667,
     "caption_drift_seconds": 0.0
   }
 ]
