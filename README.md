@@ -24,6 +24,10 @@ tutorial notebooks, and templates for the documents I'll write along the way.
 Reading on a phone works for steps 1–4; labs need a laptop. After that, follow the weekly
 path below.
 
+## Short on time?
+
+Start with the [10-hour minimum path](docs/minimum-path.md). It is the fastest route from the Pantheon 2026 system model to labs 13–14, business value, field observations, and manager alignment.
+
 ## The Full Path
 
 The path assumes an experienced ML or signal-processing engineer who is new to contractor
@@ -43,13 +47,13 @@ the exact lab map and prerequisites.
 |---|---|
 | [`plan/30-60-90-checklist.md`](plan/30-60-90-checklist.md) | Operating plan (loosely based on Watkins, *The First 90 Days*) with 30/60/90 outcomes, weekly actions, stakeholder work, and exit criteria |
 | [`study-guide/`](study-guide/) | Voice-agent study guide (Markdown + original .docx) |
-| [`docs/`](docs/) | Public-source domain primer, technical architecture, reading list, evaluation guide, and first-90-days playbook |
+| [`docs/`](docs/) | Public-source domain primer, Pantheon system model, autonomy policy, metrics, field exercise, and first-90-days playbook |
 | [`docs/whitepaper/`](docs/whitepaper/) | Public-source background whitepaper: chapters 00–14, appendices, and source ledger |
 | [`docs/reading-guide.md`](docs/reading-guide.md) | Ranked blogs, papers and talks with four takeaways each (start here for reading) |
 | [`docs/references.md`](docs/references.md) | Complete bibliography of every external source in the repo |
 | [`docs/podcast-prompts.md`](docs/podcast-prompts.md) | NotebookLM podcast prompts: six technical and three company-context episodes plus four coaching episodes |
 | [`docs/livekit-hands-on.md`](docs/livekit-hands-on.md) | LiveKit track: Agent Builder → `lk` starter → fake ServiceTitan tools with guardrails |
-| [`labs/`](labs/) | Thirteen Jupyter tutorials: OpenAI Realtime, LiveKit, LangChain/LangGraph, LangSmith, capstone, and multi-agent coordination (09–12) |
+| [`labs/`](labs/) | Fifteen Jupyter tutorials: OpenAI Realtime, LiveKit, LangChain/LangGraph, LangSmith, multi-agent coordination (09–12), Mini-Max (13), and earning autonomy (14) |
 | [`labs/solutions/`](labs/solutions/) | Offline-safe solution notes for the lab exercises |
 | [`templates/`](templates/) | Onboarding log, 1:1 questions, weekly status, 30-day memo, design doc, 90-day retro |
 | [`notes/`](notes/) | Public-safe personal notes: original conversation notes, glossary, study-question answer |
@@ -98,3 +102,11 @@ For private local patterns, set `SENSITIVE_PATTERNS` or create the ignored
 
 Progress is intentionally manual. Check off the corresponding items in
 [`plan/30-60-90-checklist.md`](plan/30-60-90-checklist.md) as work is completed.
+
+
+## Day-one boundary
+
+October 26, 2026 is the start date. From that date forward, this public repository is a
+frozen, sanitized pre-start guide. Company knowledge belongs in company systems or an approved
+private location; only genuinely public, verified sources belong here. See
+[After Day One](docs/after-day-one.md).
