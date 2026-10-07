@@ -97,6 +97,12 @@ const FIELD_GUIDE = [
   { repoPath: "docs/manager-alignment.md", title: "Setting goals with your manager", icon: "team", tone: "gold", blurb: "A natural first-1:1 conversation that becomes a written 30/60/90 agreement." },
   { repoPath: "docs/voice-agents-cheat-sheet.md", title: "Voice-agents cheat sheet", icon: "notes", tone: "cyan", blurb: "One page: latency, turn-taking, architecture trade-offs, and control-plane checks." },
   { repoPath: "docs/capstone-rubric.md", title: "Capstone rubric", icon: "evaluation", tone: "green", blurb: "Pass/fail evidence for a safe, grounded voice-agent workflow." },
+  { repoPath: "docs/earning-autonomy.md", title: "Earning autonomy", icon: "evaluation", tone: "gold", blurb: "Statistics, cost asymmetry, calibration and drift behind safe promotion." },
+  { repoPath: "docs/hypothesis-map.md", title: "Pantheon hypothesis map", icon: "notes", tone: "gold", blurb: "Public claims turned into week-1 validation questions." },
+  { repoPath: "docs/business-metrics.md", title: "Business metrics", icon: "chart", tone: "cyan", blurb: "Connect call handling to bookings, revenue, trust and operating cost." },
+  { repoPath: "docs/field-exercise.md", title: "Field exercise", icon: "team", tone: "cyan", blurb: "A two-hour ethical way to hear how contractors actually answer the phone." },
+  { repoPath: "docs/minimum-path.md", title: "10-hour minimum path", icon: "plan", tone: "green", blurb: "The bounded route when there is not enough time to do everything." },
+  { repoPath: "docs/after-day-one.md", title: "After day one", icon: "notes", tone: "gold", blurb: "Freeze the public guide and keep company knowledge in company systems." },
   { repoPath: "notes/study-question.md", title: "The study question", icon: "gear", tone: "cyan", blurb: "Write your own answer: where does the control plane begin?" },
   { repoPath: "notes/conversation-notes.md", title: "Conversation notes", icon: "doc", tone: "cyan", blurb: "The conversation that started this repo, lightly condensed." },
   { repoPath: "docs/references.md", title: "References", icon: "book", tone: "cyan", blurb: "Every source cited anywhere, grouped by topic." },
@@ -129,7 +135,7 @@ expectCondition(
         A game-like onboarding journey built from this repository's own study guides,
         labs and templates. Check things off — progress is saved in this browser.
       </p>
-      <a class="hero-path-link" href={url("/docs/capstone-rubric")}>See the capstone acceptance rubric</a>
+      <a class="hero-path-link" href={url("/docs/minimum-path")}>Short on time? Start with the 10-hour minimum path</a>
       <div class="hero-actions">
         {comingSoon("checklist") ? (
           <span class="btn" aria-disabled="true">Start the pre-start stage · Coming soon</span>
