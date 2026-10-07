@@ -238,6 +238,8 @@ def validate_record(record: dict[str, Any]) -> None:
     if record["time_of_day"] not in TIMES: raise ValueError("invalid time_of_day")
     if record["season"] not in SEASONS: raise ValueError("invalid season")
     if record["urgency"] not in {"emergency", "same_day", "soon", "routine", "none"}: raise ValueError("invalid urgency")
+    if record["job_type"] not in {"ac_repair", "furnace_repair", "hvac_tuneup", "plumbing_leak", "electrical_issue", "none"}: raise ValueError("invalid job_type")
+    if record["intent"] not in {"book_service", "price_quote", "reschedule", "cancel", "out_of_area", "emergency", "unknown", "spam"}: raise ValueError("invalid intent")
     if record["emergency"] and record["bookable"]: raise ValueError("emergency calls must never be bookable")
     if not record["bookable"] and not record["bookable_reason"]: raise ValueError("non-bookable calls need a reason")
     if record["outcome"]["booked"] and not record["bookable"]: raise ValueError("non-bookable calls cannot be booked")
