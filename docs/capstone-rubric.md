@@ -27,3 +27,17 @@ pass.
 
 **Pass rule:** all eight criteria have evidence, no hard policy is bypassed, and the report
 distinguishes simulated behavior from any live measurement.
+
+## Extension: multi-agent and autonomy criteria (labs 09–14)
+
+Optional, and separate from the pass rule above. Use these when you run labs 09–14 (the
+plan schedules them before day one and in weeks 2–3). The same evidence standard applies.
+
+| Criterion | Pass condition | Evidence to produce | Demonstrated by |
+|---|---|---|---|
+| Facts before action | A proposed fact is invisible to consumers until the control plane verifies it, and an agent cannot write a key it isn't permitted to. | Ledger view before and after verification, plus a `not_permitted` refusal. | Lab 09; `tests/test_multiagent.py` ledger tests |
+| Hard constraints survive arbitration | The arbiter never trades away consent, emergencies or capacity, however much value a proposal claims. | One rejected high-value proposal and the constraint that rejected it. | Lab 10; arbitration test |
+| Outside agents are untrusted callers | The agent gateway refuses a bad signature, a replayed nonce, an unoffered slot and a missing scope, retries are idempotent, and it does not reveal whether a phone number is a customer. | Gateway refusals and an idempotent replay. | Lab 12; gateway tests |
+| Costliest extraction error named | You identify which CallFacts error costs the most and show a sensitivity number for it, and emergencies are never booked even when the extractor misses them. | The lab 13 sensitivity table with the top row explained. | Lab 13; `tests/test_minimax.py` |
+| Promotion is earned, not assumed | A promotion decision cites a bound on the error rate against a target, a minimum sample, the cost threshold, and a drift guard that pauses on a shifted population. | The lab 14 decision table and one drift-paused example. | Lab 14; `tests/test_autonomy.py` |
+

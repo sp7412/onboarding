@@ -11,4 +11,7 @@
 | LangSmith | | | |
 | Control plane | | | |
 
+Write your own answer first, then compare it with the
+[model answer](study-question-model-answer.md).
+
 ## My answer

@@ -27,7 +27,7 @@ artifact or demonstration. The total is designed for 4–6 hours per week.
 | Sept 28 | Read docs 101 and contractor lifecycle; read speech-to-speech and GPT-Live-1 background; read/watch reading-guide items 1–4 and 11B; run labs 00–03; listen to podcast episodes 1 and 6 | 4–6 h | A one-page contractor lifecycle map with the application control-plane boundary and six observed/inferred/unknown questions |
 | Oct 5 | Read architecture; read/watch reading-guide items 5–10; run labs 04–06; complete LiveKit hands-on Phases 1–2; listen to episodes 2, 10 and 11 | 4–6 h | A comparison of cascaded, realtime and workflow paths plus five simulated failure observations |
 | Oct 12 | Read evaluation guide and reading-guide items 11–14; watch the LangSmith videos (item 14A); run labs 07–08; complete LiveKit hands-on Phase 3; listen to episodes 3, 4 and 12 | 4–6 h | A fictional eval report, study-question draft, and capstone evidence matrix |
-| Oct 19 | Use the [10-hour minimum path](../docs/minimum-path.md) if time is tight; read the hypothesis map, business metrics, field exercise, and after-day-one boundary; run labs 09–14 as time permits; listen to episodes 5, 13 and 14; review templates and capstone rubric | 4–6 h | System-level question set, Mini-Max/autonomy evidence, first-PR hypothesis, personal first-week plan, and capstone open-criteria list |
+| Oct 19 | Use the [10-hour minimum path](../docs/minimum-path.md) if time is tight; read the hypothesis map, business metrics, field exercise, and after-day-one boundary; run labs 09–10 and 13 (labs 11, 12 and 14 are scheduled in weeks 2–3; the minimum path pulls lab 14 forward if you take it); listen to episodes 5, 13 and 14; review templates and capstone rubric | 4–6 h | System-level question set, Mini-Max/autonomy evidence, first-PR hypothesis, personal first-week plan, and capstone open-criteria list |
 
 The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubric.md).
 
@@ -129,6 +129,7 @@ The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubr
 ### Week 3 (Nov 9–13) — Learn customer and quality reality
 
 - [ ] Run [lab 14](../labs/14_earning_autonomy.ipynb): defend a promotion policy with a Wilson bound, cost asymmetry, calibration, and drift guard.
+- [ ] Try the [earned-autonomy lesson](https://sp7412.github.io/onboarding/lessons/earned-autonomy/), then do the [autonomy promotion review](../senior-engineer/autonomy-promotion.md) exercise (private notes only).
 - [ ] Review authorized calls/traces or approved substitutes; record patterns without PII.
 - [ ] Tag successes, failures, and awkward moments; identify the top five patterns.
 - [ ] Meet telephony/infra, support or CSR-facing, and product stakeholders.

@@ -1,0 +1,160 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Lesson from "../../lib/lessons/Lesson.astro";
+import { url } from "../../lib/url";
+
+const aha = "Zero errors in 48 calls does not prove an error rate under 5%: promote on the upper confidence bound, demote on the lower one, and hold until the evidence settles it.";
+const segments = [
+  { id: "a", name: "Routine tune-ups", n: 1200, errors: 30 },
+  { id: "b", name: "Water heater repairs", n: 260, errors: 9 },
+  { id: "c", name: "Plumbing leaks (new)", n: 90, errors: 1 },
+  { id: "d", name: "After-hours no cooling", n: 140, errors: 11 },
+];
+---
+
+<BaseLayout title="Earned autonomy · Lessons" description={aha}>
+  <p class="crumb muted"><a href={url("/lessons")}>Lessons</a> / earned-autonomy</p>
+  <Lesson slug="earned-autonomy" title="When has the agent earned it?" aha={aha} related="Labs 13–14 · earning autonomy" time="8 min">
+    <div slot="screen-0" class="lesson-content">
+      <p class="prompt">An agent has booked 48 calls with zero errors. The bar for acting without a human is an error rate under 5%. Has it earned it?</p>
+      <div class="clean-calls" aria-label="48 calls, all without errors">{Array.from({ length: 48 }, () => <span></span>)}</div>
+      <p class="lesson-summary">No error has been seen yet. That is a fact about 48 calls, not yet about the next thousand.</p>
+    </div>
+
+    <div slot="screen-1" class="lesson-content">
+      <p class="guiding">Change how much evidence there is. Watch the range of error rates it can't yet rule out.</p>
+      <div class="control-row" id="ea-controls"></div>
+      <svg id="ea-chart" viewBox="0 0 720 150" role="img" aria-label="95% confidence interval for the error rate against the 5% promotion target and the 10% bar for keeping this level"></svg>
+      <p class="ea-verdict" aria-live="polite"><span id="ea-decision" class="ea-badge">hold</span> <span id="ea-reason"></span></p>
+    </div>
+
+    <div slot="screen-2" class="lesson-content">
+      <p class="guiding">The rule lab 14 uses, one segment and one level at a time:</p>
+      <ul class="ea-rules">
+        <li><strong class="promote">Promote</strong> when the <em>upper</em> bound is below the next level's target.</li>
+        <li><strong class="demote">Demote</strong> when the <em>lower</em> bound is above the rate this level must keep beating.</li>
+        <li><strong class="hold">Hold</strong> otherwise, including whenever there are too few calls. Thin data is never a reason to demote.</li>
+      </ul>
+      <p class="lesson-summary">With zero errors, the upper bound only drops below 5% after <strong id="ea-needed">73</strong> clean calls. The bound is the 95% Wilson interval, which stays honest for small samples and rates near zero.</p>
+    </div>
+
+    <div slot="screen-3" class="lesson-content">
+      <p class="guiding">Challenge: a product manager wants to promote all four segments because the pooled error rate is 3.0%. Decide each one (target 5%, keep-bar 10%, at least 200 calls).</p>
+      <table class="ea-table">
+        <thead><tr><th scope="col">Segment</th><th scope="col">Errors / calls</th><th scope="col">Your call</th></tr></thead>
+        <tbody>
+          {segments.map((s) => (
+            <tr data-seg={s.id} data-n={s.n} data-errors={s.errors}>
+              <td>{s.name}</td>
+              <td>{s.errors} / {s.n.toLocaleString("en-US")}</td>
+              <td>
+                <select aria-label={`Decision for ${s.name}`}>
+                  <option value="">Choose…</option>
+                  <option value="promote">Promote</option>
+                  <option value="hold">Hold</option>
+                  <option value="demote">Demote</option>
+                </select>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <button type="button" class="btn btn-primary" id="ea-check">Check my calls</button>
+      <div id="ea-feedback" class="challenge-answer" aria-live="polite" hidden></div>
+      <p class="lesson-summary">Practise the full version in the <a href={url("/docs/autonomy-promotion")}>autonomy promotion review</a> exercise.</p>
+    </div>
+  </Lesson>
+</BaseLayout>
+
+<script>
+  import { judge, errorFreeCallsNeeded } from "../../lib/lessons/earned-autonomy/model";
+  import { slider, wireSlider } from "../../lib/lessons/controls";
+
+  const TARGET = 0.05, KEEP = 0.10, MAX = 0.20;
+  const x = (rate: number) => 40 + (Math.min(rate, MAX) / MAX) * 640;
+  let calls = 48, errors = 0;
+
+  const draw = () => {
+    const errInput = document.getElementById("ea-errors") as HTMLInputElement | null;
+    if (errInput) {
+      errInput.max = String(Math.min(100, calls));
+      if (errors > calls) { errors = calls; errInput.value = String(calls); document.getElementById("ea-errors-value")!.textContent = String(calls); }
+    }
+    const v = judge(errors, calls, TARGET, KEEP);
+    const ticks = [0, 0.05, 0.10, 0.15, 0.20].map((t) => `<line class="gridline" x1="${x(t)}" x2="${x(t)}" y1="30" y2="100"/><text class="chart-label" x="${x(t) - 12}" y="122">${Math.round(t * 100)}%</text>`).join("");
+    const observed = calls ? errors / calls : 0;
+    document.getElementById("ea-chart")!.innerHTML = ticks
+      + `<line class="ea-target" x1="${x(TARGET)}" x2="${x(TARGET)}" y1="20" y2="108"/><text class="ea-target-label" x="${x(TARGET) + 6}" y="18">promote target</text>`
+      + `<line class="ea-keep" x1="${x(KEEP)}" x2="${x(KEEP)}" y1="20" y2="108"/><text class="ea-keep-label" x="${x(KEEP) + 6}" y="18">keep-level bar</text>`
+      + `<rect class="ea-interval ${v.decision}" x="${x(v.lower)}" y="52" width="${Math.max(3, x(v.upper) - x(v.lower))}" height="26" rx="6"/>`
+      + (calls ? `<circle class="ea-observed" cx="${x(observed)}" cy="65" r="7"/>` : "")
+      + `<text class="chart-label" x="40" y="145">error rate (dot: observed; bar: 95% interval${v.upper > MAX ? ", clipped at 20%" : ""})</text>`;
+    const badge = document.getElementById("ea-decision")!;
+    badge.textContent = v.decision;
+    badge.className = `ea-badge ${v.decision}`;
+    document.getElementById("ea-reason")!.textContent =
+      `${errors} errors in ${calls} calls: observed ${(observed * 100).toFixed(1)}%, interval ${(v.lower * 100).toFixed(1)}%–${(v.upper * 100).toFixed(1)}%. ${v.reason.charAt(0).toUpperCase() + v.reason.slice(1)}.`;
+  };
+
+  document.getElementById("ea-controls")!.innerHTML =
+    slider("ea-calls", "Calls observed", 1, 1500, calls, 1) + slider("ea-errors", "Errors among them", 0, 48, errors, 1);
+  wireSlider("ea-calls", (value) => { calls = value; draw(); });
+  wireSlider("ea-errors", (value) => { errors = Math.min(value, calls); draw(); });
+  document.getElementById("ea-needed")!.textContent = String(errorFreeCallsNeeded(TARGET));
+
+  document.getElementById("ea-check")!.addEventListener("click", () => {
+    const rows = [...document.querySelectorAll<HTMLTableRowElement>(".ea-table tbody tr")];
+    let right = 0;
+    const notes = rows.map((row) => {
+      const name = row.cells[0].textContent ?? "";
+      const n = Number(row.dataset.n), e = Number(row.dataset.errors);
+      const v = judge(e, n, TARGET, KEEP);
+      const picked = row.querySelector("select")!.value;
+      const ok = picked === v.decision;
+      if (ok) right++;
+      row.classList.toggle("ok", ok);
+      row.classList.toggle("miss", !ok);
+      return `<li><strong>${name}: ${v.decision}.</strong> ${v.reason.charAt(0).toUpperCase() + v.reason.slice(1)}.</li>`;
+    });
+    const fb = document.getElementById("ea-feedback")!;
+    fb.hidden = false;
+    fb.innerHTML = `<p>${right} of ${rows.length} match lab 14's rule. Only one segment earns promotion; the pooled 3.0% hides a weak after-hours segment.</p><ul>${notes.join("")}</ul>`;
+  });
+</script>
+
+<style is:global>
+  .lesson-content { display: grid; gap: var(--s6); align-content: center; min-height: 25rem; }
+  .prompt, .guiding { max-width: 60ch; font-size: 1.2rem; }
+  .guiding { color: var(--gold); }
+  .lesson-summary { color: var(--ink-dim); font-size: 1.05rem; margin: 0; }
+  .clean-calls { display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--s2); max-width: 32rem; }
+  .clean-calls span { aspect-ratio: 1; border-radius: 50%; background: var(--green); opacity: .85; }
+  .control-row { display: grid; gap: var(--s4); max-width: 36rem; }
+  .lesson-control { display: grid; gap: var(--s2); color: var(--ink); }
+  .lesson-control input { accent-color: var(--cyan); width: 100%; }
+  .lesson-control output { color: var(--cyan); font-weight: 700; }
+  #ea-chart { width: 100%; max-height: 12rem; background: rgba(10,18,36,.5); border-radius: var(--r2); }
+  .gridline { stroke: var(--panel-edge); stroke-width: 1; stroke-dasharray: 3 5; }
+  .chart-label { fill: var(--ink-dim); font-size: 13px; }
+  .ea-target { stroke: var(--green); stroke-width: 2; } .ea-target-label { fill: var(--green); font-size: 13px; }
+  .ea-keep { stroke: var(--gold); stroke-width: 2; stroke-dasharray: 6 4; } .ea-keep-label { fill: var(--gold); font-size: 13px; }
+  .ea-interval { fill: color-mix(in srgb, var(--cyan) 35%, transparent); stroke: var(--cyan); stroke-width: 2; }
+  .ea-interval.promote { fill: color-mix(in srgb, var(--green) 35%, transparent); stroke: var(--green); }
+  .ea-interval.demote { fill: color-mix(in srgb, var(--gold) 35%, transparent); stroke: var(--gold); }
+  .ea-observed { fill: var(--ink); }
+  .ea-verdict { margin: 0; color: var(--ink-dim); }
+  .ea-badge { display: inline-block; padding: .1rem .6rem; border-radius: 999px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; background: var(--panel); color: var(--cyan); border: 1px solid currentColor; }
+  .ea-badge.promote, .ea-rules .promote { color: var(--green); }
+  .ea-badge.demote, .ea-rules .demote { color: var(--gold); }
+  .ea-rules .hold { color: var(--cyan); }
+  .ea-rules { display: grid; gap: var(--s3); margin: 0; padding-left: 1.2rem; font-size: 1.1rem; }
+  .ea-table { width: 100%; border-collapse: collapse; }
+  .ea-table th, .ea-table td { padding: var(--s3); border-bottom: 1px solid var(--panel-edge); text-align: left; }
+  .ea-table select { background: var(--navy); color: var(--ink); border: 1px solid var(--panel-edge); border-radius: var(--r1, 6px); padding: .3rem .5rem; }
+  .ea-table tr.ok td:last-child { box-shadow: inset 3px 0 0 var(--green); }
+  .ea-table tr.miss td:last-child { box-shadow: inset 3px 0 0 var(--gold); }
+  .challenge-answer { background: var(--navy); border: 1px solid var(--panel-edge); border-radius: var(--r2); padding: var(--s4); }
+  .challenge-answer ul { margin: var(--s3) 0 0; padding-left: 1.2rem; display: grid; gap: var(--s2); }
+  .challenge-answer p { margin: 0; color: var(--green); }
+  @media (max-width: 600px) { .ea-table th, .ea-table td { padding: var(--s2); font-size: .9rem; } }
+</style>

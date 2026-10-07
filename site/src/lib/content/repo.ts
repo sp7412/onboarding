@@ -104,6 +104,7 @@ export const DOC_PAGES: DocPage[] = [
   { repoPath: "docs/livekit-hands-on.md", icon: "labs" },
   { repoPath: "docs/first-90-days-playbook.md", icon: "plan" },
   { repoPath: "docs/manager-alignment.md", icon: "team" },
+  { repoPath: "docs/first-90-days-question-bank.md", icon: "team" },
   { repoPath: "docs/voice-agents-cheat-sheet.md", icon: "notes" },
   { repoPath: "docs/capstone-rubric.md", icon: "evaluation" },
   { repoPath: "docs/earning-autonomy.md", icon: "evaluation" },
@@ -121,6 +122,7 @@ export const DOC_PAGES: DocPage[] = [
   { repoPath: "senior-engineer/first-pr-decision-tree.md", icon: "compass", track: "senior-engineer" },
   { repoPath: "senior-engineer/hypotheses.md", icon: "compass", track: "senior-engineer" },
   { repoPath: "senior-engineer/bookability-judge.md", icon: "compass", track: "senior-engineer" },
+  { repoPath: "senior-engineer/autonomy-promotion.md", icon: "compass", track: "senior-engineer" },
   { repoPath: "docs/references.md", icon: "reading" },
   { repoPath: "notes/study-question.md", icon: "notes" },
   { repoPath: "notes/conversation-notes.md", icon: "notes" },
@@ -170,6 +172,7 @@ export function repoLinkToRoute(target: string): string | null {
   if (page) return withHash(`/docs/${docSlug(page)}`);
   if (clean === "docs/reading-guide.md") return withHash("/reading");
   if (clean === "docs/podcast-prompts.md") return withHash("/podcasts");
+  if (clean === "docs/video-notes.md") return withHash("/videos");
   if (clean === "docs/capstone-rubric.md") return withHash("/docs/capstone-rubric");
   if (clean === "notes/glossary.md") return withHash("/glossary");
   if (clean === "plan/30-60-90-checklist.md") return withHash("/checklist");

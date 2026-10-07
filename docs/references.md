@@ -1,7 +1,7 @@
 # References
 
 Every external source cited anywhere in this repo, in one place, grouped by topic.
-All links were checked on Oct 3, 2026. For *what to read first and why*, use the ranked
+All links were checked on Oct 7, 2026. For *what to read first and why*, use the ranked
 [reading guide](reading-guide.md); this page is the complete bibliography.
 
 Video summaries are collected in [video notes](video-notes.md).
@@ -15,7 +15,7 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | Source | Type | Cited in |
 |---|---|---|
 | [AI Voice Agent / AI Virtual Agent product page](https://www.servicetitan.com/features/pro/virtual-agent) | Product page | RG 1, 101, PP 1 |
-| [Webinar recap: AI Voice Agents for call booking](https://www.servicetitan.com/blog/webinar-recap-ai-voice-agents-call-booking) | Blog | RG 2, PP 1 |
+| [Webinar recap: AI Virtual Agents for call booking](https://www.servicetitan.com/blog/webinar-recap-ai-virtual-agents-call-booking) (the reading guide uses the older slug, which redirects) | Blog | RG 2, PP 1 |
 | [Pantheon 2025 press release: Atlas and the AI suite](https://www.servicetitan.com/press/servicetitan-introducing-the-next-evolution-of-ai-at-pantheon-2025-keynote) | Press release | RG 3, PP 1 |
 | [Pantheon 2025 keynote recap: Atlas](https://www.servicetitan.com/blog/pantheon-2025-vahe-keynote-atlas) | Blog | RG 3, PP 1 |
 | [Contact Center Pro](https://www.servicetitan.com/features/pro/contact-center) | Product page | 101, WP 04-05, 06-07, 11-12, 14 |
@@ -45,11 +45,15 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 |---|---|---|
 | [Advancing voice intelligence with new models in the API (gpt-realtime-2)](https://openai.com/index/advancing-voice-intelligence-with-new-models-in-the-api/) | Announcement | RG 7, PP 3 |
 | [Voice agents guide](https://developers.openai.com/api/docs/guides/voice-agents) | Docs | RG 8, PP 3 |
-| [Realtime API guide](https://developers.openai.com/api/docs/guides/realtime) | Docs | RG 13, RL, PP 3 |
+| [Realtime API guide](https://developers.openai.com/api/docs/guides/realtime) (also linked at its older [platform.openai.com address](https://platform.openai.com/docs/guides/realtime), which redirects) | Docs | RG 13, RL, PP 3 |
+| [WebSockets guide, GPT-Live section](https://developers.openai.com/api/docs/guides/voice-websockets?api=live) | Docs | Build your own voice agent |
+| [Agents SDK (Python): voice pipeline](https://openai.github.io/openai-agents-python/voice/pipeline/) | Docs | Build your own voice agent |
+| [Guardrails and human review](https://developers.openai.com/api/docs/guides/agents/guardrails-approvals) | Docs | Tools and guardrails |
+| [Agents SDK (Python): tools](https://openai.github.io/openai-agents-python/tools/) | Docs | Tools and guardrails |
 | [Build more natural voice experiences with GPT-Live-1 in the API](https://openai.com/index/introducing-gpt-live-1-in-the-api/) | Announcement | RG 7A, PP 3, GPT-Live doc |
 | [Getting started with GPT-Live](https://developers.openai.com/api/docs/guides/live) | Docs | RG 7A, GPT-Live doc |
 | [Delegation and tools in GPT-Live](https://developers.openai.com/api/docs/guides/live-delegation) | Docs | RG 7A, PP 3, GPT-Live doc |
-| [Realtime API: managing costs (audio tokens per second, session context)](https://developers.openai.com/api/docs/guides/realtime-costs) | Docs | Architecture explorer |
+| [Voice cost optimization, Realtime tab (audio tokens per second, session context)](https://developers.openai.com/api/docs/guides/voice-latency-cost?voice-api=realtime) | Docs | Architecture explorer |
 | [GPT-6 Luna model page](https://developers.openai.com/api/docs/models/gpt-6-luna) | Model docs | Architecture explorer |
 | [GPT-6 Astra model page](https://developers.openai.com/api/docs/models/gpt-6-astra) | Model docs | Architecture explorer |
 | [GPT-4o Mini TTS model page (marked deprecated)](https://developers.openai.com/api/docs/models/gpt-4o-mini-tts) | Model docs | Architecture explorer |
@@ -74,7 +78,7 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [gpt-realtime-2.1 release announcement](https://community.openai.com/t/new-realtime-models-on-the-api-gpt-realtime-2-1-and-gpt-realtime-2-1-mini/1385896) | Announcement | Speech-to-speech doc |
 | [OpenAI API changelog](https://developers.openai.com/api/docs/changelog) | Changelog | Speech-to-speech doc |
 | [Hello GPT-4o](https://openai.com/index/hello-gpt-4o/) | Announcement | Speech-to-speech doc |
-| [Realtime API reference](https://platform.openai.com/docs/api-reference/realtime) | API reference | RL |
+| [Realtime API reference](https://developers.openai.com/api/reference/resources/realtime) | API reference | RL |
 | [Realtime prompting guide](https://developers.openai.com/cookbook/examples/realtime_prompting_guide) | Cookbook | RG 14, PP 3 |
 
 ## LiveKit
@@ -91,6 +95,9 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [Turns overview](https://docs.livekit.io/agents/logic/turns/) | Docs | RG 11, RL, PP 2 |
 | [Telephony](https://docs.livekit.io/telephony/) | Docs | RL |
 | [Using a transformer to improve end-of-turn detection](https://livekit.com/blog/using-a-transformer-to-improve-end-of-turn-detection) | Blog | RG 12, PP 2 |
+| [Build Production-Ready Voice AI Agents (LiveKit)](https://www.youtube.com/watch?v=Axg9TNZ5038) | Video (LiveKit 101) | PP 10 |
+| [Give Your Voice AI Personality and Failover Protection (LiveKit)](https://www.youtube.com/watch?v=Hj3cZIeB1nc) | Video (LiveKit 101) | PP 10 |
+| [LiveKit CLI install script](https://get.livekit.io/cli) | Install script | LiveKit hands-on |
 | [LiveKit 101: Build Production-Ready Voice AI Agents](https://www.youtube.com/playlist?list=PLWx-Xa8RhJxXuv8fu2Qz9rj2MPb4qgXir) | Official video course playlist | RG 11A, PP 10 |
 | [Voice Agent Pipeline Explained: VAD, STT, LLM & TTS (LiveKit)](https://www.youtube.com/watch?v=SPB2T-eLrOg) | Talk (video 2 of LiveKit 101) | RG 11B, PP 10 |
 | [Fix AI Voice Interruptions with Semantic Turn Detection (LiveKit)](https://www.youtube.com/watch?v=XbrlOY4Z-Ow) | Video (LiveKit 101) | RG 11C |
@@ -108,7 +115,7 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [LangChain middleware](https://docs.langchain.com/oss/python/langchain/middleware) | Docs | RG 19, PP 4 |
 | [LangGraph overview](https://docs.langchain.com/oss/python/langgraph/overview) | Docs | RL |
 | [LangGraph persistence](https://docs.langchain.com/oss/python/langgraph/persistence) | Docs | RL |
-| [LangGraph durable execution](https://docs.langchain.com/oss/python/langgraph/durable-execution) | Docs | RG 20, PP 4 |
+| [LangGraph durable execution (Checkpointers: durability modes)](https://docs.langchain.com/oss/python/langgraph/checkpointers#durability-modes) | Docs | RG 20, PP 4 |
 | [LangGraph interrupts](https://docs.langchain.com/oss/python/langgraph/interrupts) | Docs | RG 20, PP 4 |
 
 ## Evaluation and observability
@@ -137,8 +144,8 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 
 | Source | Type | Cited in |
 |---|---|---|
-| [τ-bench: tool-agent-user interaction in real-world domains](https://arxiv.org/abs/2406.12045) | Paper (2024) | RG 16, PP 5 |
-| [τ²-bench: conversational agents in a dual-control environment](https://arxiv.org/abs/2506.07982) | Paper (2025) | RG 17, PP 5 |
+| [τ-bench: tool-agent-user interaction in real-world domains](https://arxiv.org/abs/2406.12045) ([PDF](https://arxiv.org/pdf/2406.12045)) | Paper (2024) | RG 16, PP 5 |
+| [τ²-bench: conversational agents in a dual-control environment](https://arxiv.org/abs/2506.07982) ([PDF](https://arxiv.org/pdf/2506.07982)) | Paper (2025) | RG 17, PP 5 |
 | [Moshi: a speech-text foundation model for real-time dialogue](https://arxiv.org/abs/2410.00037) | Paper (2024) | RG 26 |
 
 ## Regulation and public safety
@@ -218,13 +225,18 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 
 ## Explainer series
 
+| Source | Type | Cited in |
+|---|---|---|
 | [Voice Agents from First Principles release](https://github.com/sp7412/onboarding/releases/tag/explainer-series) | Original local explainer series | Reading guide item 0 |
 | [Interactive Educator](https://github.com/Wamikmk/interactive-educator) | Pedagogy inspiration, CC BY 4.0 | Interactive lessons |
 
 ## Onboarding practice
 
+| Source | Type | Cited in |
+|---|---|---|
 | [Setting Goals With Your New Manager](https://raw.githubusercontent.com/sp7412/onboarding/main/docs/manager-alignment.md) | Repo guide | PP 6 |
-
+| [Path to Integration, this repo's published site](https://sp7412.github.io/onboarding/) (including the [earned-autonomy lesson](https://sp7412.github.io/onboarding/lessons/earned-autonomy/) and [value calculator](https://sp7412.github.io/onboarding/value-calculator/)) | Companion site | README, checklist, earning autonomy, business metrics |
+| [notebooklm-mcp-cli (`nlm`, unofficial)](https://github.com/jacob-bd/notebooklm-mcp-cli) | Open-source CLI | Podcast prompts |
 
 ## Agentic orchestration
 
@@ -238,7 +250,7 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [LangGraph](https://github.com/langchain-ai/langgraph) | Open-source framework | Whitepaper 15 |
 | [LangGraph overview](https://docs.langchain.com/oss/python/langgraph/overview) | Documentation | Whitepaper 15 |
 | [LangGraph persistence](https://docs.langchain.com/oss/python/langgraph/persistence) | Documentation | Whitepaper 15 |
-| [LangGraph durable execution](https://docs.langchain.com/oss/python/langgraph/durable-execution) | Documentation | Whitepaper 15 |
+| [LangGraph durable execution (Checkpointers: durability modes)](https://docs.langchain.com/oss/python/langgraph/checkpointers#durability-modes) | Documentation | Whitepaper 15 |
 | [LangGraph interrupts](https://docs.langchain.com/oss/python/langgraph/interrupts) | Documentation | Whitepaper 15 |
 | [LangChain agents](https://docs.langchain.com/oss/python/langchain/agents) | Documentation | Whitepaper 15 |
 | [ServiceTitan job listing: Engineering Manager, Data Foundations](https://servicetitan.wd1.myworkdayjobs.com/en-US/ServiceTitan/job/Manager--Software-Engineering_JR114911) | Job listing (expires) | Whitepaper 15 |
