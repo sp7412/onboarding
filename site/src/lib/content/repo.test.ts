@@ -24,9 +24,9 @@ describe("real repo content", () => {
   });
 
   it("parses all 13 podcast episodes in listening order", () => {
-    expect(bundle.podcasts.length).toBe(13);
+    expect(bundle.podcasts.length).toBe(14);
     expect(bundle.podcasts.map((p) => p.episode)).toEqual([
-      "1", "2", "10", "11", "3", "4", "12", "5", "13", "6", "7", "8", "9",
+      "1", "2", "10", "11", "3", "4", "12", "5", "13", "6", "7", "8", "9", "14",
     ]);
     for (const p of bundle.podcasts) {
       expect(p.block).toContain("CUSTOMIZE PROMPT");
