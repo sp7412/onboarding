@@ -18,7 +18,7 @@ ROOT = Path(__file__).resolve().parents[1]
 URL = re.compile(r"https?://[^\s)>'\"`]+")
 SOURCES = ("README.md", "AGENTS.md", "MAINTENANCE.md", "docs/", "notes/", "plan/", "templates/", "labs/README.md")
 EXCLUDE = ("/fixtures/", "site/src/lib/markdown.test.ts")
-KNOWN_UNVERIFIED = ("developers.openai.com", "platform.openai.com", "openai.com", "sec.gov", "bls.gov", "investing.com", "justia.com", "investors.servicetitan.com", "viirtue.com", "deeplearning.ai")
+KNOWN_UNVERIFIED = ("developers.openai.com", "platform.openai.com", "openai.com", "sec.gov", "bls.gov", "investing.com", "justia.com", "investors.servicetitan.com", "viirtue.com", "deeplearning.ai", "datacamp.com")
 KNOWN_REDIRECTING = ("www.deeplearning.ai/courses/building-ai-voice-agents-for-production",)
 
 

@@ -76,6 +76,7 @@ duplex, overlap-aware models like Moshi point to where the field may go.
 | `gpt-realtime-2.1-mini` | Distilled reasoning model for faster, lower-cost voice interactions; better alphanumeric recognition than gpt-realtime-2 | 128k / 32k | $0.60 / $2.40; $10 / $20 | [3] |
 | `gpt-realtime-2` | The May 2026 model the labs target; configurable reasoning effort, stronger instruction following, more reliable tool use | 128k / 32k | $4 / $24; $32 / $64 | [6] |
 | `gpt-realtime-whisper` | Streaming speech-to-text for low-latency transcript deltas; priced by audio duration | 16k / 2k | per audio duration | [4] |
+| `gpt-live-transcribe` | Low-latency live transcription (no spoken reply) with tunable delay, free-form context, keyword hints and language hints; announced July 29, 2026 alongside batch `gpt-transcribe` | not listed | $0.017 per minute of audio | [12][13] |
 | `gpt-live-1` | Full-duplex voice model that listens while speaking and delegates reasoning and tool calls to a backend model; its own `v1/live/sessions` endpoint (see [GPT-Live-1](gpt-live-1.md)) | not listed | $0.05 per minute of voice, billed per second; backend billed separately | [11] |
 | `gpt-realtime-translate` | Streaming speech-to-speech *translation* on a dedicated endpoint; returns translated audio and transcripts while audio is still arriving | 16k / 2k | per audio duration | [5] |
 
@@ -102,7 +103,39 @@ The model is only part of the system. The Realtime API provides the session arou
 - **Reasoning effort** per session or response. Analysis: start low for voice and raise it
   only for hard turns, since effort trades quality against time to first word. [6]
 
+Operational limits worth designing for from day one: [10][14]
+
+- **Sessions end at 60 minutes.** Plan a reconnect (with state carried over by your app) for
+  long calls rather than discovering the cutoff in production.
+- **The voice is fixed once the model has spoken.** Choose it in the first `session.update`.
+- **One `input_audio_buffer.append` event carries at most 15 MB.** Stream small chunks.
+
 Lab 01 drives all of this at the level of raw events; lab 02 adds tool calls and guardrails.
+
+## 4a. Live transcription with `gpt-live-transcribe`
+
+A transcription-only session is the "ears" of a cascaded pipeline, or a sideband that watches
+a call for emergencies and supervisor alerts. What OpenAI's transcription guide says: [12]
+
+- **Delay is a dial, not a constant.** `delay` takes `minimal`, `low`, `medium`, `high` or
+  `xhigh`, trading time to first text against accuracy.
+- **Context improves accuracy.** `prompt` (what the recording is about), `keywords` (names and
+  literal terms, one per line) and `languages` (expected input languages). OpenAI reports
+  semantic accuracy on a context-aware benchmark rising from 38.5% to 44.6% with free-form
+  context. [13] Analysis: for trades calls, keywords like equipment brands, street names in the
+  service area and membership plan names are the obvious first hints. Hints shift the odds;
+  they don't guarantee spelling, so addresses still need a read-back.
+- **No server-side turn detection.** Leave `turn_detection` unset or `null` and commit the
+  buffer yourself (client-side VAD or your own endpointing, as in lab 03).
+- **Match results by `item_id`.** Completion events from different turns can arrive out of
+  order.
+- **No confidence scores, speaker labels or word timestamps.** Analysis: this matters for the
+  [call facts contract](call-facts-contract.md). A `transcript_confidence` field can't simply
+  be copied from this model; it has to come from somewhere else (a read-back the caller
+  confirmed, a match against an address or account lookup, or a second pass).
+- **Audio format.** The guide's example uses 24 kHz PCM. A third-party tutorial reports
+  G.711 telephony audio working; that isn't in the guide, so confirm it before skipping
+  resampling on a phone path. [15]
 
 ## 5. Speech-to-speech vs. cascaded, for a phone agent
 
@@ -143,6 +176,7 @@ unsaid. That's the pattern lab 02 and lab 07 teach.
 - Which model and version does the production agent use, and how are upgrades evaluated?
 - Speech-to-speech, cascaded, or a hybrid, and why?
 - What's the per-call cost, and how does it compare with the value of a booked job?
+- Where does transcript confidence come from, given that the streaming transcriber returns none?
 
 ## Related repo material
 
@@ -163,3 +197,11 @@ unsaid. That's the pattern lab 02 and lab 07 teach.
 9. OpenAI API changelog: <https://developers.openai.com/api/docs/changelog>
 10. OpenAI, Realtime API guide: <https://developers.openai.com/api/docs/guides/realtime>
 11. OpenAI, GPT-Live 1 model page: <https://developers.openai.com/api/docs/models/gpt-live-1>
+12. OpenAI, Realtime transcription guide: <https://developers.openai.com/api/docs/guides/realtime-transcription>; GPT-Live-Transcribe model page: <https://developers.openai.com/api/docs/models/gpt-live-transcribe>
+13. OpenAI Developer Community, "GPT-Live-Transcribe and GPT-Transcribe: Two New Transcription Models in the API" (July 29, 2026): <https://community.openai.com/t/gpt-live-transcribe-and-gpt-transcribe-two-new-transcription-models-in-the-api/1388318>
+14. OpenAI, Realtime conversations guide: <https://developers.openai.com/api/docs/guides/realtime-conversations>
+15. DataCamp, "GPT Live Transcribe API" tutorial (August 6, 2026; third-party, hands-on): <https://www.datacamp.com/tutorial/gpt-live-transcribe-api>
+
+Further hands-on reading (third-party; prefer the OpenAI docs above for facts): DataCamp's
+[GPT-Realtime-2 API tutorial](https://www.datacamp.com/tutorial/gpt-realtime-2-api) (May 12, 2026)
+builds raw-WebSocket demos of the realtime, translation and transcription endpoints.

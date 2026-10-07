@@ -57,6 +57,13 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [GPT-Realtime-2.1 Mini model page](https://developers.openai.com/api/docs/models/gpt-realtime-2.1-mini) | Model docs | Speech-to-speech doc |
 | [GPT-Realtime-2 model page](https://developers.openai.com/api/docs/models/gpt-realtime-2) | Model docs | Speech-to-speech doc |
 | [GPT-Realtime-Whisper model page](https://developers.openai.com/api/docs/models/gpt-realtime-whisper) | Model docs | Speech-to-speech doc |
+| [GPT-Live-Transcribe model page](https://developers.openai.com/api/docs/models/gpt-live-transcribe) | Model docs | Speech-to-speech doc |
+| [Realtime transcription guide](https://developers.openai.com/api/docs/guides/realtime-transcription) | Docs | Speech-to-speech doc |
+| [Realtime conversations guide](https://developers.openai.com/api/docs/guides/realtime-conversations) | Docs | Speech-to-speech doc |
+| [GPT-Live-Transcribe and GPT-Transcribe: Two New Transcription Models in the API](https://community.openai.com/t/gpt-live-transcribe-and-gpt-transcribe-two-new-transcription-models-in-the-api/1388318) | Announcement | Speech-to-speech doc |
+| [DataCamp: GPT-Live-1 API tutorial](https://www.datacamp.com/tutorial/gpt-live-1-api) | Tutorial (third-party) | GPT-Live doc |
+| [DataCamp: GPT-Realtime-2 API tutorial](https://www.datacamp.com/tutorial/gpt-realtime-2-api) | Tutorial (third-party) | Speech-to-speech doc |
+| [DataCamp: GPT Live Transcribe API tutorial](https://www.datacamp.com/tutorial/gpt-live-transcribe-api) | Tutorial (third-party) | Speech-to-speech doc |
 | [GPT-Realtime-Translate model page](https://developers.openai.com/api/docs/models/gpt-realtime-translate) | Model docs | Speech-to-speech doc |
 | [gpt-realtime-2.1 release announcement](https://community.openai.com/t/new-realtime-models-on-the-api-gpt-realtime-2-1-and-gpt-realtime-2-1-mini/1385896) | Announcement | Speech-to-speech doc |
 | [OpenAI API changelog](https://developers.openai.com/api/docs/changelog) | Changelog | Speech-to-speech doc |
