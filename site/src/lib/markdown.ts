@@ -15,6 +15,11 @@ export interface RenderOptions {
   resolveRepoLink: (repoPath: string) => string | null;
   /** Prefix for task-list checkbox ids (defaults to a slug of sourcePath). */
   idPrefix?: string;
+  /**
+   * Prefix for heading ids. Set it when several documents render on one page (e.g. the
+   * templates page), so their headings get unique, linkable ids. Default: none.
+   */
+  headingIdPrefix?: string;
   /** Drop the first H1 (pages render their own title). Default true. */
   skipH1?: boolean;
 }
@@ -112,7 +117,8 @@ export function renderMarkdown(md: string, opts: RenderOptions): RenderResult {
     const base = slugify(text.replace(/\]\([^)]*\)/g, "]").replace(/[`*_[\]()]/g, "")) || "section";
     const n = usedIds.get(base) ?? 0;
     usedIds.set(base, n + 1);
-    return n ? `${base}-${n}` : base;
+    const id = n ? `${base}-${n}` : base;
+    return opts.headingIdPrefix ? `${opts.headingIdPrefix}-${id}` : id;
   };
 
   const lines = md.replace(/\r\n/g, "\n").split("\n");

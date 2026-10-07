@@ -7,14 +7,16 @@ interface Props {
   body: string;
   sourcePath: string;
   idPrefix?: string;
+  headingIdPrefix?: string;
   skipH1?: boolean;
 }
 
-const { body, sourcePath, idPrefix, skipH1 = true } = Astro.props;
+const { body, sourcePath, idPrefix, headingIdPrefix, skipH1 = true } = Astro.props;
 
 const { html } = renderMarkdown(body, {
   sourcePath,
   idPrefix,
+  headingIdPrefix,
   skipH1,
   resolveRepoLink: (repoPath) => {
     const route = repoLinkToRoute(repoPath);
