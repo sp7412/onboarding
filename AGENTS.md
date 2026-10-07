@@ -6,7 +6,7 @@ Guidance for AI coding agents (Claude Code, Codex, Cursor, etc.) working in this
 
 A personal onboarding workspace for a Senior AI Engineer role at ServiceTitan
 (start date Oct 26, 2026): a 30/60/90 plan, a voice-agent study guide, blank templates, and
-nine Jupyter tutorials on the real-time voice-agent stack (OpenAI Realtime, LiveKit,
+fifteen Jupyter tutorials on the real-time voice-agent stack (OpenAI Realtime, LiveKit,
 LangChain/LangGraph, LangSmith).
 
 ## Hard rules
@@ -63,7 +63,7 @@ python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 cd labs && python build_nb.py            # rebuild notebooks after editing labs/src/*.py
 cd .. && python scripts/check_repo.py     # generated notebooks present and output-free
-python scripts/run_notebooks.py           # run all notebooks offline; must print 9/9 passed
+python scripts/run_notebooks.py           # run all notebooks offline; must print 15/15 passed
 python scripts/run_notebooks.py 02 06    # run a subset by filename prefix
 python scripts/run_notebooks.py --live   # use keys from .env (costs money; ask first)
 ```
@@ -138,3 +138,13 @@ Run the offline notebook suite before committing any change under `labs/`.
 The Guardrails simulation on the site replays recorded runs of `labs/stlab`. After changing
 `labs/stlab/fake_realtime.py`, `tools.py`, `backend.py` or `scenarios.py`, run
 `python scripts/export_site_sims.py` and commit the updated `site/src/data/guardrail-traces.json`.
+
+
+## Day-one public-repo boundary
+
+The start date is October 26, 2026. From that date forward this repository is a frozen,
+sanitized pre-start guide. Never add anything learned inside the company: internal architecture,
+code, metrics, traces, customer data, recordings, hostnames, endpoints, credentials, prompts,
+or incidents. Put that material in company systems or an approved private location. Post-start
+changes are limited to genuinely public, verified sources and public-safe improvements to the
+synthetic teaching labs. See docs/after-day-one.md.
