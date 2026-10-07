@@ -110,6 +110,9 @@ A strong answer usually includes most of the following (not an answer key):
   to the team."
 - If you already did [eval design](eval-design.md), reconcile the two: the funnel and the
   judge should use the same denominator language.
+- Run [lab 13](../labs/README.md) section 5: the same bookings are an 86% or a 50% booking
+  rate depending on the denominator. Its `bookable_reason` labels are one worked answer to
+  "define a bookable lead".
 
 ## Sources
 

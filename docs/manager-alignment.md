@@ -46,6 +46,8 @@ Two more things to start before day one:
 
 ## Conversation 1: Getting aligned (week 1)
 
+Before this conversation, review the [Pantheon hypothesis map](hypothesis-map.md). Bring a short list of public-grounded hypotheses and ask which ones are most important to validate first. Keep answers learned after day one in company systems, not this public repo.
+
 Let it be a conversation, not an interview. Start broad, follow their energy, and come back
 to anything you didn't cover. Rough flow, with phrasing you can adapt:
 

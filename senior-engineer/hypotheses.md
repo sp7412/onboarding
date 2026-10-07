@@ -13,6 +13,8 @@ file stays a blank template with public examples.
 
 ## Public examples to start from
 
+The [Pantheon hypothesis map](../docs/hypothesis-map.md) has a dozen more, each with whom to ask.
+
 Each example is grounded only in public statements from Pantheon 2026, which are company
 claims (see the [Pantheon brief](../docs/pantheon-2026-ai-roadmap.md)). They are guesses about
 how things might work, not facts about internal systems.
