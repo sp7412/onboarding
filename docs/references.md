@@ -1,7 +1,7 @@
 # References
 
 Every external source cited anywhere in this repo, in one place, grouped by topic.
-All links were checked on Oct 3, 2026. For *what to read first and why*, use the ranked
+All links were checked on October 6, 2026. For *what to read first and why*, use the ranked
 [reading guide](reading-guide.md); this page is the complete bibliography.
 
 Video summaries are collected in [video notes](video-notes.md).
