@@ -113,6 +113,28 @@ print({
 })
 
 # %% [markdown]
+# ## 5. Sanity-check the value model
+#
+# The shared dataset has outcomes but intentionally does not contain unanswered calls. That
+# means answer rate is an external assumption, while average ticket, booked-job count, and
+# after-hours share can be measured directly from the synthetic population.
+
+# %%
+avg_ticket = actual_revenue / booked_calls if booked_calls else 0
+dataset_metrics = {
+    "monthly_calls": len(calls),
+    "after_hours_share": after_hours / len(calls),
+    "booked_jobs": booked_calls,
+    "average_actual_ticket": avg_ticket,
+    "close_rate_for_completed_outcomes": 1.0,
+    "false_booking_rate": 0.0,
+}
+display(pd.Series(dataset_metrics))
+
+print("Sanity-check lesson: the dataset can validate the outcome-side arithmetic, but it")
+print("cannot estimate missed after-hours demand because unanswered calls are not represented.")
+
+# %% [markdown]
 # ## 5. Exercises
 #
 # 1. Add a new fact type end to end: add it to the schema, permissions, extractor, consumer,
