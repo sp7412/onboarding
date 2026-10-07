@@ -32,6 +32,10 @@ software and production voice agents. Follow the single, canonical four-week sch
 per week). Use only personal accounts for optional live exercises; the complete path is useful
 offline. Finish with the [`capstone rubric`](docs/capstone-rubric.md).
 
+Alongside the labs, the [senior engineer judgment track](senior-engineer/README.md) has seven
+short written exercises (about five hours in total) on denominators, incident diagnosis,
+latency budgets, architecture boundaries and choosing a first PR.
+
 For each lab, read the objective first, run the offline cells, do the understanding
 questions without looking at the answer key, then attempt the graded exercise. The
 notebooks use fictional data only. Start with [`labs/README.md`](labs/README.md) for
@@ -51,6 +55,7 @@ the exact lab map and prerequisites.
 | [`docs/livekit-hands-on.md`](docs/livekit-hands-on.md) | LiveKit track: Agent Builder → `lk` starter → fake ServiceTitan tools with guardrails |
 | [`labs/`](labs/) | Thirteen Jupyter tutorials: OpenAI Realtime, LiveKit, LangChain/LangGraph, LangSmith, capstone, and multi-agent coordination (09–12) |
 | [`labs/solutions/`](labs/solutions/) | Offline-safe solution notes for the lab exercises |
+| [`senior-engineer/`](senior-engineer/) | Judgment track: seven fictional exercises with self-checks (latency budget, eval denominators, incident, architecture review, first PR, hypotheses) |
 | [`templates/`](templates/) | Onboarding log, 1:1 questions, weekly status, 30-day memo, design doc, 90-day retro |
 | [`notes/`](notes/) | Public-safe personal notes: original conversation notes, glossary, study-question answer |
 | [`scripts/run_notebooks.py`](scripts/run_notebooks.py) | Headless test runner: executes the notebooks offline |

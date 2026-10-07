@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { loadContent, DOC_PAGES } from "../lib/content/repo";
+import { loadContent, DOC_PAGES, docRoute } from "../lib/content/repo";
 import { expectCondition } from "../lib/content/errors";
 import HeroArt from "../components/HeroArt.astro";
 import Icon from "../components/Icon.astro";
@@ -96,21 +96,24 @@ const FIELD_GUIDE = [
   { repoPath: "docs/first-90-days-playbook.md", title: "First 90 days playbook", icon: "plan", tone: "gold", blurb: "How to operate: the execution companion to the checklist." },
   { repoPath: "docs/manager-alignment.md", title: "Setting goals with your manager", icon: "team", tone: "gold", blurb: "A natural first-1:1 conversation that becomes a written 30/60/90 agreement." },
   { repoPath: "docs/voice-agents-cheat-sheet.md", title: "Voice-agents cheat sheet", icon: "notes", tone: "cyan", blurb: "One page: latency, turn-taking, architecture trade-offs, and control-plane checks." },
+  { repoPath: "senior-engineer/README.md", title: "Senior engineer judgment track", icon: "compass", tone: "gold", blurb: "Seven short exercises: denominators, incidents, latency budgets, and choosing a first PR." },
   { repoPath: "docs/capstone-rubric.md", title: "Capstone rubric", icon: "evaluation", tone: "green", blurb: "Pass/fail evidence for a safe, grounded voice-agent workflow." },
   { repoPath: "notes/study-question.md", title: "The study question", icon: "gear", tone: "cyan", blurb: "Write your own answer: where does the control plane begin?" },
   { repoPath: "notes/conversation-notes.md", title: "Conversation notes", icon: "doc", tone: "cyan", blurb: "The conversation that started this repo, lightly condensed." },
   { repoPath: "docs/references.md", title: "References", icon: "book", tone: "cyan", blurb: "Every source cited anywhere, grouped by topic." },
 ] as const;
 const fieldRoutes = FIELD_GUIDE.map((f) => ({
-  path: `/docs/${f.repoPath.replace(/^(?:docs|notes)\//, "").replace(/\.md$/, "")}`,
+  path: docRoute(f.repoPath),
   ...f,
 }));
 // Build fails if a doc page exists without a field-guide card (or vice versa).
+// Pages inside a track are reached from the track's index page instead.
+const HOME_DOCS = DOC_PAGES.filter((d) => !d.track);
 expectCondition(
   "site/src/pages/index.astro field guide",
-  "exactly one card per DOC_PAGES entry",
-  FIELD_GUIDE.length === DOC_PAGES.length &&
-    [...DOC_PAGES].sort((a, b) => a.repoPath.localeCompare(b.repoPath)).every((d, i) =>
+  "exactly one card per top-level DOC_PAGES entry",
+  FIELD_GUIDE.length === HOME_DOCS.length &&
+    [...HOME_DOCS].sort((a, b) => a.repoPath.localeCompare(b.repoPath)).every((d, i) =>
       [...FIELD_GUIDE].sort((a, b) => a.repoPath.localeCompare(b.repoPath))[i].repoPath === d.repoPath,
     ),
 );
