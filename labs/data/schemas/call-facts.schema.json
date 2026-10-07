@@ -7,18 +7,19 @@
   "properties": {
     "schema_version": {"const": "call-facts-v1"},
     "call_id": {"type": "string"},
+    "conflicts": {"type": "array", "items": {"type": "string"}} ,
     "fields": {
       "type": "object",
       "required": ["intent", "job_type", "urgency", "emergency", "bookable",
         "caller_sentiment", "replacement_interest", "membership", "price_shopper",
         "injection_attempt"],
       "properties": {
-        "intent": {"$ref": "#/$defs/fact"},
-        "job_type": {"$ref": "#/$defs/fact"},
-        "urgency": {"$ref": "#/$defs/fact"},
+        "intent": {"allOf": [{"$ref": "#/$defs/fact"}, {"properties": {"value": {"enum": ["book_service","price_quote","reschedule","cancel","out_of_area","emergency","unknown","spam"]}}]},
+        "job_type": {"allOf": [{"$ref": "#/$defs/fact"}, {"properties": {"value": {"enum": ["ac_repair","furnace_repair","hvac_tuneup","plumbing_leak","electrical_issue","none"]}}]},
+        "urgency": {"allOf": [{"$ref": "#/$defs/fact"}, {"properties": {"value": {"enum": ["emergency","same_day","soon","routine","none"]}}]},
         "emergency": {"$ref": "#/$defs/fact"},
         "bookable": {"$ref": "#/$defs/fact"},
-        "caller_sentiment": {"$ref": "#/$defs/fact"},
+        "caller_sentiment": {"allOf": [{"$ref": "#/$defs/fact"}, {"properties": {"value": {"enum": ["positive","neutral","frustrated","angry"]}}]},
         "replacement_interest": {"$ref": "#/$defs/fact"},
         "membership": {"$ref": "#/$defs/fact"},
         "price_shopper": {"$ref": "#/$defs/fact"},
