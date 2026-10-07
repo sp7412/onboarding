@@ -133,13 +133,14 @@ then use the [Pantheon hypothesis map](hypothesis-map.md) as your week-1 questio
 - [ ] Repo brief: [Pantheon 2026 AI roadmap](pantheon-2026-ai-roadmap.md) · guide · 15 min
 - [ ] Press release: <https://www.globenewswire.com/news-release/2026/10/06/3375320/0/en/servicetitan-announcing-new-and-expanded-capabilities-at-pantheon-2026.html> · announcement · 10 min
 - [ ] Opening keynote transcript: <https://www.investing.com/news/transcripts/servicetitan-at-pantheon-2026-ai-push-aims-to-make-trades-selfrunning-93CH-4934737> · transcript · 30 min
+- [ ] Architecture map: [Whitepaper ch. 15, Agentic orchestration](whitepaper/15-agentic-orchestration.md) (essentials path) · whitepaper · 10 min
 - **Why:** the most current public statement of where the company is taking AI, announced three weeks before day one. The voice agent now sits inside a coordinated system of agents.
 - **Look for:**
   1. Where voice agents sit in the five-level AI maturity model, and what the levels above them require.
   2. How the coordination system (shared context, shared judgment, coordinated action, arbitration, supervision) changes what the voice agent must capture and hand off.
   3. How the company measures a "bookable" call, and why it built a separate judge for it.
   4. What Homh and agent-to-agent booking mean for identity, validation and the control plane.
-- **Pairs with:** lessons on the denominator and claims vs. state; [Tools and guardrails](tools-and-guardrails.md)
+- **Pairs with:** lessons on the denominator and claims vs. state; [Tools and guardrails](tools-and-guardrails.md); labs 09–14; [whitepaper ch. 16, Shared skills](whitepaper/16-shared-skills-and-capabilities.md)
 
 ### 8. OpenAI voice agents guide
 - [ ] <https://developers.openai.com/api/docs/guides/voice-agents> · docs · 30 min

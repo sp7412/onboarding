@@ -73,7 +73,13 @@ export function parseWhitepaperChapter(filename: string, markdown: string): Whit
 export function parseWhitepaperOrder(readme: string, file: string): string[] {
   // Reading Order list: `1. [00 - Introduction](00-introduction.md)`
   const order = [...readme.matchAll(/^\d+\.\s+\[[^\]]+\]\(([^)]+\.md)\)/gm)].map((m) => m[1]);
-  expectCondition(file, "a numbered reading order of exactly 17 chapters", order.length === 17, `got ${order.length}`);
   expectCondition(file, "unique whitepaper files", new Set(order).size === order.length);
+  // Numbered chapters 00, 01, 02, … in order, followed by exactly appendix A then appendix B.
+  const numbered = order.filter((f) => /^\d{2}-/.test(f));
+  const expected = numbered.map((_, i) => String(i).padStart(2, "0"));
+  expectCondition(file, "chapters numbered consecutively from 00 in reading order",
+    numbered.length >= 15 && numbered.every((f, i) => f.startsWith(`${expected[i]}-`)), numbered.join(", "));
+  expectCondition(file, "appendix A then appendix B after the chapters",
+    order.slice(numbered.length).join(",") === "appendix-a-timeline.md,appendix-b-sources.md", order.slice(numbered.length).join(", "));
   return order;
 }

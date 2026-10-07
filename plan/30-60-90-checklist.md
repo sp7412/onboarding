@@ -82,6 +82,7 @@ The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubr
 ### Week of Oct 19 — Prepare relationships and logistics
 
 - [ ] Run labs 09–10 (shared context; coordination and arbitration) (needs a laptop).
+- [ ] Read the essentials path of [whitepaper chapter 15, Agentic orchestration](../docs/whitepaper/15-agentic-orchestration.md): the architecture map behind labs 09–14.
 - [ ] Run [lab 13](../labs/13_minimax_capstone.ipynb): trace 20 calls and identify the most costly extraction error.
 - [ ] Read the [business metrics primer](../docs/business-metrics.md) and try the [value calculator](https://sp7412.github.io/onboarding/value-calculator/).
 - [ ] Read the [`docs/reading-guide.md`](../docs/reading-guide.md) items paired to any unfinished lab.
