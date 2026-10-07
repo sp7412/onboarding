@@ -1941,6 +1941,40 @@ The evaluation system determines whether the decisions were actually good.
 
 That is the conceptual bridge from a voice agent to an **agentic operating system**.
 
+## Check your understanding
+
+Try each question before reading the sketches below it.
+
+1. Every specialist agent's metric improves, yet booked revenue falls. What is the failure
+   called, and which of the five coordination capabilities address it?
+2. A teammate proposes letting an LLM choose between two agents' conflicting proposals for
+   the same technician slot. What would you put in charge instead, and what can the LLM still do?
+3. "We adopted MCP and A2A, so orchestration is solved." What do those protocols give you,
+   and what do they leave to you?
+4. A customer reports that the wrong technician was booked. Which three systems do you need
+   to join to explain it, and what must have been captured at decision time?
+5. Which statements about ServiceTitan's architecture in this chapter are public facts, and
+   which are hypotheses you would need to validate after joining?
+
+**Answer sketches**
+
+1. Local optimization (section 1). Shared context and shared judgment stop agents from
+   reasoning from different facts and scores; arbitration and supervision resolve conflicts
+   that remain. Lab 10 shows it.
+2. Deterministic arbitration over expected value net of cost, with hard constraints
+   (consent, emergencies, capacity) that are never traded away (section 17; lab 10). The LLM can
+   propose and explain; the harness decides and commits.
+3. Connectivity: MCP standardizes tool and data access, A2A standardizes agent-to-agent
+   calls. Policy, arbitration, durable state, idempotent side effects and supervision are
+   still application code (section 18).
+4. The agent trace (what it saw and proposed), the source of truth (what was committed and
+   when) and the analytical history (similar cases and outcomes), joined on stable IDs
+   captured when the decision was made (sections 10–11).
+5. Public: the press release and keynote describe 30 agents across 18 business drivers and
+   the five coordination capabilities, and job listings name parts of the data platform.
+   Hypotheses: how any of it is implemented, including the role of streaming or the
+   warehouse in agent telemetry (section 22).
+
 ## Sources
 
 1. ServiceTitan, Pantheon 2026 announcements (press release, October 6, 2026): <https://www.globenewswire.com/news-release/2026/10/06/3375320/0/en/servicetitan-announcing-new-and-expanded-capabilities-at-pantheon-2026.html>
@@ -1955,7 +1989,7 @@ That is the conceptual bridge from a voice agent to an **agentic operating syste
 ## Further reading
 
 - [Microsoft Agent Framework on GitHub](https://github.com/microsoft/agent-framework)
-- [LangGraph](https://github.com/langchain-ai/langgraph): [overview](https://docs.langchain.com/oss/python/langgraph/overview), [persistence](https://docs.langchain.com/oss/python/langgraph/persistence), [durable execution](https://docs.langchain.com/oss/python/langgraph/durable-execution), [interrupts](https://docs.langchain.com/oss/python/langgraph/interrupts)
+- [LangGraph](https://github.com/langchain-ai/langgraph): [overview](https://docs.langchain.com/oss/python/langgraph/overview), [persistence](https://docs.langchain.com/oss/python/langgraph/persistence), [durable execution](https://docs.langchain.com/oss/python/langgraph/checkpointers#durability-modes), [interrupts](https://docs.langchain.com/oss/python/langgraph/interrupts)
 - [LangChain agents](https://docs.langchain.com/oss/python/langchain/agents)
 - Labs: [05 LangChain agent](../../labs/05_langchain_create_agent.ipynb), [06 LangGraph booking workflow](../../labs/06_langgraph_booking_workflow.ipynb), [07 tracing and evaluation](../../labs/07_langsmith_tracing_evals.ipynb), [09 shared context](../../labs/09_shared_context.ipynb), [10 coordination and arbitration](../../labs/10_coordination_and_arbitration.ipynb), [11 learning loop](../../labs/11_learning_loop.ipynb), [12 agent-to-agent booking](../../labs/12_agent_to_agent_booking.ipynb), [13 Mini-Max capstone](../../labs/13_minimax_capstone.ipynb), [14 earning autonomy](../../labs/14_earning_autonomy.ipynb)
 - Related in this repo: [call facts contract](../call-facts-contract.md), [tools and guardrails](../tools-and-guardrails.md), [chapter 16: shared skills](16-shared-skills-and-capabilities.md)

@@ -9,4 +9,5 @@ export const lessons = [
   { slug: "denominator", title: "The denominator changes the rate", aha: "Booking rate depends on whether unbookable calls count.", related: "Whitepaper chapter 11", time: "6 min" },
   { slug: "duplex-channels", title: "Thinking is not speaking", aha: "In full duplex, only verified results belong in commentary.", related: "GPT-Live-1", time: "7 min" },
   { slug: "worth-it", title: "When does the agent pay off?", aha: "Recovered booking value must exceed call cost plus mistake cost.", related: "Whitepaper chapter 11", time: "7 min" },
+  { slug: "earned-autonomy", title: "When has the agent earned it?", aha: "Zero errors in 48 calls doesn't prove under 5%: promote on the upper bound, demote on the lower.", related: "Labs 13–14", time: "8 min" },
 ] as const;

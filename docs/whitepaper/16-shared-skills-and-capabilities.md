@@ -243,6 +243,26 @@ The lesson should be:
 
 > **Reusable skills turn agent improvement into a platform capability rather than a one-agent prompt change.**
 
+## Check your understanding
+
+1. In one sentence each, what separates a tool, a skill and an agent in this chapter?
+2. You improve a shared "confirm address" skill and one agent's booking errors fall while
+   another agent's rise. What should have caught that before rollout?
+3. What does ServiceTitan's public help center actually establish about "Skills and
+   Capabilities", and what would be an inference?
+
+**Answer sketches**
+
+1. A tool is a system boundary that performs one operation (`book_appointment`); a skill is
+   the reusable business capability that decides when and how to use it, versioned with its
+   policy, examples and evaluation cases; an agent is the reasoning role that decides whether
+   a skill is relevant (see "Skills versus tools").
+2. Versioned skills with per-consumer evaluations and a staged rollout, so each agent that
+   depends on the skill is re-evaluated before the new version reaches it.
+3. The help center documents Voice Agent settings that control which scheduling actions
+   the agent may perform [1]. A cross-agent skills registry or marketplace is a hypothesis
+   with no public evidence.
+
 ## Sources
 
 1. ServiceTitan Help, Configure your Voice Agent settings in Contact Center Pro (checked October 7, 2026): <https://help.servicetitan.com/docs/configure-your-voice-agent-settings>

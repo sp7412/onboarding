@@ -77,3 +77,31 @@ private system. Product names are linked in [`docs/servicetitan-101.md`](../docs
 | VAD | Voice activity detection: detecting whether audio currently contains speech |
 | Warm transfer | A handoff where the receiving human gets context before or while joining the caller |
 | Work order | An operational record describing authorized work to be performed |
+
+## Multi-agent, autonomy and Pantheon 2026 terms
+
+Teaching definitions as this repo's labs 09–14 and docs use them. They describe general
+patterns, not any company's internal design.
+
+| Term | Meaning |
+|---|---|
+| A2A (Agent2Agent) | An open protocol for one AI agent to discover and call another agent; see [whitepaper chapter 15](../docs/whitepaper/15-agentic-orchestration.md) |
+| Agent gateway | The API an outside AI agent books through. It must establish what a phone call gets from people: client identity, scopes, signed and non-replayed requests, idempotent retries and quoted slots (lab 12) |
+| Arbitration | Choosing among competing agent proposals for the same resource by expected value net of cost, without ever trading away hard constraints such as consent, emergencies or capacity (lab 10) |
+| Bookability | Whether a call was a lead the business could and should have booked. It is the denominator a booking rate needs, and it is easy to game if the same system judges its own calls ([bookability judge](../senior-engineer/bookability-judge.md)) |
+| Calibration | How well stated confidence matches observed accuracy: of the calls an extractor marks 0.9 confident, about 90% should be right. Expected calibration error (ECE) summarizes the gap (lab 14) |
+| CallFacts | This repo's teaching schema for the structured facts one call produces (intent, job type, urgency, emergency, bookability, sentiment and more), each with a confidence, consumed by other agents ([call facts contract](../docs/call-facts-contract.md), lab 13) |
+| Claim guard | A check that the agent's spoken claim ("you're booked") is grounded in committed application state before it is said (labs 07 and 13) |
+| Confidence floor | The minimum confidence a fact needs before a downstream decision may use it; below it the system asks a person instead of acting (lab 13) |
+| Context ledger | An append-only log of typed facts with provenance and status (proposed → verified → committed, or retracted) that agents share instead of raw transcripts (lab 09) |
+| Cost threshold | The probability above which acting has lower expected cost than not acting: wrong-action cost ÷ (wrong-action cost + missed-opportunity cost) (lab 14) |
+| Homh | ServiceTitan's consumer demand platform, announced at Pantheon 2026, that makes selected contractors discoverable and bookable from AI assistants (public product; [Homh doc](../docs/homh-and-agent-booking.md)) |
+| Max | ServiceTitan's bundle of AI agents, described publicly as the fully loaded version of its agentic operating system (public product; [Pantheon brief](../docs/pantheon-2026-ai-roadmap.md)) |
+| MCP (Model Context Protocol) | An open protocol that lets a model or agent call external tools and read data through a standard client–server interface |
+| Mini-Max | Lab 13's small teaching system: one call becomes CallFacts, then bookability, commit, dispatch and a claim guard. Inspired by public descriptions, not a real implementation |
+| Pantheon | ServiceTitan's annual customer conference; the 2026 edition is summarized in the [Pantheon brief](../docs/pantheon-2026-ai-roadmap.md) |
+| Promotion / demotion | Moving an agent up or down one autonomy level based on evidence gathered at its current level, such as an error-rate upper bound against a target (lab 14) |
+| Prompt injection | Text from a caller, document or other agent that tries to change the agent's instructions. Treat it as untrusted data that can never grant permissions |
+| PSI (population stability index) | A drift score comparing two category mixes, such as this week's call types against the reference period; above about 0.25 is a large shift (lab 14) |
+| SPRT (sequential probability ratio test) | A test that checks the evidence after every observation and stops as soon as it is decisive, often needing fewer samples than a fixed-size test (lab 14) |
+| Wilson interval | A confidence interval for a rate that behaves well with small samples and rates near 0 or 1. Lab 14 promotes only when the upper bound on the error rate is below target |

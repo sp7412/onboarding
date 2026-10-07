@@ -65,11 +65,11 @@ The teaching version compares:
 
 - H0: error rate = p0
 - H1: error rate = p1, where p1 > p0
-- alpha: probability of incorrectly rejecting H0
-- beta: probability of incorrectly rejecting H1
+- alpha: probability of incorrectly rejecting H0 (demoting an agent that is actually fine)
+- beta: probability of incorrectly rejecting H1 (promoting an agent that is actually at p1)
 
 The likelihood ratio is evaluated after each observation. Cross the lower boundary to
-promote, the upper boundary to hold/demote, or continue when neither boundary is crossed.
+promote, the upper boundary to demote, or continue when neither boundary is crossed.
 
 SPRT does not remove the need to define the error, the target, and the cost of mistakes.
 
@@ -118,7 +118,7 @@ The lab combines:
 
 - a population stability index (PSI) on the call-type mix;
 - an OOD *rate*: the share of current calls whose Mahalanobis distance exceeds the 99th
-  percentile of the validation data. A rate, not a maximum, so one odd call never pauses
+  percentile of the reference (training) data. A rate, not a maximum, so one odd call never pauses
   the system but a shifted population does;
 - a pause rule: drop one level, reset the evidence, and re-validate on the new traffic.
 
@@ -162,3 +162,6 @@ have, and what happens if we stop trusting the agent?**
 - [Lab 13](../labs/src/13_minimax_capstone.py)
 - [Evaluating voice agents](evaluating-voice-agents.md)
 - [Pantheon 2026 AI roadmap](pantheon-2026-ai-roadmap.md)
+- [Autonomy promotion review](../senior-engineer/autonomy-promotion.md): a judgment exercise using these tools
+- [Whitepaper chapter 15, Agentic orchestration](whitepaper/15-agentic-orchestration.md): canary releases, shadow mode and supervision
+- Interactive lesson: [When has the agent earned it?](https://sp7412.github.io/onboarding/lessons/earned-autonomy/) (on the site)
