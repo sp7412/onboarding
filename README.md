@@ -32,9 +32,9 @@ software and production voice agents. Follow the single, canonical four-week sch
 per week). Use only personal accounts for optional live exercises; the complete path is useful
 offline. Finish with the [`capstone rubric`](docs/capstone-rubric.md).
 
-Alongside the labs, the [senior engineer judgment track](senior-engineer/README.md) has seven
-short written exercises (about five hours in total) on denominators, incident diagnosis,
-latency budgets, architecture boundaries and choosing a first PR.
+Alongside the labs, the [senior engineer judgment track](senior-engineer/README.md) has eight
+short written exercises (about five and a half hours in total) on denominators, bookability judging,
+incident diagnosis, latency budgets, architecture boundaries and choosing a first PR.
 
 For each lab, read the objective first, run the offline cells, do the understanding
 questions without looking at the answer key, then attempt the graded exercise. The
@@ -48,6 +48,9 @@ the exact lab map and prerequisites.
 | [`plan/30-60-90-checklist.md`](plan/30-60-90-checklist.md) | Operating plan (loosely based on Watkins, *The First 90 Days*) with 30/60/90 outcomes, weekly actions, stakeholder work, and exit criteria |
 | [`study-guide/`](study-guide/) | Voice-agent study guide (Markdown + original .docx) |
 | [`docs/`](docs/) | Public-source domain primer, technical architecture, reading list, evaluation guide, and first-90-days playbook |
+| [`docs/pantheon-2026-ai-roadmap.md`](docs/pantheon-2026-ai-roadmap.md) | Pantheon 2026 public AI announcements and implications for voice |
+| [`docs/call-facts-contract.md`](docs/call-facts-contract.md) | Teaching schema for shared context a voice agent might capture |
+| [`docs/homh-and-agent-booking.md`](docs/homh-and-agent-booking.md) | Trust surfaces for Homh and AI-assistant booking channels |
 | [`docs/whitepaper/`](docs/whitepaper/) | Public-source background whitepaper: chapters 00–14, appendices, and source ledger |
 | [`docs/reading-guide.md`](docs/reading-guide.md) | Ranked blogs, papers and talks with four takeaways each (start here for reading) |
 | [`docs/references.md`](docs/references.md) | Complete bibliography of every external source in the repo |
@@ -55,7 +58,7 @@ the exact lab map and prerequisites.
 | [`docs/livekit-hands-on.md`](docs/livekit-hands-on.md) | LiveKit track: Agent Builder → `lk` starter → fake ServiceTitan tools with guardrails |
 | [`labs/`](labs/) | Thirteen Jupyter tutorials: OpenAI Realtime, LiveKit, LangChain/LangGraph, LangSmith, capstone, and multi-agent coordination (09–12) |
 | [`labs/solutions/`](labs/solutions/) | Offline-safe solution notes for the lab exercises |
-| [`senior-engineer/`](senior-engineer/) | Judgment track: seven fictional exercises with self-checks (latency budget, eval denominators, incident, architecture review, first PR, hypotheses) |
+| [`senior-engineer/`](senior-engineer/) | Judgment track: eight fictional exercises with self-checks (including bookability judge) |
 | [`templates/`](templates/) | Onboarding log, 1:1 questions, weekly status, 30-day memo, design doc, 90-day retro |
 | [`notes/`](notes/) | Public-safe personal notes: original conversation notes, glossary, study-question answer |
 | [`scripts/run_notebooks.py`](scripts/run_notebooks.py) | Headless test runner: executes the notebooks offline |

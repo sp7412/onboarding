@@ -50,6 +50,8 @@ The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubr
 ### Week of Oct 5 — Build technical depth
 
 - [ ] Read the [Pantheon 2026 AI roadmap brief](../docs/pantheon-2026-ai-roadmap.md) (reading-guide item 7B); watch the keynote replays when available.
+- [ ] Skim the [call facts contract](../docs/call-facts-contract.md) and list three fields you would insist on verifying before dispatch consumes them.
+- [ ] Read [Homh and AI-agent booking](../docs/homh-and-agent-booking.md) and note trust questions for AI-assistant channels.
 - [ ] Read [`docs/voice-agent-architecture.md`](../docs/voice-agent-architecture.md).
 - [ ] Try interactive lessons 4, 6 and 2: [Lessons](/lessons).
 - [ ] Watch explainer episodes 3–4: [Voice Agents from First Principles](../docs/reading-guide.md#0-voice-agents-from-first-principles-four-episode-explainer-) item 0.
@@ -66,6 +68,7 @@ The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubr
 - [ ] Watch the must-watch LangSmith videos ([reading guide](../docs/reading-guide.md) item 14A) before lab 07.
 - [ ] Complete labs 07–08 (needs a laptop).
 - [ ] Read [Tools and guardrails](../docs/tools-and-guardrails.md) and run its checklist against the lab tools.
+- [ ] Do the [bookability judge](../senior-engineer/bookability-judge.md) exercise (private notes only).
 - [ ] Try interactive lessons 1, 3, 5 and 9: [Lessons](/lessons).
 - [ ] Use [`docs/capstone-rubric.md`](../docs/capstone-rubric.md) to collect pass/fail evidence.
 - [ ] Read [`docs/evaluating-voice-agents.md`](../docs/evaluating-voice-agents.md).

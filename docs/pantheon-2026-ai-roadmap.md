@@ -125,16 +125,18 @@ Analysis:
 - **The voice agent's outputs are inputs to other agents.** What it captures (intent, urgency,
   constraints like "car stuck in the garage", job value signals) becomes shared context for
   dispatch and lead scoring. Expect work on that context contract: what to capture, how
-  reliably, and how it's verified.
+  reliably, and how it's verified. Teaching draft: [Call facts contract](call-facts-contract.md).
 - **"Bookable" needs a definition you can defend.** The company's own answer to gameable booking
   rates was a separate judging agent. That makes evaluation design (what counts, who decides,
-  how it's audited) central, which is the denominator lesson in this repo.
+  how it's audited) central, which is the denominator lesson in this repo. Practice:
+  [Bookability judge](../senior-engineer/bookability-judge.md).
 - **Booking decisions become arbitrated decisions.** With capacity-aware booking (Adaptive
   Capacity) and dispatch able to move appointments, the voice agent's booking is one proposal
   among several. The control plane must stay authoritative about what was actually committed.
-- **Agent-to-agent booking changes the trust model.** With Homh, the caller may be another
-  company's AI agent. Identity, authorization, consent, idempotency and abuse handling matter
-  even more when no human is on the line.
+- **AI-agent-assisted booking changes the trust model.** Homh publicly describes homeowners'
+  AI agents participating in discovery and booking. Identity, authorization, consent,
+  idempotency and abuse handling are therefore useful trust-boundary questions; the public
+  announcement does not specify the protocol. Notes: [Homh and AI-agent booking](homh-and-agent-booking.md).
 - **The learning loop needs traceability.** Tying outcomes back to decisions requires linked
   traces from call to booking to job outcome, which is what lab 07 practices.
 - **"When to act and when to ask" is the guardrail spec.** Escalation rules, confirmations and
@@ -160,8 +162,15 @@ From the conference schedule: [1][3]
 - **Charging Ahead with AI and Max**, Oct 7
 - **The Power of the Ecosystem: ServiceTitan Partners**, Oct 7
 
+When replays or transcripts appear, extract only new **publicly verifiable** claims about
+voice, bookability, Homh, Adaptive Capacity for AI CSRs, or coordination. Attribute company
+claims, distinguish inference from fact, and update this brief and the [claims ledger](whitepaper/claims-ledger.md).
+
 ## Related repo material
 
+- [Call facts contract](call-facts-contract.md) — teaching schema for shared context from a call
+- [Homh and AI-agent booking](homh-and-agent-booking.md) — trust surfaces when an AI assistant is in the booking path
+- [Bookability judge](../senior-engineer/bookability-judge.md) — judgment exercise on gameable booking rates
 - Whitepaper [chapter 01](whitepaper/01-company.md) (company), [chapter 06](whitepaper/06-product-landscape.md) (products), [chapter 13](whitepaper/13-future-directions.md) (future directions)
 - [Tools and guardrails](tools-and-guardrails.md), [Evaluating voice agents](evaluating-voice-agents.md)
 - Lessons: denominator, claims vs. state, worth-it
