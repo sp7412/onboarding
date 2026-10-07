@@ -1,68 +1,68 @@
-# Episode 1 — Anatomy of one call
+# Episode 1 — Why averages lie
 
-Target length: 3:35 · Approx. 510 words · Running example: “my AC stopped working.”
+Target length: 3–5 minutes · Beat-timed proof rebuild · Running example: “my AC stopped working.”
 
-## Cold open — 0:00–0:10
+## Cold open — the puzzle
 
-Imagine saying, “My AC stopped working,” and hearing a useful answer one second later.
-That second is not one event. It is a relay race across audio, models, tools, and playback.
+Imagine saying, “My AC stopped working.” Every stage of the agent is fast on average. So why
+does one call in twenty feel broken?
 
-*Source: `docs/voice-agent-architecture.md`, “One Call Turn” and “Latency Budget”.*
+*Source: `docs/voice-agent-architecture.md`, “Latency Budget”.*
 
-## Scene 1 — The signal enters — 0:10–0:45
+Let’s make the question concrete. The caller stops speaking. The system must decide that the
+turn is complete, produce the first model sound, check availability, synthesize a response,
+and play it. What should we add: the typical time of each stage, or the slow cases?
 
-The microphone does not hand the model a neat sentence. It hands the transport a stream of
-audio. Voice activity detection estimates whether speech is present. Endpointing decides
-when a turn is committed. Only then does the next stage receive a stable piece of the call.
-In our example, the caller says, “My AC stopped working.” The system turns that sound into a
-turn event, then speech-to-text produces words the reasoning system can inspect.
+*Source: `docs/voice-agent-architecture.md`, “Latency Budget” and “Latency Worksheet”.*
 
-*Source: `docs/voice-agent-architecture.md`, “One Call Turn”; `site/src/pages/simulations.astro`, turn-taking simulation; `labs/src/03_turn_taking.py`.*
+## Chapter 1 — One stage has a shape
 
-## Scene 2 — The relay race — 0:45–1:35
+Start with endpointing. Most turns commit near the middle of the curve, but some pauses are
+ambiguous. Mark the middle of the distribution. That is p50: half the turns are faster, half
+slower. Now mark p95: only five in one hundred turns are slower than this point.
 
-Now watch the pipeline. Endpointing commits the turn. Speech-to-text produces a transcript.
-The language model interprets the request and may propose a tool call, such as finding open
-service slots. The application runs that tool against an authoritative source of truth. The
-result returns to the model. Text-to-speech turns the response into audio, and the transport
-streams that audio back to the caller.
+*Source: `docs/voice-agent-architecture.md`, “Latency Budget”.*
 
-Each box has a different owner. Transport owns media and turn boundaries. The model owns
-interpretation and proposed language. The application owns the action. That separation is
-the first principle: a model can suggest “find availability,” but it does not own the
-schedule.
+Do the same for the model’s first audio, the tool round trip, and response playout. These are
+illustrative shapes, not production measurements. The point is not the exact number. The point
+is that a stage has a distribution, not one duration.
 
-*Source: `docs/voice-agent-architecture.md`, “Reference Architecture”, “One Call Turn”, and “Ownership Rules”; `labs/src/01_realtime_protocol.py`; `labs/src/02_tools_and_guardrails.py`.*
+*Source: `docs/voice-agent-architecture.md`, “Latency Budget”; `labs/src/08_latency_and_scale.py`.*
 
-## Scene 3 — The latency waterfall — 1:35–2:25
+## Chapter 2 — Add the stages
 
-Put time under every handoff. Start at the moment the caller stops speaking. Add endpointing
-delay. Add model time to first token or audio. Add the tool or workflow round trip. Add the
-time to generate the response, then network buffering and playout. The caller experiences
-the sum, not the labels.
+Here is the surprising move: the caller experiences the sum. Slide the endpointing curve
+across the model curve. Every possible pair makes a new total. Add the tool curve and the total
+spreads again. This is convolution: the distribution of a sum is built from all the ways the
+parts can add up.
 
-Dead air can come from a slow endpoint decision, a slow first model sound, a backend lookup,
-or buffering at the edge. Measure them separately at p50 and p95, and keep failure cases
-visible. A spoken preamble like “one moment while I check that” can make the wait feel
-intentional. It does not make the tool faster. It changes perceived silence, not the
-waterfall underneath.
+*Source: `docs/voice-agent-architecture.md`, “Latency Budget”; `docs/whitepaper/08-technology-landscape.md`, “Turn-taking and latency”.*
 
-*Source: `docs/voice-agent-architecture.md`, “Latency Budget”; `site/src/pages/simulations.astro`, “Latency budget”; `labs/src/08_latency_and_scale.py`; `docs/video-notes.md`, “Deploy Voice AI Agents to Production with Full Observability”.*
+Notice what happens to the tail. The typical total may still feel acceptable. But the p95 of
+the whole pipeline can be much worse than adding a few typical values. A slow endpoint plus a
+slow lookup plus buffering is one call that feels broken, even when each team reports a healthy
+average.
 
-## Scene 4 — The control boundary — 2:25–3:10
+*Source: `docs/voice-agent-architecture.md`, “Latency Budget”; `docs/evaluating-voice-agents.md`, “Metrics”; `labs/src/08_latency_and_scale.py`.*
 
-Suppose the caller accepts a slot. The model may propose booking it, but the application
-still checks identity, policy, the offered slot, and the current phase before writing. The
-workflow commits the authoritative result. Only then should the voice say what happened.
-This is why tracing needs more than model tokens. Connect the caller turn, the model event,
-the tool call, the backend result, and the audio response into one trace.
+## Chapter 3 — Perception is not latency
 
-*Source: `docs/voice-agent-architecture.md`, “Where Each Component Stops”; `docs/evaluating-voice-agents.md`, “Code Evaluators First”; `labs/src/02_tools_and_guardrails.py`; `labs/src/07_evaluation.py`.*
+Suppose the tool is slow. The agent can say, “Let me check that.” The preamble moves the first
+sound earlier, so perceived silence shrinks. But the tool distribution did not move. The caller
+hears activity; the backend still takes the same time.
 
-## Recap and end card — 3:10–3:35
+*Source: `docs/voice-agent-architecture.md`, “Latency Budget”; `site/src/pages/simulations.astro`, “Latency budget”.*
 
-One call is a chain of boundaries: hear, decide, propose, validate, commit, and speak.
-Your job is to measure each boundary instead of arguing from one end-to-end number. The
-question to carry into lab 08 is: **what adds the most latency in your pipeline?**
+Keep two measurements: time to first sound, and time to the useful answer. A preamble can help
+the first one. It cannot improve the second one. If you optimize only what sounds better, you can
+hide the tail without removing it.
+
+*Source: `docs/video-notes.md`, “Deploy Voice AI Agents to Production with Full Observability”; `labs/src/08_latency_and_scale.py`.*
+
+## Recap — ask the lab
+
+Return to the opening picture. The agent was not slow because one box was always slow. It was
+slow because random delays added along a serial path. Measure p50 and p95 for every boundary,
+then measure the total. What adds the most latency in your pipeline?
 
 *Source: `docs/voice-agent-architecture.md`, “Latency Worksheet”; `labs/src/08_latency_and_scale.py`.*

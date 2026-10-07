@@ -19,14 +19,14 @@ const MEDIA = url("/explainers").replace(/\/$/, "");
 export const EXPLAINERS: Explainer[] = [
   {
     id: "voice-agents-01-anatomy",
-    title: "Anatomy of one call",
-    description: "Trace “my AC stopped working” through audio, models, tools, and playout.",
+    title: "Why averages lie",
+    description: "Watch latency distributions combine into a tail the caller actually feels.",
     videoUrl: `${RELEASE}/voice-agents-01-anatomy-1080p.mp4`,
     audioUrl: `${RELEASE}/voice-agents-01-anatomy.mp3`,
     posterUrl: `${MEDIA}/voice-agents-01-anatomy.png`,
     captionsUrl: `${MEDIA}/voice-agents-01-anatomy.vtt`,
     releaseUrl: RELEASE_PAGE,
-    length: "3:03",
+    length: "3:13",
     questions: ["What adds the most latency in your pipeline?", "Which boundary would you instrument first?"],
   },
   {
