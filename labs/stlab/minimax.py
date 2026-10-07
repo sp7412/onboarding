@@ -243,6 +243,7 @@ def error_sensitivity(records: list[dict], confidence_floor: float = 0.85) -> li
         rows.append({"error_type":error,
                      "booking_delta":sum(a["action"]=="book" for a in after)-sum(x["decision"].action=="book" for x in before),
                      "value_delta":sum(a["est_value"] for a in after)-sum(x["est_value"] for x in before),
+                     "tech_changes":sum(a["assigned_tech"] != x["assigned_tech"] for a, x in zip(after, before)),
                      "rejected":sum(a["rejected"] for a in after),
                      "false_claims":sum(a["false_claim"] for a in after)})
     return rows
