@@ -225,6 +225,23 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 
 | [Setting Goals With Your New Manager](https://raw.githubusercontent.com/sp7412/onboarding/main/docs/manager-alignment.md) | Repo guide | PP 6 |
 
+
+## Agentic orchestration
+
+| Source | Type | Cited in |
+|---|---|---|
+| [Agentforce Multi-Agent Orchestration](https://www.salesforce.com/agentforce/multi-agent-orchestration/) | Vendor architecture | Whitepaper 15 |
+| [Salesforce SOMA, MOMA, MCP, A2A and Agent Gateway](https://help.salesforce.com/s/articleView?id=005317683&language=en_US&type=1) | Vendor architecture/docs | Whitepaper 15 |
+| [Microsoft Agent Framework](https://github.com/microsoft/agent-framework) | Open-source framework | Whitepaper 15 |
+| [Microsoft Agent Framework orchestration samples](https://github.com/microsoft/agent-framework/tree/main/python/samples/03-workflows/orchestrations) | Open-source samples | Whitepaper 15 |
+| [Microsoft workflow concepts](https://learn.microsoft.com/azure/ai-services/agents/concepts/workflows) | Microsoft documentation | Whitepaper 15 |
+| [LangGraph](https://github.com/langchain-ai/langgraph) | Open-source framework | Whitepaper 15 |
+| [LangGraph overview](https://docs.langchain.com/oss/python/langgraph/overview) | Documentation | Whitepaper 15 |
+| [LangGraph persistence](https://docs.langchain.com/oss/python/langgraph/persistence) | Documentation | Whitepaper 15 |
+| [LangGraph durable execution](https://docs.langchain.com/oss/python/langgraph/durable-execution) | Documentation | Whitepaper 15 |
+| [LangGraph interrupts](https://docs.langchain.com/oss/python/langgraph/interrupts) | Documentation | Whitepaper 15 |
+| [LangChain agents](https://docs.langchain.com/oss/python/langchain/agents) | Documentation | Whitepaper 15 |
+
 ## Maintaining this page
 - Add a row whenever a new external link appears anywhere in the repo.
 - Link-check before committing; never construct URLs from a site's naming pattern.

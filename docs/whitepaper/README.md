@@ -28,8 +28,10 @@ documentation), with analysis labeled. Chapter 14 is a working brief for the fir
 13. [12 - Risks And Failure Modes](12-risks-and-failure-modes.md)
 14. [13 - Future Directions](13-future-directions.md)
 15. [14 - Implications And Open Questions](14-implications-and-open-questions.md)
-16. [Appendix A - Timeline](appendix-a-timeline.md)
-17. [Appendix B - Sources](appendix-b-sources.md)
+16. [15 - Agentic Orchestration](15-agentic-orchestration.md)
+17. [16 - Shared Skills and Capability Libraries](16-shared-skills-and-capabilities.md)
+18. [Appendix A - Timeline](appendix-a-timeline.md)
+19. [Appendix B - Sources](appendix-b-sources.md)
 
 The [claims ledger](claims-ledger.md) records the research checks behind the chapter
 source lists. `[unverified]` marks a claim that needs a source or validation.
@@ -38,3 +40,26 @@ source lists. `[unverified]` marks a claim that needs a source or validation.
 
 Industry-wide call-mix, CSR turnover and missed-call cost statistics from neutral sources
 remain gaps; figures from vendors are attributed as vendor claims.
+
+## Agentic orchestration chapter
+
+Chapter 15 is the architecture map for the existing multi-agent labs. It compares the
+publicly described approaches from ServiceTitan, Salesforce, and Microsoft, then uses
+LangChain/LangGraph and Microsoft Agent Framework as open-source implementation references.
+
+It is intentionally explicit about the boundary between:
+
+- public facts about ServiceTitan;
+- architectural analysis and hypotheses;
+- implementation patterns demonstrated by open-source projects.
+
+For the hands-on path, pair Chapter 15 with Labs 05–14, especially the LangGraph,
+shared-context, arbitration, learning-loop, and agent-to-agent labs.
+
+
+## Shared skills chapter
+
+Chapter 16 adds the reusable capability layer that sits between agents and orchestration.
+It treats skills as versioned, evaluated business capabilities rather than prompt fragments,
+and explicitly distinguishes the public ServiceTitan evidence for Skills & Capabilities from
+the stronger hypothesis of a cross-agent skill registry or marketplace.
