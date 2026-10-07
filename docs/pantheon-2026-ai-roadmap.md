@@ -150,7 +150,11 @@ Analysis:
 - How are bookings arriving through Homh and consumer AI assistants authenticated and validated?
 - Which outcomes feed the learning loop for the voice agent, and how quickly?
 
-## 5. Still to watch (replays)
+## 5. Questions to bring to the team
+
+Use the [Pantheon hypothesis map](hypothesis-map.md) to keep public claims separate from private validation. It turns the roadmap into a week-1/2 learning agenda without pretending to know the internal implementation.
+
+## 6. Still to watch (replays)
 
 From the conference schedule: [1][3]
 
