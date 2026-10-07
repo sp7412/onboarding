@@ -41,6 +41,19 @@ const { html } = renderMarkdown(body, {
   }
   .doc-body h3 { margin: 1.8em 0 0.5em; font-size: 1.18rem; color: #cfe7ff; }
   .doc-body h4 { margin: 1.4em 0 0.4em; font-size: 1.02rem; color: var(--ink-dim); text-transform: none; }
+  /* Heading permalinks: the heading text links to its own #id. */
+  .doc-body :is(h2, h3, h4)[id] { scroll-margin-top: 5.5rem; }
+  .doc-body a.heading-link { color: inherit; text-decoration: none; }
+  .doc-body a.heading-link:not(.heading-link-hash)::after {
+    content: "#" / ""; margin-left: 0.4em; color: var(--cyan); opacity: 0;
+    transition: opacity 120ms ease;
+  }
+  .doc-body a.heading-link-hash { color: var(--cyan); opacity: 0.5; }
+  .doc-body :is(h2, h3, h4):hover a.heading-link::after,
+  .doc-body a.heading-link:focus-visible::after,
+  .doc-body :target a.heading-link::after { opacity: 0.8; }
+  .doc-body a.heading-link:hover { text-decoration: underline; text-decoration-color: var(--cyan); text-underline-offset: 0.2em; }
+  @media (hover: none) { .doc-body a.heading-link:not(.heading-link-hash)::after { opacity: 0.45; } }
   .doc-body > h2:first-child, .doc-body > h3:first-child { border-top: 0; padding-top: 0; margin-top: 0.4em; }
   .doc-body blockquote {
     margin: 1.2em 0; padding: 0.9em 1.1em; border-left: 3px solid var(--cyan);

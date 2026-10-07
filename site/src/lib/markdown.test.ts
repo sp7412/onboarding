@@ -32,6 +32,22 @@ describe("renderMarkdown", () => {
     expect(html).not.toContain("Title</h");
     expect(headings[0]).toMatchObject({ id: "five-takeaways", level: 2 });
   });
+  it("makes headings link to their own anchor", () => {
+    const { html } = r("## Five Takeaways\n\n### Five Takeaways");
+    expect(html).toContain('<h2 id="five-takeaways"><a class="heading-link" href="#five-takeaways">Five Takeaways</a></h2>');
+    expect(html).toContain('<h3 id="five-takeaways-1"><a class="heading-link" href="#five-takeaways-1">');
+  });
+  it("never nests links in a heading that already has one", () => {
+    const { html } = r("## See [y](y.md)");
+    expect(html).toContain('<h2 id="see-y">See <a href="/onboarding/docs/y/"');
+    expect(html).toContain('<a class="heading-link heading-link-hash" href="#see-y" aria-label="Link to this section">#</a></h2>');
+    expect(html.match(/<a /g)).toHaveLength(2);
+  });
+  it("keeps jargon tooltips out of headings", () => {
+    const { html } = r("## Barge-in handling\n\nBarge-in matters.");
+    expect(html).toMatch(/<h2[^>]*><a class="heading-link" href="#barge-in-handling">Barge-in handling<\/a><\/h2>/);
+    expect(html).toContain('class="jargon"');
+  });
   it("keeps code verbatim and escaped", () => {
     const { html } = r("```text\n<https://x.com> **not bold**\n```");
     expect(html).toContain("&lt;https://x.com&gt; **not bold**");

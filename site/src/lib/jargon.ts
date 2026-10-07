@@ -78,7 +78,7 @@ export function jargonSpan(key: "endpointing" | "barge-in" | "containment" | "tt
 
 /**
  * Wrap jargon terms in an HTML string with tooltip markup. Tags are respected:
- * text inside <pre>, <code> and existing .jargon spans is never touched.
+ * text inside <pre>, <code>, headings and existing .jargon spans is never touched.
  */
 export function markupJargon(html: string): string {
   const parts = html.split(/(<[^>]+>)/g);
@@ -97,7 +97,8 @@ export function markupJargon(html: string): string {
         }
         return part;
       }
-      if (openTags.includes("pre") || openTags.includes("code")) return part;
+      // Headings are self-links (permalinks); a focusable tooltip inside a link is invalid.
+      if (["pre", "code", "h1", "h2", "h3", "h4", "h5", "h6"].some((t) => openTags.includes(t))) return part;
       return part.replace(COMBINED, (match, ...groups) => {
         // groups: one per term (which fired), then offset/string — find the index.
         const hit = groups.findIndex((g, i) => g !== undefined && i < JARGON.length);
