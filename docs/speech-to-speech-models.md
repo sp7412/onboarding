@@ -1,6 +1,6 @@
 # Speech-To-Speech Models
 
-**Facts as of: September 29, 2026 · Last reviewed: September 30, 2026**
+**Facts as of: October 6, 2026 · Last reviewed: October 7, 2026**
 
 How realtime voice models like OpenAI's `gpt-realtime` family work, the reported lineup, and
 when to use them instead of a cascaded pipeline for a phone agent. Model names and prices change
@@ -77,7 +77,7 @@ duplex, overlap-aware models like Moshi point to where the field may go.
 | `gpt-realtime-2` | The May 2026 model the labs target; configurable reasoning effort, stronger instruction following, more reliable tool use | 128k / 32k | $4 / $24; $32 / $64 | [6] |
 | `gpt-realtime-whisper` | Streaming speech-to-text for low-latency transcript deltas; priced by audio duration | 16k / 2k | per audio duration | [4] |
 | `gpt-live-transcribe` | Low-latency live transcription (no spoken reply) with tunable delay, free-form context, keyword hints and language hints; announced July 29, 2026 alongside batch `gpt-transcribe` | not listed | $0.017 per minute of audio | [12][13] |
-| `gpt-live-1` | Full-duplex voice model that listens while speaking and delegates reasoning and tool calls to a backend model; its own `v1/live/sessions` endpoint (see [GPT-Live-1](gpt-live-1.md)) | not listed | $0.05 per minute of voice, billed per second; backend billed separately | [11] |
+| `gpt-live-1` | Full-duplex voice model that listens while speaking and delegates reasoning and tool calls to a backend model; its own `v1/live/sessions` endpoint (see [GPT-Live-1](gpt-live-1.md)) | 128k context per the live-conversations guide; max output not listed | $0.05 per minute of voice, billed per second; backend billed separately | [11][16] |
 | `gpt-realtime-translate` | Streaming speech-to-speech *translation* on a dedicated endpoint; returns translated audio and transcripts while audio is still arriving | 16k / 2k | per audio duration | [5] |
 
 Notes:
@@ -201,6 +201,7 @@ unsaid. That's the pattern lab 02 and lab 07 teach.
 13. OpenAI Developer Community, "GPT-Live-Transcribe and GPT-Transcribe: Two New Transcription Models in the API" (July 29, 2026): <https://community.openai.com/t/gpt-live-transcribe-and-gpt-transcribe-two-new-transcription-models-in-the-api/1388318>
 14. OpenAI, Realtime conversations guide: <https://developers.openai.com/api/docs/guides/realtime-conversations>
 15. DataCamp, "GPT Live Transcribe API" tutorial (August 6, 2026; third-party, hands-on): <https://www.datacamp.com/tutorial/gpt-live-transcribe-api>
+16. OpenAI, Live conversations guide (GPT-Live): <https://developers.openai.com/api/docs/guides/live-conversations>
 
 Further hands-on reading (third-party; prefer the OpenAI docs above for facts): DataCamp's
 [GPT-Realtime-2 API tutorial](https://www.datacamp.com/tutorial/gpt-realtime-2-api) (May 12, 2026)

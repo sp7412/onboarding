@@ -35,3 +35,10 @@ running the generated-site checker. It does not deploy. A failure means a mainta
    needed, and rerun the workflow. `BOT-BLOCKED-BUT-VERIFIED` means the URL is retained in the
    public references/claims records but the configured proxy prevented an automated HTTP check;
    it is not a hard failure.
+
+## Past audits
+
+- [September 30, 2026 repository audit](docs/AUDIT.md) (historical; superseded counts).
+- October 7, 2026: whole-repo quality pass after the Pantheon, labs 13–14 and whitepaper
+  15–16 additions. PR CI now also runs the site unit tests, `astro check` and the internal
+  link checker, which previously ran only on deploy.

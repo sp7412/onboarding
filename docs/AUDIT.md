@@ -2,6 +2,10 @@
 
 Audit date: 2026-09-30
 
+> **Historical record.** This is the September 30, 2026 audit, kept for context. Counts and
+> parser rules below describe the repo at that date (nine labs, a fixed 17-chapter whitepaper)
+> and are superseded; see [MAINTENANCE.md](../MAINTENANCE.md) for the current review process.
+
 ## Overall Assessment
 
 The repository has a strong teaching spine: the progression from protocol to tools, turn

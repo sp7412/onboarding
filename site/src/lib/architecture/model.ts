@@ -64,7 +64,7 @@ export const SOURCES: Record<string, Source> = {
   liveModel: { label: "OpenAI, GPT-Live 1 model page", url: "https://developers.openai.com/api/docs/models/gpt-live-1", kind: "vendor" },
   rt21: { label: "OpenAI, GPT-Realtime-2.1 model page", url: "https://developers.openai.com/api/docs/models/gpt-realtime-2.1", kind: "vendor" },
   rt21mini: { label: "OpenAI, GPT-Realtime-2.1 Mini model page", url: "https://developers.openai.com/api/docs/models/gpt-realtime-2.1-mini", kind: "vendor" },
-  realtimeCosts: { label: "OpenAI, Realtime API: managing costs", url: "https://developers.openai.com/api/docs/guides/realtime-costs", kind: "vendor" },
+  realtimeCosts: { label: "OpenAI, Voice cost optimization (Realtime tab)", url: "https://developers.openai.com/api/docs/guides/voice-latency-cost?voice-api=realtime", kind: "vendor" },
   liveTranscribe: { label: "OpenAI, GPT-Live-Transcribe model page", url: "https://developers.openai.com/api/docs/models/gpt-live-transcribe", kind: "vendor" },
   luna: { label: "OpenAI, GPT-6 Luna model page", url: "https://developers.openai.com/api/docs/models/gpt-6-luna", kind: "vendor" },
   astra: { label: "OpenAI, GPT-6 Astra model page", url: "https://developers.openai.com/api/docs/models/gpt-6-astra", kind: "vendor" },
@@ -240,7 +240,7 @@ export const NODES: Record<string, ArchNode> = {
     id: "sessionCost", title: "Session context and cost", owner: "model",
     summary: "Each response re-reads the whole session, so cost per minute rises as the call goes on.",
     knobs: ["Keep history unchanged to get cache hits", "Truncate or summarize old items"],
-    learn: [L("OpenAI realtime costs guide", "https://developers.openai.com/api/docs/guides/realtime-costs")],
+    learn: [L("OpenAI realtime costs guide", "https://developers.openai.com/api/docs/guides/voice-latency-cost?voice-api=realtime")],
   },
   s2sTools: {
     id: "s2sTools", title: "Tool calls mid-conversation", owner: "model",

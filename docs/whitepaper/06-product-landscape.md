@@ -3,7 +3,7 @@
 **Estimated reading time:** 7 minutes · **Facts as of:** September 27, 2026
 
 
-> **Update (Pantheon 2026, October 6, 2026):** Max is now available to all residential in-home contractors, with a limited commercial and roofing pilot; the company also announced the Atlas mobile app and Homh. See the [Pantheon 2026 AI roadmap brief](../pantheon-2026-ai-roadmap.md).
+> **Update (Pantheon 2026, October 6, 2026):** the press release says Max is now available to all residential in-home contractors (a keynote stated it more narrowly: plumbing, heating, electrical and garage-door customers with four or more technicians), with a limited commercial and roofing pilot; the company also announced the Atlas mobile app and Homh. See the [Pantheon 2026 AI roadmap brief](../pantheon-2026-ai-roadmap.md).
 
 ## Five Takeaways
 

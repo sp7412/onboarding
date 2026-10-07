@@ -1,6 +1,6 @@
 # First-90-Days Question Bank
 
-**Last reviewed:** October 2026
+**Last reviewed: October 7, 2026**
 
 ## Purpose
 
@@ -25,12 +25,14 @@ Use:
 
 For example:
 
-> **Question:** What breaks most often in production?  
-> **Answer:** Transfers after long pauses.  
-> **Example:** Two recent incidents involved turn timing.  
-> **Implication:** The apparent "model quality" problem may actually be a realtime
-> control-loop problem.  
-> **Follow-up:** Who owns turn-taking, and what metric catches it?
+- **Question:** What breaks most often in production?
+- **Answer:** Transfers after long pauses.
+- **Example:** Two recent incidents involved turn timing.
+- **Implication:** The apparent "model quality" problem may actually be a realtime
+  control-loop problem.
+- **Follow-up:** Who owns turn-taking, and what metric catches it?
+
+(This exchange is invented to show the shape of the loop.)
 
 The goal is not to collect answers. It is to discover useful mental models and evidence.
 
@@ -42,7 +44,7 @@ Use these with managers, staff engineers, product leaders, and people who have b
 
 - What do you think we're trying to become that isn't obvious from the product today?
 - What is the most important technical problem we need to solve over the next 6–12 months?
-- Which part of the Pantheon/agent vision do you think matters most?
+- Which part of the agent vision presented publicly at Pantheon 2026 do you think matters most?
 - Which part of that vision is hardest to make real?
 - If we execute exceptionally well over the next year, what becomes possible that isn't
   possible today?
@@ -81,7 +83,6 @@ production system.
 
 These should become routine questions for engineers, evaluation, infrastructure, and support.
 
-- What breaks most often?
 - What failure mode do you worry about that our normal metrics don't capture?
 - What works 95% of the time, but the remaining 5% is extremely difficult?
 - What is the most expensive or consequential failure we've seen?
@@ -149,7 +150,8 @@ A useful framing is:
 
 ## Shared context, skills, and reusable capabilities
 
-These questions are especially relevant after the Pantheon/shared-capability work.
+These connect to the shared-context and coordination themes described publicly at Pantheon 2026
+(see [whitepaper chapter 16](whitepaper/16-shared-skills-and-capabilities.md)).
 
 - What capabilities do multiple agents need to share today?
 - Where are we duplicating the same capability across agents?
@@ -225,7 +227,6 @@ This often produces more useful information than the success story itself.
 
 Ask for stories, not just lists of failure modes.
 
-- Tell me about the worst production failure you've seen.
 - Tell me about a failure that initially looked like a model problem but wasn't.
 - Tell me about a time we had to roll something back.
 - Tell me about something that looked promising offline but failed in production.
@@ -343,35 +344,18 @@ Pick from:
 
 ---
 
-## Questions that should probably be retired or de-emphasized
+## Leave the basics to the manager conversation
 
-The repository already has manager-alignment questions covering:
-
-- priorities;
-- success at 30/60/90;
-- stakeholders;
-- ramp;
-- communication preferences;
-- decision rights;
-- feedback;
-- working norms.
-
-Those are still important, but they belong in the **manager alignment** conversation rather than
-the general question bank.
-
-The new question bank should focus more heavily on information that is difficult to obtain
-from documentation.
-
-In particular, avoid spending valuable peer time asking:
+Priorities, success at 30/60/90 days, stakeholders, communication preferences, decision
+rights and feedback belong in [manager alignment](manager-alignment.md) and the
+[1:1 template](../templates/1on1-questions.md). Spend peer time on what the docs can't tell
+you. Instead of:
 
 > "What are the team's top priorities?"
 
-when you could ask:
+ask:
 
 > **"What do you think we're getting wrong about the problem we're trying to solve?"**
-
-The second question is much more likely to produce information you could not have obtained
-from the onboarding docs.
 
 ---
 
@@ -395,13 +379,16 @@ evaluation → technical judgment → tribal knowledge**.
 
 ## Capture the answer, not just the question
 
-For important conversations, maintain a private evidence log:
+Add important answers to the private evidence log the
+[playbook](first-90-days-playbook.md#define-your-learning-agenda) asks you to keep.
+Tag each row **observed**, **inferred** or **unknown**, as the playbook does, so a vivid story
+isn't mistaken for a measured fact:
 
-| Question | Answer | Evidence/example | Implication | Follow-up |
-|---|---|---|---|---|
-| What breaks most often? | … | … | … | … |
-| What are we trying to become? | … | … | … | … |
-| What failure worries you? | … | … | … | … |
+| Question | Answer | Example | Observed / inferred / unknown | Implication | Follow-up |
+|---|---|---|---|---|---|
+| What breaks most often? | … | … | … | … | … |
+| What are we trying to become? | … | … | … | … | … |
+| What failure worries you? | … | … | … | … | … |
 
 Do not put confidential answers or internal implementation details into this public repository.
 Keep the real notes in an approved company system.
@@ -413,3 +400,10 @@ You should be able to say:
 > **Here is what the team says the system is trying to accomplish, here is how it actually
 > behaves, here are the highest-value failure modes, here are examples of genuine success,
 > here are the assumptions I still need to validate, and here is where I think I can contribute.**
+
+## Related
+
+- [First 90 days playbook](first-90-days-playbook.md): how to operate and who to meet.
+- [Setting goals with your new manager](manager-alignment.md): the alignment questions.
+- [1:1 questions template](../templates/1on1-questions.md).
+- [Hypothesis map](hypothesis-map.md): public-source hypotheses these questions can test.

@@ -2,7 +2,8 @@
 
 **Facts as of: October 7, 2026 (morning) · Last reviewed: October 7, 2026**
 
-ServiceTitan's annual user conference, Pantheon, ran October 5–7, 2026 in Orlando. This brief
+ServiceTitan's annual user conference, Pantheon, is a three-day event in Orlando; the 2026 keynotes
+opened it on Tuesday, October 6. [1][3] This brief
 covers what was publicly announced and said about AI, and what it means for an engineer
 joining the voice-agent team. It uses only public sources: the company's press release, a
 published keynote transcript and the conference live blog. Company claims are attributed as
@@ -11,7 +12,7 @@ such, and anything marked **Analysis** is this repo's interpretation.
 > **Update planned:** this version covers the opening keynote, the official announcements and
 > the live blog's coverage of the Oct 6 keynotes (section 2a). The Oct 7 sessions, including
 > "Charging Ahead with AI and Max", will be added when coverage or transcripts are published.
-> Replays are available for 90 days. [1][3]
+> The press release says replays are available for 90 days. [1]
 
 ## Five Takeaways
 
@@ -122,14 +123,14 @@ much of the added revenue comes from the same marketing budget and truck rolls.
 From ServiceTitan's own live blog, which summarizes and quotes the keynotes rather than
 transcribing them. All of these are company or customer claims. [3]
 
-**Abhishek Mathur, chief technology and product officer** ("One Open Slot, One AI Agent, and the
-Case for Max"):
+**Abhishek Mathur, chief technology and product officer** (live-blog post headlined "One Open
+Slot, One AI Agent, and the Case for Max"):
 
 - Everything shown was described as "real and in production today."
 - Max was framed as agents that autonomously do the work rather than just track it, and Atlas
   as a conversational agent that lets employees "ask questions, get guidance and take action."
-- He said some customers on Pro and Max products "grew revenue twice as fast year-over-year as
-  non-Max peers," and named four factors: insights, automation, a connected brain and
+- The live blog reports him saying that some customers on Pro and Max products grew revenue
+  twice as fast year over year as non-Max peers, and naming four factors: insights, automation, a connected brain and
   personalization.
 - **New tools:** the Atlas app for the office on mobile, a no-code Automation Hub, and an
   **MCP server connecting Claude or ChatGPT to ServiceTitan data**.
@@ -139,8 +140,8 @@ Case for Max"):
 - In the same session, senior vice president Vincent Payen said average revenue realization
   in the room is about 60%, while top performers reach the high 80s.
 
-**Vahe Kuzoyan, co-founder and president** ("Max, Atlas, and Homh take the next step at
-Pantheon"):
+**Vahe Kuzoyan, co-founder and president** (live-blog post headlined "Max, Atlas, and Homh take
+the next step at Pantheon"):
 
 - Max opens to commercial and roofing through a limited pilot, and Atlas "is now a
   chief-of-staff-level agent" with a dedicated mobile app.
@@ -150,18 +151,21 @@ Pantheon"):
   testing. The most dangerous thing you can do at this moment is treat one failed attempt as
   proof of what will never be possible."
 
-**Alex Kablanian, GM of Commercial & Construction** ("Max brings AI agents to commercial
-contractors"): commercial agents include an Equipment Agent, a Findings Agent that reviews
+**Alex Kablanian, GM of Commercial & Construction** (live-blog post headlined "Max brings AI
+agents to commercial contractors"): commercial agents include an Equipment Agent, a Findings Agent that reviews
 completed work orders for missed findings, a Daily Log Agent that builds a foreman's log from
 voice notes and photos, and an Invoice Agent. One customer's invoice prep reportedly dropped
 "from 30 minutes to under 5 minutes."
 
 **Voice-relevant items elsewhere in the day-one coverage:**
 
-- A customer, Davis AC in Houston, credited its AI Virtual Agent ("Nell") with "a 98% booking
-  rate and the ability to answer multiple calls at once" during peak season.
-- In the opening keynote, CEO Ara Mahdessian said: "A CSR can't take a call on one line and
-  also answer a text within 15 seconds, before the customer turns to a competitor."
+- The live blog reports that a customer, Davis AC in Houston, credits its AI Virtual Agent
+  ("Nell") with a 98% booking rate and the ability to answer multiple calls at once during
+  peak season. This is a customer claim, and "booking rate" is the in-product metric the
+  company itself called easy to game (takeaway 3).
+- In its summary of CEO Ara Mahdessian's opening keynote, the live blog makes the point that a
+  CSR can't take a call on one line and also answer a text within 15 seconds, before the
+  customer turns to a competitor. (This is the blog's narration, not a verbatim quote.)
 
 ## 3. What this means for a voice-agent engineer
 
@@ -205,7 +209,7 @@ Analysis:
 - What can the MCP server read or do, and how are its permissions scoped per user and per
   customer?
 
-The [hypothesis map](hypothesis-map.md) expands these into a dozen public-grounded hypotheses,
+The [hypothesis map](hypothesis-map.md) expands these into more than a dozen public-grounded hypotheses,
 each with how to test it and whom to ask in weeks 1–2.
 
 ## 5. Still to watch (replays)
@@ -230,8 +234,9 @@ claims, distinguish inference from fact, and update this brief and the [claims l
 - Whitepaper [chapter 01](whitepaper/01-company.md) (company), [chapter 06](whitepaper/06-product-landscape.md) (products), [chapter 13](whitepaper/13-future-directions.md) (future directions)
 - [Tools and guardrails](tools-and-guardrails.md), [Evaluating voice agents](evaluating-voice-agents.md)
 - Lessons: denominator, claims vs. state, worth-it
-- Labs 09–12 (teaching models of the general patterns): shared context ledger, coordination and
-  arbitration, the learning loop, and agent-to-agent booking
+- Labs 09–14 (teaching models of the general patterns): shared context ledger, coordination and
+  arbitration, the learning loop, agent-to-agent booking, the call-facts capstone and earning
+  autonomy
 
 ## Sources
 

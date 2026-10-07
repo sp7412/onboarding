@@ -34,11 +34,13 @@ docs/                        public-source domain and technical study guides
   references.md              complete bibliography; add a row for every new external link
   podcast-prompts.md         NotebookLM episode prompts mapped to reading-guide items
   livekit-hands-on.md        LiveKit Agent Builder / lk CLI / mock-tools track
+  whitepaper/                background whitepaper: chapters 00–16, appendices A–B, claims-ledger.md
 plan/30-60-90-checklist.md   week-by-week checklist (GitHub task-list checkboxes)
 study-guide/                 archived source document and pointer to canonical architecture guide
 senior-engineer/             judgment-track exercises (fictional scenarios + self-checks); answers stay private
-templates/                   blank docs: onboarding log, 1:1 questions, weekly status,
-                             30-day memo, design doc, 90-day retro
+templates/                   blank docs: onboarding log, 1:1 questions, working-with-me,
+                             weekly status, field notes, pre-mortem, 30-day memo, design doc,
+                             brag document, 90-day retro
 notes/                       public-safe notes: glossary, study-question template/model answer
 labs/
   00_…14_*.ipynb             generated notebooks, DO NOT hand-edit
@@ -47,13 +49,22 @@ labs/
   stlab/                     shared teaching package (see below)
   solutions/                 offline-safe solution sketches for graded exercises
   agents/                    written by notebook 04 at runtime; gitignored
+  data/                      synthetic call dataset (calls/) and CallFacts JSON schema (schemas/)
+site/                        Astro site (bun); content parsers in site/src/lib/content
+video/                       explainer-series sources (media lives in GitHub releases)
 scripts/run_notebooks.py     headless notebook test runner
 scripts/check_repo.py        notebook output and generated-file hygiene checks
 scripts/check_sensitive.py   configurable sensitive-content and metadata checker
+scripts/check_external_links.py, check_release_assets.py   link and release-asset checks
+scripts/export_site_sims.py  regenerates the site's guardrail-simulation traces
+scripts/fetch_transcripts.py, clean_transcripts.py, podcasts_to_nlm.py   media/podcast tooling
 scripts/pre-commit            optional local pre-commit wrapper
-tests/test_sensitive.py      checker tests with fake placeholder patterns only
+tests/                       unittest suites for stlab, labs 09–14, the dataset and scripts;
+                             test_sensitive.py uses fake placeholder patterns only
+MAINTENANCE.md               review cadence and past audits
 requirements.txt, .env.example
-.github/workflows/quality.yml  lint, hygiene, and offline notebook CI
+.github/workflows/quality.yml  lint, hygiene, offline notebooks, site tests/type-check/build/links (PRs)
+.github/workflows/deploy-site.yml, links.yml   site deploy and weekly external link check
 ```
 
 ## Setup and commands
