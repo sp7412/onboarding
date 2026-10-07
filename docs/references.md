@@ -37,6 +37,7 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [Designing Voice Agents for Real Conversations (AWS, AI Engineer 2026)](https://www.youtube.com/watch?v=hMlLw1LeIK8) | Talk | RG 10, PP 2 |
 | [Engineering voice agents: latency, quality, and scale (Together AI)](https://www.youtube.com/watch?v=N7b1PJc7SFc) | Talk | RG 23 |
 | [Building AI Voice Agents for Production (DeepLearning.AI × LiveKit)](https://www.deeplearning.ai/courses/building-ai-voice-agents-for-production) | Course | RG 25 |
+| [ITU-T G.114: One-way transmission time](https://www.itu.int/rec/T-REC-G.114) | Standard | Architecture explorer |
 
 ## OpenAI Realtime
 
@@ -48,6 +49,11 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [Build more natural voice experiences with GPT-Live-1 in the API](https://openai.com/index/introducing-gpt-live-1-in-the-api/) | Announcement | RG 7A, PP 3, GPT-Live doc |
 | [Getting started with GPT-Live](https://developers.openai.com/api/docs/guides/live) | Docs | RG 7A, GPT-Live doc |
 | [Delegation and tools in GPT-Live](https://developers.openai.com/api/docs/guides/live-delegation) | Docs | RG 7A, PP 3, GPT-Live doc |
+| [Realtime API: managing costs (audio tokens per second, session context)](https://developers.openai.com/api/docs/guides/realtime-costs) | Docs | Architecture explorer |
+| [GPT-6 Luna model page](https://developers.openai.com/api/docs/models/gpt-6-luna) | Model docs | Architecture explorer |
+| [GPT-6 Astra model page](https://developers.openai.com/api/docs/models/gpt-6-astra) | Model docs | Architecture explorer |
+| [GPT-4o Mini TTS model page (marked deprecated)](https://developers.openai.com/api/docs/models/gpt-4o-mini-tts) | Model docs | Architecture explorer |
+| [Community estimates of TTS cost per minute (users, not OpenAI)](https://community.openai.com/t/new-tts-api-pricing-and-gotchas/1150616) | Forum | Architecture explorer |
 | [GPT-Live 1 model page](https://developers.openai.com/api/docs/models/gpt-live-1) | Model docs | GPT-Live doc, speech-to-speech doc |
 | [Prompting GPT-Live](https://developers.openai.com/api/docs/guides/live-prompting) | Docs | GPT-Live doc |
 | [Managing GPT-Live sessions](https://developers.openai.com/api/docs/guides/live-conversations) | Docs | GPT-Live doc |
@@ -78,6 +84,7 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [Agents framework](https://docs.livekit.io/agents/) | Docs | RG 11, RL |
 | [Agent Builder](https://docs.livekit.io/agents/start/builder/) | Docs | LiveKit hands-on |
 | [Agent Builder product page](https://livekit.com/products/agent-builder) | Product page | LiveKit hands-on |
+| [Turn-taking tuning (endpointing defaults)](https://docs.livekit.io/agents/logic/turns/tuning/) | Docs | Architecture explorer |
 | [Voice AI quickstart](https://docs.livekit.io/agents/start/voice-ai/) | Docs | LiveKit hands-on |
 | [agent-starter-python](https://github.com/livekit-examples/agent-starter-python) | Template repo | LiveKit hands-on |
 | [uv (Python package manager)](https://docs.astral.sh/uv/) | Docs | LiveKit hands-on |
