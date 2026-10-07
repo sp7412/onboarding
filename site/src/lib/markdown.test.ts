@@ -37,6 +37,11 @@ describe("renderMarkdown", () => {
     expect(html).toContain('<h2 id="five-takeaways"><a class="heading-link" href="#five-takeaways">Five Takeaways</a></h2>');
     expect(html).toContain('<h3 id="five-takeaways-1"><a class="heading-link" href="#five-takeaways-1">');
   });
+  it("prefixes heading ids when several documents share a page", () => {
+    const res = renderMarkdown("## Fictional example", { sourcePath: "templates/a.md", resolveRepoLink: () => null, headingIdPrefix: "a" });
+    expect(res.html).toContain('<h2 id="a-fictional-example"><a class="heading-link" href="#a-fictional-example">');
+    expect(res.headings[0].id).toBe("a-fictional-example");
+  });
   it("never nests links in a heading that already has one", () => {
     const { html } = r("## See [y](y.md)");
     expect(html).toContain('<h2 id="see-y">See <a href="/onboarding/docs/y/"');

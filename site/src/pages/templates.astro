@@ -14,7 +14,7 @@ const { templates } = loadContent();
   {templates.map((t, i) => (
     <section class="card tpl" id={t.slug}>
       <h2>{t.title}</h2>
-      <DocBody body={t.body} sourcePath={`templates/${TEMPLATE_FILES[i]}`} idPrefix={`template-${t.slug}`} />
+      <DocBody body={t.body} sourcePath={`templates/${TEMPLATE_FILES[i]}`} idPrefix={`template-${t.slug}`} headingIdPrefix={t.slug} />
       <details><summary>Copy as Markdown</summary><pre><code>{t.body}</code></pre></details>
     </section>
   ))}
