@@ -44,6 +44,7 @@ The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubr
 - [ ] Start an evidence log with **observed / inferred / unknown** columns.
 - [ ] Read the [Pantheon hypothesis map](../docs/hypothesis-map.md) and mark the questions you most need answered in weeks 1–2.
 - [ ] Draft the manager's first-1:1 questions in [`templates/1on1-questions.md`](../templates/1on1-questions.md).
+- [ ] Read the [First-90-Days Question Bank](../docs/first-90-days-question-bank.md) and choose at least three questions to ask across different roles.
 - [ ] Read [Setting Goals With Your New Manager](../docs/manager-alignment.md) and prepare the 20-minute pre-1:1 exercise.
 - [ ] [Reading guide](../docs/reading-guide.md) items 1–4.
 - [ ] [Podcast](../docs/podcast-prompts.md) episodes 1 and 6 (coaching: entering well — it's scheduled before day one).
@@ -103,7 +104,7 @@ The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubr
 - [ ] Share your working-with-me doc; ask what your manager is judged on this quarter and for the career ladder for your level.
 - [ ] Agree on remote norms: overlap hours, written updates, and when to use Slack, docs or calls.
 - [ ] Confirm authorized access and data-handling rules before reviewing calls or traces.
-- [ ] Meet manager, PM/product partner, senior engineer, and evaluation/observability partner.
+- [ ] Meet manager, PM/product partner, senior engineer, and evaluation/observability partner; use the [First-90-Days Question Bank](../docs/first-90-days-question-bank.md) for two to four questions per conversation.
 - [ ] Start the internal copy of [`templates/onboarding-log.md`](../templates/onboarding-log.md).
 - [ ] Get the development environment running and make a list of setup gaps (needs a laptop).
 - [ ] Try interactive lessons 7, 8 and 10: [Lessons](/lessons).
