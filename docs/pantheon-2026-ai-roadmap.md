@@ -1,6 +1,6 @@
 # Pantheon 2026: The AI Roadmap Brief
 
-**Facts as of: October 6, 2026 (evening) · Last reviewed: October 6, 2026**
+**Facts as of: October 7, 2026 (morning) · Last reviewed: October 7, 2026**
 
 ServiceTitan's annual user conference, Pantheon, ran October 5–7, 2026 in Orlando. This brief
 covers what was publicly announced and said about AI, and what it means for an engineer
@@ -8,11 +8,10 @@ joining the voice-agent team. It uses only public sources: the company's press r
 published keynote transcript and the conference live blog. Company claims are attributed as
 such, and anything marked **Analysis** is this repo's interpretation.
 
-> **Update planned:** this version covers the opening keynote and the official
-> announcements. As of this evening, no transcripts or detailed coverage of the CTPO's
-> residential keynote or Vahe Kuzoyan's keynote (both Oct 6) had been published; they and the
-> "Charging Ahead with AI and Max" session (Oct 7) will be added when available. Replays are
-> available for 90 days. [1][3]
+> **Update planned:** this version covers the opening keynote, the official announcements and
+> the live blog's coverage of the Oct 6 keynotes (section 2a). The Oct 7 sessions, including
+> "Charging Ahead with AI and Max", will be added when coverage or transcripts are published.
+> Replays are available for 90 days. [1][3]
 
 ## Five Takeaways
 
@@ -118,6 +117,52 @@ locations are expected on Max by fiscal year-end, and some new customers start d
 and average ticket by 10% each lifts revenue about 33%, but can roughly double profit, because
 much of the added revenue comes from the same marketing budget and truck rolls.
 
+## 2a. The Oct 6 keynotes (live-blog coverage)
+
+From ServiceTitan's own live blog, which summarizes and quotes the keynotes rather than
+transcribing them. All of these are company or customer claims. [3]
+
+**Abhishek Mathur, chief technology and product officer** ("One Open Slot, One AI Agent, and the
+Case for Max"):
+
+- Everything shown was described as "real and in production today."
+- Max was framed as agents that autonomously do the work rather than just track it, and Atlas
+  as a conversational agent that lets employees "ask questions, get guidance and take action."
+- He said some customers on Pro and Max products "grew revenue twice as fast year-over-year as
+  non-Max peers," and named four factors: insights, automation, a connected brain and
+  personalization.
+- **New tools:** the Atlas app for the office on mobile, a no-code Automation Hub, and an
+  **MCP server connecting Claude or ChatGPT to ServiceTitan data**.
+- **Max availability, stated more narrowly than the press release:** "Max will be open after
+  Pantheon to all ServiceTitan customers in plumbing, heating, electrical and garage doors with
+  four or more technicians." The press release says "all residential in-home contractors." [1]
+- In the same session, senior vice president Vincent Payen said average revenue realization
+  in the room is about 60%, while top performers reach the high 80s.
+
+**Vahe Kuzoyan, co-founder and president** ("Max, Atlas, and Homh take the next step at
+Pantheon"):
+
+- Max opens to commercial and roofing through a limited pilot, and Atlas "is now a
+  chief-of-staff-level agent" with a dedicated mobile app.
+- "The Homh app plugin is live today on ChatGPT, Google Gemini, and Claude," described as a
+  curated marketplace connecting top contractors with consumers.
+- "We're ServiceTitan, the agentic operating system of the trades." On AI adoption: "Keep
+  testing. The most dangerous thing you can do at this moment is treat one failed attempt as
+  proof of what will never be possible."
+
+**Alex Kablanian, GM of Commercial & Construction** ("Max brings AI agents to commercial
+contractors"): commercial agents include an Equipment Agent, a Findings Agent that reviews
+completed work orders for missed findings, a Daily Log Agent that builds a foreman's log from
+voice notes and photos, and an Invoice Agent. One customer's invoice prep reportedly dropped
+"from 30 minutes to under 5 minutes."
+
+**Voice-relevant items elsewhere in the day-one coverage:**
+
+- A customer, Davis AC in Houston, credited its AI Virtual Agent ("Nell") with "a 98% booking
+  rate and the ability to answer multiple calls at once" during peak season.
+- In the opening keynote, CEO Ara Mahdessian said: "A CSR can't take a call on one line and
+  also answer a text within 15 seconds, before the customer turns to a competitor."
+
 ## 3. What this means for a voice-agent engineer
 
 Analysis:
@@ -129,7 +174,9 @@ Analysis:
 - **"Bookable" needs a definition you can defend.** The company's own answer to gameable booking
   rates was a separate judging agent. That makes evaluation design (what counts, who decides,
   how it's audited) central, which is the denominator lesson in this repo. Practice:
-  [Bookability judge](../senior-engineer/bookability-judge.md).
+  [Bookability judge](../senior-engineer/bookability-judge.md). A customer's reported 98%
+  booking rate (section 2a) is exactly the kind of number to read with that lens: 98% of
+  what denominator, judged by whom?
 - **Booking decisions become arbitrated decisions.** With capacity-aware booking (Adaptive
   Capacity) and dispatch able to move appointments, the voice agent's booking is one proposal
   among several. The control plane must stay authoritative about what was actually committed.
@@ -137,6 +184,10 @@ Analysis:
   AI agents participating in discovery and booking. Identity, authorization, consent,
   idempotency and abuse handling are therefore useful trust-boundary questions; the public
   announcement does not specify the protocol. Notes: [Homh and AI-agent booking](homh-and-agent-booking.md).
+- **AI assistants reach the platform from two directions.** Homh puts contractors inside
+  consumer assistants, and the new MCP server connects Claude or ChatGPT to a contractor's own
+  ServiceTitan data. Both make permissions and what an assistant may read or do first-class
+  design questions, the same trust boundary as tool calls in lab 02.
 - **The learning loop needs traceability.** Tying outcomes back to decisions requires linked
   traces from call to booking to job outcome, which is what lab 07 practices.
 - **"When to act and when to ask" is the guardrail spec.** Escalation rules, confirmations and
@@ -151,6 +202,8 @@ Analysis:
   how is it tested?
 - How are bookings arriving through Homh and consumer AI assistants authenticated and validated?
 - Which outcomes feed the learning loop for the voice agent, and how quickly?
+- What can the MCP server read or do, and how are its permissions scoped per user and per
+  customer?
 
 The [hypothesis map](hypothesis-map.md) expands these into a dozen public-grounded hypotheses,
 each with how to test it and whom to ask in weeks 1–2.
@@ -159,11 +212,11 @@ each with how to test it and whom to ask in weeks 1–2.
 
 From the conference schedule: [1][3]
 
-- **Run Your Business, Not Your Software** (residential keynote, CTPO Abhi Mathur), Oct 6
-- **The New World** (Vahe Kuzoyan, co-founder and president), Oct 6
-- **The Next Era of Commercial** (Alex Kablanian), Oct 6
-- **Charging Ahead with AI and Max**, Oct 7
-- **The Power of the Ecosystem: ServiceTitan Partners**, Oct 7
+- **Charging Ahead with AI and Max**, Oct 7, 11:15 am ET
+- **Built Together: The Power of the ServiceTitan Ecosystem**, Oct 7, 10:15 am ET
+- **All-Star Titans** (closing session), Oct 7, 2 pm ET
+- Full transcripts of the Oct 6 keynotes, to check the live blog's summaries (section 2a)
+  against the speakers' actual words
 
 When replays or transcripts appear, extract only new **publicly verifiable** claims about
 voice, bookability, Homh, Adaptive Capacity for AI CSRs, or coordination. Attribute company
@@ -184,4 +237,4 @@ claims, distinguish inference from fact, and update this brief and the [claims l
 
 1. ServiceTitan press release, "ServiceTitan Announcing New and Expanded Capabilities at Pantheon 2026" (October 6, 2026): <https://www.globenewswire.com/news-release/2026/10/06/3375320/0/en/servicetitan-announcing-new-and-expanded-capabilities-at-pantheon-2026.html>
 2. Investing.com, "ServiceTitan at Pantheon 2026: ai push aims to make trades self-running" (summary and full keynote transcript, October 6, 2026): <https://www.investing.com/news/transcripts/servicetitan-at-pantheon-2026-ai-push-aims-to-make-trades-selfrunning-93CH-4934737>
-3. ServiceTitan, "Pantheon 2026: Live coverage from ServiceTitan": <https://www.servicetitan.com/blog/pantheon-2026-live-coverage>
+3. ServiceTitan, "Pantheon 2026: Live coverage from ServiceTitan" (live blog, read October 7, 2026): <https://www.servicetitan.com/blog/pantheon-2026-live-coverage>

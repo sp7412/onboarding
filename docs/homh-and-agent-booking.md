@@ -8,7 +8,10 @@ homeowners—or their AI agents—are searching. Homh was described as available
 Google Gemini, and Claude, with real-time availability, performance signals, and confirmed
 appointment booking into ServiceTitan. The release also says ServiceTitan *intends* to extend
 Homh into consumer LLMs and AI advertising platforms; treat that as forward-looking, not
-shipped. [1][2]
+shipped. [1][2] ServiceTitan's live blog quotes the co-founder and president: "The Homh app
+plugin is live today on ChatGPT, Google Gemini, and Claude." [2] Analysis: an app or plugin
+inside each assistant is a different shape from a direct agent-to-agent protocol, which is
+one more reason to treat the protocol questions below as open.
 
 This note is for a voice-agent engineer joining the team. It does not describe internal
 Homh architecture, authentication, APIs, or credentials. It lists the **new trust surfaces**
