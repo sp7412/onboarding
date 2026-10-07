@@ -40,6 +40,21 @@ Use these groups as a starting checklist. Every field should eventually answer:
 2. What is its provenance, and how is it verified before another agent relies on it?
 3. What happens if confidence is low?
 
+### One envelope per fact
+
+The tables below list *values*. Provenance and correction handling only work if every value
+travels in the same small envelope, so a downstream agent can tell "the caller said it" from
+"a tool returned it" without re-reading the transcript:
+
+| Envelope field | Example | Why it exists |
+|---|---|---|
+| `value` | `"same_day"` | The fact itself |
+| `source` | caller_utterance, tool_result, human_agent, system_default | Who produced it; tool results outrank model paraphrase |
+| `evidence` | transcript span id or tool call id | Lets a judge or auditor check the claim without re-listening |
+| `confidence` | low / medium / high | Gates what downstream agents may do with it |
+| `verified` | true / false, plus how | Distinguishes "heard" from "checked against the source of truth" |
+| `version` | 1, 2, ... with `supersedes` | Corrections append; they never overwrite evidence |
+
 ### Identity and contact
 
 | Field | Example values | Notes |
@@ -53,7 +68,7 @@ Use these groups as a starting checklist. Every field should eventually answer:
 
 | Field | Example values | Notes |
 |---|---|---|
-| `primary_intent` | book, reschedule, cancel, status, membership, emergency, other | Single primary; secondary intents as a list |
+| `primary_intent` | book, reschedule, cancel, status, membership, other | Single primary; secondary intents as a list. Emergency is an `urgency`, not an intent, so it is never lost when the intent is "book" |
 | `job_type` | diagnostic, repair, install, maintenance, membership_visit | Must map to capacity rules |
 | `urgency` | emergency, same_day, scheduled, flexible | Emergency phrases need policy, not prompt-only handling |
 | `equipment_hints` | free text + structured tags if any | Model proposes; do not invent model numbers |
@@ -61,15 +76,25 @@ Use these groups as a starting checklist. Every field should eventually answer:
 
 ### Scheduling proposal (not a commitment)
 
-Treat these as a state machine rather than independent strings: `proposed → confirmed` only
-through a successful source-of-truth write; failed or superseded proposals remain non-committed.
+Treat these as a state machine rather than independent strings:
+
+```text
+proposed ──(caller agrees + source-of-truth write succeeds)──▶ confirmed
+proposed ──(write fails, slot taken, policy blocks)──────────▶ failed
+proposed ──(caller picks another slot)───────────────────────▶ superseded
+any non-final ──(handoff to a human)─────────────────────────▶ escalated
+any non-final ──(call ends without agreement)────────────────▶ abandoned
+```
+
+Only `confirmed` is a commitment. Everything else is evidence for the learning loop and the
+[bookability judge](../senior-engineer/bookability-judge.md).
 
 | Field | Example values | Notes |
 |---|---|---|
 | `requested_window` | date + time range | Caller preference |
 | `offered_slots` | list of slot ids from capacity tool | Only slots the tool returned |
 | `selected_slot` | one offered slot id or null | Must be subset of offered |
-| `booking_status` | proposed, confirmed, escalated, abandoned | Confirmed only after source of truth accepts |
+| `booking_status` | proposed, confirmed, failed, superseded, escalated, abandoned | Confirmed only after the caller agrees and the source of truth accepts |
 
 ### Quality and confidence
 
@@ -92,9 +117,9 @@ These are design prompts, not production rules:
 - **Confidence gates.** Low-confidence identity or address → clarify or escalate; do not
   pass a weak fact to dispatch as truth.
 - **Channel-aware consent.** Recording and AI disclosure depend on channel and jurisdiction;
-  see the repo's public regulation notes, not this file.
-- **Version corrections.** If a later turn or tool corrects a fact, preserve the prior value and
-  provenance in the trace; do not silently overwrite evidence that a downstream evaluator needs.
+  see [whitepaper chapter 10](whitepaper/10-regulation-and-compliance.md), not this file.
+- **Version corrections.** If a later turn or tool corrects a fact, append a new version that
+  `supersedes` the old one; do not silently overwrite evidence that a downstream evaluator needs.
 
 ## Questions to bring to the team
 
@@ -108,8 +133,8 @@ These are design prompts, not production rules:
 
 - [Pantheon 2026 AI roadmap brief](pantheon-2026-ai-roadmap.md)
 - [Tools and guardrails](tools-and-guardrails.md)
-- Labs 09–12 (shared context, coordination, learning loop, agent-to-agent)
-- [Homh and agent booking](homh-and-agent-booking.md)
+- [Labs 09–12](../labs/README.md) (shared context, coordination, learning loop, agent-to-agent)
+- [Homh and AI-agent booking](homh-and-agent-booking.md)
 
 ## Sources
 

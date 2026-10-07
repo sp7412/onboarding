@@ -6,7 +6,9 @@ Public sources only. At Pantheon 2026, ServiceTitan announced **Homh**, a consum
 generation platform that makes selected contractors discoverable and bookable where
 homeowners—or their AI agents—are searching. Homh was described as available via ChatGPT,
 Google Gemini, and Claude, with real-time availability, performance signals, and confirmed
-appointment booking into ServiceTitan. [1][2]
+appointment booking into ServiceTitan. The release also says ServiceTitan *intends* to extend
+Homh into consumer LLMs and AI advertising platforms; treat that as forward-looking, not
+shipped. [1][2]
 
 This note is for a voice-agent engineer joining the team. It does not describe internal
 Homh architecture, authentication, APIs, or credentials. It lists the **new trust surfaces**
@@ -34,7 +36,8 @@ system involving shared context and coordinated action. [1][3]
 These questions deliberately avoid asserting an internal protocol. The useful senior-engineer
 move is to identify the trust boundary and then ask where the authoritative check lives.
 
-Treat these as pre-start questions, not answers:
+Write them down before you start; validate them only after joining, through normal team
+channels. They are questions, not answers:
 
 ### Identity and authorization
 
@@ -80,7 +83,8 @@ External agents increase the cost of weak control:
 - Shared context written for dispatch must be verified, not merely echoed from the requester.
 
 See [Call facts contract](call-facts-contract.md) for a teaching schema of what to capture,
-and lab 12 for an offline agent-to-agent booking exercise.
+and [lab 12](../labs/README.md) for an offline, generic agent-to-agent booking exercise (a
+teaching model, not Homh's design).
 
 ## Questions to bring to the team
 
@@ -95,7 +99,7 @@ and lab 12 for an offline agent-to-agent booking exercise.
 
 - [Pantheon 2026 AI roadmap brief](pantheon-2026-ai-roadmap.md)
 - [Call facts contract](call-facts-contract.md)
-- Labs 09–12
+- [Labs 09–12](../labs/README.md)
 - [Tools and guardrails](tools-and-guardrails.md)
 
 ## Sources

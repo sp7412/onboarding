@@ -169,7 +169,7 @@ claims, distinguish inference from fact, and update this brief and the [claims l
 ## Related repo material
 
 - [Call facts contract](call-facts-contract.md) — teaching schema for shared context from a call
-- [Homh and agent booking](homh-and-agent-booking.md) — trust surfaces when the caller is an AI agent
+- [Homh and AI-agent booking](homh-and-agent-booking.md) — trust surfaces when an AI assistant is in the booking path
 - [Bookability judge](../senior-engineer/bookability-judge.md) — judgment exercise on gameable booking rates
 - Whitepaper [chapter 01](whitepaper/01-company.md) (company), [chapter 06](whitepaper/06-product-landscape.md) (products), [chapter 13](whitepaper/13-future-directions.md) (future directions)
 - [Tools and guardrails](tools-and-guardrails.md), [Evaluating voice agents](evaluating-voice-agents.md)

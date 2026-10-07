@@ -33,7 +33,7 @@ per week). Use only personal accounts for optional live exercises; the complete 
 offline. Finish with the [`capstone rubric`](docs/capstone-rubric.md).
 
 Alongside the labs, the [senior engineer judgment track](senior-engineer/README.md) has eight
-short written exercises (about six hours in total) on denominators, bookability judging,
+short written exercises (about five and a half hours in total) on denominators, bookability judging,
 incident diagnosis, latency budgets, architecture boundaries and choosing a first PR.
 
 For each lab, read the objective first, run the offline cells, do the understanding

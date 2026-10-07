@@ -1,13 +1,14 @@
 # Bookability Judge
 
-**Time:** ~45 minutes  
+**Time:** ~60 minutes  
 **Builds on:** [Evaluating voice agents](../docs/evaluating-voice-agents.md), [eval design](eval-design.md), labs 07–08, [Pantheon 2026 brief](../docs/pantheon-2026-ai-roadmap.md)
 
 ## Why this exercise exists
 
 At Pantheon 2026, the keynote described in-product booking rates as easy to game and said
 ServiceTitan built a separate voice-intelligence capability to review calls and determine
-whether they represented bookable leads. That is a denominator problem with product
+whether they represented bookable leads, and to grade how well CSRs followed the call process.
+That is a denominator problem with product
 consequences: if the judge is wrong, agent performance, CSR coaching, and capacity decisions
 can drift. This is a **company-reported product claim**, not an internal implementation detail. [1]
 
@@ -32,8 +33,8 @@ Your job: propose a **bookability judge** that is harder to game than raw bookin
 ## Deliverable
 
 Before writing, choose the judge's operating point. A production-quality evaluator should
-be able to **pass, fail, or abstain/escalate** rather than forcing every ambiguous call into a
-binary label. State what downstream decisions are allowed to use the judge and what decisions
+return **pass, fail, or needs_human** (abstain and escalate) rather than forcing every
+ambiguous call into a binary label. State what downstream decisions are allowed to use the judge and what decisions
 must remain gated by the source of truth.
 
 Write (in a private copy) one to two pages covering:
@@ -50,9 +51,27 @@ Write (in a private copy) one to two pages covering:
    ambiguous, and high-value segments), and what agreement metric you would track between judge
    and human. State how you would handle class imbalance.
 6. **Calibration and abstention.** What evidence would make you trust the judge's confidence,
-   and what uncertainty threshold causes abstention rather than a forced decision.
+   and what uncertainty threshold returns `needs_human` rather than a forced decision.
 7. **Rollout.** How you would shadow the judge before using it for agent evaluation or
    capacity decisions.
+8. **Practice set.** Label the six calls below with your policy (lead quality and process
+   quality separately) and note which ones your first draft got wrong.
+
+## Practice set (fictional)
+
+Each line is the whole story; do not assume facts that are not stated.
+
+| # | Call summary | Calendar row created? |
+|---|---|---|
+| A | Caller reports no heat, agrees to a 2–4 pm slot the tool offered, agent reads back the address, write succeeds. | yes |
+| B | Caller asks "what would it cost to replace a water heater?", says "I'll think about it", agent books a diagnostic "to hold the spot". | yes |
+| C | Caller smells gas. Agent tries to book a next-day slot instead of following emergency policy. | yes |
+| D | Wrong number. Caller hangs up after 15 seconds. | no |
+| E | Caller wants a slot; the tool returns none for three days; agent escalates to a human, who books it later that evening. | no (by the agent) |
+| F | Address transcribed as "14 Elm" with low confidence; caller says "yes" before the read-back finishes; the job is later cancelled because no such address exists. | yes |
+
+There is no answer key. A good set of labels makes at least one "yes" row fail, keeps at least
+one "no" row out of the denominator, and treats at least one row as `needs_human`.
 
 ## Constraints
 
