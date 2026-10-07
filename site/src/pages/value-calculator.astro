@@ -1,0 +1,97 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { url } from "../lib/url";
+---
+
+<BaseLayout title="Voice-Agent Value Calculator · Path to Integration" description="Illustrative contractor-facing value model for recovered voice-agent calls.">
+  <p class="crumb muted"><a href={url("/")}>Journey</a> / value calculator</p>
+  <div class="page-title"><h1>Voice-Agent Value Calculator</h1></div>
+  <p class="lede muted">
+    A deliberately simple, illustrative model. It estimates incremental revenue from
+    recovered after-hours calls and subtracts the expected cost of false bookings.
+    It is not a ServiceTitan forecast.
+  </p>
+
+  <section class="card calculator" aria-labelledby="inputs-title">
+    <h2 id="inputs-title">Inputs</h2>
+    <div class="grid">
+      <label>Monthly calls <input id="monthlyCalls" type="number" min="0" step="100" value="1000" /></label>
+      <label>After-hours share <input id="afterHoursShare" type="number" min="0" max="100" step="1" value="20" /><span>%</span></label>
+      <label>Current answer rate <input id="currentAnswerRate" type="number" min="0" max="100" step="1" value="75" /><span>%</span></label>
+      <label>Agent booking rate <input id="agentBookingRate" type="number" min="0" max="100" step="1" value="50" /><span>%</span></label>
+      <label>Average ticket <input id="averageTicket" type="number" min="0" step="25" value="500" /><span>$</span></label>
+      <label>Close rate <input id="closeRate" type="number" min="0" max="100" step="1" value="80" /><span>%</span></label>
+      <label>False-booking rate <input id="falseBookingRate" type="number" min="0" max="100" step="0.1" value="2" /><span>%</span></label>
+      <label>Cost per wasted truck roll <input id="wastedTruckRollCost" type="number" min="0" step="25" value="300" /><span>$</span></label>
+    </div>
+  </section>
+
+  <section class="card results" aria-labelledby="results-title">
+    <h2 id="results-title">Illustrative monthly result</h2>
+    <div class="result-grid" aria-live="polite">
+      <div><span>Missed after-hours calls</span><strong id="missedAfterHoursCalls">—</strong></div>
+      <div><span>Added booked jobs</span><strong id="addedBookedJobs">—</strong></div>
+      <div><span>Added revenue</span><strong id="addedRevenue">—</strong></div>
+      <div><span>Expected wasted-roll cost</span><strong id="wastedRollCost">—</strong></div>
+      <div class="net"><span>Net illustrative value</span><strong id="netValue">—</strong></div>
+    </div>
+    <p class="muted formula">
+      Added jobs = monthly calls × after-hours share × (1 − current answer rate) × agent booking rate.
+      Added revenue then applies close rate and average ticket. Expected wasted-roll cost is based
+      on all agent-handled calls and the false-booking rate.
+    </p>
+  </section>
+</BaseLayout>
+
+<script>
+  import { calculateValue } from "../lib/value-calculator";
+
+  const ids = [
+    "monthlyCalls", "afterHoursShare", "currentAnswerRate", "agentBookingRate",
+    "averageTicket", "closeRate", "falseBookingRate", "wastedTruckRollCost",
+  ];
+  const $ = (id) => document.getElementById(id);
+  const pct = (id) => Number($(id).value) / 100;
+  const money = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+  const number = new Intl.NumberFormat("en-US", { maximumFractionDigits: 1 });
+
+  function update() {
+    const result = calculateValue({
+      monthlyCalls: Number($("monthlyCalls").value),
+      afterHoursShare: pct("afterHoursShare"),
+      currentAnswerRate: pct("currentAnswerRate"),
+      agentBookingRate: pct("agentBookingRate"),
+      averageTicket: Number($("averageTicket").value),
+      closeRate: pct("closeRate"),
+      falseBookingRate: pct("falseBookingRate"),
+      wastedTruckRollCost: Number($("wastedTruckRollCost").value),
+    });
+    $("missedAfterHoursCalls").textContent = number.format(result.missedAfterHoursCalls);
+    $("addedBookedJobs").textContent = number.format(result.addedBookedJobs);
+    $("addedRevenue").textContent = money.format(result.addedRevenue);
+    $("wastedRollCost").textContent = money.format(result.wastedRollCost);
+    $("netValue").textContent = money.format(result.netValue);
+  }
+
+  ids.forEach((id) => $(id).addEventListener("input", update));
+  update();
+</script>
+
+<style>
+  .calculator, .results { max-width: 900px; margin-bottom: var(--s6); }
+  .lede { max-width: 70ch; }
+  .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s4); margin-top: var(--s4); }
+  label { display: grid; grid-template-columns: 1fr auto; gap: var(--s2); align-items: center; font-weight: 600; }
+  label input { grid-column: 1 / -1; width: 100%; min-width: 0; padding: .65rem; border: 1px solid var(--panel-edge); border-radius: var(--r1); background: var(--navy); color: var(--ink); }
+  label span { margin-top: -2.2rem; margin-right: .65rem; justify-self: end; color: var(--ink-dim); }
+  .result-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--s4); margin-top: var(--s4); }
+  .result-grid div { display: grid; gap: var(--s1); padding: var(--s4); border: 1px solid var(--panel-edge); border-radius: var(--r2); }
+  .result-grid span { color: var(--ink-dim); font-size: .9rem; }
+  .result-grid strong { font-family: var(--font-head); font-size: 1.6rem; }
+  .result-grid .net { grid-column: 1 / -1; border-color: var(--cyan); }
+  .formula { margin-top: var(--s4); max-width: 75ch; font-size: .9rem; line-height: 1.5; }
+  @media (max-width: 560px) {
+    .grid, .result-grid { grid-template-columns: 1fr; }
+    .result-grid .net { grid-column: auto; }
+  }
+</style>
