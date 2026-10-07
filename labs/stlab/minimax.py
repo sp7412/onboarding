@@ -29,6 +29,7 @@ class CallFacts:
     schema_version: str
     call_id: str
     fields: dict[str, Evidence] = field(default_factory=dict)
+    conflicts: tuple[str, ...] = ()
 
     def values(self) -> dict[str, Any]:
         return {k: v.value for k, v in self.fields.items()}
@@ -36,7 +37,8 @@ class CallFacts:
     def as_dict(self) -> dict[str, Any]:
         return {"schema_version": self.schema_version, "call_id": self.call_id,
                 "fields": {k: {"value": v.value, "confidence": v.confidence,
-                               "evidence": list(v.evidence)} for k, v in self.fields.items()}}
+                               "evidence": list(v.evidence)} for k, v in self.fields.items()},
+                "conflicts": list(self.conflicts)}
 
 def _evidence(record: dict, needle: str) -> tuple[dict[str, str], ...]:
     rows = []
@@ -58,6 +60,8 @@ def extract_call_facts(record: dict, confidence: float = 0.96) -> CallFacts:
 
 def validate_call_facts(facts: CallFacts, confidence_floor: float = 0.85) -> tuple[bool, list[str]]:
     errors = []
+    if facts.conflicts:
+        errors.extend(f"conflict:{x}" for x in facts.conflicts)
     if facts.schema_version != "call-facts-v1":
         errors.append("schema_version")
     missing = set(FIELD_NAMES) - set(facts.fields)
