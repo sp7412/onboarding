@@ -22,6 +22,11 @@ export interface RenderOptions {
   headingIdPrefix?: string;
   /** Drop the first H1 (pages render their own title). Default true. */
   skipH1?: boolean;
+  /**
+   * Map a site-absolute route written in the source (e.g. "/lessons") to a URL, typically
+   * by adding the site base path. Default: the route unchanged.
+   */
+  resolveSiteLink?: (route: string) => string;
 }
 
 export interface RenderResult {
@@ -74,6 +79,9 @@ export function renderMarkdown(md: string, opts: RenderOptions): RenderResult {
   const href = (target: string): { url: string; external: boolean } => {
     if (/^(https?:|mailto:)/i.test(target)) return { url: target, external: true };
     if (target.startsWith("#")) return { url: target, external: false };
+    if (target.startsWith("/") && !target.startsWith("//")) {
+      return { url: opts.resolveSiteLink ? opts.resolveSiteLink(target) : target, external: false };
+    }
     const repoPath = resolveRelative(opts.sourcePath, target);
     const site = opts.resolveRepoLink(repoPath);
     if (site) return { url: site, external: false };

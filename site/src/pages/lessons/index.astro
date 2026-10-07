@@ -9,7 +9,15 @@ import { lessons } from "../../lib/lessons/index";
   <div class="page-title"><Icon name="flask" badge size={22} tone="cyan" /><h1>Interactive lessons</h1></div>
   <p class="page-lede">Four screens per idea: puzzle, explore, name, challenge. Move the system yourself, then name the pattern.</p>
   <div class="grid-cards">
-    {lessons.map((lesson) => <a class="card lesson-card" href={url(`/lessons/${lesson.slug}`)}><span class="tag tag-green">{lesson.time}</span><h2>{lesson.title}</h2><p class="muted">{lesson.aha}</p><p class="related">Related: {lesson.related}</p><label onclick={(event) => event.stopPropagation()}><input type="checkbox" data-lesson-id={lesson.slug} /> Completed</label></a>)}
+    {lessons.map((lesson) => (
+      <article class="card lesson-card">
+        <span class="tag tag-green">{lesson.time}</span>
+        <h2><a class="lesson-link" href={url(`/lessons/${lesson.slug}`)}>{lesson.title}</a></h2>
+        <p class="muted">{lesson.aha}</p>
+        <p class="related">Related: {lesson.related}</p>
+        <label><input type="checkbox" data-lesson-id={lesson.slug} /> Completed</label>
+      </article>
+    ))}
   </div>
 </BaseLayout>
 <script>
@@ -17,7 +25,7 @@ import { lessons } from "../../lib/lessons/index";
   document.querySelectorAll<HTMLInputElement>("[data-lesson-id]").forEach((box) => {
     const id = `lesson-${box.dataset.lessonId}`;
     try { box.checked = Boolean(JSON.parse(localStorage.getItem(key) || "{}")[id]); } catch {}
-    box.addEventListener("change", () => { let data = {}; try { data = JSON.parse(localStorage.getItem(key) || "{}"); } catch {} data[id] = box.checked; localStorage.setItem(key, JSON.stringify(data)); });
+    box.addEventListener("change", () => { let data: Record<string, boolean> = {}; try { data = JSON.parse(localStorage.getItem(key) || "{}"); } catch {} data[id] = box.checked; localStorage.setItem(key, JSON.stringify(data)); });
   });
 </script>
-<style>.lesson-card { display:grid; gap:var(--s2); color:inherit; text-decoration:none; } .lesson-card h2,.lesson-card p { margin:0; } .lesson-card label { color:var(--ink-dim); cursor:pointer; } .lesson-card input { accent-color:var(--green); }</style>
+<style>.lesson-card { position:relative; display:grid; gap:var(--s2); } .lesson-card h2,.lesson-card p { margin:0; } .lesson-link { color:inherit; text-decoration:none; } .lesson-link::after { content:""; position:absolute; inset:0; border-radius:inherit; } .lesson-link:focus-visible { outline:none; } .lesson-card:has(.lesson-link:focus-visible) { outline:2px solid var(--cyan); outline-offset:2px; } .lesson-card .tag { justify-self:start; } .lesson-card label { position:relative; z-index:1; justify-self:start; color:var(--ink-dim); cursor:pointer; } .lesson-card input { accent-color:var(--green); }</style>

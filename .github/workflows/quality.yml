@@ -37,9 +37,18 @@ jobs:
       - name: Install site dependencies
         working-directory: site
         run: bun install --frozen-lockfile
+      - name: Test site content parsers and models
+        working-directory: site
+        run: bun run test
+      - name: Type-check site
+        working-directory: site
+        run: bunx astro check
       - name: Build site
         working-directory: site
         run: bun run build
+      - name: Check internal site links
+        working-directory: site
+        run: node scripts/check-links.mjs
       - name: Check site accessibility
         working-directory: site
         run: bun run test:a11y

@@ -4,10 +4,11 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import DocBody from "../components/DocBody.astro";
 import { loadContent, readRepoFile } from "../lib/content/repo";
 import { renderMarkdown } from "../lib/markdown";
+import { repoLinkToRoute } from "../lib/content/repo";
 import { url } from "../lib/url";
 const { labs } = loadContent();
 const readme = readRepoFile("labs/README.md");
-const md = (s: string) => renderMarkdown(s, { sourcePath: "labs/README.md", resolveRepoLink: () => null }).html;
+const md = (s: string) => renderMarkdown(s, { sourcePath: "labs/README.md", resolveRepoLink: (p) => { const r = repoLinkToRoute(p); return r ? url(r) : null; }, resolveSiteLink: url }).html;
 const REPO = "https://github.com/sp7412/onboarding";
 ---
 <BaseLayout title="Labs · Path to Integration" description="Fifteen Jupyter tutorials that run offline.">

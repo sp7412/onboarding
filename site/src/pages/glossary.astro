@@ -3,10 +3,11 @@ import Icon from "../components/Icon.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { loadContent } from "../lib/content/repo";
 import { renderMarkdown } from "../lib/markdown";
+import { repoLinkToRoute } from "../lib/content/repo";
 import { url } from "../lib/url";
 const { glossary } = loadContent();
 const meaningHtml = (m: string) =>
-  renderMarkdown(m, { sourcePath: "notes/glossary.md", resolveRepoLink: () => null }).html.replace(/^<p>|<\/p>$/g, "");
+  renderMarkdown(m, { sourcePath: "notes/glossary.md", resolveRepoLink: (p) => { const r = repoLinkToRoute(p); return r ? url(r) : null; }, resolveSiteLink: url }).html.replace(/^<p>|<\/p>$/g, "");
 const terms = [...glossary].sort((a, b) => a.term.localeCompare(b.term));
 ---
 <BaseLayout title="Glossary · Path to Integration" description="Trades, contact-center and voice-AI terms.">
