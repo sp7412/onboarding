@@ -18,7 +18,8 @@ const usedIn = (id: string) => ARCHITECTURES.filter((a) => [...a.hotPath, ...a.b
   <p class="page-lede">
     The same booking call, built three ways. Pick an architecture, click any block to see what it
     does, where its job stops and what it adds in latency and cost, then keep clicking to go
-    deeper. Change the settings to see the trade-offs move.
+    deeper. Change the settings to see the trade-offs move. Then write your own answer on the
+    <a href={url("/docs/study-question")}>study question</a> page.
   </p>
 
   <div id="ax" class="ax">
@@ -120,7 +121,7 @@ const usedIn = (id: string) => ARCHITECTURES.filter((a) => [...a.hotPath, ...a.b
     return `<div class="ax-compare" role="tablist" aria-label="Architecture">` + ARCHITECTURES.map((a) => {
       const fs = pathRange(a.firstSound, a, choices), an = pathRange(a.answer, a, choices), c = costRange(a, choices);
       const on = a.id === arch.id;
-      return `<button role="tab" class="ax-arch${on ? " is-on" : ""}" aria-selected="${on}" data-arch="${a.id}">
+      return `<button role="tab" class="ax-arch${on ? " is-on" : ""}" aria-selected="${on}" tabindex="${on ? 0 : -1}" data-arch="${a.id}">
         <span class="ax-arch-title">${a.title}</span><span class="ax-arch-tag">${a.tagline}</span>
         <dl><div><dt>First sound</dt><dd>${fmtMs(fs)}</dd></div><div><dt>Answer after a tool</dt><dd>${fmtMs(an)}</dd></div>
         <div><dt>Model cost / call minute</dt><dd>${fmtCost(c)}</dd></div></dl></button>`;

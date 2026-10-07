@@ -59,7 +59,7 @@ export const SOURCES: Record<string, Source> = {
   g114: { label: "ITU-T G.114, One-way transmission time (2003)", url: "https://www.itu.int/rec/T-REC-G.114", kind: "standard" },
   livekitTuning: { label: "LiveKit docs: turn-taking tuning (endpointing defaults)", url: "https://docs.livekit.io/agents/logic/turns/tuning/", kind: "docs" },
   gpt4o: { label: "OpenAI, Hello GPT-4o (May 2024)", url: "https://openai.com/index/hello-gpt-4o/", kind: "vendor" },
-  moshi: { label: "Défossez et al., Moshi (2024)", url: "https://arxiv.org/abs/2410.00037", kind: "standard" },
+  moshi: { label: "Défossez et al., Moshi (arXiv preprint, 2024)", url: "https://arxiv.org/abs/2410.00037", kind: "vendor" },
   liveLaunch: { label: "OpenAI, GPT-Live-1 in the API (Sept 2026)", url: "https://openai.com/index/introducing-gpt-live-1-in-the-api/", kind: "vendor" },
   liveModel: { label: "OpenAI, GPT-Live 1 model page", url: "https://developers.openai.com/api/docs/models/gpt-live-1", kind: "vendor" },
   rt21: { label: "OpenAI, GPT-Realtime-2.1 model page", url: "https://developers.openai.com/api/docs/models/gpt-realtime-2.1", kind: "vendor" },
@@ -68,7 +68,7 @@ export const SOURCES: Record<string, Source> = {
   liveTranscribe: { label: "OpenAI, GPT-Live-Transcribe model page", url: "https://developers.openai.com/api/docs/models/gpt-live-transcribe", kind: "vendor" },
   luna: { label: "OpenAI, GPT-6 Luna model page", url: "https://developers.openai.com/api/docs/models/gpt-6-luna", kind: "vendor" },
   astra: { label: "OpenAI, GPT-6 Astra model page", url: "https://developers.openai.com/api/docs/models/gpt-6-astra", kind: "vendor" },
-  miniTts: { label: "OpenAI, GPT-4o Mini TTS model page (marked deprecated)", url: "https://developers.openai.com/api/docs/models/gpt-4o-mini-tts", kind: "vendor" },
+  miniTts: { label: "OpenAI, GPT-4o Mini TTS model page (shows a deprecated badge)", url: "https://developers.openai.com/api/docs/models/gpt-4o-mini-tts", kind: "vendor" },
   ttsCommunity: { label: "OpenAI Developer Community: TTS pricing estimates (users, Mar 2025)", url: "https://community.openai.com/t/new-tts-api-pricing-and-gotchas/1150616", kind: "estimate" },
   labBackend: { label: "This repo: lab 08 and the teaching backend's tool latencies", url: "/labs#lab-08", kind: "teaching" },
 };
@@ -202,7 +202,7 @@ export const NODES: Record<string, ArchNode> = {
     id: "tts", title: "Text-to-speech", owner: "model",
     summary: "Turns the reply into audio, streaming the first chunk as soon as possible.",
     stops: "Says what it's given. Can't check whether it's true.",
-    cost: { lo: 0.0075, hi: 0.015, basis: "estimate", note: "About $0.015 per minute of generated audio for GPT-4o Mini TTS ($12 per 1M audio tokens), per community and third-party estimates; the agent speaks about half the call. OpenAI now marks that model deprecated.", sources: ["miniTts", "ttsCommunity"] },
+    cost: { lo: 0.0075, hi: 0.015, basis: "estimate", note: "About $0.015 per minute of generated audio for GPT-4o Mini TTS ($12 per 1M audio tokens), per community and third-party estimates; the agent speaks about half the call. OpenAI's model page shows a deprecated badge on it and some snapshots.", sources: ["miniTts", "ttsCommunity"] },
     children: ["ttsFirst", "voice", "pronounce"],
   },
   ttsFirst: {
@@ -234,7 +234,7 @@ export const NODES: Record<string, ArchNode> = {
   s2sFirst: {
     id: "s2sFirst", title: "Time to first audio", owner: "model",
     summary: "From the committed turn to the first audio the model produces.",
-    latency: { lo: 232, hi: 800, basis: "vendor", note: "OpenAI reported GPT-4o answering audio in as little as 232 ms (320 ms average). Moshi reports about 200 ms. Reasoning effort and long context push it higher; the upper bound is illustrative.", sources: ["gpt4o", "moshi"] },
+    latency: { lo: 250, hi: 800, basis: "illustrative", note: "No vendor publishes this for gpt-realtime-2.1. For scale: OpenAI reported GPT-4o answering audio in as little as 232 ms (320 ms average) in 2024, and the Moshi preprint reports about 200 ms. Reasoning effort and long context push it higher.", sources: ["gpt4o", "moshi"] },
   },
   sessionCost: {
     id: "sessionCost", title: "Session context and cost", owner: "model",
@@ -276,7 +276,7 @@ export const NODES: Record<string, ArchNode> = {
     id: "backend", title: "Backend reasoning model", owner: "model",
     summary: "The model the voice layer delegates to: it reasons, calls tools through the control plane and sends back what to say.",
     stops: "Runs off the hot path: the caller hears the voice model meanwhile.",
-    cost: { lo: 0.0004, hi: 0.0011, basis: "derived", note: "GPT-6 Luna at $0.10 / $0.50 per 1M input/output tokens for about 2 delegations a minute.", sources: ["luna"] },
+    cost: { lo: 0.00035, hi: 0.00095, basis: "derived", note: "GPT-6 Luna at $0.10 / $0.50 per 1M input/output tokens for about 2 delegations a minute.", sources: ["luna"] },
     children: ["delegate", "backendThink", "commentary"],
   },
   delegate: {
@@ -348,6 +348,31 @@ export const NODES: Record<string, ArchNode> = {
     summary: "The systems that actually hold bookings, accounts and capacity.",
   },
 
+  // ---------------------------------------------------------------- shared: orchestration
+  orchestrate: {
+    id: "orchestrate", title: "Orchestration (LangGraph or similar)", owner: "control",
+    summary: "Runs multi-step workflows with durable state: the booking flow's steps, retries, timeouts and hand-offs to a person.",
+    stops: "Sequences work and remembers where it is. Isn't the audio hot path or the system of record, and doesn't replace policy checks at the tool boundary.",
+    children: ["workflowState", "retries", "humanLoop"],
+    learn: [L("Lab 05: create_agent", "/labs#lab-05"), L("Lab 06: durable workflow", "/labs#lab-06"), L("Whitepaper ch. 15: agentic orchestration", "/whitepaper/15-agentic-orchestration")],
+  },
+  workflowState: {
+    id: "workflowState", title: "Durable workflow state", owner: "control",
+    summary: "Checkpoints each step so a dropped call or a crashed worker resumes instead of starting over.",
+    failures: ["State held only in the model's context is lost when the session ends."],
+    learn: [L("Lab 06: durable workflow", "/labs#lab-06")],
+  },
+  retries: {
+    id: "retries", title: "Retries and timeouts", owner: "control",
+    summary: "Retries a failed tool call with the same idempotency key, and gives up on a timeout with a spoken fallback.",
+    failures: ["Retrying without an idempotency key books the job twice."],
+  },
+  humanLoop: {
+    id: "humanLoop", title: "Human in the loop", owner: "control",
+    summary: "Pauses the workflow for a person to approve or take over, then resumes from the saved state.",
+    learn: [L("Lab 06: durable workflow", "/labs#lab-06")],
+  },
+
   // ---------------------------------------------------------------- shared: off the hot path
   observe: {
     id: "observe", title: "Tracing and evaluation", owner: "observe",
@@ -393,7 +418,7 @@ export const ARCHITECTURES: Architecture[] = [
   {
     id: "cascaded", title: "Cascaded", tagline: "Speech-to-text → language model → text-to-speech",
     hotPath: ["phone", "transport", "stt", "llm", "control", "tools", "tts"],
-    background: ["observe", "coordinate"],
+    background: ["orchestrate", "observe", "coordinate"],
     firstSound: ["netIn", "endpointing", "sttFinal", "llmTtft", "ttsFirst", "playout"],
     answer: ["netIn", "endpointing", "sttFinal", "llmTtft",
       { parallel: [["ttsFirst"], ["policy", "toolCall"]] }, "llmTtft", "ttsFirst", "playout"],
@@ -405,7 +430,7 @@ export const ARCHITECTURES: Architecture[] = [
   {
     id: "s2s", title: "Speech-to-speech", tagline: "One realtime model hears and speaks",
     hotPath: ["phone", "transport", "s2s", "control", "tools"],
-    background: ["observe", "coordinate"],
+    background: ["orchestrate", "observe", "coordinate"],
     firstSound: ["netIn", "endpointing", "s2sFirst", "playout"],
     answer: ["netIn", "endpointing", "s2sFirst", "policy", "toolCall", "s2sFirst", "playout"],
     costNodes: ["s2s"],
@@ -417,7 +442,7 @@ export const ARCHITECTURES: Architecture[] = [
   {
     id: "duplex", title: "Full duplex + delegation", tagline: "A live voice model talks while a backend model works",
     hotPath: ["phone", "transport", "live", "control", "tools"],
-    background: ["backend", "observe", "coordinate"],
+    background: ["backend", "orchestrate", "observe", "coordinate"],
     firstSound: ["netIn", "liveTurn", "playout"],
     answer: ["netIn", { parallel: [["liveTurn"], ["delegate", "backendThink", "policy", "toolCall"]] }, "commentary", "playout"],
     costNodes: ["live", "backend"],
@@ -480,7 +505,7 @@ export const KNOBS: Record<string, Knob> = {
       {
         id: "astra", label: "Reasoning model (GPT-6 Astra)",
         latency: { backendThink: { lo: 800, hi: 3000, basis: "illustrative", note: "Reasoning before deciding." } },
-        cost: { backend: { lo: 0.04, hi: 0.11, basis: "derived", note: "GPT-6 Astra at $10 / $50 per 1M input/output tokens for about 2 delegations a minute, no caching.", sources: ["astra"] } },
+        cost: { backend: { lo: 0.035, hi: 0.095, basis: "derived", note: "GPT-6 Astra at $10 / $50 per 1M input/output tokens for about 2 delegations a minute, no caching.", sources: ["astra"] } },
       },
     ],
   },
