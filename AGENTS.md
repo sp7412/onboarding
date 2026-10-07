@@ -36,6 +36,7 @@ docs/                        public-source domain and technical study guides
   livekit-hands-on.md        LiveKit Agent Builder / lk CLI / mock-tools track
 plan/30-60-90-checklist.md   week-by-week checklist (GitHub task-list checkboxes)
 study-guide/                 archived source document and pointer to canonical architecture guide
+senior-engineer/             judgment-track exercises (fictional scenarios + self-checks); answers stay private
 templates/                   blank docs: onboarding log, 1:1 questions, weekly status,
                              30-day memo, design doc, 90-day retro
 notes/                       public-safe notes: glossary, study-question template/model answer

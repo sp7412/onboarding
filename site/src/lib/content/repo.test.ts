@@ -79,6 +79,9 @@ describe("repoLinkToRoute", () => {
     expect(repoLinkToRoute("docs/reading-guide.md#tier-1")).toBe("/reading#tier-1");
     expect(repoLinkToRoute("docs/podcast-prompts.md")).toBe("/podcasts");
     expect(repoLinkToRoute("notes/study-question.md")).toBe("/docs/study-question");
+    expect(repoLinkToRoute("senior-engineer/README.md")).toBe("/docs/senior-engineer");
+    expect(repoLinkToRoute("senior-engineer/")).toBe("/docs/senior-engineer");
+    expect(repoLinkToRoute("senior-engineer/eval-design.md#self-check")).toBe("/docs/eval-design#self-check");
     expect(repoLinkToRoute("notes/glossary.md")).toBe("/glossary");
     expect(repoLinkToRoute("templates/design-doc.md")).toBe("/templates#design-doc");
     expect(repoLinkToRoute("plan/30-60-90-checklist.md")).toBe("/checklist");

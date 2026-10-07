@@ -70,16 +70,25 @@ export function readRepoFile(repoRelative: string): string {
   return read(repoRelative);
 }
 
-function parseDoc(repoRelative: string): RepoDoc {
+function parseDoc(repoRelative: string, slugOverride?: string): RepoDoc {
   const body = read(repoRelative);
   const lines = body.split("\n");
   const h1 = lines.find((l) => l.startsWith("# "));
   expectCondition(repoRelative, "an H1 title", Boolean(h1));
-  const slug = path.basename(repoRelative, ".md");
+  const slug = slugOverride ?? path.basename(repoRelative, ".md");
   return { repoPath: repoRelative, slug, title: h1!.slice(2).trim(), body };
 }
 
-export const DOC_PAGES: { repoPath: string; icon: string }[] = [
+export interface DocPage {
+  repoPath: string;
+  icon: string;
+  /** Route slug; defaults to the file's basename. */
+  slug?: string;
+  /** Pages that belong to a track are listed on the track's index page, not as home cards. */
+  track?: string;
+}
+
+export const DOC_PAGES: DocPage[] = [
   { repoPath: "docs/servicetitan-101.md", icon: "reading" },
   { repoPath: "docs/how-a-contractor-works.md", icon: "reading" },
   { repoPath: "docs/voice-agent-architecture.md", icon: "architecture" },
@@ -95,6 +104,14 @@ export const DOC_PAGES: { repoPath: string; icon: string }[] = [
   { repoPath: "docs/manager-alignment.md", icon: "team" },
   { repoPath: "docs/voice-agents-cheat-sheet.md", icon: "notes" },
   { repoPath: "docs/capstone-rubric.md", icon: "evaluation" },
+  { repoPath: "senior-engineer/README.md", icon: "compass", slug: "senior-engineer" },
+  { repoPath: "senior-engineer/what-i-need-to-know.md", icon: "compass", track: "senior-engineer" },
+  { repoPath: "senior-engineer/architecture-review.md", icon: "compass", track: "senior-engineer" },
+  { repoPath: "senior-engineer/latency-budget.md", icon: "compass", track: "senior-engineer" },
+  { repoPath: "senior-engineer/eval-design.md", icon: "compass", track: "senior-engineer" },
+  { repoPath: "senior-engineer/production-incident.md", icon: "compass", track: "senior-engineer" },
+  { repoPath: "senior-engineer/first-pr-decision-tree.md", icon: "compass", track: "senior-engineer" },
+  { repoPath: "senior-engineer/hypotheses.md", icon: "compass", track: "senior-engineer" },
   { repoPath: "docs/references.md", icon: "reading" },
   { repoPath: "notes/study-question.md", icon: "notes" },
   { repoPath: "notes/conversation-notes.md", icon: "notes" },
@@ -112,6 +129,17 @@ export const TEMPLATE_FILES = [
   "90-day-retro.md",
 ];
 
+export function docSlug(page: DocPage): string {
+  return page.slug ?? path.basename(page.repoPath, ".md");
+}
+
+/** Site route for a DOC_PAGES entry. */
+export function docRoute(repoPath: string): string {
+  const page = DOC_PAGES.find((d) => d.repoPath === repoPath);
+  if (!page) throw new Error(`not a doc page: ${repoPath}`);
+  return `/docs/${docSlug(page)}`;
+}
+
 /**
  * Map a repo-relative path (optionally with #hash) to a site route, or null to
  * link to the file on GitHub instead.
@@ -127,7 +155,9 @@ export function repoLinkToRoute(target: string): string | null {
     if (slug === "claims-ledger") return null;
     return withHash(`/whitepaper/${slug}`);
   }
-  if (DOC_PAGES.some((d) => d.repoPath === clean)) return withHash(`/docs/${path.basename(clean, ".md")}`);
+  if (clean === "senior-engineer") return withHash(docRoute("senior-engineer/README.md"));
+  const page = DOC_PAGES.find((d) => d.repoPath === clean);
+  if (page) return withHash(`/docs/${docSlug(page)}`);
   if (clean === "docs/reading-guide.md") return withHash("/reading");
   if (clean === "docs/podcast-prompts.md") return withHash("/podcasts");
   if (clean === "docs/capstone-rubric.md") return withHash("/docs/capstone-rubric");
@@ -170,7 +200,9 @@ export function loadContent(): ContentBundle {
   expectCondition("labs", "exactly matching source and generated lab sets",
     sourceLabs.length === labRows.length && stems(sourceLabs) === stems(notebookLabs));
 
-  const docs = DOC_PAGES.map((d) => parseDoc(d.repoPath));
+  const docs = DOC_PAGES.map((d) => parseDoc(d.repoPath, d.slug));
+  const slugs = docs.map((d) => d.slug);
+  expectCondition("DOC_PAGES", "unique doc slugs", new Set(slugs).size === slugs.length);
   const templates = TEMPLATE_FILES.map((f) => parseDoc(`templates/${f}`));
 
   cached = { checklist, checklistItems: flattenChecklist(checklist), reading, podcasts, whitepaper: { order, chapters }, glossary, labs, videos, videoNotes, docs, templates };

@@ -28,3 +28,6 @@ video/series/rendered/
 *.wav
 *.mp3
 *.m4a
+
+# personal answers and post-start notes; never committed
+private/
