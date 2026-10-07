@@ -9,8 +9,8 @@ import podcasts_to_nlm as p  # noqa: E402
 class PodcastParserTests(unittest.TestCase):
     def test_parses_every_episode_in_repo(self):
         eps = p.parse_episodes(p.PROMPTS.read_text())
-        self.assertEqual(len(eps), 13)
-        self.assertEqual(len({e.number for e in eps}), 13)
+        self.assertEqual(len(eps), 14)
+        self.assertEqual(len({e.number for e in eps}), 14)
         for e in eps:
             self.assertTrue(e.sources, e.number)
             self.assertTrue(all(s.startswith("http") for s in e.sources))

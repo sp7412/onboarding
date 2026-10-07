@@ -106,6 +106,12 @@ export const DOC_PAGES: DocPage[] = [
   { repoPath: "docs/manager-alignment.md", icon: "team" },
   { repoPath: "docs/voice-agents-cheat-sheet.md", icon: "notes" },
   { repoPath: "docs/capstone-rubric.md", icon: "evaluation" },
+  { repoPath: "docs/earning-autonomy.md", icon: "evaluation" },
+  { repoPath: "docs/hypothesis-map.md", icon: "notes" },
+  { repoPath: "docs/business-metrics.md", icon: "chart" },
+  { repoPath: "docs/field-exercise.md", icon: "team" },
+  { repoPath: "docs/minimum-path.md", icon: "plan" },
+  { repoPath: "docs/after-day-one.md", icon: "notes" },
   { repoPath: "senior-engineer/README.md", icon: "compass", slug: "senior-engineer" },
   { repoPath: "senior-engineer/what-i-need-to-know.md", icon: "compass", track: "senior-engineer" },
   { repoPath: "senior-engineer/architecture-review.md", icon: "compass", track: "senior-engineer" },
@@ -130,6 +136,7 @@ export const TEMPLATE_FILES = [
   "30-day-memo.md",
   "design-doc.md",
   "90-day-retro.md",
+  "field-notes.md",
 ];
 
 export function docSlug(page: DocPage): string {

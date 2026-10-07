@@ -1,0 +1,152 @@
+---
+import Icon from "../components/Icon.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { url } from "../lib/url";
+
+const fields = [
+  { id: "monthlyCalls", label: "Inbound calls per month", value: 1000, step: 50, unit: "" },
+  { id: "afterHoursShare", label: "Share of calls after hours", value: 20, step: 1, unit: "%" },
+  { id: "afterHoursAnswerRate", label: "After-hours calls answered today", value: 25, step: 1, unit: "%" },
+  { id: "agentBookingRate", label: "Agent books, of the calls it answers", value: 50, step: 1, unit: "%" },
+  { id: "falseBookingRate", label: "Bookings that turn out wrong", value: 2, step: 0.5, unit: "%" },
+  { id: "completionRate", label: "Valid bookings that become paid jobs", value: 80, step: 1, unit: "%" },
+  { id: "averageTicket", label: "Average ticket", value: 500, step: 25, unit: "$" },
+  { id: "grossMargin", label: "Gross margin on a job", value: 45, step: 1, unit: "%" },
+  { id: "wastedTruckRollCost", label: "Cost of a wasted truck roll", value: 300, step: 25, unit: "$" },
+  { id: "agentCostPerCall", label: "Agent cost per answered call", value: 2, step: 0.5, unit: "$" },
+];
+---
+
+<BaseLayout title="Value Calculator · Path to Integration" description="An illustrative model of what answering missed after-hours calls is worth to one contractor.">
+  <p class="crumb muted"><a href={url("/")}>Journey</a> / value calculator</p>
+  <div class="page-title"><Icon name="chart" badge size={22} tone="cyan" /><h1>Value calculator</h1></div>
+  <p class="page-lede">
+    What is a voice agent worth to one contractor if it answers the after-hours calls nobody
+    picks up today? Every input is an assumption you set. This is a teaching model, not a
+    ServiceTitan forecast. See the <a href={url("/docs/business-metrics")}>business metrics primer</a>.
+  </p>
+
+  <div class="calc">
+    <section class="card" aria-labelledby="inputs-title">
+      <h2 id="inputs-title">Assumptions (per month)</h2>
+      <div class="fields">
+        {fields.map((f) => (
+          <label class="field" for={f.id}>
+            <span class="field-label">{f.label}</span>
+            <span class="field-input">
+              {f.unit === "$" && <span class="unit" aria-hidden="true">$</span>}
+              <input id={f.id} type="number" inputmode="decimal" min="0" max={f.unit === "%" ? 100 : undefined}
+                step={f.step} value={f.value} data-unit={f.unit} />
+              {f.unit === "%" && <span class="unit" aria-hidden="true">%</span>}
+            </span>
+          </label>
+        ))}
+      </div>
+    </section>
+
+    <section class="card results" aria-labelledby="results-title">
+      <h2 id="results-title">Illustrative result</h2>
+      <dl aria-live="polite">
+        <div><dt>Missed after-hours calls the agent answers</dt><dd id="missedCalls">—</dd></div>
+        <div><dt>Bookings made by the agent</dt><dd id="agentBookings">—</dd></div>
+        <div><dt>…of which wrong</dt><dd id="falseBookings">—</dd></div>
+        <div><dt>Completed jobs</dt><dd id="completedJobs">—</dd></div>
+        <div><dt>Added revenue</dt><dd id="addedRevenue">—</dd></div>
+        <div><dt>Added gross profit</dt><dd id="addedGrossProfit">—</dd></div>
+        <div><dt>Wasted truck rolls</dt><dd id="wastedRollCost" class="cost">—</dd></div>
+        <div><dt>Agent cost</dt><dd id="agentCost" class="cost">—</dd></div>
+        <div class="net"><dt>Net value per month</dt><dd id="netValue">—</dd></div>
+      </dl>
+      <p class="muted note" id="breakEven"></p>
+    </section>
+  </div>
+
+  <details class="card how">
+    <summary>How it's calculated</summary>
+    <ol>
+      <li>Missed calls = calls × after-hours share × (1 − after-hours answer rate)</li>
+      <li>Agent bookings = missed calls × booking rate; wrong bookings = bookings × wrong rate</li>
+      <li>Completed jobs = (bookings − wrong bookings) × completion rate</li>
+      <li>Gross profit = completed jobs × average ticket × gross margin</li>
+      <li>Net = gross profit − wrong bookings × truck-roll cost − missed calls × agent cost</li>
+    </ol>
+    <p class="muted">
+      It ignores daytime calls, capacity limits, customers who would have called back anyway,
+      and the trust a wrong booking costs beyond the truck roll. Each of those would make the real number
+      smaller. A good exercise: add one of them.
+    </p>
+  </details>
+</BaseLayout>
+
+<script>
+  import { breakEvenFalseBookingRate, calculateValue, type ValueInputs } from "../lib/value-calculator";
+
+  const inputs = [...document.querySelectorAll<HTMLInputElement>(".calc input")];
+  const money = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+  const count = new Intl.NumberFormat("en-US", { maximumFractionDigits: 1 });
+  const pct = new Intl.NumberFormat("en-US", { style: "percent", maximumFractionDigits: 0 });
+
+  function read(): ValueInputs {
+    const values: Record<string, number> = {};
+    for (const el of inputs) {
+      const n = Number(el.value);
+      values[el.id] = el.dataset.unit === "%" ? n / 100 : n;
+    }
+    return values as unknown as ValueInputs;
+  }
+
+  function set(id: string, text: string) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = text;
+  }
+
+  function update() {
+    const input = read();
+    const r = calculateValue(input);
+    set("missedCalls", count.format(r.missedCalls));
+    set("agentBookings", count.format(r.agentBookings));
+    set("falseBookings", count.format(r.falseBookings));
+    set("completedJobs", count.format(r.completedJobs));
+    set("addedRevenue", money.format(r.addedRevenue));
+    set("addedGrossProfit", money.format(r.addedGrossProfit));
+    set("wastedRollCost", "−" + money.format(r.wastedRollCost));
+    set("agentCost", "−" + money.format(r.agentCost));
+    set("netValue", money.format(r.netValue));
+    set("breakEven", `Break-even: the agent loses money on the calls it books once more than ${pct.format(
+      breakEvenFalseBookingRate(input))} of its bookings are wrong.`);
+  }
+
+  inputs.forEach((el) => el.addEventListener("input", update));
+  update();
+</script>
+
+<style>
+  .crumb { font-size: 0.9rem; }
+  .calc { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: var(--s6); align-items: start; margin-top: var(--s6); }
+  .card { padding: var(--s6); }
+  .card h2 { font-size: 1.15rem; margin: 0 0 var(--s4); }
+  .fields { display: grid; gap: var(--s3); }
+  .field { display: grid; grid-template-columns: minmax(0, 1fr) 9rem; gap: var(--s3); align-items: center; }
+  .field-label { font-size: 0.95rem; }
+  .field-input { display: flex; align-items: center; gap: var(--s2); border: 1px solid var(--panel-edge); border-radius: var(--r1); background: var(--navy); padding: 0 var(--s3); }
+  .field-input:focus-within { outline: 2px solid var(--cyan); outline-offset: 1px; }
+  .field-input input { flex: 1; min-width: 0; width: 100%; padding: 0.55rem 0; border: 0; background: transparent; color: var(--ink); font: inherit; text-align: right; }
+  .field-input input:focus { outline: none; }
+  .unit { color: var(--ink-dim); }
+  dl { display: grid; gap: var(--s2); margin: 0; }
+  dl div { display: flex; justify-content: space-between; gap: var(--s3); padding: var(--s2) 0; border-bottom: 1px solid var(--panel-edge); }
+  dt { color: var(--ink-dim); }
+  dd { margin: 0; font-variant-numeric: tabular-nums; font-weight: 600; white-space: nowrap; }
+  dd.cost { color: var(--ink-dim); }
+  dl .net { border-bottom: 0; padding-top: var(--s3); }
+  dl .net dt { color: var(--ink); font-weight: 600; }
+  dl .net dd { font-family: var(--font-head); font-size: 1.6rem; color: var(--cyan); }
+  .note { margin: var(--s4) 0 0; font-size: 0.9rem; }
+  .how { margin-top: var(--s6); }
+  .how summary { cursor: pointer; font-weight: 600; }
+  .how ol { margin: var(--s3) 0; padding-left: 1.2rem; line-height: 1.6; }
+  @media (max-width: 760px) {
+    .calc { grid-template-columns: 1fr; }
+    .field { grid-template-columns: minmax(0, 1fr) 7.5rem; }
+  }
+</style>

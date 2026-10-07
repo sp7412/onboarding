@@ -152,6 +152,9 @@ Analysis:
 - How are bookings arriving through Homh and consumer AI assistants authenticated and validated?
 - Which outcomes feed the learning loop for the voice agent, and how quickly?
 
+The [hypothesis map](hypothesis-map.md) expands these into a dozen public-grounded hypotheses,
+each with how to test it and whom to ask in weeks 1–2.
+
 ## 5. Still to watch (replays)
 
 From the conference schedule: [1][3]
