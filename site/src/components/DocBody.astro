@@ -22,6 +22,7 @@ const { html } = renderMarkdown(body, {
     const route = repoLinkToRoute(repoPath);
     return route ? url(route) : null;
   },
+  resolveSiteLink: url,
 });
 ---
 

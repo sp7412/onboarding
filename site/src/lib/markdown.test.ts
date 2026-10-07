@@ -16,6 +16,14 @@ describe("renderMarkdown", () => {
     expect(html).toContain('href="/onboarding/docs/y/"');
     expect(html).toContain('href="https://github.com/sp7412/onboarding/blob/main/labs/z.py"');
   });
+  it("treats site-absolute links as site routes, not repo files", () => {
+    const { html } = renderMarkdown("[Lessons](/lessons) and [one](/lessons/pass-k#x)", {
+      sourcePath: "plan/p.md", resolveRepoLink: () => null, resolveSiteLink: (r) => `/onboarding${r}`,
+    });
+    expect(html).toContain('href="/onboarding/lessons"');
+    expect(html).toContain('href="/onboarding/lessons/pass-k#x"');
+    expect(html).not.toContain("github.com");
+  });
   it("renders tables with headers", () => {
     const { html } = r("| A | B |\n|---|---|\n| 1 | <https://e.com> |");
     expect(html).toContain("<th>A</th>");
