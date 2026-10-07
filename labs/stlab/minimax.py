@@ -154,10 +154,16 @@ def claim_guard(claim: str, *, committed: bool, transferred: bool = False,
 
 def run_call(record: dict, confidence_floor: float = 0.85) -> dict[str, Any]:
     facts = extract_call_facts(record)
+    ledger = None
+    try:
+        ledger = facts_to_ledger(facts, confidence_floor)
+    except ValueError:
+        ledger = None
     decision = decide_bookability(facts, confidence_floor)
     tech, est_value = dispatch_for_facts(facts)
     trace = [{"stage":"extract", "schema_version":facts.schema_version,
               "valid":validate_call_facts(facts, confidence_floor)[0]},
+             {"stage":"context_ledger", "verified_fields": sorted(ledger.view(record["call_id"]).keys()) if ledger else []},
              {"stage":"bookability", "action":decision.action, "reason":decision.reason},
              {"stage":"lead_score", "est_value":est_value, "assigned_tech":tech}]
     committed = False
