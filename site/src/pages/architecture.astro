@@ -4,39 +4,355 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import DocBody from "../components/DocBody.astro";
 import { readRepoFile } from "../lib/content/repo";
 import { url } from "../lib/url";
-import { jargonSpan } from "../lib/jargon";
-const body = readRepoFile("docs/voice-agent-architecture.md");
+import { ARCHITECTURES, COST_ASSUMPTIONS, NODES, OWNER_LABEL, SOURCES } from "../lib/architecture/model";
 
-const layers = [
-  { name: "Caller and telephony", owns: "The phone network, SIP trunks, call transfer.", stops: "Knows nothing about the conversation or the business.", go: [["Lab 04", "/labs#lab-04"], ["Whitepaper ch. 08", "/whitepaper/08-technology-landscape"]] },
-  { name: "Transport (LiveKit)", owns: "Low-latency audio, rooms, " + jargonSpan("vad-long", "voice activity detection") + ", turn commit, interruption plumbing, playout.", stops: "Decides when a turn ends, not what to say or whether an action is allowed.", go: [["Lab 03", "/labs#lab-03"], ["LiveKit hands-on", "/docs/livekit-hands-on"]] },
-  { name: "Realtime model", owns: "Hearing, reasoning and speaking; proposing tool calls.", stops: "Never executes tools, owns no durable state, can't unsay audio.", go: [["Speech-to-speech models", "/docs/speech-to-speech-models"], ["GPT-Live-1", "/docs/gpt-live-1"], ["Build your own", "/docs/build-your-own-voice-agent"], ["Lab 01", "/labs#lab-01"]] },
-  { name: "Orchestration (LangChain / LangGraph)", owns: "Multi-step workflows, durable state, retries, human-in-the-loop.", stops: "Isn't the audio hot path or the system of record.", go: [["Labs 05–06", "/labs#lab-05"]] },
-  { name: "Control plane (the application)", owns: "Identity, policy at the tool boundary, grounding, idempotency, escalation, compliance.", stops: "This is where the business rules live.", go: [["Lab 02", "/labs#lab-02"], ["Tools and guardrails", "/docs/tools-and-guardrails"], ["Whitepaper ch. 12", "/whitepaper/12-risks-and-failure-modes"]] },
-  { name: "Systems of record", owns: "Customers, schedule, jobs, billing.", stops: "The source of truth; agents read and write it only through the control plane.", go: [["How a contractor works", "/docs/how-a-contractor-works"]] },
-  { name: "Observability and evaluation (LangSmith)", owns: "Traces, datasets, evaluators, experiments.", stops: "Observes and scores; enforces nothing at runtime.", go: [["Lab 07", "/labs#lab-07"], ["Evaluating voice agents", "/docs/evaluating-voice-agents"]] },
-];
+const body = readRepoFile("docs/voice-agent-architecture.md");
+const roots = [...new Set(ARCHITECTURES.flatMap((a) => [...a.hotPath, ...a.background]))];
+const href = (h: string) => (h.startsWith("http") ? h : url(h));
+const usedIn = (id: string) => ARCHITECTURES.filter((a) => [...a.hotPath, ...a.background].includes(id)).map((a) => a.title);
 ---
-<BaseLayout title="Architecture · Path to Integration" description="Where each component of a voice agent stops, and where the control plane begins.">
+
+<BaseLayout title="Architecture · Path to Integration" description="Drill into the blocks of a voice agent, three ways to build it, and what each block adds in latency and cost.">
   <p class="crumb muted"><a href={url("/")}>Journey</a> / architecture</p>
   <div class="page-title"><Icon name="layers" badge size={22} tone="cyan" /><h1>Architecture explorer</h1></div>
-  <p class="page-lede">Open each layer to see what it owns and where it stops. Then write your own answer on the <a href={url("/docs/study-question")}>study question</a> page.</p>
-  <div class="layers">
-    {layers.map((l, i) => (
-      <details class="card layer" open={i === 4}>
-        <summary><span class="idx">{i + 1}</span> {l.name}</summary>
-        <p><strong>Owns:</strong> <span set:html={l.owns} /></p>
-        <p><strong>Stops at:</strong> {l.stops}</p>
-        <p class="go">{l.go.map(([t, h]) => <a href={url(h)}>{t}</a>)}</p>
-      </details>
-    ))}
+  <p class="page-lede">
+    The same booking call, built three ways. Pick an architecture, click any block to see what it
+    does, where its job stops and what it adds in latency and cost, then keep clicking to go
+    deeper. Change the settings to see the trade-offs move.
+  </p>
+
+  <div id="ax" class="ax">
+    <p class="muted ax-loading">Loading the interactive explorer… The text outline below works without it.</p>
   </div>
+
+  <details class="card ax-outline">
+    <summary>Text outline of every block</summary>
+    <p class="muted">The same content as the explorer, as a plain list.</p>
+    <ul>
+      {roots.map((r) => (
+        <li>
+          <strong>{NODES[r].title}</strong> <span class="muted">({usedIn(r).join(", ")})</span>: {NODES[r].summary}
+          {NODES[r].learn && <span> {NODES[r].learn!.map((l) => <a href={href(l.href)}>{l.label}</a>)}</span>}
+          {NODES[r].children && (
+            <ul>
+              {NODES[r].children!.map((c) => (
+                <li>
+                  <strong>{NODES[c].title}</strong>: {NODES[c].summary}
+                  {NODES[c].learn && <span> {NODES[c].learn!.map((l) => <a href={href(l.href)}>{l.label}</a>)}</span>}
+                </li>
+              ))}
+            </ul>
+          )}
+        </li>
+      ))}
+    </ul>
+  </details>
+
+  <section class="ax-sources" aria-labelledby="ax-sources-title">
+    <h2 id="ax-sources-title">Where the numbers come from</h2>
+    <p>
+      Latency ranges are rough typical contributions to the silence the caller hears, not
+      percentiles and not benchmarks of any product. Adding ranges block by block gives a feel for
+      the shape, not a measurement, and the slow calls a caller remembers sit in the tail (see the
+      <a href={url("/lessons/latency-tail")}>latency tail lesson</a>). Each figure is labelled:
+      <em>vendor</em>, <em>standard</em> and <em>docs</em> figures are published; <em>derived</em>
+      costs apply published prices to the assumptions below; <em>estimate</em> is third-party;
+      <em>teaching</em> comes from this repo's labs; <em>illustrative</em> is a plausible range,
+      not a measurement. Prices as of October 2026.
+    </p>
+    <h3>Cost assumptions</h3>
+    <ul>{COST_ASSUMPTIONS.map((a) => <li>{a}</li>)}</ul>
+    <h3>Sources</h3>
+    <ol>
+      {Object.entries(SOURCES).map(([id, s]) => (
+        <li id={`src-${id}`}><a href={href(s.url)}>{s.label}</a> <span class="muted">({s.kind})</span></li>
+      ))}
+    </ol>
+    <p class="muted">Owners: {Object.values(OWNER_LABEL).join(" · ")}.</p>
+  </section>
+
   <h2>Reference architecture</h2>
   <DocBody body={body} sourcePath="docs/voice-agent-architecture.md" />
 </BaseLayout>
-<style>
-  .layers { display: grid; gap: var(--s3); margin: var(--s6) 0 var(--s12); max-width: 80ch; }
-  .layer summary { cursor: pointer; font-family: var(--font-head); font-size: 1.1rem; }
-  .layer .idx { display: inline-grid; place-items: center; width: 1.6em; height: 1.6em; border-radius: 50%; border: 1px solid var(--cyan); color: var(--cyan); font-size: 0.85rem; margin-right: var(--s2); }
-  .layer .go { display: flex; gap: var(--s4); flex-wrap: wrap; }
+
+<script>
+  import {
+    ARCHITECTURES, KNOBS, NODES, OWNER_LABEL, SOURCES, blockLatency, costOf, costRange, defaultChoices,
+    fmtCost, fmtMs, latencyOf, pathRange, trail,
+    type Architecture, type Choices, type Figure, type Step,
+  } from "../lib/architecture/model";
+  import { url } from "../lib/url";
+
+  const root = document.getElementById("ax")!;
+  const link = (h: string) => (h.startsWith("http") ? h : url(h));
+  const esc = (s: string) => s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]!);
+  const byId = Object.fromEntries(ARCHITECTURES.map((a) => [a.id, a])) as Record<string, Architecture>;
+
+  let arch: Architecture = ARCHITECTURES[0];
+  let node: string | null = null;
+  const choices: Choices = defaultChoices();
+
+  function readHash() {
+    const [a, n] = location.hash.replace(/^#/, "").split("/");
+    if (a && byId[a]) arch = byId[a];
+    node = n && NODES[n] && trail(n, [...arch.hotPath, ...arch.background]) ? n : null;
+  }
+  function writeHash() {
+    history.replaceState(null, "", `#${arch.id}${node ? "/" + node : ""}`);
+  }
+
+  const BASIS: Record<string, string> = {
+    vendor: "vendor-reported", standard: "standard / paper", docs: "documented default", derived: "derived from prices",
+    estimate: "third-party estimate", teaching: "lab value", illustrative: "illustrative",
+  };
+
+  function figureHtml(label: string, f: Figure, unit: "ms" | "$") {
+    const value = unit === "ms"
+      ? (f.lo === f.hi ? `${f.lo} ms` : `${f.lo}–${f.hi} ms`)
+      : fmtCost(f) + " / min";
+    const srcs = (f.sources ?? []).map((s) => `<a href="#src-${s}">${esc(SOURCES[s].label)}</a>`).join("; ");
+    return `<div class="ax-fig"><div class="ax-fig-head"><span>${label}</span><strong>${value}</strong>
+      <span class="ax-basis ax-basis-${f.basis}">${BASIS[f.basis]}</span></div>
+      <p>${esc(f.note)}${srcs ? ` <span class="muted">Source: ${srcs}</span>` : ""}</p></div>`;
+  }
+
+  function compareHtml() {
+    return `<div class="ax-compare" role="tablist" aria-label="Architecture">` + ARCHITECTURES.map((a) => {
+      const fs = pathRange(a.firstSound, a, choices), an = pathRange(a.answer, a, choices), c = costRange(a, choices);
+      const on = a.id === arch.id;
+      return `<button role="tab" class="ax-arch${on ? " is-on" : ""}" aria-selected="${on}" data-arch="${a.id}">
+        <span class="ax-arch-title">${a.title}</span><span class="ax-arch-tag">${a.tagline}</span>
+        <dl><div><dt>First sound</dt><dd>${fmtMs(fs)}</dd></div><div><dt>Answer after a tool</dt><dd>${fmtMs(an)}</dd></div>
+        <div><dt>Model cost / call minute</dt><dd>${fmtCost(c)}</dd></div></dl></button>`;
+    }).join("") + `</div>`;
+  }
+
+  function knobsHtml() {
+    return `<div class="ax-knobs">` + arch.knobs.map((k) => {
+      const knob = KNOBS[k];
+      return `<label class="ax-knob"><span>${knob.label}</span><select data-knob="${k}">` +
+        knob.options.map((o) => `<option value="${o.id}"${choices[k] === o.id ? " selected" : ""}>${esc(o.label)}</option>`).join("") +
+        `</select><small class="muted">${esc(knob.help)}</small></label>`;
+    }).join("") + `</div>`;
+  }
+
+  function stepSegments(path: Step[]): { id: string; lo: number; hi: number; par?: boolean }[] {
+    const out: { id: string; lo: number; hi: number; par?: boolean }[] = [];
+    for (const s of path) {
+      if (typeof s === "string") {
+        const f = latencyOf(s, arch, choices);
+        if (f) out.push({ id: s, lo: f.lo, hi: f.hi });
+      } else {
+        const br = s.parallel.map((b) => ({ ids: b, r: pathRange(b, arch, choices) }));
+        const slow = br.reduce((m, b) => (b.r.hi > m.r.hi ? b : m));
+        out.push({ id: slow.ids.join("+"), lo: Math.max(...br.map((b) => b.r.lo)), hi: slow.r.hi, par: true });
+      }
+    }
+    return out;
+  }
+
+  function barsHtml() {
+    const paths: [string, Step[]][] = [["First sound", arch.firstSound], ["Answer after a tool", arch.answer]];
+    const max = Math.max(...ARCHITECTURES.flatMap((a) => [pathRange(a.answer, a, choices).hi, a.benchmark?.ms ?? 0])) * 1.04;
+    const ownerOf = (id: string) => NODES[id.split("+")[0]]?.owner ?? "model";
+    const title = (id: string) => id.split("+").map((x) => NODES[x]?.title ?? x).join(" + ");
+    const rows = paths.map(([label, p]) => {
+      const segs = stepSegments(p);
+      const total = pathRange(p, arch, choices);
+      const parts = segs.map((s) => {
+        const mid = (s.lo + s.hi) / 2;
+        return `<button class="ax-seg ax-own-${ownerOf(s.id)}${s.par ? " ax-par" : ""}" style="width:${(mid / max) * 100}%"
+          data-node="${s.id.split("+").pop()}" title="${esc(title(s.id))}: ${s.lo}–${s.hi} ms${s.par ? " (runs in parallel; the slowest branch shown)" : ""}">
+          <span class="sr-only">${esc(title(s.id))} ${s.lo}–${s.hi} ms</span></button>`;
+      }).join("");
+      return `<div class="ax-bar-row"><div class="ax-bar-label">${label}<strong>${fmtMs(total)}</strong></div>
+        <div class="ax-bar">${parts}${arch.benchmark ? `<span class="ax-bench" style="left:${(arch.benchmark.ms / max) * 100}%" title="${esc(arch.benchmark.label)}"></span>` : ""}</div></div>`;
+    }).join("");
+    const legend = (Object.keys(OWNER_LABEL) as (keyof typeof OWNER_LABEL)[])
+      .map((o) => `<span><i class="ax-own-${o}"></i>${OWNER_LABEL[o]}</span>`).join("");
+    const bench = arch.benchmark
+      ? `<p class="muted ax-bench-note"><span class="ax-bench-key"></span> ${esc(arch.benchmark.label)}: ${(arch.benchmark.ms / 1000).toFixed(2)} s <a href="#src-${arch.benchmark.sources[0]}">source</a>. A measured, vendor-reported number to sanity-check the sums against.</p>`
+      : `<p class="muted ax-bench-note">No published end-to-end benchmark for this architecture; the bar is a sum of the ranges.</p>`;
+    return `<section class="card ax-bars" aria-label="Latency breakdown"><h2 class="ax-h">Where the silence goes</h2>
+      <p class="muted">Bar width is the middle of each range. Striped segments run in parallel with something faster, which they hide. Click a segment to open that block.</p>
+      ${rows}<div class="ax-legend">${legend}</div>${bench}</section>`;
+  }
+
+  function blockHtml(id: string) {
+    const n = NODES[id];
+    const fs = blockLatency(id, arch.firstSound, arch, choices);
+    const an = blockLatency(id, arch.answer, arch, choices);
+    const c = arch.costNodes.includes(id) ? costOf(id, arch, choices) : undefined;
+    const on = node && trail(node, [id]) ? " is-on" : "";
+    const badges = [
+      fs ? `<span class="ax-badge" title="Adds to first sound">${fs.lo}–${fs.hi} ms</span>` : an ? `<span class="ax-badge" title="Adds only to the answer">+${an.lo}–${an.hi} ms to answer</span>` : `<span class="ax-badge ax-badge-off">off the hot path</span>`,
+      c ? `<span class="ax-badge ax-badge-cost">${fmtCost(c)}/min</span>` : "",
+    ].join("");
+    return `<button class="ax-block ax-own-${n.owner}${on}" data-node="${id}" aria-pressed="${!!on}">
+      <span class="ax-owner">${OWNER_LABEL[n.owner]}</span><span class="ax-block-title">${esc(n.title)}</span>
+      <span class="ax-badges">${badges}</span></button>`;
+  }
+
+  function diagramHtml() {
+    const hot = arch.hotPath.map((id, i) => blockHtml(id) + (i < arch.hotPath.length - 1 ? `<span class="ax-arrow" aria-hidden="true">↓</span>` : "")).join("");
+    const bg = arch.background.map(blockHtml).join("");
+    return `<div class="ax-lanes"><h2 class="ax-h">The call, block by block</h2>
+      <p class="muted ax-lane-label">Hot path: the caller is waiting</p><div class="ax-lane">${hot}</div>
+      <p class="muted ax-lane-label">Alongside and after the call</p><div class="ax-lane ax-lane-bg">${bg}</div></div>`;
+  }
+
+  function detailHtml() {
+    const roots = [...arch.hotPath, ...arch.background];
+    if (!node) {
+      return `<div class="ax-detail-inner"><h2 class="ax-h">${arch.title}</h2><p>${esc(arch.tagline)}.</p>
+        <h3>Strengths</h3><ul>${arch.good.map((g) => `<li>${esc(g)}</li>`).join("")}</ul>
+        <h3>Watch out for</h3><ul>${arch.watch.map((g) => `<li>${esc(g)}</li>`).join("")}</ul>
+        <p class="muted">Click any block to drill in.</p></div>`;
+    }
+    const path = trail(node, roots) ?? [node];
+    const n = NODES[node];
+    const crumbs = [`<button class="ax-crumb" data-node="">${arch.title}</button>`, ...path.map((id, i) =>
+      i === path.length - 1 ? `<span aria-current="page">${esc(NODES[id].title)}</span>` : `<button class="ax-crumb" data-node="${id}">${esc(NODES[id].title)}</button>`)].join(" › ");
+    const lat = latencyOf(node, arch, choices);
+    const cost = arch.costNodes.includes(node) ? costOf(node, arch, choices) : undefined;
+    const kids = (n.children ?? []).map((c) => {
+      const kl = latencyOf(c, arch, choices);
+      return `<button class="ax-child" data-node="${c}"><strong>${esc(NODES[c].title)}</strong><span>${esc(NODES[c].summary)}</span>${kl ? `<em>${kl.lo}–${kl.hi} ms</em>` : ""}${NODES[c].children ? "<em>more inside ›</em>" : ""}</button>`;
+    }).join("");
+    const list = (t: string, xs?: string[]) => (xs?.length ? `<h3>${t}</h3><ul>${xs.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>` : "");
+    return `<div class="ax-detail-inner"><nav class="ax-crumbs" aria-label="Drill-down path">${crumbs}</nav>
+      <h2 class="ax-h" tabindex="-1">${esc(n.title)}</h2><span class="ax-owner-chip ax-own-${n.owner}">${OWNER_LABEL[n.owner]}</span>
+      <p>${esc(n.summary)}</p>${n.stops ? `<p><strong>Where it stops:</strong> ${esc(n.stops)}</p>` : ""}
+      ${lat ? figureHtml("Adds", lat, "ms") : ""}${cost ? figureHtml("Costs", cost, "$") : ""}
+      ${kids ? `<h3>Go deeper</h3><div class="ax-children">${kids}</div>` : ""}
+      ${list("What goes wrong", n.failures)}${list("What you can tune", n.knobs)}
+      ${n.learn?.length ? `<h3>Learn more</h3><p class="ax-learn">${n.learn.map((l) => `<a href="${link(l.href)}">${esc(l.label)}</a>`).join("")}</p>` : ""}
+      <button class="ax-up" data-node="${path.length > 1 ? path[path.length - 2] : ""}">↑ Back up</button></div>`;
+  }
+
+  function render(focusDetail = false) {
+    root.innerHTML = `${compareHtml()}${knobsHtml()}${barsHtml()}
+      <div class="ax-grid">${diagramHtml()}<aside class="card ax-detail" aria-live="polite">${detailHtml()}</aside></div>`;
+    if (focusDetail) {
+      const h = root.querySelector<HTMLElement>(".ax-detail h2");
+      h?.focus({ preventScroll: true });
+      if (window.matchMedia("(max-width: 900px)").matches) root.querySelector(".ax-detail")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }
+
+  root.addEventListener("click", (e) => {
+    const t = (e.target as HTMLElement).closest<HTMLElement>("[data-arch],[data-node]");
+    if (!t) return;
+    if (t.dataset.arch) { arch = byId[t.dataset.arch]; node = node && trail(node, [...arch.hotPath, ...arch.background]) ? node : null; writeHash(); render(); return; }
+    node = t.dataset.node || null;
+    writeHash();
+    render(true);
+  });
+  root.addEventListener("change", (e) => {
+    const s = e.target as HTMLSelectElement;
+    if (s.dataset.knob) { choices[s.dataset.knob] = s.value; render(); root.querySelector<HTMLSelectElement>(`[data-knob="${s.dataset.knob}"]`)?.focus(); }
+  });
+  root.addEventListener("keydown", (e) => {
+    const tab = (e.target as HTMLElement).closest<HTMLElement>("[role=tab]");
+    if (!tab || !["ArrowLeft", "ArrowRight"].includes(e.key)) return;
+    const i = ARCHITECTURES.findIndex((a) => a.id === arch.id);
+    arch = ARCHITECTURES[(i + (e.key === "ArrowRight" ? 1 : ARCHITECTURES.length - 1)) % ARCHITECTURES.length];
+    node = null; writeHash(); render();
+    root.querySelector<HTMLElement>(`[data-arch="${arch.id}"]`)?.focus();
+  });
+  window.addEventListener("hashchange", () => {
+    if (byId[location.hash.replace(/^#/, "").split("/")[0]]) { readHash(); render(); }
+  });
+
+  readHash();
+  render();
+</script>
+
+<style is:global>
+  .ax { margin: var(--s6) 0; }
+  .ax .ax-h { font-size: 1.15rem; margin: 0 0 var(--s3); }
+  .ax h3 { font-size: 0.95rem; margin: var(--s4) 0 var(--s2); color: var(--ink-dim); text-transform: uppercase; letter-spacing: 0.04em; }
+  .ax button { font: inherit; color: inherit; cursor: pointer; }
+  .ax .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+  .ax-compare { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s3); }
+  .ax-arch { text-align: left; background: var(--panel); border: 1px solid var(--panel-edge); border-radius: var(--r2); padding: var(--s4); display: grid; gap: var(--s1); }
+  .ax-arch.is-on { border-color: var(--cyan); box-shadow: var(--glow); }
+  .ax-arch:focus-visible, .ax-block:focus-visible, .ax-child:focus-visible, .ax-seg:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+  .ax-arch-title { font-family: var(--font-head); font-size: 1.1rem; font-weight: 700; }
+  .ax-arch-tag { color: var(--ink-dim); font-size: 0.85rem; }
+  .ax-arch dl { margin: var(--s2) 0 0; display: grid; gap: 2px; }
+  .ax-arch dl div { display: flex; justify-content: space-between; gap: var(--s2); font-size: 0.85rem; }
+  .ax-arch dt { color: var(--ink-dim); }
+  .ax-arch dd { margin: 0; font-variant-numeric: tabular-nums; font-weight: 600; white-space: nowrap; }
+
+  .ax-knobs { display: flex; flex-wrap: wrap; gap: var(--s4); margin: var(--s4) 0; }
+  .ax-knob { display: grid; gap: var(--s1); min-width: 14rem; flex: 1 1 14rem; font-size: 0.9rem; }
+  .ax-knob select { background: var(--navy); color: var(--ink); border: 1px solid var(--panel-edge); border-radius: var(--r1); padding: 0.45rem; font: inherit; }
+
+  .ax-bars { margin-bottom: var(--s4); }
+  .ax-bar-row { display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: var(--s3); align-items: center; margin: var(--s2) 0; }
+  .ax-bar-label { display: grid; font-size: 0.9rem; }
+  .ax-bar-label strong { font-variant-numeric: tabular-nums; }
+  .ax-bar { position: relative; display: flex; height: 26px; background: var(--navy); border-radius: var(--r1); overflow: visible; }
+  .ax-seg { height: 100%; border: 0; border-right: 2px solid var(--navy); padding: 0; min-width: 4px; }
+  .ax-seg.ax-par { background-image: repeating-linear-gradient(45deg, rgba(10,18,36,0.45) 0 4px, transparent 4px 8px); }
+  .ax-bench { position: absolute; top: -4px; bottom: -4px; width: 2px; background: var(--ink); }
+  .ax-bench-key { display: inline-block; width: 2px; height: 0.9em; background: var(--ink); vertical-align: middle; margin-right: var(--s1); }
+  .ax-legend { display: flex; flex-wrap: wrap; gap: var(--s3); font-size: 0.8rem; color: var(--ink-dim); margin-top: var(--s3); }
+  .ax-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 4px; vertical-align: middle; }
+  .ax-bench-note { font-size: 0.85rem; margin: var(--s3) 0 0; }
+
+  .ax-own-telephony { --own: #8b9bb8; } .ax-own-transport { --own: var(--blue); } .ax-own-model { --own: var(--cyan); }
+  .ax-own-control { --own: var(--green); } .ax-own-backend { --own: var(--gold); } .ax-own-observe { --own: #c084fc; }
+  .ax-seg, .ax-legend i { background-color: var(--own); }
+
+  .ax-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: var(--s6); align-items: start; }
+  .ax-lane { display: grid; gap: var(--s1); }
+  .ax-lane-bg { grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr)); gap: var(--s3); }
+  .ax-lane-label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; margin: var(--s4) 0 var(--s2); }
+  .ax-arrow { text-align: center; color: var(--ink-dim); line-height: 1; }
+  .ax-block { text-align: left; display: grid; gap: 4px; background: var(--panel); border: 1px solid var(--panel-edge); border-left: 4px solid var(--own); border-radius: var(--r1); padding: var(--s3) var(--s4); }
+  .ax-block:hover { border-color: var(--own); }
+  .ax-block.is-on { border-color: var(--own); box-shadow: 0 0 0 1px var(--own), var(--glow); }
+  .ax-owner { font-size: 0.72rem; color: var(--ink-dim); text-transform: uppercase; letter-spacing: 0.05em; }
+  .ax-block-title { font-weight: 600; }
+  .ax-badges { display: flex; flex-wrap: wrap; gap: var(--s2); }
+  .ax-badge { font-size: 0.78rem; padding: 1px 8px; border-radius: 999px; border: 1px solid var(--panel-edge); font-variant-numeric: tabular-nums; }
+  .ax-badge-cost { color: var(--gold); }
+  .ax-badge-off { color: var(--ink-dim); }
+
+  .ax-detail { position: sticky; top: 112px; max-height: calc(100vh - 128px); overflow: auto; }
+  .ax-crumbs { font-size: 0.85rem; color: var(--ink-dim); margin-bottom: var(--s3); }
+  .ax-crumb { background: none; border: 0; padding: 0; color: var(--cyan); text-decoration: underline; }
+  .ax-owner-chip { display: inline-block; font-size: 0.75rem; padding: 1px 8px; border-radius: 999px; border: 1px solid var(--own); color: var(--own); }
+  .ax-fig { border: 1px solid var(--panel-edge); border-radius: var(--r1); padding: var(--s3); margin: var(--s3) 0; }
+  .ax-fig-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--s2); }
+  .ax-fig-head strong { font-size: 1.1rem; font-variant-numeric: tabular-nums; }
+  .ax-fig p { margin: var(--s2) 0 0; font-size: 0.88rem; line-height: 1.5; }
+  .ax-basis { font-size: 0.72rem; padding: 1px 8px; border-radius: 999px; background: var(--navy); color: var(--ink-dim); }
+  .ax-basis-vendor, .ax-basis-standard, .ax-basis-docs { color: var(--green); }
+  .ax-basis-derived, .ax-basis-teaching { color: var(--cyan); }
+  .ax-basis-estimate, .ax-basis-illustrative { color: var(--gold); }
+  .ax-children { display: grid; gap: var(--s2); }
+  .ax-child { text-align: left; display: grid; gap: 2px; background: var(--navy); border: 1px solid var(--panel-edge); border-radius: var(--r1); padding: var(--s3); }
+  .ax-child:hover { border-color: var(--cyan); }
+  .ax-child span { color: var(--ink-dim); font-size: 0.88rem; }
+  .ax-child em { font-style: normal; font-size: 0.8rem; color: var(--cyan); }
+  .ax-learn { display: flex; flex-wrap: wrap; gap: var(--s3); }
+  .ax-up { margin-top: var(--s4); background: none; border: 1px solid var(--panel-edge); border-radius: var(--r1); padding: 0.4rem 0.8rem; }
+
+  .ax-outline { margin: var(--s6) 0; }
+  .ax-outline summary { cursor: pointer; font-weight: 600; }
+  .ax-outline li { margin: var(--s2) 0; line-height: 1.5; }
+  .ax-outline li a { margin-left: var(--s2); }
+  .ax-sources { max-width: 80ch; margin-bottom: var(--s12); }
+  .ax-sources li { margin: var(--s1) 0; }
+
+  @media (max-width: 900px) {
+    .ax-compare { grid-template-columns: 1fr; }
+    .ax-grid { grid-template-columns: 1fr; }
+    .ax-detail { position: static; max-height: none; }
+    .ax-bar-row { grid-template-columns: 1fr; gap: var(--s1); }
+  }
 </style>
