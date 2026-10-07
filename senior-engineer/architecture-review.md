@@ -1,6 +1,6 @@
 # Exercise: Architecture Review — Model vs. Control Plane
 
-**Time:** 45 minutes · **Builds on:** lab 02, labs 09–10, [tools and guardrails](../docs/tools-and-guardrails.md)
+**Time:** 45 minutes · **Builds on:** lab 02, labs 09–10, [tools and guardrails](../docs/tools-and-guardrails.md), [whitepaper ch. 15](../docs/whitepaper/15-agentic-orchestration.md)
 
 ## Scenario
 

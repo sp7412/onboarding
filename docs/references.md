@@ -233,14 +233,17 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [Agentforce Multi-Agent Orchestration](https://www.salesforce.com/agentforce/multi-agent-orchestration/) | Vendor architecture | Whitepaper 15 |
 | [Salesforce SOMA, MOMA, MCP, A2A and Agent Gateway](https://help.salesforce.com/s/articleView?id=005317683&language=en_US&type=1) | Vendor architecture/docs | Whitepaper 15 |
 | [Microsoft Agent Framework](https://github.com/microsoft/agent-framework) | Open-source framework | Whitepaper 15 |
-| [Microsoft Agent Framework orchestration samples](https://github.com/microsoft/agent-framework/tree/main/python/samples/03-workflows/orchestrations) | Open-source samples | Whitepaper 15 |
-| [Microsoft workflow concepts](https://learn.microsoft.com/azure/ai-services/agents/concepts/workflows) | Microsoft documentation | Whitepaper 15 |
+| [Microsoft Agent Framework overview (agents vs. workflows)](https://learn.microsoft.com/agent-framework/overview/) | Microsoft documentation | Whitepaper 15 |
+| [Workflow orchestrations in Agent Framework](https://learn.microsoft.com/agent-framework/workflows/orchestrations) | Microsoft documentation | Whitepaper 15 |
 | [LangGraph](https://github.com/langchain-ai/langgraph) | Open-source framework | Whitepaper 15 |
 | [LangGraph overview](https://docs.langchain.com/oss/python/langgraph/overview) | Documentation | Whitepaper 15 |
 | [LangGraph persistence](https://docs.langchain.com/oss/python/langgraph/persistence) | Documentation | Whitepaper 15 |
 | [LangGraph durable execution](https://docs.langchain.com/oss/python/langgraph/durable-execution) | Documentation | Whitepaper 15 |
 | [LangGraph interrupts](https://docs.langchain.com/oss/python/langgraph/interrupts) | Documentation | Whitepaper 15 |
 | [LangChain agents](https://docs.langchain.com/oss/python/langchain/agents) | Documentation | Whitepaper 15 |
+| [ServiceTitan job listing: Engineering Manager, Data Foundations](https://servicetitan.wd1.myworkdayjobs.com/en-US/ServiceTitan/job/Manager--Software-Engineering_JR114911) | Job listing (expires) | Whitepaper 15 |
+| [ServiceTitan job listing on Built In: Staff Product Manager, Communications Intelligence](https://builtin.com/job/staff-product-manager-communications-intelligence/10448969) | Job listing (expires) | Whitepaper 15 |
+| [ServiceTitan Help: Configure your Voice Agent settings in Contact Center Pro](https://help.servicetitan.com/docs/configure-your-voice-agent-settings) | Help center (company claim) | Whitepaper 16 |
 
 ## Maintaining this page
 - Add a row whenever a new external link appears anywhere in the repo.

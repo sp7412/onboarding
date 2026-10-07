@@ -1,6 +1,18 @@
-# Shared Skills and Capability Libraries
+# 16 - Shared Skills and Capability Libraries
 
-**Purpose:** Extend the agentic-orchestration model with a reusable capability layer.
+**Estimated reading time:** 8 minutes · **Facts as of:** October 7, 2026
+
+Extends [chapter 15](15-agentic-orchestration.md) with a reusable capability layer between agents
+and orchestration. The registry and marketplace ideas below are architecture analysis, not a
+description of ServiceTitan's internal systems.
+
+## Five Takeaways
+
+1. An **agent** is a role (booking, dispatch, intake); a **skill** is a reusable capability several agents can apply (identify customer, check capacity, book, escalate).
+2. A production skill is a versioned artifact: applicability, required state, tools, policy, autonomy level, examples, evaluation cases, owner and history.
+3. ServiceTitan's Voice Agent has a documented "Skills and Capabilities" settings area that controls which scheduling actions the agent may perform [1]. That is evidence of modular capabilities, not of a cross-agent skills marketplace.
+4. Skills are not tools: the tool performs the side effect; the skill encodes when and how to use it, so procedure, reasoning and side effects stay separately testable.
+5. Versioned skills let the learning loop work at two levels: is this agent deciding well, and is this capability good across every agent that uses it?
 
 ## The distinction
 
@@ -8,23 +20,25 @@ An **agent** is a role in the system: booking, dispatch, voice intake, follow-up
 
 A **skill** is a reusable capability that can be applied by multiple agents:
 
-    Agents
-      |
-      +--> Voice Agent
-      +--> Booking Agent
-      +--> Dispatch Agent
-      |
-      v
-    Shared skill library
-      |
-      +--> identify customer
-      +--> classify intent
-      +--> check capacity
-      +--> book appointment
-      +--> reschedule
-      +--> confirm appointment
-      +--> escalate
-      +--> collect payment
+```text
+Agents
+  |
+  +--> Voice Agent
+  +--> Booking Agent
+  +--> Dispatch Agent
+  |
+  v
+Shared skill library
+  |
+  +--> identify customer
+  +--> classify intent
+  +--> check capacity
+  +--> book appointment
+  +--> reschedule
+  +--> confirm appointment
+  +--> escalate
+  +--> collect payment
+```
 
 This avoids implementing the same business capability independently inside every agent.
 
@@ -46,55 +60,63 @@ A production skill can be treated as a versioned engineering artifact containing
 
 Conceptually:
 
-    Skill
-      |
-      +-- applicability
-      +-- required state
-      +-- instructions
-      +-- tools
-      +-- policy
-      +-- autonomy
-      +-- examples
-      +-- evals
-      +-- version
-      |
-      v
-    Agent proposes use
-      |
-      v
-    Control harness validates
-      |
-      v
-    Workflow/tool executes
+```text
+Skill
+  |
+  +-- applicability
+  +-- required state
+  +-- instructions
+  +-- tools
+  +-- policy
+  +-- autonomy
+  +-- examples
+  +-- evals
+  +-- version
+  |
+  v
+Agent proposes use
+  |
+  v
+Control harness validates
+  |
+  v
+Workflow/tool executes
+```
 
 ## A shared registry
 
 The library can look like a private marketplace:
 
-    discover
-       |
-       v
-    validate
-       |
-       v
-    evaluate
-       |
-       v
-    approve
-       |
-       v
-    skill registry
-       |
-       +--------+--------+
-       |                 |
-       v                 v
-    Agent A           Agent B
+```text
+discover
+   |
+   v
+validate
+   |
+   v
+evaluate
+   |
+   v
+approve
+   |
+   v
+skill registry
+   |
+   +--------+--------+
+   |                 |
+   v                 v
+Agent A           Agent B
+```
 
 "Marketplace" is a useful architectural metaphor, but it should not be confused with a public product marketplace. A private registry can provide discoverability, versioning, ownership, evaluation, and controlled rollout without allowing arbitrary third-party publication.
 
 ## What the public ServiceTitan record supports
 
-ServiceTitan currently documents **Skills & Capabilities** as a real Voice Agent product concept. The settings include independently configurable scheduling capabilities such as booking, confirming/rescheduling, cancellation, and after-hours booking. ServiceTitan also describes an ongoing tuning process in which teams review unbooked calls and identify capability gaps.
+ServiceTitan's help center documents a **Skills and Capabilities** settings area for the Voice
+Agent that "control[s] which scheduling actions the agent can perform"; use cases such as
+appointment cancellation are switched on there [1]. The same page says the agent classifies call
+types and assigns AI-generated call reasons to unbooked calls from the transcript [1], which gives
+a team a way to spot missing capabilities (that use is our inference).
 
 That is evidence for modular capabilities, but it does **not** prove that Pantheon internally has a centralized cross-agent "skills marketplace" or repository of optimized skills.
 
@@ -106,25 +128,27 @@ Therefore the safe onboarding statement is:
 
 The skill layer fits between agents and orchestration:
 
-    EXPERIENCE
-        |
-        v
-    AGENTS
-        |
-        v
-    SKILLS / CAPABILITIES
-        |
-        v
-    ORCHESTRATION
-      routing
-      arbitration
-      policy
-        |
-        v
-    SHARED STATE
-        |
-        v
-    TOOLS / SYSTEMS
+```text
+EXPERIENCE
+    |
+    v
+AGENTS
+    |
+    v
+SKILLS / CAPABILITIES
+    |
+    v
+ORCHESTRATION
+  routing
+  arbitration
+  policy
+    |
+    v
+SHARED STATE
+    |
+    v
+TOOLS / SYSTEMS
+```
 
 This changes the unit of reuse from a prompt to a managed capability.
 
@@ -134,33 +158,35 @@ A booking skill can have its own regression suite, business metrics, version his
 
 A mature production loop can continuously improve reusable capabilities:
 
-    Skill v42
-       |
-       v
-    Agents
-       |
-       v
-    Production traffic
-       |
-       v
-    traces / outcomes
-       |
-       v
-    event stream / analytics
-       |
-       v
-    failure mining
-       |
-       v
-    evaluation cases
-       |
-       v
-    Skill v43
-       |
-       v
-    canary
-       |
-       +----> eligible agents
+```text
+Skill v42
+   |
+   v
+Agents
+   |
+   v
+Production traffic
+   |
+   v
+traces / outcomes
+   |
+   v
+event stream / analytics
+   |
+   v
+failure mining
+   |
+   v
+evaluation cases
+   |
+   v
+Skill v43
+   |
+   v
+canary
+   |
+   +----> eligible agents
+```
 
 This makes the learning loop operate at two levels:
 
@@ -180,16 +206,18 @@ Do not confuse a skill with a tool.
 
 For example:
 
-    Booking skill
-       |
-       +--> check eligibility
-       +--> check capacity
-       +--> select candidate slot
-       +--> validate policy
-       +--> propose booking
-                    |
-                    v
-              book_appointment tool
+```text
+Booking skill
+   |
+   +--> check eligibility
+   +--> check capacity
+   +--> select candidate slot
+   +--> validate policy
+   +--> propose booking
+                |
+                v
+          book_appointment tool
+```
 
 This separation keeps business procedure, reasoning, and side effects independently testable.
 
@@ -214,3 +242,7 @@ Roll the new skill through a canary and compare the two agents separately.
 The lesson should be:
 
 > **Reusable skills turn agent improvement into a platform capability rather than a one-agent prompt change.**
+
+## Sources
+
+1. ServiceTitan Help, Configure your Voice Agent settings in Contact Center Pro (checked October 7, 2026): <https://help.servicetitan.com/docs/configure-your-voice-agent-settings>

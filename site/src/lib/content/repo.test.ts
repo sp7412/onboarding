@@ -36,7 +36,7 @@ describe("real repo content", () => {
 
   it("parses the whitepaper in README order with essentials path", () => {
     expect(bundle.whitepaper.chapters[0].number).toBe("00");
-    expect(bundle.whitepaper.chapters).toHaveLength(17);
+    expect(bundle.whitepaper.chapters).toHaveLength(19);
     const essentials = bundle.whitepaper.chapters.filter((c) => c.essentials).map((c) => c.number);
     expect(essentials).toEqual(["00", "01", "02", "06", "07", "10", "11", "14"]);
   });

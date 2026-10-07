@@ -50,6 +50,9 @@ paper's interpretation, not company plans.
 
 ## What this means for a voice-agent engineer
 
+Chapter 15, [Agentic orchestration](15-agentic-orchestration.md), maps the orchestration direction
+onto public architectures (ServiceTitan, Salesforce, Microsoft) and the repo's multi-agent labs.
+
 - Build components (policy checks, evaluators, escalation contracts) that can serve more than
   one agent.
 - Expect the definition of "voice agent" to widen; keep interfaces to the rest of the

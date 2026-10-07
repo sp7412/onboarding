@@ -152,6 +152,13 @@ describe("whitepaper parsing", () => {
     expect(parseWhitepaperOrder(orderDoc, "README")).toHaveLength(17);
   });
 
+  it("rejects gaps in chapter numbering and misplaced appendices", () => {
+    expect(() => parseWhitepaperOrder(orderDoc.replace("(04-the-contact-center.md)", "(05-dupe.md)"), "README")).toThrow(/consecutively/);
+    const swapped = orderDoc.replace("16. [Appendix A - Timeline](appendix-a-timeline.md)\n17. [Appendix B - Sources](appendix-b-sources.md)",
+      "16. [Appendix B - Sources](appendix-b-sources.md)\n17. [Appendix A - Timeline](appendix-a-timeline.md)");
+    expect(() => parseWhitepaperOrder(swapped, "README")).toThrow(/appendix A then appendix B/);
+  });
+
   it("parses a chapter with reading time, takeaways and essentials flag", () => {
     const ch = parseWhitepaperChapter("07-ai-voice-agents.md", fx("whitepaper-chapter.md"));
     expect(ch.number).toBe("07");

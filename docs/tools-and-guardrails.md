@@ -20,6 +20,7 @@ labs and docs, and fills the gaps they leave.
 | Delegation and what's safe to send back (`thinking` vs `commentary`) | [GPT-Live-1](gpt-live-1.md) |
 | Regulatory guardrails; risk register | Whitepaper [ch. 10](whitepaper/10-regulation-and-compliance.md), [ch. 12](whitepaper/12-risks-and-failure-modes.md) |
 | Interactive replay with the control plane on and off | Site → Simulations → Guardrails |
+| The same boundary across many agents: arbitration, governance, MCP vs. A2A | Whitepaper [ch. 15](whitepaper/15-agentic-orchestration.md) |
 
 ## 1. The principle: the model proposes, the application decides
 
