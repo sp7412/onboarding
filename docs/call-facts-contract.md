@@ -133,7 +133,7 @@ These are design prompts, not production rules:
 
 - [Pantheon 2026 AI roadmap brief](pantheon-2026-ai-roadmap.md)
 - [Tools and guardrails](tools-and-guardrails.md)
-- [Labs 09–12](../labs/README.md) (shared context, coordination, learning loop, agent-to-agent)
+- [Labs 09–14](../labs/README.md) (shared context, coordination, learning loop, agent-to-agent, and lab 13, which implements this contract end to end)
 - [Lab 13: Mini-Max](../labs/README.md): a small *runnable* version of this contract, with a
   [JSON Schema](../labs/data/schemas/call-facts.schema.json). Each fact carries a value, a
   numeric confidence and the caller's words; the context ledger records proposed vs. verified

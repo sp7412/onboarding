@@ -77,7 +77,8 @@ def sprt(errors: int, n: int, p0: float = 0.02, p1: float = 0.05,
     """Wald's sequential probability ratio test of H0: rate = p0 (acceptable) vs H1: rate = p1.
 
     Returns "promote" (accept H0), "demote" (accept H1) or "continue". alpha is the chance of
-    promoting an agent whose true rate is p1; beta the chance of demoting one at p0.
+    demoting an agent whose true rate is p0 (a false alarm); beta the chance of promoting one
+    at p1 (the costly miss).
     """
     if n <= 0:
         return "continue"

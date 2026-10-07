@@ -29,7 +29,8 @@ company systems.
 
 Copy the rows you care most about into the [working-hypotheses template](../senior-engineer/hypotheses.md)
 in a **private** place before day one, and track what you observe against each. Labs
-[13](../labs/README.md) and [14](earning-autonomy.md) let you practise the two hypotheses
+[13](../labs/13_minimax_capstone.ipynb) and [14](../labs/14_earning_autonomy.ipynb) (with the
+[earning-autonomy guide](earning-autonomy.md)) let you practise the two hypotheses
 that matter most for a voice engineer: the facts contract and earned autonomy.
 
 ## Validation rule

@@ -71,7 +71,7 @@ Format: Deep Dive · Length: Default
 
 SOURCES (NotebookLM → Add source → Website / YouTube):
 https://www.servicetitan.com/features/pro/virtual-agent
-https://www.servicetitan.com/blog/webinar-recap-ai-voice-agents-call-booking
+https://www.servicetitan.com/blog/webinar-recap-ai-virtual-agents-call-booking
 https://www.servicetitan.com/press/servicetitan-introducing-the-next-evolution-of-ai-at-pantheon-2025-keynote
 https://www.servicetitan.com/blog/pantheon-2025-vahe-keynote-atlas
 https://raw.githubusercontent.com/sp7412/onboarding/main/docs/whitepaper/01-company.md
@@ -184,7 +184,7 @@ SOURCES (NotebookLM → Add source → Website / YouTube):
 https://www.anthropic.com/engineering/building-effective-agents
 https://blog.langchain.com/langchain-langgraph-1dot0/
 https://docs.langchain.com/oss/python/langchain/middleware
-https://docs.langchain.com/oss/python/langgraph/durable-execution
+https://docs.langchain.com/oss/python/langgraph/checkpointers#durability-modes
 https://docs.langchain.com/oss/python/langgraph/interrupts
 
 CUSTOMIZE PROMPT (Audio Overview → Customize):

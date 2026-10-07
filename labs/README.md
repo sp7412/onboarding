@@ -4,7 +4,9 @@
 
 Fifteen hands-on Jupyter tutorials that build a phone agent for a fictional HVAC/plumbing
 contractor, one architecture layer at a time. Labs 09–12 extend it to several agents working
-together (shared context, coordination, learning, agent-to-agent booking):
+together (shared context, coordination, learning, agent-to-agent booking). Labs 13–14 are
+capstones on a shared synthetic call dataset: extracting and committing call facts, and
+deciding when an agent has earned more autonomy.
 
 | # | Notebook | Layer | Keys needed | Time |
 |---|---|---|---|---|
@@ -56,7 +58,9 @@ Run the notebooks in order from this folder (they import the local `stlab/` pack
 
 `stlab/` contains teaching fixtures: a mock backend (`backend.py`), the guarded tool
 dispatcher (`tools.py`), an offline Realtime API simulator (`fake_realtime.py`), a scripted
-LangChain chat model, a turn-taking simulator, the booking graph, and eval scenarios.
+LangChain chat model, a turn-taking simulator, the booking graph, and eval scenarios. The
+multi-agent labs add `context.py`, `coordination.py`, `learning.py` and `agent_gateway.py`
+(labs 09–12), `calls.py` and `minimax.py` (lab 13) and `autonomy.py` (lab 14).
 The simulated "models" are rule-based scripts, not LLMs. They exist to make event flows
 and control-plane behavior visible and deterministic. With keys, the same cells hit the
 real services.

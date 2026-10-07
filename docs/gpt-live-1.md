@@ -1,10 +1,10 @@
 # GPT-Live-1: Full-Duplex Voice with Delegation
 
-**Facts as of: September 30, 2026 · Last reviewed: September 30, 2026**
+**Facts as of: October 6, 2026 · Last reviewed: October 7, 2026**
 
 What OpenAI's GPT-Live-1 is, how it differs from the Realtime models the labs use, how its
 delegation model maps onto this repo's control-plane lessons, and what it means for a phone
-booking agent. This is very likely the "GPT Live" a contact at the company suggested studying.
+booking agent.
 Vendor claims and benchmark numbers below are OpenAI-reported and labeled as such.
 
 ## Five Takeaways

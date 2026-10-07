@@ -139,7 +139,7 @@ then use the [Pantheon hypothesis map](hypothesis-map.md) as your week-1 questio
   1. Where voice agents sit in the five-level AI maturity model, and what the levels above them require.
   2. How the coordination system (shared context, shared judgment, coordinated action, arbitration, supervision) changes what the voice agent must capture and hand off.
   3. How the company measures a "bookable" call, and why it built a separate judge for it.
-  4. What Homh and agent-to-agent booking mean for identity, validation and the control plane.
+  4. What Homh and booking through AI assistants mean for identity, validation and the control plane.
 - **Pairs with:** lessons on the denominator and claims vs. state; [Tools and guardrails](tools-and-guardrails.md); labs 09–14; [whitepaper ch. 16, Shared skills](whitepaper/16-shared-skills-and-capabilities.md)
 
 ### 8. OpenAI voice agents guide
@@ -395,7 +395,7 @@ credentials, customer information, or live audio into this public repository.
 - **Pairs with:** lab 05 §4
 
 ### 20. LangGraph: durable execution and interrupts
-- [ ] <https://docs.langchain.com/oss/python/langgraph/durable-execution> · docs · 20 min
+- [ ] <https://docs.langchain.com/oss/python/langgraph/checkpointers#durability-modes> · docs · 20 min
 - [ ] <https://docs.langchain.com/oss/python/langgraph/interrupts> · docs · 20 min
 - **Look for:**
   1. Checkpointers and what "durable" guarantees.

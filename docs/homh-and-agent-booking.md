@@ -1,14 +1,14 @@
 # Homh and AI-Agent Booking
 
-**Facts as of: October 6, 2026 · Last reviewed: October 6, 2026**
+**Facts as of: October 7, 2026 · Last reviewed: October 7, 2026**
 
 Public sources only. At Pantheon 2026, ServiceTitan announced **Homh**, a consumer demand
 generation platform that makes selected contractors discoverable and bookable where
 homeowners—or their AI agents—are searching. Homh was described as available via ChatGPT,
 Google Gemini, and Claude, with real-time availability, performance signals, and confirmed
-appointment booking into ServiceTitan. The release also says ServiceTitan *intends* to extend
-Homh into consumer LLMs and AI advertising platforms; treat that as forward-looking, not
-shipped. [1][2] ServiceTitan's live blog quotes the co-founder and president: "The Homh app
+appointment booking into ServiceTitan. [1][2] The assistant plugin itself is described as
+live; the release's further plans to extend Homh into more consumer LLMs and AI advertising
+platforms are forward-looking, not shipped. [1] ServiceTitan's live blog quotes the co-founder and president: "The Homh app
 plugin is live today on ChatGPT, Google Gemini, and Claude." [2] Analysis: an app or plugin
 inside each assistant is a different shape from a direct agent-to-agent protocol, which is
 one more reason to treat the protocol questions below as open.
@@ -102,7 +102,7 @@ teaching model, not Homh's design).
 
 - [Pantheon 2026 AI roadmap brief](pantheon-2026-ai-roadmap.md)
 - [Call facts contract](call-facts-contract.md)
-- [Labs 09–12](../labs/README.md)
+- [Labs 09–14](../labs/README.md), especially lab 12 (agent-to-agent gateway) and lab 13 (call-facts capstone)
 - [Tools and guardrails](tools-and-guardrails.md)
 
 ## Sources

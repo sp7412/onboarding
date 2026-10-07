@@ -19,7 +19,7 @@ need notes), or **red** (new to me). Fix the reds first, using the "Where to lea
 | Observability | traces, spans, logs, latency percentiles | the evidence needed to debug one call | reconstruct a failed interaction | lab 07 |
 | Reliability | timeouts, retries, circuit breakers | why retries can duplicate actions | design recovery behavior | lab 02, lab 06 |
 | Safety | escalation, policy gates, claim grounding | hard invariants vs. soft quality | prove a forbidden mutation stays blocked | lab 02, [capstone rubric](../docs/capstone-rubric.md) |
-| Multi-agent systems | shared context, arbitration, permissions | who may write which fact, and who decides | trace a fact from proposal to commit | labs 09–12 |
+| Multi-agent systems | shared context, arbitration, permissions | who may write which fact, and who decides | trace a fact from proposal to commit | labs 09–14 |
 | Autonomy | approval modes, graduated trust, the five-level maturity model | what evidence justifies letting an agent act alone | define a promote/demote rule | [Pantheon brief](../docs/pantheon-2026-ai-roadmap.md), lab 11 |
 | The business | booking rate, missed calls, average ticket, capacity | model metrics vs. contractor outcomes | define a measurable success metric | [how a contractor works](../docs/how-a-contractor-works.md), [whitepaper ch. 11](../docs/whitepaper/11-economics-and-metrics.md) |
 
