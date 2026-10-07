@@ -1,67 +1,153 @@
 WEBVTT
 
 1
-00:00:00.000 --> 00:00:12.365
-Three agents answer the same caller. One is easier to inspect. One sounds more natural. One
-keeps listening while it speaks. Which one should book the AC repair?
+00:00:00.000 --> 00:00:02.550
+Three agents answer the same caller.
 
 2
-00:00:12.365 --> 00:00:37.095
-The cascaded design is explicit: speech-to-text, then a language model, then text-to-speech.
-It has more hops, so streaming and overlap matter. But it leaves a text checkpoint between
-what the caller said and what the agent will say. You can inspect it, filter it, swap one
-stage, or tune speech recognition for addresses and phone numbers.
+00:00:02.870 --> 00:00:05.020
+One is easier to inspect.
 
 3
-00:00:37.095 --> 00:00:52.552
-For a booking call, that modularity is valuable when the team needs to debug every decision or
-use different models for different stages. The cost is extra coordination and another place
-for latency to accumulate.
+00:00:05.340 --> 00:00:07.365
+One sounds more natural.
 
 4
-00:00:52.552 --> 00:01:09.775
-Native speech-to-speech uses one model to hear audio and produce audio. It can preserve cues
-that a transcript loses, such as tone and hesitation. It can make responses feel more
-natural, and often reduces the number of model hops.
+00:00:07.685 --> 00:00:10.085
+One keeps listening while it speaks.
 
 5
-00:01:09.775 --> 00:01:34.505
-The trade is inspectability. Audio arrives directly, so it is harder to filter the response
-before it is spoken. Audio tokens can also cost more than text tokens. As of October 2026,
-the repository describes current Realtime model prices and names as changing vendor facts;
-use them only as dated context, not as timeless architecture rules.
+00:00:10.405 --> 00:00:12.955
+Which one should book the AC repair?
 
 6
-00:01:34.505 --> 00:01:55.702
-Full duplex changes the rhythm. The live voice model can listen while speaking, while a
-backend handles reasoning and tools. The backend can send three kinds of updates: an
-instruction that changes direction, thinking that helps the model without being spoken, and
-commentary that can be said aloud.
+00:00:13.275 --> 00:00:19.600
+The cascaded design is explicit: speech-to-text, then a language model, then text-to-speech.
 
 7
-00:01:55.702 --> 00:02:19.549
-That last channel needs a hard boundary. “I’m checking Thursday” is progress. “You’re booked”
-is a claim. Commentary should contain the claim only after the backend has committed the
-booking. If the caller interrupts while the write is in flight, the application decides
-whether to finish or cancel it, then reports the actual result.
+00:00:19.920 --> 00:00:23.520
+It has more hops, so streaming and overlap matter.
 
 8
-00:02:19.549 --> 00:02:43.396
-Compare the choices across eight dimensions. Cascaded wins modularity, control, and
-inspectability. Native speech-to-speech tends to win naturalness and can reduce latency, but
-is harder to inspect. Full duplex can win overlapping conversation and interruption handling,
-while moving more design work into delegation and backend boundaries. Cost and debuggability
-depend on the actual workload.
+00:00:23.840 --> 00:00:29.015
+But it leaves a text checkpoint between what the caller said and what the agent will say.
 
 9
-00:02:43.396 --> 00:03:05.919
-For a booking call, choose cascaded when inspection and stage-level control dominate. Choose
-native speech-to-speech when conversational timing matters and the tool boundary is strong.
-Choose full duplex when simultaneous listening and speaking are central, and the team can
-operate a backend delegation path. In every case, the control plane stays.
+00:00:29.335 --> 00:00:36.310
+You can inspect it, filter it, swap one stage, or tune speech recognition for addresses and phone numbers.
 
 10
-00:03:05.919 --> 00:03:20.933
-The architecture changes where latency and uncertainty live. It does not change who owns
-authorization, grounded evidence, durable state, or evaluation. For the version-specific
-details and the questions to validate after joining, read `docs/gpt-live-1.md`.
+00:00:36.630 --> 00:00:45.355
+For a booking call, that modularity is valuable when the team needs to debug every decision or use different models for different stages.
+
+11
+00:00:45.675 --> 00:00:51.100
+The cost is extra coordination and another place for latency to accumulate.
+
+12
+00:00:51.420 --> 00:00:56.495
+Native speech-to-speech uses one model to hear audio and produce audio.
+
+13
+00:00:56.815 --> 00:01:02.090
+It can preserve cues that a transcript loses, such as tone and hesitation.
+
+14
+00:01:02.410 --> 00:01:07.985
+It can make responses feel more natural, and often reduces the number of model hops.
+
+15
+00:01:08.305 --> 00:01:10.755
+The trade is inspectability.
+
+16
+00:01:11.075 --> 00:01:16.800
+Audio arrives directly, so it is harder to filter the response before it is spoken.
+
+17
+00:01:17.120 --> 00:01:20.995
+Audio tokens can also cost more than text tokens.
+
+18
+00:01:21.315 --> 00:01:34.740
+As of October 2026, the repository describes current Realtime model prices and names as changing vendor facts; use them only as dated context, not as timeless architecture rules.
+
+19
+00:01:35.060 --> 00:01:37.485
+Full duplex changes the rhythm.
+
+20
+00:01:37.805 --> 00:01:43.505
+The live voice model can listen while speaking, while a backend handles reasoning and tools.
+
+21
+00:01:43.825 --> 00:01:54.650
+The backend can send three kinds of updates: an instruction that changes direction, thinking that helps the model without being spoken, and commentary that can be said aloud.
+
+22
+00:01:54.970 --> 00:01:57.745
+That last channel needs a hard boundary.
+
+23
+00:01:58.065 --> 00:02:00.665
+“I’m checking Thursday” is progress.
+
+24
+00:02:00.985 --> 00:02:02.985
+“You’re booked” is a claim.
+
+25
+00:02:03.305 --> 00:02:08.430
+Commentary should contain the claim only after the backend has committed the booking.
+
+26
+00:02:08.750 --> 00:02:17.550
+If the caller interrupts while the write is in flight, the application decides whether to finish or cancel it, then reports the actual result.
+
+27
+00:02:17.870 --> 00:02:20.745
+Compare the choices across eight dimensions.
+
+28
+00:02:21.065 --> 00:02:25.440
+Cascaded wins modularity, control, and inspectability.
+
+29
+00:02:25.760 --> 00:02:32.335
+Native speech-to-speech tends to win naturalness and can reduce latency, but is harder to inspect.
+
+30
+00:02:32.655 --> 00:02:41.930
+Full duplex can win overlapping conversation and interruption handling, while moving more design work into delegation and backend boundaries.
+
+31
+00:02:42.250 --> 00:02:46.225
+Cost and debuggability depend on the actual workload.
+
+32
+00:02:46.545 --> 00:02:51.845
+For a booking call, choose cascaded when inspection and stage-level control dominate.
+
+33
+00:02:52.165 --> 00:02:58.290
+Choose native speech-to-speech when conversational timing matters and the tool boundary is strong.
+
+34
+00:02:58.610 --> 00:03:06.785
+Choose full duplex when simultaneous listening and speaking are central, and the team can operate a backend delegation path.
+
+35
+00:03:07.105 --> 00:03:10.080
+In every case, the control plane stays.
+
+36
+00:03:10.400 --> 00:03:14.425
+The architecture changes where latency and uncertainty live.
+
+37
+00:03:14.745 --> 00:03:21.120
+It does not change who owns authorization, grounded evidence, durable state, or evaluation.
+
+38
+00:03:21.440 --> 00:03:29.515
+For the version-specific details and the questions to validate after joining, read `docs/gpt-live-1.md`.
