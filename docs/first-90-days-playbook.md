@@ -116,7 +116,7 @@ after you have enough evidence.
 
 ### Build relationships deliberately
 
-In the first month, meet people who represent different views of the system:
+In the first month, meet people who represent different views of the system. Use the [First-90-Days Question Bank](first-90-days-question-bank.md) to choose two to four high-value questions for each conversation rather than treating these as a questionnaire:
 
 - manager: outcomes, priorities, decision rights;
 - PM or product partner: customer problem and tradeoffs;
@@ -125,12 +125,7 @@ In the first month, meet people who represent different views of the system:
 - evaluation/observability owner: definitions, datasets, monitoring;
 - support or CSR-facing partner: caller effort and failure cost.
 
-Ask each person:
-
-1. What should I understand sooner than most new engineers do?
-2. What failure is most costly or embarrassing?
-3. What would a useful contribution look like in the next month?
-4. Where is the source of truth, and who can explain it?
+Ask each person a small selection from the [question bank](first-90-days-question-bank.md), then capture the answer, concrete example, implication, and follow-up in your private evidence log. At minimum, learn what they think you should understand sooner, what failure is most costly, what useful contribution looks like, and where the source of truth lives.
 
 ### Secure an early learning win
 
