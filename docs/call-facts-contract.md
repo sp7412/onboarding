@@ -100,7 +100,7 @@ Only `confirmed` is a commitment. Everything else is evidence for the learning l
 
 | Field | Example values | Notes |
 |---|---|---|
-| `transcript_confidence` | low / medium / high or numeric | Especially for addresses and alphanumerics |
+| `transcript_confidence` | low / medium / high or numeric | Especially for addresses and alphanumerics. Some streaming transcribers return no confidence at all (see [speech-to-speech models](speech-to-speech-models.md#4a-live-transcription-with-gpt-live-transcribe)), so derive it from read-backs and lookups rather than assuming the ASR provides it |
 | `claim_grounding` | which caller utterance supports each material claim | Prevents "booked" language before commit |
 | `escalation_reason` | policy, low_confidence, customer_request, out_of_scope | Required when handing to a human |
 | `bookability_signals` | structured hints for a downstream judge | See [bookability judge exercise](../senior-engineer/bookability-judge.md) |

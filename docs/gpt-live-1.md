@@ -128,6 +128,28 @@ named sections: a backchannel policy, an interruption policy and a delegation po
 delegate and when not to), and putting procedures and tools in the backend. It also says the
 application checks permissions and required confirmations before executing actions. [4]
 
+## 6. Operational gotchas
+
+Small things that bite in a first build. Each is in OpenAI's guides; a DataCamp tutorial that
+builds a full GPT-Live app runs into most of them in practice. [5][6][9]
+
+- **Wait for `session.started`.** On WebSocket, send nothing else until it arrives.
+- **Muting is not hanging up.** A muted session keeps running: the model can keep speaking and
+  delegated work continues. End calls with `session.close`, listen for `session.closed`
+  (install the listener first), and read the final `usage.seconds` from it for cost tracking.
+- **Transcripts are captions, not turns.** Transcript deltas carry no item ID and no
+  end-of-turn event, so don't drive business logic from them.
+- **Late results are real.** With Responses delegation, live speech and backend work run
+  independently, and interrupting the conversation leaves backend work running. OpenAI's
+  advice is to track each action with an operation ID and each changed request with a task
+  revision, so stale results can be recognized and dropped. Client delegation gives the app
+  that filter directly.
+- **Keep business state outside the model.** Past 90% of the 128,000-token context, GPT-Live
+  starts a replacement voice engine inside the session. Confirmation flags, task revisions and
+  booking status belong in your application, where they survive that handoff.
+- **A tool call is a proposal.** The tutorial's save action only runs after the user confirms in
+  the app, which is this repo's pattern: the model proposes, the application controls.
+
 ## Questions to validate after joining
 
 - Is the team evaluating or using GPT-Live, Realtime, a cascaded pipeline, or a mix?
@@ -151,3 +173,4 @@ application checks permissions and required confirmations before executing actio
 6. OpenAI, Managing GPT-Live sessions: <https://developers.openai.com/api/docs/guides/live-conversations>
 7. OpenAI, Migrate to GPT-Live: <https://developers.openai.com/api/docs/guides/live-migration>
 8. OpenAI, GPT-Live partner integrations: <https://developers.openai.com/api/docs/guides/live-partner-integrations>
+9. DataCamp, "GPT-Live-1 API" tutorial (September 15, 2026; third-party, builds a voice app with Responses delegation and app-side confirmation): <https://www.datacamp.com/tutorial/gpt-live-1-api>

@@ -130,3 +130,15 @@ Added when chapters 03, 04, 05, 08, 12, 13 and 14 were rewritten.
 | Voice Intelligence assesses each call, including whether it was a real opportunity to book, backed by transcript evidence, replacing CSR-picked call categories | Pantheon brief / business metrics | https://help.servicetitan.com/release-hub/docs/coming-soon-get-ready-for-voice-intelligence-in-servicetitan-core | 2026-10-06 | yes | ServiceTitan help documentation; company claim |
 | Webchat booking is brought into Virtual Agent alongside voice and text interactions | Hypothesis map | https://help.servicetitan.com/release-hub/docs/book-jobs-from-your-website-with-webchat-in-virtual-agent | 2026-10-06 | yes | ServiceTitan help documentation; company claim |
 | Max is described as using shared context and data across the business so agents can act in coordination | Hypothesis map | https://help.servicetitan.com/docs/an-introduction-to-servicetitan-max-what-it-is-and-why-it-matters | 2026-10-06 | yes | ServiceTitan help documentation; company claim |
+
+## Transcription and GPT-Live operations pass, October 6, 2026
+
+| Claim | Chapter | URL | Date checked | Supported | Notes |
+|---|---:|---|---|---|---|
+| gpt-live-transcribe: low-latency live transcription, $0.017 per minute, tunable delay, context/keyword/language hints | S2S doc | https://developers.openai.com/api/docs/models/gpt-live-transcribe | 2026-10-06 | yes | Model page read directly |
+| Delay levels minimal–xhigh; prompt/keywords/languages; no server VAD (turn_detection null, manual commit); match by item_id; no timestamps, speaker labels or confidence scores | S2S doc | https://developers.openai.com/api/docs/guides/realtime-transcription | 2026-10-06 | yes | Guide read directly; example uses 24 kHz PCM |
+| Announced July 29, 2026 with gpt-transcribe; semantic accuracy 38.5% → 44.6% with free-form context | S2S doc | https://community.openai.com/t/gpt-live-transcribe-and-gpt-transcribe-two-new-transcription-models-in-the-api/1388318 | 2026-10-06 | yes | Vendor-reported benchmark |
+| G.711 μ-law/A-law input works with gpt-live-transcribe | S2S doc | https://www.datacamp.com/tutorial/gpt-live-transcribe-api | 2026-10-06 | unverified | Third-party tutorial only; not in OpenAI guide. Labeled as unconfirmed |
+| Realtime sessions max 60 minutes; voice fixed after first audio; input_audio_buffer.append max 15 MB | S2S doc | https://developers.openai.com/api/docs/guides/realtime-conversations | 2026-10-06 | yes | Guide read directly |
+| GPT-Live: wait for session.started (WebSocket); muted sessions keep running; close via session.close/session.closed with usage.seconds; transcript deltas have no item ID or turn-end event; >90% of 128k context starts a replacement voice engine | GPT-Live doc | https://developers.openai.com/api/docs/guides/live-conversations | 2026-10-06 | yes | Guide read directly |
+| GPT-Live delegation: speech and backend work run independently; interrupting leaves backend work running; track operation IDs and task revisions | GPT-Live doc | https://developers.openai.com/api/docs/guides/live-delegation | 2026-10-06 | yes | Guide read directly |
