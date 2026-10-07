@@ -169,3 +169,16 @@ Added when chapters 03, 04, 05, 08, 12, 13 and 14 were rewritten.
 | A Senior Software Engineer, Data Platform listing names Kafka, Snowflake, Airflow and AI agents for operational tasks | 15 | https://servicetitan.wd1.myworkdayjobs.com/en-US/ServiceTitan/job/Senior-Software-Engineer--Data-Platform_JR114910 | 2026-10-07 | unverified | Page returned no readable description; removed from the chapter |
 | Voice Agent "Skills and Capabilities" settings control which scheduling actions the agent can perform; unbooked calls get AI-assigned call reasons | 16 | https://help.servicetitan.com/docs/configure-your-voice-agent-settings | 2026-10-07 | yes | Help center; "teams review unbooked calls to find capability gaps" is our inference, not stated |
 | A cross-agent skills registry or marketplace exists inside Max | 16 | — | 2026-10-07 | unverified | Hypothesis only; no public evidence |
+
+## Architecture explorer figures pass, October 7, 2026
+
+| Claim | Chapter | URL | Date checked | Supported | Notes |
+|---|---:|---|---|---|---|
+| GPT-6 Luna: $0.10 / $0.50 per 1M input/output tokens ($0.01 cached input) | Architecture explorer | https://developers.openai.com/api/docs/models/gpt-6-luna | 2026-10-07 | yes | Model page lists speed as "Fast"; no latency figure |
+| GPT-6 Astra: $10 / $50 per 1M input/output tokens ($1 cached input); reasoning model | Architecture explorer | https://developers.openai.com/api/docs/models/gpt-6-astra | 2026-10-07 | yes | Explorer costs assume no caching |
+| gpt-realtime-2.1-mini audio: $10 / $20 per 1M input/output tokens | Architecture explorer | https://developers.openai.com/api/docs/models/gpt-realtime-2.1-mini | 2026-10-07 | yes | Full model's $32 / $64 already in the speech-to-speech doc |
+| Realtime audio is 1 token per 100 ms of user audio and 1 per 50 ms of assistant audio; caching is "best-effort and not guaranteed" | Architecture explorer | https://developers.openai.com/api/docs/guides/realtime-costs | 2026-10-07 | yes | Basis for the derived per-minute audio costs |
+| LiveKit default endpointing delay: 0.5 s minimum, 3.0 s maximum | Architecture explorer | https://docs.livekit.io/agents/logic/turns/tuning/ | 2026-10-07 | yes | Python and Node.js docs agree |
+| GPT-4o Mini TTS: $12 per 1M audio output tokens; page shows a deprecated badge | Architecture explorer | https://developers.openai.com/api/docs/models/gpt-4o-mini-tts | 2026-10-07 | partly | Deprecation status is inconsistent across snapshots; per-minute TTS cost (~$0.015) is a community estimate, not OpenAI's |
+| ITU-T G.114: under 150 ms one-way delay is essentially transparent; 400 ms is the planning limit | Architecture explorer | https://www.itu.int/rec/T-REC-G.114 | 2026-10-07 | yes | Standard (2003) |
+| Speech-to-speech time to first audio (250–800 ms) | Architecture explorer | https://openai.com/index/hello-gpt-4o/ | 2026-10-07 | illustrative | Anchored to GPT-4o's 232 / 320 ms (2024) and Moshi's ~200 ms preprint; no published figure for gpt-realtime-2.1 |
