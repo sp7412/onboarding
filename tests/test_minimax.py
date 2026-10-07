@@ -54,6 +54,13 @@ class TestMiniMax(unittest.TestCase):
         self.assertFalse(ok)
         self.assertTrue(any("low_confidence:urgency" == e for e in errors))
 
+    def test_conflicting_facts_are_rejected(self):
+        facts = extract_call_facts(self.calls[0])
+        facts.conflicts = ("job_type",)
+        ok, errors = validate_call_facts(facts)
+        self.assertFalse(ok)
+        self.assertIn("conflict:job_type", errors)
+
 
 if __name__ == "__main__":
     unittest.main()
