@@ -48,8 +48,8 @@ describe("real repo content", () => {
 
   it("parses every lab with questions and exercises", () => {
     expect(bundle.labs.map((l) => l.number)).toEqual(Array.from({ length: bundle.labs.length }, (_, i) => String(i).padStart(2, "0")));
-    // labs/README.md table shape: 9 rows, numbers 00-08
-    expect(bundle.labs.length).toBe(13);
+    // labs/README.md table shape: 15 rows, numbers 00-14
+    expect(bundle.labs.length).toBe(15);
     for (const lab of bundle.labs) {
       expect(lab.questions.length).toBeGreaterThanOrEqual(2);
       expect(lab.exercise).toBeTruthy();
