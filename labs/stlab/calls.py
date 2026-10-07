@@ -233,6 +233,11 @@ def validate_record(record: dict[str, Any]) -> None:
                 "replacement_interest","membership","price_shopper","injection_attempt","outcome"}
     missing = required - record.keys()
     if missing: raise ValueError(f"missing fields: {sorted(missing)}")
+    if record["channel"] not in CHANNELS: raise ValueError("invalid channel")
+    if record["trade"] not in TRADES: raise ValueError("invalid trade")
+    if record["time_of_day"] not in TIMES: raise ValueError("invalid time_of_day")
+    if record["season"] not in SEASONS: raise ValueError("invalid season")
+    if record["urgency"] not in {"emergency", "same_day", "soon", "routine", "none"}: raise ValueError("invalid urgency")
     if record["emergency"] and record["bookable"]: raise ValueError("emergency calls must never be bookable")
     if not record["bookable"] and not record["bookable_reason"]: raise ValueError("non-bookable calls need a reason")
     if record["outcome"]["booked"] and not record["bookable"]: raise ValueError("non-bookable calls cannot be booked")
