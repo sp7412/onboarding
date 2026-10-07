@@ -1,7 +1,21 @@
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import { errorFreeCallsNeeded, judge, wilsonInterval } from "./model";
 
+interface Case { name: string; errors: number; n: number; promoteTarget: number; keepTarget: number; decision: string; lower: number; upper: number }
+const shared = JSON.parse(readFileSync(resolve(__dirname, "../../../../../labs/data/autonomy-cases.json"), "utf8")) as { minSamples: number; cases: Case[] };
+
 describe("earned autonomy model", () => {
+  it("agrees with lab 14 on every shared case (labs/data/autonomy-cases.json)", () => {
+    for (const c of shared.cases) {
+      const v = judge(c.errors, c.n, c.promoteTarget, c.keepTarget, shared.minSamples);
+      expect(v.decision, c.name).toBe(c.decision);
+      expect(v.lower, c.name).toBeCloseTo(c.lower, 5);
+      expect(v.upper, c.name).toBeCloseTo(c.upper, 5);
+    }
+  });
+
   it("matches the lab 14 Wilson values", () => {
     // Same numbers as senior-engineer/autonomy-promotion.md, computed with labs/stlab/autonomy.py.
     const [lo, hi] = wilsonInterval(30, 1200);

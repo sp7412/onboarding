@@ -1,0 +1,120 @@
+{
+  "_comment": "Shared cases for lab 14's promotion_policy (Python) and the site's earned-autonomy lesson (TypeScript). tests/test_autonomy.py and site/src/lib/lessons/earned-autonomy/model.test.ts both check against this file, so the two implementations can't drift apart. Regenerate by hand only if the policy itself changes.",
+  "minSamples": 200,
+  "cases": [
+    {
+      "name": "A routine tune-ups (exercise 9)",
+      "errors": 30,
+      "n": 1200,
+      "level": 2,
+      "promoteTarget": 0.05,
+      "keepTarget": 0.1,
+      "decision": "promote",
+      "lower": 0.017567,
+      "upper": 0.035465
+    },
+    {
+      "name": "B water heaters (exercise 9)",
+      "errors": 9,
+      "n": 260,
+      "level": 2,
+      "promoteTarget": 0.05,
+      "keepTarget": 0.1,
+      "decision": "hold",
+      "lower": 0.018316,
+      "upper": 0.064467
+    },
+    {
+      "name": "C plumbing leaks (exercise 9)",
+      "errors": 1,
+      "n": 90,
+      "level": 2,
+      "promoteTarget": 0.05,
+      "keepTarget": 0.1,
+      "decision": "hold",
+      "lower": 0.001964,
+      "upper": 0.060286
+    },
+    {
+      "name": "D after-hours no cooling (exercise 9)",
+      "errors": 11,
+      "n": 140,
+      "level": 2,
+      "promoteTarget": 0.05,
+      "keepTarget": 0.1,
+      "decision": "hold",
+      "lower": 0.044437,
+      "upper": 0.135216
+    },
+    {
+      "name": "Pooled (exercise 9)",
+      "errors": 51,
+      "n": 1690,
+      "level": 2,
+      "promoteTarget": 0.05,
+      "keepTarget": 0.1,
+      "decision": "promote",
+      "lower": 0.023026,
+      "upper": 0.03946
+    },
+    {
+      "name": "Zero errors in 48 calls (lesson puzzle)",
+      "errors": 0,
+      "n": 48,
+      "level": 2,
+      "promoteTarget": 0.05,
+      "keepTarget": 0.1,
+      "decision": "hold",
+      "lower": 0.0,
+      "upper": 0.074103
+    },
+    {
+      "name": "Zero errors in 73 calls (bound under 5%, but below the 200-call minimum)",
+      "errors": 0,
+      "n": 73,
+      "level": 2,
+      "promoteTarget": 0.05,
+      "keepTarget": 0.1,
+      "decision": "hold",
+      "lower": 0.0,
+      "upper": 0.049994
+    },
+    {
+      "name": "Thin data, nothing proven (hold, not demote)",
+      "errors": 1,
+      "n": 5,
+      "level": 2,
+      "promoteTarget": 0.05,
+      "keepTarget": 0.1,
+      "decision": "hold",
+      "lower": 0.036223,
+      "upper": 0.624472
+    },
+    {
+      "name": "Small sample but clear evidence (demote)",
+      "errors": 12,
+      "n": 40,
+      "level": 2,
+      "promoteTarget": 0.05,
+      "keepTarget": 0.1,
+      "decision": "demote",
+      "lower": 0.180747,
+      "upper": 0.454303
+    },
+    {
+      "name": "Large sample, clearly worse (demote)",
+      "errors": 40,
+      "n": 200,
+      "level": 2,
+      "promoteTarget": 0.05,
+      "keepTarget": 0.1,
+      "decision": "demote",
+      "lower": 0.150451,
+      "upper": 0.260856
+    }
+  ],
+  "exercise9": {
+    "costThreshold": 0.339623,
+    "psi": 0.244037
+  }
+}

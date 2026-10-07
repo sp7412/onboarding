@@ -1,3 +1,4 @@
+import json
 import sys
 import unittest
 from pathlib import Path
@@ -7,7 +8,7 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "labs"))
 
 from stlab.autonomy import (  # noqa: E402
-    calibration, cost_threshold, drift_guard, hidden_regression_example, promotion_policy, psi,
+    LEVEL_TARGETS, calibration, cost_threshold, drift_guard, hidden_regression_example, promotion_policy, psi,
     segment_levels, sprt, sprt_stopping_n, wilson_interval, wilson_upper,
 )
 
@@ -34,6 +35,22 @@ class AutonomyTests(unittest.TestCase):
         d = promotion_policy(50, 600, 3)
         self.assertEqual((d.decision, d.level), ("demote", 2))
         self.assertGreater(d.lower_bound, 0.05)
+
+    def test_shared_cases_match_site_lesson(self):
+        # The site's earned-autonomy lesson re-implements this policy in TypeScript and checks
+        # itself against the same file, so both must agree with these published numbers.
+        path = Path(__file__).resolve().parents[1] / "labs" / "data" / "autonomy-cases.json"
+        doc = json.loads(path.read_text())
+        for c in doc["cases"]:
+            d = promotion_policy(c["errors"], c["n"], c["level"], min_samples=doc["minSamples"])
+            self.assertEqual(d.decision, c["decision"], c["name"])
+            self.assertAlmostEqual(d.lower_bound, c["lower"], places=5, msg=c["name"])
+            self.assertAlmostEqual(d.upper_bound, c["upper"], places=5, msg=c["name"])
+            self.assertEqual(LEVEL_TARGETS[c["level"]], c["promoteTarget"])
+            self.assertEqual(LEVEL_TARGETS[c["level"] - 1], c["keepTarget"])
+        ex = doc["exercise9"]
+        self.assertAlmostEqual(cost_threshold(180, 350), ex["costThreshold"], places=5)
+        self.assertAlmostEqual(psi([0.5, 0.3, 0.15, 0.05], [0.38, 0.27, 0.15, 0.20]), ex["psi"], places=5)
 
     def test_sprt(self):
         self.assertEqual(sprt(0, 1000), "promote")

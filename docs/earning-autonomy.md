@@ -56,6 +56,11 @@ above the target the current level was earned against. That is evidence the agen
 than required. Demoting because the upper bound is high punishes small samples, not bad
 agents, and makes the level flap from week to week.
 
+The asymmetry is deliberate: the minimum sample gates promotion, not demotion. Thin data
+can't demote, because a wide interval keeps the lower bound low, but clear evidence of harm
+demotes as soon as it appears, even in a small sample. Losing autonomy should be faster than
+earning it.
+
 ## 3. Sequential testing
 
 A fixed sample can be wasteful when evidence becomes decisive early. Lab 14 also implements a
@@ -164,4 +169,4 @@ have, and what happens if we stop trusting the agent?**
 - [Pantheon 2026 AI roadmap](pantheon-2026-ai-roadmap.md)
 - [Autonomy promotion review](../senior-engineer/autonomy-promotion.md): a judgment exercise using these tools
 - [Whitepaper chapter 15, Agentic orchestration](whitepaper/15-agentic-orchestration.md): canary releases, shadow mode and supervision
-- Interactive lesson: [When has the agent earned it?](https://sp7412.github.io/onboarding/lessons/earned-autonomy/) (on the site)
+- Interactive lesson: [When has the agent earned it?](https://sp7412.github.io/onboarding/lessons/earned-autonomy/) (on the site; lab 14 covers the same calculations offline)
