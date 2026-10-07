@@ -142,3 +142,14 @@ Added when chapters 03, 04, 05, 08, 12, 13 and 14 were rewritten.
 | Realtime sessions max 60 minutes; voice fixed after first audio; input_audio_buffer.append max 15 MB | S2S doc | https://developers.openai.com/api/docs/guides/realtime-conversations | 2026-10-06 | yes | Guide read directly |
 | GPT-Live: wait for session.started (WebSocket); muted sessions keep running; close via session.close/session.closed with usage.seconds; transcript deltas have no item ID or turn-end event; >90% of 128k context starts a replacement voice engine | GPT-Live doc | https://developers.openai.com/api/docs/guides/live-conversations | 2026-10-06 | yes | Guide read directly |
 | GPT-Live delegation: speech and backend work run independently; interrupting leaves backend work running; track operation IDs and task revisions | GPT-Live doc | https://developers.openai.com/api/docs/guides/live-delegation | 2026-10-06 | yes | Guide read directly |
+
+## Pantheon 2026 day-one keynotes pass, October 7, 2026
+
+| Claim | Chapter | URL | Date checked | Supported | Notes |
+|---|---:|---|---|---|---|
+| CTPO keynote: Atlas mobile app for the office, no-code Automation Hub, MCP server connecting Claude or ChatGPT to ServiceTitan data; Pro/Max customers grew revenue twice as fast as non-Max peers | Pantheon brief | https://www.servicetitan.com/blog/pantheon-2026-live-coverage | 2026-10-07 | yes | Company live blog; summary of the keynote, not a transcript |
+| Max open after Pantheon to plumbing, heating, electrical and garage-door customers with four or more technicians | Pantheon brief | https://www.servicetitan.com/blog/pantheon-2026-live-coverage | 2026-10-07 | yes | Narrower than the press release's "all residential in-home contractors"; both stated |
+| "The Homh app plugin is live today on ChatGPT, Google Gemini, and Claude"; Atlas "now a chief-of-staff-level agent"; Max pilot for commercial and roofing | Pantheon brief, Homh doc | https://www.servicetitan.com/blog/pantheon-2026-live-coverage | 2026-10-07 | yes | Quotes attributed to the co-founder and president in the live blog |
+| Commercial agents (Equipment, Findings, Daily Log, Invoice); one customer's invoice prep fell from 30 to under 5 minutes | Pantheon brief | https://www.servicetitan.com/blog/pantheon-2026-live-coverage | 2026-10-07 | yes | Company-reported customer result |
+| Davis AC's AI Virtual Agent reported a 98% booking rate during peak season | Pantheon brief | https://www.servicetitan.com/blog/pantheon-2026-live-coverage | 2026-10-07 | yes | Customer claim; denominator not stated |
+| Average revenue realization in the room about 60%, top performers high 80s | Pantheon brief | https://www.servicetitan.com/blog/pantheon-2026-live-coverage | 2026-10-07 | yes | Attributed to a ServiceTitan SVP |

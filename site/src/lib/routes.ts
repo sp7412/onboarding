@@ -7,6 +7,7 @@ export interface Route {
 
 export const routes: Route[] = [
   { key: "journey", label: "Journey", path: "/", built: true },
+  { key: "pantheon", label: "Pantheon 2026", path: "/docs/pantheon-2026-ai-roadmap", built: true },
   { key: "checklist", label: "Checklist", path: "/checklist", built: true },
   { key: "reading", label: "Reading", path: "/reading", built: true },
   { key: "podcasts", label: "Podcasts", path: "/podcasts", built: true },
