@@ -6,8 +6,8 @@ Guidance for AI coding agents (Claude Code, Codex, Cursor, etc.) working in this
 
 A personal onboarding workspace for a Senior AI Engineer role at ServiceTitan
 (start date Oct 26, 2026): a 30/60/90 plan, a voice-agent study guide, blank templates, and
-nine Jupyter tutorials on the real-time voice-agent stack (OpenAI Realtime, LiveKit,
-LangChain/LangGraph, LangSmith).
+fifteen Jupyter tutorials on the real-time voice-agent stack (OpenAI Realtime, LiveKit,
+LangChain/LangGraph, LangSmith) and on multi-agent systems built around it (labs 09–14).
 
 ## Hard rules
 
@@ -41,7 +41,7 @@ templates/                   blank docs: onboarding log, 1:1 questions, weekly s
                              30-day memo, design doc, 90-day retro
 notes/                       public-safe notes: glossary, study-question template/model answer
 labs/
-  00_…08_*.ipynb             generated notebooks, DO NOT hand-edit
+  00_…14_*.ipynb             generated notebooks, DO NOT hand-edit
   src/*.py                   notebook sources (jupytext "percent" format), EDIT THESE
   build_nb.py                src/*.py → *.ipynb
   stlab/                     shared teaching package (see below)
@@ -63,7 +63,7 @@ python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 cd labs && python build_nb.py            # rebuild notebooks after editing labs/src/*.py
 cd .. && python scripts/check_repo.py     # generated notebooks present and output-free
-python scripts/run_notebooks.py           # run all notebooks offline; must print 9/9 passed
+python scripts/run_notebooks.py           # run all notebooks offline; must print 15/15 passed
 python scripts/run_notebooks.py 02 06    # run a subset by filename prefix
 python scripts/run_notebooks.py --live   # use keys from .env (costs money; ask first)
 ```
@@ -94,6 +94,10 @@ Teaching fixtures, not production code. Keep them small and deterministic.
 | `scripted_model.py` | fake LangChain chat model with `bind_tools` for offline `create_agent` |
 | `booking_graph.py` | LangGraph booking workflow + `advance()` helper |
 | `scenarios.py` | eval dataset used by notebooks 07–08 (booking, reschedule, cancel, emergencies) |
+| `context.py`, `coordination.py`, `learning.py`, `agent_gateway.py` | multi-agent labs 09–12: context ledger, arbitration, learning loop, agent-to-agent gateway |
+| `calls.py` | shared synthetic call dataset for labs 13–14; `python -m stlab.calls` regenerates `data/calls/calls-v1.jsonl` (a test checks it matches) |
+| `minimax.py` | lab 13: `CallFacts` contract (`data/schemas/call-facts.schema.json`), noisy extractor, bookability, commit, dispatch, claim guard, error sensitivity |
+| `autonomy.py` | lab 14: Wilson promotion/demotion, SPRT, cost thresholds, calibration, PSI/OOD drift guard |
 
 Conventions: the simulators must emit the same event/field names as the real APIs; if you
 change the fake brain or backend, re-run notebooks 01, 02, 07, and 08 (they depend on
@@ -138,3 +142,13 @@ Run the offline notebook suite before committing any change under `labs/`.
 The Guardrails simulation on the site replays recorded runs of `labs/stlab`. After changing
 `labs/stlab/fake_realtime.py`, `tools.py`, `backend.py` or `scenarios.py`, run
 `python scripts/export_site_sims.py` and commit the updated `site/src/data/guardrail-traces.json`.
+
+
+## Day-one public-repo boundary
+
+The start date is October 26, 2026. From that date forward this repository is a frozen,
+sanitized pre-start guide. Never add anything learned inside the company: internal architecture,
+code, metrics, traces, customer data, recordings, hostnames, endpoints, credentials, prompts,
+or incidents. Put that material in company systems or an approved private location. Post-start
+changes are limited to genuinely public, verified sources and public-safe improvements to the
+synthetic teaching labs. See docs/after-day-one.md.

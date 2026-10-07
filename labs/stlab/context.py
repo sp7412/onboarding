@@ -23,7 +23,8 @@ RANK = {"retracted": -1, "proposed": 0, "verified": 1, "committed": 2}
 # Which agent may propose which keys. The control plane may write anything.
 DEFAULT_PERMISSIONS: dict[str, set[str]] = {
     "voice_agent": {"intent", "job_type", "urgency", "constraint", "caller_sentiment",
-                    "callback_window", "equipment"},
+                    "callback_window", "equipment", "replacement_interest", "membership",
+                    "price_shopper", "injection_attempt", "emergency", "bookable"},
     "text_agent": {"intent", "job_type", "urgency", "constraint", "callback_window"},
     "lead_scoring": {"est_value"},
     "demand_forecast": {"forecast_gap"},
