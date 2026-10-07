@@ -108,7 +108,8 @@ export function renderMarkdown(md: string, opts: RenderOptions): RenderResult {
   }
 
   const headingId = (text: string) => {
-    const base = slugify(text.replace(/[`*_[\]()]/g, "")) || "section";
+    // Drop link targets first so "[y](y.md)" slugs like GitHub ("y"), not "yy-md".
+    const base = slugify(text.replace(/\]\([^)]*\)/g, "]").replace(/[`*_[\]()]/g, "")) || "section";
     const n = usedIds.get(base) ?? 0;
     usedIds.set(base, n + 1);
     return n ? `${base}-${n}` : base;
@@ -155,7 +156,12 @@ export function renderMarkdown(md: string, opts: RenderOptions): RenderResult {
       const lvl = Math.min(Math.max(level, 2), 4);
       const id = headingId(text);
       headings.push({ level: lvl, text, id });
-      out.push(`<h${lvl} id="${id}">${inline(text)}</h${lvl}>`);
+      const body = inline(text);
+      // Permalink: the heading text links to its own anchor (MDN-style). Links can't
+      // nest, so a heading that already contains a link gets a separate "#" link.
+      out.push(body.includes("<a ")
+        ? `<h${lvl} id="${id}">${body} <a class="heading-link heading-link-hash" href="#${id}" aria-label="Link to this section">#</a></h${lvl}>`
+        : `<h${lvl} id="${id}"><a class="heading-link" href="#${id}">${body}</a></h${lvl}>`);
       continue;
     }
 
