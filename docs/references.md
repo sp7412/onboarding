@@ -223,6 +223,14 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [Book jobs from your website with Webchat in Virtual Agent](https://help.servicetitan.com/release-hub/docs/book-jobs-from-your-website-with-webchat-in-virtual-agent) | Help center (company claim) | Hypothesis map, claims ledger |
 | [An introduction to ServiceTitan Max: what it is and why it matters](https://help.servicetitan.com/docs/an-introduction-to-servicetitan-max-what-it-is-and-why-it-matters) | Help center (company claim) | Hypothesis map, claims ledger |
 
+## Pantheon 2026 follow-ups (October 8)
+
+| Source | Type | Cited in |
+|---|---|---|
+| [Assign Atlas personas and manage access](https://help.servicetitan.com/docs/assign-atlas-access-and-personas) | ServiceTitan Help Center | Pantheon brief, MCP trust boundary |
+| [Use Atlas in Adaptive Capacity Strategic Rules](https://help.servicetitan.com/commercial/docs/use-atlas-in-adaptive-capacity-strategic-rules-1) | ServiceTitan Help Center | Pantheon brief, MCP trust boundary |
+| [How can I access Pantheon slides and video recordings?](https://help.servicetitan.com/docs/how-can-i-access-pantheon-slides-and-video-recordings) | ServiceTitan Help Center | Pantheon brief |
+
 ## Working with your manager
 
 | Source | Type | Cited in |

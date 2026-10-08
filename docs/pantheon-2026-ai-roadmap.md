@@ -9,9 +9,12 @@ joining the voice-agent team. It uses only public sources: the company's press r
 published keynote transcript, the conference live blog, and current ServiceTitan help documentation. Company claims are attributed as
 such, and anything marked **Analysis** is this repo's interpretation.
 
- > **Update:** Oct 8 follow-up documentation confirms Atlas is a permissioned, persona-based
-> interface and shows Atlas being used to configure Adaptive Capacity rules. The Oct 7 breakout
-> recordings are still expected in Academy roughly 4–6 weeks after the event. [4][5]
+> **Update (October 8):** the live blog now recaps Wednesday's partner-ecosystem keynote,
+> including a demo of an in-development ServiceTitan MCP server (section 2b), and Atlas help
+> documentation shows a permissioned, action-taking interface (section 5). No transcript or
+> recap of "Charging Ahead with AI and Max" has been published. ServiceTitan's help center
+> says breakout sessions go to Academy, its customer training platform, about 4–6 weeks after
+> the event. [3][4][5][6]
 
 ## Five Takeaways
 
@@ -168,6 +171,39 @@ voice notes and photos, and an Invoice Agent. One customer's invoice prep report
   CSR can't take a call on one line and also answer a text within 15 seconds, before the
   customer turns to a competitor. (This is the blog's narration, not a verbatim quote.)
 
+## 2b. The Oct 7 partner-ecosystem keynote (live-blog coverage)
+
+The live blog recaps a Wednesday keynote that followed one job through ServiceTitan's partner
+ecosystem (the schedule lists "Built Together: The Power of the ServiceTitan Ecosystem" for
+that morning). All of this is the blog's summary of company and partner claims. [3]
+
+- **Partner trust as a product.** Girish Chander, VP of Product, framed integrations around
+  cybersecurity and described a partner certification program that sets security and
+  data-handling standards. His words: "It has to be one where we offer you a choice that you
+  can trust."
+- **Booking by a third-party AI.** Avoca, an AI voice company, books jobs against a
+  contractor's real capacity through an API open to certified partners.
+- **Integration plumbing.** Webhooks to notify connected apps when a job changes are due by
+  year-end, and programmatic onboarding aims to cut partner setup to minutes.
+- **MCP, demonstrated as in development.** Chander asked Claude, connected through a
+  ServiceTitan Model Context Protocol server described as still in development, to find
+  materials unused for a year and then two; Claude offered to deactivate the stale items. "You
+  didn't need to know what the APIs were," he said.
+
+The blog also recaps a Tuesday session on Atlas and the Max Command Center: Atlas places
+holds on open capacity when a campaign launches and releases them if bookings fall short,
+each recommendation shows its reasoning ("Every recommendation tells you why Atlas made it and
+what it expects to happen," said Juliette Armour), and Command Center is in private preview
+for Max customers. [3]
+
+Analysis: the Oct 6 coverage listed the MCP server among new tools; the Oct 7 demo describes it
+as still in development, so treat availability as unconfirmed. Two booking paths now run
+through outside AI: a partner voice agent calling a certified API, and consumer assistants via
+Homh. Both make the guarded booking boundary in lab 12 and the
+[MCP and external-agent trust boundary](mcp-and-external-agent-trust-boundary.md) note directly
+relevant. And the demo's offer to deactivate stale items is a write action proposed through
+MCP: the confirm-before-commit step around it is the control plane.
+
 ## 3. What this means for a voice-agent engineer
 
 Analysis:
@@ -190,7 +226,7 @@ Analysis:
   idempotency and abuse handling are therefore useful trust-boundary questions; the public
   announcement does not specify the protocol. Notes: [Homh and AI-agent booking](homh-and-agent-booking.md).
 - **AI assistants reach the platform from two directions.** Homh puts contractors inside
-  consumer assistants, and the new MCP server connects Claude or ChatGPT to a contractor's own
+  consumer assistants, and the new MCP server (shown Oct 7 as still in development) connects Claude or ChatGPT to a contractor's own
   ServiceTitan data. Both make permissions and what an assistant may read or do first-class
   design questions, the same trust boundary as tool calls in lab 02.
 - **The learning loop needs traceability.** Tying outcomes back to decisions requires linked
@@ -227,8 +263,8 @@ The repo's new [MCP and external-agent trust boundary](mcp-and-external-agent-tr
 
 From the conference schedule: [1][3]
 
-- **Charging Ahead with AI and Max**, Oct 7, 11:15 am ET
-- **Built Together: The Power of the ServiceTitan Ecosystem**, Oct 7, 10:15 am ET
+- **Charging Ahead with AI and Max**, Oct 7, 11:15 am ET (no public recap or transcript as of
+  October 8; breakout recordings go to Academy about 4–6 weeks after the event [6])
 - **All-Star Titans** (closing session), Oct 7, 2 pm ET
 - Full transcripts of the Oct 6 keynotes, to check the live blog's summaries (section 2a)
   against the speakers' actual words
@@ -257,3 +293,4 @@ claims, distinguish inference from fact, and update this brief and the [claims l
 3. ServiceTitan, "Pantheon 2026: Live coverage from ServiceTitan" (live blog, read October 8, 2026): <https://www.servicetitan.com/blog/pantheon-2026-live-coverage>
 4. ServiceTitan Help Center, "Assign Atlas personas and manage access" (updated September 28, 2026): <https://help.servicetitan.com/docs/assign-atlas-access-and-personas>
 5. ServiceTitan Help Center, "Use Atlas in Adaptive Capacity Strategic Rules" (updated October 8, 2026): <https://help.servicetitan.com/commercial/docs/use-atlas-in-adaptive-capacity-strategic-rules-1>
+6. ServiceTitan Help Center, "How can I access Pantheon slides and video recordings?" (updated April 9, 2026): <https://help.servicetitan.com/docs/how-can-i-access-pantheon-slides-and-video-recordings>

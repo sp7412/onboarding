@@ -97,6 +97,7 @@ export const DOC_PAGES: DocPage[] = [
   { repoPath: "docs/pantheon-2026-ai-roadmap.md", icon: "reading" },
   { repoPath: "docs/call-facts-contract.md", icon: "architecture" },
   { repoPath: "docs/homh-and-agent-booking.md", icon: "guardrails" },
+  { repoPath: "docs/mcp-and-external-agent-trust-boundary.md", icon: "guardrails" },
   { repoPath: "docs/build-your-own-voice-agent.md", icon: "labs" },
   { repoPath: "docs/tools-and-guardrails.md", icon: "guardrails" },
   { repoPath: "docs/call-anatomy.md", icon: "telephony" },

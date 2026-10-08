@@ -1,14 +1,21 @@
 # MCP and External-Agent Trust Boundaries
 
-**Facts as of: October 8, 2026**
+**Facts as of: October 8, 2026 · Last reviewed: October 8, 2026**
 
 Pantheon 2026 introduced two AI surfaces that make the boundary between ServiceTitan and
 other AI agents especially important:
 
 - ServiceTitan's live coverage says a new **MCP server connects Claude or ChatGPT to
-  ServiceTitan data**.
+  ServiceTitan data** [1]. At the Oct 7 partner-ecosystem keynote the server was demonstrated
+  as **still in development**: Claude, connected through it, found materials unused for a year
+  and offered to deactivate them [1].
+- The same keynote described partner booking through **an API open to certified partners**
+  (Avoca, an AI voice company, books against real contractor capacity) and a **partner
+  certification program** for security and data handling [1].
 - ServiceTitan announced **Homh**, where homeowners and their AI assistants can discover and
-  book participating contractors, with confirmed appointment booking into ServiceTitan.
+  book participating contractors, with confirmed appointment booking into ServiceTitan [2].
+- Atlas, the in-product assistant, is permissioned by persona and can take actions such as
+  creating Adaptive Capacity rules from plain language [3][4].
 
 The public announcements do **not** specify the internal MCP schema, authorization protocol,
 or Homh implementation. This document therefore treats those details as engineering questions,
@@ -104,7 +111,9 @@ An MCP server can make capabilities discoverable to an agent. That does not answ
 - Which actions must be auditable?
 - How are credentials revoked and rotated?
 
-Those are application and governance questions.
+Those are application and governance questions. The MCP specification says as much: it treats
+tools as arbitrary code execution, says hosts must get user consent before invoking them, and
+notes that the protocol itself cannot enforce these principles [5].
 
 A good design keeps the MCP/tool surface narrow and puts business authorization behind it.
 
@@ -295,3 +304,17 @@ This document extends, rather than replaces, the existing control-plane path:
 
 The key distinction is that MCP or another agent protocol provides a **connection surface**;
 the application still owns authorization, policy, state transitions, and side effects.
+
+## Sources
+
+Public sources only, checked October 8, 2026. Company and partner statements are claims.
+
+1. ServiceTitan, "Pantheon 2026: Live coverage from ServiceTitan" (live blog; Oct 6 tools list and Oct 7 partner-ecosystem keynote): <https://www.servicetitan.com/blog/pantheon-2026-live-coverage>
+2. ServiceTitan press release, "ServiceTitan Announcing New and Expanded Capabilities at Pantheon 2026" (October 6, 2026): <https://www.globenewswire.com/news-release/2026/10/06/3375320/0/en/servicetitan-announcing-new-and-expanded-capabilities-at-pantheon-2026.html>
+3. ServiceTitan Help Center, "Assign Atlas personas and manage access": <https://help.servicetitan.com/docs/assign-atlas-access-and-personas>
+4. ServiceTitan Help Center, "Use Atlas in Adaptive Capacity Strategic Rules": <https://help.servicetitan.com/commercial/docs/use-atlas-in-adaptive-capacity-strategic-rules-1>
+5. Model Context Protocol specification (revision 2026-07-28), for MCP's own security principles: <https://modelcontextprotocol.io/specification/2026-07-28>
+
+Related: [Pantheon 2026 brief](pantheon-2026-ai-roadmap.md), [Homh and AI-agent booking](homh-and-agent-booking.md),
+[whitepaper chapter 15, section 14 (MCP and A2A)](whitepaper/15-agentic-orchestration.md), lab 12.
+
