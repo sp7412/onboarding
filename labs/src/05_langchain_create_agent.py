@@ -1,4 +1,30 @@
 # %% [markdown]
+# ## Running this lab in Google Colab
+#
+# Use the **Open in Colab** badge to run this notebook without setting up the repository locally.
+# The setup cell below clones the public repo, installs the same requirements used by the
+# local/Codespaces environment, and switches into `labs/`. Outside Colab it is a no-op.
+
+# %%
+import os
+import subprocess
+import sys
+
+if "google.colab" in sys.modules:
+    repo = "/content/onboarding"
+    if not os.path.isdir(repo):
+        subprocess.run(["git", "clone", "-q",
+                        "https://github.com/sp7412/onboarding.git", repo],
+                       check=True)
+    subprocess.run([sys.executable, "-m", "pip", "install", "-q",
+                    "-r", os.path.join(repo, "requirements.txt")],
+                   check=True)
+    os.chdir(os.path.join(repo, "labs"))
+    print("Colab environment ready:", os.getcwd())
+else:
+    print("Local/Codespaces environment detected; use the normal repository setup.")
+
+# %% [markdown]
 # # 05 · LangChain `create_agent`: tools, state, context, middleware
 #
 # **Goal:** use LangChain as the *orchestration* layer: the thing that runs a model ↔ tool loop, carries state, and gives you hooks (middleware) to enforce policy around every model and tool call.
