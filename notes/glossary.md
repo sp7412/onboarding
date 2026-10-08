@@ -85,7 +85,7 @@ patterns, not any company's internal design.
 
 | Term | Meaning |
 |---|---|
-| A2A (Agent2Agent) | An open protocol for one AI agent to discover and call another agent; see [whitepaper chapter 15](../docs/whitepaper/15-agentic-orchestration.md) |
+| A2A (Agent2Agent) | An open protocol for handing work to another, independently run agent. An agent publishes an Agent Card (skills, endpoint, auth); work is a task with states such as working, input-required and completed. Peers stay opaque. See [whitepaper chapter 15, section 18](../docs/whitepaper/15-agentic-orchestration.md) |
 | Agent gateway | The API an outside AI agent books through. It must establish what a phone call gets from people: client identity, scopes, signed and non-replayed requests, idempotent retries and quoted slots (lab 12) |
 | Arbitration | Choosing among competing agent proposals for the same resource by expected value net of cost, without ever trading away hard constraints such as consent, emergencies or capacity (lab 10) |
 | Bookability | Whether a call was a lead the business could and should have booked. It is the denominator a booking rate needs, and it is easy to game if the same system judges its own calls ([bookability judge](../senior-engineer/bookability-judge.md)) |
@@ -97,7 +97,7 @@ patterns, not any company's internal design.
 | Cost threshold | The probability above which acting has lower expected cost than not acting: wrong-action cost ÷ (wrong-action cost + missed-opportunity cost) (lab 14) |
 | Homh | ServiceTitan's consumer demand platform, announced at Pantheon 2026, that makes selected contractors discoverable and bookable from AI assistants (public product; [Homh doc](../docs/homh-and-agent-booking.md)) |
 | Max | ServiceTitan's bundle of AI agents, described publicly as the fully loaded version of its agentic operating system (public product; [Pantheon brief](../docs/pantheon-2026-ai-roadmap.md)) |
-| MCP (Model Context Protocol) | An open protocol that lets a model or agent call external tools and read data through a standard client–server interface |
+| MCP (Model Context Protocol) | An open protocol connecting an AI application (host) to servers that offer tools to call, resources to read and prompt templates, over JSON-RPC. It standardizes the connection, not the policy: consent, validation and idempotency stay in your harness. See [whitepaper chapter 15, section 18](../docs/whitepaper/15-agentic-orchestration.md) |
 | Mini-Max | Lab 13's small teaching system: one call becomes CallFacts, then bookability, commit, dispatch and a claim guard. Inspired by public descriptions, not a real implementation |
 | Pantheon | ServiceTitan's annual customer conference; the 2026 edition is summarized in the [Pantheon brief](../docs/pantheon-2026-ai-roadmap.md) |
 | Promotion / demotion | Moving an agent up or down one autonomy level based on evidence gathered at its current level, such as an error-rate upper bound against a target (lab 14) |

@@ -248,6 +248,8 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [Microsoft Agent Framework overview (agents vs. workflows)](https://learn.microsoft.com/agent-framework/overview/) | Microsoft documentation | Whitepaper 15 |
 | [Workflow orchestrations in Agent Framework](https://learn.microsoft.com/agent-framework/workflows/orchestrations) | Microsoft documentation | Whitepaper 15 |
 | [LangGraph](https://github.com/langchain-ai/langgraph) | Open-source framework | Whitepaper 15 |
+| [Model Context Protocol specification, revision 2026-07-28](https://modelcontextprotocol.io/specification/2026-07-28) | Protocol specification | Whitepaper 15, glossary |
+| [A2A (Agent2Agent) Protocol specification](https://a2a-protocol.org/latest/specification/) | Protocol specification | Whitepaper 15, glossary |
 | [LangGraph overview](https://docs.langchain.com/oss/python/langgraph/overview) | Documentation | Whitepaper 15 |
 | [LangGraph persistence](https://docs.langchain.com/oss/python/langgraph/persistence) | Documentation | Whitepaper 15 |
 | [LangGraph durable execution (Checkpointers: durability modes)](https://docs.langchain.com/oss/python/langgraph/checkpointers#durability-modes) | Documentation | Whitepaper 15 |
