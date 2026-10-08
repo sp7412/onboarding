@@ -170,43 +170,47 @@ This table can become the test plan, instrumentation plan, and design-review age
 ## 6. Finding failures in production
 
 Failure mining (section 7) needs failures to mine, and the worst ones don't announce
-themselves. An agent that says "you're booked" when no job exists reports success. A caller
-who gives up rarely files a complaint. The quiet failures are the expensive ones, so finding
-them has to be designed in, not left to whoever happens to notice.
+themselves. An agent that reports success when nothing changed looks fine in its own logs. A
+user who gives up rarely files a complaint. The quiet failures are the expensive ones, so
+finding them has to be designed in, not left to whoever happens to notice.
+
+This applies to any agent that takes actions: support, sales, scheduling, coding, operations.
+The booking examples in brackets show what each idea looks like for a voice booking agent.
 
 ### Where the signals come from
 
 No single signal finds everything. Use several, because each sees a different kind of failure:
 
-| Signal source | Examples | What it tends to catch |
+| Signal source | What to look for | What it tends to catch |
 |---|---|---|
-| **Words vs. the record** | agent said "booked" but no job exists; job created twice; slot differs from the one read back | claim grounding, idempotency, stale state |
-| **What happened next** | caller rings back within 24 hours; booking cancelled or rescheduled within a day; no-show; wrong technician type dispatched | wrong intent, wrong job type, consent problems |
-| **Caller behavior on the call** | hang-up mid-flow; "let me talk to a person"; repeated corrections; long silences; frequent barge-in | turn-taking, ASR errors, confusing prompts |
-| **Human corrections** | a CSR edits or reverses an agent booking; a dispatcher moves it | the errors people catch silently every day |
-| **Operational telemetry** | tool errors, retries and timeouts; escalation rate; latency tail (p95/p99) | integration and infrastructure failures |
-| **Graders and judges** | bookability judge disagrees with the booking outcome; low-confidence critical fields | denominator and extraction errors |
-| **Drift** | the call mix shifts (heat wave, new trade, new market) | everything above, concentrated in the new traffic |
+| **Claims vs. the record** | the agent said it did something the system of record doesn't show; an action recorded twice; a value that differs from the one confirmed [said "booked" but no job exists] | ungrounded claims, idempotency, stale state |
+| **What happened next** | the user comes back about the same thing soon; the result is undone or reworked [caller rings back; booking cancelled within a day] | wrong intent, wrong action, missing consent |
+| **User behavior in the session** | abandonment mid-task; asking for a human; repeated rephrasing or corrections | misunderstanding, confusing responses, interaction problems |
+| **Human corrections** | a person edits, reverses or redoes the agent's work [a CSR reverses an agent booking] | the errors people catch silently every day |
+| **Operational telemetry** | tool errors, retries and timeouts; escalation rate; latency tail (p95/p99); cost per task | integration, infrastructure and runaway loops |
+| **Graders and judges** | an automated judge disagrees with the outcome; low-confidence critical fields | definition (denominator) and extraction errors |
+| **Drift** | the input mix shifts: a new customer segment, product, season or market | everything above, concentrated in the new traffic |
 
-The first row is the cheapest high-value check you can run: compare what the agent **said**
-with what the **system of record** shows, call by call. It needs no model and no human, and it
-catches the failures the agent itself will never report. (The
+The first row is the cheapest high-value check you can run: compare what the agent **said** it
+did with what the **system of record** shows, task by task. It needs no model and no human,
+and it catches the failures the agent itself will never report. (The
 [claims-vs-state lesson](https://sp7412.github.io/onboarding/lessons/claims-vs-state/) and
 labs 07 and 13 build this check.)
 
 ### Sample two ways, for two purposes
 
-You can't review every call, and the two reasons to review calls need different samples:
+You can't review every session, and the two reasons to review need different samples:
 
-- **A random sample estimates rates.** Review a small uniform sample every week. It is the
-  only unbiased estimate of how often failures happen, and it finds failure types that no
-  signal is watching for yet.
-- **Targeted samples find mechanisms.** Pull the calls the signals flagged, and over-sample
-  rare, high-cost segments (emergencies, new trades, new markets). These find *why* things
-  fail quickly, but they can't tell you *how often*, because they were chosen for looking bad.
+- **A random sample estimates rates.** Review a small uniform sample on a fixed cadence. It
+  is the only unbiased estimate of how often failures happen, and it finds failure types that
+  no signal is watching for yet.
+- **Targeted samples find mechanisms.** Pull the sessions the signals flagged, and over-sample
+  rare, high-cost segments (safety-critical requests, new segments, new markets). These find
+  *why* things fail quickly, but they can't tell you *how often*, because they were chosen
+  for looking bad.
 
-Keep them labelled separately. A failure rate computed from flagged calls is wrong by
-construction, and the same denominator discipline from the
+Keep them labelled separately. A failure rate computed from flagged sessions is wrong by
+construction; the same denominator discipline from the
 [denominator lesson](https://sp7412.github.io/onboarding/lessons/denominator/) applies.
 
 ### A signal is not a failure
@@ -214,36 +218,41 @@ construction, and the same denominator discipline from the
 Treat every signal as a candidate, then confirm it:
 
 ```text
-signal fires --> candidate call --> read transcript + state + trace --> confirmed?
-                                                                          |
-                         no: record as a false alarm (tune the signal) <--+
-                         yes: classify the mechanism (section 7), score severity x frequency
+signal fires --> candidate session --> read transcript + state + trace --> confirmed?
+                                                                             |
+                            no: record as a false alarm (tune the signal) <--+
+                            yes: classify the mechanism (section 7), score severity x frequency
 ```
 
 Two habits keep the signals honest:
 
-- **Measure each signal's precision.** Of the calls a signal flagged, how many were real
+- **Measure each signal's precision.** Of the sessions a signal flagged, how many were real
   failures? A signal that is right 5% of the time wastes reviewers; fix it or drop it.
-- **Distrust a quiet dashboard.** Zero flagged calls can mean zero failures, or a broken
-  logging path, a renamed event, or a signal that no longer fires. Seed a known-bad test call
+- **Distrust a quiet dashboard.** Zero flagged sessions can mean zero failures, or a broken
+  logging path, a renamed event, or a signal that no longer fires. Run a known-bad test case
   through production occasionally and check that it is caught.
 
-### Voice-specific traps
+### Check the input and the delivery, not only the reasoning
 
-- **Heard vs. transcribed.** A "reasoning" failure is often a speech-recognition error: the
-  model answered the transcript correctly, and the transcript was wrong. Listen to the audio
-  before blaming the model.
-- **Heard vs. generated.** After a barge-in, the caller heard only part of what the agent
-  generated. Judge the conversation by what the caller heard (the
-  [heard-vs-generated lesson](https://sp7412.github.io/onboarding/lessons/heard-vs-generated/)).
-- **Turn-taking shows up as behavior.** Talk-overs, cut-offs and long silences rarely appear
-  in the transcript as errors; they appear as hang-ups and repeated corrections.
+Many failures that look like bad reasoning happen before or after the model:
+
+- **What the agent received.** The model may have answered its input correctly while the
+  input was wrong: a speech-recognition error, a bad OCR read, a truncated document, a parsing
+  bug. Inspect the raw input before blaming the model.
+- **What the user actually got.** Streaming, interruptions and truncation mean the user may
+  have seen or heard only part of what was generated. Judge the interaction by what was
+  delivered [after a barge-in, by what the caller heard]. The
+  [heard-vs-generated lesson](https://sp7412.github.io/onboarding/lessons/heard-vs-generated/)
+  shows why.
+- **The interaction itself.** Timing and flow problems rarely appear in a transcript as
+  errors; they show up as abandonment and repeated corrections [talk-overs and long silences
+  on a call].
 
 ### Make it a routine
 
 Failure finding works when it is a habit with an owner, not a project:
 
-1. Weekly: review the random sample and the top flagged clusters.
+1. On a fixed cadence: review the random sample and the top flagged clusters.
 2. Name the mechanism for each confirmed failure, not just the symptom.
 3. Pick the top few clusters by severity × frequency and turn each into eval cases
    (section 7).
