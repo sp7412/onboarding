@@ -34,7 +34,7 @@ docs/                        public-source domain and technical study guides
   references.md              complete bibliography; add a row for every new external link
   podcast-prompts.md         NotebookLM episode prompts mapped to reading-guide items
   livekit-hands-on.md        LiveKit Agent Builder / lk CLI / mock-tools track
-  whitepaper/                background whitepaper: chapters 00–16, appendices A–B, claims-ledger.md
+  whitepaper/                background whitepaper: chapters 00–17, appendices A–B, claims-ledger.md
 plan/30-60-90-checklist.md   week-by-week checklist (GitHub task-list checkboxes)
 study-guide/                 archived source document and pointer to canonical architecture guide
 senior-engineer/             judgment-track exercises (fictional scenarios + self-checks); answers stay private
