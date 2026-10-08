@@ -8,10 +8,13 @@ An agent harness is the runtime and application layer around a model that determ
 the model can see, what it can propose, what it is allowed to execute, how execution
 continues, and how the run is observed and evaluated.
 
-Microsoft now uses "Agent Harness" as an explicit runtime concept; OpenAI exposes
-guardrails, human review, state, tools, handoffs, and tracing as SDK primitives. The
-reference design below combines those ideas with the control principles already used in
-this repository.
+Microsoft now uses "agent harness" as an explicit runtime concept, defined as "the runtime
+scaffolding that turns a language model into an agent that can perform work" [1]; OpenAI
+exposes guardrails, human review, sessions, tools, handoffs, and tracing as SDK primitives
+[3][4][5]. The reference design below combines those ideas with the control principles
+already used in this repository (lab 02's guarded tool dispatcher and
+[whitepaper chapter 15, section 9](whitepaper/15-agentic-orchestration.md)). It is this
+repo's synthesis, not any vendor's or ServiceTitan's design.
 
 ## 1. Canonical control loop
 
@@ -149,7 +152,7 @@ Guardrails answer:
 > Is this input, output, or tool operation permitted?
 
 OpenAI's current guidance distinguishes input, output, and tool guardrails and recommends
-human approval for sensitive side effects.
+human approval for sensitive side effects [4].
 
 ## 4. The side-effect boundary
 
@@ -260,8 +263,8 @@ Workflow:
                risk / idempotency
 ```
 
-Microsoft's Agent Framework is particularly useful here: it treats workflows and the
-Agent Harness as separate but composable concepts.
+Microsoft's Agent Framework is particularly useful here: it documents workflows and the
+agent harness as separate concepts [1][2].
 
 ## 8. A practical voice-agent harness
 
@@ -326,9 +329,13 @@ Before allowing an agent to create a production side effect, answer:
 
 ## Sources
 
-1. [Microsoft Agent Harness](https://learn.microsoft.com/en-us/agent-framework/concepts/harness)
+Checked October 7, 2026.
+
+1. [Microsoft Agent Framework: agent harness](https://learn.microsoft.com/en-us/agent-framework/concepts/harness)
 2. [Microsoft Agent Framework overview](https://learn.microsoft.com/en-us/agent-framework/overview/)
-3. [OpenAI Agents SDK](https://openai.github.io/openai-agents-python/)
-4. [OpenAI Guardrails and human review](https://developers.openai.com/api/docs/guides/agents/guardrails-approvals)
-5. [OpenAI tracing](https://openai.github.io/openai-agents-js/guides/tracing/)
-6. [Salesforce Agent Gateway / SOMA / MOMA / MCP / A2A](https://help.salesforce.com/s/articleView?id=005317683&language=en_US&type=1)
+3. [OpenAI Agents SDK (Python)](https://openai.github.io/openai-agents-python/)
+4. [OpenAI: guardrails and human review](https://developers.openai.com/api/docs/guides/agents/guardrails-approvals)
+5. [OpenAI Agents SDK (Python): tracing](https://openai.github.io/openai-agents-python/tracing/)
+
+Related: [comparative agent architectures](comparative-agent-architectures.md),
+[design by evaluation](design-by-evaluation.md), [tools and guardrails](tools-and-guardrails.md).

@@ -8,10 +8,13 @@ For production agents, the evaluation is part of the **design specification**: i
 what behavior matters, exposes ambiguous requirements, creates a regression boundary, and
 provides evidence for rollout decisions.
 
-Anthropic's current guidance emphasizes that agent evals must account for multi-step behavior
-and intermediate results. Microsoft Agent Framework includes evaluation for both agents and
-workflows. OpenAI's evaluation workflow starts from traces and graders and turns observed
-behavior into reusable evaluation data.
+Anthropic's guidance separates an agent's transcript (every tool call and intermediate
+result) from its outcome (what actually changed), recommends grading the outcome first, and
+uses transcripts to check that the graders work [1]. Microsoft Agent Framework includes
+evaluators for both agents and workflows [2]. OpenAI's evaluation workflow starts from traces
+and graders and moves to repeatable datasets and eval runs [3]. This doc is the repo's
+synthesis of those ideas; [whitepaper chapter 15, section 12](whitepaper/15-agentic-orchestration.md)
+covers offline and online evaluation and canary releases in more depth.
 
 ## 1. The evaluation-first loop
 
@@ -93,9 +96,13 @@ A model can have excellent language quality while an agent makes the wrong tool 
 An agent can make the right tool call while the workflow supplies stale state.
 The workflow can succeed technically while producing a poor business outcome.
 
-## 4. Evaluate trajectories, not only answers
+## 4. Grade the outcome; inspect the trajectory
 
-For a multi-step agent, the final response is only one observation.
+For a multi-step agent, the final response is only one observation, and it can be wrong
+about itself: an agent can say "you're booked" when no job exists. Grade the **outcome**
+first, meaning the state the agent left behind (does a valid job exist for this customer, in
+this slot, exactly once?) [1]. Then use the trajectory for two things: checking steps that
+are themselves policy, and explaining failures.
 
 ```text
 Input
@@ -119,7 +126,7 @@ Agent
 Final answer
 ```
 
-A trajectory-aware eval can ask:
+Trajectory checks are worth writing where a step is policy or a known failure mechanism:
 
 - Was the right tool selected?
 - Were arguments valid?
@@ -130,10 +137,13 @@ A trajectory-aware eval can ask:
 - Did it create unnecessary tool calls?
 - Did it reach the right result for the right reason?
 
-OpenAI's trace-evaluation guidance explicitly uses traces containing model calls, tool
-calls, guardrails, and handoffs as the starting point for grading. Microsoft exposes
-evaluators for tool selection, tool arguments, task completion, safety, and workflow
-evaluation.
+Avoid grading the exact sequence of steps when several paths are valid; that rewards one
+script and fails correct alternatives [1].
+
+OpenAI's trace-evaluation guidance uses traces, the "end-to-end record of model calls, tool
+calls, guardrails, and handoffs for one run," as the starting point for grading [3].
+Microsoft exposes evaluators for tool selection, tool input accuracy, task completion,
+safety, and workflow evaluation [2].
 
 ## 5. Build the evaluation matrix before the implementation
 
@@ -296,8 +306,11 @@ That is **design by evaluation**.
 
 ## Sources
 
-1. [Anthropic — Demystifying evals for AI agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents)
-2. [Microsoft Agent Framework evaluation](https://learn.microsoft.com/agent-framework/agents/evaluation)
-3. [Microsoft Agent Framework overview](https://learn.microsoft.com/en-us/agent-framework/overview/)
-4. [OpenAI — Evaluate agent workflows](https://developers.openai.com/api/docs/guides/agent-evals)
-5. [OpenAI — Agents SDK](https://openai.github.io/openai-agents-python/)
+Checked October 7, 2026.
+
+1. [Anthropic: Demystifying evals for AI agents (January 9, 2026)](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents)
+2. [Microsoft Agent Framework: evaluation](https://learn.microsoft.com/agent-framework/agents/evaluation)
+3. [OpenAI: evaluate agent workflows](https://developers.openai.com/api/docs/guides/agent-evals)
+
+Related: [evaluating voice agents](evaluating-voice-agents.md), [earning autonomy](earning-autonomy.md),
+[agent harness](agent-harness.md), [comparative agent architectures](comparative-agent-architectures.md).

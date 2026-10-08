@@ -51,7 +51,7 @@ the exact lab map and prerequisites.
 |---|---|
 | [`plan/30-60-90-checklist.md`](plan/30-60-90-checklist.md) | Operating plan (loosely based on Watkins, *The First 90 Days*) with 30/60/90 outcomes, weekly actions, stakeholder work, and exit criteria |
 | [`study-guide/`](study-guide/) | Archived original study guide (.docx) and a pointer to the canonical [architecture guide](docs/voice-agent-architecture.md) |
-| [`docs/`](docs/) | Public-source domain primer, Pantheon system model, autonomy policy, metrics, field exercise, first-90-days playbook and question bank |
+| [`docs/`](docs/) | Public-source domain primer, Pantheon system model, autonomy policy, metrics, field exercise, first-90-days playbook and question bank, and agent architecture/harness/evaluation companions to whitepaper ch. 15 |
 | [`docs/pantheon-2026-ai-roadmap.md`](docs/pantheon-2026-ai-roadmap.md) | Pantheon 2026 public AI announcements and implications for voice |
 | [`docs/call-facts-contract.md`](docs/call-facts-contract.md) | Teaching schema for shared context a voice agent might capture |
 | [`docs/homh-and-agent-booking.md`](docs/homh-and-agent-booking.md) | Trust surfaces for Homh and AI-assistant booking channels |

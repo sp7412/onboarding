@@ -184,3 +184,13 @@ Added when chapters 03, 04, 05, 08, 12, 13 and 14 were rewritten.
 | GPT-4o Mini TTS: $12 per 1M audio output tokens; page shows a deprecated badge | Architecture explorer | https://developers.openai.com/api/docs/models/gpt-4o-mini-tts | 2026-10-07 | partly | Deprecation status is inconsistent across snapshots; per-minute TTS cost (~$0.015) is a community estimate, not OpenAI's |
 | ITU-T G.114: under 150 ms one-way delay is essentially transparent; 400 ms is the planning limit | Architecture explorer | https://www.itu.int/rec/T-REC-G.114 | 2026-10-07 | yes | Standard (2003) |
 | Speech-to-speech time to first audio (250–800 ms) | Architecture explorer | https://openai.com/index/hello-gpt-4o/ | 2026-10-07 | illustrative | Anchored to GPT-4o's 232 / 320 ms (2024) and Moshi's ~200 ms preprint; no published figure for gpt-realtime-2.1 |
+
+## Agent architectures, harness and evaluation docs, October 7, 2026
+
+| Claim | Chapter | URL | Date checked | Supported | Notes |
+|---|---:|---|---|---|---|
+| Microsoft defines an agent harness as "the runtime scaffolding that turns a language model into an agent that can perform work"; components: chat client, chat pipeline, agent and context providers, middleware and decorators, application UX; looping and background agents experimental | Comparative architectures, agent harness | https://learn.microsoft.com/en-us/agent-framework/concepts/harness | 2026-10-07 | yes | Vendor documentation; `create_harness_agent` released |
+| Microsoft Agent Framework evaluators include tool_selection, tool_input_accuracy, task_completion, safety evaluators, and evaluate_workflow for workflows | Design by evaluation | https://learn.microsoft.com/agent-framework/agents/evaluation | 2026-10-07 | yes | Vendor documentation |
+| OpenAI: a trace is the end-to-end record of model calls, tool calls, guardrails and handoffs for one run; move from traces to datasets and eval runs | Comparative architectures, design by evaluation | https://developers.openai.com/api/docs/guides/agent-evals | 2026-10-07 | yes | Vendor documentation |
+| Anthropic: transcript vs. outcome; "it's often better to grade what the agent produced, not the path it took"; read transcripts to check graders; evals make behavior changes visible before users see them | Comparative architectures, design by evaluation | https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents | 2026-10-07 | yes | Published January 9, 2026 |
+| Earlier draft claimed Anthropic's contribution is trajectory evaluation and permissions/sandboxing | Comparative architectures | https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents | 2026-10-07 | no | Corrected before merge: the article recommends outcome-first grading; sandboxing was unsourced |
