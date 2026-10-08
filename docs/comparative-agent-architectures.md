@@ -2,15 +2,17 @@
 
 **Estimated reading time:** 20 minutes · **Facts checked:** October 7, 2026
 
-This chapter compares public engineering approaches from ServiceTitan, Salesforce,
+This doc compares public engineering approaches from ServiceTitan, Salesforce,
 Microsoft, OpenAI, and Anthropic. It is deliberately comparative: the goal is not to
 declare one framework "best", but to understand where each system puts reasoning,
-orchestration, state, tools, governance, and evaluation.
+orchestration, state, tools, governance, and evaluation. It builds on
+[whitepaper chapter 15](whitepaper/15-agentic-orchestration.md), which covers the coordination
+problem and the MCP/A2A split in more depth; this doc adds the harness and evaluation view.
 
 > **Evidence boundary:** ServiceTitan's public material describes product capabilities and
 coordination concepts, but not its private implementation. Where this chapter presents a
 ServiceTitan architecture, it is labeled as analysis or a reference design rather than an
-internal fact.
+internal fact. Vendor descriptions are the vendors' own and are cited by number.
 
 ## 1. The common problem
 
@@ -24,19 +26,19 @@ The implementations differ substantially.
 
 | System | Primary abstraction | Coordination emphasis | Control emphasis | Evaluation emphasis |
 |---|---|---|---|---|
-| **ServiceTitan / Max** | Domain agents + shared context/judgment | Arbitration + centralized supervision | Business-level coordination | Outcomes, supervision, learning loop |
-| **Salesforce Agentforce** | Primary/superagent + specialists | SOMA/MOMA | Agent Gateway, trust boundaries | Platform governance + agent quality |
-| **Microsoft Agent Framework** | Agents + explicit workflows + Harness Agent | Graph/workflow orchestration | Harness, middleware, approvals | Built-in agent/workflow evaluation |
-| **OpenAI Agents SDK** | Agents + tools + handoffs | Handoffs / agents-as-tools | Guardrails + human review | Traces → graders → eval runs |
-| **Anthropic** | Agents + tools + harnesses | Model-driven loops / multi-agent patterns | Permissions, sandboxing, harness design | Trajectory-aware evals and regression |
+| **ServiceTitan / Max** | Domain agents + shared context/judgment [1] | Arbitration + centralized supervision [1] | Business-level coordination | Not publicly specified |
+| **Salesforce Agentforce** | Primary/superagent + specialists [2] | SOMA/MOMA [2] | Agent Gateway, trust boundaries [2] | Not covered by the cited source |
+| **Microsoft Agent Framework** | Agents + explicit workflows + agent harness [3][5] | Workflow orchestration patterns [4] | Harness, middleware, approvals [5] | Agent and workflow evaluators [12] |
+| **OpenAI Agents SDK** | Agents + tools + handoffs [6] | Handoffs / agents-as-tools [6] | Guardrails + human review [7] | Traces → graders → datasets → eval runs [9] |
+| **Anthropic** | Workflows vs. agents; start with the simplest pattern [11] | Composable workflow patterns, agents only when needed [11] | Agent harness and evaluation harness as named concepts [10] | Grade outcomes; read transcripts to check the graders [10] |
 
 The key difference is **where the control plane lives**.
 
 ## 2. ServiceTitan: domain operating system
 
-ServiceTitan publicly describes Max as a coordinated system of more than 30 agents
-across business drivers, with shared context, shared judgment, coordinated action,
-arbitration, and centralized supervision.
+ServiceTitan publicly describes Max as 30 agents across 18 business drivers, coordinated
+through shared context, shared judgment, coordinated action, arbitration, and centralized
+supervision [1]. Chapter 15, section 3, walks through each public claim.
 
 The conceptual model is:
 
@@ -84,7 +86,7 @@ is necessary but insufficient.
 
 ## 3. Salesforce: agent platform + trust boundaries
 
-Salesforce's Agentforce documentation makes the layers unusually explicit.
+Salesforce's Agentforce documentation makes the layers unusually explicit [2].
 
 ### SOMA
 
@@ -138,10 +140,11 @@ GOVERNANCE
 
 That separation is valuable because it prevents a common category error:
 
-> **MCP is not orchestration. A2A is not governance.**
+> **MCP is not orchestration. A2A is not governance.** (Chapter 15, section 18, explains
+> both protocols from their specifications.)
 
-Salesforce's public documentation says its Agent Gateway governs MCP and A2A interactions,
-including registry, policy, authentication, quotas, and validation.
+Salesforce's public documentation describes its Agent Gateway as the governance layer for
+MCP and A2A interactions [2].
 
 ### When this model fits
 
@@ -159,9 +162,9 @@ Microsoft Agent Framework is the clearest example of separating **open-ended age
 reasoning** from **explicit workflow execution**.
 
 Microsoft's current guidance says to use an agent when the task is open-ended or requires
-autonomous planning, and a workflow when execution order is well-defined.
+autonomous planning, and a workflow when execution order is well-defined [3].
 
-Supported workflow patterns include:
+Supported workflow orchestration patterns include [4]:
 
 - sequential;
 - concurrent;
@@ -188,10 +191,10 @@ Manager:             +---------+
                     A     B     C
 ```
 
-### The Harness Agent
+### The agent harness
 
-Microsoft also now uses **Agent Harness** as an explicit runtime concept. Its documented
-architecture combines:
+Microsoft also now uses **agent harness** as an explicit runtime concept (`HarnessAgent` in
+.NET, `create_harness_agent` in Python). Its documented architecture combines [5]:
 
 1. chat client;
 2. chat pipeline;
@@ -199,12 +202,13 @@ architecture combines:
 4. middleware/decorators;
 5. application UX.
 
-Capabilities include state/context management, tool invocation, approval handling,
-observability, compaction, and bounded multi-step execution.
+Capabilities include state/context management, tool invocation with an iteration limit,
+approval handling, observability, compaction, and optional bounded re-invocation (some
+capabilities, such as looping and background agents, are still experimental) [5].
 
 This is important for our onboarding material because "harness" is no longer merely a
-metaphor. Microsoft defines it as runtime scaffolding that turns a language model into an
-agent capable of sustained work.
+metaphor. Microsoft defines an agent harness as "the runtime scaffolding that turns a
+language model into an agent that can perform work" [5].
 
 ### When this model fits
 
@@ -228,7 +232,7 @@ That is a much more useful design heuristic than "use an agent framework."
 
 ## 5. OpenAI: minimal agent primitives plus control surfaces
 
-The OpenAI Agents SDK intentionally exposes a small set of primitives:
+The OpenAI Agents SDK intentionally exposes a small set of primitives [6]:
 
 - agents;
 - tools;
@@ -257,11 +261,12 @@ OpenAI makes the control boundaries particularly explicit:
 - input guardrails;
 - output guardrails;
 - tool guardrails;
-- human approval before sensitive side effects.
+- human approval before sensitive side effects [7].
 
-Tracing records model calls, tool calls, handoffs, guardrails, and custom spans.
+Tracing records model calls, tool calls, handoffs, guardrails, and custom spans [8].
 
-The evaluation path then becomes:
+OpenAI's evaluation guidance then moves from individual traces to repeatable datasets and
+eval runs [9]:
 
 ```text
 Production / test run
@@ -273,7 +278,7 @@ Production / test run
       Grader
         |
         v
-   Eval dataset
+   Dataset
         |
         v
      Eval run
@@ -285,52 +290,37 @@ This is attractive when the application team wants to own the surrounding produc
 deployment, tool implementations, state storage, approval decisions, and infrastructure,
 while the SDK supplies the agent loop and common control primitives.
 
-## 6. Anthropic: harness engineering and trajectory evaluation
+## 6. Anthropic: simple patterns first, and evals that grade outcomes
 
-Anthropic's public engineering work emphasizes a related but slightly different lesson:
-long-running agents require **harness engineering**, not just better prompts.
+Anthropic's public engineering writing makes two points that complement the others.
 
-An agent may:
+**Start with the simplest pattern.** *Building Effective Agents* distinguishes *workflows*,
+where models and tools follow predefined code paths, from *agents*, which direct their own
+process, and recommends the simplest solution that works, adding agentic complexity only
+when it pays for itself [11]. That is the same heuristic as Microsoft's agents-versus-workflows
+guidance [3].
 
-1. inspect state;
-2. call tools;
-3. modify state;
-4. observe results;
-5. revise its plan;
-6. continue for many turns.
-
-Therefore evaluating only the final answer misses important failure modes.
+**Grade what the agent produced.** *Demystifying evals for AI agents* separates the
+**transcript** (the full record of a trial: outputs, tool calls, reasoning and intermediate
+results) from the **outcome** (what actually changed in the environment). Its example: a
+flight-booking agent may say it succeeded, but the outcome is whether a reservation exists
+in the database. It advises that "it's often better to grade what the agent produced, not the
+path it took," because many different paths can be valid, and it treats reading transcripts
+as the way to check that the graders themselves are working [10].
 
 ```text
-Goal
- |
- v
-Agent
- |
- +--> tool --> result
- |       |
- +-------+
- |
- +--> tool --> result
- |
- +--> state change
- |
- v
-Final result
+Goal --> Agent --> tool calls, retries, messages   (transcript: read it to debug and to
+                         |                            check the graders)
+                         v
+              Environment state                    (outcome: grade this first)
 ```
 
-An effective evaluation should be able to inspect the **trajectory**, not merely the
-final string:
-
-- did it select the correct tool?
-- were arguments valid?
-- did it recover from a tool failure?
-- did it take an unnecessary action?
-- did it violate a policy mid-run?
-- did the final success depend on a lucky recovery?
-
-Anthropic's 2026 eval guidance explicitly frames evals as a way to avoid reactive production
-loops and to make behavioral changes visible before deployment.
+Trajectory checks still have a place: when a step is itself a policy (never call
+`create_job` before the caller confirms), check that step directly. The same article
+defines the **agent harness** (the system that lets a model act as an agent) and the
+**evaluation harness** (the infrastructure that runs evals end to end), and argues that without
+evals teams get stuck in reactive loops, while evals "make problems and behavioral changes
+visible before they affect users" [10].
 
 ## 7. What is actually different?
 
@@ -367,10 +357,10 @@ review, tracing, and evaluation surfaces.
 
 ### Anthropic
 
-**Optimizes:** reliable long-running autonomy.
+**Optimizes:** the simplest system that works, verified by its outcomes.
 
-The strongest contribution is treating the harness, permissions, context engineering, and
-trajectory evaluation as first-class engineering concerns.
+The strongest contribution is the discipline: prefer workflows until an agent earns its
+complexity, and grade the state the agent left behind rather than the story it tells.
 
 ## 8. The synthesis for this onboarding repo
 
@@ -462,13 +452,17 @@ where evaluation should constrain architecture.
 
 ## Sources
 
-1. ServiceTitan, Pantheon 2026 public materials — see [Chapter 15](15-agentic-orchestration.md)
-   for the repo's source ledger and evidence boundary.
-2. [Salesforce Help — SOMA, MOMA, A2A and MCP](https://help.salesforce.com/s/articleView?id=005317683&language=en_US&type=1)
-3. [Microsoft Agent Framework overview](https://learn.microsoft.com/en-us/agent-framework/overview/)
-4. [Microsoft Agent Harness](https://learn.microsoft.com/en-us/agent-framework/concepts/harness)
-5. [OpenAI Agents SDK](https://openai.github.io/openai-agents-python/)
-6. [OpenAI Guardrails and human review](https://developers.openai.com/api/docs/guides/agents/guardrails-approvals)
-7. [OpenAI tracing](https://openai.github.io/openai-agents-js/guides/tracing/)
-8. [OpenAI agent workflow evaluation](https://developers.openai.com/api/docs/guides/agent-evals)
-9. [Anthropic — Demystifying evals for AI agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents)
+Checked October 7, 2026. Vendor descriptions are each vendor's own.
+
+1. ServiceTitan, Pantheon 2026 public materials: see [whitepaper chapter 15](whitepaper/15-agentic-orchestration.md) (sources 1–2) and the [Pantheon 2026 brief](pantheon-2026-ai-roadmap.md)
+2. [Salesforce Help: SOMA, MOMA, A2A and MCP](https://help.salesforce.com/s/articleView?id=005317683&language=en_US&type=1)
+3. [Microsoft Agent Framework overview (agents vs. workflows)](https://learn.microsoft.com/en-us/agent-framework/overview/)
+4. [Microsoft Agent Framework: workflow orchestrations](https://learn.microsoft.com/agent-framework/workflows/orchestrations)
+5. [Microsoft Agent Framework: agent harness](https://learn.microsoft.com/en-us/agent-framework/concepts/harness)
+6. [OpenAI Agents SDK (Python)](https://openai.github.io/openai-agents-python/)
+7. [OpenAI: guardrails and human review](https://developers.openai.com/api/docs/guides/agents/guardrails-approvals)
+8. [OpenAI Agents SDK (Python): tracing](https://openai.github.io/openai-agents-python/tracing/)
+9. [OpenAI: evaluate agent workflows](https://developers.openai.com/api/docs/guides/agent-evals)
+10. [Anthropic: Demystifying evals for AI agents (January 9, 2026)](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents)
+11. [Anthropic: Building effective agents](https://www.anthropic.com/engineering/building-effective-agents)
+12. [Microsoft Agent Framework: evaluation](https://learn.microsoft.com/agent-framework/agents/evaluation)

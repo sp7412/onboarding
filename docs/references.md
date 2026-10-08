@@ -248,6 +248,12 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [Microsoft Agent Framework overview (agents vs. workflows)](https://learn.microsoft.com/agent-framework/overview/) | Microsoft documentation | Whitepaper 15 |
 | [Workflow orchestrations in Agent Framework](https://learn.microsoft.com/agent-framework/workflows/orchestrations) | Microsoft documentation | Whitepaper 15 |
 | [LangGraph](https://github.com/langchain-ai/langgraph) | Open-source framework | Whitepaper 15 |
+| [Microsoft Agent Framework: agent harness](https://learn.microsoft.com/en-us/agent-framework/concepts/harness) | Microsoft documentation | Comparative architectures, agent harness |
+| [Microsoft Agent Framework overview (en-us path)](https://learn.microsoft.com/en-us/agent-framework/overview/) | Microsoft documentation | Comparative architectures, agent harness |
+| [Microsoft Agent Framework: evaluation](https://learn.microsoft.com/agent-framework/agents/evaluation) | Microsoft documentation | Comparative architectures, design by evaluation |
+| [OpenAI Agents SDK (Python): tracing](https://openai.github.io/openai-agents-python/tracing/) | Docs | Comparative architectures, agent harness |
+| [OpenAI: evaluate agent workflows](https://developers.openai.com/api/docs/guides/agent-evals) | Docs | Comparative architectures, design by evaluation |
+| [Anthropic: Demystifying evals for AI agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents) | Engineering essay (Jan 2026) | Comparative architectures, design by evaluation |
 | [Model Context Protocol specification, revision 2026-07-28](https://modelcontextprotocol.io/specification/2026-07-28) | Protocol specification | Whitepaper 15, glossary |
 | [A2A (Agent2Agent) Protocol specification](https://a2a-protocol.org/latest/specification/) | Protocol specification | Whitepaper 15, glossary |
 | [LangGraph overview](https://docs.langchain.com/oss/python/langgraph/overview) | Documentation | Whitepaper 15 |
