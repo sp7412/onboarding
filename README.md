@@ -55,6 +55,7 @@ the exact lab map and prerequisites.
 | [`docs/pantheon-2026-ai-roadmap.md`](docs/pantheon-2026-ai-roadmap.md) | Pantheon 2026 public AI announcements and implications for voice |
 | [`docs/call-facts-contract.md`](docs/call-facts-contract.md) | Teaching schema for shared context a voice agent might capture |
 | [`docs/homh-and-agent-booking.md`](docs/homh-and-agent-booking.md) | Trust surfaces for Homh and AI-assistant booking channels |
+| [`docs/mcp-and-external-agent-trust-boundary.md`](docs/mcp-and-external-agent-trust-boundary.md) | MCP and external-agent authorization, consent, idempotency, injection, audit, and outcome controls |
 | [`docs/whitepaper/`](docs/whitepaper/) | Public-source background whitepaper: chapters 00–17 (15–17: agentic orchestration, shared skills, running agents in production), appendices, and source ledger |
 | [`docs/reading-guide.md`](docs/reading-guide.md) | Ranked blogs, papers and talks with four takeaways each (start here for reading) |
 | [`docs/references.md`](docs/references.md) | Complete bibliography of every external source in the repo |

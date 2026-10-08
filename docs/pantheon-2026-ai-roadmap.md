@@ -1,18 +1,17 @@
 # Pantheon 2026: The AI Roadmap Brief
 
-**Facts as of: October 7, 2026 (morning) · Last reviewed: October 7, 2026**
+**Facts as of: October 8, 2026 · Last reviewed: October 8, 2026**
 
 ServiceTitan's annual user conference, Pantheon, is a three-day event in Orlando; the 2026 keynotes
 opened it on Tuesday, October 6. [1][3] This brief
 covers what was publicly announced and said about AI, and what it means for an engineer
 joining the voice-agent team. It uses only public sources: the company's press release, a
-published keynote transcript and the conference live blog. Company claims are attributed as
+published keynote transcript, the conference live blog, and current ServiceTitan help documentation. Company claims are attributed as
 such, and anything marked **Analysis** is this repo's interpretation.
 
-> **Update planned:** this version covers the opening keynote, the official announcements and
-> the live blog's coverage of the Oct 6 keynotes (section 2a). The Oct 7 sessions, including
-> "Charging Ahead with AI and Max", will be added when coverage or transcripts are published.
-> The press release says replays are available for 90 days. [1]
+ > **Update:** Oct 8 follow-up documentation confirms Atlas is a permissioned, persona-based
+> interface and shows Atlas being used to configure Adaptive Capacity rules. The Oct 7 breakout
+> recordings are still expected in Academy roughly 4–6 weeks after the event. [4][5]
 
 ## Five Takeaways
 
@@ -214,7 +213,17 @@ Analysis:
 The [hypothesis map](hypothesis-map.md) expands these into more than a dozen public-grounded hypotheses,
 each with how to test it and whom to ask in weeks 1–2.
 
-## 5. Still to watch (replays)
+## 5. Oct 8 follow-up: the trust boundary is becoming concrete
+
+ServiceTitan's current Atlas documentation adds implementation-relevant evidence to the Pantheon announcements:
+
+- **Atlas access is explicitly administered.** ServiceTitan documents an Atlas Access surface where administrators decide which Atlas personas each employee holds and whether those personas are kept up to date automatically. [4]
+- **Atlas is an action interface, not only a Q&A layer.** ServiceTitan describes Atlas as a conversational interface that can automate workflows, and documents its use for creating and updating Adaptive Capacity strategic rules in plain language. [5]
+- **This strengthens the repo's control-plane thesis.** The public evidence now gives us a concrete permission boundary to teach: identity/persona/capability → proposed action → policy/state validation → execution. That is consistent with, but does not prove, the internal architecture.
+
+The repo's new [MCP and external-agent trust boundary](mcp-and-external-agent-trust-boundary.md) note turns the Pantheon MCP/Homh announcements into a focused engineering checklist: authorization, tenant/resource scoping, consent, idempotency, injection resistance, auditability, and authoritative outcome verification.
+
+## 6. Still to watch (replays)
 
 From the conference schedule: [1][3]
 
@@ -232,6 +241,7 @@ claims, distinguish inference from fact, and update this brief and the [claims l
 
 - [Call facts contract](call-facts-contract.md) — teaching schema for shared context from a call
 - [Homh and AI-agent booking](homh-and-agent-booking.md) — trust surfaces when an AI assistant is in the booking path
+- [MCP and external-agent trust boundary](mcp-and-external-agent-trust-boundary.md) — authorization and control boundaries for external AI agents
 - [Bookability judge](../senior-engineer/bookability-judge.md) — judgment exercise on gameable booking rates
 - Whitepaper [chapter 01](whitepaper/01-company.md) (company), [chapter 06](whitepaper/06-product-landscape.md) (products), [chapter 13](whitepaper/13-future-directions.md) (future directions)
 - [Tools and guardrails](tools-and-guardrails.md), [Evaluating voice agents](evaluating-voice-agents.md)
@@ -244,4 +254,6 @@ claims, distinguish inference from fact, and update this brief and the [claims l
 
 1. ServiceTitan press release, "ServiceTitan Announcing New and Expanded Capabilities at Pantheon 2026" (October 6, 2026): <https://www.globenewswire.com/news-release/2026/10/06/3375320/0/en/servicetitan-announcing-new-and-expanded-capabilities-at-pantheon-2026.html>
 2. Investing.com, "ServiceTitan at Pantheon 2026: ai push aims to make trades self-running" (summary and full keynote transcript, October 6, 2026): <https://www.investing.com/news/transcripts/servicetitan-at-pantheon-2026-ai-push-aims-to-make-trades-selfrunning-93CH-4934737>
-3. ServiceTitan, "Pantheon 2026: Live coverage from ServiceTitan" (live blog, read October 7, 2026): <https://www.servicetitan.com/blog/pantheon-2026-live-coverage>
+3. ServiceTitan, "Pantheon 2026: Live coverage from ServiceTitan" (live blog, read October 8, 2026): <https://www.servicetitan.com/blog/pantheon-2026-live-coverage>
+4. ServiceTitan Help Center, "Assign Atlas personas and manage access" (updated September 28, 2026): <https://help.servicetitan.com/docs/assign-atlas-access-and-personas>
+5. ServiceTitan Help Center, "Use Atlas in Adaptive Capacity Strategic Rules" (updated October 8, 2026): <https://help.servicetitan.com/commercial/docs/use-atlas-in-adaptive-capacity-strategic-rules-1>
