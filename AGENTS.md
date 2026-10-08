@@ -6,8 +6,8 @@ Guidance for AI coding agents (Claude Code, Codex, Cursor, etc.) working in this
 
 A personal onboarding workspace for a Senior AI Engineer role at ServiceTitan
 (start date Oct 26, 2026): a 30/60/90 plan, a voice-agent study guide, blank templates, and
-fifteen Jupyter tutorials on the real-time voice-agent stack (OpenAI Realtime, LiveKit,
-LangChain/LangGraph, LangSmith) and on multi-agent systems built around it (labs 09–14).
+sixteen Jupyter tutorials on the real-time voice-agent stack (OpenAI Realtime, LiveKit,
+LangChain/LangGraph, LangSmith) on multi-agent systems built around it (labs 09–14), and on validating an LLM judge (lab 15).
 
 ## Hard rules
 
@@ -43,7 +43,7 @@ templates/                   blank docs: onboarding log, 1:1 questions, working-
                              brag document, 90-day retro
 notes/                       public-safe notes: glossary, study-question template/model answer
 labs/
-  00_…14_*.ipynb             generated notebooks, DO NOT hand-edit
+  00_…15_*.ipynb             generated notebooks, DO NOT hand-edit
   src/*.py                   notebook sources (jupytext "percent" format), EDIT THESE
   build_nb.py                src/*.py → *.ipynb
   stlab/                     shared teaching package (see below)
@@ -74,7 +74,7 @@ python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 cd labs && python build_nb.py            # rebuild notebooks after editing labs/src/*.py
 cd .. && python scripts/check_repo.py     # generated notebooks present and output-free
-python scripts/run_notebooks.py           # run all notebooks offline; must print 15/15 passed
+python scripts/run_notebooks.py           # run all notebooks offline; must print 16/16 passed
 python scripts/run_notebooks.py 02 06    # run a subset by filename prefix
 python scripts/run_notebooks.py --live   # use keys from .env (costs money; ask first)
 ```
@@ -109,6 +109,7 @@ Teaching fixtures, not production code. Keep them small and deterministic.
 | `calls.py` | shared synthetic call dataset for labs 13–14; `python -m stlab.calls` regenerates `data/calls/calls-v1.jsonl` (a test checks it matches) |
 | `minimax.py` | lab 13: `CallFacts` contract (`data/schemas/call-facts.schema.json`), noisy extractor, bookability, commit, dispatch, claim guard, error sensitivity |
 | `autonomy.py` | lab 14: Wilson promotion/demotion, SPRT, cost thresholds, calibration, PSI/OOD drift guard |
+| `judge.py` | lab 15: bookability judge rubrics and JSON contract, `OpenAIJudge` (live) and `ScriptedJudge` (offline, deliberate flaws), kappa/agreement, evidence grounding, abstention sweep, pairwise position-bias test |
 
 Conventions: the simulators must emit the same event/field names as the real APIs; if you
 change the fake brain or backend, re-run notebooks 01, 02, 07, and 08 (they depend on

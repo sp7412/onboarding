@@ -113,6 +113,9 @@ A strong answer usually includes most of the following (not an answer key):
 - Run [lab 13](../labs/README.md) section 5: the same bookings are an 86% or a 50% booking
   rate depending on the denominator. Its `bookable_reason` labels are one worked answer to
   "define a bookable lead".
+- Run [lab 15](../labs/15_llm_judge.ipynb) to build the judge you designed here as an LLM
+  judge, then measure it against labels: kappa against a human ceiling, rubric bugs,
+  self-grading bias and abstention.
 
 ## Sources
 

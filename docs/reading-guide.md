@@ -421,7 +421,7 @@ credentials, customer information, or live audio into this public repository.
   2. Iterating the judge prompt until it agrees with the expert.
   3. Why binary judgments beat 1–5 scales.
   4. Where you'd need a judge for voice calls (tone, escalation appropriateness) vs where code checks suffice.
-- **Pairs with:** lab 07 (`tone_ok`)
+- **Pairs with:** lab 07 (`tone_ok`); lab 15 (building and validating an LLM judge)
 
 ### 23. Engineering voice agents: latency, quality, and scale (Together AI)
 - [ ] <https://www.youtube.com/watch?v=N7b1PJc7SFc> · talk · 25 min
