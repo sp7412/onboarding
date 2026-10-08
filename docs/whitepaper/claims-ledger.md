@@ -220,3 +220,16 @@ Added when chapters 03, 04, 05, 08, 12, 13 and 14 were rewritten.
 | GPT-Live-1 turn-taking latency (~0.80 s vs ~1.41 s) and Tau3 pass@1 (86.2% vs 45.7%) | 08 | https://openai.com/index/introducing-gpt-live-1-in-the-api/ | 2026-10-07 | unverified | In the GPT-Live doc since Sept 30, but the page text fetched today did not show the figures (likely chart-only); left out of chapter 08 |
 | GPT-Live: application checks permissions, obtains confirmations, runs functions that access your systems; $0.05 per minute billed per second, backend billed separately | 08 | https://developers.openai.com/api/docs/guides/live | 2026-10-07 | yes | Guide and model page read |
 | Chapter 15 sections 10–13 (observability, failure mining incl. the Kafka/Snowflake job-listing subsection, evaluation, canary/A-B) moved unchanged to chapter 17; earlier rows that say "15" for those topics now refer to chapter 17 | 15, 17 | — (repo edit: PR #20, https://github.com/sp7412/onboarding/pull/20) | 2026-10-07 | n/a | Editorial change to this repo, not an external claim; recorded so earlier rows citing chapter 15 can be read correctly |
+
+## Pantheon follow-ups, October 8, 2026
+
+| Claim | Chapter | URL | Date checked | Supported | Notes |
+|---|---:|---|---|---|---|
+| Oct 7 partner-ecosystem keynote: partner certification program for security and data handling; Avoca books against real capacity via an API open to certified partners; webhooks by year-end; programmatic onboarding | Pantheon brief, MCP note | https://www.servicetitan.com/blog/pantheon-2026-live-coverage | 2026-10-08 | yes | Live-blog summary; one direct Chander quote ("a choice that you can trust") |
+| A ServiceTitan MCP server, described as still in development, let Claude find stale materials and offer to deactivate them | Pantheon brief, MCP note | https://www.servicetitan.com/blog/pantheon-2026-live-coverage | 2026-10-08 | yes | Live-blog narration of a demo, plus the quote "You didn't need to know what the APIs were"; availability unconfirmed |
+| Atlas places capacity holds for campaigns and shows reasoning; Command Center in private preview for Max customers | Pantheon brief | https://www.servicetitan.com/blog/pantheon-2026-live-coverage | 2026-10-08 | yes | Tuesday session recap; Armour quote is direct |
+| Atlas access is administered by persona | Pantheon brief, MCP note | https://help.servicetitan.com/docs/assign-atlas-access-and-personas | 2026-10-08 | yes | Help center |
+| Atlas creates and updates Adaptive Capacity strategic rules from plain language | Pantheon brief, MCP note | https://help.servicetitan.com/commercial/docs/use-atlas-in-adaptive-capacity-strategic-rules-1 | 2026-10-08 | yes | Help center |
+| Pantheon breakout sessions go to Academy about 4–6 weeks after the event | Pantheon brief | https://help.servicetitan.com/docs/how-can-i-access-pantheon-slides-and-video-recordings | 2026-10-08 | yes | Help center (updated April 9, 2026); Academy is a customer platform |
+| A transcript or recap of "Charging Ahead with AI and Max" (Oct 7) is public | Pantheon brief | — | 2026-10-08 | no | Not found on the live blog or in news search as of this date |
+
