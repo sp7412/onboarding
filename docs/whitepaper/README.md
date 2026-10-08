@@ -56,10 +56,23 @@ It is intentionally explicit about the boundary between:
 For the hands-on path, pair Chapter 15 with Labs 05–14, especially the LangGraph,
 shared-context, arbitration, learning-loop, and agent-to-agent labs.
 
-
 ## Shared skills chapter
 
 Chapter 16 adds the reusable capability layer that sits between agents and orchestration.
 It treats skills as versioned, evaluated business capabilities rather than prompt fragments,
 and explicitly distinguishes the public ServiceTitan evidence for Skills & Capabilities from
 the stronger hypothesis of a cross-agent skill registry or marketplace.
+
+## Comparative architecture and harness docs
+
+The companion docs make the architecture concrete beyond Chapter 15:
+
+- [Comparative Agent Architectures](../comparative-agent-architectures.md) compares
+  ServiceTitan, Salesforce, Microsoft, OpenAI, and Anthropic.
+- [Agent Harness](../agent-harness.md) separates RAG, state, memory, tools, guardrails,
+  workflows, and deterministic control.
+- [Design by Evaluation](../design-by-evaluation.md) treats evaluation as a design input
+  and connects traces, failure mining, regression, and rollout.
+
+Use these after Chapter 15 when the question is not just "what are the patterns?" but
+"where does control live, and how do we know the resulting system works?"
