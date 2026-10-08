@@ -233,3 +233,14 @@ Added when chapters 03, 04, 05, 08, 12, 13 and 14 were rewritten.
 | Pantheon breakout sessions go to Academy about 4–6 weeks after the event | Pantheon brief | https://help.servicetitan.com/docs/how-can-i-access-pantheon-slides-and-video-recordings | 2026-10-08 | yes | Help center (updated April 9, 2026); Academy is a customer platform |
 | A transcript or recap of "Charging Ahead with AI and Max" (Oct 7) is public | Pantheon brief | — | 2026-10-08 | no | Not found on the live blog or in news search as of this date |
 
+## Pantheon live-blog wrap pass, October 8, 2026
+
+| Claim | Chapter | URL | Date checked | Supported | Notes |
+|---|---:|---|---|---|---|
+| "Atlas is in closed alpha for admins only." "We haven't set pricing and packaging yet." | Pantheon brief | https://www.servicetitan.com/blog/pantheon-2026-live-coverage | 2026-10-08 | yes | Direct quotes in the Kuzoyan post; narrower than "launched" |
+| Contractors can "add a direct booking connection (MCP) to your website so agents can book jobs"; "The numbers are small today." | Pantheon brief, Homh doc | https://www.servicetitan.com/blog/pantheon-2026-live-coverage | 2026-10-08 | yes | Live-blog narration; availability and protocol details not stated |
+| Avoca tests every change by splitting calls between two versions and ships a winner only when statistically significant | Pantheon brief | https://www.servicetitan.com/blog/pantheon-2026-live-coverage | 2026-10-08 | yes | Partner's claim about its own process |
+| Superior Plumbing's AI Virtual Agent "took about 30 minutes to get running" and handles appointment booking | Pantheon brief | https://www.servicetitan.com/blog/pantheon-2026-live-coverage | 2026-10-08 | yes | Customer story; no booking metric |
+| Affirm pay-over-time live in estimates; Ramp bill pay and expense management GA; Ford Pro data (MY2020+) into Fleet Pro with no added hardware; supplier-connected catalog in progress | Pantheon brief | https://www.servicetitan.com/blog/pantheon-2026-live-coverage | 2026-10-08 | yes | Partner-ecosystem keynote recap |
+| Pantheon 2027 is Sept. 13–16, 2027, in Nashville | Pantheon brief | https://www.servicetitan.com/blog/pantheon-2026-live-coverage | 2026-10-08 | yes | Live-blog closing post |
+| A recap of the closing session or "Charging Ahead with AI and Max" is public | Pantheon brief | — | 2026-10-08 | no | Live blog wrapped without one |

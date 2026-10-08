@@ -1,6 +1,6 @@
 # Homh and AI-Agent Booking
 
-**Facts as of: October 7, 2026 · Last reviewed: October 7, 2026**
+**Facts as of: October 8, 2026 · Last reviewed: October 8, 2026**
 
 Public sources only. At Pantheon 2026, ServiceTitan announced **Homh**, a consumer demand
 generation platform that makes selected contractors discoverable and bookable where
@@ -12,7 +12,10 @@ platforms are forward-looking, not shipped. [1] ServiceTitan's live blog, in its
 rather than as a quote, says the Homh app plugin is already live on ChatGPT, Google Gemini and
 Claude. [2] Analysis: an app or plugin
 inside each assistant is a different shape from a direct agent-to-agent protocol, which is
-one more reason to treat the protocol questions below as open.
+one more reason to treat the protocol questions below as open. Later live-blog coverage also describes
+contractors adding "a direct booking connection (MCP) to your website so agents can book jobs",
+and notes "The numbers are small today." [2] That is a separate path from Homh, but it raises
+the same trust questions.
 
 This note is for a voice-agent engineer joining the team. It does not describe internal
 Homh architecture, authentication, APIs, or credentials. It lists the **new trust surfaces**

@@ -12,7 +12,8 @@ such, and anything marked **Analysis** is this repo's interpretation.
 > **Update (October 8):** the live blog now recaps Wednesday's partner-ecosystem keynote,
 > including a demo of an in-development ServiceTitan MCP server (section 2b), and Atlas help
 > documentation shows a permissioned, action-taking interface (section 5). No transcript or
-> recap of "Charging Ahead with AI and Max" has been published. ServiceTitan's help center
+> recap of "Charging Ahead with AI and Max" has been published. The blog's closing posts add
+> Atlas's "closed alpha" status and a website booking connection for agents (section 2c). ServiceTitan's help center
 > says breakout sessions go to Academy, its customer training platform, about 4–6 weeks after
 > the event. [3][4][5][6]
 
@@ -204,6 +205,40 @@ Homh. Both make the guarded booking boundary in lab 12 and the
 relevant. And the demo's offer to deactivate stale items is a write action proposed through
 MCP: the confirm-before-commit step around it is the control plane.
 
+## 2c. Live-blog wrap-up items (read October 8)
+
+The live blog has closed out the conference ("That's a wrap for Pantheon 2026!!"). Its later
+posts add a few items that the summaries above leave out. Where the blog places a post under a
+day heading that doesn't match the session, this brief doesn't assign it a day. [3]
+
+- **Atlas availability is narrower than "launched".** The blog quotes Kuzoyan directly:
+  "Atlas is in closed alpha for admins only." and "We haven't set pricing and packaging yet."
+  Read this alongside section 2a's "chief-of-staff-level agent with a dedicated mobile app".
+- **Agent booking on a contractor's own website.** In the same post, the blog describes
+  contractors being able to "add a direct booking connection (MCP) to your website so agents
+  can book jobs", and adds "The numbers are small today." This is a third outside-AI booking
+  path, alongside Homh in consumer assistants and certified partners like Avoca (section 2b).
+- **Partner evaluation practice.** Avoca "tests every change, down to the greeting, by
+  splitting calls between two versions" and, per the blog, rolls out a winner only when the
+  result is statistically significant. This is a partner's claim about its own process.
+- **Setup time for an AI Virtual Agent.** A customer story says Superior Plumbing's AI Virtual
+  Agent ("Piper") "took about 30 minutes to get running" and handles appointment booking,
+  freeing CSRs for callers who need hands-on help. This is a customer claim, with no booking
+  metric given.
+- **Other partner items:** Affirm pay-over-time is live in estimates; Ramp bill pay and expense
+  management is generally available; Ford Pro vehicle data (model year 2020 and newer) flows
+  into Fleet Pro with no extra hardware; and a supplier-connected catalog is being built with
+  design partners.
+- **Next year:** Pantheon 2027 is Sept. 13–16, 2027, in Nashville.
+
+Analysis: a booking connection on the contractor's own site turns MCP from an internal-data
+tool into a public booking surface. The trust questions in the
+[MCP and external-agent trust boundary](mcp-and-external-agent-trust-boundary.md) note
+(authorization, idempotency, confirm before commit) then apply to unknown outside agents, not
+just to a contractor's own assistant. "Closed alpha" and "the numbers are small today" both
+say the same thing: these surfaces are early, so plan for them changing rather than treating
+them as settled interfaces.
+
 ## 3. What this means for a voice-agent engineer
 
 Analysis:
@@ -245,6 +280,8 @@ Analysis:
 - Which outcomes feed the learning loop for the voice agent, and how quickly?
 - What can the MCP server read or do, and how are its permissions scoped per user and per
   customer?
+- How are bookings from a contractor's website booking connection (MCP) authenticated, and do
+  they pass through the same capacity and policy checks as voice bookings?
 
 The [hypothesis map](hypothesis-map.md) expands these into more than a dozen public-grounded hypotheses,
 each with how to test it and whom to ask in weeks 1–2.
@@ -265,7 +302,8 @@ From the conference schedule: [1][3]
 
 - **Charging Ahead with AI and Max**, Oct 7, 11:15 am ET (no public recap or transcript as of
   October 8; breakout recordings go to Academy about 4–6 weeks after the event [6])
-- **All-Star Titans** (closing session), Oct 7, 2 pm ET
+- **All-Star Titans** (closing session), Oct 7, 2 pm ET (the live blog wrapped up without a
+  recap of this session or of "Charging Ahead with AI and Max")
 - Full transcripts of the Oct 6 keynotes, to check the live blog's summaries (section 2a)
   against the speakers' actual words
 
