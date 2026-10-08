@@ -102,6 +102,7 @@ export const DOC_PAGES: DocPage[] = [
   { repoPath: "docs/call-anatomy.md", icon: "telephony" },
   { repoPath: "docs/evaluating-voice-agents.md", icon: "evaluation" },
   { repoPath: "docs/livekit-hands-on.md", icon: "labs" },
+  { repoPath: "docs/lab-environments.md", icon: "labs" },
   { repoPath: "docs/first-90-days-playbook.md", icon: "plan" },
   { repoPath: "docs/manager-alignment.md", icon: "team" },
   { repoPath: "docs/first-90-days-question-bank.md", icon: "team" },

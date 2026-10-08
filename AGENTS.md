@@ -63,6 +63,7 @@ tests/                       unittest suites for stlab, labs 09–14, the datase
                              test_sensitive.py uses fake placeholder patterns only
 MAINTENANCE.md               review cadence and past audits
 requirements.txt, .env.example
+.devcontainer/                Codespaces / dev-container definition (Python 3.12, bun, optional key secrets)
 .github/workflows/quality.yml  lint, hygiene, offline notebooks, site tests/type-check/build/links (PRs)
 .github/workflows/deploy-site.yml, links.yml   site deploy and weekly external link check
 ```
@@ -86,6 +87,9 @@ python scripts/run_notebooks.py --live   # use keys from .env (costs money; ask 
 - After editing: `cd labs && python build_nb.py`, then run the notebook test for that prefix.
 - Commit the `src/*.py` change **and** the regenerated `.ipynb` together.
 - Run `python scripts/check_repo.py`; committed notebooks must contain no outputs.
+- `build_nb.py` adds two cells after each title: an Open in Colab badge and a Colab setup
+  cell (a no-op elsewhere). Per-lab Colab packages live in its `COLAB_PACKAGES` map; edit that,
+  not the notebooks. The sources stay free of these cells, so the site's parsers are unaffected.
 - Top-level `await` is used in notebooks (Jupyter supports it). `%%writefile` cells in 04
   generate `labs/agents/*.py`.
 

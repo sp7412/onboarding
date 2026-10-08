@@ -1,13 +1,29 @@
 {
-  "name": "ServiceTitan Onboarding Labs",
+  "name": "ServiceTitan onboarding labs",
   "image": "mcr.microsoft.com/devcontainers/python:1-3.12-bookworm",
-  "postCreateCommand": "pip install -r requirements.txt",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": { "version": "22" }
+  },
+  "postCreateCommand": "python -m pip install -r requirements.txt && npm install -g bun@1.1.38 && cd site && bun install --frozen-lockfile",
+  "secrets": {
+    "OPENAI_API_KEY": {
+      "description": "Optional. Turns on live mode in the labs that use OpenAI (see the Keys column in labs/README.md). Every lab runs offline without it."
+    },
+    "LANGSMITH_API_KEY": {
+      "description": "Optional. Sends lab 07 and 08 traces to LangSmith."
+    },
+    "LIVEKIT_URL": { "description": "Optional. LiveKit project URL for lab 04's live agent." },
+    "LIVEKIT_API_KEY": { "description": "Optional. LiveKit API key for lab 04." },
+    "LIVEKIT_API_SECRET": { "description": "Optional. LiveKit API secret for lab 04." }
+  },
+  "forwardPorts": [8888, 4321],
+  "portsAttributes": {
+    "8888": { "label": "Jupyter" },
+    "4321": { "label": "Site (astro dev)" }
+  },
   "customizations": {
     "vscode": {
-      "extensions": [
-        "ms-python.python",
-        "ms-toolsai.jupyter"
-      ]
+      "extensions": ["ms-python.python", "ms-toolsai.jupyter"]
     }
   }
 }

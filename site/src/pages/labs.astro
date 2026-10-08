@@ -39,6 +39,7 @@ cd labs && jupyter lab</code></pre>
       )}
       {lab.exercise && (<details><summary>Graded exercise</summary><div set:html={md(lab.exercise)} /></details>)}
       <p class="links">
+        <a href={`https://colab.research.google.com/github/sp7412/onboarding/blob/main/labs/${lab.number}_${lab.slug}.ipynb`} rel="noopener noreferrer" target="_blank">Open in Colab</a>
         <a href={`https://nbviewer.org/github/sp7412/onboarding/blob/main/labs/${lab.number}_${lab.slug}.ipynb`} rel="noopener noreferrer" target="_blank">Preview on nbviewer</a>
         <a href={`${REPO}/blob/main/labs/src/${lab.number}_${lab.slug}.py`} rel="noopener noreferrer" target="_blank">Source</a>
       </p>

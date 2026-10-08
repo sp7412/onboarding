@@ -20,7 +20,7 @@ export interface Lab {
 
 /** labs/README.md table rows: `| 00 | setup_and_mental_model | architecture + mock backend | none |` */
 export function parseLabsReadme(markdown: string, file: string): { number: string; slug: string; layer: string; keys: string; time: string }[] {
-  const rows = [...markdown.matchAll(/^\| (\d{2}) \| ([a-z0-9_]+) \| (.+?) \| (.+?) \| (\d+–\d+ minutes) \|$/gm)].map(
+  const rows = [...markdown.matchAll(/^\| (\d{2}) \| ([a-z0-9_]+) \| (.+?) \| (.+?) \| (\d+–\d+ minutes) \|(?: [^|\n]* \|)?$/gm)].map(
     (m) => ({ number: m[1], slug: m[2], layer: m[3], keys: m[4], time: m[5] }),
   );
   expectCondition(file, "at least nine lab rows", rows.length >= 9, `got ${rows.length}`);

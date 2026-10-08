@@ -217,6 +217,15 @@ describe("lab parsing", () => {
     expect(readmeRow[3]).toEqual({ number: "03", slug: "lab_3", layer: "layer", keys: "none", time: "30–60 minutes" });
   });
 
+  it("accepts an optional trailing column such as an Open in Colab badge", () => {
+    const rows = parseLabsReadme(
+      Array.from({ length: 9 }, (_, i) => `| ${String(i).padStart(2, "0")} | lab_${i} | layer | none | 30–60 minutes | [![Open In Colab](https://e.com/b.svg)](https://e.com/${i}) |`).join("\n"),
+      "labs/README.md",
+    );
+    expect(rows).toHaveLength(9);
+    expect(rows[2].time).toBe("30–60 minutes");
+  });
+
   it("rejects duplicate or incomplete lab tables", () => {
     expect(() => parseLabsReadme(`| 00 | x | layer | none | 30–60 minutes |\n| 00 | y | layer | none | 30–60 minutes |`, "broken.md")).toThrow(ContentError);
   });
