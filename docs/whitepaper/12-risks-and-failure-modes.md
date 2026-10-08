@@ -1,19 +1,14 @@
 # 12 - Risks And Failure Modes
 
-**Estimated reading time:** 8 minutes · **Facts as of:** September 27, 2026
+**Estimated reading time:** 9 minutes · **Facts as of:** October 7, 2026
 
 ## Five Takeaways
 
-1. The most dangerous failures are silent ones: the agent says something happened that
-   didn't (or books something wrong) and nobody notices until a technician shows up.
-2. Safety emergencies (gas, carbon monoxide, electrical, flooding) must override every
-   booking flow.
-3. Reliability has to be measured across repeated trials, not single demos; research
-   benchmarks for customer-service agents show large drops when the same task is repeated. [1]
-4. Legal and privacy risks (AI-voiced outbound calls, recording consent, payment data) are
-   design constraints, not afterthoughts. [2][3][4]
-5. ServiceTitan's own 10-K flags AI competition, regulatory and reputational risks; a bad
-   agent experience threatens contractor trust, which underpins retention above 95%. [5]
+1. The most dangerous failures are silent ones: the agent says something happened that didn't (or books something wrong) and nobody notices until a technician shows up.
+2. Safety emergencies (gas, carbon monoxide, electrical, flooding) must override every booking flow.
+3. Reliability has to be measured across repeated trials, not single demos; research benchmarks for customer-service agents show large drops when the same task is repeated. [1]
+4. Legal and privacy risks (AI-voiced outbound calls, recording consent, payment data) are design constraints, not afterthoughts. [2][3][4]
+5. ServiceTitan's own 10-K flags AI competition, regulatory and reputational risks; a bad agent experience threatens contractor trust, which underpins retention above 95%. [5]
 
 ## Risk register
 
@@ -32,6 +27,26 @@
 | **Regulatory breach** | AI-voiced outbound call without consent; recording without notice | High | Consent store; jurisdiction-aware notices (chapter 10) | Compliance test suite |
 | **Payment data exposure** | Caller reads a card number to the agent | High | Out-of-band payment capture; transcript redaction | Redaction tests on traces and datasets |
 | **Outages and slowness** | Model, telephony or backend degraded on a peak day | High | Timeouts, fallbacks to humans or voicemail, capacity planning | Chaos and load tests at peak volume |
+| **Untrusted agent channel** | A consumer AI assistant books for the wrong household, or retries create duplicates | High | Authenticate the platform and the homeowner; idempotency keys; same capacity and policy checks as phone | Agent-to-agent scenarios (lab 12) |
+| **Coordination failure** | Voice books a high-value job; dispatch, lacking context, sends a junior technician | Medium–High | Shared, verified call facts; arbitration in deterministic code; one authoritative commit | Cross-agent scenarios (labs 09, 10, 13) |
+
+## New risk surfaces from Pantheon 2026
+
+- **AI assistants as a booking channel.** The press release says Homh connects homeowners
+  "and their AI agents" with contractors through ChatGPT, Gemini and Claude, with confirmed
+  booking into ServiceTitan. [7] The public material does not describe how those requests are
+  authenticated or authorized. Analysis: identity, consent, duplicate requests and automated
+  probing become trust questions with no human voice on the line
+  ([Homh and AI-agent booking](../homh-and-agent-booking.md)).
+- **Assistants reading business data.** The company's live blog reports an MCP server
+  connecting Claude or ChatGPT to ServiceTitan data. [8] Analysis: per-user and per-customer
+  permission scoping is the obvious risk to understand.
+- **Agents that disagree.** The CEO said independent agents each optimized their own metric
+  and the business still made poor decisions: ads kept spending with a full schedule, and
+  dispatch sent a lower-level technician to a high-value job the voice agent had booked. He
+  called the cost an "effectiveness tax." [9] Analysis: with 30 agents, a correct local
+  decision can still be a system failure, so evaluation has to cover handoffs and arbitration
+  ([chapter 15](15-agentic-orchestration.md)).
 
 ## Reliability is a distribution, not a demo
 
@@ -79,3 +94,6 @@ program ties the company's strategy even more tightly to AI working well. [6]
 4. California Department of Justice, CCPA: <https://oag.ca.gov/privacy/ccpa>
 5. ServiceTitan Form 10-K, fiscal 2026 (Risk Factors; retention): <https://www.sec.gov/Archives/edgar/data/1638826/000163882626000028/ttan-20260131.htm>
 6. ServiceTitan fiscal Q2 2027 results: <https://www.sec.gov/Archives/edgar/data/1638826/000163882626000093/ttan-ex99_1.htm>
+7. ServiceTitan press release, "ServiceTitan Announcing New and Expanded Capabilities at Pantheon 2026" (October 6, 2026): <https://www.globenewswire.com/news-release/2026/10/06/3375320/0/en/servicetitan-announcing-new-and-expanded-capabilities-at-pantheon-2026.html>
+8. ServiceTitan, "Pantheon 2026: Live coverage from ServiceTitan" (live blog, read October 7, 2026): <https://www.servicetitan.com/blog/pantheon-2026-live-coverage>
+9. Investing.com, ServiceTitan at Pantheon 2026, keynote summary and transcript (October 6, 2026): <https://www.investing.com/news/transcripts/servicetitan-at-pantheon-2026-ai-push-aims-to-make-trades-selfrunning-93CH-4934737>

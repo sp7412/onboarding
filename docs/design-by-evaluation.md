@@ -13,7 +13,7 @@ result) from its outcome (what actually changed), recommends grading the outcome
 uses transcripts to check that the graders work [1]. Microsoft Agent Framework includes
 evaluators for both agents and workflows [2]. OpenAI's evaluation workflow starts from traces
 and graders and moves to repeatable datasets and eval runs [3]. This doc is the repo's
-synthesis of those ideas; [whitepaper chapter 15, section 12](whitepaper/15-agentic-orchestration.md)
+synthesis of those ideas; [whitepaper chapter 17, sections 3–4](whitepaper/17-running-agents-in-production.md#3-evaluation-define-success-before-changing-the-agent)
 covers offline and online evaluation and canary releases in more depth.
 
 ## 1. The evaluation-first loop
@@ -262,7 +262,7 @@ Failure finding works when it is a habit with an owner, not a project:
 Anthropic's eval guidance makes the same point about reading: you won't know whether your
 graders work unless you read transcripts and grades from many trials [1]. OpenAI's guidance
 starts from traces, which record the model calls, tool calls, guardrails and handoffs of each
-run [3]. [Whitepaper chapter 15, section 11](whitepaper/15-agentic-orchestration.md) works a
+run [3]. [Whitepaper chapter 17, section 2](whitepaper/17-running-agents-in-production.md#2-debugging-production-agents-and-mining-failure-cases) works a
 "wrong technician" investigation end to end.
 
 The specific signals, thresholds and review rituals at any company are team decisions. Ask

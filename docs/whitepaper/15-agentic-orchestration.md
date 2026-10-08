@@ -1,6 +1,6 @@
 # 15 - Agentic Orchestration: From Single Agents to an AI Operating System
 
-**Estimated reading time:** 40 minutes (essentials path: 12 minutes) · **Facts as of:** October 7, 2026
+**Estimated reading time:** 31 minutes (essentials path: 12 minutes) · **Facts as of:** October 7, 2026
 
 **Audience:** engineers who understand ML and LLMs but are new to multi-agent production systems.
 ServiceTitan material is separated into **public claim** and **analysis/hypothesis** throughout;
@@ -12,12 +12,14 @@ no internal ServiceTitan architecture is asserted.
 2. ServiceTitan publicly describes Max as 30 agents across 18 business drivers, coordinated through shared context, shared judgment, coordinated action, arbitration and centralized supervision [1][2]. How it is built is not public.
 3. Salesforce organizes the same problem as a primary agent delegating to specialists, with MCP and A2A as protocols and an Agent Gateway for governance [3][4]; Microsoft Agent Framework makes the topology explicit as workflows (sequential, concurrent, handoff, group chat, Magentic) [5][6].
 4. MCP and A2A are connectivity, not orchestration. Arbitration, policy and side effects belong to deterministic application code: the model proposes, the harness controls.
-5. Production agents need per-run traces, an analytical history to mine failures, evaluations built from those failures, and canary rollout. ServiceTitan's public job listings name Kafka, Snowflake and Airflow in its data platform [7][8]; their role in agent telemetry is a hypothesis.
+5. Running these agents in production (traces, failure mining, evaluation, canary rollout) is chapter 17. ServiceTitan's job listings name Kafka, Snowflake and Airflow in its data platform [7][8]; their role in agent telemetry is a hypothesis.
 
 > **Essentials path (12 minutes):** read sections 1–6 for the problem and the three approaches,
-> "Arbitration does not have to be an LLM" and "MCP and A2A are not orchestration", then
-> "What we can and cannot infer about ServiceTitan" and the lab map. The rest is a production
-> playbook to return to after day one.
+> section 13 ("Arbitration does not have to be an LLM") and section 14 ("MCP and A2A are not
+> orchestration"), then section 18 ("What we can and cannot infer about ServiceTitan") and the
+> lab map (section 17). The rest is implementation detail to return to after day one; the
+> production playbook (tracing, failure mining, evaluation and rollout) is
+> [chapter 17](17-running-agents-in-production.md).
 
 ## 1. Why orchestration matters
 
@@ -674,604 +676,7 @@ The engineering principle is:
 
 This is also why a tool should generally be treated as an API with a contract, not as a trusted extension of the model.
 
-## 10. Production observability: trace the decision, not just the request
-
-A production agent that cannot be traced is extremely difficult to debug.
-
-For every meaningful agent run, capture a correlated trace such as:
-
-```text
-trace_id
-   |
-   +-- user request
-   |
-   +-- agent invocation
-   |     +-- model
-   |     +-- prompt/version
-   |     +-- latency
-   |     +-- tokens/cost
-   |
-   +-- tool call
-   |     +-- tool name
-   |     +-- arguments
-   |     +-- latency
-   |     +-- result/status
-   |
-   +-- policy decision
-   |
-   +-- human approval (if any)
-   |
-   +-- final outcome
-```
-
-For a multi-agent system, extend the same trace across the graph:
-
-```text
-trace_id = 8f2...
-
-  Coordinator
-      |
-      +-- Booking Agent
-      |      +-- LLM call
-      |      +-- availability tool
-      |
-      +-- Dispatch Agent
-      |      +-- capacity tool
-      |
-      +-- Arbitration
-      |      +-- candidates
-      |      +-- selected action
-      |
-      +-- Control Harness
-             +-- policy result
-             +-- booking API
-```
-
-Every child operation should retain the parent trace/span relationship. Otherwise a production incident becomes a pile of unrelated log lines.
-
-### What to capture
-
-At minimum, capture:
-
-- trace/run ID and correlation IDs;
-- agent and graph version;
-- prompt/instruction version;
-- model/provider/version;
-- tool name and structured arguments;
-- tool result status and latency;
-- policy/control decisions;
-- retries and exceptions;
-- human approvals/rejections;
-- final business outcome;
-- token usage and model/tool cost where available.
-
-Be deliberate about data handling. Customer PII, call transcripts, secrets, authentication material, and sensitive tool payloads should not automatically be copied into every trace. Redaction, access control, retention, and sampling are production requirements.
-
-### Debugging with traces
-
-When a customer reports:
-
-```text
-"The agent booked the wrong technician."
-```
-
-The trace should let an engineer walk backward:
-
-```text
-wrong outcome
-     ^
-wrong action selected
-     ^
-arbitration decision
-     ^
-agent proposal
-     ^
-model/tool result
-     ^
-shared state at that point in time
-     ^
-original user facts
-```
-
-This is much more useful than looking only at the final answer.
-
-LangSmith is one example of a tracing/evaluation platform that can provide this kind of agent run visibility. OpenTelemetry is the broader vendor-neutral instrumentation model. The exact production stack is an implementation choice.
-
-## 11. Debugging production agents and mining failure cases
-
-Tracing is only useful if engineers can go from a production symptom to the exact decision path that caused it.
-
-A practical incident workflow is:
-
-```text
-1. Detect a bad outcome
-         |
-         v
-2. Find the trace_id / conversation_id
-         |
-         v
-3. Reconstruct the trace
-         |
-         +--> input/context
-         +--> model calls
-         +--> tool calls
-         +--> intermediate state
-         +--> policy decisions
-         +--> retries
-         +--> final action
-         |
-         v
-4. Identify the failure mode
-         |
-         +--> bad facts
-         +--> bad retrieval
-         +--> bad reasoning
-         +--> wrong tool
-         +--> bad arguments
-         +--> policy failure
-         +--> stale state
-         +--> integration failure
-         |
-         v
-5. Save the case as an evaluation example
-         |
-         v
-6. Fix / evaluate / canary
-```
-
-### Example: "the agent booked the wrong technician"
-
-An engineer should be able to search production telemetry for:
-
-```text
-outcome = "wrong_technician"
-agent = "booking"
-date >= yesterday
-policy_result = "allowed"
-```
-
-Then drill into the individual traces:
-
-```text
-Trace 8f2...
-   |
-   +-- customer facts
-   +-- availability lookup
-   +-- dispatch recommendation
-   +-- model proposal
-   +-- arbitration
-   +-- authorization
-   +-- booking API
-   +-- observed result
-```
-
-The goal is not merely to find the bad response. It is to determine **which decision boundary failed**.
-
-### Searching for interesting failures
-
-Production telemetry should be queryable as structured data, not only as text logs.
-
-Useful dimensions include:
-
-- agent/version;
-- model/version;
-- prompt/instruction version;
-- tool name;
-- tool error/status;
-- policy decision;
-- autonomy level;
-- latency bucket;
-- retry count;
-- escalation/HITL;
-- user feedback;
-- business outcome;
-- evaluator score;
-- experiment/canary cohort;
-- geography/job type/customer segment where appropriate.
-
-That enables queries such as:
-
-```text
-Find all traces where:
-  - booking agent
-  - candidate version = v42
-  - tool = availability
-  - latency > 2 seconds
-  - outcome = failed
-```
-
-or:
-
-```text
-Find the top 100 traces where:
-  - evaluator_score < threshold
-  - policy = allowed
-  - no human intervention
-```
-
-or:
-
-```text
-Compare:
-  v41 vs v42
-  for the same job classes
-  by:
-    task success
-    wrong-action rate
-    escalation
-    p95 latency
-    cost
-```
-
-### Turn production failures into the eval set
-
-This is one of the most important production-agent practices:
-
-```text
-Production
-   |
-   v
-traces
-   |
-   v
-failure mining
-   |
-   +--> representative failures
-   +--> rare edge cases
-   +--> policy violations
-   +--> expensive failures
-   +--> high-confidence user complaints
-   |
-   v
-curated evaluation set
-   |
-   v
-candidate agent
-   |
-   v
-regression evaluation
-   |
-   v
-canary
-   |
-   v
-production
-```
-
-Do not simply collect the worst examples. Also sample successful traces so the evaluation set does not become a collection of pathological cases. Maintain slices for important cohorts and failure modes.
-
-### Event streaming vs long-term analytical storage
-
-**Generic pattern, not a description of ServiceTitan's agent architecture.** A common production
-architecture separates **operational event transport** from **durable analytical storage**:
-
-```text
-Agent runtime
-    |
-    | OpenTelemetry/events
-    v
-+----------------+
-| Event stream   |
-| (e.g. Kafka)   |
-|                |
-+-------+--------+
-        |
-   +----+----+
-   |         |
-   v         v
-real-time  durable
-consumers  data platform
-              |
-              v
-  warehouse (e.g. Snowflake)
-              |
-      +-------+-------+
-      |               |
-   analytics       evaluation
-   / dashboards    / failure mining
-```
-
-An event stream such as Kafka is well suited to moving high-volume events to many consumers; a warehouse such as Snowflake is well suited to retaining and querying history: outcomes, versions, cohorts and evaluator scores. ServiceTitan's public job listings name both in its data platform (see "What we can and cannot infer about ServiceTitan"), but how its agents use them is not public.
-
-For an agent team, the important distinction is:
-
-> **The trace system explains one execution; the analytical system lets you find patterns across millions of executions.**
-
-For example, a trace can explain one bad booking. A warehouse query can show that a rise in booking failures is concentrated in one combination, say model v42 with tool v7 on evening traffic (a made-up example), which no single trace would reveal.
-
-### What to persist for failure mining
-
-A useful durable event schema includes:
-
-```text
-trace_id
-parent_span_id
-timestamp
-agent_name
-agent_version
-model_name
-model_version
-prompt_version
-experiment_id
-cohort
-input_class
-tool_name
-tool_version
-policy_result
-proposed_action
-executed_action
-outcome
-evaluator_score
-latency_ms
-token_usage
-cost
-retry_count
-human_intervention
-error_code
-```
-
-Keep large payloads such as transcripts and tool bodies separately governed when appropriate. The analytical event should contain enough identifiers and structured metadata to find the detailed trace without making every warehouse row a copy of sensitive conversation data.
-
-### Debugging is a join across systems
-
-In a mature production environment, the engineer often needs to correlate:
-
-```text
-customer/job ID
-      |
-      +--> application database
-      |
-      +--> trace ID
-      |
-      +--> event stream
-      |
-      +--> warehouse history
-      |
-      +--> evaluation result
-      |
-      +--> deployment/experiment version
-```
-
-That correlation should be designed **before** production. A trace ID that disappears when the request crosses an agent, tool, queue, or service boundary makes distributed debugging dramatically harder.
-
-## 12. Evaluation: define success before changing the agent
-
-An agent can be technically successful while being operationally bad.
-
-```text
-"Tool call succeeded"
-         !=
-"Business outcome was good"
-```
-
-For example:
-
-```text
-Booking API: 200 OK
-Agent run: SUCCESS
-
-But:
-- wrong technician;
-- poor route;
-- customer unhappy;
-- margin below threshold.
-```
-
-Production evaluation therefore needs multiple levels:
-
-```text
-Level 1: runtime correctness
-  Did the workflow complete?
-
-Level 2: agent correctness
-  Did it choose an appropriate action?
-
-Level 3: policy correctness
-  Was the action permitted?
-
-Level 4: business outcome
-  Did the action improve the target metric?
-```
-
-A useful evaluation record is:
-
-```json
-{
-  "trace_id": "...",
-  "agent_version": "...",
-  "scenario": "...",
-  "expected": "...",
-  "proposed_action": "...",
-  "policy_result": "...",
-  "actual_outcome": "...",
-  "human_label": "...",
-  "business_metrics": {
-    "revenue": 0,
-    "travel_minutes": 0,
-    "customer_delay_minutes": 0
-  }
-}
-```
-
-This allows offline regression tests and online production evaluation to use the same conceptual schema.
-
-### Offline evaluation
-
-Before deployment, maintain a representative evaluation set:
-
-```text
-scenario
-   |
-   +--> expected facts
-   +--> expected constraints
-   +--> acceptable actions
-   +--> unacceptable actions
-   +--> expected outcome
-```
-
-Run the candidate agent against the set and compare:
-
-```text
-baseline agent
-      vs.
-candidate agent
-```
-
-Do not rely on one aggregate score. Track safety/policy failures separately from quality metrics. A small average improvement is not worth a large increase in dangerous or unauthorized actions.
-
-### Online evaluation
-
-Production evaluation can sample real traces and score them asynchronously:
-
-```text
-production traffic
-      |
-      v
-   traces
-      |
-      +-----------> dashboards
-      |
-      +-----------> online evaluators
-                       |
-                 +-----+------+
-                 |            |
-               quality      policy
-               score        violations
-                 |
-                 v
-              outcomes
-```
-
-This closes the loop between what the model *said* and what the system *actually did*.
-
-## 13. Canary releases and A/B testing for agents
-
-Agent changes should be treated like production software changes, not just prompt edits.
-
-A practical rollout looks like:
-
-```text
-100% current version
-          |
-          v
-      1% canary
-          |
-    +-----+-----+
-    |           |
-  healthy     regressions
-    |           |
-    v           v
-  10%         rollback
-    |
-    v
-  25%
-    |
-    v
-  50%
-    |
-    v
- 100%
-```
-
-The canary should be evaluated on **guardrail metrics first**, not just aggregate quality:
-
-- tool/policy violation rate;
-- wrong-action rate;
-- escalation rate;
-- task success;
-- latency/p95/p99;
-- error rate;
-- cost per interaction;
-- human intervention rate;
-- customer/business outcome metrics.
-
-### A/B testing
-
-For a controlled experiment, route comparable traffic to two versions:
-
-```text
-request
-   |
-   v
-experiment router
-   |
-   +--------+--------+
-   |                 |
-   v                 v
-Agent A           Agent B
-control           treatment
-   |                 |
-   +--------+--------+
-            |
-            v
-    common evaluation
-            |
-            v
-    business outcomes
-```
-
-The key is to keep the evaluation and routing layer outside the agent being tested.
-
-For voice and scheduling systems, random assignment may not be sufficient. Stratify or balance on factors such as:
-
-- customer segment;
-- job type;
-- geography;
-- time of day;
-- technician availability;
-- language/channel;
-- traffic source.
-
-Otherwise a treatment can appear better simply because it received easier cases.
-
-### Shadow mode
-
-Before allowing a new agent to take real actions, use shadow mode:
-
-```text
-real request
-     |
-     +----------> current agent --> real action
-     |
-     +----------> candidate agent --> proposal only
-                                  |
-                                  v
-                               compare
-```
-
-The candidate observes production-like inputs and generates decisions, but its proposed side effects are not executed.
-
-This is especially valuable for consequential agents because it measures real-distribution behavior without giving an unproven model authority.
-
-### Canary + trace + evaluation form one system
-
-These are not separate DevOps features:
-
-```text
-RELEASE
-   |
-   v
-ROUTING
-   |
-   v
-AGENT
-   |
-   v
-TRACE
-   |
-   v
-EVALUATION
-   |
-   +------> guardrail breach --> rollback
-   |
-   +------> healthy ----------> increase traffic
-   |
-   +------> business improvement -> promote
-```
-
-That is the production learning loop around the agent.
-
-## 14. Idempotency and durable execution
+## 10. Idempotency and durable execution
 
 Agent workflows fail in ordinary software-engineering ways:
 
@@ -1328,7 +733,7 @@ Production systems therefore need an idempotency boundary:
 
 This is as important as prompt quality.
 
-## 15. Human-in-the-loop is a workflow state
+## 11. Human-in-the-loop is a workflow state
 
 A mature system should not treat human approval as an exception.
 
@@ -1357,7 +762,7 @@ LangGraph's interrupt/persistence model is useful for this exact pattern.
 
 The workflow can pause with its state intact, wait for external input, and resume.
 
-## 16. Why "shared context" should not mean "share everything"
+## 12. Why "shared context" should not mean "share everything"
 
 A tempting architecture is:
 
@@ -1405,7 +810,7 @@ This gives every downstream agent a common representation without requiring ever
 
 The existing Call Facts contract and Lab 09 are the repository's concrete teaching implementation of this idea.
 
-## 17. Arbitration does not have to be an LLM
+## 13. Arbitration does not have to be an LLM
 
 This is another important design choice.
 
@@ -1456,7 +861,7 @@ LLM = reasoning + candidate generation
 Code = state + policy + authority + side effects
 ```
 
-## 18. MCP and A2A are not orchestration
+## 14. MCP and A2A are not orchestration
 
 Two protocols come up in every agent-architecture conversation, and they answer different
 questions:
@@ -1582,7 +987,7 @@ Therefore:
 > MCP and A2A solve connectivity and interoperability. They make it cheaper to plug things
 > together; they do not decide what should happen, and they do not make an action safe.
 
-## 19. Recommended prototype architecture
+## 15. Recommended prototype architecture
 
 For a small ServiceTitan-like educational system, use:
 
@@ -1645,7 +1050,7 @@ Start with:
 
 Then deliberately create conflicts.
 
-## 20. A useful experiment
+## 16. A useful experiment
 
 Create a fictional HVAC company with:
 
@@ -1716,7 +1121,7 @@ It is:
 
 That is the core systems question behind the Pantheon architecture.
 
-## 21. How the existing onboarding labs map to this chapter
+## 17. How the existing onboarding labs map to this chapter
 
 The repository already has hands-on material for the concepts in this chapter:
 
@@ -1731,6 +1136,8 @@ The repository already has hands-on material for the concepts in this chapter:
 - Lab 14 — earning autonomy
 
 Use the lab index in [labs/README.md](../../labs/README.md) for the canonical filenames and execution order.
+Lab 07 (tracing and evaluation) pairs with [chapter 17](17-running-agents-in-production.md), which
+covers tracing, failure mining, evaluation and rollout.
 
 The intended progression is:
 
@@ -1764,7 +1171,7 @@ Measured autonomy
 
 The new chapter is therefore the **architecture map** that connects the individual labs.
 
-## 22. What we can and cannot infer about ServiceTitan
+## 18. What we can and cannot infer about ServiceTitan
 
 This distinction should remain explicit throughout onboarding. The public record is stronger for ServiceTitan's **data platform** than it is for the private implementation of the Pantheon agent runtime.
 
@@ -1827,7 +1234,9 @@ consumers         |
 
 ### What this means for production agents
 
-This makes the production debugging section earlier in the chapter more concrete.
+This makes the production debugging material in
+[chapter 17](17-running-agents-in-production.md#2-debugging-production-agents-and-mining-failure-cases)
+more concrete.
 
 A useful engineering hypothesis (not a documented ServiceTitan design) is:
 
@@ -1929,7 +1338,7 @@ The right engineering stance is therefore:
 
 The goal of this chapter is to understand the **architecture problem**, then use public ServiceTitan evidence and open-source implementations to develop useful engineering hypotheses.
 
-## 23. The deeper architectural pattern
+## 19. The deeper architectural pattern
 
 The most useful synthesis is:
 
@@ -1967,7 +1376,7 @@ The differentiator is not merely having an LLM.
 
 It is the system around the LLM that lets many probabilistic components operate against a shared, authoritative model of the business.
 
-## 24. Final mental model
+## 20. Final mental model
 
 If you remember only one diagram, remember this:
 
@@ -2024,9 +1433,7 @@ Try each question before reading the sketches below it.
    the same technician slot. What would you put in charge instead, and what can the LLM still do?
 3. "We adopted MCP and A2A, so orchestration is solved." What do those protocols give you,
    and what do they leave to you?
-4. A customer reports that the wrong technician was booked. Which three systems do you need
-   to join to explain it, and what must have been captured at decision time?
-5. Which statements about ServiceTitan's architecture in this chapter are public facts, and
+4. Which statements about ServiceTitan's architecture in this chapter are public facts, and
    which are hypotheses you would need to validate after joining?
 
 **Answer sketches**
@@ -2035,18 +1442,18 @@ Try each question before reading the sketches below it.
    reasoning from different facts and scores; arbitration and supervision resolve conflicts
    that remain. Lab 10 shows it.
 2. Deterministic arbitration over expected value net of cost, with hard constraints
-   (consent, emergencies, capacity) that are never traded away (section 17; lab 10). The LLM can
+   (consent, emergencies, capacity) that are never traded away (section 13; lab 10). The LLM can
    propose and explain; the harness decides and commits.
 3. Connectivity: MCP standardizes tool and data access, A2A standardizes agent-to-agent
    calls. Policy, arbitration, durable state, idempotent side effects and supervision are
-   still application code (section 18).
-4. The agent trace (what it saw and proposed), the source of truth (what was committed and
-   when) and the analytical history (similar cases and outcomes), joined on stable IDs
-   captured when the decision was made (sections 10–11).
-5. Public: the press release and keynote describe 30 agents across 18 business drivers and
+   still application code (section 14).
+4. Public: the press release and keynote describe 30 agents across 18 business drivers and
    the five coordination capabilities, and job listings name parts of the data platform.
    Hypotheses: how any of it is implemented, including the role of streaming or the
-   warehouse in agent telemetry (section 22).
+   warehouse in agent telemetry (section 18).
+
+A question on debugging a wrong-technician booking moved with the production material to
+[chapter 17](17-running-agents-in-production.md#check-your-understanding).
 
 ## Sources
 
@@ -2067,4 +1474,4 @@ Try each question before reading the sketches below it.
 - [LangGraph](https://github.com/langchain-ai/langgraph): [overview](https://docs.langchain.com/oss/python/langgraph/overview), [persistence](https://docs.langchain.com/oss/python/langgraph/persistence), [durable execution](https://docs.langchain.com/oss/python/langgraph/checkpointers#durability-modes), [interrupts](https://docs.langchain.com/oss/python/langgraph/interrupts)
 - [LangChain agents](https://docs.langchain.com/oss/python/langchain/agents)
 - Labs: [05 LangChain agent](../../labs/05_langchain_create_agent.ipynb), [06 LangGraph booking workflow](../../labs/06_langgraph_booking_workflow.ipynb), [07 tracing and evaluation](../../labs/07_langsmith_tracing_evals.ipynb), [09 shared context](../../labs/09_shared_context.ipynb), [10 coordination and arbitration](../../labs/10_coordination_and_arbitration.ipynb), [11 learning loop](../../labs/11_learning_loop.ipynb), [12 agent-to-agent booking](../../labs/12_agent_to_agent_booking.ipynb), [13 Mini-Max capstone](../../labs/13_minimax_capstone.ipynb), [14 earning autonomy](../../labs/14_earning_autonomy.ipynb)
-- Related in this repo: [call facts contract](../call-facts-contract.md), [tools and guardrails](../tools-and-guardrails.md), [chapter 16: shared skills](16-shared-skills-and-capabilities.md)
+- Related in this repo: [call facts contract](../call-facts-contract.md), [tools and guardrails](../tools-and-guardrails.md), [chapter 16: shared skills](16-shared-skills-and-capabilities.md), [chapter 17: running agents in production](17-running-agents-in-production.md)

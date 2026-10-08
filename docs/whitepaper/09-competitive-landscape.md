@@ -1,23 +1,17 @@
 # 09 - Competitive Landscape
 
-**Estimated reading time:** 6 minutes · **Facts as of:** September 27, 2026
+**Estimated reading time:** 7 minutes · **Facts as of:** October 7, 2026
 
 Neutral and factual by design: this chapter describes who competes and on what
 dimensions. It does not rank vendors.
 
 ## Five Takeaways
 
-1. ServiceTitan says the market for trades software is still early, with many businesses
-   running on rudimentary workflows. [1]
-2. Its 10-K groups competitors into four types and names examples: Salesforce, SAP,
-   FieldEdge, WorkWave, ServiceTrade, AccuLynx, BuildOps, Housecall Pro, JobNimbus and
-   Jobber. [1]
+1. ServiceTitan says the market for trades software is still early, with many businesses running on rudimentary workflows. [1]
+2. Its 10-K groups competitors into four types and names examples: Salesforce, SAP, FieldEdge, WorkWave, ServiceTrade, AccuLynx, BuildOps, Housecall Pro, JobNimbus and Jobber. [1]
 3. AI is now a competitive axis: the 10-K warns competitors may add AI faster or better. [1]
-4. Well-funded AI-native vendors sell voice agents directly to contractors, often
-   integrating with ServiceTitan rather than replacing it. [2][3]
-5. Analysis: voice agents are where vertical platforms, point-solution AI startups and
-   horizontal contact-center AI meet, so this is one of the most contested surfaces in the
-   company.
+4. Well-funded AI-native vendors sell voice agents directly to contractors, often integrating with ServiceTitan rather than replacing it. [2][3]
+5. Analysis: voice agents are where vertical platforms, point-solution AI startups and horizontal contact-center AI meet, so this is one of the most contested surfaces in the company.
 
 ## How ServiceTitan frames competition
 
@@ -59,6 +53,26 @@ Other adjacent competitors to watch, as categories rather than named vendors:
 - **Consumer platforms and marketplaces** that capture demand before it reaches the
   contractor's phone, which the 10-K also flags. [1]
 
+## Pantheon 2026: the "agentic operating system" positioning
+
+At its October 2026 user conference, ServiceTitan framed itself as a platform for agents,
+not only software that agents plug into:
+
+- The press release calls Max "the fully loaded version of ServiceTitan's Agentic Operating
+  System" and describes the company as "a purpose-built agentic operating system." [8]
+- The company's live blog closes its coverage of the co-founder and president's keynote with
+  the line "We're ServiceTitan, the agentic operating system of the trades." [9]
+- The CEO said customers can adopt ServiceTitan's agents, "third-party agents," or "even
+  build your own agents." [10] The press release says AI CSRs get access to Adaptive
+  Capacity, the intelligence behind ServiceTitan's own scheduling. [8]
+- The CEO also said contractors will soon have to compete for demand in "ChatGPT ads," and
+  the company launched Homh to make contractors bookable through consumer AI assistants. [8][10]
+
+Analysis: this positions ServiceTitan as the host and system of record for whichever agents
+a contractor uses, including AI front-office vendors that compete with its own voice agent.
+The competitive surface shifts toward capacity access, data depth and coordination, and
+consumer AI assistants become a new place where demand is won before the phone rings.
+
 ## Comparison dimensions
 
 For any competitor, compare:
@@ -96,3 +110,6 @@ For any competitor, compare:
 5. FieldEdge: <https://fieldedge.com/>
 6. JobNimbus: <https://www.jobnimbus.com/>
 7. BuildOps: <https://buildops.com/>
+8. ServiceTitan press release, "ServiceTitan Announcing New and Expanded Capabilities at Pantheon 2026" (October 6, 2026): <https://www.globenewswire.com/news-release/2026/10/06/3375320/0/en/servicetitan-announcing-new-and-expanded-capabilities-at-pantheon-2026.html>
+9. ServiceTitan, "Pantheon 2026: Live coverage from ServiceTitan" (live blog, read October 7, 2026): <https://www.servicetitan.com/blog/pantheon-2026-live-coverage>
+10. Investing.com, ServiceTitan at Pantheon 2026, keynote summary and transcript (October 6, 2026): <https://www.investing.com/news/transcripts/servicetitan-at-pantheon-2026-ai-push-aims-to-make-trades-selfrunning-93CH-4934737>
