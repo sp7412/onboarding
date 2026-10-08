@@ -10,7 +10,7 @@ published keynote transcript, the conference live blog, and current ServiceTitan
 such, and anything marked **Analysis** is this repo's interpretation.
 
 > **Update (October 8):** the live blog now recaps Wednesday's partner-ecosystem keynote,
-> including a demo of an in-development ServiceTitan MCP server (section 2b), and Atlas help
+> including a demo of a ServiceTitan MCP server that the live blog described as still in development (section 2b), and Atlas help
 > documentation shows a permissioned, action-taking interface (section 5). No transcript or
 > recap of "Charging Ahead with AI and Max" has been published as of October 8. The blog's closing posts add
 > Atlas's "closed alpha" status and a website booking connection for agents (section 2c). ServiceTitan's help center
@@ -261,8 +261,8 @@ Analysis:
   idempotency and abuse handling are therefore useful trust-boundary questions; the public
   announcement does not specify the protocol. Notes: [Homh and AI-agent booking](homh-and-agent-booking.md).
 - **AI assistants reach the platform from two directions.** Homh puts contractors inside
-  consumer assistants, and the new MCP server (shown Oct 7 as still in development) connects Claude or ChatGPT to a contractor's own
-  ServiceTitan data. Both make permissions and what an assistant may read or do first-class
+  consumer assistants, and the announced MCP surface connects Claude or ChatGPT to a contractor's own ServiceTitan data; the Oct 7 demo
+  still described the server as in development, so availability and mutating scope remain unconfirmed. Both make permissions and what an assistant may read or do first-class
   design questions, the same trust boundary as tool calls in lab 02.
 - **The learning loop needs traceability.** Tying outcomes back to decisions requires linked
   traces from call to booking to job outcome, which is what lab 07 practices.
