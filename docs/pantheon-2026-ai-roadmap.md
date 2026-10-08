@@ -12,7 +12,7 @@ such, and anything marked **Analysis** is this repo's interpretation.
 > **Update (October 8):** the live blog now recaps Wednesday's partner-ecosystem keynote,
 > including a demo of an in-development ServiceTitan MCP server (section 2b), and Atlas help
 > documentation shows a permissioned, action-taking interface (section 5). No transcript or
-> recap of "Charging Ahead with AI and Max" has been published. The blog's closing posts add
+> recap of "Charging Ahead with AI and Max" has been published as of October 8. The blog's closing posts add
 > Atlas's "closed alpha" status and a website booking connection for agents (section 2c). ServiceTitan's help center
 > says breakout sessions go to Academy, its customer training platform, about 4–6 weeks after
 > the event. [3][4][5][6]
