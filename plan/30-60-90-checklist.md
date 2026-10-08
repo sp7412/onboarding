@@ -117,6 +117,7 @@ The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubr
 
 - [ ] Run labs 11–12 (learning loop; agent-to-agent booking) and compare them with how the team actually shares context between agents.
 - [ ] Trace one authorized interaction end to end: caller → transport → model → tools/workflow → source of truth → traces.
+- [ ] Read [whitepaper chapter 17, Running agents in production](../docs/whitepaper/17-running-agents-in-production.md) before your first trace or failure review.
 - [ ] Draw the architecture with owners, state boundaries, retries, and observability.
 - [ ] Ask each owner to correct your map; record disagreements as learning items.
 - [ ] Identify the definition and denominator for the key quality metrics.

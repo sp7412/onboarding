@@ -143,11 +143,13 @@ Slot, One AI Agent, and the Case for Max"):
 **Vahe Kuzoyan, co-founder and president** (live-blog post headlined "Max, Atlas, and Homh take
 the next step at Pantheon"):
 
-- Max opens to commercial and roofing through a limited pilot, and Atlas "is now a
-  chief-of-staff-level agent" with a dedicated mobile app.
-- "The Homh app plugin is live today on ChatGPT, Google Gemini, and Claude," described as a
-  curated marketplace connecting top contractors with consumers.
-- "We're ServiceTitan, the agentic operating system of the trades." On AI adoption: "Keep
+- In the blog's own narration (not quotes): Max opens to commercial and roofing through a
+  limited pilot; Atlas is now a chief-of-staff-level agent with a dedicated mobile app; and the
+  Homh app plugin is already live on ChatGPT, Google Gemini and Claude, as a curated
+  marketplace connecting top contractors with consumers.
+- "We're ServiceTitan, the agentic operating system of the trades." (in quotation marks at the
+  close of the blog's coverage of his keynote, without a speaker tag). On AI adoption, a
+  quote the blog attributes to him directly: "Keep
   testing. The most dangerous thing you can do at this moment is treat one failed attempt as
   proof of what will never be possible."
 

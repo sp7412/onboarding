@@ -140,7 +140,7 @@ GOVERNANCE
 
 That separation is valuable because it prevents a common category error:
 
-> **MCP is not orchestration. A2A is not governance.** (Chapter 15, section 18, explains
+> **MCP is not orchestration. A2A is not governance.** (Chapter 15, section 14, explains
 > both protocols from their specifications.)
 
 Salesforce's public documentation describes its Agent Gateway as the governance layer for

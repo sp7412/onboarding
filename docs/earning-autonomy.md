@@ -168,5 +168,6 @@ have, and what happens if we stop trusting the agent?**
 - [Evaluating voice agents](evaluating-voice-agents.md)
 - [Pantheon 2026 AI roadmap](pantheon-2026-ai-roadmap.md)
 - [Autonomy promotion review](../senior-engineer/autonomy-promotion.md): a judgment exercise using these tools
-- [Whitepaper chapter 15, Agentic orchestration](whitepaper/15-agentic-orchestration.md): canary releases, shadow mode and supervision
+- [Whitepaper chapter 15, Agentic orchestration](whitepaper/15-agentic-orchestration.md): supervision and arbitration
+- [Whitepaper chapter 17, Running agents in production](whitepaper/17-running-agents-in-production.md), section 4: canary releases, A/B tests and shadow mode
 - Interactive lesson: [When has the agent earned it?](https://sp7412.github.io/onboarding/lessons/earned-autonomy/) (on the site; lab 14 covers the same calculations offline)

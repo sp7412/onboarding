@@ -9,6 +9,14 @@ Research passes completed September 27–28, 2026. Every chapter is now built on
 primary sources where they exist (SEC filings, the FCC, BLS, regulators, vendor
 documentation), with analysis labeled. Chapter 14 is a working brief for the first 90 days.
 
+**Post-Pantheon refresh (October 7, 2026):** chapter 07 now covers what ServiceTitan said
+publicly at Pantheon 2026 about voice agents (one of 30 coordinated agents in Max, level 2 of
+a five-level maturity model, a voice intelligence judge for bookable leads, and Homh as an
+AI-assistant booking channel). Chapter 08 adds the current OpenAI voice lineup and the
+cascaded vs. speech-to-speech vs. full-duplex-with-delegation trade-off. Chapters 09, 11, 12
+and 14 and Appendix A carry shorter Pantheon updates. Details are in the
+[Pantheon 2026 AI roadmap brief](../pantheon-2026-ai-roadmap.md).
+
 **Essentials path (about 2 hours):** 00 → 01 → 02 → 06 → 07 → 10 → 11 → 14.
 
 ## Reading Order
@@ -30,8 +38,9 @@ documentation), with analysis labeled. Chapter 14 is a working brief for the fir
 15. [14 - Implications And Open Questions](14-implications-and-open-questions.md)
 16. [15 - Agentic Orchestration](15-agentic-orchestration.md)
 17. [16 - Shared Skills and Capability Libraries](16-shared-skills-and-capabilities.md)
-18. [Appendix A - Timeline](appendix-a-timeline.md)
-19. [Appendix B - Sources](appendix-b-sources.md)
+18. [17 - Running Agents in Production](17-running-agents-in-production.md)
+19. [Appendix A - Timeline](appendix-a-timeline.md)
+20. [Appendix B - Sources](appendix-b-sources.md)
 
 The [claims ledger](claims-ledger.md) records the research checks behind the chapter
 source lists. `[unverified]` marks a claim that needs a source or validation.
@@ -62,6 +71,13 @@ Chapter 16 adds the reusable capability layer that sits between agents and orche
 It treats skills as versioned, evaluated business capabilities rather than prompt fragments,
 and explicitly distinguishes the public ServiceTitan evidence for Skills & Capabilities from
 the stronger hypothesis of a cross-agent skill registry or marketplace.
+
+## Running agents in production chapter
+
+Chapter 17 was split out of Chapter 15 on October 7, 2026. It holds the production playbook:
+per-run traces, debugging and failure mining (including event streaming vs. analytical
+storage), offline and online evaluation, and canary, A/B and shadow-mode rollout. It pairs
+with [Design by Evaluation](../design-by-evaluation.md) and lab 07.
 
 ## Comparative architecture and harness docs
 

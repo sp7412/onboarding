@@ -4,7 +4,7 @@
 > role, contract and facts, and they change. Counsel and compliance owners must validate
 > any design. Facts as of September 27, 2026.
 
-**Estimated reading time:** 10 minutes
+**Estimated reading time:** 10 minutes · **Facts as of:** September 27, 2026
 
 ## Five Takeaways
 

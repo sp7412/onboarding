@@ -8,8 +8,9 @@ homeowners—or their AI agents—are searching. Homh was described as available
 Google Gemini, and Claude, with real-time availability, performance signals, and confirmed
 appointment booking into ServiceTitan. [1][2] The assistant plugin itself is described as
 live; the release's further plans to extend Homh into more consumer LLMs and AI advertising
-platforms are forward-looking, not shipped. [1] ServiceTitan's live blog quotes the co-founder and president: "The Homh app
-plugin is live today on ChatGPT, Google Gemini, and Claude." [2] Analysis: an app or plugin
+platforms are forward-looking, not shipped. [1] ServiceTitan's live blog, in its own words
+rather than as a quote, says the Homh app plugin is already live on ChatGPT, Google Gemini and
+Claude. [2] Analysis: an app or plugin
 inside each assistant is a different shape from a direct agent-to-agent protocol, which is
 one more reason to treat the protocol questions below as open.
 

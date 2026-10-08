@@ -51,11 +51,11 @@ the exact lab map and prerequisites.
 |---|---|
 | [`plan/30-60-90-checklist.md`](plan/30-60-90-checklist.md) | Operating plan (loosely based on Watkins, *The First 90 Days*) with 30/60/90 outcomes, weekly actions, stakeholder work, and exit criteria |
 | [`study-guide/`](study-guide/) | Archived original study guide (.docx) and a pointer to the canonical [architecture guide](docs/voice-agent-architecture.md) |
-| [`docs/`](docs/) | Public-source domain primer, Pantheon system model, autonomy policy, metrics, field exercise, first-90-days playbook and question bank, and agent architecture/harness/evaluation companions to whitepaper ch. 15 |
+| [`docs/`](docs/) | Public-source domain primer, Pantheon system model, autonomy policy, metrics, field exercise, first-90-days playbook and question bank, and agent architecture/harness/evaluation companions to whitepaper ch. 15 and 17 |
 | [`docs/pantheon-2026-ai-roadmap.md`](docs/pantheon-2026-ai-roadmap.md) | Pantheon 2026 public AI announcements and implications for voice |
 | [`docs/call-facts-contract.md`](docs/call-facts-contract.md) | Teaching schema for shared context a voice agent might capture |
 | [`docs/homh-and-agent-booking.md`](docs/homh-and-agent-booking.md) | Trust surfaces for Homh and AI-assistant booking channels |
-| [`docs/whitepaper/`](docs/whitepaper/) | Public-source background whitepaper: chapters 00–16 (15–16: agentic orchestration and shared skills), appendices, and source ledger |
+| [`docs/whitepaper/`](docs/whitepaper/) | Public-source background whitepaper: chapters 00–17 (15–17: agentic orchestration, shared skills, running agents in production), appendices, and source ledger |
 | [`docs/reading-guide.md`](docs/reading-guide.md) | Ranked blogs, papers and talks with four takeaways each (start here for reading) |
 | [`docs/references.md`](docs/references.md) | Complete bibliography of every external source in the repo |
 | [`docs/podcast-prompts.md`](docs/podcast-prompts.md) | NotebookLM podcast prompts: seven technical and three company-context episodes plus four coaching episodes |

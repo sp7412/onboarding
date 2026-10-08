@@ -1,7 +1,7 @@
 # Autonomy Promotion Review
 
 **Time:** ~45 minutes  
-**Builds on:** [Earning autonomy](../docs/earning-autonomy.md), [lab 14](../labs/14_earning_autonomy.ipynb), [bookability judge](bookability-judge.md), [whitepaper chapter 15](../docs/whitepaper/15-agentic-orchestration.md)
+**Builds on:** [Earning autonomy](../docs/earning-autonomy.md), [lab 14](../labs/14_earning_autonomy.ipynb), [bookability judge](bookability-judge.md), [whitepaper chapter 15](../docs/whitepaper/15-agentic-orchestration.md), [whitepaper chapter 17](../docs/whitepaper/17-running-agents-in-production.md)
 
 ## Why this exercise exists
 

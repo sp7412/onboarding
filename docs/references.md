@@ -43,39 +43,39 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 
 | Source | Type | Cited in |
 |---|---|---|
-| [Advancing voice intelligence with new models in the API (gpt-realtime-2)](https://openai.com/index/advancing-voice-intelligence-with-new-models-in-the-api/) | Announcement | RG 7, PP 3 |
+| [Advancing voice intelligence with new models in the API (gpt-realtime-2)](https://openai.com/index/advancing-voice-intelligence-with-new-models-in-the-api/) | Announcement | RG 7, PP 3, WP 08, WP A |
 | [Voice agents guide](https://developers.openai.com/api/docs/guides/voice-agents) | Docs | RG 8, PP 3 |
 | [Realtime API guide](https://developers.openai.com/api/docs/guides/realtime) (also linked at its older [platform.openai.com address](https://platform.openai.com/docs/guides/realtime), which redirects) | Docs | RG 13, RL, PP 3 |
 | [WebSockets guide, GPT-Live section](https://developers.openai.com/api/docs/guides/voice-websockets?api=live) | Docs | Build your own voice agent |
 | [Agents SDK (Python): voice pipeline](https://openai.github.io/openai-agents-python/voice/pipeline/) | Docs | Build your own voice agent |
 | [Guardrails and human review](https://developers.openai.com/api/docs/guides/agents/guardrails-approvals) | Docs | Tools and guardrails |
 | [Agents SDK (Python): tools](https://openai.github.io/openai-agents-python/tools/) | Docs | Tools and guardrails |
-| [Build more natural voice experiences with GPT-Live-1 in the API](https://openai.com/index/introducing-gpt-live-1-in-the-api/) | Announcement | RG 7A, PP 3, GPT-Live doc |
-| [Getting started with GPT-Live](https://developers.openai.com/api/docs/guides/live) | Docs | RG 7A, GPT-Live doc |
+| [Build more natural voice experiences with GPT-Live-1 in the API](https://openai.com/index/introducing-gpt-live-1-in-the-api/) | Announcement | RG 7A, PP 3, GPT-Live doc, WP 08, WP A |
+| [Getting started with GPT-Live](https://developers.openai.com/api/docs/guides/live) | Docs | RG 7A, GPT-Live doc, WP 08 |
 | [Delegation and tools in GPT-Live](https://developers.openai.com/api/docs/guides/live-delegation) | Docs | RG 7A, PP 3, GPT-Live doc |
 | [Voice cost optimization, Realtime tab (audio tokens per second, session context)](https://developers.openai.com/api/docs/guides/voice-latency-cost?voice-api=realtime) | Docs | Architecture explorer |
 | [GPT-6 Luna model page](https://developers.openai.com/api/docs/models/gpt-6-luna) | Model docs | Architecture explorer |
 | [GPT-6 Astra model page](https://developers.openai.com/api/docs/models/gpt-6-astra) | Model docs | Architecture explorer |
 | [GPT-4o Mini TTS model page (marked deprecated)](https://developers.openai.com/api/docs/models/gpt-4o-mini-tts) | Model docs | Architecture explorer |
 | [Community estimates of TTS cost per minute (users, not OpenAI)](https://community.openai.com/t/new-tts-api-pricing-and-gotchas/1150616) | Forum | Architecture explorer |
-| [GPT-Live 1 model page](https://developers.openai.com/api/docs/models/gpt-live-1) | Model docs | GPT-Live doc, speech-to-speech doc |
+| [GPT-Live 1 model page](https://developers.openai.com/api/docs/models/gpt-live-1) | Model docs | GPT-Live doc, speech-to-speech doc, WP 08 |
 | [Prompting GPT-Live](https://developers.openai.com/api/docs/guides/live-prompting) | Docs | GPT-Live doc |
 | [Managing GPT-Live sessions](https://developers.openai.com/api/docs/guides/live-conversations) | Docs | GPT-Live doc |
 | [Migrate to GPT-Live](https://developers.openai.com/api/docs/guides/live-migration) | Docs | GPT-Live doc |
 | [GPT-Live partner integrations](https://developers.openai.com/api/docs/guides/live-partner-integrations) | Docs | GPT-Live doc |
-| [GPT-Realtime-2.1 model page](https://developers.openai.com/api/docs/models/gpt-realtime-2.1) | Model docs | Speech-to-speech doc |
-| [GPT-Realtime-2.1 Mini model page](https://developers.openai.com/api/docs/models/gpt-realtime-2.1-mini) | Model docs | Speech-to-speech doc |
-| [GPT-Realtime-2 model page](https://developers.openai.com/api/docs/models/gpt-realtime-2) | Model docs | Speech-to-speech doc |
+| [GPT-Realtime-2.1 model page](https://developers.openai.com/api/docs/models/gpt-realtime-2.1) | Model docs | Speech-to-speech doc, WP 08 |
+| [GPT-Realtime-2.1 Mini model page](https://developers.openai.com/api/docs/models/gpt-realtime-2.1-mini) | Model docs | Speech-to-speech doc, WP 08 |
+| [GPT-Realtime-2 model page](https://developers.openai.com/api/docs/models/gpt-realtime-2) | Model docs | Speech-to-speech doc, WP 08 |
 | [GPT-Realtime-Whisper model page](https://developers.openai.com/api/docs/models/gpt-realtime-whisper) | Model docs | Speech-to-speech doc |
-| [GPT-Live-Transcribe model page](https://developers.openai.com/api/docs/models/gpt-live-transcribe) | Model docs | Speech-to-speech doc |
+| [GPT-Live-Transcribe model page](https://developers.openai.com/api/docs/models/gpt-live-transcribe) | Model docs | Speech-to-speech doc, WP 08 |
 | [Realtime transcription guide](https://developers.openai.com/api/docs/guides/realtime-transcription) | Docs | Speech-to-speech doc |
 | [Realtime conversations guide](https://developers.openai.com/api/docs/guides/realtime-conversations) | Docs | Speech-to-speech doc |
-| [GPT-Live-Transcribe and GPT-Transcribe: Two New Transcription Models in the API](https://community.openai.com/t/gpt-live-transcribe-and-gpt-transcribe-two-new-transcription-models-in-the-api/1388318) | Announcement | Speech-to-speech doc |
+| [GPT-Live-Transcribe and GPT-Transcribe: Two New Transcription Models in the API](https://community.openai.com/t/gpt-live-transcribe-and-gpt-transcribe-two-new-transcription-models-in-the-api/1388318) | Announcement | Speech-to-speech doc, WP 08, WP A |
 | [DataCamp: GPT-Live-1 API tutorial](https://www.datacamp.com/tutorial/gpt-live-1-api) | Tutorial (third-party) | GPT-Live doc |
 | [DataCamp: GPT-Realtime-2 API tutorial](https://www.datacamp.com/tutorial/gpt-realtime-2-api) | Tutorial (third-party) | Speech-to-speech doc |
 | [DataCamp: GPT Live Transcribe API tutorial](https://www.datacamp.com/tutorial/gpt-live-transcribe-api) | Tutorial (third-party) | Speech-to-speech doc |
 | [GPT-Realtime-Translate model page](https://developers.openai.com/api/docs/models/gpt-realtime-translate) | Model docs | Speech-to-speech doc |
-| [gpt-realtime-2.1 release announcement](https://community.openai.com/t/new-realtime-models-on-the-api-gpt-realtime-2-1-and-gpt-realtime-2-1-mini/1385896) | Announcement | Speech-to-speech doc |
+| [gpt-realtime-2.1 release announcement](https://community.openai.com/t/new-realtime-models-on-the-api-gpt-realtime-2-1-and-gpt-realtime-2-1-mini/1385896) | Announcement | Speech-to-speech doc, WP 08, WP A |
 | [OpenAI API changelog](https://developers.openai.com/api/docs/changelog) | Changelog | Speech-to-speech doc |
 | [Hello GPT-4o](https://openai.com/index/hello-gpt-4o/) | Announcement | Speech-to-speech doc |
 | [Realtime API reference](https://developers.openai.com/api/reference/resources/realtime) | API reference | RL |
@@ -205,9 +205,9 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 
 | Source | Type | Cited in |
 |---|---|---|
-| [ServiceTitan Announcing New and Expanded Capabilities at Pantheon 2026](https://www.globenewswire.com/news-release/2026/10/06/3375320/0/en/servicetitan-announcing-new-and-expanded-capabilities-at-pantheon-2026.html) | Press release | RG 7B, Pantheon brief |
-| [ServiceTitan at Pantheon 2026 (keynote summary and transcript)](https://www.investing.com/news/transcripts/servicetitan-at-pantheon-2026-ai-push-aims-to-make-trades-selfrunning-93CH-4934737) | Transcript | RG 7B, Pantheon brief |
-| [Pantheon 2026: Live coverage from ServiceTitan](https://www.servicetitan.com/blog/pantheon-2026-live-coverage) | Live blog | Pantheon brief |
+| [ServiceTitan Announcing New and Expanded Capabilities at Pantheon 2026](https://www.globenewswire.com/news-release/2026/10/06/3375320/0/en/servicetitan-announcing-new-and-expanded-capabilities-at-pantheon-2026.html) | Press release | RG 7B, Pantheon brief, WP 07, 09, 12, 14, 15, A |
+| [ServiceTitan at Pantheon 2026 (keynote summary and transcript)](https://www.investing.com/news/transcripts/servicetitan-at-pantheon-2026-ai-push-aims-to-make-trades-selfrunning-93CH-4934737) | Transcript | RG 7B, Pantheon brief, WP 07, 09, 11, 12, 14, 15, A |
+| [Pantheon 2026: Live coverage from ServiceTitan](https://www.servicetitan.com/blog/pantheon-2026-live-coverage) | Live blog | Pantheon brief, WP 07, 09, 11, 12, 14, 15 |
 | [Get ready for Voice Intelligence with ServiceTitan Calls](https://help.servicetitan.com/release-hub/docs/coming-soon-get-ready-for-voice-intelligence-in-servicetitan-core) | Help center (company claim) | Hypothesis map, business metrics, claims ledger |
 | [Book jobs from your website with Webchat in Virtual Agent](https://help.servicetitan.com/release-hub/docs/book-jobs-from-your-website-with-webchat-in-virtual-agent) | Help center (company claim) | Hypothesis map, claims ledger |
 | [An introduction to ServiceTitan Max: what it is and why it matters](https://help.servicetitan.com/docs/an-introduction-to-servicetitan-max-what-it-is-and-why-it-matters) | Help center (company claim) | Hypothesis map, claims ledger |
@@ -236,6 +236,7 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 |---|---|---|
 | [Setting Goals With Your New Manager](https://raw.githubusercontent.com/sp7412/onboarding/main/docs/manager-alignment.md) | Repo guide | PP 6 |
 | [Path to Integration, this repo's published site](https://sp7412.github.io/onboarding/) (including the [earned-autonomy lesson](https://sp7412.github.io/onboarding/lessons/earned-autonomy/) and [value calculator](https://sp7412.github.io/onboarding/value-calculator/)) | Companion site | README, checklist, earning autonomy, business metrics |
+| [Architecture explorer on this repo's published site](https://sp7412.github.io/onboarding/architecture/) | Companion site | WP 08 |
 | [notebooklm-mcp-cli (`nlm`, unofficial)](https://github.com/jacob-bd/notebooklm-mcp-cli) | Open-source CLI | Podcast prompts |
 
 ## Agentic orchestration
@@ -261,8 +262,8 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [LangGraph durable execution (Checkpointers: durability modes)](https://docs.langchain.com/oss/python/langgraph/checkpointers#durability-modes) | Documentation | Whitepaper 15 |
 | [LangGraph interrupts](https://docs.langchain.com/oss/python/langgraph/interrupts) | Documentation | Whitepaper 15 |
 | [LangChain agents](https://docs.langchain.com/oss/python/langchain/agents) | Documentation | Whitepaper 15 |
-| [ServiceTitan job listing: Engineering Manager, Data Foundations](https://servicetitan.wd1.myworkdayjobs.com/en-US/ServiceTitan/job/Manager--Software-Engineering_JR114911) | Job listing (expires) | Whitepaper 15 |
-| [ServiceTitan job listing on Built In: Staff Product Manager, Communications Intelligence](https://builtin.com/job/staff-product-manager-communications-intelligence/10448969) | Job listing (expires) | Whitepaper 15 |
+| [ServiceTitan job listing: Engineering Manager, Data Foundations](https://servicetitan.wd1.myworkdayjobs.com/en-US/ServiceTitan/job/Manager--Software-Engineering_JR114911) | Job listing (expires) | Whitepaper 15, 17 |
+| [ServiceTitan job listing on Built In: Staff Product Manager, Communications Intelligence](https://builtin.com/job/staff-product-manager-communications-intelligence/10448969) | Job listing (expires) | Whitepaper 15, 17 |
 | [ServiceTitan Help: Configure your Voice Agent settings in Contact Center Pro](https://help.servicetitan.com/docs/configure-your-voice-agent-settings) | Help center (company claim) | Whitepaper 16 |
 
 ## Maintaining this page

@@ -1,20 +1,14 @@
 # 11 - Economics And Metrics
 
-**Estimated reading time:** 7 minutes · **Facts as of:** September 27, 2026
+**Estimated reading time:** 8 minutes · **Facts as of:** October 7, 2026
 
 ## Five Takeaways
 
-1. ServiceTitan's customers invoiced $82.1 billion through the platform in fiscal 2026,
-   averaging roughly $7.6 million per Active Customer (a skewed average). [1]
-2. The company earns about 1.2% of that volume (analysis from reported figures) and grows by
-   raising this share with add-ons. [1][2]
-3. The economic case for a voice agent is recovered revenue: calls that would otherwise go
-   unanswered, abandoned or unbooked. Vendors frame one missed call as potentially a
-   five-figure installation, but that is the high end, not the average. [3]
-4. Booking rate alone is a misleading success metric; job value, capacity use, escalation
-   quality and customer experience matter too.
-5. Measuring impact needs baselines and counterfactuals, because demand swings with season
-   and weather. [1]
+1. ServiceTitan's customers invoiced $82.1 billion through the platform in fiscal 2026, averaging roughly $7.6 million per Active Customer (a skewed average). [1]
+2. The company earns about 1.2% of that volume (analysis from reported figures) and grows by raising this share with add-ons. [1][2]
+3. The economic case for a voice agent is recovered revenue: calls that would otherwise go unanswered, abandoned or unbooked. Vendors frame one missed call as potentially a five-figure installation, but that is the high end, not the average. [3]
+4. Booking rate alone is misleading; ServiceTitan's CEO said in-product booking rates are easy to game, and job value, capacity use and escalation quality matter too. [7]
+5. Measuring impact needs baselines and counterfactuals, because demand swings with season and weather. [1]
 
 ## The money flowing through the platform
 
@@ -85,6 +79,26 @@ agent and human performance on the same calls and denominators.
   higher average tickets. [4] Those come from a selected pilot group and blend many changes,
   so they don't isolate any single product's effect.
 
+## What Pantheon 2026 added
+
+- **The company says its own booking rate is gameable.** The CEO said in-product booking
+  rates are "very easy to game," so the company built a voice intelligence agent that reviews
+  every call to decide whether it was a bookable lead. [7] Analysis: that is the denominator
+  problem in the metrics table, solved by an independent judge rather than by the agent's
+  own outcome. The judge then needs its own evaluation.
+- **Customer booking rates keep getting quoted.** The company's live blog reports a customer,
+  Davis AC, crediting its virtual agent with a 98% booking rate. [8] Read it with the same
+  questions: 98% of which calls, judged by whom, over what period?
+- **Revenue-growth comparison.** The live blog reports the chief technology and product
+  officer saying that some customers using Pro and Max products grew revenue twice as fast
+  year over year as non-Max peers. [8] This is a company claim about selected customers;
+  adopters of a premium bundle likely differ from non-adopters, so it is not a causal estimate.
+- **An illustrative profit model.** The CEO's example: with 10,000 leads, 60% booked and an
+  $800 average ticket, a 10% gain in each lifts revenue 33% but doubles profit, because much
+  of the extra revenue reuses the same marketing spend and truck rolls. [7] Analysis: the
+  revenue figure is just 1.1 × 1.1 × 1.1 ≈ 1.33; the profit claim depends on a cost
+  structure the example does not publish.
+
 ## What this means for a voice-agent engineer
 
 - Instrument the **denominator** (bookable calls) as carefully as the numerator.
@@ -108,3 +122,5 @@ agent and human performance on the same calls and denominators.
 4. Yahoo Finance, "ServiceTitan Q4 Earnings Call Highlights": <https://finance.yahoo.com/news/servicetitan-q4-earnings-call-highlights-031828218.html>
 5. ServiceTitan Form 10-K, fiscal 2026 (Phones Pro): same as [1]
 6. ServiceTitan, AI Virtual Agent product page: <https://www.servicetitan.com/features/pro/virtual-agent>
+7. Investing.com, ServiceTitan at Pantheon 2026, keynote summary and transcript (October 6, 2026): <https://www.investing.com/news/transcripts/servicetitan-at-pantheon-2026-ai-push-aims-to-make-trades-selfrunning-93CH-4934737>
+8. ServiceTitan, "Pantheon 2026: Live coverage from ServiceTitan" (live blog, read October 7, 2026): <https://www.servicetitan.com/blog/pantheon-2026-live-coverage>
