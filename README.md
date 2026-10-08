@@ -10,6 +10,10 @@ tutorial notebooks, and templates for the documents I'll write along the way.
 > recordings. Internal notes belong in company systems. This repo is for my own
 > learning, public material, and blank templates.
 
+## Changelog
+
+See [`CHANGELOG.md`](CHANGELOG.md) for a concise history of the repository's major changes and the evolution of the onboarding approach.
+
 ## Start here in 5 minutes
 
 1. Read [`docs/servicetitan-101.md`](docs/servicetitan-101.md) (5 min) — what the company does and the
@@ -68,7 +72,7 @@ the exact lab map and prerequisites.
 | [`notes/`](notes/) | Public-safe personal notes: original conversation notes, glossary, study-question answer |
 | [`scripts/`](scripts/) | Notebook runner, repo hygiene, sensitive-content and link checkers, site-simulation export, podcast and transcript tools |
 | [`site/`](site/) | Astro source for the [published site](https://sp7412.github.io/onboarding/) |
-| [`MAINTENANCE.md`](MAINTENANCE.md) | How the material is reviewed and kept current |
+| [`CHANGELOG.md`](CHANGELOG.md) | Concise history of major repository changes and onboarding evolution |\n| [`MAINTENANCE.md`](MAINTENANCE.md) | How the material is reviewed and kept current |
 | [`AGENTS.md`](AGENTS.md) | Instructions for AI coding agents working in this repo (`CLAUDE.md` points to it) |
 
 ## Lab environments
