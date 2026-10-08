@@ -1,39 +1,65 @@
 # Lab environments
 
-The labs support two low-friction paths in addition to a normal local virtualenv.
+**Last reviewed: October 8, 2026**
 
-## Codespaces / dev container
-
-Use the repository's dev container when you want the **full environment** on a new
-laptop or in GitHub Codespaces.
-
-1. Open the repository in GitHub Codespaces.
-2. Let the dev container finish creating the Python 3.12 environment.
-3. Run the notebooks from the labs directory with Jupyter, or use the repository's
-   normal offline test commands.
-
-The container installs the same `requirements.txt` used by the local setup. It
-does not provide API keys; live exercises still require personal credentials in
-a local `.env` and should use fictional data.
-
-## Google Colab
-
-Use an **Open in Colab** badge on a notebook when you want to run one lab from
-a phone, tablet, or unfamiliar machine without setting up the repository first.
-
-Each lab notebook begins with a Colab-aware setup cell. In Colab, it clones the
-public repository, installs `requirements.txt`, and changes into the repository
-root. Outside Colab, that cell is a no-op.
-
-Colab runs are offline-first just like local runs. Optional live cells still
-require your own API keys and should never contain employer or customer data.
-
-### Which path should I use?
+Every lab runs offline on a laptop (see [`labs/README.md`](../labs/README.md)). Two hosted
+options remove the setup step. They don't conflict; use whichever fits the moment.
 
 | Need | Best path |
 |---|---|
-| Work through many labs or modify code | Codespaces / dev container |
-| Reproduce the full repository environment | Codespaces / dev container |
-| Try one notebook quickly | Google Colab |
-| Phone or unfamiliar machine | Google Colab |
-| Offline tests and repository changes | Codespaces / local environment |
+| Work through many labs, change code, run the tests or the site | Codespaces (dev container) |
+| The same pinned environment CI tests | Codespaces (dev container) |
+| Try one lab quickly from a phone or an unfamiliar machine | Google Colab |
+| Lab 04's live voice agent (terminal and microphone) | Local machine or Codespaces |
+
+## Codespaces and the dev container
+
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/sp7412/onboarding)
+
+The repository's `.devcontainer/devcontainer.json` defines the full environment: Python 3.12
+with `requirements.txt`, Node and bun for the site, and the VS Code Python and Jupyter
+extensions. It works in GitHub Codespaces and in any editor that supports dev containers.
+
+1. Open the repository in a codespace (badge above, or **Code → Codespaces** on GitHub).
+2. Wait for the first build; it installs the Python packages and the site's dependencies.
+3. Open a notebook in `labs/` and pick the Python 3.12 kernel, or run the checks from the
+   terminal (`python scripts/run_notebooks.py`, `cd site && bun run build`).
+
+**Keys.** The container declares `OPENAI_API_KEY`, `LANGSMITH_API_KEY` and the three LiveKit
+values as optional
+[recommended secrets](https://docs.github.com/en/codespaces/setting-up-your-project-for-codespaces/configuring-dev-containers/specifying-recommended-secrets-for-a-repository). Add the ones you have as
+[Codespaces secrets](https://docs.github.com/en/codespaces/managing-your-codespaces/managing-your-account-specific-secrets-for-github-codespaces)
+for this repository and they arrive as environment variables, which the labs read the same way
+as a local `.env`. Never put keys in a notebook or commit them.
+
+**Cost.** Codespaces bills by compute time and storage beyond a free monthly allowance for
+personal accounts; check the current terms on
+[GitHub's Codespaces billing page](https://docs.github.com/en/billing/concepts/product-billing/github-codespaces)
+and stop the codespace when you're done.
+
+## Google Colab
+
+Every notebook has an **Open in Colab** badge under its title, and the
+[labs README](../labs/README.md) has one per lab. The next cell is a setup cell that runs
+only in Colab:
+
+1. It clones this public repository into `/content/onboarding` and changes into `labs/`.
+2. It installs only the packages that lab needs beyond what Colab already ships (for
+   example `openai` for lab 15, LangChain and LangGraph for labs 05–08). It does not install
+   all of `requirements.txt`, which would be slow and can replace Colab's own versions.
+3. It loads `OPENAI_API_KEY`, `LANGSMITH_API_KEY` and the LiveKit values from Colab's
+   **Secrets** panel (key icon in the left sidebar) when they are set and the notebook has
+   access. Without them the lab runs offline, as it does anywhere else.
+
+Outside Colab the setup cell does nothing. Limits to expect: sessions time out and reset the
+clone; Colab's package versions can differ from the ones CI tests; and lab 04's live agent
+needs a terminal and a microphone, so only its offline sections run there. Changes you make
+in Colab are not saved back to the repository.
+
+The cells are generated by `labs/build_nb.py` (its `COLAB_PACKAGES` map lists each lab's
+extra packages); edit that file, not the notebooks.
+
+## Use fictional data only
+
+These are public teaching labs. Whichever environment you use, never paste employer or
+customer data, and keep personal keys in secrets, not in notebooks.

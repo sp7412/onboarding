@@ -72,7 +72,7 @@ the exact lab map and prerequisites.
 
 ## Lab environments
 
-For the full repository environment, use the [Codespaces/dev-container path](docs/lab-environments.md#codespaces--dev-container). For a quick single-notebook run from a phone or unfamiliar machine, use the **Open in Colab** badge in [`labs/README.md`](labs/README.md) or on the individual notebook.
+For the full repository environment, use the [Codespaces/dev-container path](docs/lab-environments.md#codespaces-and-the-dev-container). For a quick single-notebook run from a phone or unfamiliar machine, use the **Open in Colab** badge in [`labs/README.md`](labs/README.md) or at the top of each notebook.
 
 See [`docs/lab-environments.md`](docs/lab-environments.md) for the two paths and when to use each.
 

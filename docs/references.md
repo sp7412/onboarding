@@ -105,6 +105,17 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [Production Voice AI Workflows: Consent and Escalations (LiveKit)](https://www.youtube.com/watch?v=bc9kI5TRhX4) | Video (LiveKit 101) | RG 11C |
 | [Connect Voice Agents to External Services with MCP (LiveKit)](https://www.youtube.com/watch?v=lOACxaBLwSI) | Video (LiveKit 101) | RG 11C |
 
+## Lab environments
+
+| Source | Type | Cited in |
+|---|---|---|
+| [Open in Colab badge](https://colab.research.google.com/assets/colab-badge.svg) and [Colab GitHub notebook links](https://colab.research.google.com/github/sp7412/onboarding/blob/main/labs/15_llm_judge.ipynb) (one per lab) | Google Colab | Labs README, every notebook, lab environments, site labs page |
+| [Facilitating quick creation of codespaces (`codespaces.new` links and badge)](https://docs.github.com/en/codespaces/setting-up-your-project-for-codespaces/setting-up-your-repository/facilitating-quick-creation-and-resumption-of-codespaces) | GitHub docs | Lab environments |
+| [Open in GitHub Codespaces](https://codespaces.new/sp7412/onboarding) with [badge image](https://github.com/codespaces/badge.svg) | GitHub (documented link format; requires sign-in) | Lab environments |
+| [Specifying recommended secrets for a repository](https://docs.github.com/en/codespaces/setting-up-your-project-for-codespaces/configuring-dev-containers/specifying-recommended-secrets-for-a-repository) | GitHub docs | Lab environments, dev container |
+| [Managing your account-specific secrets for Codespaces](https://docs.github.com/en/codespaces/managing-your-codespaces/managing-your-account-specific-secrets-for-github-codespaces) | GitHub docs | Lab environments |
+| [GitHub Codespaces billing](https://docs.github.com/en/billing/concepts/product-billing/github-codespaces) | GitHub docs | Lab environments |
+
 ## Agents and orchestration (LangChain / LangGraph)
 
 | Source | Type | Cited in |

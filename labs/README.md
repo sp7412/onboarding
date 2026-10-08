@@ -31,8 +31,10 @@ the same calls (live with an OpenAI key, with a scripted stand-in offline). The
 
 ## Lab environments
 
-- **Full environment:** use [Codespaces / the dev container](../docs/lab-environments.md#codespaces--dev-container).
-- **Quick single-lab run:** use the **Open in Colab** badge for any notebook below. Each notebook includes a Colab-aware setup cell.
+- **Full environment:** open the repo in [Codespaces or the dev container](../docs/lab-environments.md#codespaces-and-the-dev-container).
+- **Quick single-lab run:** use a lab's **Open in Colab** badge in the table above. The
+  notebook's setup cell fetches the repo and that lab's packages, and reads keys from Colab
+  Secrets. See [lab environments](../docs/lab-environments.md#google-colab).
 
 ## Learning Path
 
