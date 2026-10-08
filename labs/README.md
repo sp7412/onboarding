@@ -10,24 +10,29 @@ deciding when an agent has earned more autonomy. Lab 15 builds and validates an 
 the same calls (live with an OpenAI key, with a scripted stand-in offline). The
 [capstone rubric](../docs/capstone-rubric.md) ends with optional pass criteria for labs 09–14.
 
-| # | Notebook | Layer | Keys needed | Time |
-|---|---|---|---|---|
-| 00 | setup_and_mental_model | architecture + mock backend | none | 30–60 minutes |
-| 01 | realtime_protocol | OpenAI Realtime events, effort vs latency, barge-in, truncation | optional OpenAI | 30–60 minutes |
-| 02 | realtime_tools_and_guardrails | tool loop + control-plane boundary | optional OpenAI | 30–60 minutes |
-| 03 | turn_taking_and_interruptions | VAD, endpointing, barge-in (simulator) | none | 30–60 minutes |
-| 04 | livekit_agents | LiveKit agents (writes runnable programs to `agents/`) | OpenAI + LiveKit to run live | 60–90 minutes |
-| 05 | langchain_create_agent | tools, state, context, middleware | optional OpenAI | 30–60 minutes |
-| 06 | langgraph_booking_workflow | durable workflow, interrupts, crash/resume | none | 30–60 minutes |
-| 07 | langsmith_tracing_evals | tracing, waterfall, redaction, evaluation | optional LangSmith/OpenAI | 60–90 minutes |
-| 08 | capstone_talker_thinker | talker + thinker + latency budget + study-question answer | optional | 60–90 minutes |
-| 09 | shared_context | context ledger: proposed vs verified facts, permissions, versions | none | 45–60 minutes |
-| 10 | coordination_and_arbitration | shared judgment, requests with consent, arbitration, hard rules | none | 45–60 minutes |
-| 11 | learning_loop | decision log, outcomes, recalibration, confidence calibration | none | 45–60 minutes |
-| 12 | agent_to_agent_booking | booking API for other AI agents: auth, scopes, idempotency, injection | none | 45–60 minutes |
-| 13 | minimax_capstone | call facts → bookability → lead scoring → dispatch → commit → claim guard | none | 90–120 minutes |
-| 14 | earning_autonomy | promotion policy, SPRT, calibration, drift/OOD, segment-specific autonomy | none | 90–120 minutes |
-| 15 | llm_judge | LLM-as-judge: rubric, JSON contract, kappa vs. humans, rubric bugs, self-grading and position bias, calibration, abstention | OpenAI (scripted judge offline) | 60–90 minutes |
+| # | Notebook | Layer | Keys needed | Time | Run |
+|---|---|---|---|---|---|
+| 00 | setup_and_mental_model | architecture + mock backend | none | 30–60 minutes | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sp7412/onboarding/blob/main/labs/00_setup_and_mental_model.ipynb) |
+| 01 | realtime_protocol | OpenAI Realtime events, effort vs latency, barge-in, truncation | optional OpenAI | 30–60 minutes | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sp7412/onboarding/blob/main/labs/01_realtime_protocol.ipynb) |
+| 02 | realtime_tools_and_guardrails | tool loop + control-plane boundary | optional OpenAI | 30–60 minutes | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sp7412/onboarding/blob/main/labs/02_realtime_tools_and_guardrails.ipynb) |
+| 03 | turn_taking_and_interruptions | VAD, endpointing, barge-in (simulator) | none | 30–60 minutes | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sp7412/onboarding/blob/main/labs/03_turn_taking_and_interruptions.ipynb) |
+| 04 | livekit_agents | LiveKit agents (writes runnable programs to `agents/`) | OpenAI + LiveKit to run live | 60–90 minutes | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sp7412/onboarding/blob/main/labs/04_livekit_agents.ipynb) |
+| 05 | langchain_create_agent | tools, state, context, middleware | optional OpenAI | 30–60 minutes | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sp7412/onboarding/blob/main/labs/05_langchain_create_agent.ipynb) |
+| 06 | langgraph_booking_workflow | durable workflow, interrupts, crash/resume | none | 30–60 minutes | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sp7412/onboarding/blob/main/labs/06_langgraph_booking_workflow.ipynb) |
+| 07 | langsmith_tracing_evals | tracing, waterfall, redaction, evaluation | optional LangSmith/OpenAI | 60–90 minutes | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sp7412/onboarding/blob/main/labs/07_langsmith_tracing_evals.ipynb) |
+| 08 | capstone_talker_thinker | talker + thinker + latency budget + study-question answer | optional | 60–90 minutes | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sp7412/onboarding/blob/main/labs/08_capstone_talker_thinker.ipynb) |
+| 09 | shared_context | context ledger: proposed vs verified facts, permissions, versions | none | 45–60 minutes | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sp7412/onboarding/blob/main/labs/09_shared_context.ipynb) |
+| 10 | coordination_and_arbitration | shared judgment, requests with consent, arbitration, hard rules | none | 45–60 minutes | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sp7412/onboarding/blob/main/labs/10_coordination_and_arbitration.ipynb) |
+| 11 | learning_loop | decision log, outcomes, recalibration, confidence calibration | none | 45–60 minutes | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sp7412/onboarding/blob/main/labs/11_learning_loop.ipynb) |
+| 12 | agent_to_agent_booking | booking API for other AI agents: auth, scopes, idempotency, injection | none | 45–60 minutes | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sp7412/onboarding/blob/main/labs/12_agent_to_agent_booking.ipynb) |
+| 13 | minimax_capstone | call facts → bookability → lead scoring → dispatch → commit → claim guard | none | 90–120 minutes | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sp7412/onboarding/blob/main/labs/13_minimax_capstone.ipynb) |
+| 14 | earning_autonomy | promotion policy, SPRT, calibration, drift/OOD, segment-specific autonomy | none | 90–120 minutes | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sp7412/onboarding/blob/main/labs/14_earning_autonomy.ipynb) |
+| 15 | llm_judge | LLM-as-judge: rubric, JSON contract, kappa vs. humans, rubric bugs, self-grading and position bias, calibration, abstention | OpenAI (scripted judge offline) | 60–90 minutes | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sp7412/onboarding/blob/main/labs/15_llm_judge.ipynb) |
+
+## Lab environments
+
+- **Full environment:** use [Codespaces / the dev container](../docs/lab-environments.md#codespaces--dev-container).
+- **Quick single-lab run:** use the **Open in Colab** badge for any notebook below. Each notebook includes a Colab-aware setup cell.
 
 ## Learning Path
 
