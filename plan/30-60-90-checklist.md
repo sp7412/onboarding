@@ -131,6 +131,7 @@ The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubr
 
 - [ ] Run [lab 14](../labs/14_earning_autonomy.ipynb): defend a promotion policy with a Wilson bound, cost asymmetry, calibration, and drift guard.
 - [ ] Try the [earned-autonomy lesson](https://sp7412.github.io/onboarding/lessons/earned-autonomy/), then do the [autonomy promotion review](../senior-engineer/autonomy-promotion.md) exercise (private notes only).
+- [ ] Run [lab 15](../labs/15_llm_judge.ipynb): validate an LLM bookability judge against labels, fix its rubric, and test it for self-grading and position bias.
 - [ ] Review authorized calls/traces or approved substitutes; record patterns without PII.
 - [ ] Tag successes, failures, and awkward moments; identify the top five patterns.
 - [ ] Meet telephony/infra, support or CSR-facing, and product stakeholders.

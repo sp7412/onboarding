@@ -2,11 +2,12 @@
 
 **Facts as of: October 6, 2026 · Last reviewed: October 6, 2026**
 
-Fifteen hands-on Jupyter tutorials that build a phone agent for a fictional HVAC/plumbing
+Sixteen hands-on Jupyter tutorials that build a phone agent for a fictional HVAC/plumbing
 contractor, one architecture layer at a time. Labs 09–12 extend it to several agents working
 together (shared context, coordination, learning, agent-to-agent booking). Labs 13–14 are
 capstones on a shared synthetic call dataset: extracting and committing call facts, and
-deciding when an agent has earned more autonomy. The
+deciding when an agent has earned more autonomy. Lab 15 builds and validates an LLM judge for
+the same calls (live with an OpenAI key, with a scripted stand-in offline). The
 [capstone rubric](../docs/capstone-rubric.md) ends with optional pass criteria for labs 09–14.
 
 | # | Notebook | Layer | Keys needed | Time |
@@ -26,6 +27,7 @@ deciding when an agent has earned more autonomy. The
 | 12 | agent_to_agent_booking | booking API for other AI agents: auth, scopes, idempotency, injection | none | 45–60 minutes |
 | 13 | minimax_capstone | call facts → bookability → lead scoring → dispatch → commit → claim guard | none | 90–120 minutes |
 | 14 | earning_autonomy | promotion policy, SPRT, calibration, drift/OOD, segment-specific autonomy | none | 90–120 minutes |
+| 15 | llm_judge | LLM-as-judge: rubric, JSON contract, kappa vs. humans, rubric bugs, self-grading and position bias, calibration, abstention | OpenAI (scripted judge offline) | 60–90 minutes |
 
 ## Learning Path
 
@@ -61,7 +63,7 @@ Run the notebooks in order from this folder (they import the local `stlab/` pack
 dispatcher (`tools.py`), an offline Realtime API simulator (`fake_realtime.py`), a scripted
 LangChain chat model, a turn-taking simulator, the booking graph, and eval scenarios. The
 multi-agent labs add `context.py`, `coordination.py`, `learning.py` and `agent_gateway.py`
-(labs 09–12), `calls.py` and `minimax.py` (lab 13) and `autonomy.py` (lab 14).
+(labs 09–12), `calls.py` and `minimax.py` (lab 13), `autonomy.py` (lab 14) and `judge.py` (lab 15).
 The simulated "models" are rule-based scripts, not LLMs. They exist to make event flows
 and control-plane behavior visible and deterministic. With keys, the same cells hit the
 real services.

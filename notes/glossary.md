@@ -97,6 +97,9 @@ patterns, not any company's internal design.
 | Cost threshold | The probability above which acting has lower expected cost than not acting: wrong-action cost ÷ (wrong-action cost + missed-opportunity cost) (lab 14) |
 | Homh | ServiceTitan's consumer demand platform, announced at Pantheon 2026, that makes selected contractors discoverable and bookable from AI assistants (public product; [Homh doc](../docs/homh-and-agent-booking.md)) |
 | Max | ServiceTitan's bundle of AI agents, described publicly as the fully loaded version of its agentic operating system (public product; [Pantheon brief](../docs/pantheon-2026-ai-roadmap.md)) |
+| LLM-as-judge | Using a model to grade outputs or calls against a written rubric. Trust it only after measuring it against human labels, and version the model and rubric together (lab 15) |
+| Cohen's kappa | Agreement between two labelers beyond what chance would produce (1 = perfect, 0 = chance). Compare a judge's kappa with how well two humans agree, not with 1.0 (lab 15) |
+| Position bias | A pairwise judge preferring whichever option it reads first. Test by asking in both orders; count a win only when both orders agree (lab 15) |
 | MCP (Model Context Protocol) | An open protocol connecting an AI application (host) to servers that offer tools to call, resources to read and prompt templates, over JSON-RPC. It standardizes the connection, not the policy: consent, validation and idempotency stay in your harness. See [whitepaper chapter 15, section 14](../docs/whitepaper/15-agentic-orchestration.md#14-mcp-and-a2a-are-not-orchestration) |
 | Mini-Max | Lab 13's small teaching system: one call becomes CallFacts, then bookability, commit, dispatch and a claim guard. Inspired by public descriptions, not a real implementation |
 | Pantheon | ServiceTitan's annual customer conference; the 2026 edition is summarized in the [Pantheon brief](../docs/pantheon-2026-ai-roadmap.md) |
