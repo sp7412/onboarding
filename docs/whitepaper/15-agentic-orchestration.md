@@ -1,6 +1,6 @@
 # 15 - Agentic Orchestration: From Single Agents to an AI Operating System
 
-**Estimated reading time:** 35 minutes (essentials path: 10 minutes) · **Facts as of:** October 7, 2026
+**Estimated reading time:** 40 minutes (essentials path: 12 minutes) · **Facts as of:** October 7, 2026
 
 **Audience:** engineers who understand ML and LLMs but are new to multi-agent production systems.
 ServiceTitan material is separated into **public claim** and **analysis/hypothesis** throughout;
@@ -14,7 +14,7 @@ no internal ServiceTitan architecture is asserted.
 4. MCP and A2A are connectivity, not orchestration. Arbitration, policy and side effects belong to deterministic application code: the model proposes, the harness controls.
 5. Production agents need per-run traces, an analytical history to mine failures, evaluations built from those failures, and canary rollout. ServiceTitan's public job listings name Kafka, Snowflake and Airflow in its data platform [7][8]; their role in agent telemetry is a hypothesis.
 
-> **Essentials path (10 minutes):** read sections 1–6 for the problem and the three approaches,
+> **Essentials path (12 minutes):** read sections 1–6 for the problem and the three approaches,
 > "Arbitration does not have to be an LLM" and "MCP and A2A are not orchestration", then
 > "What we can and cannot infer about ServiceTitan" and the lab map. The rest is a production
 > playbook to return to after day one.
@@ -1458,56 +1458,129 @@ Code = state + policy + authority + side effects
 
 ## 18. MCP and A2A are not orchestration
 
-These terms are easy to mix up.
+Two protocols come up in every agent-architecture conversation, and they answer different
+questions:
 
-### MCP
+- **MCP (Model Context Protocol)** answers *"how does my agent reach a tool or a data
+  source?"* It connects an AI application to the systems it uses. [9]
+- **A2A (Agent2Agent)** answers *"how does my agent hand work to someone else's agent?"* It
+  connects two independent agents that don't share code, memory or an owner. [10]
+- **Orchestration** answers *"what should happen next, and who is allowed to do it?"* Neither
+  protocol answers that; your application does.
 
-**Agent <-> tool/data**
+A useful analogy: MCP is how an employee uses the company's software, A2A is how two
+companies' staff email each other a work order, and orchestration is the manager deciding
+who does what. Better email doesn't replace the manager.
+
+### MCP: an agent's connection to tools and data
+
+MCP uses JSON-RPC 2.0 between three roles [9]:
+
+- **Host:** the AI application the user talks to (for example, the booking agent's runtime).
+- **Client:** a connector inside the host, one per server.
+- **Server:** a service that offers capabilities, such as a scheduling or CRM integration.
+
+A server can offer three kinds of things [9]:
+
+| MCP feature | What it is | Booking-agent example |
+|---|---|---|
+| **Tools** | Functions the model can ask to run | `check_availability`, `create_job` |
+| **Resources** | Context and data to read | the customer's service history |
+| **Prompts** | Templated messages and workflows | a "reschedule" script the user can pick |
+
+Servers can also ask the user for missing information through the client (*elicitation*).
+The current revision (2026-07-28) makes requests stateless and self-contained, and adds
+opt-in extensions, including **Tasks** for long-running operations and a community working
+group on **Skills over MCP**, structured workflow instructions discovered through MCP, which
+is the same idea as [chapter 16](16-shared-skills-and-capabilities.md). [9]
 
 ```text
-Agent
-  |
- MCP
-  |
-  +--> CRM
-  +--> database
-  +--> scheduling API
-  +--> search
+           Host (booking agent runtime)
+           |-- MCP client --> scheduling server   tools: check_availability, create_job
+           |-- MCP client --> CRM server          resources: customer record, history
+           '-- MCP client --> knowledge server    resources: pricing, service area
 ```
 
-### A2A
+**What MCP does not do.** It standardizes the plug, not the policy. The specification is
+explicit that tools are arbitrary code execution, that tool descriptions should be treated
+as untrusted unless the server is trusted, and that hosts must get the user's consent before
+invoking a tool; it also says the protocol itself cannot enforce these principles. [9] In this
+repo's terms, the MCP server is just a cleaner way to expose `create_job`. The guarded
+dispatcher from lab 02 (ownership checks, offered slots only, grounded confirmations,
+idempotency keys) still has to sit between the model's proposal and the call.
 
-**Agent <-> agent**
+### A2A: one agent delegating to another
+
+A2A connects agents across a boundary: a different team, vendor or company. Its design
+principle is that agents are **opaque**: they collaborate on declared capabilities and
+exchanged results "without needing to share their internal thoughts, plans, or tool
+implementations." [10] Its core objects [10]:
+
+| A2A object | What it is | Example |
+|---|---|---|
+| **Agent Card** | A JSON document an agent publishes (conventionally at `/.well-known/agent-card.json`) describing its identity, skills, endpoint and required authentication | a contractor's booking agent advertising "book a service visit" |
+| **Task** | The stateful unit of work, with an ID and a lifecycle | "book an AC repair for Thursday" |
+| **Message / Part** | A turn between client and remote agent, made of text, file or structured-data parts | the request and the follow-up question |
+| **Artifact** | An output of the task | the booking confirmation |
+
+Task states include working, input-required, auth-required, and the terminal states
+completed, failed, canceled and rejected. Updates can stream in real time or arrive by push
+notification to a webhook, and the same model is bound to JSON-RPC, gRPC and HTTP+JSON.
+Authentication uses the schemes the Agent Card declares (API keys, HTTP auth, OAuth 2.0,
+OpenID Connect or mutual TLS). [10]
 
 ```text
-Agent A
-   |
-  A2A
-   |
-Agent B
+Homeowner's assistant agent                     Contractor's booking agent
+  1. GET /.well-known/agent-card.json  ------->  skills, endpoint, auth schemes
+  2. send message: "AC not cooling, Thu?" ---->  task T-17: working
+  3.                                     <-----  task T-17: input-required ("8-10 or 1-3?")
+  4. send message: "1-3"                ------>  task T-17: working
+  5.                                     <-----  task T-17: completed + artifact (confirmation)
 ```
 
-### Orchestration
+**What A2A does not do.** It tells the contractor's agent who is calling and what was asked;
+it does not decide whether to trust the request. Everything lab 12 teaches still applies on
+the receiving side: scopes, signed and non-replayed requests, idempotent retries, booking only
+slots that were actually quoted, treating free-text fields as untrusted data, and not leaking
+whether a phone number belongs to a customer. A message from another agent is input, never
+instructions. (ServiceTitan's public Homh material describes an assistant app or plugin, not
+an A2A endpoint; see [Homh and AI-agent booking](../homh-and-agent-booking.md).)
 
-**What should happen next?**
+### How they fit together
 
-```text
-             ORCHESTRATOR
-                  |
-       +----------+----------+
-       |          |          |
-       v          v          v
-     Agent      Agent      Agent
-       |          |          |
-       +----------+----------+
-                  |
-                  v
-               decision
-```
+| | MCP | A2A | Orchestration |
+|---|---|---|---|
+| Question it answers | How do I use this tool or data? | How do I hand this task to another agent? | What should happen next, and who may do it? |
+| Other side | A server you integrate | An agent someone else runs | Your own agents and policies |
+| Unit of work | A tool call or a resource read | A task with a lifecycle | A decision, then a commit |
+| Who holds state | Your application | Each agent keeps its own | Your application (ledger, workflow) |
+| Trust stance | Tool descriptions untrusted; consent before calls | Peer is opaque; authenticate, then validate | Enforces the policy both protocols leave open |
+| In this repo | Lab 02's tools, exposed a standard way | Lab 12's gateway, on the receiving end | Labs 09–11 and sections 15–17 |
+
+In one call they stack like this: the voice agent uses **MCP** to read the customer record and
+check availability; it uses **A2A** (or an internal equivalent) to ask a separate financing
+agent for options; and the **orchestration layer** decides whether to book, records the
+decision with its evidence, and commits through the guarded tool.
+
+Salesforce's public architecture uses both protocols in these roles, with an Agent
+Gateway for governance [3][4]; Microsoft's Agent Framework documents MCP clients for tools
+[5]. Neither vendor treats the protocol as the orchestrator.
+
+### Four mistakes to avoid
+
+1. **Trusting a tool because it's on an MCP server.** Descriptions and results are input.
+   Keep allow-lists, argument validation and consent in your harness.
+2. **Letting an A2A message act as instructions.** A peer agent's text can carry prompt
+   injection just like a caller's. Parse it into typed fields; never let it grant permissions.
+3. **Assuming the protocol is the authorization policy.** OAuth tells you who is calling,
+   not whether they may book this customer's slot. Scopes and ownership checks are yours.
+4. **Exposing write tools without idempotency.** Clients and networks retry. `create_job` needs an
+   idempotency key whichever protocol carries it.
 
 Therefore:
 
-> MCP and A2A solve connectivity/interoperability problems. They do not eliminate the need for an application-level coordination strategy.
+> MCP and A2A solve connectivity and interoperability. They make it cheaper to plug things
+> together; they do not decide what should happen, and they do not make an action safe.
 
 ## 19. Recommended prototype architecture
 
@@ -1985,6 +2058,8 @@ Try each question before reading the sketches below it.
 6. Microsoft Learn, Workflow orchestrations in Agent Framework: <https://learn.microsoft.com/agent-framework/workflows/orchestrations>
 7. ServiceTitan job listing, Engineering Manager, Data Foundations (checked October 7, 2026; listings expire): <https://servicetitan.wd1.myworkdayjobs.com/en-US/ServiceTitan/job/Manager--Software-Engineering_JR114911>
 8. Built In, ServiceTitan Staff Product Manager, Communications Intelligence (checked October 7, 2026; listings expire): <https://builtin.com/job/staff-product-manager-communications-intelligence/10448969>
+9. Model Context Protocol specification, revision 2026-07-28 (architecture, features, security principles, extensions): <https://modelcontextprotocol.io/specification/2026-07-28>
+10. A2A (Agent2Agent) Protocol specification, version 1.0.0 (Agent Card, tasks, messages, artifacts, bindings, authentication): <https://a2a-protocol.org/latest/specification/>
 
 ## Further reading
 
