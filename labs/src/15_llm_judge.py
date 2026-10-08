@@ -235,7 +235,8 @@ pd.DataFrame(abstention_sweep(v2, gold))
 #   against the judge's prompt, or the metric becomes a target.
 #
 # See [`docs/design-by-evaluation.md`](../docs/design-by-evaluation.md) (section 6, "Finding
-# failures in production") and the
+# failures in production"), [whitepaper chapter 17](../docs/whitepaper/17-running-agents-in-production.md)
+# (evaluation and rollout) and the
 # [bookability judge exercise](../senior-engineer/bookability-judge.md).
 
 # %% [markdown]
