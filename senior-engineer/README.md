@@ -22,10 +22,11 @@ The central pattern, used throughout:
 | 7 | [Working hypotheses](hypotheses.md) | 20 min, then ongoing | [Pantheon 2026 brief](../docs/pantheon-2026-ai-roadmap.md) | your pre-start hypotheses, each with a test |
 | 8 | [Bookability judge](bookability-judge.md) | 60 min | [Pantheon 2026 brief](../docs/pantheon-2026-ai-roadmap.md), [eval design](eval-design.md), labs 07–08 | a bookability definition, gaming paths, and audit plan |
 | 9 | [Autonomy promotion review](autonomy-promotion.md) | 45 min | [earning autonomy](../docs/earning-autonomy.md), [lab 14](../labs/14_earning_autonomy.ipynb) | a per-segment promote/hold decision memo |
+| 10 | [Capacity reservation review](capacity-reservation-review.md) | 30 min | Pantheon 2026 brief, [lab 10](../labs/README.md) | a state machine and race/retry/release test plan |
 
-About six and a quarter hours in total. Exercises 2–5 are the core; if you only have two hours, do 3 and 4.
+About six hours and 45 minutes in total. Exercises 2–5 are the core; if you only have two hours, do 3 and 4.
 After Pantheon 2026 reading (item 7B), do exercise 8 before or with the eval design exercise.
-Do exercise 9 after lab 14.
+Do exercise 9 after lab 14. Do exercise 10 after the Pantheon 2026 brief; it extends lab 10's coordination model with reservation lifecycle and concurrent mutations.
 
 ## How to use it
 
