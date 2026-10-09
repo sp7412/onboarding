@@ -24,6 +24,10 @@ numbers, so treat the [reading guide](reading-guide.md) and labs as the source o
 
 Episodes are listed in **listening order**; numbers match references elsewhere in the repo.
 
+For a **5–10 minute** episode on a single concept (instead of a full numbered episode), use the
+[reusable short-episode template](#template-short-source-grounded-episode-5–10-minutes) at the end of this file.
+That template is for manual NotebookLM use; `scripts/podcasts_to_nlm.py` only reads the numbered episode blocks.
+
 ## Optional: create episodes from the command line
 
 `scripts/podcasts_to_nlm.py` reads the blocks below and, for each episode, creates a notebook,
@@ -367,3 +371,41 @@ calibration, segment-specific policy and drift/OOD guards. Keep company claims e
 attributed and distinguish the synthetic lab architecture from any internal implementation.
 End with five questions the engineer should ask in week 1.
 ```
+
+---
+
+## Template: short source-grounded episode (5–10 minutes)
+
+Use this to make a focused episode from one canonical repo document plus, at most, two
+supporting sources. A narrow source set beats asking NotebookLM to summarize the whole repo.
+It is not numbered and is not part of the listening order. `scripts/podcasts_to_nlm.py` skips
+it because its header is `EPISODE:` rather than `EPISODE <number>:`.
+
+Copy the block, replace every `[BRACKETED]` field, then follow
+[How to use a block](#how-to-use-a-block). The customize prompt is kept under 800 characters
+like the episodes above, so the box is less likely to truncate it.
+
+```text
+EPISODE: [SHORT, SPECIFIC TITLE]
+Format: Deep Dive · Length: Shorter
+
+SOURCES (NotebookLM → Add source → Website / YouTube):
+https://raw.githubusercontent.com/sp7412/onboarding/main/docs/[CANONICAL-GUIDE].md
+[optional supporting source, at most two]
+
+CUSTOMIZE PROMPT (Audio Overview → Customize):
+Audience: an experienced software engineer new to production voice-agent systems. Teach one concept: [LEARNING OBJECTIVE], so the listener can explain [OUTCOME]. Two hosts: a systems engineer and a sharp newcomer who asks precise follow-ups. Open with a realistic engineering problem, explain the mental model, walk one concrete example from input to outcome, examine one failure mode or trade-off, then give one thing to inspect, test or measure. Close with three takeaways. Use only the supplied sources for repo-specific facts; label any hypothetical example as hypothetical, never present it as ServiceTitan's implementation, and say so when a source is silent. Don't invent APIs, numbers or internals. No long intros or surveys of adjacent topics. Aim for 5–10 minutes.
+```
+
+NotebookLM's format and length labels change. If **Shorter** is missing, keep the default
+length and rely on the prompt's scope. Either way, check the real duration after generating.
+
+### Review checklist for each generated episode
+
+- [ ] The selected sources directly support the episode's central learning objective.
+- [ ] Repo-specific claims are supported by the supplied sources.
+- [ ] Hypothetical examples are clearly identified as hypothetical.
+- [ ] At least one component interaction or decision is explained end to end.
+- [ ] The episode gives the listener a concrete thing to inspect, test, or measure.
+- [ ] The audio runs about 5–10 minutes and contains no major factual errors.
+- [ ] The listener can state the three takeaways without replaying the episode.

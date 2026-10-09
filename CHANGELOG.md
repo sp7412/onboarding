@@ -3,6 +3,13 @@
 This file records meaningful repository changes so the evolution of the
 onboarding material is easy to scan without reading individual pull requests.
 
+## 2026-10-09
+
+### Podcast tooling
+
+- Added a reusable template and review checklist for short, source-grounded
+  NotebookLM episodes, in the same block format as the numbered episodes.
+
 ## 2026-10-08
 
 ### Consistency audit
