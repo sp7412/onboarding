@@ -71,7 +71,7 @@ Run the notebooks in order from this folder (they import the local `stlab/` pack
 dispatcher (`tools.py`), an offline Realtime API simulator (`fake_realtime.py`), a scripted
 LangChain chat model, a turn-taking simulator, the booking graph, and eval scenarios. The
 multi-agent labs add `context.py`, `coordination.py`, `learning.py` and `agent_gateway.py`
-(labs 09–12), `calls.py` and `minimax.py` (lab 13), `autonomy.py` (lab 14) and `judge.py` (lab 15).
+(labs 09–12), `calls.py` and `minimax.py` (lab 13), `autonomy.py` (lab 14), `judge.py` (lab 15), and `mcp_demo/` (lab 16).
 The simulated "models" are rule-based scripts, not LLMs. They exist to make event flows
 and control-plane behavior visible and deterministic. With keys, the same cells hit the
 real services.
