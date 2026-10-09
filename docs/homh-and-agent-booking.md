@@ -17,6 +17,10 @@ contractors adding "a direct booking connection (MCP) to your website so agents 
 and notes "The numbers are small today." [2] That is a separate path from Homh, but it raises
 the same trust questions.
 
+The same live-blog coverage attributes to co-founder and president Vahe Kuzoyan the framing
+"Whether you like it or not, the agent is now your customer." Homh is presented as the way
+contractors win that moment. [2]
+
 This note is for a voice-agent engineer joining the team. It does not describe internal
 Homh architecture, authentication, APIs, or credentials. It lists the **new trust surfaces**
 that matter when a consumer's AI assistant is part of the discovery/booking path.
@@ -37,6 +41,25 @@ Homh adds a distinct discovery/booking surface where:
 The voice agent remains one booking path among several. The announcement explicitly names
 AI assistants as a discovery surface; Pantheon also frames booking inside a broader coordination
 system involving shared context and coordinated action. [1][3]
+
+## Public Homh scoring dimensions
+
+The live blog (summarizing the Kuzoyan keynote) says Homh scores contractors on three things: [2]
+
+1. **Punctuality** — do technicians show up on time?
+2. **Hired rate** — after meeting the homeowner, do they choose to move forward?
+3. **Job quality and satisfaction** — what do customers say about the work?
+
+The same coverage says these metrics are becoming part of ServiceTitan reports so contractors
+can see how each score is calculated, and that they matter whether or not the contractor is
+on Homh. Homh itself is described as invite-only in a few key areas for now. Commitments
+attributed in the blog: you cannot pay to rank higher; ServiceTitan will not charge to remove
+a negative comment or to promote a positive review. [2]
+
+Analysis: for a voice-agent engineer these are downstream outcome metrics, not model scores.
+A booking that looks successful in-product can still hurt punctuality or hired rate if the
+slot, skill, or job-type match was wrong. That is another reason the control plane and the
+bookability judge matter more than raw booking rate.
 
 ## Trust model questions (public-safe)
 
@@ -101,10 +124,13 @@ teaching model, not Homh's design).
   Adaptive Capacity is being made available to AI CSRs; it does not document the internal
   interaction between that capability and Homh. [1]
 - Which metrics treat Homh bookings as the same denominator as phone bookings?
+- How are the three Homh-facing scores (punctuality, hired rate, job quality) defined, sliced,
+  and linked back to booking and dispatch decisions?
 
 ## Related material
 
 - [Pantheon 2026 AI roadmap brief](pantheon-2026-ai-roadmap.md)
+- [Business metrics for voice agents](business-metrics.md)
 - [Call facts contract](call-facts-contract.md)
 - [Labs 09–14](../labs/README.md), especially lab 12 (agent-to-agent gateway) and lab 13 (call-facts capstone)
 - [Tools and guardrails](tools-and-guardrails.md)
