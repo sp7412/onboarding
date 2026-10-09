@@ -195,7 +195,16 @@ The blog also recaps a Tuesday session on Atlas and the Max Command Center: Atla
 holds on open capacity when a campaign launches and releases them if bookings fall short,
 each recommendation shows its reasoning ("Every recommendation tells you why Atlas made it and
 what it expects to happen," said Juliette Armour), and Command Center is in private preview
-for Max customers. [3]
+for Max customers. The session also highlighted the need to record when another user has
+already acted on a recommendation, so an owner and marketing manager do not both execute the
+same action. [3]
+
+**Engineering interpretation (not a claim about the implementation):** this is a reservation
+and concurrency problem, not just an agent-planning problem. A safe design needs an authoritative
+capacity check at commit time, idempotent retries, a clear hold lifecycle, and a release or
+reconciliation path when actual bookings differ from the forecast. A recommendation should
+remain a proposal until the application confirms the state change. The public coverage does not
+specify the underlying transaction, locking, or idempotency mechanism.
 
 Analysis: the Oct 6 coverage listed the MCP server among new tools; the Oct 7 demo describes it
 as still in development, so treat availability as unconfirmed. Two booking paths now run
@@ -282,6 +291,9 @@ Analysis:
   customer?
 - How are bookings from a contractor's website booking connection (MCP) authenticated, and do
   they pass through the same capacity and policy checks as voice bookings?
+- When two authorized users act on the same capacity recommendation, what prevents duplicate
+  reservations or campaign launches? How are holds expired, released, and reconciled after a
+  booking shortfall or failed mutation?
 
 The [hypothesis map](hypothesis-map.md) expands these into more than a dozen public-grounded hypotheses,
 each with how to test it and whom to ask in weeks 1–2.
@@ -317,6 +329,7 @@ claims, distinguish inference from fact, and update this brief and the [claims l
 - [Homh and AI-agent booking](homh-and-agent-booking.md) — trust surfaces when an AI assistant is in the booking path
 - [MCP and external-agent trust boundary](mcp-and-external-agent-trust-boundary.md) — authorization and control boundaries for external AI agents
 - [Bookability judge](../senior-engineer/bookability-judge.md) — judgment exercise on gameable booking rates
+- [Capacity reservation review](../senior-engineer/capacity-reservation-review.md) — concurrent actions, idempotency, hold lifecycle, and source-of-truth checks
 - Whitepaper [chapter 01](whitepaper/01-company.md) (company), [chapter 06](whitepaper/06-product-landscape.md) (products), [chapter 13](whitepaper/13-future-directions.md) (future directions)
 - [Tools and guardrails](tools-and-guardrails.md), [Evaluating voice agents](evaluating-voice-agents.md)
 - Lessons: denominator, claims vs. state, worth-it
