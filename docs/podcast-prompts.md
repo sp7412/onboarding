@@ -367,3 +367,61 @@ calibration, segment-specific policy and drift/OOD guards. Keep company claims e
 attributed and distinguish the synthetic lab architecture from any internal implementation.
 End with five questions the engineer should ask in week 1.
 ```
+
+
+---
+
+## Reusable template: 5–10 minute source-grounded episode
+
+Use this template when creating a short episode from one or a few existing repo documents.
+Keep the source set narrow: one canonical guide plus, at most, two supporting sources.
+A focused episode is more useful than asking NotebookLM to summarize the whole repository.
+
+**Recommended Audio Overview settings:** choose **Brief** or **Deep Dive** according to the goal, and the shortest available length. UI labels can change; if a 5–10 minute length is not available, keep the prompt's scope narrow and check the actual duration after generation.
+
+Copy the block below into the Audio Overview customization prompt, replacing the bracketed fields. Add the listed repository files as sources first, using the raw GitHub URLs shown in the episode blocks above.
+
+```text
+EPISODE: [SHORT, SPECIFIC TITLE]
+TARGET: 5–10 minutes
+AUDIENCE: An experienced software engineer onboarding to production voice-agent systems.
+
+PURPOSE
+Teach one practical concept: [ONE LEARNING OBJECTIVE].
+By the end, the listener should be able to explain [CONCRETE OUTCOME] and identify
+one thing to inspect, test, or measure when applying it.
+
+SOURCE RULES
+Use the selected sources as the authority for repo-specific facts and terminology.
+Do not imply that a hypothetical design or general industry practice is deployed
+by ServiceTitan. Do not invent APIs, internal architecture, performance numbers,
+or implementation details. If a source leaves a question unanswered, say so.
+Use a clearly labeled hypothetical example when an example is needed.
+
+CONVERSATION
+Use two hosts: one experienced systems engineer and one technically capable
+newcomer who asks precise follow-up questions.
+1. Open with a realistic engineering problem (about 30 seconds).
+2. Explain the core mental model and the responsibilities of the main components.
+3. Walk through one concrete example from input to outcome.
+4. Examine one failure mode or engineering trade-off.
+5. Give the listener one practical investigation, test, or measurement to try.
+6. Close with three concise takeaways and one question to think about.
+
+STYLE AND SCOPE
+Prioritize technical substance over banter. Define jargon on first use.
+Explain why components interact as they do; don't merely list them.
+Cover one main concept and no more than two supporting concepts.
+Avoid long introductions, repetition, unsupported company-specific claims, and
+broad surveys of adjacent topics. Aim for 5–10 minutes of spoken audio.
+```
+
+### Review checklist for each generated episode
+
+- [ ] The selected sources directly support the episode's central learning objective.
+- [ ] Company-specific claims are grounded in public sources or repo documents.
+- [ ] Hypothetical examples are clearly identified as hypothetical.
+- [ ] At least one component interaction or decision is explained end to end.
+- [ ] The episode gives the listener a concrete thing to inspect, test, or measure.
+- [ ] The generated audio actually runs 5–10 minutes and contains no major factual errors.
+- [ ] The listener can state the three takeaways without replaying the episode.
