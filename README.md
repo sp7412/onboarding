@@ -72,7 +72,8 @@ the exact lab map and prerequisites.
 | [`notes/`](notes/) | Public-safe personal notes: original conversation notes, glossary, study-question answer |
 | [`scripts/`](scripts/) | Notebook runner, repo hygiene, sensitive-content and link checkers, site-simulation export, podcast and transcript tools |
 | [`site/`](site/) | Astro source for the [published site](https://sp7412.github.io/onboarding/) |
-| [`CHANGELOG.md`](CHANGELOG.md) | Concise history of major repository changes and onboarding evolution |\n| [`MAINTENANCE.md`](MAINTENANCE.md) | How the material is reviewed and kept current |
+| [`CHANGELOG.md`](CHANGELOG.md) | Concise history of major repository changes and onboarding evolution |
+| [`MAINTENANCE.md`](MAINTENANCE.md) | How the material is reviewed and kept current |
 | [`AGENTS.md`](AGENTS.md) | Instructions for AI coding agents working in this repo (`CLAUDE.md` points to it) |
 
 ## Lab environments
@@ -90,7 +91,7 @@ cp .env.example .env      # optional; every notebook runs offline without keys
 cd labs && jupyter lab
 ```
 
-Work through `00` → `08` in order, then `09` → `12` for multi-agent coordination, followed by 13–14 for the system capstone and autonomy policy. See [`labs/README.md`](labs/README.md) for details.
+Work through `00` → `08` in order, then `09` → `12` for multi-agent coordination, followed by 13–15 for the system capstone, autonomy policy, and LLM judge. See [`labs/README.md`](labs/README.md) for details.
 
 To run the offline test suite without activating the environment:
 
