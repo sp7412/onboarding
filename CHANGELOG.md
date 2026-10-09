@@ -18,6 +18,9 @@ onboarding material is easy to scan without reading individual pull requests.
   consent, idempotency, injection risks, auditability, and booking state.
 - Refreshed the Pantheon 2026 roadmap and claims ledger as new public
   announcements and follow-up coverage became available.
+- Turned the Command Center capacity-hold and duplicate-action details into a
+  senior-engineer exercise covering atomic reservation, idempotent retries,
+  stale recommendations, release/reconciliation, and authoritative state.
 - Clarified the public status of ServiceTitan's MCP work: public material
   describes MCP connectivity, while the broader MCP server remains described
   as in development; the repository does not treat it as generally available
