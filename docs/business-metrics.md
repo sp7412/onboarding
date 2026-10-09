@@ -1,6 +1,6 @@
 # Business Metrics for Voice Agents
 
-**Facts as of: October 6, 2026 · Last reviewed: October 6, 2026**
+**Facts as of: October 8, 2026 · Last reviewed: October 8, 2026**
 
 The engineering objective is not "make the model score higher." It is to improve a contractor's
 customer and operating outcomes without increasing safety or operational risk.
@@ -24,6 +24,15 @@ below that are not explicitly sourced are illustrative.
 | Wasted truck-roll cost | false bookings × average wasted-roll cost | Converts errors into dollars | safer booking and verification | estimate is sensitive to which incidents are counted |
 | CSR hours saved | handled minutes that no longer require a CSR | Operating leverage | automate routine work | can hide extra review/rework time |
 | Cost per handled minute | AI/telephony/infra cost / handled minutes | Unit economics | efficient routing, model choice, latency control | cheap minutes are useless if outcome quality falls |
+| Punctuality (Homh-facing) | on-time arrivals / scheduled visits (public Homh score) | How AI agents and homeowners rank the contractor | correct slot, skill, and travel-aware booking | can rise while booked jobs are low-value or poorly matched |
+| Hired rate (Homh-facing) | jobs accepted after the visit / eligible visits (public Homh score) | Conversion after the first meeting | match job type and tech capability on the call | can be hurt by optimistic booking that sends the wrong tech |
+| Job quality / satisfaction (Homh-facing) | customer feedback on completed work (public Homh score) | Long-term reputation in agent marketplaces | accurate problem capture and handoff notes | short-term booking gains can trade off against quality scores |
+
+The three Homh-facing rows above are taken from ServiceTitan's Pantheon 2026 live-blog
+coverage of the consumer demand platform: punctuality, hired rate, and job quality and
+satisfaction. The same coverage says they are becoming part of ServiceTitan reports whether
+or not a contractor is on Homh. Treat definitions and denominators as company claims to
+validate after joining; see [Homh and AI-agent booking](homh-and-agent-booking.md). [1]
 
 ## Metric discipline
 
@@ -52,7 +61,8 @@ A useful chain is:
 **calls → eligible opportunities → valid bookings → completed jobs → revenue → profit**
 
 Voice-agent quality sits inside that chain. It should not be evaluated independently of the
-downstream state.
+downstream state. Homh-facing scores sit further downstream: a valid booking that produces a
+late arrival or a declined estimate still shows up in punctuality and hired rate.
 
 ## Related
 
@@ -60,4 +70,10 @@ downstream state.
 - [Lab 14: earning autonomy](../labs/README.md)
 - [Senior engineer track: evaluation and denominator design](../senior-engineer/eval-design.md)
 - [Evaluating voice agents](evaluating-voice-agents.md)
+- [Homh and AI-agent booking](homh-and-agent-booking.md)
 - [Pantheon 2026 AI roadmap](pantheon-2026-ai-roadmap.md)
+
+## Sources
+
+1. ServiceTitan, Pantheon 2026 live coverage (Homh scoring dimensions in the Kuzoyan keynote
+   summary): <https://www.servicetitan.com/blog/pantheon-2026-live-coverage>
