@@ -58,32 +58,32 @@
 # The `[cli]` extra provides commands such as `mcp dev` and `mcp run`.
 #
 # %% 
-# from mcp.server import MCPServer
-#
-# mcp = MCPServer("ServiceTitan Onboarding Demo")
-#
-#
-# @mcp.tool()
-# def find_available_appointment(zip_code: str, trade: str) -> dict:
-#     """Find fictional appointment availability for a ZIP code and trade."""
-#     if zip_code == "76108" and trade.lower() == "hvac":
-#         return {"available": True, "window": "tomorrow 9am-11am", "trade": "hvac"}
-#     return {"available": False, "window": None, "trade": trade}
-#
-#
-# @mcp.resource("contractor://capabilities")
-# def contractor_capabilities() -> str:
-#     """Describe the fictional contractor's supported trades."""
-#     return "HVAC and plumbing. Service area: fictional training data only."
-#
-#
-# @mcp.prompt()
-# def booking_assistant(trade: str = "HVAC") -> str:
-#     """Create a prompt for checking availability before booking."""
-#     return f"Check availability for {trade}; do not book anything without explicit confirmation."
-#
-# print("server:", mcp.name)
-#
+from mcp.server import MCPServer
+
+mcp = MCPServer("ServiceTitan Onboarding Demo")
+
+
+@mcp.tool()
+def find_available_appointment(zip_code: str, trade: str) -> dict:
+    """Find fictional appointment availability for a ZIP code and trade."""
+    if zip_code == "76108" and trade.lower() == "hvac":
+        return {"available": True, "window": "tomorrow 9am-11am", "trade": "hvac"}
+    return {"available": False, "window": None, "trade": trade}
+
+
+@mcp.resource("contractor://capabilities")
+def contractor_capabilities() -> str:
+    """Describe the fictional contractor's supported trades."""
+    return "HVAC and plumbing. Service area: fictional training data only."
+
+
+@mcp.prompt()
+def booking_assistant(trade: str = "HVAC") -> str:
+    """Create a prompt for checking availability before booking."""
+    return f"Check availability for {trade}; do not book anything without explicit confirmation."
+
+print("server:", mcp.name)
+
 # %% [markdown]
 # ## 3. What did the SDK generate?
 #
@@ -113,26 +113,26 @@
 # the MCP surface without starting a subprocess or HTTP server.
 #
 # %%
-# import anyio
-# from mcp import Client
-#
-#
-# async def inspect_server():
-#     async with Client(mcp) as client:
-#         tools = await client.list_tools()
-#         resources = await client.list_resources()
-#         prompts = await client.list_prompts()
-#         result = await client.call_tool(
-#             "find_available_appointment",
-#             {"zip_code": "76108", "trade": "HVAC"},
-#         )
-#         print("tools:", [t.name for t in tools.tools])
-#         print("resources:", [r.uri for r in resources.resources])
-#         print("prompts:", [p.name for p in prompts.prompts])
-#         print("tool result:", result.structured_content)
-#
-# anyio.run(inspect_server)
-#
+import anyio
+from mcp import Client
+
+
+async def inspect_server():
+    async with Client(mcp) as client:
+        tools = await client.list_tools()
+        resources = await client.list_resources()
+        prompts = await client.list_prompts()
+        result = await client.call_tool(
+            "find_available_appointment",
+            {"zip_code": "76108", "trade": "HVAC"},
+        )
+        print("tools:", [t.name for t in tools.tools])
+        print("resources:", [r.uri for r in resources.resources])
+        print("prompts:", [p.name for p in prompts.prompts])
+        print("tool result:", result.structured_content)
+
+anyio.run(inspect_server)
+
 # %% [markdown]
 # ## 5. Put the server on a real transport
 #
@@ -205,24 +205,24 @@
 # Here is a deliberately boring policy function. Keep this kind of decision outside the model.
 #
 # %%
-# ALLOWED_TENANT = "training-tenant"
-# ALLOWED_PRINCIPAL = "training-user"
-#
-#
-# def authorize_booking(principal: str, tenant: str, confirmed: bool) -> bool:
-#     return (
-#         principal == ALLOWED_PRINCIPAL
-#         and tenant == ALLOWED_TENANT
-#         and confirmed
-#     )
-#
-#
-# assert authorize_booking("training-user", "training-tenant", True)
-# assert not authorize_booking("attacker", "training-tenant", True)
-# assert not authorize_booking("training-user", "other-tenant", True)
-# assert not authorize_booking("training-user", "training-tenant", False)
-# print("authorization checks passed")
-#
+ALLOWED_TENANT = "training-tenant"
+ALLOWED_PRINCIPAL = "training-user"
+
+
+def authorize_booking(principal: str, tenant: str, confirmed: bool) -> bool:
+    return (
+        principal == ALLOWED_PRINCIPAL
+        and tenant == ALLOWED_TENANT
+        and confirmed
+    )
+
+
+assert authorize_booking("training-user", "training-tenant", True)
+assert not authorize_booking("attacker", "training-tenant", True)
+assert not authorize_booking("training-user", "other-tenant", True)
+assert not authorize_booking("training-user", "training-tenant", False)
+print("authorization checks passed")
+
 # %% [markdown]
 # ## 8. Failure cases
 #
