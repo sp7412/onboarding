@@ -113,24 +113,41 @@ print("server:", mcp.name)
 # the MCP surface without starting a subprocess or HTTP server.
 #
 # %%
-from mcp import Client
+import subprocess
+import sys
+import textwrap
 
+client_check = textwrap.dedent(
+    """
+    import anyio
+    from mcp import Client
+    from mcp_demo.server import mcp
 
-async def inspect_server():
-    async with Client(mcp) as client:
-        tools = await client.list_tools()
-        resources = await client.list_resources()
-        prompts = await client.list_prompts()
-        result = await client.call_tool(
-            "find_available_appointment",
-            {"zip_code": "76108", "trade": "HVAC"},
-        )
-        print("tools:", [t.name for t in tools.tools])
-        print("resources:", [r.uri for r in resources.resources])
-        print("prompts:", [p.name for p in prompts.prompts])
-        print("tool result:", result.structured_content)
+    async def inspect_server():
+        async with Client(mcp) as client:
+            tools = await client.list_tools()
+            resources = await client.list_resources()
+            prompts = await client.list_prompts()
+            result = await client.call_tool(
+                "find_available_appointment",
+                {"zip_code": "76108", "trade": "HVAC"},
+            )
+            print("tools:", [t.name for t in tools.tools])
+            print("resources:", [r.uri for r in resources.resources])
+            print("prompts:", [p.name for p in prompts.prompts])
+            print("tool result:", result.structured_content)
 
-await inspect_server()
+    anyio.run(inspect_server)
+    """
+)
+completed = subprocess.run(
+    [sys.executable, "-c", client_check],
+    check=True,
+    capture_output=True,
+    text=True,
+    timeout=30,
+)
+print(completed.stdout)
 
 # %% [markdown]
 # ## 5. Put the server on a real transport
