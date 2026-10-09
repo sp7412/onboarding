@@ -284,6 +284,15 @@ print("authorization checks passed")
 # A strong answer distinguishes **protocol interoperability** from **application authority**.
 #
 # %% [markdown]
+# ## Check your understanding
+#
+# 1. What does MCP standardize, and which authorization decisions remain the application's responsibility?
+# 2. Why should a booking mutation verify principal, tenant, confirmation, and current state outside the model?
+# 3. What does an in-memory MCP client test prove, and what still needs testing over Streamable HTTP?
+#
+# **Graded exercise:** Implement and test a fictional booking tool that rejects unauthorized principals, cross-tenant requests, missing confirmation, stale appointment state, and reused idempotency keys with conflicting arguments.
+#
+# %% [markdown]
 # ## Takeaway
 #
 # You now have the whole path:
@@ -300,13 +309,3 @@ print("authorization checks passed")
 #
 # That is the useful mental model for the ServiceTitan material: **MCP is the connection
 # surface; the application owns authorization, policy, state transitions, and side effects.**
-
-# %% [markdown]
-# ## Check your understanding
-#
-# 1. What does MCP standardize, and which authorization decisions remain the application's responsibility?
-# 2. Why should a booking mutation verify principal, tenant, confirmation, and current state outside the model?
-# 3. What does an in-memory MCP client test prove, and what still needs testing over Streamable HTTP?
-#
-# **Graded exercise:** Implement and test a fictional booking tool that rejects unauthorized principals, cross-tenant requests, missing confirmation, stale appointment state, and reused idempotency keys with conflicting arguments.
-#
