@@ -65,7 +65,7 @@ the exact lab map and prerequisites.
 | [`docs/references.md`](docs/references.md) | Complete bibliography of every external source in the repo |
 | [`docs/podcast-prompts.md`](docs/podcast-prompts.md) | NotebookLM podcast prompts: seven technical and three company-context episodes plus four coaching episodes |
 | [`docs/livekit-hands-on.md`](docs/livekit-hands-on.md) | LiveKit track: Agent Builder → `lk` starter → fake ServiceTitan tools with guardrails |
-| [`labs/`](labs/) | Sixteen Jupyter tutorials: OpenAI Realtime, LiveKit, LangChain/LangGraph, LangSmith, multi-agent coordination (09–12), Mini-Max (13), earning autonomy (14), and building an LLM judge you can trust (15) |
+| [`labs/`](labs/) | Seventeen Jupyter tutorials: OpenAI Realtime, LiveKit, LangChain/LangGraph, LangSmith, multi-agent coordination (09–12), Mini-Max (13), earning autonomy (14), an LLM judge (15), and an MCP server (16) |
 | [`labs/solutions/`](labs/solutions/) | Offline-safe solution notes for the lab exercises |
 | [`senior-engineer/`](senior-engineer/) | Judgment track: nine fictional exercises with self-checks (including bookability judge and autonomy promotion review) |
 | [`templates/`](templates/) | Onboarding log, 1:1 questions, working-with-me, weekly status, field notes, pre-mortem, 30-day memo, design doc, brag document, 90-day retro |
@@ -91,7 +91,7 @@ cp .env.example .env      # optional; every notebook runs offline without keys
 cd labs && jupyter lab
 ```
 
-Work through `00` → `08` in order, then `09` → `12` for multi-agent coordination, `13` → `14` for the system capstone and autonomy policy, and `15` for LLM-judge evaluation. See [`labs/README.md`](labs/README.md) for details.
+Work through `00` → `08` in order, then `09` → `12` for multi-agent coordination, `13` → `14` for the system capstone and autonomy policy, and `15` for LLM-judge evaluation, then `16` for building an MCP server. See [`labs/README.md`](labs/README.md) for details.
 
 To run the offline test suite without activating the environment:
 
