@@ -28,7 +28,7 @@ pass.
 **Pass rule:** all eight criteria have evidence, no hard policy is bypassed, and the report
 distinguishes simulated behavior from any live measurement.
 
-## Extension: multi-agent and autonomy criteria (labs 09–14)
+## Extension: multi-agent, autonomy, and judge criteria (labs 09–15)
 
 Optional, and separate from the pass rule above. Use these when you run labs 09–14 (the
 plan schedules them before day one and in weeks 2–3). The same evidence standard applies.
@@ -39,5 +39,5 @@ plan schedules them before day one and in weeks 2–3). The same evidence standa
 | Hard constraints survive arbitration | The arbiter never trades away consent, emergencies or capacity, however much value a proposal claims. | One rejected high-value proposal and the constraint that rejected it. | Lab 10; arbitration test |
 | Outside agents are untrusted callers | The agent gateway refuses a bad signature, a replayed nonce, an unoffered slot and a missing scope, retries are idempotent, and it does not reveal whether a phone number is a customer. | Gateway refusals and an idempotent replay. | Lab 12; gateway tests |
 | Costliest extraction error named | You identify which CallFacts error costs the most and show a sensitivity number for it, and emergencies are never booked even when the extractor misses them. | The lab 13 sensitivity table with the top row explained. | Lab 13; `tests/test_minimax.py` |
-| Promotion is earned, not assumed | A promotion decision cites a bound on the error rate against a target, a minimum sample for promotion (thin data holds; a lower bound above the bar demotes even early), the cost threshold, and a drift guard that pauses on a shifted population. | The lab 14 decision table and one drift-paused example. | Lab 14; `tests/test_autonomy.py` |
+| Promotion is earned, not assumed | A promotion decision cites a bound on the error rate against a target, a minimum sample for promotion (thin data holds; a lower bound above the bar demotes even early), the cost threshold, and a drift guard that pauses on a shifted population. | The lab 14 decision table and one drift-paused example. | Lab 14; `tests/test_autonomy.py` |\n| Judge quality is measured, not assumed | The judge's rubric and JSON contract are tested; agreement is compared with human labels; position bias and self-grading are probed; and abstention is calibrated rather than treating every score as trustworthy. | The lab 15 report showing agreement, a position-bias result, and an abstention/calibration decision, including at least one known judge failure. | Lab 15; `tests/test_judge.py` |
 
