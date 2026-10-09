@@ -5,6 +5,13 @@ onboarding material is easy to scan without reading individual pull requests.
 
 ## 2026-10-08
 
+### Consistency audit
+
+- Aligned the root getting-started sequence with lab 15 and repaired a malformed
+  Markdown table row in the repository layout.
+- Extended the optional capstone evidence rubric to cover LLM-judge validation,
+  human agreement, position bias, and calibrated abstention.
+
 ### Pantheon and agent architecture
 
 - Added public-source guidance on agentic orchestration, shared context,

@@ -8,7 +8,7 @@ together (shared context, coordination, learning, agent-to-agent booking). Labs 
 capstones on a shared synthetic call dataset: extracting and committing call facts, and
 deciding when an agent has earned more autonomy. Lab 15 builds and validates an LLM judge for
 the same calls (live with an OpenAI key, with a scripted stand-in offline). The
-[capstone rubric](../docs/capstone-rubric.md) ends with optional pass criteria for labs 09–14.
+[capstone rubric](../docs/capstone-rubric.md) includes optional evidence criteria for labs 09–15.
 
 | # | Notebook | Layer | Keys needed | Time | Run |
 |---|---|---|---|---|---|
