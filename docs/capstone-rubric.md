@@ -28,9 +28,9 @@ pass.
 **Pass rule:** all eight criteria have evidence, no hard policy is bypassed, and the report
 distinguishes simulated behavior from any live measurement.
 
-## Extension: multi-agent, autonomy, and judge criteria (labs 09–15)
+## Extension: multi-agent, autonomy, judge, and MCP criteria (labs 09–16)
 
-Optional, and separate from the pass rule above. Use these when you run labs 09–15 (the
+Optional, and separate from the pass rule above. Use these when you run labs 09–16 (the
 plan schedules the multi-agent and autonomy labs before day one and in weeks 2–3; lab 15
 extends the evaluation track). The same evidence standard applies.
 
@@ -42,4 +42,5 @@ extends the evaluation track). The same evidence standard applies.
 | Costliest extraction error named | You identify which CallFacts error costs the most and show a sensitivity number for it, and emergencies are never booked even when the extractor misses them. | The lab 13 sensitivity table with the top row explained. | Lab 13; `tests/test_minimax.py` |
 | Promotion is earned, not assumed | A promotion decision cites a bound on the error rate against a target, a minimum sample for promotion (thin data holds; a lower bound above the bar demotes even early), the cost threshold, and a drift guard that pauses on a shifted population. | The lab 14 decision table and one drift-paused example. | Lab 14; `tests/test_autonomy.py` |
 | Judge quality is measured, not assumed | The judge's rubric and JSON contract are tested; agreement is compared with human labels; position bias and self-grading are probed; and abstention is calibrated rather than treating every score as trustworthy. | The lab 15 report showing agreement, a position-bias result, and an abstention/calibration decision, including at least one known judge failure. | Lab 15; judge evaluation report |
+| MCP capability is not authorization | The server exposes only intended tools/resources/prompts, while a deterministic policy check rejects an unauthorized principal, tenant, or unconfirmed booking independently of model output. | Runnable authorization assertions and a short explanation of the protocol/application trust boundary. | Lab 16; MCP server basics |
 
