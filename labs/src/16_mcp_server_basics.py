@@ -113,7 +113,6 @@ print("server:", mcp.name)
 # the MCP surface without starting a subprocess or HTTP server.
 #
 # %%
-import anyio
 from mcp import Client
 
 
@@ -131,7 +130,7 @@ async def inspect_server():
         print("prompts:", [p.name for p in prompts.prompts])
         print("tool result:", result.structured_content)
 
-anyio.run(inspect_server)
+await inspect_server()
 
 # %% [markdown]
 # ## 5. Put the server on a real transport
