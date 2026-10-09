@@ -1,6 +1,6 @@
 # Pantheon Hypothesis Map
 
-**Facts as of: October 6, 2026 · Last reviewed: October 6, 2026**
+**Facts as of: October 8, 2026 · Last reviewed: October 8, 2026**
 
 This is a **public-to-private validation map**. Every row is a hypothesis about how a
 voice-agent system might work, not a statement of ServiceTitan's internal architecture.
@@ -20,6 +20,7 @@ company systems.
 | External assistant bookings pass through a controlled agent gateway | **Company claim:** Pantheon announces Homh and booking by external AI assistants. [Pantheon brief](pantheon-2026-ai-roadmap.md) | Medium | Trace one public-facing booking flow if available | Where are authentication, consent, quote expiry and idempotency enforced? Ask API/platform owner. | External callers have different trust and replay risks. |
 | Voice content is evaluated against business outcomes, not only agent self-reports | **Company claim:** Pantheon says internal booking rates are easy to game and describes voice intelligence review. [Pantheon brief](pantheon-2026-ai-roadmap.md) | High | Compare call-level labels with final job state | Which metric is the source of truth for booking quality? Ask evals owner. | Prevents optimizing a gamable numerator. |
 | Demand forecasting can change marketing/call volume decisions | **Company claim:** public Pantheon material describes demand orchestration and coordination around capacity. [Pantheon brief](pantheon-2026-ai-roadmap.md) | Medium | Follow a demand signal into one downstream action | Which forecast feeds which action, and with what delay? Ask PM/infra. | Changes the distribution seen by the voice agent. |
+| Capacity recommendations require reservation lifecycle and concurrency control | **Company claim:** Pantheon coverage says Atlas holds capacity for a campaign, releases it if bookings fall short, and tracks when another user has already acted on a recommendation. [Pantheon brief](pantheon-2026-ai-roadmap.md) | High for the stated product behavior; implementation unknown | Trace one recommendation through reservation, commit, retry, release, and final schedule state; test two actors racing on the same action | What is the source of truth for holds, idempotency, stale recommendations, and release/reconciliation? Ask platform/infra owner. | Prevents duplicate actions, stale-capacity overbooking, and leaked reservations. |
 | Arbitration is a hard control boundary, not just an LLM prompt | **Company claim:** Pantheon describes arbitration and clear rules for when agents act or ask. [Pantheon brief](pantheon-2026-ai-roadmap.md) | High | Find one vetoed action and its policy owner | Which rules are non-negotiable and where are they enforced? Ask architecture owner. | Hard constraints must not be traded for expected value. |
 | Shared context has provenance/version semantics | Public materials say agents share context; provenance/versioning is an engineering hypothesis. [Pantheon brief](pantheon-2026-ai-roadmap.md) | Low | Inspect a fact change or correction | How are stale/conflicting facts represented? Ask infra/evals owner. | Determines whether downstream decisions are auditable. |
 | Call content may become a durable signal for later workflows | **Company claim:** Pantheon describes voice intelligence and using call information in downstream workflows. [Pantheon brief](pantheon-2026-ai-roadmap.md) | Medium | Trace one call-derived attribute beyond booking | What retention and access rules apply? Ask data owner. | Creates privacy, drift, and feature-governance concerns. |
@@ -30,8 +31,9 @@ company systems.
 Copy the rows you care most about into the [working-hypotheses template](../senior-engineer/hypotheses.md)
 in a **private** place before day one, and track what you observe against each. Labs
 [13](../labs/13_minimax_capstone.ipynb) and [14](../labs/14_earning_autonomy.ipynb) (with the
-[earning-autonomy guide](earning-autonomy.md)) let you practise the two hypotheses
-that matter most for a voice engineer: the facts contract and earned autonomy.
+[earning-autonomy guide](earning-autonomy.md)) let you practise the facts contract and earned
+autonomy. The [capacity reservation review](../senior-engineer/capacity-reservation-review.md)
+turns the new capacity-hold evidence into a concurrency and recovery exercise.
 
 ## Validation rule
 
