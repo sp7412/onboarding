@@ -30,8 +30,9 @@ distinguishes simulated behavior from any live measurement.
 
 ## Extension: multi-agent, autonomy, and judge criteria (labs 09–15)
 
-Optional, and separate from the pass rule above. Use these when you run labs 09–14 (the
-plan schedules them before day one and in weeks 2–3). The same evidence standard applies.
+Optional, and separate from the pass rule above. Use these when you run labs 09–15 (the
+plan schedules the multi-agent and autonomy labs before day one and in weeks 2–3; lab 15
+extends the evaluation track). The same evidence standard applies.
 
 | Criterion | Pass condition | Evidence to produce | Demonstrated by |
 |---|---|---|---|
