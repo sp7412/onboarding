@@ -9,18 +9,13 @@ joining the voice-agent team. It uses only public sources: the company's press r
 published keynote transcript, the conference live blog, and current ServiceTitan help documentation. Company claims are attributed as
 such, and anything marked **Analysis** is this repo's interpretation.
 
-> **Update (October 10):** the live blog now includes Day 3 material and additional
-> partner/customer recaps. New voice-engineering details include partner-reported A/B testing
-> of call variants, certified-partner booking against real capacity, and planned webhooks and
-> programmatic onboarding. These are public statements, not evidence of internal implementation.
-> The October 8 update below remains relevant:
->
-> The live blog recaps Wednesday's partner-ecosystem keynote, including a demo of a ServiceTitan
-> MCP server described as still in development (section 2b). Atlas help documentation shows a
-> permissioned, action-taking interface (section 5). No transcript or recap of "Charging Ahead
-> with AI and Max" had been published as of October 8. The blog's closing posts add Atlas's
-> "closed alpha" status and a website booking connection for agents (section 2c). ServiceTitan's
-> help center says breakout sessions go to Academy about 4–6 weeks after the event. [3][4][5][6]
+> **Update (October 10):** the live blog now includes additional partner and customer
+> recaps plus a public write-up of the "Charging Ahead with AI and Max" breakout. Strengthened
+> caveats on partner-reported A/B testing, certified-partner booking, planned webhooks and
+> programmatic onboarding, and customer anecdotes so they are not treated as implementation
+> facts or benchmarks (sections 2b–2d). Atlas help documentation shows a permissioned,
+> action-taking interface (section 5). Breakout recordings go to Academy about 4–6 weeks after
+> the event. [3][4][5][6]
 
 ## Five Takeaways
 
@@ -188,9 +183,12 @@ that morning). All of this is the blog's summary of company and partner claims. 
   data-handling standards. His words: "It has to be one where we offer you a choice that you
   can trust."
 - **Booking by a third-party AI.** Avoca, an AI voice company, books jobs against a
-  contractor's real capacity through an API open to certified partners.
-- **Integration plumbing.** Webhooks to notify connected apps when a job changes are due by
-  year-end, and programmatic onboarding aims to cut partner setup to minutes.
+  contractor's real capacity through an API open to certified partners. The blog does not
+  specify the API's authentication, authorization, idempotency, or transaction semantics;
+  those remain questions, not facts.
+- **Integration plumbing (planned).** Webhooks to notify connected apps when a job changes are
+  due by year-end, and programmatic onboarding aims to cut partner setup to minutes. These are
+  announced plans, not a guarantee of current availability.
 - **MCP, demonstrated as in development.** Chander asked Claude, connected through a
   ServiceTitan Model Context Protocol server described as still in development, to find
   materials unused for a year and then two; Claude offered to deactivate the stale items. "You
@@ -234,11 +232,14 @@ day heading that doesn't match the session, this brief doesn't assign it a day. 
   path, alongside Homh in consumer assistants and certified partners like Avoca (section 2b).
 - **Partner evaluation practice.** Avoca "tests every change, down to the greeting, by
   splitting calls between two versions" and, per the blog, rolls out a winner only when the
-  result is statistically significant. This is a partner's claim about its own process.
+  result is statistically significant. This is a useful example of evaluating voice-agent
+  changes as controlled experiments, but the public post does not disclose sample sizes,
+  stopping rules, metrics, or experimental design.
 - **Setup time for an AI Virtual Agent.** A customer story says Superior Plumbing's AI Virtual
   Agent ("Piper") "took about 30 minutes to get running" and handles appointment booking,
   freeing CSRs for callers who need hands-on help. This is a customer claim, with no booking
-  metric given.
+  metric given. Like the Davis AC 98% booking-rate claim in section 2a, treat these as
+  attributed anecdotes, not benchmarks or expected performance targets.
 - **Other partner items:** Affirm pay-over-time is live in estimates; Ramp bill pay and expense
   management is generally available; Ford Pro vehicle data (model year 2020 and newer) flows
   into Fleet Pro with no extra hardware; and a supplier-connected catalog is being built with
@@ -253,110 +254,89 @@ just to a contractor's own assistant. "Closed alpha" and "the numbers are small 
 say the same thing: these surfaces are early, so plan for them changing rather than treating
 them as settled interfaces.
 
-## 2d. Day 3 and expanded partner coverage (reviewed October 10)
+## 2d. Engineering implications of the expanded partner coverage (reviewed October 10)
 
-The official live blog now includes Day 3 material and additional details that sharpen the
-engineering questions in this brief. These are company or partner statements unless otherwise
-noted; they do not establish ServiceTitan's internal implementation. [3]
+The partner and customer details in sections 2b and 2c sharpen a few engineering questions
+without establishing ServiceTitan's internal implementation. [3]
 
-- **Partner-reported call experimentation.** Avoca says it splits calls between two versions,
-  tests changes down to the greeting, and rolls out a winner only after statistical significance.
-  This is a useful example of evaluating voice-agent changes as controlled experiments, but the
-  public post does not disclose sample sizes, stopping rules, metrics, or experimental design.
-- **Certified-partner booking against real capacity.** The live blog says Avoca books through an
-  API open to certified partners. ServiceTitan describes a partner certification program covering
-  security and data handling. The blog does not specify the API's authentication, authorization,
-  idempotency, or transaction semantics; those remain questions, not facts.
-- **Webhooks and onboarding are planned infrastructure.** ServiceTitan says webhooks are due by
-  year-end to notify connected apps when a job changes, reducing the need for polling, and that
-  programmatic onboarding is intended to reduce partner setup to minutes. These are announced
-  plans, not a guarantee of current availability.
-- **Cross-product state matters.** The keynote's “no information black holes” framing means
-  partner-side changes should flow back into the platform. Engineering implication: treat partner
-  callbacks as potentially duplicated, delayed, or out of order; verify authoritative state and
-  design idempotent consumers. This is a general design recommendation, not a claim about the
-  implementation ServiceTitan uses.
-- **Customer examples are not benchmarks.** The blog says Superior Plumbing reported setting up
-  Piper in about 30 minutes, while Davis AC reported a 98% booking rate for Nell. These are
-  attributed anecdotes with no comparable evaluation protocol or denominators published in the
-  recap; do not use them as expected performance targets.
-
-**What changed in the onboarding interpretation:** the partner ecosystem is not only a discovery
-or tool-calling concern. It includes the lifecycle of externally initiated bookings and events,
-and the measurement discipline needed to decide whether voice-agent changes actually improve
-outcomes. The existing [MCP and external-agent trust boundary](mcp-and-external-agent-trust-boundary.md),
-[capacity reservation review](../senior-engineer/capacity-reservation-review.md), and
-[bookability judge](../senior-engineer/bookability-judge.md) remain the right exercises; this
-update adds evidence and caveats rather than inventing a new architecture.
+- **Cross-product state.** Affirm's "no information black holes" framing means partner-side
+  changes should flow back into the platform. Treat partner callbacks as potentially
+  duplicated, delayed, or out of order; verify authoritative state and design idempotent
+  consumers. This is a general design recommendation, not a claim about the implementation
+  ServiceTitan uses.
+- **What changed in the onboarding interpretation.** The partner ecosystem is not only a
+  discovery or tool-calling concern. It includes the lifecycle of externally initiated bookings
+  and events, and the measurement discipline needed to decide whether voice-agent changes
+  actually improve outcomes. The existing
+  [MCP and external-agent trust boundary](mcp-and-external-agent-trust-boundary.md),
+  [capacity reservation review](../senior-engineer/capacity-reservation-review.md), and
+  [bookability judge](../senior-engineer/bookability-judge.md) remain the right exercises;
+  this update adds evidence and caveats rather than inventing a new architecture.
 
 ## 3. What this means for a voice-agent engineer
 
 Analysis:
 
-- **The voice agent's outputs are inputs to other agents.** What it captures (intent, urgency,
-  constraints like "car stuck in the garage", job value signals) becomes shared context for
-  dispatch and lead scoring. Expect work on that context contract: what to capture, how
-  reliably, and how it's verified. Teaching draft: [Call facts contract](call-facts-contract.md).
-- **"Bookable" needs a definition you can defend.** The company's own answer to gameable booking
-  rates was a separate judging agent. That makes evaluation design (what counts, who decides,
-  how it's audited) central, which is the denominator lesson in this repo. Practice:
-  [Bookability judge](../senior-engineer/bookability-judge.md). A customer's reported 98%
-  booking rate (section 2a) is exactly the kind of number to read with that lens: 98% of
-  what denominator, judged by whom?
-- **Booking decisions become arbitrated decisions.** With capacity-aware booking (Adaptive
-  Capacity) and dispatch able to move appointments, the voice agent's booking is one proposal
-  among several. The control plane must stay authoritative about what was actually committed.
-- **AI-agent-assisted booking changes the trust model.** Homh publicly describes homeowners'
-  AI agents participating in discovery and booking. Identity, authorization, consent,
-  idempotency and abuse handling are therefore useful trust-boundary questions; the public
-  announcement does not specify the protocol. Notes: [Homh and AI-agent booking](homh-and-agent-booking.md).
-- **AI assistants reach the platform from two directions.** Homh puts contractors inside
-  consumer assistants, and the announced MCP surface connects Claude or ChatGPT to a contractor's own ServiceTitan data; the Oct 7 demo
-  still described the server as in development, so availability and mutating scope remain unconfirmed. Both make permissions and what an assistant may read or do first-class
-  design questions, the same trust boundary as tool calls in lab 02.
-- **The learning loop needs traceability.** Tying outcomes back to decisions requires linked
-  traces from call to booking to job outcome, which is what lab 07 practices.
-- **"When to act and when to ask" is the guardrail spec.** Escalation rules, confirmations and
-  the claim guard are exactly that, made explicit and testable.
+The public material points at a system where the voice agent is one participant among many,
+not a standalone product. That has concrete consequences for anyone building or hardening a
+voice path:
 
-## 4. Questions to bring to the team
+- **Bookability is a judgment problem, not a metric.** The company built a separate agent to
+  decide whether a call was bookable because the in-product rate is gameable. A voice team that
+  optimizes only the rate the product already shows will be optimizing the wrong thing. The
+  [bookability judge](../senior-engineer/bookability-judge.md) exercise is the practical form of
+  that point.
+- **Capacity is shared and contended.** Adaptive Capacity for AI CSRs, Atlas holds on open
+  capacity, and partner booking against real capacity all assume a single source of truth for
+  what is still available. Concurrent agents (and concurrent humans) need an authoritative
+  check at commit time, not only a plan-time forecast. See the
+  [capacity reservation review](../senior-engineer/capacity-reservation-review.md).
+- **Outside agents are already in the booking path.** Homh (consumer assistants), certified
+  partners like Avoca, and a contractor-website MCP connection are three external booking
+  surfaces. Authorization, tenant scoping, idempotency, and confirm-before-commit are not
+  optional extras; they are the trust boundary. The
+  [MCP and external-agent trust boundary](mcp-and-external-agent-trust-boundary.md) note is the
+  checklist.
+- **Coordination is the product.** Shared context, shared judgment, coordinated action,
+  arbitration and centralized supervision are how the company describes Max. A voice agent that
+  cannot hand off context, accept an override, or report an outcome cleanly will be a liability
+  inside that system.
+- **Measurement and learning are first-class.** Call content feeds lead scoring and dispatch;
+  outcomes feed the learning loop. Designing the voice path without a clear fact schema and an
+  evaluation path leaves the rest of the system flying blind. The call-facts contract and the
+  evaluation labs are the teaching versions of that requirement.
 
-- How does the voice agent share context with the coordination system today, and what's the
-  contract (fields, confidence, verification)?
-- How does voice intelligence define a bookable call, and how is that judge evaluated?
-- When agents disagree (booking vs. dispatch vs. demand), where is the arbitration logic, and
-  how is it tested?
-- How are bookings arriving through Homh and consumer AI assistants authenticated and validated?
-- Which outcomes feed the learning loop for the voice agent, and how quickly?
-- What can the MCP server read or do, and how are its permissions scoped per user and per
-  customer?
-- How are bookings from a contractor's website booking connection (MCP) authenticated, and do
-  they pass through the same capacity and policy checks as voice bookings?
-- When two authorized users act on the same capacity recommendation, what prevents duplicate
-  reservations or campaign launches? How are holds expired, released, and reconciled after a
-  booking shortfall or failed mutation?
+None of this is a claim about ServiceTitan's internal implementation. It is what the public
+announcements imply for an engineer who has to design a voice agent that will live in (or next
+to) such a system.
 
-The [hypothesis map](hypothesis-map.md) expands these into more than a dozen public-grounded hypotheses,
-each with how to test it and whom to ask in weeks 1–2.
+## 4. Adaptive Capacity for AI CSRs
 
-## 5. Oct 8 follow-up: the trust boundary is becoming concrete
+From the press release and live blog: partners and AI CSRs can use Adaptive Capacity — the same
+intelligence behind ServiceTitan's own scheduling — so bookings respect real capacity rather than
+a static calendar. [1][3] Analysis: that is a capacity-reservation problem at the boundary between
+an external agent and the platform's source of truth. The
+[capacity reservation review](../senior-engineer/capacity-reservation-review.md) is the exercise.
 
-ServiceTitan's current Atlas documentation adds implementation-relevant evidence to the Pantheon announcements:
+## 5. Atlas as a permissioned, action-taking interface
 
-- **Atlas access is explicitly administered.** ServiceTitan documents an Atlas Access surface where administrators decide which Atlas personas each employee holds and whether those personas are kept up to date automatically. [4]
-- **Atlas is an action interface, not only a Q&A layer.** ServiceTitan describes Atlas as a conversational interface that can automate workflows, and documents its use for creating and updating Adaptive Capacity strategic rules in plain language. [5]
-- **This strengthens the repo's control-plane thesis.** The public evidence now gives us a concrete permission boundary to teach: identity/persona/capability → proposed action → policy/state validation → execution. That is consistent with, but does not prove, the internal architecture.
+ServiceTitan's current Atlas documentation adds implementation-relevant evidence:
+
+- Personas and access controls determine what Atlas can see and do. [4]
+- Atlas can be used inside Adaptive Capacity strategic rules. [5]
 
 The repo's new [MCP and external-agent trust boundary](mcp-and-external-agent-trust-boundary.md) note turns the Pantheon MCP/Homh announcements into a focused engineering checklist: authorization, tenant/resource scoping, consent, idempotency, injection resistance, auditability, and authoritative outcome verification.
 
 ## 6. Still to watch (replays and transcripts)
 
-The live blog now includes additional Day 3 and partner coverage, but that is not the same as a
-full session transcript. The following remain useful verification targets as of October 10:
+The live blog now includes additional partner coverage and a public recap of the "Charging
+Ahead with AI and Max" breakout, but that is not the same as a full session transcript. The
+following remain useful verification targets as of October 10:
 
-- **Charging Ahead with AI and Max**, Oct 7, 11:15 am ET: verify whether a public replay or
-  transcript becomes available; ServiceTitan says breakout recordings go to Academy about 4–6
-  weeks after the event [6].
+- **Charging Ahead with AI and Max**, Oct 7, 11:15 am ET: a public customer-panel recap is now
+  on the live blog (HomeX, Guild Garage Group, Goodrich); watch for a full transcript or
+  Academy recording (ServiceTitan says breakout recordings go to Academy about 4–6 weeks after
+  the event [6]).
 - **All-Star Titans** (closing session), Oct 7, 2 pm ET: look for a public replay or recap.
 - Full transcripts of the Oct 6 keynotes, to check the live blog's summaries (section 2a)
   against the speakers' actual words.

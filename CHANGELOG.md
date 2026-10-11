@@ -9,6 +9,7 @@ onboarding material is easy to scan without reading individual pull requests.
 
 - Refreshed the Pantheon 2026 roadmap through October 10 with additional Day 3 and partner coverage.
 - Added attributed notes on partner call experimentation, certified-partner booking, announced webhooks, and customer-reported setup/booking claims; separated public statements from engineering implications.
+- Consolidated overlapping partner/customer bullets into existing sections, strengthened caveats, and noted the public recap of the "Charging Ahead with AI and Max" breakout.
 
 ## 2026-10-09
 
