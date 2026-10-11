@@ -11,5 +11,6 @@ const title = body.split("\n").find((l) => l.startsWith("# "))!.slice(2);
   <p class="crumb muted"><a href={url("/")}>Journey</a> / podcasts</p>
   <div class="page-title"><Icon name="mic" badge size={22} tone="cyan" /><h1>{title}</h1></div>
   <p class="page-lede">Each episode is one block: tap <strong>Copy</strong>, then paste the sources and prompt into NotebookLM.</p>
+  <span id="template-short-source-grounded-episode-5–10-minutes" aria-hidden="true" />
   <DocBody body={body} sourcePath="docs/podcast-prompts.md" idPrefix="podcasts" />
 </BaseLayout>
