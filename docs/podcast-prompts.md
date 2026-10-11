@@ -25,7 +25,7 @@ numbers, so treat the [reading guide](reading-guide.md) and labs as the source o
 Episodes are listed in **listening order**; numbers match references elsewhere in the repo.
 
 For a **5–10 minute** episode on a single concept (instead of a full numbered episode), use the
-[reusable short-episode template](#template-short-source-grounded-episode-5–10-minutes) at the end of this file.
+[reusable short-episode template](#template-short-source-grounded-episode-5-10-minutes) at the end of this file.
 That template is for manual NotebookLM use; `scripts/podcasts_to_nlm.py` only reads the numbered episode blocks.
 
 ## Optional: create episodes from the command line
