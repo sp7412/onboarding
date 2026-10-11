@@ -1,6 +1,6 @@
 # Pantheon 2026: The AI Roadmap Brief
 
-**Facts as of: October 8, 2026 · Last reviewed: October 8, 2026**
+**Facts as of: October 10, 2026 · Last reviewed: October 10, 2026**
 
 ServiceTitan's annual user conference, Pantheon, is a three-day event in Orlando; the 2026 keynotes
 opened it on Tuesday, October 6. [1][3] This brief
@@ -9,7 +9,7 @@ joining the voice-agent team. It uses only public sources: the company's press r
 published keynote transcript, the conference live blog, and current ServiceTitan help documentation. Company claims are attributed as
 such, and anything marked **Analysis** is this repo's interpretation.
 
-> **Update (October 8):** the live blog now recaps Wednesday's partner-ecosystem keynote,
+> **Update (October 10):** the live blog now includes Day 3 material and additional partner/customer recaps. The new details most relevant to voice-agent engineering are partner-reported A/B testing of call variants, the certified-partner booking API, and announced integration plumbing (webhooks and programmatic onboarding). These are public product/partner statements, not evidence of internal implementation. The Oct 8 trust-boundary notes remain relevant. Earlier update: the live blog recaps Wednesday's partner-ecosystem keynote,
 > including a demo of a ServiceTitan MCP server that the live blog described as still in development (section 2b), and Atlas help
 > documentation shows a permissioned, action-taking interface (section 5). No transcript or
 > recap of "Charging Ahead with AI and Max" has been published as of October 8. The blog's closing posts add
@@ -248,6 +248,42 @@ just to a contractor's own assistant. "Closed alpha" and "the numbers are small 
 say the same thing: these surfaces are early, so plan for them changing rather than treating
 them as settled interfaces.
 
+## 2d. Day 3 and expanded partner coverage (reviewed October 10)
+
+The official live blog now includes Day 3 material and additional details that sharpen the
+engineering questions in this brief. These are company or partner statements unless otherwise
+noted; they do not establish ServiceTitan's internal implementation. [3]
+
+- **Partner-reported call experimentation.** Avoca says it splits calls between two versions,
+  tests changes down to the greeting, and rolls out a winner only after statistical significance.
+  This is a useful example of evaluating voice-agent changes as controlled experiments, but the
+  public post does not disclose sample sizes, stopping rules, metrics, or experimental design.
+- **Certified-partner booking against real capacity.** The live blog says Avoca books through an
+  API open to certified partners. ServiceTitan describes a partner certification program covering
+  security and data handling. The blog does not specify the API's authentication, authorization,
+  idempotency, or transaction semantics; those remain questions, not facts.
+- **Webhooks and onboarding are planned infrastructure.** ServiceTitan says webhooks are due by
+  year-end to notify connected apps when a job changes, reducing the need for polling, and that
+  programmatic onboarding is intended to reduce partner setup to minutes. These are announced
+  plans, not a guarantee of current availability.
+- **Cross-product state matters.** The keynote's “no information black holes” framing means
+  partner-side changes should flow back into the platform. Engineering implication: treat partner
+  callbacks as potentially duplicated, delayed, or out of order; verify authoritative state and
+  design idempotent consumers. This is a general design recommendation, not a claim about the
+  implementation ServiceTitan uses.
+- **Customer examples are not benchmarks.** The blog says Superior Plumbing reported setting up
+  Piper in about 30 minutes, while Davis AC reported a 98% booking rate for Nell. These are
+  attributed anecdotes with no comparable evaluation protocol or denominators published in the
+  recap; do not use them as expected performance targets.
+
+**What changed in the onboarding interpretation:** the partner ecosystem is not only a discovery
+or tool-calling concern. It includes the lifecycle of externally initiated bookings and events,
+and the measurement discipline needed to decide whether voice-agent changes actually improve
+outcomes. The existing [MCP and external-agent trust boundary](mcp-and-external-agent-trust-boundary.md),
+[capacity reservation review](../senior-engineer/capacity-reservation-review.md), and
+[bookability judge](../senior-engineer/bookability-judge.md) remain the right exercises; this
+update adds evidence and caveats rather than inventing a new architecture.
+
 ## 3. What this means for a voice-agent engineer
 
 Analysis:
@@ -308,20 +344,22 @@ ServiceTitan's current Atlas documentation adds implementation-relevant evidence
 
 The repo's new [MCP and external-agent trust boundary](mcp-and-external-agent-trust-boundary.md) note turns the Pantheon MCP/Homh announcements into a focused engineering checklist: authorization, tenant/resource scoping, consent, idempotency, injection resistance, auditability, and authoritative outcome verification.
 
-## 6. Still to watch (replays)
+## 6. Still to watch (replays and transcripts)
 
-From the conference schedule: [1][3]
+The live blog now includes additional Day 3 and partner coverage, but that is not the same as a
+full session transcript. The following remain useful verification targets as of October 10:
 
-- **Charging Ahead with AI and Max**, Oct 7, 11:15 am ET (no public recap or transcript as of
-  October 8; breakout recordings go to Academy about 4–6 weeks after the event [6])
-- **All-Star Titans** (closing session), Oct 7, 2 pm ET (the live blog wrapped up without a
-  recap of this session or of "Charging Ahead with AI and Max")
+- **Charging Ahead with AI and Max**, Oct 7, 11:15 am ET: verify whether a public replay or
+  transcript becomes available; ServiceTitan says breakout recordings go to Academy about 4–6
+  weeks after the event [6].
+- **All-Star Titans** (closing session), Oct 7, 2 pm ET: look for a public replay or recap.
 - Full transcripts of the Oct 6 keynotes, to check the live blog's summaries (section 2a)
-  against the speakers' actual words
+  against the speakers' actual words.
 
-When replays or transcripts appear, extract only new **publicly verifiable** claims about
-voice, bookability, Homh, Adaptive Capacity for AI CSRs, or coordination. Attribute company
-claims, distinguish inference from fact, and update this brief and the [claims ledger](whitepaper/claims-ledger.md).
+When replays or transcripts appear, extract only new **publicly verifiable** claims about voice,
+bookability, Homh, Adaptive Capacity for AI CSRs, partner integrations, or coordination. Attribute
+company and partner claims, distinguish inference from fact, and update this brief and the
+[claims ledger](whitepaper/claims-ledger.md).
 
 ## Related repo material
 
@@ -341,7 +379,7 @@ claims, distinguish inference from fact, and update this brief and the [claims l
 
 1. ServiceTitan press release, "ServiceTitan Announcing New and Expanded Capabilities at Pantheon 2026" (October 6, 2026): <https://www.globenewswire.com/news-release/2026/10/06/3375320/0/en/servicetitan-announcing-new-and-expanded-capabilities-at-pantheon-2026.html>
 2. Investing.com, "ServiceTitan at Pantheon 2026: ai push aims to make trades self-running" (summary and full keynote transcript, October 6, 2026): <https://www.investing.com/news/transcripts/servicetitan-at-pantheon-2026-ai-push-aims-to-make-trades-selfrunning-93CH-4934737>
-3. ServiceTitan, "Pantheon 2026: Live coverage from ServiceTitan" (live blog, read October 8, 2026): <https://www.servicetitan.com/blog/pantheon-2026-live-coverage>
+3. ServiceTitan, "Pantheon 2026: Live coverage from ServiceTitan" (live blog, reviewed October 10, 2026; publication date October 6, 2026): <https://www.servicetitan.com/blog/pantheon-2026-live-coverage>
 4. ServiceTitan Help Center, "Assign Atlas personas and manage access" (updated September 28, 2026): <https://help.servicetitan.com/docs/assign-atlas-access-and-personas>
 5. ServiceTitan Help Center, "Use Atlas in Adaptive Capacity Strategic Rules" (updated October 8, 2026): <https://help.servicetitan.com/commercial/docs/use-atlas-in-adaptive-capacity-strategic-rules-1>
 6. ServiceTitan Help Center, "How can I access Pantheon slides and video recordings?" (updated April 9, 2026): <https://help.servicetitan.com/docs/how-can-i-access-pantheon-slides-and-video-recordings>
