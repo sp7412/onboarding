@@ -12,3 +12,4 @@ langgraph-checkpoint-sqlite
 langsmith>=0.4
 # Notebook 04 (LiveKit agents); tested against livekit-agents 1.8.x
 livekit-agents[openai,silero,turn-detector]>=1.8
+mcp[cli]

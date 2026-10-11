@@ -26,6 +26,7 @@ COLAB_PACKAGES: dict[str, list[str]] = {
     "07": ["websockets>=13", "langchain>=1.0", "langchain-openai", "langgraph", "langsmith>=0.4"],
     "08": ["websockets>=13", "langchain>=1.0", "langchain-openai", "langgraph", "langsmith>=0.4"],
     "15": ["openai"],
+    "16": ["mcp[cli]"],
 }
 COLAB_NOTES = {
     "04": "The offline sections run in Colab; the live LiveKit agent needs a terminal and a "
