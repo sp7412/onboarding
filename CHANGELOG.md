@@ -10,6 +10,21 @@ onboarding material is easy to scan without reading individual pull requests.
 - Refreshed the Pantheon 2026 roadmap through October 10 with additional Day 3 and partner coverage.
 - Added attributed notes on partner call experimentation, certified-partner booking, announced webhooks, and customer-reported setup/booking claims; separated public statements from engineering implications.
 
+## 2026-10-11
+
+### Plan review
+
+- Reconciled the pre-start table with the Oct 19 checklist (field exercise, After Day One boundary, first-PR decision tree, working hypotheses, podcast episode 14).
+- Scheduled lab 16 and the MCP trust-boundary note, and added optional judgment-track exercises to weeks Oct 12, Oct 19, 2 and 3.
+- Added a day-one boundary item to week 1 and `**Output:**` lines to weeks 4–13.
+- Corrected the README judgment-track exercise count and time (ten, about 6¾ hours).
+
+### Pantheon completeness pass
+
+- Added section 2e to the Pantheon brief covering recaps missing from earlier passes: "Charging Ahead with AI and Max", Atlas's capability list and next-year goals, Homh's ranking signals, planned commercial and roofing Max agents, and the service-agreement and big-ticket-sales breakouts. Updated the update notes, team questions, and "still to watch".
+- Recorded the claims in the claims ledger and superseded the October 8 "no recap" rows.
+- Added hypothesis-map rows on tenant configuration and Homh ranking integrity, and a ranking-signals section in the Homh doc.
+
 ## 2026-10-09
 
 ### Podcast tooling
