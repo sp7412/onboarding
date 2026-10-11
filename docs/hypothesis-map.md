@@ -1,6 +1,6 @@
 # Pantheon Hypothesis Map
 
-**Facts as of: October 8, 2026 · Last reviewed: October 8, 2026**
+**Facts as of: October 10, 2026 · Last reviewed: October 10, 2026**
 
 This is a **public-to-private validation map**. Every row is a hypothesis about how a
 voice-agent system might work, not a statement of ServiceTitan's internal architecture.
@@ -25,6 +25,8 @@ company systems.
 | Shared context has provenance/version semantics | Public materials say agents share context; provenance/versioning is an engineering hypothesis. [Pantheon brief](pantheon-2026-ai-roadmap.md) | Low | Inspect a fact change or correction | How are stale/conflicting facts represented? Ask infra/evals owner. | Determines whether downstream decisions are auditable. |
 | Call content may become a durable signal for later workflows | **Company claim:** Pantheon describes voice intelligence and using call information in downstream workflows. [Pantheon brief](pantheon-2026-ai-roadmap.md) | Medium | Trace one call-derived attribute beyond booking | What retention and access rules apply? Ask data owner. | Creates privacy, drift, and feature-governance concerns. |
 | The highest-leverage voice-agent work may sit at system boundaries | **Analysis:** public announcements emphasize coordination, shared context, business outcomes, and autonomy. [Pantheon brief](pantheon-2026-ai-roadmap.md) | Medium | Ask where current failure costs concentrate | Which boundary currently causes the most customer impact? Ask manager. | Helps choose a useful first project instead of polishing the demo agent. |
+| Agent quality depends on how standardized a tenant's configuration is (skills, job types, business units) | **Company claim (customer):** one customer said Dispatch Pro's optimization rate only improved after it standardized those definitions. [Pantheon brief](pantheon-2026-ai-roadmap.md) | Low | Compare how a few job types and skills are defined across authorized test tenants or approved substitutes | How do agents handle inconsistent or missing definitions, and are evals sliced by tenant configuration? Ask the evaluation and product owners. | Separates model quality from setup quality in any before/after result. |
+| Homh ranking inputs (punctuality, hired rate, job quality) are an integrity surface | **Company claim:** Homh scores contractors on these three signals and says rank cannot be bought. [Pantheon brief](pantheon-2026-ai-roadmap.md), [Homh doc](homh-and-agent-booking.md) | Low | Ask how each input is computed and who can change it | Where do these metrics come from, and how are gaming, disputes and data corrections handled? Ask the product owner. | A ranking built on operational data inherits that data's quality and manipulation risks. |
 
 ## Keeping the log
 
