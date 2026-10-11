@@ -1,6 +1,6 @@
 # Homh and AI-Agent Booking
 
-**Facts as of: October 8, 2026 · Last reviewed: October 8, 2026**
+**Facts as of: October 10, 2026 · Last reviewed: October 10, 2026**
 
 Public sources only. At Pantheon 2026, ServiceTitan announced **Homh**, a consumer demand
 generation platform that makes selected contractors discoverable and bookable where
@@ -75,6 +75,12 @@ channels. They are questions, not answers:
 - How are spam or automated probing requests detected?
 - What rate limits or reputation signals apply per platform or per agent identity?
 - How are failed or cancelled Homh bookings attributed in demand metrics?
+
+## Ranking signals and integrity (added October 10)
+
+The live blog's recap of the co-founder and president's keynote says Homh scores contractors on punctuality, hired rate (whether the homeowner proceeds after meeting the contractor) and job quality and satisfaction, and that these metrics are becoming part of ServiceTitan reports. It also lists commitments: rank cannot be bought, and contractors are not charged to remove a negative comment or promote a positive review. Homh is described as invite-only in a few areas for now. [2] These are company statements; the scoring method is not public.
+
+Analysis: a ranking built from operational data is an integrity surface. Useful questions are who can influence each input, how disputes and corrections work, how an AI agent's choice is audited, and whether low-volume contractors are scored fairly. See the [hypothesis map](hypothesis-map.md) row on ranking inputs.
 
 ## Control-plane implications
 

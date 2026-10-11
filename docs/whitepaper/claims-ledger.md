@@ -231,7 +231,7 @@ Added when chapters 03, 04, 05, 08, 12, 13 and 14 were rewritten.
 | Atlas access is administered by persona | Pantheon brief, MCP note | https://help.servicetitan.com/docs/assign-atlas-access-and-personas | 2026-10-08 | yes | Help center |
 | Atlas creates and updates Adaptive Capacity strategic rules from plain language | Pantheon brief, MCP note | https://help.servicetitan.com/commercial/docs/use-atlas-in-adaptive-capacity-strategic-rules-1 | 2026-10-08 | yes | Help center |
 | Pantheon breakout sessions go to Academy about 4–6 weeks after the event | Pantheon brief | https://help.servicetitan.com/docs/how-can-i-access-pantheon-slides-and-video-recordings | 2026-10-08 | yes | Help center (updated April 9, 2026); Academy is a customer platform |
-| A transcript or recap of "Charging Ahead with AI and Max" (Oct 7) is public | Pantheon brief | — | 2026-10-08 | no | Not found on the live blog or in news search as of this date |
+| A transcript or recap of "Charging Ahead with AI and Max" (Oct 7) is public | Pantheon brief | — | 2026-10-08 | no | Not found on the live blog or in news search as of this date; superseded October 10: a recap is now on the live blog (see the October 10 completeness pass) |
 
 ## Pantheon live-blog wrap pass, October 8, 2026
 
@@ -243,4 +243,19 @@ Added when chapters 03, 04, 05, 08, 12, 13 and 14 were rewritten.
 | Superior Plumbing's AI Virtual Agent "took about 30 minutes to get running" and handles appointment booking | Pantheon brief | https://www.servicetitan.com/blog/pantheon-2026-live-coverage | 2026-10-08 | yes | Customer story; no booking metric |
 | Affirm pay-over-time live in estimates; Ramp bill pay and expense management GA; Ford Pro data (MY2020+) into Fleet Pro with no added hardware; supplier-connected catalog in progress | Pantheon brief | https://www.servicetitan.com/blog/pantheon-2026-live-coverage | 2026-10-08 | yes | Partner-ecosystem keynote recap |
 | Pantheon 2027 is Sept. 13–16, 2027, in Nashville | Pantheon brief | https://www.servicetitan.com/blog/pantheon-2026-live-coverage | 2026-10-08 | yes | Live-blog closing post |
-| A recap of the closing session or "Charging Ahead with AI and Max" is public | Pantheon brief | — | 2026-10-08 | no | Live blog wrapped without one |
+| A recap of the closing session or "Charging Ahead with AI and Max" is public | Pantheon brief | — | 2026-10-08 | no | Live blog wrapped without one; superseded October 10 for "Charging Ahead with AI and Max" (see the October 10 completeness pass); no closing-session recap found |
+
+
+## Pantheon live-blog completeness pass, October 10, 2026
+
+| Claim | Chapter | URL | Date checked | Supported | Notes |
+|---|---:|---|---|---|---|
+| A recap of the Oct 7 "Charging Ahead with AI and Max" breakout is on the live blog | Pantheon brief | https://www.servicetitan.com/blog/pantheon-2026-live-coverage | 2026-10-10 | yes | Supersedes the October 8 "no recap" rows; blog summary, not a transcript |
+| HomeX Services Group's Dispatch Pro optimization rate stayed near 30% until it standardized skills, job types and business units, then rose sharply | Pantheon brief | https://www.servicetitan.com/blog/pantheon-2026-live-coverage | 2026-10-10 | partial | Customer claim relayed by the blog; no post-change figure, denominator or time frame |
+| Guild Garage Group: 29 businesses, over 1,000 employees, about $350 million revenue; two businesses run AI call answering, booking and dispatch; moving to Max removed 29 other monthly invoices including outside API add-ons | Pantheon brief | https://www.servicetitan.com/blog/pantheon-2026-live-coverage | 2026-10-10 | yes | Customer statements in the blog recap; company-reported |
+| Atlas capabilities (reporting, "why" analysis, workflow building, monitoring, ROAS data cleanup, voice mode); expected to replace the Office app over time; next-year goals include email/calendar, meeting capture and building other agents | Pantheon brief | https://www.servicetitan.com/blog/pantheon-2026-live-coverage | 2026-10-10 | yes | Blog's account of the Kuzoyan keynote; goals are not commitments; pricing not set |
+| Homh scores contractors on punctuality, hired rate and job quality; contractors cannot pay to rank higher and are not charged to remove a negative comment or promote a positive review; invite-only in a few areas | Pantheon brief | https://www.servicetitan.com/blog/pantheon-2026-live-coverage | 2026-10-10 | yes | Blog's account of the Kuzoyan keynote; stated commitments, not independently verified |
+| Planned Max agents: commercial (cross-sell, technician development, estimate variance) and roofing (claims and supplement, production, subcontractor management) | Pantheon brief | https://www.servicetitan.com/blog/pantheon-2026-live-coverage | 2026-10-10 | yes | Blog list of planned agents by next year; not shipped |
+| Daily Log Agent can call an RFI Agent or Change Order Agent; Gulfshore Air and Heating reports days to payment down 70% with the Invoice Agent | Pantheon brief | https://www.servicetitan.com/blog/pantheon-2026-live-coverage | 2026-10-10 | yes | Commercial keynote recap; customer-reported, no baseline stated |
+| Technician findings captured by voice, photo or text are scanned for unrecorded problems and a pattern is flagged when the same issue appears three times; an agreement-review agent flagged a problem on a live agreement; Gallo reports agreements up 38% | Pantheon brief | https://www.servicetitan.com/blog/pantheon-2026-live-coverage | 2026-10-10 | yes | Service-agreements breakout recap; company- and customer-reported |
+| Peterman Brothers closes in the 60% range with virtual salespeople over Zoom; Redwood Services uses call recording and AI to check sales-process adherence | Pantheon brief | https://www.servicetitan.com/blog/pantheon-2026-live-coverage | 2026-10-10 | yes | Big-ticket sales breakout recap; self-reported, no denominators |
