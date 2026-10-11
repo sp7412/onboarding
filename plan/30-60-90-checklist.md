@@ -53,7 +53,8 @@ The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubr
 
 - [ ] Read the [Pantheon 2026 AI roadmap brief](../docs/pantheon-2026-ai-roadmap.md) (reading-guide item 7B); watch the keynote replays when available.
 - [ ] Skim the [call facts contract](../docs/call-facts-contract.md) and list three fields you would insist on verifying before dispatch consumes them.
-- [ ] Read [Homh and AI-agent booking](../docs/homh-and-agent-booking.md) and note trust questions for AI-assistant channels.\n- [ ] Read [MCP and external-agent trust boundaries](../docs/mcp-and-external-agent-trust-boundary.md) and write down who may call what, with whose authority, for Homh and the MCP server.
+- [ ] Read [Homh and AI-agent booking](../docs/homh-and-agent-booking.md) and note trust questions for AI-assistant channels.
+- [ ] Read [MCP and external-agent trust boundaries](../docs/mcp-and-external-agent-trust-boundary.md) and write down who may call what, with whose authority, for Homh and the MCP server.
 - [ ] Read [`docs/voice-agent-architecture.md`](../docs/voice-agent-architecture.md).
 - [ ] Try interactive lessons 4, 6 and 2: [Lessons](/lessons).
 - [ ] Watch explainer episodes 3–4: [Voice Agents from First Principles](../docs/reading-guide.md#0-voice-agents-from-first-principles-four-episode-explainer-) item 0.
@@ -70,7 +71,8 @@ The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubr
 - [ ] Watch the must-watch LangSmith videos ([reading guide](../docs/reading-guide.md) item 14A) before lab 07.
 - [ ] Complete labs 07–08 (needs a laptop).
 - [ ] Read [Tools and guardrails](../docs/tools-and-guardrails.md) and run its checklist against the lab tools.
-- [ ] Do the [bookability judge](../senior-engineer/bookability-judge.md) exercise (private notes only).\n- [ ] **Stretch:** do the [evaluation and denominator design](../senior-engineer/eval-design.md) and [latency budget](../senior-engineer/latency-budget.md) exercises (about 1 h 45 min, private notes only). These are the two exercises to keep if you only have two hours for the [judgment track](../senior-engineer/README.md).
+- [ ] Do the [bookability judge](../senior-engineer/bookability-judge.md) exercise (private notes only).
+- [ ] **Stretch:** do the [evaluation and denominator design](../senior-engineer/eval-design.md) and [latency budget](../senior-engineer/latency-budget.md) exercises (about 1 h 45 min, private notes only). These are the two exercises to keep if you only have two hours for the [judgment track](../senior-engineer/README.md).
 - [ ] Try interactive lessons 1, 3, 5 and 9: [Lessons](/lessons).
 - [ ] Use [`docs/capstone-rubric.md`](../docs/capstone-rubric.md) to collect pass/fail evidence.
 - [ ] Read [`docs/evaluating-voice-agents.md`](../docs/evaluating-voice-agents.md).
@@ -92,7 +94,11 @@ The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubr
 - [ ] Read reading-guide items 14B–14F (working with your manager, about 75 minutes).
 - [ ] Draft your [working-with-me doc](../templates/working-with-me.md) and start a [brag document](../templates/brag-document.md).
 - [ ] Prepare a personal first-week plan and take at least two full days off before Oct 26.
-- [ ] Podcast episodes 5, 13 and 14.\n- [ ] Do the [field exercise](../docs/field-exercise.md) (public, short, ethical) and note what you heard.\n- [ ] Fill in the [first-PR decision tree](../senior-engineer/first-pr-decision-tree.md) for one candidate change and write your [working hypotheses](../senior-engineer/hypotheses.md), each with a test (private notes only).\n- [ ] Read [After Day One](../docs/after-day-one.md) and decide where your private notes will live before Oct 26.\n- [ ] **Stretch:** do [What I need to know before day 1](../senior-engineer/what-i-need-to-know.md) (20 min), the [capacity reservation review](../senior-engineer/capacity-reservation-review.md) (30 min, after lab 10), and [lab 16](../labs/16_mcp_server_basics.ipynb) (MCP server basics, 60–90 min, offline) once you have read the MCP trust-boundary note.
+- [ ] Podcast episodes 5, 13 and 14.
+- [ ] Do the [field exercise](../docs/field-exercise.md) (public, short, ethical) and note what you heard.
+- [ ] Fill in the [first-PR decision tree](../senior-engineer/first-pr-decision-tree.md) for one candidate change and write your [working hypotheses](../senior-engineer/hypotheses.md), each with a test (private notes only).
+- [ ] Read [After Day One](../docs/after-day-one.md) and decide where your private notes will live before Oct 26.
+- [ ] **Stretch:** do [What I need to know before day 1](../senior-engineer/what-i-need-to-know.md) (20 min), the [capacity reservation review](../senior-engineer/capacity-reservation-review.md) (30 min, after lab 10), and [lab 16](../labs/16_mcp_server_basics.ipynb) (MCP server basics, 60–90 min, offline) once you have read the MCP trust-boundary note.
 - [ ] Do not create employer accounts, access employer data, or copy internal information into this public repo.
 
 ## Days 1–30: Understand And Earn Trust
@@ -104,7 +110,8 @@ The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubr
 - [ ] Hold the first alignment 1:1: priorities, success criteria, pace, working norms, feedback, and close.
 - [ ] Share your working-with-me doc; ask what your manager is judged on this quarter and for the career ladder for your level.
 - [ ] Agree on remote norms: overlap hours, written updates, and when to use Slack, docs or calls.
-- [ ] Confirm authorized access and data-handling rules before reviewing calls or traces.\n- [ ] Keep company-internal material out of this repo from day one; use only the approved private location for notes (see [After Day One](../docs/after-day-one.md)).
+- [ ] Confirm authorized access and data-handling rules before reviewing calls or traces.
+- [ ] Keep company-internal material out of this repo from day one; use only the approved private location for notes (see [After Day One](../docs/after-day-one.md)).
 - [ ] Meet manager, PM/product partner, senior engineer, and evaluation/observability partner; use the [First-90-Days Question Bank](../docs/first-90-days-question-bank.md) for two to four questions per conversation.
 - [ ] Start the internal copy of [`templates/onboarding-log.md`](../templates/onboarding-log.md).
 - [ ] Get the development environment running and make a list of setup gaps (needs a laptop).
@@ -131,7 +138,8 @@ The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubr
 
 - [ ] Run [lab 14](../labs/14_earning_autonomy.ipynb): defend a promotion policy with a Wilson bound, cost asymmetry, calibration, and drift guard.
 - [ ] Try the [earned-autonomy lesson](https://sp7412.github.io/onboarding/lessons/earned-autonomy/), then do the [autonomy promotion review](../senior-engineer/autonomy-promotion.md) exercise (private notes only).
-- [ ] Run [lab 15](../labs/15_llm_judge.ipynb): validate an LLM bookability judge against labels, fix its rubric, and test it for self-grading and position bias.\n- [ ] Do the fictional [production incident simulation](../senior-engineer/production-incident.md) before reviewing real traces (private notes only).
+- [ ] Run [lab 15](../labs/15_llm_judge.ipynb): validate an LLM bookability judge against labels, fix its rubric, and test it for self-grading and position bias.
+- [ ] Do the fictional [production incident simulation](../senior-engineer/production-incident.md) before reviewing real traces (private notes only).
 - [ ] Review authorized calls/traces or approved substitutes; record patterns without PII.
 - [ ] Tag successes, failures, and awkward moments; identify the top five patterns.
 - [ ] Meet telephony/infra, support or CSR-facing, and product stakeholders.
@@ -148,7 +156,9 @@ The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubr
 - [ ] Day-30 calibration: you and your manager rate each goal separately, then compare.
 - [ ] Review it with the manager; revise based on feedback.
 - [ ] Choose one day-60 problem with a clear owner, denominator, baseline, and reversible scope.
-- [ ] Agree in writing on the day-60 deliverable and success/guardrail metrics.\n\n**Output:** reviewed 30-day memo and a written day-60 agreement.
+- [ ] Agree in writing on the day-60 deliverable and success/guardrail metrics.
+
+**Output:** reviewed 30-day memo and a written day-60 agreement.
 
 ### Day-30 exit criteria
 
@@ -167,7 +177,9 @@ The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubr
 - [ ] Define eligible population, denominator, baseline period, primary metric, guardrails, and non-goals.
 - [ ] Compare at least two approaches, including the option to do nothing.
 - [ ] Review with manager, senior engineer, product partner, and relevant owner.
-- [ ] Decide rollout, flag/cohort, rollback trigger, and monitoring owner.\n\n**Output:** reviewed design doc with baseline, guardrails, and rollout plan.
+- [ ] Decide rollout, flag/cohort, rollback trigger, and monitoring owner.
+
+**Output:** reviewed design doc with baseline, guardrails, and rollout plan.
 
 ### Weeks 7–8 — Build in thin increments
 
@@ -175,7 +187,9 @@ The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubr
 - [ ] Add or update regression cases and deterministic evaluators.
 - [ ] Publish a weekly status with evidence, decisions, and blockers.
 - [ ] Pair with a teammate and shadow an incident review or operational workflow.
-- [ ] Ask for mid-point feedback: more of, less of, differently.\n\n**Output:** working increment behind a flag, weekly statuses, and regression cases.
+- [ ] Ask for mid-point feedback: more of, less of, differently.
+
+**Output:** working increment behind a flag, weekly statuses, and regression cases.
 
 ### Day-60 check
 
@@ -191,7 +205,9 @@ The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubr
 - [ ] Complete the target rollout or make a documented stop/rollback decision.
 - [ ] Measure before/after impact, including null results and uncertainty.
 - [ ] Add monitoring, alerts, and a debugging path for regressions.
-- [ ] Write the runbook: behavior, dependencies, failure modes, rollback, and owner.\n\n**Output:** rollout or documented stop decision, before/after analysis, and runbook.
+- [ ] Write the runbook: behavior, dependencies, failure modes, rollback, and owner.
+
+**Output:** rollout or documented stop decision, before/after analysis, and runbook.
 
 ### Weeks 11–12 — Multiply the learning
 
@@ -199,14 +215,18 @@ The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubr
 - [ ] Review it with manager and product partner.
 - [ ] Run one knowledge-share or publish a public-safe technical note.
 - [ ] Review PRs or pair in the area you now understand best.
-- [ ] Ensure another engineer can reproduce the measurement and operate the change.\n\n**Output:** reviewed next-quarter proposal and one knowledge-share.
+- [ ] Ensure another engineer can reproduce the measurement and operate the change.
+
+**Output:** reviewed next-quarter proposal and one knowledge-share.
 
 ### Week 13 — Reflect and reset
 
 - [ ] Write the [90-day retro](../templates/90-day-retro.md).
 - [ ] Review what shipped, what failed, what surprised you, and what you will own next.
 - [ ] Update the stakeholder map, risk register, and learning agenda for the next quarter.
-- [ ] Use only approved, public-safe wording for any résumé or LinkedIn update.\n\n**Output:** 90-day retro and an updated stakeholder map, risk register, and learning agenda.
+- [ ] Use only approved, public-safe wording for any résumé or LinkedIn update.
+
+**Output:** 90-day retro and an updated stakeholder map, risk register, and learning agenda.
 
 ### Day-90 exit criteria
 
