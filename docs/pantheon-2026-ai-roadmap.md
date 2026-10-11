@@ -9,13 +9,18 @@ joining the voice-agent team. It uses only public sources: the company's press r
 published keynote transcript, the conference live blog, and current ServiceTitan help documentation. Company claims are attributed as
 such, and anything marked **Analysis** is this repo's interpretation.
 
-> **Update (October 10):** the live blog now includes Day 3 material and additional partner/customer recaps. The new details most relevant to voice-agent engineering are partner-reported A/B testing of call variants, the certified-partner booking API, and announced integration plumbing (webhooks and programmatic onboarding). These are public product/partner statements, not evidence of internal implementation. The Oct 8 trust-boundary notes remain relevant. Earlier update: the live blog recaps Wednesday's partner-ecosystem keynote,
-> including a demo of a ServiceTitan MCP server that the live blog described as still in development (section 2b), and Atlas help
-> documentation shows a permissioned, action-taking interface (section 5). No transcript or
-> recap of "Charging Ahead with AI and Max" has been published as of October 8. The blog's closing posts add
-> Atlas's "closed alpha" status and a website booking connection for agents (section 2c). ServiceTitan's help center
-> says breakout sessions go to Academy, its customer training platform, about 4–6 weeks after
-> the event. [3][4][5][6]
+> **Update (October 10):** the live blog now includes Day 3 material and additional
+> partner/customer recaps. New voice-engineering details include partner-reported A/B testing
+> of call variants, certified-partner booking against real capacity, and planned webhooks and
+> programmatic onboarding. These are public statements, not evidence of internal implementation.
+> The October 8 update below remains relevant:
+>
+> The live blog recaps Wednesday's partner-ecosystem keynote, including a demo of a ServiceTitan
+> MCP server described as still in development (section 2b). Atlas help documentation shows a
+> permissioned, action-taking interface (section 5). No transcript or recap of "Charging Ahead
+> with AI and Max" had been published as of October 8. The blog's closing posts add Atlas's
+> "closed alpha" status and a website booking connection for agents (section 2c). ServiceTitan's
+> help center says breakout sessions go to Academy about 4–6 weeks after the event. [3][4][5][6]
 
 ## Five Takeaways
 
