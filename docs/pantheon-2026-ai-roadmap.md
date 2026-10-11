@@ -9,6 +9,8 @@ joining the voice-agent team. It uses only public sources: the company's press r
 published keynote transcript, the conference live blog, and current ServiceTitan help documentation. Company claims are attributed as
 such, and anything marked **Analysis** is this repo's interpretation.
 
+> **Update (October 10, later):** the live blog's remaining recaps are now covered in section 2e, including the Oct 7 "Charging Ahead with AI and Max" breakout (which section 6 below lists as not yet public in the earlier update), Atlas's capability list and next-year goals, Homh's ranking signals, and planned commercial and roofing agents. The full session recording is still expected through Academy. [3][6]
+>
 > **Update (October 10):** the live blog now includes Day 3 material and additional
 > partner/customer recaps. New voice-engineering details include partner-reported A/B testing
 > of call variants, certified-partner booking against real capacity, and planned webhooks and
@@ -289,6 +291,91 @@ outcomes. The existing [MCP and external-agent trust boundary](mcp-and-external-
 [bookability judge](../senior-engineer/bookability-judge.md) remain the right exercises; this
 update adds evidence and caveats rather than inventing a new architecture.
 
+## 2e. Remaining live-blog coverage: Atlas, Homh, Max pilots and breakouts (read October 10)
+
+Earlier passes covered the headline keynotes. This pass adds the live blog's remaining
+AI-relevant recaps. All of it is the blog's summary of company, partner and customer
+statements, not a transcript, and results are self-reported without denominators. Sessions
+without substantial AI implementation detail (including roofing M&A, private equity, the
+roofing process-and-pricing story, the Prometheus Awards, and the Manning fireside, whose AI
+references were general adoption and leadership observations) are intentionally left out. [3]
+
+**"Charging Ahead with AI and Max" (Oct 7 breakout).** Three early Max customers, seated by
+ServiceTitan's chief revenue officer, Ross Biestman:
+
+- **HomeX Services Group (CTO Jennifer D'Ambra).** Dispatch Pro ran across its Northeast
+  brands, but its optimization rate stayed near 30%. Moving to Max became a reason to
+  standardize skills, job types and business units. After that, she said, Dispatch Pro showed a
+  large jump that she credited mostly to the cleaned-up definitions. No new figure is given. Her
+  lesson: an AI tool fed unstandardized data returns poor results however sophisticated it is.
+- **Guild Garage Group (COO Jake Wold).** 29 businesses, over 1,000 employees and about $350
+  million in revenue; Wold wants revenue to grow faster than headcount. Two Guild businesses
+  already have AI answer the call, book it and dispatch a technician. Moving to Max let Guild
+  drop 29 other monthly invoices, including API add-ons that lived outside ServiceTitan.
+- **A thin-margin operator (Steven Gurley, Goodrich family office).** Retail backup power earns
+  less than HVAC, plumbing or garage doors, so he wants a clear benefit before adopting any AI
+  tool, and he questions asking technicians to juggle many apps.
+- **Advice.** Wold: take the demo, build a business case, then commit. D'Ambra: be intentional
+  and get the team on board first.
+
+**Atlas, beyond "closed alpha" (Kuzoyan keynote recap).** The blog lists what Atlas does today:
+reporting from existing reports, with a custom query when the metric doesn't exist; "why"
+analysis, including review of customer conversations from jobs that ended in recalls (with
+consent); building and modifying rule-based workflows and recommending who should act;
+monitoring that notifies when a rule trips (for example, variance above 5%); and cleaning
+marketing cost data for return on ad spend. It also has a voice mode and picks up on the web
+where a conversation left off, and the blog says it will over time replace the Office app.
+Stretch goals for next year's Pantheon include connecting to email and calendar, joining
+meetings to capture commitments, and building or modifying other agents. Atlas pricing and
+packaging are not set. These are goals, not commitments.
+
+**Homh ranking signals (Kuzoyan keynote recap).** Homh scores contractors on punctuality, hired
+rate (whether the homeowner chooses to proceed after meeting the contractor) and job
+quality and satisfaction. The blog says these metrics are becoming part of ServiceTitan
+reports, visible whether or not a contractor is on Homh. Three stated commitments: contractors
+cannot pay to rank higher, and will not be charged to remove a negative comment or to promote
+a positive review. Homh is invite-only in a few areas for now, and profiles build on existing
+ServiceTitan history. The keynote's framing is that a homeowner's AI agent becomes the customer
+and picks the contractor it believes will solve the problem.
+
+**Planned Max agents for commercial and roofing pilots.** The blog lists agents planned by next
+year. Commercial: cross-sell agents that turn new installs into service-agreement proposals and
+flag replacement opportunities with a total-cost analysis; a technician-development agent that
+schedules toward certification hours; and a construction estimate-variance agent. Roofing: a
+claims and supplement agent that reconciles the adjuster's scope with the estimate; a
+production agent that breaks a sold estimate into jobs, books crews and deliveries and
+reschedules for weather; and a subcontractor-management agent. Separately, the commercial keynote
+said the Daily Log Agent can call an RFI Agent or Change Order Agent when it spots a field
+conflict, and a customer (Gulfshore Air and Heating) reported days to payment down 70% with the
+Invoice Agent.
+
+**Service agreements breakout (Gallo Mechanical).** The product team showed technicians
+logging findings by voice, photo or text, with the application scanning notes, photos and job
+summaries for problems no one wrote up and flagging a pattern when the same issue appears
+three times, to give sales a reason to revisit a declined recommendation. An agreement-review
+agent flagged a problem with the first two quarterly invoices on a live agreement. Gallo's COO
+said agreements grew 38% this year and that follow-on work runs far higher margin than the
+agreement itself. Company-reported.
+
+**Big-ticket sales breakout.** Peterman Brothers said it connects a customer to one of six
+virtual salespeople over Zoom when a technician finds a broken system, closing in the 60% range
+by its own account, and ties more first-call price requests to ChatGPT. Redwood Services said it
+uses call recording and AI to check whether salespeople hit the main steps of its process,
+without a script. Both are self-reported.
+
+Analysis: three themes matter for a voice-agent engineer. (1) Agent quality depends on
+configuration quality: a before/after claim can confound the model with a tenant's cleanup, so
+evaluations should record the configuration they ran against. (2) Homh's ranking signals are
+derived from operational data, which makes them an integrity surface: who can influence
+punctuality, hired-rate or feedback data, and how gaming is detected (see
+[Homh and AI-agent booking](homh-and-agent-booking.md)). (3) AI review of recorded calls and
+unstructured findings is evaluation against steps and extracted facts, the same shape as the
+[bookability judge](../senior-engineer/bookability-judge.md) and the
+[call facts contract](call-facts-contract.md), with the same denominator, consent and
+recording-rule questions. Atlas's stretch goals (meetings, email, building agents) widen the
+trust-boundary questions in the [MCP note](mcp-and-external-agent-trust-boundary.md) rather
+than settle them.
+
 ## 3. What this means for a voice-agent engineer
 
 Analysis:
@@ -314,6 +401,10 @@ Analysis:
   consumer assistants, and the announced MCP surface connects Claude or ChatGPT to a contractor's own ServiceTitan data; the Oct 7 demo
   still described the server as in development, so availability and mutating scope remain unconfirmed. Both make permissions and what an assistant may read or do first-class
   design questions, the same trust boundary as tool calls in lab 02.
+- **Configuration quality gates agent quality.** A customer reported that Dispatch Pro's
+  optimization rate moved only after standardizing skills, job types and business units
+  (section 2e). Expect agent work to depend on how clean each tenant's setup is, and to
+  need evaluations sliced by configuration.
 - **The learning loop needs traceability.** Tying outcomes back to decisions requires linked
   traces from call to booking to job outcome, which is what lab 07 practices.
 - **"When to act and when to ask" is the guardrail spec.** Escalation rules, confirmations and
@@ -332,6 +423,10 @@ Analysis:
   customer?
 - How are bookings from a contractor's website booking connection (MCP) authenticated, and do
   they pass through the same capacity and policy checks as voice bookings?
+- How standardized are skills, job types and business units across tenants, and how do
+  voice and dispatch agents behave when a tenant's definitions are inconsistent or missing?
+- Homh ranks contractors on punctuality, hired rate and job quality: what stops those inputs
+  from being gamed, and how are disputes handled?
 - When two authorized users act on the same capacity recommendation, what prevents duplicate
   reservations or campaign launches? How are holds expired, released, and reconciled after a
   booking shortfall or failed mutation?
@@ -354,9 +449,9 @@ The repo's new [MCP and external-agent trust boundary](mcp-and-external-agent-tr
 The live blog now includes additional Day 3 and partner coverage, but that is not the same as a
 full session transcript. The following remain useful verification targets as of October 10:
 
-- **Charging Ahead with AI and Max**, Oct 7, 11:15 am ET: verify whether a public replay or
-  transcript becomes available; ServiceTitan says breakout recordings go to Academy about 4–6
-  weeks after the event [6].
+- **Charging Ahead with AI and Max**, Oct 7, 11:15 am ET: a live-blog recap is public as of
+  October 10 (section 2e); verify the full recording when it becomes available. ServiceTitan
+  says breakout recordings go to Academy about 4–6 weeks after the event [6].
 - **All-Star Titans** (closing session), Oct 7, 2 pm ET: look for a public replay or recap.
 - Full transcripts of the Oct 6 keynotes, to check the live blog's summaries (section 2a)
   against the speakers' actual words.
