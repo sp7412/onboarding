@@ -40,8 +40,8 @@ software and production voice agents. Follow the single, canonical four-week sch
 per week). Use only personal accounts for optional live exercises; the complete path is useful
 offline. Finish with the [`capstone rubric`](docs/capstone-rubric.md).
 
-Alongside the labs, the [senior engineer judgment track](senior-engineer/README.md) has nine
-short written exercises (about six and a quarter hours in total) on denominators, bookability judging,
+Alongside the labs, the [senior engineer judgment track](senior-engineer/README.md) has ten
+short written exercises (about six and three-quarter hours in total) on denominators, bookability judging,
 incident diagnosis, latency budgets, architecture boundaries, earned autonomy and choosing a first PR.
 
 For each lab, read the objective first, run the offline cells, do the understanding
@@ -67,7 +67,7 @@ the exact lab map and prerequisites.
 | [`docs/livekit-hands-on.md`](docs/livekit-hands-on.md) | LiveKit track: Agent Builder → `lk` starter → fake ServiceTitan tools with guardrails |
 | [`labs/`](labs/) | Seventeen Jupyter tutorials: OpenAI Realtime, LiveKit, LangChain/LangGraph, LangSmith, multi-agent coordination (09–12), Mini-Max (13), earning autonomy (14), an LLM judge (15), and an MCP server (16) |
 | [`labs/solutions/`](labs/solutions/) | Offline-safe solution notes for the lab exercises |
-| [`senior-engineer/`](senior-engineer/) | Judgment track: nine fictional exercises with self-checks (including bookability judge and autonomy promotion review) |
+| [`senior-engineer/`](senior-engineer/) | Judgment track: ten fictional exercises with self-checks (including bookability judge and autonomy promotion review) |
 | [`templates/`](templates/) | Onboarding log, 1:1 questions, working-with-me, weekly status, field notes, pre-mortem, 30-day memo, design doc, brag document, 90-day retro |
 | [`notes/`](notes/) | Public-safe personal notes: original conversation notes, glossary, study-question answer |
 | [`scripts/`](scripts/) | Notebook runner, repo hygiene, sensitive-content and link checkers, site-simulation export, podcast and transcript tools |
