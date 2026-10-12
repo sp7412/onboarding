@@ -33,6 +33,18 @@ describe("renderMermaidSvg", () => {
     expect(svg).toContain("--node-fill:#e8f7ed");
   });
 
+  it("falls back instead of rendering chained edges as a partial diagram", () => {
+    expect(
+      renderMermaidSvg("flowchart LR\\nA[Start] --> B[Middle] --> C[End]", "chained"),
+    ).toBeNull();
+  });
+
+  it("falls back when an edge uses unsupported label syntax", () => {
+    expect(
+      renderMermaidSvg("flowchart LR\\nA[Start] -->|next| B[End]", "edge-label"),
+    ).toBeNull();
+  });
+
   it("returns null for syntax outside the supported flowchart subset", () => {
     expect(renderMermaidSvg("sequenceDiagram\nA->>B: hello", "unsupported")).toBeNull();
   });
