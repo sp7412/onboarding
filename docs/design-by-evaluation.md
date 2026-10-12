@@ -426,7 +426,7 @@ Thus:
 > **A good evaluation does not merely score the architecture. It tells you what architecture
 > you need.**
 
-## 9. Evaluation and rollout
+## 10. Evaluation and rollout
 
 Evaluation should be connected to release controls:
 
@@ -465,7 +465,7 @@ Examples:
 A candidate that improves task completion but increases critical side effects should not
 be promoted.
 
-## 10. The design-review questions
+## 11. The design-review questions
 
 Before implementation, ask:
 
@@ -486,7 +486,7 @@ Before implementation, ask:
 
 If these cannot be answered, the design is probably underspecified.
 
-## 11. The core mental model
+## 12. The core mental model
 
 Do not think:
 
