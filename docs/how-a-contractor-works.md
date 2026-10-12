@@ -65,7 +65,7 @@ replacement. A replacement adds sizing, installation, commissioning, and warrant
 a maintenance visit follows a checklist and may create a separately authorized repair
 recommendation.
 
-\`\`\`mermaid
+```mermaid
 flowchart LR
     A[Customer reports no cooling or heating] --> B[Confirm address, system type, and symptoms]
     B --> C{Immediate hazard?}
@@ -84,7 +84,7 @@ flowchart LR
     style D fill:#ffe8e8
     style I fill:#e8f7ed
     style M fill:#e7f0ff
-\`\`\`
+```
 
 **Important completion checks:** verify heating/cooling operation, record findings and
 parts, distinguish completed repairs from recommended work, and capture warranty or
@@ -98,7 +98,7 @@ installation, or water-heater issue. The affected location, whether water can be
 off, access constraints, and the job's scope influence urgency and who should be sent.
 A larger repair may require explicit approval, a return visit, or a qualified specialist.
 
-\`\`\`mermaid
+```mermaid
 flowchart LR
     A[Leak, clog, fixture, or water-heater request] --> B[Confirm location, symptoms, and affected fixtures]
     B --> C{Active flooding or safety hazard?}
@@ -118,7 +118,7 @@ flowchart LR
     style D fill:#ffe8e8
     style I fill:#e8f7ed
     style M fill:#e7f0ff
-\`\`\`
+```
 
 **Important completion checks:** test the repaired fixture or line, verify leaks have
 stopped and flow is restored, document any remaining limitations, and leave the work
