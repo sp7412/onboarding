@@ -18,17 +18,21 @@ jobs:
         with:
           python-version: "3.12"
       - name: Install dependencies
-        run: python -m pip install -r requirements.txt ruff
+        run: python -m pip install -r requirements.txt ruff pip-audit
       - name: Lint teaching package and scripts
         run: ruff check labs/stlab scripts
       - name: Run focused fixture tests
         run: python -m unittest discover -s tests -p 'test_*.py'
+      - name: Audit Python dependencies
+        run: pip-audit -r requirements.txt
       - name: Check repository hygiene
         run: python scripts/check_repo.py
       - name: Check sensitive content
         env:
           SENSITIVE_PATTERNS: ${{ secrets.SENSITIVE_PATTERNS }}
         run: python scripts/check_sensitive.py
+      - name: Scan repository history for secrets
+        uses: gitleaks/gitleaks-action@v2
       - name: Run offline notebooks
         run: python scripts/run_notebooks.py
       - uses: oven-sh/setup-bun@v2
