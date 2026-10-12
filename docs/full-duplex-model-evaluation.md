@@ -29,6 +29,7 @@ Sources:
 - NVIDIA model card and reported benchmark: https://huggingface.co/nvidia/personaplex-7b-v1
 - NVIDIA implementation: https://github.com/NVIDIA/personaplex
 - OpenAI GPT-Live-1 announcement: https://openai.com/index/introducing-gpt-live-1-in-the-api/
+- OpenAI's published launch-thread metrics (including the 0.798 s figure): https://community.openai.com/t/introducing-gpt-live-1-in-the-api/1396471/15
 - OpenAI model docs and pricing: https://developers.openai.com/api/docs/models/gpt-live-1 and https://developers.openai.com/api/docs/pricing
 
 ### How to read the latency claims
