@@ -40,6 +40,9 @@ jobs:
       - name: Test site content parsers and models
         working-directory: site
         run: bun run test
+      - name: Unit-test internal link checker
+        working-directory: site
+        run: bun run test:links
       - name: Type-check site
         working-directory: site
         run: bunx astro check
