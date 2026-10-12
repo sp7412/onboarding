@@ -106,7 +106,7 @@ export function renderMermaidSvg(source: string, id: string): string | null {
   for (const node of nodes.values()) node.fill = fills.get(node.id);
   const ordered = [...nodes.values()];
   if (direction === "RL" || direction === "BT") ordered.reverse();
-  const index = new Map(ordered.map((node, i) => [node.id, i]));
+  const index = new Map<string, number>(ordered.map((node, i) => [node.id, i] as const));
 
   const nodeWidth = vertical ? 270 : 166;
   const nodeHeight = 64;
