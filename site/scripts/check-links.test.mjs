@@ -42,8 +42,8 @@ test("reports missing pages and missing anchors", async (t) => {
   );
   const result = await checkLinks({ dist: root });
   assert.equal(result.broken.length, 2);
-  assert.match(result.broken.join("\\n"), /missing/);
-  assert.match(result.broken.join("\\n"), /missing anchor #does-not-exist/);
+  assert.match(result.broken.join("\n"), /missing/);
+  assert.match(result.broken.join("\n"), /missing anchor #does-not-exist/);
 });
 
 test("rejects internal paths that omit the configured base path", async (t) => {
