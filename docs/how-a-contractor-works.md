@@ -30,7 +30,7 @@ It should not become the system of record for customers, schedules, prices, jobs
 payments. Those actions belong behind authenticated tools and application policy.
 
 ```mermaid
-flowchart LR
+flowchart TD
     A[Inbound call] --> B[Identify caller and address]
     B --> C{Safe and in scope?}
     C -- no --> D[Safety guidance or human transfer]
@@ -48,6 +48,82 @@ flowchart LR
     style D fill:#ffe8e8
     style I fill:#e8f7ed
 ```
+
+## Trade-Specific Lifecycles
+
+The generic lifecycle above is the shared primer. Real work diverges after triage:
+trade-specific questions affect urgency, technician qualifications, diagnostic work,
+authorization, parts, and what counts as a verified completion. These examples are
+fictional and intentionally omit contractor-specific pricing and policies.
+
+### HVAC: service, repair, and replacement
+
+An HVAC call may be a no-cooling/no-heating complaint, an unusual noise, a seasonal
+maintenance visit, or a request to replace aging equipment. For a breakdown, the
+technician typically diagnoses the system before the customer approves repairs or
+replacement. A replacement adds sizing, installation, commissioning, and warranty steps;
+a maintenance visit follows a checklist and may create a separately authorized repair
+recommendation.
+
+```mermaid
+flowchart TD
+    A[Customer reports no cooling or heating] --> B[Confirm address, system type, and symptoms]
+    B --> C{Immediate hazard?}
+    C -- yes --> D[Give safety guidance and escalate]
+    C -- no --> E[Book diagnostic visit]
+    E --> F[Dispatch HVAC technician]
+    F --> G[Inspect system and diagnose]
+    G --> H{Repair feasible and authorized?}
+    H -- yes --> I[Repair and verify operation]
+    H -- no --> J[Present options and estimate]
+    J --> K{Customer approves?}
+    K -- no --> L[Document decision and schedule follow-up]
+    K -- yes --> M[Repair or replace, then commission]
+    I --> N[Invoice, warranty, and maintenance follow-up]
+    M --> N
+    style D fill:#ffe8e8
+    style I fill:#e8f7ed
+    style M fill:#e7f0ff
+```
+
+**Important completion checks:** verify heating/cooling operation, record findings and
+parts, distinguish completed repairs from recommended work, and capture warranty or
+maintenance follow-up. Replacing equipment generally needs more planning than a routine
+diagnostic or repair appointment.
+
+### Plumbing: urgent repair, drain, fixture, and water-heater work
+
+Plumbing intake must distinguish an active leak or flooding from a routine clog, fixture
+installation, or water-heater issue. The affected location, whether water can be shut
+off, access constraints, and the job's scope influence urgency and who should be sent.
+A larger repair may require explicit approval, a return visit, or a qualified specialist.
+
+```mermaid
+flowchart TD
+    A[Leak, clog, fixture, or water-heater request] --> B[Confirm location, symptoms, and affected fixtures]
+    B --> C{Active flooding or safety hazard?}
+    C -- yes --> D[Give immediate safety or shutoff guidance and escalate]
+    C -- no --> E[Book by urgency and required skill]
+    E --> F[Dispatch qualified plumber]
+    F --> G[Inspect, locate cause, and assess access]
+    G --> H{Repair within scope and approved?}
+    H -- yes --> I[Repair or clear blockage]
+    H -- no --> J[Explain options and estimate]
+    J --> K{Customer authorizes work?}
+    K -- no --> L[Record decision and next steps]
+    K -- yes --> M[Repair, replace, or arrange specialist]
+    I --> N[Test for leaks, flow, and safe operation]
+    M --> N
+    N --> O[Invoice, cleanup, warranty, and follow-up]
+    style D fill:#ffe8e8
+    style I fill:#e8f7ed
+    style M fill:#e7f0ff
+```
+
+**Important completion checks:** test the repaired fixture or line, verify leaks have
+stopped and flow is restored, document any remaining limitations, and leave the work
+area safe. An emergency response may stabilize the situation first and defer permanent
+repair until the customer approves the scope.
 
 ## Engineering Questions At Each Boundary
 
