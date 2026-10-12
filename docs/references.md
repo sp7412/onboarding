@@ -59,6 +59,7 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [GPT-4o Mini TTS model page (marked deprecated)](https://developers.openai.com/api/docs/models/gpt-4o-mini-tts) | Model docs | Architecture explorer |
 | [Community estimates of TTS cost per minute (users, not OpenAI)](https://community.openai.com/t/new-tts-api-pricing-and-gotchas/1150616) | Forum | Architecture explorer |
 | [GPT-Live 1 model page](https://developers.openai.com/api/docs/models/gpt-live-1) | Model docs | GPT-Live doc, speech-to-speech doc, WP 08 |
+| [GPT-Live-1 API announcement](https://openai.com/index/introducing-gpt-live-1-in-the-api/) | Announcement | Full-duplex model evaluation |
 | [Prompting GPT-Live](https://developers.openai.com/api/docs/guides/live-prompting) | Docs | GPT-Live doc |
 | [Managing GPT-Live sessions](https://developers.openai.com/api/docs/guides/live-conversations) | Docs | GPT-Live doc |
 | [Migrate to GPT-Live](https://developers.openai.com/api/docs/guides/live-migration) | Docs | GPT-Live doc |
@@ -80,6 +81,15 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [Hello GPT-4o](https://openai.com/index/hello-gpt-4o/) | Announcement | Speech-to-speech doc |
 | [Realtime API reference](https://developers.openai.com/api/reference/resources/realtime) | API reference | RL |
 | [Realtime prompting guide](https://developers.openai.com/cookbook/examples/realtime_prompting_guide) | Cookbook | RG 14, PP 3 |
+
+## Full-duplex voice models
+
+| Source | Type | Cited in |
+|---|---|---|
+| [PersonaPlex-7B-v1 model card](https://huggingface.co/nvidia/personaplex-7b-v1) | Model card and reported benchmark | Full-duplex model evaluation |
+| [NVIDIA PersonaPlex implementation](https://github.com/NVIDIA/personaplex) | Source repository | Full-duplex model evaluation |
+| [OpenAI GPT-Live-1 launch-thread latency metrics](https://community.openai.com/t/introducing-gpt-live-1-in-the-api/1396471/15) | Community forum (launch-thread post) | Full-duplex model evaluation |
+| [OpenAI API pricing](https://developers.openai.com/api/docs/pricing) | Pricing docs | Full-duplex model evaluation |
 
 ## LiveKit
 
