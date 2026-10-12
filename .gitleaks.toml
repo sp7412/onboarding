@@ -1,0 +1,14 @@
+# Gitleaks configuration for this public educational repository.
+title = "Onboarding repository secret scan"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Explicit, narrowly-scoped public fixture placeholders only"
+paths = [
+  '''(?i).*fixtures?/.*''',
+]
+regexes = [
+  '''(?i)(example|placeholder|dummy|fake)[-_ ]?(api[-_ ]?)?(key|token|secret)''',
+]
