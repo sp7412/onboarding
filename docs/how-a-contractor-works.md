@@ -30,7 +30,7 @@ It should not become the system of record for customers, schedules, prices, jobs
 payments. Those actions belong behind authenticated tools and application policy.
 
 ```mermaid
-flowchart LR
+flowchart TD
     A[Inbound call] --> B[Identify caller and address]
     B --> C{Safe and in scope?}
     C -- no --> D[Safety guidance or human transfer]
@@ -66,7 +66,7 @@ a maintenance visit follows a checklist and may create a separately authorized r
 recommendation.
 
 ```mermaid
-flowchart LR
+flowchart TD
     A[Customer reports no cooling or heating] --> B[Confirm address, system type, and symptoms]
     B --> C{Immediate hazard?}
     C -- yes --> D[Give safety guidance and escalate]
@@ -99,7 +99,7 @@ off, access constraints, and the job's scope influence urgency and who should be
 A larger repair may require explicit approval, a return visit, or a qualified specialist.
 
 ```mermaid
-flowchart LR
+flowchart TD
     A[Leak, clog, fixture, or water-heater request] --> B[Confirm location, symptoms, and affected fixtures]
     B --> C{Active flooding or safety hazard?}
     C -- yes --> D[Give immediate safety or shutoff guidance and escalate]
