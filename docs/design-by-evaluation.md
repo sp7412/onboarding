@@ -308,7 +308,7 @@ The key is to preserve the **failure mechanism**, not merely the final text.
 A bad booking should become a test that captures why it was bad: stale capacity, wrong
 technician, incorrect tool argument, policy violation, or something else.
 
-## 8. Each company's playbook should learn from its own outcomes
+## Company-specific learning loop
 
 A multi-tenant platform needs two related but distinct learning loops:
 
@@ -509,7 +509,7 @@ Checked October 7, 2026.
 Related: [evaluating voice agents](evaluating-voice-agents.md), [earning autonomy](earning-autonomy.md),
 [agent harness](agent-harness.md), [comparative agent architectures](comparative-agent-architectures.md).
 
-## 9. Technician-specific personalization: learn preferences, not permissions
+## Technician-specific personalization
 
 Company-level learning is not the only useful scope. An estimating agent can also adapt to
 an individual technician's established workflow and presentation preferences, while remaining
