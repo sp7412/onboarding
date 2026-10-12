@@ -160,3 +160,36 @@ The labs provide executable evidence for these boundaries: lab 01 demonstrates
 cancellation and truncation, lab 02 blocks an early booking, lab 05 separates context
 from state, lab 06 makes confirmation a graph edge, and lab 08 passes verbatim transcript
 evidence to the thinker.
+
+## Technician-Specific Estimating Personalization
+
+The company playbook loop can be extended with a narrower **technician preference profile**.
+This is not a new authority layer: it influences how an estimate is drafted and presented,
+while company policy and authoritative job data continue to constrain what the agent may propose.
+
+\`\`\`mermaid
+flowchart TD
+    Job[Verified job facts and diagnostics] --> Draft[Estimate agent]
+    Company[Company playbook and price book] --> Gate[Policy and pricing validation]
+    Profile[Technician preference profile] --> Draft
+    Draft --> Gate
+    Gate --> Proposed[Reviewable estimate draft]
+    Proposed --> Edits[Technician edits and approval]
+    Edits --> Classify[Classify edit: style, workflow, fact, or policy]
+    Classify --> Candidate[Candidate preference or correction]
+    Candidate --> Eval[Technician-scoped evals + company invariants]
+    Eval --> Rollout[Visible suggestion / scoped rollout]
+    Rollout --> Outcome[Approved estimate and job outcome]
+    Outcome --> Candidate
+\`\`\`
+
+Use a structured profile for preferences such as option ordering, estimate layout, explanation
+style, and information surfaced first. Compare drafts with approved estimates, but do not
+assume every edit expresses a preference. Factual corrections should repair the source data;
+commercial, safety, and policy changes must go through authorized rules and approvals.
+
+Start with explicit settings and verified, versioned preference updates—not a separately
+fine-tuned model for every technician. Evaluate changes on representative jobs and company-wide
+invariants. Keep profiles tenant-scoped and access-controlled, show technicians what was learned,
+and provide correction, disable, reset, audit, and rollback mechanisms. See
+[Design by Evaluation](design-by-evaluation.md#9-technician-specific-personalization-learn-preferences-not-permissions).
