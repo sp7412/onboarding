@@ -27,6 +27,8 @@ jobs:
         run: pip-audit -r requirements.txt
       - name: Check repository hygiene
         run: python scripts/check_repo.py
+      - name: Verify generated notebooks are up to date
+        run: cd labs && python build_nb.py && git diff --exit-code -- '*.ipynb'
       - name: Check sensitive content
         env:
           SENSITIVE_PATTERNS: ${{ secrets.SENSITIVE_PATTERNS }}
