@@ -139,7 +139,7 @@ The system should record the company/tenant ID, playbook version, agent and prom
 policy decisions, and final outcome in the trace metadata. Enforce tenant scoping in access
 controls and storage/query boundaries—not merely in prompt instructions. A playbook update
 must be reviewable, versioned, evaluated, and reversible. See
-[Design by Evaluation](design-by-evaluation.md#8-each-companys-playbook-should-learn-from-its-own-outcomes)
+[Design by Evaluation](design-by-evaluation.md#company-specific-learning-loop)
 for the operating loop and governance rules.
 
 ## Latency Worksheet
@@ -192,4 +192,4 @@ Start with explicit settings and verified, versioned preference updates—not a 
 fine-tuned model for every technician. Evaluate changes on representative jobs and company-wide
 invariants. Keep profiles tenant-scoped and access-controlled, show technicians what was learned,
 and provide correction, disable, reset, audit, and rollback mechanisms. See
-[Design by Evaluation](design-by-evaluation.md#9-technician-specific-personalization-learn-preferences-not-permissions).
+[Design by Evaluation](design-by-evaluation.md#technician-specific-personalization).
