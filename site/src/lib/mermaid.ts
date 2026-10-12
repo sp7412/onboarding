@@ -94,7 +94,7 @@ export function renderMermaidSvg(source: string, id: string): string | null {
 
     // Never emit a partial diagram when a line uses multiple edges or syntax
     // outside this renderer's deliberately small supported subset.
-    const edgeOperators = [...line.matchAll(/--\s*.*?\s*-->|-->|---/g)];
+    const edgeOperators = [...line.matchAll(/-->|---/g)];
     if (edgeOperators.length > 1) return null;
 
     const edge = EDGE_PATTERN.exec(line);
