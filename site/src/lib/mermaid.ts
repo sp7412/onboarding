@@ -92,8 +92,17 @@ export function renderMermaidSvg(source: string, id: string): string | null {
       }
     }
 
+    // Never emit a partial diagram when a line uses multiple edges or syntax
+    // outside this renderer's deliberately small supported subset.
+    const edgeOperators = [...line.matchAll(/--\\s*.*?\\s*-->|-->|---/g)];
+    if (edgeOperators.length > 1) return null;
+
     const edge = EDGE_PATTERN.exec(line);
-    if (edge) edges.push({ from: edge[1], label: edge[2]?.trim(), to: edge[3] });
+    if (edge) {
+      edges.push({ from: edge[1], label: edge[2]?.trim(), to: edge[3] });
+    } else if (/(?:-->|---|<-->|<--|==>|-.->)/.test(line)) {
+      return null;
+    }
   }
 
   for (const edge of edges) {
