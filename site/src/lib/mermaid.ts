@@ -28,7 +28,7 @@ const EDGE_PATTERN =
 const DEFAULT_FILL = "#111c33";
 const DEFAULT_TEXT = "#e8eefa";
 
-function wrapLabel(label: string, maxChars = 19): string[] {
+function wrapLabel(label: string, maxChars = 29): string[] {
   const words = label.replace(/<br\s*\/?>/gi, " ").split(/\s+/).filter(Boolean);
   const lines: string[] = [];
   let line = "";
@@ -58,7 +58,7 @@ function luminance(hex: string): number {
   return 0.2126 * linear[0] + 0.7152 * linear[1] + 0.0722 * linear[2];
 }
 
-/** Render flowchart LR/TD syntax with simple node shapes and labelled arrows. */
+/** Render simple flowchart LR/RL/TD/TB syntax with accessible SVG. */
 export function renderMermaidSvg(source: string, id: string): string | null {
   const lines = source.replace(/\r\n/g, "\n").split("\n");
   const header = lines.find((line) => line.trim() !== "")?.trim() ?? "";
@@ -66,6 +66,7 @@ export function renderMermaidSvg(source: string, id: string): string | null {
   if (!directionMatch) return null;
 
   const direction = directionMatch[1].toUpperCase();
+  const vertical = direction === "TB" || direction === "TD" || direction === "BT";
   const nodes = new Map<string, NodeDef>();
   const edges: EdgeDef[] = [];
   const fills = new Map<string, string>();
@@ -82,11 +83,10 @@ export function renderMermaidSvg(source: string, id: string): string | null {
 
     for (const match of line.matchAll(NODE_PATTERN)) {
       const token = match[2];
-      const label = token.slice(1, -1).trim();
       if (!nodes.has(match[1])) {
         nodes.set(match[1], {
           id: match[1],
-          label,
+          label: token.slice(1, -1).trim(),
           shape: token.startsWith("{") ? "diamond" : "rect",
         });
       }
@@ -108,14 +108,20 @@ export function renderMermaidSvg(source: string, id: string): string | null {
   if (direction === "RL" || direction === "BT") ordered.reverse();
   const index = new Map(ordered.map((node, i) => [node.id, i]));
 
-  const nodeWidth = 166;
+  const nodeWidth = vertical ? 270 : 166;
   const nodeHeight = 64;
-  const gap = 52;
+  const gap = vertical ? 44 : 52;
+  const centerX = vertical ? 390 : 0;
   const left = 34;
   const centerY = 124;
-  const width = left * 2 + ordered.length * nodeWidth + Math.max(0, ordered.length - 1) * gap;
-  const height = 252;
-  const nodeX = (nodeId: string) => left + (index.get(nodeId) ?? 0) * (nodeWidth + gap) + nodeWidth / 2;
+  const width = vertical ? 780 :
+    left * 2 + ordered.length * nodeWidth + Math.max(0, ordered.length - 1) * gap;
+  const height = vertical ? 92 + ordered.length * (nodeHeight + gap) : 252;
+  const nodeX = (nodeId: string) => vertical ? centerX :
+    left + (index.get(nodeId) ?? 0) * (nodeWidth + gap) + nodeWidth / 2;
+  const nodeY = (nodeId: string) => vertical
+    ? 54 + (index.get(nodeId) ?? 0) * (nodeHeight + gap) + nodeHeight / 2
+    : centerY;
   const titleId = id + "-title";
   const descId = id + "-description";
 
@@ -125,16 +131,41 @@ export function renderMermaidSvg(source: string, id: string): string | null {
     if (fromIndex === undefined || toIndex === undefined) return "";
     const fromX = nodeX(edge.from);
     const toX = nodeX(edge.to);
-    const forward = toIndex > fromIndex;
-    const x1 = fromX + (forward ? nodeWidth / 2 : -nodeWidth / 2);
-    const x2 = toX + (forward ? -nodeWidth / 2 : nodeWidth / 2);
-    const routeY = forward ? 28 : 220;
-    const path = Math.abs(toIndex - fromIndex) === 1
-      ? "M " + x1 + " " + centerY + " L " + x2 + " " + centerY
-      : "M " + x1 + " " + centerY + " C " + (x1 + (forward ? 28 : -28)) + " " + routeY + ", " +
-        (x2 - (forward ? 28 : -28)) + " " + routeY + ", " + x2 + " " + centerY;
-    const labelX = (x1 + x2) / 2;
-    const labelY = forward ? 38 : 232;
+    const fromY = nodeY(edge.from);
+    const toY = nodeY(edge.to);
+    let path: string;
+    let labelX: number;
+    let labelY: number;
+
+    if (vertical) {
+      const forward = toIndex > fromIndex;
+      const y1 = fromY + (forward ? nodeHeight / 2 : -nodeHeight / 2);
+      const y2 = toY + (forward ? -nodeHeight / 2 : nodeHeight / 2);
+      const adjacent = Math.abs(toIndex - fromIndex) === 1;
+      if (adjacent) {
+        path = "M " + fromX + " " + y1 + " L " + toX + " " + y2;
+        labelX = centerX + 72;
+        labelY = (y1 + y2) / 2;
+      } else {
+        const routeX = forward ? width - 64 : 64;
+        path = "M " + fromX + " " + y1 + " C " + routeX + " " + (y1 + 18) + ", " +
+          routeX + " " + (y2 - 18) + ", " + toX + " " + y2;
+        labelX = routeX;
+        labelY = (y1 + y2) / 2;
+      }
+    } else {
+      const forward = toIndex > fromIndex;
+      const x1 = fromX + (forward ? nodeWidth / 2 : -nodeWidth / 2);
+      const x2 = toX + (forward ? -nodeWidth / 2 : nodeWidth / 2);
+      const routeY = forward ? 28 : 220;
+      path = Math.abs(toIndex - fromIndex) === 1
+        ? "M " + x1 + " " + centerY + " L " + x2 + " " + centerY
+        : "M " + x1 + " " + centerY + " C " + (x1 + (forward ? 28 : -28)) + " " + routeY + ", " +
+          (x2 - (forward ? 28 : -28)) + " " + routeY + ", " + x2 + " " + centerY;
+      labelX = (x1 + x2) / 2;
+      labelY = forward ? 38 : 232;
+    }
+
     const label = edge.label
       ? '<text class="edge-label" x="' + labelX + '" y="' + labelY + '" text-anchor="middle">' + escapeXml(edge.label) + "</text>"
       : "";
@@ -143,18 +174,19 @@ export function renderMermaidSvg(source: string, id: string): string | null {
 
   const nodeMarkup = ordered.map((node) => {
     const x = nodeX(node.id);
+    const y = nodeY(node.id);
     const fill = node.fill ?? DEFAULT_FILL;
     const textColor = node.fill && luminance(fill) > 0.38 ? "#0a1224" : DEFAULT_TEXT;
-    const lines = wrapLabel(node.label);
+    const lines = wrapLabel(node.label, vertical ? 31 : 19);
     const lineHeight = 16;
-    const startY = centerY - ((lines.length - 1) * lineHeight) / 2 + 4;
+    const startY = y - ((lines.length - 1) * lineHeight) / 2 + 4;
     const text = lines.map((line, i) =>
       '<tspan x="' + x + '" y="' + (startY + i * lineHeight) + '">' + escapeXml(line) + "</tspan>",
     ).join("");
     const shape = node.shape === "diamond"
-      ? '<polygon points="' + x + "," + (centerY - 39) + " " + (x + nodeWidth / 2) + "," + centerY + " " +
-        x + "," + (centerY + 39) + " " + (x - nodeWidth / 2) + "," + centerY + '" />'
-      : '<rect x="' + (x - nodeWidth / 2) + '" y="' + (centerY - nodeHeight / 2) + '" width="' +
+      ? '<polygon points="' + x + "," + (y - 39) + " " + (x + nodeWidth / 2) + "," + y + " " +
+        x + "," + (y + 39) + " " + (x - nodeWidth / 2) + "," + y + '" />'
+      : '<rect x="' + (x - nodeWidth / 2) + '" y="' + (y - nodeHeight / 2) + '" width="' +
         nodeWidth + '" height="' + nodeHeight + '" rx="10" />';
     return '<g class="diagram-node" style="--node-fill:' + escapeXml(fill) + ";--node-text:" + textColor + '">' +
       shape + '<text text-anchor="middle">' + text + "</text></g>";
