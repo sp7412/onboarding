@@ -4,7 +4,7 @@ pandas
 matplotlib
 jsonschema          # tests: validate the CallFacts contract (lab 13)
 jupyterlab
-websockets>=13
+websockets>=17.2
 langchain>=1.4.4
 langchain-openai
 langgraph
