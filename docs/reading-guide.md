@@ -29,6 +29,7 @@ then use the [Pantheon hypothesis map](hypothesis-map.md) as your week-1 questio
   bookings, revenue, trust, and operating cost.
 - **Field reality:** [Field exercise](field-exercise.md) — hear how contractors actually answer the phone.
 - **Day-one boundary:** [After Day One](after-day-one.md) — freeze the public guide when employment starts.
+- **Model strategy:** [Fine-tuned open models vs. frontier models](fine-tuned-open-models-vs-frontier-models.md) — compare quality, total cost per successful task, deployment control, evaluation, and hybrid routing.
 
 ## Tier 1: Must-do before day 1
 

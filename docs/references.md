@@ -289,3 +289,15 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 - Add a row whenever a new external link appears anywhere in the repo.
 - Link-check before committing; never construct URLs from a site's naming pattern.
 - Public sources only. No internal ServiceTitan material.
+
+
+## Model selection, fine-tuning, and evaluation
+
+| Source | Type | Cited in |
+|---|---|---|
+| [Hugging Face PEFT documentation](https://huggingface.co/docs/peft/index) | Documentation | Fine-tuned open models vs. frontier models |
+| [QLoRA paper](https://arxiv.org/abs/2305.14314) | Research paper | Fine-tuned open models vs. frontier models |
+| [Hugging Face TRL documentation](https://huggingface.co/docs/trl/index) | Documentation | Fine-tuned open models vs. frontier models |
+| [OpenAI API pricing](https://developers.openai.com/api/docs/pricing) | Pricing documentation | Fine-tuned open models vs. frontier models |
+| [MLPerf Inference](https://mlcommons.org/benchmarks/inference-datacenter/) | Benchmark suite | Fine-tuned open models vs. frontier models |
+| [HELM](https://crfm.stanford.edu/helm/) | Evaluation framework | Fine-tuned open models vs. frontier models |
