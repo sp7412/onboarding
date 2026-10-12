@@ -74,4 +74,16 @@ describe("renderMarkdown", () => {
     const { html } = r("see [`docs/y.md`](y.md)");
     expect(html).toContain('href="/onboarding/docs/y/"><code>docs/y.md</code></a>');
   });
+  it("renders Mermaid flowcharts as inline SVG and preserves the source", () => {
+    const { html } = r(
+      "## Workflow\n\n\`\`\`mermaid\nflowchart TD\nA[Call arrives] --> B{Safe to book?}\nB -- yes --> C[Book appointment]\nB -- no --> D[Human transfer]\n\`\`\`",
+    );
+    expect(html).toContain('<figure class="mermaid-diagram">');
+    expect(html).toContain('<svg class="mermaid-svg"');
+    expect(html).toContain("Safe to book?");
+    expect(html).toContain("<details><summary>View Mermaid source</summary>");
+    expect(html).toContain("flowchart TD");
+    expect(html).not.toContain('class="mermaid-src"');
+  });
+
 });
