@@ -12,6 +12,8 @@ design input. That doc's [section 6, "Finding failures in production"](../design
 and [section 7, "Failure mining creates new evals"](../design-by-evaluation.md#7-failure-mining-creates-new-evals)
 overlap with sections 2 and 3 here; read them together rather than twice.
 
+For a symptom-first production response, use the [Voice Agent Production Troubleshooting Runbook](../voice-agent-production-troubleshooting.md), which maps caller-visible failures to telemetry, likely causes, containment, and recovery checks.
+
 As in chapter 15, the architecture below is generic. Nothing here describes ServiceTitan's
 internal systems; the only ServiceTitan evidence is public job listings about its data
 platform [1][2].

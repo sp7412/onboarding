@@ -1,5 +1,7 @@
 # Evaluating Voice Agents
 
+For live incident response, pair these evaluation practices with the [Voice Agent Production Troubleshooting Runbook](voice-agent-production-troubleshooting.md), which covers symptom-to-trace diagnosis, containment, and recovery verification.
+
 Evaluation starts with a definition of a good customer outcome, then connects it to
 quality, safety, latency, and operational measurements. A single aggregate score hides
 the failures that matter most.
