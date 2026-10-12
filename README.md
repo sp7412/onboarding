@@ -65,6 +65,7 @@ the exact lab map and prerequisites.
 | [`docs/references.md`](docs/references.md) | Complete bibliography of every external source in the repo |
 | [`docs/podcast-prompts.md`](docs/podcast-prompts.md) | NotebookLM podcast prompts: seven technical and three company-context episodes plus four coaching episodes |
 | [`docs/livekit-hands-on.md`](docs/livekit-hands-on.md) | LiveKit track: Agent Builder → `lk` starter → fake ServiceTitan tools with guardrails |
+| [`docs/full-duplex-model-evaluation.md`](docs/full-duplex-model-evaluation.md) | Evidence-based PersonaPlex vs GPT-Live comparison, workload math, and a controlled evaluation plan |
 | [`labs/`](labs/) | Seventeen Jupyter tutorials: OpenAI Realtime, LiveKit, LangChain/LangGraph, LangSmith, multi-agent coordination (09–12), Mini-Max (13), earning autonomy (14), an LLM judge (15), and an MCP server (16) |
 | [`labs/solutions/`](labs/solutions/) | Offline-safe solution notes for the lab exercises |
 | [`senior-engineer/`](senior-engineer/) | Judgment track: ten fictional exercises with self-checks (including bookability judge and autonomy promotion review) |

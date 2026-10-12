@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-10-11
+
+### Full-duplex voice model evaluation
+
+- Added a source-based PersonaPlex-7B vs GPT-Live-1 comparison, corrected the open-source and latency caveats, calculated voice-layer costs and average concurrency for 100,000 monthly calls, and defined a controlled scheduling-agent evaluation plan.
+
 This file records meaningful repository changes so the evolution of the
 onboarding material is easy to scan without reading individual pull requests.
 
