@@ -508,3 +508,61 @@ Checked October 7, 2026.
 
 Related: [evaluating voice agents](evaluating-voice-agents.md), [earning autonomy](earning-autonomy.md),
 [agent harness](agent-harness.md), [comparative agent architectures](comparative-agent-architectures.md).
+
+## 9. Technician-specific personalization: learn preferences, not permissions
+
+Company-level learning is not the only useful scope. An estimating agent can also adapt to
+an individual technician's established workflow and presentation preferences, while remaining
+inside company policy. Treat this as a distinct, versioned **technician profile**, not as a
+separate fine-tuned model by default.
+
+Keep three sources of context separate:
+
+| Scope | Examples | Authority |
+|---|---|---|
+| Company playbook | Price book, labor rates, discount limits, warranty terms, required disclosures | Company systems and authorized policy owners |
+| Technician profile | Preferred estimate layout, option ordering, explanation style, recurring workflow preferences | Verified preferences and technician-approved settings |
+| Job context | Equipment/model, diagnostic evidence, requested work, site conditions | Current job record and verified observations |
+
+### Learning from estimate edits
+
+The agent can compare its draft with the technician's final approved estimate and use
+repeated, verified patterns as candidate preferences. Examples include preferring good/better/best
+options, surfacing diagnostic evidence first, using a concise customer explanation, or
+consistently adding a required inspection step for a particular job type.
+
+Do not treat every edit as a preference. Classify the difference before learning from it:
+
+- **Presentation preference:** ordering, wording, level of detail, or layout. Usually safe to
+  propose as a profile preference.
+- **Workflow preference:** the sequence of checks or information surfaced. Validate against
+  required procedures before adopting it.
+- **Factual correction:** wrong equipment, measurements, diagnosis, or scope. Correct the
+  underlying job data or retrieval path; do not encode it as style.
+- **Commercial or policy change:** price, discount, warranty, eligibility, safety, or a customer
+  commitment. Never infer permission from repeated behavior; require the authoritative rule
+  and the required approval.
+
+### Evaluation and rollout
+
+1. Start with explicit settings and a small structured profile; do not fine-tune one model per
+   technician as the default.
+2. Capture the proposed estimate, technician edits, final approved estimate, applicable price
+   book/version, job type, and eventual outcome with appropriate access and retention controls.
+3. Propose a preference only after repeated evidence or explicit technician confirmation.
+4. Evaluate against that technician's representative jobs and a shared set of company-policy
+   invariants. Include regressions where personalization must not change the price, scope,
+   required disclosure, or authorization.
+5. Roll out to that technician in shadow mode or as a visible suggestion; show what was learned,
+   allow correction/disable/reset, and retain version history and rollback.
+6. Measure edit distance and edit categories, time to approved estimate, estimate accuracy,
+   policy violations, conversion and rework—without optimizing conversion at the expense of
+   correct scope or customer trust.
+
+The profile must be scoped to the authorized technician and company, with explicit handling
+for shared devices, technician changes, and access revocation. One technician's preferences
+must not silently transfer to another technician or another company.
+
+**Design rule:** personalize how the agent prepares and explains an estimate; keep pricing,
+eligibility, factual job state, and commitments governed by authoritative systems and explicit
+controls.
