@@ -114,6 +114,34 @@ authority that decides whether an action is allowed.
 | LangSmith | Traces, metadata, datasets, evaluators, experiments, and monitoring | Runtime enforcement, uninstrumented audio timing, and deciding what success means |
 | Application control plane | Identity, authorization, policy, evidence grounding, phase state, idempotency, safety, escalation, redaction, and outcome definitions | It delegates mechanisms to vendors and decisions to product/compliance owners |
 
+## Company Playbook Feedback Loop
+
+For a multi-tenant product, observability should support learning at two scopes: shared
+platform quality and each company's operating playbook. Company-specific rules, corrections,
+evaluation examples, and playbook versions must remain tenant-scoped by default. Verified
+incidents can improve that company's rules and tests; a proposed platform-wide change needs
+separate review and cross-tenant evaluation.
+
+```mermaid
+flowchart LR
+    Calls[Company calls] --> Signals[Traces and job outcomes]
+    Signals --> Review[Verify and classify]
+    Review --> Tenant[Company playbook + tenant evals]
+    Review --> Shared[Candidate shared fix]
+    Tenant --> Canary[Company-scoped canary]
+    Canary --> Outcome[Measure business outcomes]
+    Outcome --> Signals
+    Shared --> Gate[Privacy, safety, and regression gates]
+    Gate --> Release[Shared platform release]
+```
+
+The system should record the company/tenant ID, playbook version, agent and prompt versions,
+policy decisions, and final outcome in the trace metadata. Enforce tenant scoping in access
+controls and storage/query boundaries—not merely in prompt instructions. A playbook update
+must be reviewable, versioned, evaluated, and reversible. See
+[Design by Evaluation](design-by-evaluation.md#8-each-companys-playbook-should-learn-from-its-own-outcomes)
+for the operating loop and governance rules.
+
 ## Latency Worksheet
 
 Fill this in with measured values from the labs or an authorized test environment. The
