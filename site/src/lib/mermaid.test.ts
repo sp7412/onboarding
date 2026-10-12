@@ -35,13 +35,13 @@ describe("renderMermaidSvg", () => {
 
   it("falls back instead of rendering chained edges as a partial diagram", () => {
     expect(
-      renderMermaidSvg("flowchart LR\\nA[Start] --> B[Middle] --> C[End]", "chained"),
+      renderMermaidSvg("flowchart LR\nA[Start] --> B[Middle] --> C[End]", "chained"),
     ).toBeNull();
   });
 
   it("falls back when an edge uses unsupported label syntax", () => {
     expect(
-      renderMermaidSvg("flowchart LR\\nA[Start] -->|next| B[End]", "edge-label"),
+      renderMermaidSvg("flowchart LR\nA[Start] -->|next| B[End]", "edge-label"),
     ).toBeNull();
   });
 
