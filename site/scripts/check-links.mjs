@@ -54,7 +54,7 @@ export async function checkLinks({
     const html = fs.readFileSync(file, "utf8");
     idsByFile.set(
       file,
-      new Set([...html.matchAll(/\\bid=["']([^"']+)["']/g)].map((m) => m[1])),
+      new Set([...html.matchAll(/\bid=["']([^"']+)["']/g)].map((m) => m[1])),
     );
   }
 
@@ -62,10 +62,10 @@ export async function checkLinks({
   const broken = [];
   for (const file of htmlFiles) {
     const html = fs.readFileSync(file, "utf8");
-    for (const match of html.matchAll(/\\b(?:href|src)=["']([^"']+)["']/g)) {
+    for (const match of html.matchAll(/\b(?:href|src)=["']([^"']+)["']/g)) {
       const value = match[1];
-      if (/^(?:[a-z][a-z\\d+.-]*:|\\/\\/|data:|mailto:|javascript:)/i.test(value)) {
-        if (checkExternal && /^https?:\\/\\//i.test(value)) {
+      if (/^(?:[a-z][a-z\d+.-]*:|\/\/|data:|mailto:|javascript:)/i.test(value)) {
+        if (checkExternal && /^https?:\/\//i.test(value)) {
           try {
             const response = await fetch(value, { method: "HEAD" });
             if (!response.ok) broken.push(`${file}: ${value} (${response.status})`);
