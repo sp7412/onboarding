@@ -135,7 +135,7 @@ export function parseReadingGuide(markdown: string, file: string): ReadingDoc {
       // A non-official-docs item heading while scanning the table section ends it.
     }
 
-    const hm = line.match(/^### (\d+(?:\.\d+)?[A-Z]?)\. (.+)$/);
+    const hm = line.match(/^### (\d+(?:\.\d+)?([A-Z]?))\. (.+)$/);
     if (hm) {
       flush();
       current = {
