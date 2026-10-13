@@ -184,6 +184,85 @@ unsaid. That's the pattern lab 02 and lab 07 teach.
 - Labs 01 (realtime protocol), 02 (tools and guardrails), 04 (LiveKit with a realtime model)
 - [Reading guide](reading-guide.md) items 5, 7, 8, 13 and 14
 
+
+## 7. Data flow: from waveform to embeddings and back
+
+This is a **conceptual** diagram of a modern neural speech-to-speech system, not a
+claim about the undisclosed internals of any specific OpenAI model. The important idea:
+the model does not normally feed raw microphone voltage samples straight into ordinary
+text-token embeddings. An audio front end converts the signal into a sequence the neural
+network can process.
+
+~~~mermaid
+flowchart TD
+    A[Microphone waveform] --> B[Chunking, resampling, normalization]
+    B --> C[Audio encoder or neural audio codec]
+    C --> D[Audio tokens or latent feature sequence]
+    D --> E[Projection / embedding + time-position information]
+    E --> F[Multimodal Transformer]
+    G[Conversation context and instructions] --> H[Text-token embeddings]
+    H --> F
+    I[Optional video, tool results, or structured context] --> F
+    F --> J{Predicted output sequence}
+    J --> K[Audio tokens / acoustic codes]
+    K --> L[Audio decoder or codec decoder]
+    L --> M[Generated speech waveform]
+    J --> N[Text tokens / transcript]
+    N --> O[Streaming text events or captions]
+    F --> P[Optional tool-call proposal]
+    P --> Q[Application policy and tool execution]
+    Q --> R[Validated tool result]
+    R --> G
+~~~
+
+### What “embedding” means here
+
+1. **The waveform** is a time series of samples. It is not yet a sentence or a list of
+   words.
+2. **The audio front end** extracts useful acoustic features or encodes short spans of
+   audio into discrete codec tokens. Which representation is used depends on the model.
+3. **Embedding/projection** maps those tokens or features into vectors in the model's
+   learned representation space. Time/position information helps the network preserve
+   sequence order. These vectors are what people usually mean by *audio embeddings* in
+   this model-input context.
+4. **Transformer layers** use attention and learned transformations to combine the audio
+   sequence with available text, conversation history, instructions, and other inputs.
+   The resulting internal states represent context relevant to the next prediction.
+5. **Generation** predicts output tokens or acoustic codes incrementally. An audio decoder
+   converts generated audio codes/latents back into a waveform; text output may be emitted
+   alongside the audio, depending on the model/API.
+
+An embedding is **not** a transcript, a final decision, or a single vector that contains
+the whole meaning of a call. It is a learned numerical representation; the model uses a
+sequence of such representations and internal states to interpret context over time.
+
+### Is it an encoder-decoder Transformer?
+
+**Usually, “Transformer-based” is a safe high-level description; “a classic encoder-decoder
+Transformer” is not universally accurate.** The architecture varies:
+
+- **Audio encoder + Transformer + audio decoder:** a common conceptual pattern. The
+  encoder represents incoming audio; the central network reasons over the sequence; the
+  decoder synthesizes outgoing audio.
+- **Unified autoregressive Transformer:** some systems represent audio and text as
+  interleaved tokens and predict the next token(s) with a shared Transformer stack. Audio
+  encoding and decoding still require model-specific tokenization/codec components.
+- **Streaming or full-duplex designs:** input and output streams can overlap, with special
+  handling for timing, speaker identity, turn-taking, and interruptions. This is not just
+  a conventional text encoder followed by a text decoder.
+
+For OpenAI's hosted Realtime models, treat the exact layer layout, embedding dimensions,
+codec, and training recipe as **proprietary unless OpenAI publishes them**. The diagram
+shows the functional data flow, not a reverse-engineered implementation. Moshi is a useful
+open research example for studying a documented real-time speech-text architecture; it
+should not be assumed to match OpenAI's internals.
+
+**Practical distinction:** a cascaded agent has visible boundaries—audio → speech-to-text
+→ text LLM → text-to-speech. A speech-to-speech model can keep the audio representation
+inside one learned model path, which can reduce latency and preserve paralinguistic cues.
+Your application still needs its own authorization, scheduling checks, tool execution,
+and trace/evaluation boundaries.
+
 ## Sources
 
 1. OpenAI, "Hello GPT-4o" (May 13, 2024): <https://openai.com/index/hello-gpt-4o/>

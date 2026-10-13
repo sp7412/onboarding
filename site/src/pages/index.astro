@@ -83,6 +83,9 @@ const orderedIds = content.checklistItems.map((i) => i.id);
 
 // Field guide: one card per deep-dive doc page (DOC_PAGES), in reading order.
 const FIELD_GUIDE = [
+  { repoPath: "docs/guide-index.md", title: "Guide index", icon: "book", tone: "green", blurb: "A topic-first map of architecture, runtime, evaluation, labs, and onboarding references." },
+  { repoPath: "docs/jev-call-intent-classification.md", title: "Jev call-intent classification", icon: "wave", tone: "green", blurb: "Low-latency typed intent decisions, deterministic routing, fallback, and shadow-mode evaluation." },
+  { repoPath: "docs/realtime-voice-agent-evaluation.md", title: "Realtime voice-agent evaluation", icon: "evaluation", tone: "green", blurb: "Layered graders, trace-level debugging, developer-reported failure patterns, regression sets, and release gates." },
   { repoPath: "docs/servicetitan-101.md", title: "ServiceTitan 101", icon: "briefcase", tone: "cyan", blurb: "The company, the products, and why voice AI fits." },
   { repoPath: "docs/how-a-contractor-works.md", title: "How a contractor works", icon: "team", tone: "cyan", blurb: "The customer journey the agent serves, end to end." },
   { repoPath: "docs/call-anatomy.md", title: "Call anatomy", icon: "headset", tone: "cyan", blurb: "One booking call, broken down second by second." },

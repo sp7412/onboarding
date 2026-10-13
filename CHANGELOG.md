@@ -1,5 +1,43 @@
 # Changelog
 
+## 2026-10-12
+
+### Guide navigation
+
+- Added a topic-first index that groups the growing document library by task, and linked it from the repository README.
+- Added the guide index, Jev intent-classification guide, and Realtime evaluation guide to the published site's field guide so new pages are discoverable there too.
+
+
+### Realtime voice-agent evaluation
+
+- Added a practical guide adapted from the OpenAI Cookbook Realtime Eval Guide, covering Crawl/Walk/Run evaluation stages, separate task and audio quality, trace-level diagnosis, layered graders, regression/holdout sets, and release gates.
+- Added a fictional rescheduling regression that checks corrections, tool timeout recovery, idempotency, authoritative state, and false confirmations.
+- Added a sourced section on developer-reported failure patterns: missing required tool calls, VAD/turn-taking problems, out-of-context responses, and operational failures, with regression tests for each. Public reports are explicitly qualified as reports, not universal failure-rate evidence.
+
+
+### GPT Live + Jev runtime integration
+
+- Added an end-to-end architecture, rescheduling example, conceptual typed-decision
+  contract, component responsibility boundaries, and latency/concurrency guidance.
+- Emphasized that Jev classifies intent while the orchestrator and authoritative
+  scheduling tools retain control of policy, availability, authorization, and commits.
+
+
+### Low-latency call intent classification
+
+- Added a Jev evaluation guide for typed call-intent decisions, deterministic routing,
+  uncertainty handling, separation from bookability, safe fallback, and a measured
+  shadow-mode evaluation plan. Vendor latency and API claims are explicitly not treated
+  as verified production results.
+
+### GPT-Live backend model routing
+
+- Documented the distinction between GPT-Live's real-time voice role and delegated
+  backend reasoning, including configured Responses delegation versus application-side
+  routing. Added a cautious Astra/Sol/Luna/Terra routing example integrated with Jev,
+  with official model/delegation references and explicit caveats against assuming
+  undocumented automatic model switching.
+
 ## 2026-10-11
 
 ### Full-duplex voice model evaluation
