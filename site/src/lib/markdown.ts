@@ -135,7 +135,7 @@ export function renderMarkdown(md: string, opts: RenderOptions): RenderResult {
   let seenH1 = false;
 
   const isBlockStart = (l: string) =>
-    /^#{1,6} /.test(l) || /^\s*([-*+]|\d+\.) /.test(l) || l.startsWith(">") || l.startsWith("```") ||
+    /^#{1,6} /.test(l) || /^\s*([-*+]|\d+\.) /.test(l) || l.startsWith(">") || /^(`{3,}|~{3,})/.test(l.trim()) ||
     l.trim().startsWith("|") || /^(-{3,}|\*{3,})\s*$/.test(l.trim());
 
   while (i < lines.length) {
@@ -144,13 +144,16 @@ export function renderMarkdown(md: string, opts: RenderOptions): RenderResult {
 
     if (trimmed === "") { i++; continue; }
 
-    // fenced code
-    if (trimmed.startsWith("```")) {
-      const lang = trimmed.slice(3).trim();
+    // fenced code: support both CommonMark backticks and tildes.
+    const fence = /^(`{3,}|~{3,})(.*)$/.exec(trimmed);
+    if (fence) {
+      const marker = fence[1];
+      const lang = fence[2].trim();
+      const closingFence = new RegExp("^" + marker[0] + "{" + marker.length + ",}\\s*$");
       const body: string[] = [];
       i++;
-      while (i < lines.length && !lines[i].trim().startsWith("```")) body.push(lines[i++]);
-      i++;
+      while (i < lines.length && !closingFence.test(lines[i].trim())) body.push(lines[i++]);
+      if (i < lines.length) i++;
       const code = esc(body.join("\n"));
       if (lang === "mermaid") {
         // Render every Mermaid diagram through Mermaid.js in the browser. Keeping
