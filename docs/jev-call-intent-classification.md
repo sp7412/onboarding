@@ -228,3 +228,117 @@ business state and controls side effects.
   latency budget, control-plane boundaries, and observability.
 - [Business Metrics](business-metrics.md) — connect classification quality to customer
   outcomes rather than optimizing latency in isolation.
+
+
+## GPT Live + Jev: a practical runtime design
+
+Use GPT Live for the real-time voice interaction and Jev for narrow, typed decisions.
+Keep the application orchestrator as the control plane: it validates decisions, owns
+workflow state, checks permissions, and executes side effects. This avoids turning
+both models into competing autonomous agents.
+
+~~~mermaid
+flowchart TD
+    A[Caller audio] --> B[GPT Live: voice, turn-taking, response]
+    B --> C[Committed utterance / relevant session state]
+    C --> D[Jev: typed intent and decision signals]
+    D --> E{Orchestrator policy gate}
+    E -->|Clear supported intent| F[Deterministic workflow / tool]
+    E -->|Missing facts or uncertain intent| G[GPT Live asks a focused clarification]
+    E -->|Safety or human request| H[Approved escalation path]
+    F --> I[Authoritative tool result]
+    I --> B
+    G --> B
+    H --> B
+~~~
+
+### Example: rescheduling an appointment
+
+Caller: “Can you move my appointment to Friday afternoon?”
+
+1. GPT Live acknowledges the caller naturally while the backend works, without
+   claiming the change is already made.
+2. The orchestrator supplies Jev the committed utterance and only the relevant,
+   authorized session/workflow state.
+3. Jev classifies the request as `reschedule_service` and can separately assess
+   whether the next step needs clarification or human handoff.
+4. The orchestrator verifies customer and appointment identity, invokes the scheduling
+   workflow, and asks the authoritative system for availability.
+5. GPT Live communicates actual available options. The agent confirms a change only
+   after the scheduling system reports success.
+
+Jev identifies intent; it cannot establish that Friday has availability, authorize a
+change, or prove that a booking succeeded.
+
+### Illustrative Jev decision contract
+
+The following is conceptual pseudocode for the decision inputs and questions, not a
+copy-paste Jev API payload. Use the current Jev SDK's documented request syntax and
+typed-question schema when implementing it.
+
+~~~text
+state:
+  latest_utterance: "Can you move my appointment to Friday afternoon?"
+  conversation_summary: "Caller has an existing service appointment."
+  appointment_identified: true
+  workflow_state: "awaiting_reschedule_request"
+
+questions:
+  intent:
+    type: choice
+    options:
+      - reschedule_service
+      - schedule_service
+      - cancel_service
+      - appointment_status
+      - pricing_or_service_question
+      - existing_job_followup
+      - emergency_or_safety
+      - human_agent_request
+      - other_or_unclear
+    instruction: "Classify the caller's current request from the evidence."
+
+  needs_clarification:
+    type: noul
+    instruction: "Is information missing before the next valid workflow step?"
+
+  human_handoff:
+    type: noul
+    instruction: "Does the caller request a person or require human assistance?"
+~~~
+
+Keep each label tied to a distinct next action. Define the exact `choice` options and
+`noul` semantics using the installed Jev API version; do not assume the illustrative
+field names above are accepted verbatim. Treat scores as calibrated probabilities only
+if the API and evaluation establish that interpretation.
+
+### Latency and concurrency rules
+
+- **Do not invoke Jev on every audio frame.** Start with committed turns. Evaluate
+  provisional partial-transcript classification only if the runtime supports it and
+  early decisions measurably help.
+- **Acknowledge in parallel, act serially.** GPT Live may say “I can help with that”
+  while Jev runs, but only the orchestrator should commit a workflow transition or tool
+  action. Prevent duplicate/conflicting tool calls.
+- **Batch related judgments.** When supported, ask intent, clarification, and handoff
+  questions against the same state in one Jev evaluation.
+- **Clarify instead of blindly escalating.** If the utterance is ambiguous or required
+  facts are missing, GPT Live should ask one targeted question. Route safety and explicit
+  human requests through separately tested policy paths.
+- **Measure the whole path.** Record end-of-speech-to-decision and end-of-speech-to-route
+  p50/p95/p99, Jev service time, network/orchestration overhead, fallback rate, and
+  downstream outcomes. Compare quality and latency against a simple baseline in shadow
+  mode before changing live routing.
+
+### Responsibility boundaries
+
+| Component | Owns | Must not own |
+|---|---|---|
+| GPT Live | Audio conversation, turn-taking, natural phrasing, clarification | Authoritative appointment state or unvalidated side effects |
+| Jev | Bounded typed judgments from supplied state | Booking availability, permissions, or confirmation of tool success |
+| Orchestrator | State machine, validation, policy, retries, idempotency, tool authorization | Delegating its control responsibilities to model prose |
+| ServiceTitan tools / source systems | Authoritative customer, job, availability, and booking results | Inferring caller intent from conversational context alone |
+
+Start with this separation even if the first implementation uses a single backend model.
+Only add dynamic backend-model selection when an evaluation shows that the quality gain
+justifies its added latency, cost, and operational complexity.
