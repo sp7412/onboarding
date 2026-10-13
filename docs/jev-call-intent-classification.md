@@ -139,6 +139,63 @@ taxonomy changes. Begin in shadow mode, compare against adjudicated intent and f
 business outcomes, then canary only after thresholds and rollback criteria are agreed.
 A shadow prediction must not change the live route.
 
+## GPT-Live: separate the voice model from backend reasoning
+
+GPT-Live's real-time conversational role does **not** imply that it automatically
+switches among Astra, Sol, Luna, and Terra on every caller turn. Treat model selection
+as an explicit configuration or application-level routing decision, and verify the
+current API behavior before relying on any particular delegation mode.
+
+The documented architecture has two useful patterns:
+
+- **Responses delegation:** configure a backend Responses model for GPT-Live to call.
+  The delegated model is a separate choice from the real-time voice model; do not
+  assume it changes dynamically unless the API explicitly supports that behavior.
+- **Client-side delegation:** let the application orchestrator choose the backend
+  model or workflow. This is the flexible option for applying Jev intent labels,
+  workflow state, policy, latency budgets, and escalation rules to model selection.
+
+Use the model tiers as a starting hypothesis, not as a hard-coded truth about every
+request:
+
+| Backend choice | Initial use case | Routing caution |
+|---|---|---|
+| **Luna** | Focused, common, well-bounded tasks where low cost and throughput matter | Route only when the required action and context are clear |
+| **Sol** | More involved multi-step reasoning where a stronger model is justified | Escalate based on complexity or uncertainty, not merely on a particular intent label |
+| **Astra** | Difficult reasoning, conflicting context, unusual exceptions, or high-impact cases needing the strongest available reasoning | Keep permissions and business-state checks in the harness; a stronger model is not authority to act |
+| **Terra** | Compatibility with an existing GPT-5.6-based integration, if still available and validated | Treat as an earlier-generation option, not the default for a new design; verify current availability |
+
+The current model catalog and delegation guide are authoritative for model names,
+capabilities, availability, and configuration:
+
+- [OpenAI model catalog](https://developers.openai.com/api/docs/models)
+- [GPT-Live delegation guide](https://developers.openai.com/api/docs/guides/live-delegation)
+- [Connect voice to Decisions](https://developers.openai.com/api/docs/guides/decisions-voice)
+
+### Example: Jev plus an explicit router
+
+1. Wait for the committed transcript/turn, then use Jev to classify the caller's
+   **intent** into the versioned taxonomy above.
+2. Apply deterministic policy and session-state checks. Safety, human handoff,
+   authorization, and tool permissions are governed by the application, not by the
+   model-tier choice.
+3. Keep simple, well-bounded requests on the least expensive backend that passes the
+   quality bar. Use Sol when the task requires broader reasoning; reserve Astra for
+   genuinely difficult or consequential cases where evaluation shows a benefit.
+4. Ask a clarifying question or use a deterministic workflow when intent or required
+   facts are missing. Do not escalate every low-confidence case to a larger model if
+   clarification is safer and cheaper.
+5. Log the routing reason, selected model, latency, outcome, and fallback. Evaluate
+   quality and p50/p95/p99 end-to-end turn latency by intent and complexity, then tune
+   thresholds from held-out and shadow-mode results.
+
+For example, a clear appointment-status request may need only a status lookup; a
+reschedule may require appointment lookup, availability checks, and confirmation; an
+unusual exception with conflicting records may justify stronger reasoning. These are
+illustrative policies, not claims about OpenAI's hidden internal router or ServiceTitan's
+production implementation. The model may propose a plan, but the harness validates
+business state and controls side effects.
+
 ## Suggested hands-on exercise
 
 1. Create a small, balanced, fictional transcript set for the labels above, including
