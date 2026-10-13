@@ -2,6 +2,12 @@
 
 ## 2026-10-12
 
+### Guide navigation
+
+- Added a topic-first index that groups the growing document library by task, and linked it from the repository README.
+- Added the guide index, Jev intent-classification guide, and Realtime evaluation guide to the published site's field guide so new pages are discoverable there too.
+
+
 ### Realtime voice-agent evaluation
 
 - Added a practical guide adapted from the OpenAI Cookbook Realtime Eval Guide, covering Crawl/Walk/Run evaluation stages, separate task and audio quality, trace-level diagnosis, layered graders, regression/holdout sets, and release gates.
