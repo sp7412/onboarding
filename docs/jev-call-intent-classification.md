@@ -19,7 +19,7 @@ classification step. Treat vendor performance statements as claims to verify on 
 actual workload; do not assume a published latency is an end-to-end voice latency
 guarantee.
 
-## End-to-end runtime architecture
+## Proposed placement
 
 This is the proposed control flow, not a claim about a deployed ServiceTitan
 implementation. The key boundary is that **Jev returns a typed decision; the
