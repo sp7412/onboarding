@@ -297,9 +297,11 @@ run as proof.
   benchmark for spoken instruction following and related capabilities; useful as a
   general speech-model reference, **not** a substitute for testing your own booking
   workflow and tool side effects.
-- [\u03c4-bench](https://github.com/sierra-research/tau-bench) — a tool-use benchmark
-  focused on agents completing realistic tasks under domain rules. It informs task-level
-  evaluation, but does not by itself test audio quality or telephony behavior.
+- [\u03c4\u00b2-bench (tau2-bench)](https://github.com/sierra-research/tau2-bench) — the newer
+  benchmark for evaluating agents on realistic tasks under domain rules. Use it to
+  inform task-level/tool-use evaluation; it does not by itself test audio quality,
+  turn-taking, or telephony behavior. The original [\u03c4-bench repository](https://github.com/sierra-research/tau-bench)
+  is the older version.
 
 Use a framework to execute and grade scenarios; keep a domain-specific gold set for
 your own critical workflows. A useful starting release gate is: all critical safety,
