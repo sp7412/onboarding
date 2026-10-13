@@ -2,6 +2,14 @@
 
 ## 2026-10-12
 
+### GPT Live + Jev runtime integration
+
+- Added an end-to-end architecture, rescheduling example, conceptual typed-decision
+  contract, component responsibility boundaries, and latency/concurrency guidance.
+- Emphasized that Jev classifies intent while the orchestrator and authoritative
+  scheduling tools retain control of policy, availability, authorization, and commits.
+
+
 ### Low-latency call intent classification
 
 - Added a Jev evaluation guide for typed call-intent decisions, deterministic routing,
