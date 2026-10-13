@@ -319,3 +319,15 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [OpenAI API pricing](https://developers.openai.com/api/docs/pricing) | Pricing documentation | Fine-tuned open models vs. frontier models |
 | [MLPerf Inference](https://mlcommons.org/benchmarks/inference-datacenter/) | Benchmark suite | Fine-tuned open models vs. frontier models |
 | [HELM](https://crfm.stanford.edu/helm/) | Evaluation framework | Fine-tuned open models vs. frontier models |
+
+## Voice-agent testing, simulation, and benchmarks
+
+| Source | Type | Cited in |
+|---|---|---|
+| [LiveKit testing overview](https://docs.livekit.io/testing/) | Documentation | Realtime voice-agent evaluation |
+| [LiveKit Agent Simulations](https://docs.livekit.io/testing/simulations/) | Documentation | Realtime voice-agent evaluation |
+| [LiveKit voice-agent testing article](https://livekit.com/blog/testing-voice-agents-with-agent-simulations) | Engineering article | Realtime voice-agent evaluation |
+| [LiveKit voice-agent load testing](https://livekit.com/blog/how-to-load-test-voice-agents) | Engineering article | Realtime voice-agent evaluation |
+| [VoiceBench (TACL 2026)](https://aclanthology.org/2026.tacl-1.18/) | Research benchmark | Realtime voice-agent evaluation |
+| [τ-bench](https://github.com/sierra-research/tau-bench) | Research benchmark | Realtime voice-agent evaluation |
+
