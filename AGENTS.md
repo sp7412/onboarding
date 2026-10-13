@@ -5,7 +5,7 @@ Guidance for AI coding agents (Claude Code, Codex, Cursor, etc.) working in this
 ## What this repo is
 
 A personal onboarding workspace for a Senior AI Engineer role at ServiceTitan
-(start date Oct 26, 2026): a 30/60/90 plan, a voice-agent study guide, blank templates, and
+(pre-start preparation): a 30/60/90 plan, a voice-agent study guide, blank templates, and
 seventeen Jupyter tutorials on the real-time voice-agent stack (OpenAI Realtime, LiveKit,
 LangChain/LangGraph, LangSmith) on multi-agent systems built around it (labs 09–14), and on validating an LLM judge (lab 15).
 
@@ -162,8 +162,7 @@ The Guardrails simulation on the site replays recorded runs of `labs/stlab`. Aft
 
 ## Day-one public-repo boundary
 
-The start date is October 26, 2026. From that date forward this repository is a frozen,
-sanitized pre-start guide. Never add anything learned inside the company: internal architecture,
+After employment begins, this repository remains a frozen, sanitized pre-start guide. Never add anything learned inside the company: internal architecture,
 code, metrics, traces, customer data, recordings, hostnames, endpoints, credentials, prompts,
 or incidents. Put that material in company systems or an approved private location. Post-start
 changes are limited to genuinely public, verified sources and public-safe improvements to the
