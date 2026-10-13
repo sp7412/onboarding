@@ -19,20 +19,42 @@ classification step. Treat vendor performance statements as claims to verify on 
 actual workload; do not assume a published latency is an end-to-end voice latency
 guarantee.
 
-## Proposed placement
+## End-to-end runtime architecture
+
+This is the proposed control flow, not a claim about a deployed ServiceTitan
+implementation. The key boundary is that **Jev returns a typed decision; the
+orchestrator validates it and owns every workflow transition and side effect.**
 
 ~~~mermaid
-flowchart LR
-    A[Caller audio] --> B[STT / committed transcript]
-    B --> C[Jev intent decision]
-    C --> D{Confidence and policy gate}
-    D -->|Clear supported intent| E[Deterministic router]
-    D -->|Ambiguous or unsupported| F[Clarify or general model]
-    D -->|Safety / human request| G[Approved escalation path]
-    E --> H[Workflow / tools]
-    F --> H
-    G --> H
-    H --> I[Trace and outcome]
+flowchart TB
+    CALLER[Caller audio] --> LIVE[GPT Live session<br/>audio, turn-taking, response]
+    LIVE --> TURN[Committed utterance<br/>plus relevant session state]
+    TURN --> ORCH[Application orchestrator<br/>build typed request]
+    ORCH --> JEV[Jev<br/>intent and bounded judgments]
+    JEV --> VALIDATE[Validate schema, labels,<br/>taxonomy version, uncertainty]
+    VALIDATE --> GATE{Policy and workflow gate}
+
+    GATE -->|Supported and clear| ROUTER[Deterministic workflow router]
+    ROUTER --> TOOLS[Authorized workflow / tools]
+    TOOLS --> SOURCE[Authoritative source system<br/>availability and booking state]
+    SOURCE --> RESULT[Validated tool result]
+    RESULT --> ORCH
+    ORCH --> LIVE
+
+    GATE -->|Missing facts or ambiguous| CLARIFY[Ask one focused clarification]
+    CLARIFY --> LIVE
+
+    GATE -->|Safety or human request| ESCALATE[Approved safety / human handoff]
+    ESCALATE --> LIVE
+
+    JEV -. timeout, error, invalid output .-> FALLBACK[Bounded fallback or clarification]
+    VALIDATE -. unsupported or low confidence .-> FALLBACK
+    FALLBACK --> LIVE
+
+    ORCH -. decision, route, latency .-> TRACE[Trace, metrics, final outcome]
+    JEV -. label, model/version, duration .-> TRACE
+    TOOLS -. invocation, result, error .-> TRACE
+    SOURCE -. confirmed business outcome .-> TRACE
 ~~~
 
 Jev sits after a transcript or committed turn is available. It does not replace speech
