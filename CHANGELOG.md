@@ -9,6 +9,14 @@
   shadow-mode evaluation plan. Vendor latency and API claims are explicitly not treated
   as verified production results.
 
+### GPT-Live backend model routing
+
+- Documented the distinction between GPT-Live's real-time voice role and delegated
+  backend reasoning, including configured Responses delegation versus application-side
+  routing. Added a cautious Astra/Sol/Luna/Terra routing example integrated with Jev,
+  with official model/delegation references and explicit caveats against assuming
+  undocumented automatic model switching.
+
 ## 2026-10-11
 
 ### Full-duplex voice model evaluation
