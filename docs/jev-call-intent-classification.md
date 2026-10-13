@@ -228,6 +228,9 @@ business state and controls side effects.
   latency budget, control-plane boundaries, and observability.
 - [Business Metrics](business-metrics.md) — connect classification quality to customer
   outcomes rather than optimizing latency in isolation.
+- [Realtime Voice-Agent Evaluation](realtime-voice-agent-evaluation.md) — evaluate the
+  full audio-to-tool pipeline with staged replay, trace-level diagnosis, and regression
+  gates; Jev classification is only one component of that system.
 
 
 ## GPT Live + Jev: a practical runtime design
