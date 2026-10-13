@@ -15,7 +15,7 @@ manager after starting.
 | **Day 60: Contribute** | Deliver a scoped project behind a safe rollout with an agreed baseline and guardrails | Design doc, baseline, review notes, weekly updates, working increment |
 | **Day 90: Own** | Demonstrate measured impact or a well-supported stop decision; own the runbook/monitoring and propose the next bet | Before/after analysis, runbook, retro, next-quarter proposal |
 
-## Pre-Start: Prepare (Now–Oct 25)
+## Pre-Start: Prepare (Complete before Day 1)
 
 ## Canonical pre-start path
 
@@ -24,14 +24,14 @@ artifact or demonstration. The total is designed for 4–6 hours per week.
 
 | Week | Read/watch/listen/run | Time | Active deliverable |
 |---|---|---:|---|
-| Sept 28 | Read docs 101 and contractor lifecycle; read speech-to-speech and GPT-Live-1 background; read/watch reading-guide items 1–4 and 11B; run labs 00–03; listen to podcast episodes 1 and 6 | 4–6 h | A one-page contractor lifecycle map with the application control-plane boundary and six observed/inferred/unknown questions |
-| Oct 5 | Read architecture; read/watch reading-guide items 5–10; run labs 04–06; complete LiveKit hands-on Phases 1–2; listen to episodes 2, 10 and 11 | 4–6 h | A comparison of cascaded, realtime and workflow paths plus five simulated failure observations |
-| Oct 12 | Read evaluation guide and reading-guide items 11–14; watch the LangSmith videos (item 14A); run labs 07–08; complete LiveKit hands-on Phase 3; listen to episodes 3, 4 and 12; stretch: judgment-track exercises 3 and 4 | 4–6 h | A fictional eval report, study-question draft, and capstone evidence matrix |
-| Oct 19 | Use the [10-hour minimum path](../docs/minimum-path.md) if time is tight; read the hypothesis map, business metrics, field exercise, and after-day-one boundary; run labs 09–10 and 13 (labs 11, 12 and 14 are scheduled in weeks 2–3; the minimum path pulls lab 14 forward if you take it); listen to episodes 5, 13 and 14; review templates and capstone rubric; stretch: judgment-track exercises 1 and 10 and lab 16 | 4–6 h | System-level question set, Mini-Max/autonomy evidence, first-PR hypothesis, personal first-week plan, and capstone open-criteria list |
+| Pre-start week 1 | Read docs 101 and contractor lifecycle; read speech-to-speech and GPT-Live-1 background; read/watch reading-guide items 1–4 and 11B; run labs 00–03; listen to podcast episodes 1 and 6 | 4–6 h | A one-page contractor lifecycle map with the application control-plane boundary and six observed/inferred/unknown questions |
+| Pre-start week 2 | Read architecture; read/watch reading-guide items 5–10; run labs 04–06; complete LiveKit hands-on Phases 1–2; listen to episodes 2, 10 and 11 | 4–6 h | A comparison of cascaded, realtime and workflow paths plus five simulated failure observations |
+| Pre-start week 3 | Read evaluation guide and reading-guide items 11–14; watch the LangSmith videos (item 14A); run labs 07–08; complete LiveKit hands-on Phase 3; listen to episodes 3, 4 and 12; stretch: judgment-track exercises 3 and 4 | 4–6 h | A fictional eval report, study-question draft, and capstone evidence matrix |
+| Pre-start week 4 | Use the [10-hour minimum path](../docs/minimum-path.md) if time is tight; read the hypothesis map, business metrics, field exercise, and after-day-one boundary; run labs 09–10 and 13 (labs 11, 12 and 14 are scheduled in weeks 2–3; the minimum path pulls lab 14 forward if you take it); listen to episodes 5, 13 and 14; review templates and capstone rubric; stretch: judgment-track exercises 1 and 10 and lab 16 | 4–6 h | System-level question set, Mini-Max/autonomy evidence, first-PR hypothesis, personal first-week plan, and capstone open-criteria list |
 
 The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubric.md).
 
-### Week of Sept 28 — Build the learning agenda
+### Pre-start week 1 — Build the learning agenda
 
 - [ ] Read the [domain primer](../docs/servicetitan-101.md) and [contractor
   lifecycle](../docs/how-a-contractor-works.md).
@@ -49,7 +49,7 @@ The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubr
 - [ ] [Reading guide](../docs/reading-guide.md) items 1–4.
 - [ ] [Podcast](../docs/podcast-prompts.md) episodes 1 and 6 (coaching: entering well — it's scheduled before day one).
 
-### Week of Oct 5 — Build technical depth
+### Pre-start week 2 — Build technical depth
 
 - [ ] Read the [Pantheon 2026 AI roadmap brief](../docs/pantheon-2026-ai-roadmap.md) (reading-guide item 7B); watch the keynote replays when available.
 - [ ] Skim the [call facts contract](../docs/call-facts-contract.md) and list three fields you would insist on verifying before dispatch consumes them.
@@ -66,7 +66,7 @@ The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubr
 - [ ] [LiveKit hands-on](../docs/livekit-hands-on.md) Phases 1–2: Agent Builder prototype, `lk` starter and debugger (needs a laptop).
 - [ ] Reading guide items 5–10; podcast episodes 2, 10 and 11.
 
-### Week of Oct 12 — Build evaluation judgment
+### Pre-start week 3 — Build evaluation judgment
 
 - [ ] Watch the must-watch LangSmith videos ([reading guide](../docs/reading-guide.md) item 14A) before lab 07.
 - [ ] Complete labs 07–08 (needs a laptop).
@@ -82,7 +82,7 @@ The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubr
 - [ ] LiveKit hands-on Phase 3: fake ServiceTitan tools (reschedule/cancel) behind the control plane (needs a laptop).
 - [ ] Reading guide items 11–14; podcast episodes 3, 4 and 12.
 
-### Week of Oct 19 — Prepare relationships and logistics
+### Pre-start week 4 — Prepare relationships and logistics
 
 - [ ] Run labs 09–10 (shared context; coordination and arbitration) (needs a laptop).
 - [ ] Read the essentials path of [whitepaper chapter 15, Agentic orchestration](../docs/whitepaper/15-agentic-orchestration.md): the architecture map behind labs 09–14.
@@ -93,17 +93,17 @@ The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubr
 - [ ] Finalize manager, PM, infrastructure, evaluation, and support questions.
 - [ ] Read reading-guide items 14B–14F (working with your manager, about 75 minutes).
 - [ ] Draft your [working-with-me doc](../templates/working-with-me.md) and start a [brag document](../templates/brag-document.md).
-- [ ] Prepare a personal first-week plan and take at least two full days off before Oct 26.
+- [ ] Prepare a personal first-week plan and take at least two full days off before Day 1.
 - [ ] Podcast episodes 5, 13 and 14.
 - [ ] Do the [field exercise](../docs/field-exercise.md) (public, short, ethical) and note what you heard.
 - [ ] Fill in the [first-PR decision tree](../senior-engineer/first-pr-decision-tree.md) for one candidate change and write your [working hypotheses](../senior-engineer/hypotheses.md), each with a test (private notes only).
-- [ ] Read [After Day One](../docs/after-day-one.md) and decide where your private notes will live before Oct 26.
+- [ ] Read [After Day One](../docs/after-day-one.md) and decide where your private notes will live before Day 1.
 - [ ] **Stretch:** do [What I need to know before day 1](../senior-engineer/what-i-need-to-know.md) (20 min), the [capacity reservation review](../senior-engineer/capacity-reservation-review.md) (30 min, after lab 10), and [lab 16](../labs/16_mcp_server_basics.ipynb) (MCP server basics, 60–90 min, offline) once you have read the MCP trust-boundary note.
 - [ ] Do not create employer accounts, access employer data, or copy internal information into this public repo.
 
 ## Days 1–30: Understand And Earn Trust
 
-### Week 1 (Oct 26–30) — Establish the contract
+### Week 1 (Days 1–5) — Establish the contract
 
 - [ ] Complete required HR, security, privacy, and compliance onboarding.
 - [ ] Ask the manager to confirm day-30, day-60, and day-90 outcomes and decision rights.
@@ -120,7 +120,7 @@ The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubr
 **Output:** written success contract, stakeholder list, access plan, and learning agenda.
 - [ ] Reading guide Tier 3 (items 15–23), spread across weeks 1–4.
 
-### Week 2 (Nov 2–6) — Map the system
+### Week 2 — Map the system
 
 - [ ] Run labs 11–12 (learning loop; agent-to-agent booking) and compare them with how the team actually shares context between agents.
 - [ ] Trace one authorized interaction end to end: caller → transport → model → tools/workflow → source of truth → traces.
@@ -134,7 +134,7 @@ The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubr
 
 **Output:** reviewed system map, owner map, and first merged contribution.
 
-### Week 3 (Nov 9–13) — Learn customer and quality reality
+### Week 3 — Learn customer and quality reality
 
 - [ ] Run [lab 14](../labs/14_earning_autonomy.ipynb): defend a promotion policy with a Wilson bound, cost asymmetry, calibration, and drift guard.
 - [ ] Try the [earned-autonomy lesson](https://sp7412.github.io/onboarding/lessons/earned-autonomy/), then do the [autonomy promotion review](../senior-engineer/autonomy-promotion.md) exercise (private notes only).
@@ -149,7 +149,7 @@ The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubr
 
 **Output:** failure taxonomy, metric definitions, and evidence-backed risk list.
 
-### Week 4 (Nov 16–20) — Diagnose and align
+### Week 4 — Diagnose and align
 
 - [ ] Classify the situation hypothesis: turnaround, realignment, accelerated growth, or sustaining success.
 - [ ] Write the [30-day memo](../templates/30-day-memo.md): observed, inferred, unknown, risks, contribution options.
