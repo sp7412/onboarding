@@ -276,6 +276,28 @@ credentials, customer information, or live audio into this public repository.
   4. Conversation flow and state described in the prompt vs enforced in code. Where would you draw that line?
 - **Pairs with:** lab 02
 
+### 14.1. Realtime eval harness (OpenAI Cookbook)
+- [ ] [Realtime Eval Guide](https://github.com/openai/openai-cookbook/blob/main/examples/Realtime_eval_guide.ipynb) · guide · 30–45 min
+- [ ] [Runnable Crawl / Walk / Run harnesses](https://github.com/openai/openai-cookbook/tree/main/examples/evals/realtime_evals) · code
+- **Why:** the existing [realtime voice-agent evaluation guide](realtime-voice-agent-evaluation.md) explains the method; these reference harnesses show what repeatable runs and result artifacts look like in code.
+- **Look for:**
+  1. Crawl uses controlled synthetic/TTS single-turn inputs; Walk replays saved phone-like audio with fixed chunking; Run adds simulated multi-turn interactions.
+  2. Each datapoint should retain the event stream and stage-level latency, not only a final pass/fail score.
+  3. Separate task correctness from audio/interaction quality; a transcript is not ground truth for what the microphone captured.
+  4. Start with deterministic checks for tool calls and business outcomes; use LLM judges for softer criteria and calibrate them against reviewed examples.
+- **Caution:** treat the harnesses as reference implementations, not drop-in production code. Verify API/model compatibility, privacy handling, and evaluator quality before adapting them.
+- **Pairs with:** [Realtime voice-agent evaluation](realtime-voice-agent-evaluation.md), labs 07–08 and 15
+
+### 14.2. Prompt caching (OpenAI Cookbook)
+- [ ] [Prompt Caching 101](https://github.com/openai/openai-cookbook/blob/main/examples/Prompt_Caching101.ipynb) · notebook · 20 min
+- **Why:** stable system instructions and tool schemas can be repeated across many agent turns; caching may reduce input-token cost and latency when the API/model supports it.
+- **Look for:**
+  1. Put stable instructions, examples and tool definitions before request-specific context.
+  2. Keep the reusable prefix and tool ordering stable; append changing caller and workflow state later.
+  3. Inspect cache-hit token usage and end-to-end latency/cost instead of assuming a cache hit helps.
+  4. Treat caching as a performance optimization only: it does not make stale availability or caller-specific state authoritative.
+- **Caution:** thresholds and eligibility are API/model-specific and can change. Check current docs and measure the actual voice path; do not assume a text API caching result transfers to every Realtime configuration.
+
 ### 14A. LangSmith in video: tracing, runs and evaluation (LangChain)
 - [ ] What Is LangSmith? Explained in 5 Minutes: <https://www.youtube.com/watch?v=kYtnLaJeia8> · video · 5 min
 - [ ] Getting Started with LangSmith (1/8), Tracing: <https://www.youtube.com/watch?v=fA9b4D8IsPQ> · video · 9 min
