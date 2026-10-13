@@ -7,7 +7,6 @@
  */
 import { contentId, slugify } from "./content/ids";
 import { markupJargon } from "./jargon";
-import { renderMermaidSvg } from "./mermaid";
 
 export interface RenderOptions {
   /** Repo-relative path of the source file (used to resolve relative links). */
@@ -134,7 +133,6 @@ export function renderMarkdown(md: string, opts: RenderOptions): RenderResult {
   const out: string[] = [];
   let i = 0;
   let seenH1 = false;
-  let mermaidIndex = 0;
 
   const isBlockStart = (l: string) =>
     /^#{1,6} /.test(l) || /^\s*([-*+]|\d+\.) /.test(l) || l.startsWith(">") || l.startsWith("```") ||
@@ -155,12 +153,12 @@ export function renderMarkdown(md: string, opts: RenderOptions): RenderResult {
       i++;
       const code = esc(body.join("\n"));
       if (lang === "mermaid") {
-        const svg = renderMermaidSvg(body.join("\n"), idPrefix + "-diagram-" + (++mermaidIndex));
-        if (svg) {
-          out.push(`<figure class="mermaid-diagram">${svg}<details><summary>View Mermaid source</summary><pre><code>${code}</code></pre></details></figure>`);
-        } else {
-          out.push(`<figure class="mermaid-src"><figcaption>Diagram source (Mermaid). <a href="${REPO}${opts.sourcePath}" rel="noopener noreferrer" target="_blank">View it rendered on GitHub</a>.</figcaption><pre><code>${code}</code></pre></figure>`);
-        }
+        // Render every Mermaid diagram through Mermaid.js in the browser. Keeping
+        // the source in a real Mermaid node avoids silently falling back to code
+        // when a diagram uses syntax beyond our former hand-written SVG subset.
+        out.push(
+          `<figure class="mermaid-diagram"><pre class="mermaid-source mermaid">${code}</pre><details><summary>View Mermaid source</summary><pre><code>${code}</code></pre></details></figure>`,
+        );
       } else {
         out.push(`<pre class="code-block"${lang ? ` data-lang="${esc(lang)}"` : ""}><code>${code}</code></pre>`);
       }
