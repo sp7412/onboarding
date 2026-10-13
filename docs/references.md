@@ -167,6 +167,10 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [Getting Started with LangSmith (7/8): Automations & Online Evaluation](https://www.youtube.com/watch?v=z69cBXTJFZ0) | Video | RG 14A |
 | [Getting Started with LangSmith (8/8): Dashboards](https://www.youtube.com/watch?v=VxsIvf9NdxI) | Video | RG 14A (optional) |
 | [LangSmith observability](https://docs.langchain.com/langsmith/observability) | Docs | RL |
+| [OpenAI Cookbook: Realtime Eval Guide](https://github.com/openai/openai-cookbook/blob/main/examples/Realtime_eval_guide.ipynb) | Guide | RG 14.1, Realtime voice-agent evaluation |
+| [OpenAI Cookbook: Realtime eval harnesses](https://github.com/openai/openai-cookbook/tree/main/examples/evals/realtime_evals) | Runnable examples | RG 14.1, Realtime voice-agent evaluation |
+| [OpenAI Cookbook: Prompt Caching 101](https://github.com/openai/openai-cookbook/blob/main/examples/Prompt_Caching101.ipynb) | Notebook | RG 14.2, agent harness |
+| [OpenAI Cookbook: per-run spending controller (Responses API)](https://github.com/openai/openai-cookbook/blob/main/articles/per_run_spending_controller_responses_api.md) | Engineering example | Agent harness |
 | [Patterns for Building LLM-based Systems & Products (Eugene Yan)](https://eugeneyan.com/writing/llm-patterns/) | Essay | RG 24 |
 
 ## Research papers
