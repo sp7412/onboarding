@@ -1,0 +1,71 @@
+# Guide index
+
+A topic-first map of the onboarding material. Use the **learning path** when you want an order; use this index when you need to find a specific answer.
+
+## Start here
+
+- [ServiceTitan 101](servicetitan-101.md) — company, products, and the contractor workflow.
+- [10-hour minimum path](minimum-path.md) — the shortest coherent route through the material.
+- [30/60/90 checklist](../plan/30-60-90-checklist.md) — the canonical onboarding schedule and progress checklist.
+- [Reading guide](reading-guide.md) — ranked external articles, papers, and talks.
+- [LiveKit hands-on track](livekit-hands-on.md) — build a guarded scheduling agent.
+
+## Voice-agent architecture and runtime
+
+- [Voice-agent architecture](voice-agent-architecture.md) — component boundaries and control plane.
+- [Speech-to-speech models](speech-to-speech-models.md) — full-duplex models versus cascaded pipelines.
+- [GPT-Live-1](gpt-live-1.md) — model behavior, delegation, and control-plane responsibilities.
+- [Build your own voice agent](build-your-own-voice-agent.md) — compare chained and realtime implementations.
+- [Jev call-intent classification](jev-call-intent-classification.md) — low-latency typed intent decisions, routing, fallback, and evaluation.
+- [Agent harness](agent-harness.md) — state, memory, RAG, tools, and the side-effect boundary.
+- [Tools and guardrails](tools-and-guardrails.md) — safe tool design, authorization, and prompt-injection defenses.
+- [Call anatomy](call-anatomy.md) — a booking call broken down by event and turn.
+- [Voice-agents cheat sheet](voice-agents-cheat-sheet.md) — concise architecture, latency, and turn-taking reminders.
+
+## Reliability, evaluation, and production
+
+- [Realtime voice-agent evaluation](realtime-voice-agent-evaluation.md) — eval design, layered graders, trace diagnosis, regression sets, and release gates.
+- [Evaluating voice agents](evaluating-voice-agents.md) — task success, latency, containment, and quality metrics.
+- [Design by evaluation](design-by-evaluation.md) — use failures and evals to shape the architecture.
+- [Earning autonomy](earning-autonomy.md) — calibration, drift, evidence thresholds, and safe promotion.
+- [Capstone rubric](capstone-rubric.md) — acceptance criteria for the end-to-end workflow.
+- [Business metrics](business-metrics.md) — connect call outcomes to bookings, revenue, trust, and operating cost.
+
+## Multi-agent coordination and booking trust
+
+- [Pantheon 2026 AI roadmap](pantheon-2026-ai-roadmap.md) — public roadmap context and implications for voice.
+- [Call facts contract](call-facts-contract.md) — proposed versus verified facts shared across agents.
+- [Homh and AI-agent booking](homh-and-agent-booking.md) — trust boundaries for homeowner-side AI.
+- [MCP and external-agent trust boundary](mcp-and-external-agent-trust-boundary.md) — authorization, consent, idempotency, and audit.
+- [Comparative agent architectures](comparative-agent-architectures.md) — where orchestration, policy, and evaluation sit across vendors.
+- [Pantheon hypothesis map](hypothesis-map.md) — public claims translated into validation questions.
+
+## Hands-on learning
+
+- [Lab index](../labs/README.md) — all notebooks, prerequisites, estimated time, and Colab links.
+- [Lab environments](lab-environments.md) — Codespaces/dev container versus single-notebook Colab.
+- [Senior engineer judgment track](../senior-engineer/README.md) — scenario exercises on architecture, incidents, latency, and autonomy.
+- [Solutions](../labs/solutions/) — consult after attempting each exercise.
+- [Podcast prompts](podcast-prompts.md) — NotebookLM episode prompts for technical topics and company context.
+
+## First 90 days and working notes
+
+- [First 90 days playbook](first-90-days-playbook.md) — execution companion to the checklist.
+- [Manager alignment](manager-alignment.md) — turn early conversations into explicit goals.
+- [First-90-days question bank](first-90-days-question-bank.md) — questions organized by role and conversation.
+- [Field exercise](field-exercise.md) — a bounded, ethical way to learn how contractors handle calls.
+- [After day one](after-day-one.md) — keep company information out of this public repository.
+- [Study question](../notes/study-question.md) — the central control-plane question.
+- [Conversation notes](../notes/conversation-notes.md) — original motivation and framing.
+
+## Reference
+
+- [References and source ledger](references.md) — sources cited throughout the repository.
+- [Whitepaper chapters](whitepaper/README.md) — longer-form technical background.
+- [Glossary](../notes/glossary.md) — terms and definitions.
+- [Changelog](../CHANGELOG.md) — what has changed and why.
+- [Templates](../templates/README.md) — reusable blank working documents.
+
+---
+
+**Public-safe rule:** this repository is for personal learning, public sources, fictional examples, and blank templates. Do not add internal architecture, code, metrics, customer data, or call recordings.
