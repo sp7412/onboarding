@@ -64,6 +64,7 @@ invariants, or irreversible actions.
 | Risk classifier | identify actions requiring stronger controls | rules or classifier |
 | HITL | pause before high-risk side effects | approval queue/UI |
 | Rate limits | bound runaway execution | quotas / iteration limits |
+| Per-run budget | bound model spend before the run exceeds its allowance | reserve worst-case request cost; reconcile actual usage; stop before an unaffordable next call |
 | Retry/timeout | handle transient failures | bounded retry + backoff |
 | Circuit breaker | stop cascading failures | failure-rate thresholds |
 | Trace | reconstruct what happened | spans/events |
@@ -71,6 +72,9 @@ invariants, or irreversible actions.
 
 Not every system needs every component. The engineering task is to identify which controls
 are required by the failure cost.
+
+A run should have an explicit budget as well as a turn/tool-call limit. Where supported, estimate a conservative upper bound before each model request, reserve that amount, reconcile the actual usage afterward, and stop or hand off before the next request would exceed the remaining budget. The [OpenAI Cookbook spending-controller example](https://github.com/openai/openai-cookbook/blob/main/articles/per_run_spending_controller_responses_api.md) demonstrates this for synchronous, non-streaming Responses API requests; it is a design reference, not a drop-in Realtime controller. Its budget covers model-token costs only. A voice product's total cost model must separately account for audio/transcription, telephony, tools, infrastructure, retries, and human handoffs.
+
 
 ## 3. RAG, state, memory, tools, and guardrails are different
 
@@ -336,6 +340,7 @@ Checked October 7, 2026.
 3. [OpenAI Agents SDK (Python)](https://openai.github.io/openai-agents-python/)
 4. [OpenAI: guardrails and human review](https://developers.openai.com/api/docs/guides/agents/guardrails-approvals)
 5. [OpenAI Agents SDK (Python): tracing](https://openai.github.io/openai-agents-python/tracing/)
+6. [OpenAI Cookbook: per-run spending controller (Responses API)](https://github.com/openai/openai-cookbook/blob/main/articles/per_run_spending_controller_responses_api.md)
 
 Related: [comparative agent architectures](comparative-agent-architectures.md),
 [design by evaluation](design-by-evaluation.md), [tools and guardrails](tools-and-guardrails.md).
