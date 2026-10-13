@@ -1,5 +1,7 @@
 # ServiceTitan Onboarding
 
+**[Open the deployed onboarding guide](https://sp7412.github.io/onboarding/)**
+
 My personal onboarding workspace for a Senior AI Engineer joining a voice-agent / AI
 team at ServiceTitan. It holds a public-source domain
 primer, a 30/60/90 plan, a study path for the real-time voice-agent stack, hands-on
