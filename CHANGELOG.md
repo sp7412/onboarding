@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026-10-13
+
+### Voice-agent testing and benchmarks
+
+- Added a repeatable stress-test matrix for noise, pauses, interruptions, context
+  shifts, and tool/transport faults.
+- Linked LiveKit simulations and load testing, VoiceBench, and \u03c4-bench, clarifying
+  how test frameworks, research benchmarks, and domain-specific production regression
+  suites complement rather than replace one another.
+
+
 ## 2026-10-12
 
 ### Guide navigation
