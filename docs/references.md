@@ -96,6 +96,14 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | Source | Type | Cited in |
 |---|---|---|
 | [Agents framework](https://docs.livekit.io/agents/) | Docs | RG 11, RL |
+| [Building Production-Ready Voice Agents with LiveKit workshop](https://livekit.worksh.app/tutorials/livekit-voice-agent/introduction) | Hands-on tutorial | LiveKit hands-on |
+| [LiveKit workshop: Voice Agent Foundations](https://livekit.worksh.app/tutorials/livekit-voice-agent/foundations) | Tutorial module | LiveKit hands-on |
+| [LiveKit workshop: Semantic Turn Detection](https://livekit.worksh.app/tutorials/livekit-voice-agent/semantic-turn-detection) | Tutorial module | LiveKit hands-on |
+| [LiveKit workshop: Personality and Fallbacks](https://livekit.worksh.app/tutorials/livekit-voice-agent/personality-and-fallbacks) | Tutorial module | LiveKit hands-on |
+| [LiveKit workshop: Metrics, Deployment, and Latency Optimization](https://livekit.worksh.app/tutorials/livekit-voice-agent/metrics-and-preemptive) | Tutorial module | LiveKit hands-on |
+| [LiveKit workshop: Tools and MCP Integration](https://livekit.worksh.app/tutorials/livekit-voice-agent/tools-and-mcp) | Tutorial module | LiveKit hands-on |
+| [LiveKit workshop: Consent and Escalations](https://livekit.worksh.app/tutorials/livekit-voice-agent/consent-and-escalations) | Tutorial module | LiveKit hands-on |
+| [LiveKit voice-agent workshop template repository](https://github.com/livekit-examples/voice-agent-workshop) | Template repo | LiveKit hands-on |
 | [Agent Builder](https://docs.livekit.io/agents/start/builder/) | Docs | LiveKit hands-on |
 | [Agent Builder product page](https://livekit.com/products/agent-builder) | Product page | LiveKit hands-on |
 | [Turn-taking tuning (endpointing defaults)](https://docs.livekit.io/agents/logic/turns/tuning/) | Docs | Architecture explorer |
