@@ -1,7 +1,7 @@
 # ServiceTitan Onboarding
 
 My personal onboarding workspace for a Senior AI Engineer joining a voice-agent / AI
-team at ServiceTitan (start date: October 26, 2026). It holds a public-source domain
+team at ServiceTitan. It holds a public-source domain
 primer, a 30/60/90 plan, a study path for the real-time voice-agent stack, hands-on
 tutorial notebooks, and templates for the documents I'll write along the way.
 
@@ -123,7 +123,7 @@ For private local patterns, set `SENSITIVE_PATTERNS` or create the ignored
 
 | Phase | Status |
 |---|---|
-| Pre-start (→ Oct 25) | ⬜ |
+| Pre-start (before Day 1) | ⬜ |
 | Days 1–30 | ⬜ |
 | Days 31–60 | ⬜ |
 | Days 61–90 | ⬜ |
@@ -134,7 +134,6 @@ Progress is intentionally manual. Check off the corresponding items in
 
 ## Day-one boundary
 
-October 26, 2026 is the start date. From that date forward, this public repository is a
-frozen, sanitized pre-start guide. Company knowledge belongs in company systems or an approved
+After Day One, this public repository remains a frozen, sanitized pre-start guide. Company knowledge belongs in company systems or an approved
 private location; only genuinely public, verified sources belong here. See
 [After Day One](docs/after-day-one.md).
