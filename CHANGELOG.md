@@ -151,3 +151,8 @@ has progressively been reorganized into a practical onboarding system:
 For implementation-level detail, see the individual documents and the Git
 history. This changelog intentionally summarizes the repository's evolution
 rather than duplicating every commit.
+
+
+## 2026-10-13
+
+- Added a LiveKit workshop crosswalk to the hands-on track, identified the missing explicit provider-failure/fallback drill, and added measurable latency/outcome, MCP negative-test, and consent/escalation acceptance checks. Documented SDK-version drift and added the workshop modules to the public-source bibliography.

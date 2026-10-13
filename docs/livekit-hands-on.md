@@ -271,3 +271,27 @@ never produces `cancel_appointment` success.
 | "Model proposes, harness controls" | Phase 3 steps 2–3 | lab 02 |
 | "Never claim a change unless confirmed" | Phase 3 step 3 | lab 07 (`claims_grounded`, claim guard) |
 | LangSmith: what the agent did and why | Phase 4 | lab 07 |
+
+
+## Companion workshop: production-ready voice agents
+
+The external [Building Production-Ready Voice Agents with LiveKit workshop](https://livekit.worksh.app/tutorials/livekit-voice-agent/introduction) is a useful guided sequence alongside this repo. Follow its six modules in order, but keep this repo's mock scheduling backend and application-owned policy as the source of truth for exercises. The workshop is a tutorial, not a replacement for the control-plane and evaluation material here.
+
+| Workshop module | Existing onboarding material | Gap to close while following along |
+|---|---|---|
+| [1. Voice Agent Foundations](https://livekit.worksh.app/tutorials/livekit-voice-agent/foundations) | [Lab 04](../labs/04_livekit_agents.ipynb), Phase 2 above | Capture a baseline before tuning: 10 turns, end-of-user-turn to first audio, plus obvious failures. |
+| [2. Semantic Turn Detection](https://livekit.worksh.app/tutorials/livekit-voice-agent/semantic-turn-detection) | [Lab 03](../labs/03_turn_taking_and_interruptions.ipynb), [LiveKit turns docs](https://docs.livekit.io/agents/logic/turns/) | Compare long pauses, self-corrections, short acknowledgements, and barge-in using the same prompts before and after enabling semantic detection. |
+| [3. Personality and Fallbacks](https://livekit.worksh.app/tutorials/livekit-voice-agent/personality-and-fallbacks) | [Lab 04](../labs/04_livekit_agents.ipynb), [lab 07](../labs/07_langsmith_tracing_evals.ipynb) | **Main gap:** explicitly inject a primary STT/LLM/TTS provider failure, verify fallback activation, and confirm the caller's workflow state is preserved. Record which provider failed and whether the call recovered. |
+| [4. Metrics, Deployment, and Latency](https://livekit.worksh.app/tutorials/livekit-voice-agent/metrics-and-preemptive) | [Lab 08](../labs/08_capstone_talker_thinker.ipynb), [Realtime evaluation](realtime-voice-agent-evaluation.md), [LiveKit hands-on Phase 4](#phase-4-connect-it-to-the-rest-of-the-repo) | Capture TTFA/TTFT, provider fallback counts, tool latency, and final task outcome separately. Compare local console metrics with a deployed trace; do not treat a fast response as proof of a successful booking. |
+| [5. Tools and MCP](https://livekit.worksh.app/tutorials/livekit-voice-agent/tools-and-mcp) | [Lab 02](../labs/02_realtime_tools_and_guardrails.ipynb), [lab 16](../labs/16_mcp_server_basics.ipynb), [MCP trust boundary](mcp-and-external-agent-trust-boundary.md) | Route through the existing mock execute_tool / policy gate; test invalid arguments, denied actions, duplicate writes, and timeout/error responses. Never expose a tool that bypasses authorization. |
+| [6. Consent and Escalations](https://livekit.worksh.app/tutorials/livekit-voice-agent/consent-and-escalations) | Phase 3 above, [lab 07](../labs/07_langsmith_tracing_evals.ipynb), [capstone rubric](capstone-rubric.md) | Turn the disclosure and handoff examples into assertions: consent/disclosure state is explicit, a human request or emergency routes correctly, and the agent never claims completion without a confirmed tool result. |
+
+### Focused gap-closure checklist
+
+- [ ] **Provider outage drill:** deliberately make one primary provider unavailable in a disposable personal project; verify fallback, bounded retries, useful logs, and no duplicate business action. Restore the valid provider afterward.
+- [ ] **Latency and outcome worksheet:** for the same 10 scenarios, record end-of-turn → first audio, TTFT where available, tool duration, fallback activation, and outcome (booked / clarified / refused / escalated). Report percentiles, not just the best turn.
+- [ ] **MCP/tool negative tests:** send malformed arguments, unauthorized customer/appointment IDs, duplicate requests, and simulated timeout/error results. Assert the application policy rejects unsafe writes.
+- [ ] **Consent and escalation tests:** test the disclosure path, explicit human request, emergency route, and a failed transfer. Assert both the event trace and the final spoken claim.
+- [ ] **Trace review:** inspect at least one successful and one failed turn end to end; distinguish transport/model metrics from application outcome metrics.
+
+**Version caution:** the workshop's examples and dependency pins may target a different LiveKit Agents SDK generation than this repo's hands-on track. The track was checked with livekit-agents 1.8.3 and the current starter CLI path; use the version pinned by the project you're running, and verify imports and APIs instead of copying snippets verbatim. Keep credentials in ignored local environment files, use fictional data only, and never connect these exercises to company systems.
