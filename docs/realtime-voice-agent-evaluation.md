@@ -253,6 +253,61 @@ The key lesson is to classify each incident by the failing layer before changing
 or switching models. Add every reproduced production failure to the regression suite,
 and compare candidate versions using the same test corpus and runtime settings.
 
+## Turn stress tests into a repeatable benchmark
+
+Noise, long pauses, interruptions, and topic changes should not be one-off demo
+tricks. Make them **versioned scenario dimensions** in a regression suite so the same
+agent change can be compared against the same conversations and runtime settings.
+There is no single industry benchmark that certifies an end-to-end production voice
+agent: research benchmarks measure selected capabilities, while production tests must
+also validate your tools, business rules, latency, and final state.
+
+A practical scenario matrix:
+
+| Dimension | Controlled variants | What to assert |
+|---|---|---|
+| Background audio | Clean audio; quiet office; traffic/fan noise; competing speech; phone-bandwidth degradation | Correct intent and entities; no false tool action; task completion |
+| Silence and pacing | Short pause; 1–2 second hesitation; longer pause; caller resumes after the agent starts responding | No premature turn commit, unwanted timeout, or invented answer; appropriate recovery |
+| Turn-taking | “Yeah” / “mm-hmm”; barge-in; overlapping speech; caller changes an answer mid-turn | Correct interruption/cancellation, context retention, and final state |
+| Topic and context shifts | Brief unrelated question; return to original task; multiple intents; correction or negation | Agent follows the active request, asks when needed, and does not execute a stale or negated action |
+| Tool and transport faults | Timeout, unavailable slot, malformed result, disconnect, retry | Bounded recovery, idempotent mutations, correct fallback, and no false confirmation |
+
+Keep the **conversation scenario** separate from the **audio condition**. For example,
+run the same rescheduling dialogue with clean audio and several noise conditions; this
+helps distinguish a conversation-policy regression from a speech-pipeline regression.
+Record scenario ID, corpus/version, audio condition, model and prompt versions, tool
+fixtures, random seed where supported, grader version, outcome, and trace link. Repeat
+flaky cases and report pass rate with sample counts rather than treating one successful
+run as proof.
+
+### Useful frameworks and benchmarks
+
+- [LiveKit testing overview](https://docs.livekit.io/testing/) — a practical lifecycle:
+  unit tests on commits, simulations on pull requests, and production observability.
+- [LiveKit Agent Simulations](https://docs.livekit.io/testing/simulations/) — versioned,
+  goal-oriented multi-turn scenarios with a judge; text runs are suited to frequent CI
+  checks, while audio runs exercise the speech pipeline.
+- [LiveKit voice-agent testing article](https://livekit.com/blog/testing-voice-agents-with-agent-simulations) —
+  explains realistic simulated callers, interruptions/backchannels, and keeping
+  scenarios checked into the repository.
+- [LiveKit load-testing guide](https://livekit.com/blog/how-to-load-test-voice-agents) —
+  for concurrency, ramp-up, response latency, errors, and resource utilization. Load
+  testing is a separate axis from conversation correctness.
+- [VoiceBench (TACL 2026)](https://aclanthology.org/2026.tacl-1.18/) — a research
+  benchmark for spoken instruction following and related capabilities; useful as a
+  general speech-model reference, **not** a substitute for testing your own booking
+  workflow and tool side effects.
+- [\u03c4-bench](https://github.com/sierra-research/tau-bench) — a tool-use benchmark
+  focused on agents completing realistic tasks under domain rules. It informs task-level
+  evaluation, but does not by itself test audio quality or telephony behavior.
+
+Use a framework to execute and grade scenarios; keep a domain-specific gold set for
+your own critical workflows. A useful starting release gate is: all critical safety,
+authorization, duplicate-action, and false-confirmation checks pass; task success and
+audio metrics meet agreed thresholds; p95/p99 latency stays within budget; and no
+material regression appears in the frozen suite. Set numeric thresholds from baseline
+measurements and product risk rather than copying arbitrary universal numbers.
+
 ## Adoption checklist
 
 - [ ] Freeze a small human-reviewed gold set and record its version.
