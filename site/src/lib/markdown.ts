@@ -7,7 +7,6 @@
  */
 import { contentId, slugify } from "./content/ids";
 import { markupJargon } from "./jargon";
-import { renderMermaidSvg } from "./mermaid";
 
 export interface RenderOptions {
   /** Repo-relative path of the source file (used to resolve relative links). */
@@ -134,10 +133,9 @@ export function renderMarkdown(md: string, opts: RenderOptions): RenderResult {
   const out: string[] = [];
   let i = 0;
   let seenH1 = false;
-  let mermaidIndex = 0;
 
   const isBlockStart = (l: string) =>
-    /^#{1,6} /.test(l) || /^\s*([-*+]|\d+\.) /.test(l) || l.startsWith(">") || l.startsWith("```") ||
+    /^#{1,6} /.test(l) || /^\s*([-*+]|\d+\.) /.test(l) || l.startsWith(">") || /^(`{3,}|~{3,})/.test(l.trim()) ||
     l.trim().startsWith("|") || /^(-{3,}|\*{3,})\s*$/.test(l.trim());
 
   while (i < lines.length) {
@@ -146,21 +144,24 @@ export function renderMarkdown(md: string, opts: RenderOptions): RenderResult {
 
     if (trimmed === "") { i++; continue; }
 
-    // fenced code
-    if (trimmed.startsWith("```")) {
-      const lang = trimmed.slice(3).trim();
+    // fenced code: support both CommonMark backticks and tildes.
+    const fence = /^(`{3,}|~{3,})(.*)$/.exec(trimmed);
+    if (fence) {
+      const marker = fence[1];
+      const lang = fence[2].trim();
+      const closingFence = new RegExp("^" + marker[0] + "{" + marker.length + ",}\\s*$");
       const body: string[] = [];
       i++;
-      while (i < lines.length && !lines[i].trim().startsWith("```")) body.push(lines[i++]);
-      i++;
+      while (i < lines.length && !closingFence.test(lines[i].trim())) body.push(lines[i++]);
+      if (i < lines.length) i++;
       const code = esc(body.join("\n"));
       if (lang === "mermaid") {
-        const svg = renderMermaidSvg(body.join("\n"), idPrefix + "-diagram-" + (++mermaidIndex));
-        if (svg) {
-          out.push(`<figure class="mermaid-diagram">${svg}<details><summary>View Mermaid source</summary><pre><code>${code}</code></pre></details></figure>`);
-        } else {
-          out.push(`<figure class="mermaid-src"><figcaption>Diagram source (Mermaid). <a href="${REPO}${opts.sourcePath}" rel="noopener noreferrer" target="_blank">View it rendered on GitHub</a>.</figcaption><pre><code>${code}</code></pre></figure>`);
-        }
+        // Render every Mermaid diagram through Mermaid.js in the browser. Keeping
+        // the source in a real Mermaid node avoids silently falling back to code
+        // when a diagram uses syntax beyond our former hand-written SVG subset.
+        out.push(
+          `<figure class="mermaid-diagram"><pre class="mermaid-source mermaid">${code}</pre><details><summary>View Mermaid source</summary><pre><code>${code}</code></pre></details></figure>`,
+        );
       } else {
         out.push(`<pre class="code-block"${lang ? ` data-lang="${esc(lang)}"` : ""}><code>${code}</code></pre>`);
       }

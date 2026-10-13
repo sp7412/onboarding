@@ -63,7 +63,7 @@ const { title, description = "An interactive journey from pre-start through day 
 
       // Copy buttons on every code block.
       document.querySelectorAll<HTMLPreElement>("pre").forEach((pre) => {
-        if (pre.dataset.noCopy !== undefined) return;
+        if (pre.classList.contains("mermaid-source") || pre.dataset.noCopy !== undefined) return;
         const btn = document.createElement("button");
         btn.type = "button";
         btn.className = "copy-btn";
@@ -83,6 +83,31 @@ const { title, description = "An interactive journey from pre-start through day 
         pre.replaceWith(wrap);
         wrap.append(btn, pre);
       });
+    </script>
+    <script is:inline type="module">
+      // Mermaid renders every fenced diagram to SVG, including syntax the old
+      // hand-written flowchart renderer could not parse.
+      import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.2/dist/mermaid.esm.min.mjs";
+
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: "dark",
+        securityLevel: "strict",
+        flowchart: { htmlLabels: true, useMaxWidth: true },
+      });
+
+      const diagrams = document.querySelectorAll(".mermaid-source");
+      if (diagrams.length) {
+        try {
+          await mermaid.run({ nodes: diagrams });
+        } catch (error) {
+          console.error("Failed to render one or more Mermaid diagrams as SVG.", error);
+          diagrams.forEach((node) => {
+            node.setAttribute("role", "img");
+            node.setAttribute("aria-label", "Mermaid diagram failed to render; source is available below.");
+          });
+        }
+      }
     </script>
   </body>
 </html>
