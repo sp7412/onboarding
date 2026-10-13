@@ -177,6 +177,82 @@ Expected behavior:
 Add variants for “don't reschedule,” “Friday—actually Saturday,” a short “yeah,” barge-in
 during the agent's response, and an unavailable slot.
 
+## Developer-reported failure patterns
+
+These are concrete issues developers have described in public forums. They are useful
+sources for test cases, **not** proof that every deployment or model version has the same
+failure rate. Treat the reports as hypotheses to reproduce against your own API version,
+configuration, audio, tools, and workload.
+
+### 1. The model speaks instead of invoking a required tool
+
+A developer reported a production qualification in which changing the model to
+GPT Realtime 2.1 coincided with a sharp drop in successful tool invocations, alongside
+unnecessary preambles and language inconsistency. The post reports approximately
+98–100% successful commands on the prior model versus about 25% on 2.1 in that author's
+test setup. These are author-reported measurements, not an independently verified
+general benchmark.
+
+**Engineering response:** include required-tool and prohibited-tool cases in a frozen
+regression set; assert actual tool events and authoritative state changes, not just the
+spoken response. Treat a model or prompt change as a release candidate until it passes
+the same task suite.
+
+Source: [OpenAI Developer Community — GPT Realtime 2.1 production tool-invocation regression](https://community.openai.com/t/gpt-realtime-2-1-production-tool-invocation-regression-model-answers-instead-of-calling-available-tools/1398438).
+
+### 2. Short acknowledgements and turn boundaries are missed
+
+Developers have reported semantic VAD missing short caller responses such as “yeah” or
+“sure,” and turn-taking behavior that did not match their expectations around response
+interruption. This can look like bad intent classification even when the root cause is
+audio endpointing, turn commitment, or interruption handling.
+
+**Engineering response:** test short acknowledgements, pauses, background noise,
+barge-in, and user corrections as audio—not only as text transcripts. Trace VAD decisions,
+committed turns, truncation, and response cancellation.
+
+Source: [OpenAI Developer Community — Issues with realtime turn-taking](https://community.openai.com/t/issues-with-realtime-turn-taking/1369161).
+
+### 3. Out-of-context responses and corrupted-sounding transcripts
+
+A public GitHub issue reports intermittent out-of-context realtime responses and
+gibberish transcriptions. An issue report establishes a failure someone encountered,
+not its prevalence or a confirmed root cause.
+
+**Engineering response:** preserve a reproducible example where permitted, inspect raw
+audio and transcript together, correlate the session events, and rerun the case after
+changes to model, prompt, audio settings, and SDK. Do not automatically attribute every
+odd response to the language model.
+
+Source: [openai/openai-agents-js issue #646](https://github.com/openai/openai-agents-js/issues/646).
+
+### 4. Service and transport failures are separate from model quality
+
+Realtime calls also depend on API availability, network transport, session lifecycle,
+and downstream tool services. For example, OpenAI recorded a Realtime API SIP endpoint
+incident in March 2026. A healthy model evaluation cannot establish operational
+availability.
+
+**Engineering response:** measure connection/session failures, API errors, tool timeouts,
+retry and fallback rates, and end-to-end task completion. Define bounded retries,
+idempotency for mutations, an explicit degraded mode, and a human handoff path.
+
+Source: [OpenAI Status — Realtime API SIP endpoint errors, March 24, 2026](https://status.openai.com/incidents/01KMGE1FY97K34FN718KDBKR12).
+
+### What this means for an engineering team
+
+| Symptom | First place to investigate | Required regression |
+|---|---|---|
+| Agent answers but never acts | Tool selection, tool-call event, orchestration policy | Required action must execute; false success must fail |
+| Caller says “yeah,” agent stalls | VAD, endpointing, commit and transcript | Short acknowledgements across pause/noise conditions |
+| Caller interrupts but agent continues | Barge-in, cancellation and audio truncation | Interrupt during speech and verify recovery |
+| Agent responds to the wrong context | Session state, event ordering, transcript and model output | Multi-turn correction and context-switch cases |
+| Call fails or hangs | Session transport, API status, tool latency and timeout handling | Injected disconnect, timeout, bounded retry and fallback |
+
+The key lesson is to classify each incident by the failing layer before changing prompts
+or switching models. Add every reproduced production failure to the regression suite,
+and compare candidate versions using the same test corpus and runtime settings.
+
 ## Adoption checklist
 
 - [ ] Freeze a small human-reviewed gold set and record its version.
