@@ -19,6 +19,12 @@ describe("real repo content", () => {
     const productPage = bundle.reading.items.find((i) => i.number === "1");
     expect(productPage?.url).toContain("servicetitan.com/features/pro/virtual-agent");
     expect(productPage?.lookFor).toHaveLength(4);
+    // Decimal-numbered entries must not be absorbed into the preceding item.
+    for (const number of ["14.1", "14.2"]) {
+      const item = bundle.reading.items.find((entry) => entry.number === number);
+      expect(item, `reading-guide item ${number}`).toBeDefined();
+      expect(item?.lookFor).toHaveLength(4);
+    }
     // Doc-table rows parsed as tier-2 cards
     expect(bundle.reading.items.filter((i) => i.number === undefined).length).toBeGreaterThanOrEqual(10);
   });
