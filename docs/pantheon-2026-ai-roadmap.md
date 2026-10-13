@@ -1,6 +1,6 @@
 # Pantheon 2026: The AI Roadmap Brief
 
-**Facts as of: October 10, 2026 · Last reviewed: October 10, 2026**
+**Facts as of: October 12, 2026 · Last reviewed: October 12, 2026**
 
 ServiceTitan's annual user conference, Pantheon, is a three-day event in Orlando; the 2026 keynotes
 opened it on Tuesday, October 6. [1][3] This brief
@@ -9,7 +9,7 @@ joining the voice-agent team. It uses only public sources: the company's press r
 published keynote transcript, the conference live blog, and current ServiceTitan help documentation. Company claims are attributed as
 such, and anything marked **Analysis** is this repo's interpretation.
 
-> **Update (October 10):** the live blog now includes additional partner and customer recaps
+> **Update (October 12):** clarified the public evidence on Avoca's A/B testing and Homh's contractor-ranking signals. Avoca splits calls between two versions, tests changes as small as the greeting, and rolls out a winner only when the difference is statistically significant. The public recap does not disclose the variants tested, primary metric, sample size, statistical test, or stopping rule. Homh's three stated signals are punctuality, hired rate, and job quality/satisfaction; weights and ranking formula are not public. The live blog now includes additional partner and customer recaps
 > plus a public write-up of the "Charging Ahead with AI and Max" breakout. Strengthened caveats
 > on partner-reported A/B testing, certified-partner booking, planned webhooks and programmatic
 > onboarding, and customer anecdotes (sections 2b–2d). Section 2e covers the remaining recaps:
@@ -231,11 +231,20 @@ day heading that doesn't match the session, this brief doesn't assign it a day. 
   contractors being able to "add a direct booking connection (MCP) to your website so agents
   can book jobs", and adds "The numbers are small today." This is a third outside-AI booking
   path, alongside Homh in consumer assistants and certified partners like Avoca (section 2b).
-- **Partner evaluation practice.** Avoca "tests every change, down to the greeting, by
-  splitting calls between two versions" and, per the blog, rolls out a winner only when the
-  result is statistically significant. This is a useful example of evaluating voice-agent
-  changes as controlled experiments, but the public post does not disclose sample sizes,
-  stopping rules, metrics, or experimental design.
+- **Partner evaluation practice — what the A/B test actually was.** Avoca said it tests changes
+  "down to the greeting" by splitting inbound calls between two versions, then rolls out the
+  winner only when the result is statistically significant. In other words, the public example
+  is a live, call-level comparison of two agent variants; the greeting is an example of a
+  change they test, not necessarily the only variable or the only experiment. The recap does
+  **not** identify a specific greeting A vs. greeting B, state which metric determines the
+  winner (booking conversion, qualified-bookable rate, customer experience, or something else),
+  disclose traffic allocation or sample size, define the significance threshold or statistical
+  test, or explain the stopping rule and guardrail metrics. Do not infer those details from the
+  phrase "statistically significant." The transferable practice is to predefine the hypothesis,
+  assignment unit, primary outcome, guardrails, minimum sample/stopping rule and rollout
+  criteria; log variant and configuration on each trace; and check for regressions in
+  bookability, cancellations, escalation, latency and customer experience before broad rollout.
+  Those are recommended engineering controls, not details Avoca publicly confirmed.
 - **Setup time for an AI Virtual Agent.** A customer story says Superior Plumbing's AI Virtual
   Agent ("Piper") "took about 30 minutes to get running" and handles appointment booking,
   freeing CSRs for callers who need hands-on help. This is a customer claim, with no booking
@@ -312,15 +321,30 @@ Stretch goals for next year's Pantheon include connecting to email and calendar,
 meetings to capture commitments, and building or modifying other agents. Atlas pricing and
 packaging are not set. These are goals, not commitments.
 
-**Homh ranking signals (Kuzoyan keynote recap).** Homh scores contractors on punctuality, hired
-rate (whether the homeowner chooses to proceed after meeting the contractor) and job
-quality and satisfaction. The blog says these metrics are becoming part of ServiceTitan
-reports, visible whether or not a contractor is on Homh. Three stated commitments: contractors
-cannot pay to rank higher, and will not be charged to remove a negative comment or to promote
-a positive review. Homh is invite-only in a few areas for now, and profiles build on existing
-ServiceTitan history. The keynote's framing is that a homeowner's AI agent becomes the customer
-and picks the contractor it believes will solve the problem.
+**Homh ranking signals (Kuzoyan keynote recap).** The company publicly names three signal
+families:
+  - **Punctuality:** whether technicians arrive when expected.
+  - **Hired rate:** whether a homeowner chooses to proceed after meeting the contractor.
+  - **Job quality and satisfaction:** customer feedback about the work.
 
+  ServiceTitan says these measures are becoming visible in its reports even for contractors
+  who are not on Homh, and that Homh profiles build on existing ServiceTitan history. It also
+  says contractors cannot pay to rank higher, and won't be charged to remove a negative comment
+  or promote a positive review. Homh was described as invite-only in some areas at the time of
+  the keynote. The intended use is to help a homeowner's AI assistant select a contractor it
+  expects will solve the problem.
+
+  **What is not public:** the recap gives no feature-level definitions, time windows, weights,
+  normalization, minimum-data thresholds, cold-start treatment, geographic/job-type
+  adjustments, freshness decay, tie-breaking rules, or ranking-model details. It does not say
+  whether these three signal families are the complete ranking feature set. Treat them as the
+  three **disclosed signal categories**, not a complete reverse-engineered ranking formula.
+  For engineering analysis, they imply distinct integrity risks: arrival timestamps can be
+  noisy or disputed; hired rate can be confounded by lead mix, price and availability; and
+  satisfaction data can be sparse or selection-biased. Those are analysis questions, not
+  claims that Homh currently handles them in a particular way. A fair evaluation should slice
+  outcomes by trade, job type, geography and data volume, and monitor for gaming and feedback
+  manipulation.
 **Planned Max agents for commercial and roofing pilots.** The blog lists agents planned by next
 year. Commercial: cross-sell agents that turn new installs into service-agreement proposals and
 flag replacement opportunities with a total-cost analysis; a technician-development agent that
