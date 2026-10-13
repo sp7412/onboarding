@@ -2,6 +2,12 @@
 
 ## 2026-10-12
 
+### Realtime voice-agent evaluation
+
+- Added a practical guide adapted from the OpenAI Cookbook Realtime Eval Guide, covering Crawl/Walk/Run evaluation stages, separate task and audio quality, trace-level diagnosis, layered graders, regression/holdout sets, and release gates.
+- Added a fictional rescheduling regression that checks corrections, tool timeout recovery, idempotency, authoritative state, and false confirmations.
+
+
 ### GPT Live + Jev runtime integration
 
 - Added an end-to-end architecture, rescheduling example, conceptual typed-decision
