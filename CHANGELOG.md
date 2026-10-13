@@ -6,6 +6,7 @@
 
 - Added a practical guide adapted from the OpenAI Cookbook Realtime Eval Guide, covering Crawl/Walk/Run evaluation stages, separate task and audio quality, trace-level diagnosis, layered graders, regression/holdout sets, and release gates.
 - Added a fictional rescheduling regression that checks corrections, tool timeout recovery, idempotency, authoritative state, and false confirmations.
+- Added a sourced section on developer-reported failure patterns: missing required tool calls, VAD/turn-taking problems, out-of-context responses, and operational failures, with regression tests for each. Public reports are explicitly qualified as reports, not universal failure-rate evidence.
 
 
 ### GPT Live + Jev runtime integration
