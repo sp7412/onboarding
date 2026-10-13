@@ -14,6 +14,10 @@ tutorial notebooks, and templates for the documents I'll write along the way.
 
 See [`CHANGELOG.md`](CHANGELOG.md) for a concise history of the repository's major changes and the evolution of the onboarding approach.
 
+## Find a page
+
+Use the [topic-first guide index](docs/guide-index.md) when you need to find a specific subject. The [published site](https://sp7412.github.io/onboarding/) has the visual field guide; the index groups architecture, runtime, evaluation, multi-agent trust, labs, and first-90-days material by task.
+
 ## Start here in 5 minutes
 
 1. Read [`docs/servicetitan-101.md`](docs/servicetitan-101.md) (5 min) — what the company does and the
