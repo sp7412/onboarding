@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-10-12
+
+### Low-latency call intent classification
+
+- Added a Jev evaluation guide for typed call-intent decisions, deterministic routing,
+  uncertainty handling, separation from bookability, safe fallback, and a measured
+  shadow-mode evaluation plan. Vendor latency and API claims are explicitly not treated
+  as verified production results.
+
 ## 2026-10-11
 
 ### Full-duplex voice model evaluation
