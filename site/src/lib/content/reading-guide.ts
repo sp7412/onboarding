@@ -182,6 +182,14 @@ export function parseReadingGuide(markdown: string, file: string): ReadingDoc {
       current.time = current.time || meta.time;
       continue;
     }
+    const markdownLabeledLink = line.match(/^- \[[ xX]\] \[([^\]]+)\]\((https?:\/\/[^)\s]+)\) · (.+)$/);
+    if (markdownLabeledLink) {
+      current.extraLinks.push({ url: markdownLabeledLink[2], label: markdownLabeledLink[1] });
+      const meta = splitMeta(markdownLabeledLink[3]);
+      current.kind = current.kind || meta.kind;
+      current.time = current.time || meta.time;
+      continue;
+    }
 
     if (/^- \*\*Why:\*\*/.test(line)) {
       current.why = line.replace(/^- \*\*Why:\*\*\s*/, "");
