@@ -135,7 +135,7 @@ export function parseReadingGuide(markdown: string, file: string): ReadingDoc {
       // A non-official-docs item heading while scanning the table section ends it.
     }
 
-    const hm = line.match(/^### (\d+([A-Z]?))\. (.+)$/);
+    const hm = line.match(/^### (\d+(?:\.\d+)?([A-Z]?))\. (.+)$/);
     if (hm) {
       flush();
       current = {
@@ -178,6 +178,14 @@ export function parseReadingGuide(markdown: string, file: string): ReadingDoc {
     if (labeledLink) {
       current.extraLinks.push({ url: labeledLink[2], label: labeledLink[1] });
       const meta = splitMeta(labeledLink[3]);
+      current.kind = current.kind || meta.kind;
+      current.time = current.time || meta.time;
+      continue;
+    }
+    const markdownLabeledLink = line.match(/^- \[[ xX]\] \[([^\]]+)\]\((https?:\/\/[^)\s]+)\) · (.+)$/);
+    if (markdownLabeledLink) {
+      current.extraLinks.push({ url: markdownLabeledLink[2], label: markdownLabeledLink[1] });
+      const meta = splitMeta(markdownLabeledLink[3]);
       current.kind = current.kind || meta.kind;
       current.time = current.time || meta.time;
       continue;
