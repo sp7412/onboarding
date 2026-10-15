@@ -222,6 +222,38 @@ print("All checks passed.")
 #    decide what each caller is told.
 
 # %% [markdown]
+# ## Extension · two agents, one slot, one authoritative commit
+#
+# The existing examples explain why independent agents need an arbiter. This extension adds
+# the concurrency problem: two agents can both read the same apparently available slot before
+# either commits.
+#
+# **Scenario:** the booking agent proposes a high-value appointment and the cancellation-
+# recovery agent proposes filling the same slot. Both read schedule version `v17`; only one
+# can reserve the slot.
+#
+# Design a small fake scheduling API with these properties:
+#
+# 1. `reserve(slot_id, expected_version, idempotency_key)` atomically succeeds only if the
+#    slot is still free and the schedule version matches.
+# 2. The same idempotency key returns the original result rather than creating a second booking.
+# 3. A stale-version conflict causes the losing agent to refresh state and re-evaluate; it must
+#    not tell the customer the booking succeeded.
+# 4. A customer move or financial correction is a separate approval-gated action, not a side
+#    effect hidden inside arbitration.
+# 5. After a successful write, read the authoritative state and verify the appointment ID, slot,
+#    and status before reporting success.
+#
+# **Exercise:** write tests for two simultaneous claims, a retry after a simulated timeout, a
+# stale version, a rejected approval, and a successful reservation followed by authoritative
+# verification. Record which failures are deterministic policy decisions and which are
+# concurrency conflicts.
+#
+# **Expected invariant:** no more than one committed appointment owns a slot, and no agent
+# reports success without a verified commit. This is a teaching model, not a description of
+# Max's private implementation. See the [Max public capability map](../../docs/max-capability-map.md).
+
+# %% [markdown]
 # ## Check your understanding
 #
 # 1. Why can independent agents that each do their job well still produce a worse outcome?
