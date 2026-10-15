@@ -60,6 +60,7 @@ A topic-first map of the onboarding material. Use the **learning path** when you
 
 ## Reference
 
+- [Agent-scale source control](agent-scale-source-control.md) — background, architecture, pros/cons, and evaluation plan for Anthropic Scion vs. GitLab next-gen SCM.
 - [References and source ledger](references.md) — sources cited throughout the repository.
 - [Whitepaper chapters](whitepaper/README.md) — longer-form technical background.
 - [Glossary](../notes/glossary.md) — terms and definitions.
