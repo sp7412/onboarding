@@ -158,7 +158,7 @@ The table records the public organization snapshot and each repository's relevan
 | [diff-match-patch](https://github.com/servicetitan/diff-match-patch) | Text-diff/patch utility | Low |
 | [unpkg](https://github.com/servicetitan/unpkg) | JavaScript package CDN-related project | Low; infrastructure dependency |
 | [AngleSharp.Css](https://github.com/servicetitan/AngleSharp.Css) | CSS extension for AngleSharp | Low |
-| [moltbot](https://github.com/servicetitan/moltbot) | Fork of a personal AI assistant project | **Medium as a public agent reference only**; not evidence of ServiceTitan production use |
+| [moltbot](https://github.com/servicetitan/moltbot) | Public fork of OpenClaw/Moltbot, including a voice-call extension and multi-channel agent runtime | **High as an external reference architecture**; no ServiceTitan-specific voice backend established |
 | [verdaccio-storage-proxy](https://github.com/servicetitan/verdaccio-storage-proxy) | npm registry/storage proxy component | Low |
 | [AngleSharp](https://github.com/servicetitan/AngleSharp) | HTML parsing library | Low |
 | [recording-PWA-proto](https://github.com/servicetitan/recording-PWA-proto) | React/Vite PWA prototype scaffold | Low pending source-level review |
@@ -338,3 +338,36 @@ This is a strong source for the onboarding's **agent harness / permission bounda
 6. **Useful harness-security clue:** Claude Code Action's `action.yml` makes trust, permissions, prompt injection, and log-secret exposure explicit.
 
 **Still not established:** voice transport/provider, telephony/SIP implementation, ASR/TTS vendors, LLM/provider routing, actual tool schemas, orchestration graph, multi-agent topology, MCP use in production, trace storage format, Kafka/Snowflake usage, and production scheduling transaction semantics. None of the source files reviewed here supplies those internals.
+
+
+### F. Moltbot fork — the most concrete public voice-runtime code, but upstream-derived
+
+Repository: [servicetitan/moltbot](https://github.com/servicetitan/moltbot)  
+Voice-call extension: [extensions/voice-call](https://github.com/servicetitan/moltbot/tree/main/extensions/voice-call)  
+Relevant files: [README](https://github.com/servicetitan/moltbot/blob/main/extensions/voice-call/README.md), [runtime.ts](https://github.com/servicetitan/moltbot/blob/main/extensions/voice-call/src/runtime.ts), [webhook.ts](https://github.com/servicetitan/moltbot/blob/main/extensions/voice-call/src/webhook.ts), [media-stream.ts](https://github.com/servicetitan/moltbot/blob/main/extensions/voice-call/src/media-stream.ts), [STT provider](https://github.com/servicetitan/moltbot/blob/main/extensions/voice-call/src/providers/stt-openai-realtime.ts), [call types](https://github.com/servicetitan/moltbot/blob/main/extensions/voice-call/src/types.ts), and [Talk Mode docs](https://github.com/servicetitan/moltbot/blob/main/docs/nodes/talk.md).
+
+This repository deserves a closer look than its one-line inventory description suggests. GitHub identifies it as a fork of [openclaw/openclaw](https://github.com/openclaw/openclaw); the code and documentation are the upstream Moltbot/OpenClaw assistant platform, not a disclosed ServiceTitan product implementation. The sampled history includes mostly upstream changes and a few generic maintenance changes; I did not find a ServiceTitan-specific customer workflow or domain-specific voice-agent backend in the commits inspected. The fork's presence is a signal that this open-source agent implementation is available in the public organization, **not proof it is used in production or connected to ServiceTitan Voice Agent**.
+
+**What the actual voice-call code implements**
+
+- **Telephony adapters:** Twilio Programmable Voice/Media Streams, Telnyx Call Control v2, Plivo Voice API, plus a mock provider for local development.
+- **Explicit call control:** tool actions `initiate_call`, `continue_call`, `speak_to_user`, `end_call`, and `get_status`; corresponding gateway RPC operations are separately named.
+- **Provider-independent lifecycle:** normalized events include initiated, ringing, answered, active, speaking, speech/transcript, silence, DTMF, ended, and error. Call records include provider/internal IDs, direction, timestamps, state, transcript entries, processed event IDs, and metadata.
+- **Streaming audio path:** Twilio mu-law audio arrives through a WebSocket media stream; the stream handler forwards audio to OpenAI Realtime transcription, handles partial/final transcripts and VAD speech-start callbacks, and routes generated audio back to Twilio.
+- **Turn-taking/barge-in:** incoming speech can clear queued TTS and the provider's audio buffer; TTS playback is queued per stream to avoid overlapping speech.
+- **Response policy:** inbound calls auto-respond; outbound calls only auto-respond when configured in `conversation` mode. The plugin has separate `responseModel`, `responseSystemPrompt`, and timeout configuration.
+- **Speech synthesis:** core TTS integration supports OpenAI or ElevenLabs for telephony; the README says Edge TTS is ignored for calls because telephony audio needs PCM and Edge output is unreliable.
+- **Deployment boundary:** a local HTTP webhook server can be exposed via a public URL, ngrok, or Tailscale. Provider webhook signature verification is part of the provider interface.
+
+**What this gives the onboarding guide:** a concrete, inspectable reference for call lifecycle state, provider adapters, webhook handling, real-time STT, audio streaming, TTS queues, barge-in, and tool/RPC boundaries. It is especially useful for comparing a cascaded pipeline (telephony audio → streaming transcription → model response → TTS) with a speech-to-speech design.
+
+**Security and correctness review notes**
+
+- The config schema supports inbound policies `disabled`, `allowlist`, `pairing`, and `open`, and explicitly calls `open` dangerous. A production deployment would need a default-deny inbound policy and explicit authorization for any caller-controlled side effects.
+- The config also exposes `skipSignatureVerification` and a narrowly described ngrok loopback compatibility bypass. These are high-risk development knobs; deployment should ensure signature bypass cannot accidentally be enabled on publicly reachable production webhooks.
+- The webhook server routes requests by path and method and relies on the provider's `verifyWebhook` implementation. The trust chain therefore depends on correct signature verification, URL/body canonicalization, and safe handling of public WebSocket upgrades.
+- Transcript callbacks log recognized speech with a provider call ID. Production logging must consider caller PII, retention, access controls, and whether full transcripts belong in operational logs.
+- The normalized event example creates a transcript event ID from `Date.now()`. Timestamp-derived IDs can collide under concurrency; production-grade idempotency should use a unique sequence/UUID or provider event ID where available.
+- The public code is a reference implementation, not a validated production design. I did not run live telephony tests, review every provider adapter, or perform a full security audit.
+
+**Boundary of inference:** this repo provides real code for one open-source voice-call architecture. It does not establish that ServiceTitan uses Twilio, Telnyx, Plivo, OpenAI Realtime, ElevenLabs, WebSockets, or this call state model in its own Voice Agent.
