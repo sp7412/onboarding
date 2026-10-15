@@ -360,3 +360,20 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [Anthropic: Redesigning source control at Anthropic](https://www.anthropic.com/engineering/redesigning-source-control) | Engineering article | [Agent-scale source control](agent-scale-source-control.md) |
 | [GitLab: Scaling Git for the agentic software factory](https://about.gitlab.com/blog/scaling-git-for-the-agentic-software-factory/) | Engineering article | [Agent-scale source control](agent-scale-source-control.md) |
 | [GitLab: Git was built for humans — agents need an upgrade](https://about.gitlab.com/blog/gitlab-next-gen-scm/) | Engineering article | [Agent-scale source control](agent-scale-source-control.md) |
+
+
+## ServiceTitan public GitHub repositories
+
+| Source | Type | Cited in |
+|---|---|---|
+| [ServiceTitan GitHub organization](https://github.com/servicetitan) | Public repository inventory | [Public GitHub review](servicetitan-github-review.md) |
+| [Anvil2 live-code examples](https://github.com/servicetitan/anvil2-docs-live-code) | Voice Agent settings, Atlas/AI Kit UI and escalation examples | [Public GitHub review](servicetitan-github-review.md) |
+| [Moltbot/OpenClaw fork](https://github.com/servicetitan/moltbot) | Upstream-derived multi-channel assistant and voice-call reference implementation | [Public GitHub review](servicetitan-github-review.md) |
+| [Stl.Fusion](https://github.com/servicetitan/Stl.Fusion) | .NET real-time/distributed memoization framework | [Public GitHub review](servicetitan-github-review.md) |
+| [Stl.Fusion.Samples](https://github.com/servicetitan/Stl.Fusion.Samples) | Tutorials and runnable samples | [Public GitHub review](servicetitan-github-review.md) |
+| [LazyProxy](https://github.com/servicetitan/lazy-proxy) | Lazy .NET service proxies | [Public GitHub review](servicetitan-github-review.md) |
+| [Claude Code Action](https://github.com/servicetitan/claude-code-action) | AI-assisted GitHub workflow automation | [Public GitHub review](servicetitan-github-review.md) |
+| [AzureChatGPT](https://github.com/servicetitan/azurechatgpt) | Azure OpenAI enterprise chat accelerator | [Public GitHub review](servicetitan-github-review.md) |
+| [Recording PWA prototype](https://github.com/servicetitan/recording-PWA-proto) | Local audio capture and IndexedDB persistence prototype | [Public GitHub review](servicetitan-github-review.md) |
+| [NSwag](https://github.com/servicetitan/NSwag) | OpenAPI tooling and client generation | [Public GitHub review](servicetitan-github-review.md) |
+| [NJsonSchema](https://github.com/servicetitan/NJsonSchema) | JSON Schema validation and code generation | [Public GitHub review](servicetitan-github-review.md) |
