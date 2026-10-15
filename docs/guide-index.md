@@ -34,6 +34,7 @@ A topic-first map of the onboarding material. Use the **learning path** when you
 ## Multi-agent coordination and booking trust
 
 - [Pantheon 2026 AI roadmap](pantheon-2026-ai-roadmap.md) — public roadmap context and implications for voice.
+- [Max public capability map](max-capability-map.md) — named capabilities, rollout caveats, and cross-agent workflows grounded in Pantheon disclosures.
 - [Call facts contract](call-facts-contract.md) — proposed versus verified facts shared across agents.
 - [Homh and AI-agent booking](homh-and-agent-booking.md) — trust boundaries for homeowner-side AI.
 - [MCP and external-agent trust boundary](mcp-and-external-agent-trust-boundary.md) — authorization, consent, idempotency, and audit.
