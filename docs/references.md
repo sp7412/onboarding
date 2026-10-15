@@ -16,6 +16,12 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 |---|---|---|
 | [AI Voice Agent / AI Virtual Agent product page](https://www.servicetitan.com/features/pro/virtual-agent) | Product page | RG 1, 101, PP 1 |
 | [Webinar recap: AI Virtual Agents for call booking](https://www.servicetitan.com/blog/webinar-recap-ai-virtual-agents-call-booking) (the reading guide uses the older slug, which redirects) | Blog | RG 2, PP 1 |
+| [AI Virtual Agent product page](https://www.servicetitan.com/features/pro/virtual-agent) | Product page | voice-agent public evidence |
+| [Bill Joplin AI Voice Agent results (June 2026)](https://www.servicetitan.com/press/bill-joplins-air-conditioning-and-heating-books-over-90-of-calls-with-servicetitan-ai-voice-agent) | Customer press release | voice-agent public evidence |
+| [ST-80 residential service and replacement release notes](https://help.servicetitan.com/release-hub/docs/st-80-residential-service-and-replacement-release-notes) | Product release notes | voice-agent public evidence |
+| [Schedule Parts Follow-Up](https://help.servicetitan.com/release-hub/docs/automatically-follow-up-with-customers-when-parts-arrive-using-the-virtual-agent) | Product help | voice-agent public evidence |
+| [Voice Intelligence in ServiceTitan Max](https://help.servicetitan.com/release-hub/docs/use-voice-intelligence-in-servicetitan-calls-to-review-every-recorded-call) | Product help | voice-agent public evidence |
+| [Voice Intelligence custom scorecards](https://help.servicetitan.com/release-hub/docs/score-calls-your-way-with-voice-intelligence-custom-scorecards) | Product release notes | voice-agent public evidence |
 | [Pantheon 2025 press release: Atlas and the AI suite](https://www.servicetitan.com/press/servicetitan-introducing-the-next-evolution-of-ai-at-pantheon-2025-keynote) | Press release | RG 3, PP 1 |
 | [Pantheon 2025 keynote recap: Atlas](https://www.servicetitan.com/blog/pantheon-2025-vahe-keynote-atlas) | Blog | RG 3, PP 1 |
 | [Contact Center Pro](https://www.servicetitan.com/features/pro/contact-center) | Product page | 101, WP 04-05, 06-07, 11-12, 14 |
