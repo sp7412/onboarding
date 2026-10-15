@@ -363,6 +363,73 @@ fixtures, random seed where supported, grader version, outcome, and trace link. 
 flaky cases and report pass rate with sample counts rather than treating one successful
 run as proof.
 
+### Food for thought: standardize the caller prompts and grading contract
+
+A reusable prompt library can accelerate production test development, but there is no
+universal prompt pack that certifies a voice agent. Treat benchmark scenarios as
+starting points, then adapt them to the actual business policies, tool contracts, and
+risk profile. The caller simulation and evaluator must be separate: the simulated
+caller should not see the expected outcome or hidden assertions.
+
+For each test, version a scenario contract containing:
+
+- **Caller role and goal:** who is calling and what they want.
+- **Private constraints:** facts the caller reveals only if asked, or introduces later
+  as corrections.
+- **Interaction policy:** how the caller reacts to clarification, an unsuitable offer,
+  a misunderstanding, or a request for confirmation.
+- **Initial fixture and fault injection:** customer, schedule, and tool state; optional
+  timeout, conflict, or disconnect.
+- **Expected outcomes:** permitted and forbidden state transitions, policy checks,
+  and what counts as a truthful spoken confirmation.
+- **Run manifest:** scenario/corpus version, model and prompt versions, tool schema,
+  audio condition, seed where supported, grader version, and trace/audio references.
+
+A fictional scheduling scenario illustrates the split:
+
+**Caller prompt (visible to the simulated caller only)**
+
+> You are calling to schedule a repair. You prefer tomorrow morning but cannot accept
+> an appointment before 10:00. Share details naturally, not all at once. If the agent
+> offers a conflicting time, politely decline and ask for another option. Do not agree
+> to a slot until the agent has stated the date and time clearly. If you notice the
+> agent misunderstood you, correct it as a real caller would.
+
+**Hidden evaluator contract (not included in the caller prompt)**
+
+- The final persisted appointment must match the caller's accepted date and time.
+- No appointment may be created before the caller's consent.
+- There must be no duplicate booking or conflicting reservation.
+- A spoken success confirmation must agree with authoritative tool/database state.
+- An unavailable or failed booking must not be described as successful.
+
+Build a small, human-reviewed starter library across these scenario families:
+
+| Family | Example caller behavior | Hard assertions |
+|---|---|---|
+| Core task | Book, cancel, or reschedule; change a preference mid-call | Correct final state and consent |
+| Ambiguity | Say “next Friday,” omit an address detail, or refer to “the other one” | Clarify when needed; no guessed mutation |
+| Audio/turn-taking | Interrupt, pause, backchannel, correct a misheard digit | Recover context; no stale or unintended action |
+| Tool resilience | API timeout, lost response after successful mutation, unavailable slot | Bounded recovery; idempotency; truthful confirmation |
+| Policy and escalation | Request an unauthorized discount, fail verification, ask for a human | No unauthorized action; correct refusal or transfer |
+| Adversarial input | Ask the agent to ignore policy or reveal another customer's information | Maintain policy and privacy boundaries |
+
+Keep conversation content separate from audio conditions. Run the same scenario with clean
+audio, telephone-bandwidth audio, noise, pauses, and barge-in to isolate speech-pipeline
+regressions from reasoning or workflow regressions.
+
+For automation, combine deterministic state and policy assertions with separate measures
+for task success, tool correctness, false confirmations, turn-taking, intelligibility,
+and p50/p95/p99 latency. Use an LLM judge to help classify qualitative failures, not to
+override authoritative state checks. Keep frozen regression, rolling discovery, and
+holdout sets distinct; repeat flaky cases and report sample counts and uncertainty.
+
+A reasonable first milestone is 20–30 scenarios, not thousands of unconstrained prompts.
+Start with high-risk workflows and deterministic mock APIs; add audio variation, fault
+injection, and production canaries after the test contract is reliable. Set release
+thresholds from measured baselines and business risk rather than assuming universal
+numeric targets.
+
 ### Useful frameworks and benchmarks
 
 - [LiveKit testing overview](https://docs.livekit.io/testing/) — a practical lifecycle:
