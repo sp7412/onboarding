@@ -281,6 +281,16 @@ Files: [AgentPrompt single-step](https://github.com/servicetitan/anvil2-docs-liv
 
 The UI supports agent-generated questions with selectable options, optional free text, multi-step progression (Back/Next/Send), and transcription states including active waveform and microphone-access error. This is evidence for a human-in-the-loop interaction pattern: the assistant can request a structured decision rather than force all clarification through free-form chat. The transcription example is only a UI state fixture; it contains no ASR implementation.
 
+#### A7. A sample transcript references “Ankur's agent,” “golden-situations,” and an agent-skills repository—but supplies no actual link
+
+File: [non-blocking escalation example](https://github.com/servicetitan/anvil2-docs-live-code/blob/main/examples/ai-kit-patterns-human-escalation-non-blocking/src/App.tsx) and [blocking escalation example](https://github.com/servicetitan/anvil2-docs-live-code/blob/main/examples/ai-kit-patterns-human-escalation-blocking/src/App.tsx)
+
+The hard-coded sample conversation (timestamped April 1, 2026) mentions a “Legal AI Guidelines review” Google document that is inaccessible in the mock scenario, asks to consult “the golden-situations examples Ankur's agent pointed at,” and says an agent-skills GitHub repository was looked up and listed. **The source contains no repository URL, no skill file, and no actual Google Drive/GitHub connector call**—only fixed strings that simulate a transcript and integration activity.
+
+I searched the public ServiceTitan organization for “golden-situations,” “agent skills,” and “Ankur's agent.” The only organization match was this sample dialogue; I did not find a matching public repository URL in the reviewed organization material. Search results elsewhere on GitHub were unrelated/ambiguous and cannot safely be attributed to the named person or this workflow.
+
+**Why this is a useful clue:** it points to a likely internal pattern library or skill-based workflow worth asking about through authorized internal channels. **Why it is not evidence yet:** the example may be a synthetic design fixture, and the repo name/contents cannot be reconstructed from the sample. Do not cite it as proof that the internal repository is public or that the simulated tool calls actually occurred.
+
 #### A6. “Atlas” appears as an assistant UI name
 
 The repo includes `@servicetitan/anvil2-ext-atlas` examples for header, footer, content, loader, welcome screen, suggestions, chat window, system errors, and user feedback. One example says “Welcome to Atlas — Your AI Assistant”; another uses “Ask Atlas.” A separate disputed-result sample says “Atlas confirmed send.” This supports that **Atlas is a named assistant experience in these public UI examples**, but does not establish that Atlas is the Voice Agent, how it is orchestrated, or whether the name applies to all AI products.
