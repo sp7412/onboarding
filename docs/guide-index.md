@@ -13,6 +13,7 @@ A topic-first map of the onboarding material. Use the **learning path** when you
 ## Voice-agent architecture and runtime
 
 - [Voice-agent architecture](voice-agent-architecture.md) — component boundaries and control plane.
+- [ServiceTitan voice-agent public evidence](voice-agent-public-evidence.md) — documented workflows, Voice Intelligence, booking figures, and rollout caveats.
 - [Speech-to-speech models](speech-to-speech-models.md) — full-duplex models versus cascaded pipelines.
 - [GPT-Live-1](gpt-live-1.md) — model behavior, delegation, and control-plane responsibilities.
 - [Build your own voice agent](build-your-own-voice-agent.md) — compare chained and realtime implementations.
