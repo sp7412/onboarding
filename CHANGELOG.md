@@ -8,6 +8,7 @@
 - Distinguished documented repository behavior from engineering inference; explicitly recorded that the reviewed public inventory does not expose a clearly identified production Voice Agent implementation.
 - Added source-level findings from Anvil2 examples: Voice Agent settings (Persona, Conversation Flow, Rules, Job Types/Fees, Escalations/Fallbacks), Agent Workflows/Interactions/Calls/Bookings/Call Analytics/Insights, action-log/evidence-disclosure patterns, Atlas UI, and a detailed escalation taxonomy.
 - Read the Field Pro Recorder PWA implementation and identified likely chunk-flush/order races, a pagehide listener cleanup issue, missing upload/ASR code, and quota-handling gaps; findings are explicitly untested code-review hypotheses.
+- Read the Moltbot/OpenClaw fork's voice-call extension: provider adapters, normalized call lifecycle events, Twilio WebSocket media streams, OpenAI Realtime transcription, TTS queue/barge-in behavior, inbound policy, webhook signature verification, and transcript logging. Classified it as an upstream-derived reference architecture, not ServiceTitan production evidence.
 - Read Fusion operation identity/log-reader code to clarify that its AgentId identifies a distributed process/operation origin, not an LLM agent. Read Claude Code Action's executable input contract for prompt-injection, permissions, and secret/log exposure warnings.
 - Linked the review from the README, topic-first index, and bibliography; documented scope and limitations so public code is not misrepresented as internal architecture.
 
