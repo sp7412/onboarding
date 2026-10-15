@@ -15,7 +15,7 @@ Other notable findings:
 - **LazyProxy family:** .NET dependency-injection utilities that defer service construction. Useful for thinking about startup and object-graph costs; not an agent framework.
 - **Claude Code Action:** AI coding automation for PRs/issues, code review, implementation, and structured outputs. Relevant to developer tooling and automation safety, not evidence of a customer-facing voice runtime.
 - **AzureChatGPT:** a solution accelerator for private enterprise chat over Azure OpenAI and internal data. Historical architecture background, not proof of current internal deployment.
-- **Recording PWA prototype:** a small React/TypeScript/Vite application scaffold. Its repository name alone does not establish what was recorded, whether it is production, or how any voice product is implemented.
+- **Recording PWA prototype:** source inspection found a Field Pro Recorder with local browser audio capture, IndexedDB chunk persistence, and background-interruption recovery. It has no upload/ASR path in the inspected code; I also identified untested data-loss and cleanup risks.
 - **Forks and general-purpose libraries:** much of the organization consists of inherited open-source tooling, schema/code-generation libraries, SDKs, and web infrastructure. A repository under the organization is not automatically a ServiceTitan-authored product.
 
 ## Method and confidence
@@ -116,7 +116,7 @@ This is an example of an enterprise LLM application pattern: model access, ident
 
 Repository: [servicetitan/recording-PWA-proto](https://github.com/servicetitan/recording-PWA-proto)
 
-Available project metadata shows a React, TypeScript, and Vite application with IndexedDB support and PWA tooling. Its README is still the standard Vite scaffold. That is not enough to conclude what recording functionality is implemented, how media is stored, whether audio is uploaded, or whether this is used by a product.
+The README is still the standard Vite scaffold, but source inspection shows a working local-recording prototype: microphone capture, MIME selection, pause/resume, segmented recording, IndexedDB persistence, local playback/deletion, and recovery after page visibility changes. The UI calls it **Field Pro Recorder**. Metadata includes an `uploaded` boolean, but both finalization paths set it to `false`; searches for `fetch(`, `XMLHttpRequest`, transcription, and speech recognition returned no implementation in this repository. The best-supported conclusion is a local recording prototype, not a complete upload/transcription pipeline.
 
 **Recommendation:** Do not cite it as a production voice-recording architecture. Inspect source files and history before drawing more specific conclusions.
 
