@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-10-14
+
+### Agent-scale source control
+
+- Added a source-grounded comparison of Anthropic Scion and GitLab next-gen SCM, including background, architecture, trade-offs, maturity caveats, reported metrics, and a workload-based evaluation plan.
+- Added the guide to the topic-first index and bibliography; clearly distinguished vendor-reported performance claims from independently verified benchmarks.
+
 ## 2026-10-13
 
 ### Voice-agent testing and benchmarks
