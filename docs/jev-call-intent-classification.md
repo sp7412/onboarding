@@ -5,6 +5,8 @@
 workflow; do not use this classifier to decide whether a job is bookable or to commit
 a booking.
 
+**Hands-on lab:** [Lab 17 — Prompting Jev for typed decisions](../labs/17_jev_decision_workbench.ipynb) walks through state design, question instructions, criteria, a small labeled evaluation set, error analysis, and an opt-in live API call.
+
 ## Why consider it
 
 A voice agent often needs a small, bounded judgment immediately after a caller turn:
