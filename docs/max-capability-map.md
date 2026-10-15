@@ -98,6 +98,7 @@ Use "agent" as ServiceTitan's product/architecture term unless a source gives a 
 ## Related onboarding material
 
 - [Pantheon 2026 AI roadmap](pantheon-2026-ai-roadmap.md) — source-by-source public announcements and caveats.
+- [ServiceTitan voice-agent public evidence](voice-agent-public-evidence.md) — voice workflows, Voice Intelligence, reported metrics, and rollout caveats.
 - [Chapter 15: Agentic orchestration](whitepaper/15-agentic-orchestration.md) — architecture patterns and arbitration.
 - [Lab 10: Coordination and arbitration](../labs/10_coordination_and_arbitration.ipynb) — local optimization and competing requests.
 - [Chapter 17: Running agents in production](whitepaper/17-running-agents-in-production.md) — traces, failure mining, evaluation, and rollout.
