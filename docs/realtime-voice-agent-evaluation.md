@@ -25,6 +25,89 @@ and a clean transcript does not prove that the model heard the audio correctly. 
 transcripts and traces for scalable grading, preserve the original audio where approved,
 and periodically audit sessions end to end.
 
+## Production benchmark and regression architecture
+
+Use one versioned scenario contract across local development, CI, nightly evaluation,
+staging, and production monitoring. The goal is not just to produce a score; it is to
+identify which layer regressed and preserve a reproducible case for the next run.
+
+```mermaid
+flowchart TD
+    A["Versioned evaluation dataset"] --> B["Scenario runner"]
+    B --> C["Audio / telephony simulator"]
+    C --> D["Production-equivalent agent stack"]
+    D --> E["Voice model + orchestrator"]
+    E --> F["Mock or sandbox business APIs"]
+    F --> G["State and side-effect verifier"]
+    D --> H["Trace collector"]
+    G --> I["Deterministic assertions"]
+    H --> I
+    I --> J["Metrics + failure classifier"]
+    J --> K["Baseline comparison"]
+    K --> L{"Regression gates"}
+    L -->|Pass| M["Merge / deploy candidate"]
+    L -->|Fail| N["Block and diagnose"]
+    M --> O["Small production canary"]
+    O --> P["Live outcome and latency monitoring"]
+    P --> Q["Review and minimize failure cases"]
+    Q --> A
+```
+
+### Three complementary evaluation loops
+
+- **Pull-request CI:** run a fast, deterministic critical suite for every relevant
+  change to prompts, model configuration, VAD/endpointing, tool schemas, orchestration,
+  or dependencies.
+- **Nightly evaluation:** run the broader audio, multi-turn, fault-injection, repeated
+  stochastic, and load-test suites. Keep load testing separate from task correctness.
+- **Production canary and monitoring:** compare a candidate against a control using
+  predefined safety, task-outcome, latency, transfer, abandonment, and cost metrics.
+  Shadow mode must not execute side effects or alter live routing.
+
+### Make the run reproducible
+
+Record a run manifest with the scenario-suite version and hash, runner commit, pinned
+model identifier (or provider alias and evaluation timestamp if pinning is unavailable),
+prompt/configuration hashes, tool-schema version, orchestration commit, audio profile,
+region, concurrency, fixture versions, random seed where supported, and grader version.
+Store per-scenario outcomes and traces—not only aggregate scores.
+
+Keep three datasets separate:
+
+- **Frozen regression set:** reviewed historical failures and critical workflows; do
+  not rewrite it just to make a candidate pass.
+- **Rolling discovery set:** newly observed failures and near misses, reproduced and
+  reviewed before promotion into the frozen set.
+- **Holdout set:** cases not used to tune prompts, thresholds, or graders; run
+  periodically to detect overfitting.
+
+### Release gates and regression attribution
+
+Use hard gates for critical safety invariants and statistical gates for quality metrics.
+For example, a critical regression suite should reject unauthorized side effects,
+duplicate mutations, and false confirmations even if the aggregate score improves.
+For task success and latency, define tolerances from a measured baseline and product
+risk; compare the same scenario IDs and report sample counts and confidence intervals.
+Do not interpret repeated runs of one scenario as independent customer calls.
+
+A useful initial gate set includes:
+
+- No critical false confirmations or unauthorized mutations in the critical suite.
+- No duplicate effective writes in retry and timeout scenarios.
+- Task success remains within its agreed absolute-degradation tolerance.
+- p95 and p99 latency remain within the agreed budget.
+- Required escalation and handoff behavior does not materially regress.
+- Cost per successfully resolved task stays within the approved budget.
+
+For paired binary outcomes, consider McNemar's test when its assumptions apply. For
+latency, compare paired per-scenario differences and use suitable confidence intervals.
+If evidence is inconclusive, increase the sample size rather than treating noise as a
+pass or fail.
+
+Classify each failure by layer—audio/endpointing, model interpretation, orchestration,
+tool execution, authoritative state, or spoken confirmation—before changing the prompt
+or swapping the model. The trace should make the root cause diagnosable.
+
 ## Build evaluation complexity in stages
 
 Use the OpenAI Cookbook's **Crawl → Walk → Run** progression. Keep test inputs and
@@ -279,6 +362,73 @@ Record scenario ID, corpus/version, audio condition, model and prompt versions, 
 fixtures, random seed where supported, grader version, outcome, and trace link. Repeat
 flaky cases and report pass rate with sample counts rather than treating one successful
 run as proof.
+
+### Food for thought: standardize the caller prompts and grading contract
+
+A reusable prompt library can accelerate production test development, but there is no
+universal prompt pack that certifies a voice agent. Treat benchmark scenarios as
+starting points, then adapt them to the actual business policies, tool contracts, and
+risk profile. The caller simulation and evaluator must be separate: the simulated
+caller should not see the expected outcome or hidden assertions.
+
+For each test, version a scenario contract containing:
+
+- **Caller role and goal:** who is calling and what they want.
+- **Private constraints:** facts the caller reveals only if asked, or introduces later
+  as corrections.
+- **Interaction policy:** how the caller reacts to clarification, an unsuitable offer,
+  a misunderstanding, or a request for confirmation.
+- **Initial fixture and fault injection:** customer, schedule, and tool state; optional
+  timeout, conflict, or disconnect.
+- **Expected outcomes:** permitted and forbidden state transitions, policy checks,
+  and what counts as a truthful spoken confirmation.
+- **Run manifest:** scenario/corpus version, model and prompt versions, tool schema,
+  audio condition, seed where supported, grader version, and trace/audio references.
+
+A fictional scheduling scenario illustrates the split:
+
+**Caller prompt (visible to the simulated caller only)**
+
+> You are calling to schedule a repair. You prefer tomorrow morning but cannot accept
+> an appointment before 10:00. Share details naturally, not all at once. If the agent
+> offers a conflicting time, politely decline and ask for another option. Do not agree
+> to a slot until the agent has stated the date and time clearly. If you notice the
+> agent misunderstood you, correct it as a real caller would.
+
+**Hidden evaluator contract (not included in the caller prompt)**
+
+- The final persisted appointment must match the caller's accepted date and time.
+- No appointment may be created before the caller's consent.
+- There must be no duplicate booking or conflicting reservation.
+- A spoken success confirmation must agree with authoritative tool/database state.
+- An unavailable or failed booking must not be described as successful.
+
+Build a small, human-reviewed starter library across these scenario families:
+
+| Family | Example caller behavior | Hard assertions |
+|---|---|---|
+| Core task | Book, cancel, or reschedule; change a preference mid-call | Correct final state and consent |
+| Ambiguity | Say “next Friday,” omit an address detail, or refer to “the other one” | Clarify when needed; no guessed mutation |
+| Audio/turn-taking | Interrupt, pause, backchannel, correct a misheard digit | Recover context; no stale or unintended action |
+| Tool resilience | API timeout, lost response after successful mutation, unavailable slot | Bounded recovery; idempotency; truthful confirmation |
+| Policy and escalation | Request an unauthorized discount, fail verification, ask for a human | No unauthorized action; correct refusal or transfer |
+| Adversarial input | Ask the agent to ignore policy or reveal another customer's information | Maintain policy and privacy boundaries |
+
+Keep conversation content separate from audio conditions. Run the same scenario with clean
+audio, telephone-bandwidth audio, noise, pauses, and barge-in to isolate speech-pipeline
+regressions from reasoning or workflow regressions.
+
+For automation, combine deterministic state and policy assertions with separate measures
+for task success, tool correctness, false confirmations, turn-taking, intelligibility,
+and p50/p95/p99 latency. Use an LLM judge to help classify qualitative failures, not to
+override authoritative state checks. Keep frozen regression, rolling discovery, and
+holdout sets distinct; repeat flaky cases and report sample counts and uncertainty.
+
+A reasonable first milestone is 20–30 scenarios, not thousands of unconstrained prompts.
+Start with high-risk workflows and deterministic mock APIs; add audio variation, fault
+injection, and production canaries after the test contract is reliable. Set release
+thresholds from measured baselines and business risk rather than assuming universal
+numeric targets.
 
 ### Useful frameworks and benchmarks
 
