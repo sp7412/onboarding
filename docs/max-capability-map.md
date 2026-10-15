@@ -15,7 +15,7 @@ This page is an evidence map, not a complete inventory of the advertised "30-plu
 | Sales and revenue | Good-better-best proposals, financing, unsold-estimate follow-up, technician coaching | A recommendation should reflect job context and customer needs, not simply maximize average ticket. |
 | Command Center / Atlas | Configure and monitor automations, inspect metrics and actions, review insights; Atlas can report, research, monitor, and help create or modify workflows as availability permits | Operators need to distinguish recommendations, approval requests, executed actions, and verified outcomes. |
 
-**Sources:** ServiceTitan's [Pantheon 2026 live coverage](https://www.servicetitan.com/blog/pantheon-2026-live-coverage), [Max help documentation](https://help.servicetitan.com/v1/docs/servicetitan-max), and [October 6 press release](https://www.servicetitan.com/news/servicetitan-announcing-new-and-expanded-capabilities-at-pantheon-2026). Product names, rollout status, and availability can change; consult the linked current documentation.
+**Sources:** ServiceTitan's [Pantheon 2026 live coverage](https://www.servicetitan.com/blog/pantheon-2026-live-coverage), [Max help documentation](https://help.servicetitan.com/v1/docs/servicetitan-max), and [October 6 press release](https://www.globenewswire.com/news-release/2026/10/06/3375320/0/en/servicetitan-announcing-new-and-expanded-capabilities-at-pantheon-2026.html). Product names, rollout status, and availability can change; consult the linked current documentation.
 
 ## Commercial: named field and back-office capabilities
 
