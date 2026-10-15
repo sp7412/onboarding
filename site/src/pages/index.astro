@@ -1,315 +1,94 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { loadContent, DOC_PAGES, docRoute } from "../lib/content/repo";
-import { expectCondition } from "../lib/content/errors";
-import HeroArt from "../components/HeroArt.astro";
-import Icon from "../components/Icon.astro";
-import { routeByKey } from "../lib/routes";
+import { loadContent } from "../lib/content/repo";
 import { url } from "../lib/url";
 
 const content = loadContent();
-
-const stages = [
-  {
-    stage: "pre-start",
-    label: "Pre-start",
-    window: "Sept 28 – Oct 25",
-    route: "checklist",
-    anchor: "pre-start",
-    desc: "Domain, reading, labs 00–10 and 13, questions for the team.",
-  },
-  {
-    stage: "d30",
-    label: "Days 1–30",
-    window: "Understand and earn trust",
-    route: "checklist",
-    anchor: "d30",
-    desc: "Ramp on real calls and systems; ship something small.",
-  },
-  {
-    stage: "d60",
-    label: "Days 31–60",
-    window: "Align, design, contribute",
-    route: "checklist",
-    anchor: "d60",
-    desc: "Own a design review; contribute to a production service.",
-  },
-  {
-    stage: "d90",
-    label: "Days 61–90",
-    window: "Own and multiply",
-    route: "checklist",
-    anchor: "d90",
-    desc: "Lead a project end to end; multiply through others.",
-  },
-  {
-    stage: "done",
-    label: "Day 90+",
-    window: "Trophy",
-    route: "achievements",
-    desc: "See your progress across every section and back it up.",
-  },
-];
-
-const comingSoon = (key: string) => !routeByKey(key)!.built;
-const essentialChapters = content.whitepaper.chapters.filter((c) => c.essentials).length;
-const chapterCount = content.whitepaper.chapters.filter((c) => /^\d{2}$/.test(c.number)).length;
-const labCount = content.labs.length;
-const readingCount = content.reading.items.length;
-const episodeCount = content.podcasts.length;
-const glossaryCount = content.glossary.length;
-const itemCount = content.checklistItems.length;
-const libraryCards = [
-  ["reading", "Reading guide", `${readingCount} ranked items, each with why it matters and what to look for.`],
-  ["podcasts", "Podcast studio", `${episodeCount} episodes in listening order; one-tap copy blocks for NotebookLM.`],
-  ["whitepaper", "Whitepaper", `${chapterCount} chapters plus appendices; the ${essentialChapters}-chapter essentials path is the bounded 2-hour route.`],
-  ["labs", "Labs", `${labCount} notebooks that run offline; each has a graded exercise.`],
-  ["checklist", "Checklist", `${itemCount} week-by-week tasks, saved locally.`],
-  ["architecture", "Architecture explorer", "Where each component stops — and your control plane begins."],
-  ["simulations", "Simulations", "Turn-taking, guardrails and latency — play with the ideas on a phone."],
-  ["glossary", "Glossary", `${glossaryCount} terms with search and flashcards.`],
-] as const;
-
-const LIB_ICONS: Record<string, string> = {
-  reading: "book", podcasts: "mic", whitepaper: "whitepaper", labs: "flask",
-  checklist: "plan", architecture: "layers", simulations: "wave", glossary: "glossary",
-};
-const RING_R = 20;
-const RING_C = 2 * Math.PI * RING_R;
-const PRE_START_PCT = 0; // real progress is painted client-side from localStorage
-const stageIds: Record<string, string[]> = {};
-for (const item of content.checklistItems) (stageIds[item.stage] ??= []).push(item.id);
-const orderedIds = content.checklistItems.map((i) => i.id);
-
-// Field guide: one card per deep-dive doc page (DOC_PAGES), in reading order.
-const FIELD_GUIDE = [
-  { repoPath: "docs/guide-index.md", title: "Guide index", icon: "book", tone: "green", blurb: "A topic-first map of architecture, runtime, evaluation, labs, and onboarding references." },
-  { repoPath: "docs/jev-call-intent-classification.md", title: "Jev call-intent classification", icon: "wave", tone: "green", blurb: "Low-latency typed intent decisions, deterministic routing, fallback, and shadow-mode evaluation." },
-  { repoPath: "docs/realtime-voice-agent-evaluation.md", title: "Realtime voice-agent evaluation", icon: "evaluation", tone: "green", blurb: "Layered graders, trace-level debugging, developer-reported failure patterns, regression sets, and release gates." },
-  { repoPath: "docs/servicetitan-101.md", title: "ServiceTitan 101", icon: "briefcase", tone: "cyan", blurb: "The company, the products, and why voice AI fits." },
-  { repoPath: "docs/how-a-contractor-works.md", title: "How a contractor works", icon: "team", tone: "cyan", blurb: "The customer journey the agent serves, end to end." },
-  { repoPath: "docs/call-anatomy.md", title: "Call anatomy", icon: "headset", tone: "cyan", blurb: "One booking call, broken down second by second." },
-  { repoPath: "docs/voice-agent-architecture.md", title: "Voice-agent architecture", icon: "layers", tone: "cyan", blurb: "Seven layers, and exactly where each one stops." },
-  { repoPath: "docs/pantheon-2026-ai-roadmap.md", title: "Pantheon 2026 AI roadmap", icon: "rocket", tone: "gold", blurb: "Max, the coordination system, Homh, and what they mean for the voice agent." },
-  { repoPath: "docs/call-facts-contract.md", title: "Call facts contract", icon: "layers", tone: "gold", blurb: "A teaching schema for what the voice agent captures so other agents can act on it safely." },
-  { repoPath: "docs/homh-and-agent-booking.md", title: "Homh and AI-agent booking", icon: "shield", tone: "gold", blurb: "The trust boundary when a homeowner's AI assistant is in the booking path." },
-  { repoPath: "docs/mcp-and-external-agent-trust-boundary.md", title: "MCP and external-agent trust boundary", icon: "shield", tone: "gold", blurb: "Authorization, consent, idempotency and audit when outside AI agents can read and act." },
-  { repoPath: "docs/speech-to-speech-models.md", title: "Speech-to-speech models", icon: "wave", tone: "cyan", blurb: "Realtime models vs. cascaded pipelines, and when to use each." },
-  { repoPath: "docs/gpt-live-1.md", title: "GPT-Live-1", icon: "mic", tone: "green", blurb: "OpenAI's full-duplex voice model and how delegation maps to the control plane." },
-  { repoPath: "docs/build-your-own-voice-agent.md", title: "Build your own voice agent", icon: "rocket", tone: "green", blurb: "The same booking agent two ways: chained pipeline vs. GPT-Live with delegation." },
-  { repoPath: "docs/tools-and-guardrails.md", title: "Tools and guardrails", icon: "shield", tone: "green", blurb: "Tool design, built-in guardrails, prompt injection and limits, in one place." },
-  { repoPath: "docs/evaluating-voice-agents.md", title: "Evaluating voice agents", icon: "chart", tone: "cyan", blurb: "Score task success, latency and containment before customers do." },
-  { repoPath: "docs/livekit-hands-on.md", title: "LiveKit hands-on track", icon: "rocket", tone: "green", blurb: "From no-code prototype to a guarded scheduling agent." },
-  { repoPath: "docs/lab-environments.md", title: "Lab environments", icon: "labs", tone: "green", blurb: "Run the labs in Codespaces (full environment) or Colab (one lab, one click)." },
-  { repoPath: "docs/first-90-days-playbook.md", title: "First 90 days playbook", icon: "plan", tone: "gold", blurb: "How to operate: the execution companion to the checklist." },
-  { repoPath: "docs/manager-alignment.md", title: "Setting goals with your manager", icon: "team", tone: "gold", blurb: "A natural first-1:1 conversation that becomes a written 30/60/90 agreement." },
-  { repoPath: "docs/first-90-days-question-bank.md", title: "First-90-days question bank", icon: "team", tone: "gold", blurb: "Two to four high-value questions per conversation, by role, plus the first-week eight." },
-  { repoPath: "docs/voice-agents-cheat-sheet.md", title: "Voice-agents cheat sheet", icon: "notes", tone: "cyan", blurb: "One page: latency, turn-taking, architecture trade-offs, and control-plane checks." },
-  { repoPath: "senior-engineer/README.md", title: "Senior engineer judgment track", icon: "compass", tone: "gold", blurb: "Nine short exercises: denominators, bookability, incidents, latency budgets, earned autonomy, and choosing a first PR." },
-  { repoPath: "docs/capstone-rubric.md", title: "Capstone rubric", icon: "evaluation", tone: "green", blurb: "Pass/fail evidence for a safe, grounded voice-agent workflow." },
-  { repoPath: "docs/earning-autonomy.md", title: "Earning autonomy", icon: "evaluation", tone: "gold", blurb: "Statistics, cost asymmetry, calibration and drift behind safe promotion." },
-  { repoPath: "docs/comparative-agent-architectures.md", title: "Comparative agent architectures", icon: "architecture", tone: "cyan", blurb: "Where ServiceTitan, Salesforce, Microsoft, OpenAI and Anthropic put orchestration, control and evaluation." },
-  { repoPath: "docs/agent-harness.md", title: "Agent harness", icon: "guardrails", tone: "cyan", blurb: "The control plane around the model: RAG vs. state vs. memory, the side-effect boundary, a checklist." },
-  { repoPath: "docs/design-by-evaluation.md", title: "Design by evaluation", icon: "evaluation", tone: "cyan", blurb: "Write the eval first: outcome grading, failure mining, and evals that change the architecture." },
-  { repoPath: "docs/hypothesis-map.md", title: "Pantheon hypothesis map", icon: "notes", tone: "gold", blurb: "Public claims turned into week-1 validation questions." },
-  { repoPath: "docs/business-metrics.md", title: "Business metrics", icon: "chart", tone: "cyan", blurb: "Connect call handling to bookings, revenue, trust and operating cost." },
-  { repoPath: "docs/field-exercise.md", title: "Field exercise", icon: "team", tone: "cyan", blurb: "An hour-long, ethical way to hear how contractors actually answer the phone." },
-  { repoPath: "docs/minimum-path.md", title: "10-hour minimum path", icon: "plan", tone: "green", blurb: "The bounded route when there is not enough time to do everything." },
-  { repoPath: "docs/after-day-one.md", title: "After day one", icon: "notes", tone: "gold", blurb: "Freeze the public guide and keep company knowledge in company systems." },
-  { repoPath: "notes/study-question.md", title: "The study question", icon: "gear", tone: "cyan", blurb: "Write your own answer: where does the control plane begin?" },
-  { repoPath: "notes/conversation-notes.md", title: "Conversation notes", icon: "doc", tone: "cyan", blurb: "The conversation that started this repo, lightly condensed." },
-  { repoPath: "docs/agent-scale-source-control.md", title: "Agent-scale source control", icon: "architecture", tone: "gold", blurb: "How version control, worktrees, and CI need to change when many coding agents work concurrently." },
-  { repoPath: "docs/references.md", title: "References", icon: "book", tone: "cyan", blurb: "Every source cited anywhere, grouped by topic." },
-] as const;
-const fieldRoutes = FIELD_GUIDE.map((f) => ({
-  path: docRoute(f.repoPath),
-  ...f,
-}));
-// Build fails if a doc page exists without a field-guide card (or vice versa).
-// Pages inside a track are reached from the track's index page instead.
-const HOME_DOCS = DOC_PAGES.filter((d) => !d.track);
-expectCondition(
-  "site/src/pages/index.astro field guide",
-  "exactly one card per top-level DOC_PAGES entry",
-  FIELD_GUIDE.length === HOME_DOCS.length &&
-    [...HOME_DOCS].sort((a, b) => a.repoPath.localeCompare(b.repoPath)).every((d, i) =>
-      [...FIELD_GUIDE].sort((a, b) => a.repoPath.localeCompare(b.repoPath))[i].repoPath === d.repoPath,
-    ),
-);
+const orderedIds = content.checklistItems.map((item) => item.id);
 ---
 
 <BaseLayout
-  title="Path to Integration · Onboarding"
-  description="An interactive journey from pre-start through day 90 of joining a voice-agent AI team."
+  title="Voice AI Engineering Onboarding"
+  description="A focused path to understanding, building, evaluating, and operating production voice agents."
 >
-  <section class="hero" aria-labelledby="hero-title">
-    <div class="hero-visual"><HeroArt /></div>
-    <div class="hero-inner">
-      <p class="tag">Pre-start · Sept 28 – Oct 25</p>
-      <h1 id="hero-title">From first call to day 90.</h1>
-      <p class="hero-sub muted">
-        A game-like onboarding journey built from this repository's own study guides,
-        labs and templates. Check things off — progress is saved in this browser.
-      </p>
-      <a class="hero-path-link" href={url("/docs/minimum-path")}>Short on time? Start with the 10-hour minimum path</a>
-      <div class="hero-actions">
-        {comingSoon("checklist") ? (
-          <span class="btn" aria-disabled="true">Start the pre-start stage · Coming soon</span>
-        ) : (
-          <a class="btn" href={url(`${routeByKey("checklist")!.path}#pre-start`)}>Start the pre-start stage</a>
-        )}
-        <a class="btn btn-secondary" href={url("/reading")}>Browse the reading guide</a>
-        <a class="btn btn-secondary" href={url("/value-calculator")}>Value calculator</a>
-        <a class="btn btn-secondary" id="continue-btn" href={url("/checklist")} hidden>Continue where I left off</a>
-      </div>
-      <div class="hero-steps">
-        <p class="hero-steps-label">New here? Four steps:</p>
-        <ol>
-          <li>
-            <a href={url("/checklist#pre-start")}>Skim the Pre-Start checklist week</a>
-            <span class="muted">— 3 minutes, sets up the whole journey</span>
-          </li>
-          <li>
-            <a href={url("/reading")}>Read reading-guide item 1</a>
-            <span class="muted">— 15 minutes, the product you're building for</span>
-          </li>
-          <li>
-            <a href={url("/labs#lab-00")}>Run lab 00 on your laptop</a>
-            <span class="muted">— 30–60 minutes, the whole stack in miniature</span>
-          </li>
-          <li>
-            <a href={url("/simulations#turn-taking")}>Play the turn-taking simulation</a>
-            <span class="muted">— feel endpointing in your browser before lab 03</span>
-          </li>
-        </ol>
-      </div>
+  <section class="home-intro" aria-labelledby="home-title">
+    <p class="eyebrow">VOICE AI ENGINEERING · ONBOARDING</p>
+    <h1 id="home-title">Learn the system. Build with confidence.</h1>
+    <p class="home-lede">
+      A practical guide to the domain, architecture, and engineering practices behind
+      production voice agents. Follow the learning path or jump straight to a topic.
+    </p>
+    <div class="home-actions">
+      <a class="btn" href={url("/docs/minimum-path")}>Start the 10-hour learning path <span aria-hidden="true">→</span></a>
+      <a class="btn btn-secondary" href={url("/checklist")}>Open the 30/60/90 checklist</a>
+      <a class="continue-link" id="continue-btn" href={url("/checklist")} hidden>Continue where you left off →</a>
     </div>
   </section>
 
-  <section class="stats card" aria-label="What's on this site">
-    <div class="stat">
-      <span class="stat-num">{itemCount}</span>
-      <span class="stat-label">checklist items</span>
+  <section class="home-path" aria-labelledby="path-title">
+    <div class="section-heading">
+      <h2 id="path-title">A clear path forward</h2>
+      <a href={url("/checklist")}>View the full checklist →</a>
     </div>
-    <div class="stat">
-      <span class="stat-num">{readingCount}</span>
-      <span class="stat-label">readings</span>
-    </div>
-    <div class="stat">
-      <span class="stat-num">{episodeCount}</span>
-      <span class="stat-label">podcast episodes</span>
-    </div>
-    <div class="stat">
-      <span class="stat-num">{essentialChapters}/{chapterCount}</span>
-      <span class="stat-label">essential whitepaper chapters</span>
-    </div>
-    <div class="stat">
-      <span class="stat-num">{labCount}</span>
-      <span class="stat-label">hands-on labs</span>
-    </div>
-    <div class="stat">
-      <span class="stat-num">{glossaryCount}</span>
-      <span class="stat-label">glossary terms</span>
-    </div>
-  </section>
-
-  <section class="journey" aria-labelledby="journey-title">
-    <div class="section-head">
-      <h2 id="journey-title">The journey</h2>
-      {comingSoon("checklist") ? <span class="see-all" aria-disabled="true">Full checklist · Coming soon</span> : <a class="see-all" href={url("/checklist")}>Full checklist →</a>}
-    </div>
-    <ol class="stage-row">
-      {stages.map((s, i) => (
-        <li class:list={["stage", { active: i === 0 }]}>
-          {comingSoon(s.route) ? (
-          <span class="stage-card" aria-disabled="true">
-            <span class="node" aria-hidden="true">
-              <svg viewBox="0 0 48 48" width="48" height="48">
-                <circle cx="24" cy="24" r={RING_R} class="ring-track"></circle>
-                <circle
-                  cx="24"
-                  cy="24"
-                  r={RING_R}
-                  class="ring-fill"
-                  stroke-dasharray={RING_C}
-                  stroke-dashoffset={i === 0 ? RING_C * (1 - PRE_START_PCT) : RING_C}
-                ></circle>
-                <circle cx="24" cy="24" r="6" class="node-core"></circle>
-              </svg>
-              <span class="stage-index">{i + 1}</span>
-            </span>
-            <span class="stage-label">{s.label}</span>
-            <span class="stage-window muted">{s.window}</span>
-            <span class="stage-desc muted">{s.desc}</span>
-            {comingSoon(s.route) && <span class="tag stage-now">Coming soon</span>}
-          </span>
-          ) : (
-          <a class="stage-card" href={url(s.anchor ? `${routeByKey(s.route)!.path}#${s.anchor}` : routeByKey(s.route)!.path)}>
-            <span class="node" aria-hidden="true">
-              <svg viewBox="0 0 48 48" width="48" height="48">
-                <circle cx="24" cy="24" r={RING_R} class="ring-track"></circle>
-                <circle cx="24" cy="24" r={RING_R} class="ring-fill" stroke-dasharray={RING_C} stroke-dashoffset={RING_C} data-ring-ids={JSON.stringify(stageIds[s.stage] ?? [])}></circle>
-                <circle cx="24" cy="24" r="6" class="node-core"></circle>
-              </svg>
-              <span class="stage-index">{i + 1}</span>
-            </span>
-            <span class="stage-label">{s.label}</span><span class="stage-window muted">{s.window}</span><span class="stage-desc muted">{s.desc}</span>
-          </a>
-          )}
-        </li>
-      ))}
+    <ol class="path-list">
+      <li>
+        <span class="path-number">01</span>
+        <div>
+          <h3>Understand the domain</h3>
+          <p>Learn the contractor workflow, the product, and the customer outcomes that matter.</p>
+        </div>
+        <a href={url("/reading")}>Start reading <span aria-hidden="true">→</span></a>
+      </li>
+      <li>
+        <span class="path-number">02</span>
+        <div>
+          <h3>Understand the system</h3>
+          <p>Follow a call through speech, orchestration, state, tools, and handoff.</p>
+        </div>
+        <a href={url("/architecture")}>Explore architecture <span aria-hidden="true">→</span></a>
+      </li>
+      <li>
+        <span class="path-number">03</span>
+        <div>
+          <h3>Build and evaluate</h3>
+          <p>Work through hands-on labs, simulations, traces, and repeatable evaluations.</p>
+        </div>
+        <a href={url("/labs")}>Open the labs <span aria-hidden="true">→</span></a>
+      </li>
+      <li>
+        <span class="path-number">04</span>
+        <div>
+          <h3>Prepare for production</h3>
+          <p>Develop judgment around reliability, safety, latency, and measurable outcomes.</p>
+        </div>
+        <a href={url("/docs/first-90-days-playbook")}>Read the playbook <span aria-hidden="true">→</span></a>
+      </li>
     </ol>
-    <p class="muted journey-note">
-      Rings fill as you check items off. Progress is saved only in this browser; see
-      <a href={url("/progress")}>Progress</a> to export a backup.
-    </p>
   </section>
 
-  <section class="library" aria-labelledby="library-title">
-    <div class="section-head">
-      <h2 id="library-title">The library</h2>
+  <section class="home-library" aria-labelledby="library-title">
+    <div class="section-heading">
+      <h2 id="library-title">Go straight to a topic</h2>
+      <a href={url("/docs/guide-index")}>Browse all guides →</a>
     </div>
-    <div class="grid">
-      {libraryCards.map(([key, label, desc]) => (
-        <a class="lib-card" href={url(routeByKey(key)!.path)}>
-          <Icon name={LIB_ICONS[key] ?? "compass"} badge size={20} tone={key === "simulations" ? "green" : "cyan"} />
-          <span class="lib-text"><span class="lib-title">{label}</span><span class="lib-desc muted">{desc}</span></span>
-        </a>
-      ))}
+    <div class="topic-grid">
+      <a class="topic-link" href={url("/reading")}>
+        <span class="topic-icon" aria-hidden="true">↗</span>
+        <span><strong>Read</strong><small>Ranked readings and technical guides</small></span>
+      </a>
+      <a class="topic-link" href={url("/labs")}>
+        <span class="topic-icon" aria-hidden="true">⌘</span>
+        <span><strong>Build</strong><small>Hands-on labs and exercises</small></span>
+      </a>
+      <a class="topic-link" href={url("/simulations")}>
+        <span class="topic-icon" aria-hidden="true">◷</span>
+        <span><strong>Evaluate</strong><small>Testing, traces, and release gates</small></span>
+      </a>
+      <a class="topic-link" href={url("/whitepaper")}>
+        <span class="topic-icon" aria-hidden="true">≡</span>
+        <span><strong>Reference</strong><small>Whitepaper, glossary, and deeper context</small></span>
+      </a>
     </div>
-  </section>
-
-  <section class="field-guide" aria-labelledby="field-title">
-    <div class="section-head">
-      <h2 id="field-title">The field guide</h2>
-      <span class="muted see-all-note">{fieldRoutes.length} deep-dive docs, one page each</span>
-    </div>
-    <p class="muted field-lede">
-      Short documents from the repo: the domain, the architecture, and how to operate.
-      The reading guide ranks what to read; these are the reference pages you'll return to.
-    </p>
-    <div class="grid-field">
-      {
-        fieldRoutes.map((f) => (
-          <a class="field-card" href={url(f.path)}>
-            <Icon name={f.icon} size={18} tone={f.tone} />
-            <span class="field-text">
-              <span class="field-title">{f.title}</span>
-              <span class="field-desc muted">{f.blurb}</span>
-            </span>
-          </a>
-        ))
-      }
-    </div>
-  </section>
-
-  <section class="next card">
-    <h2>Continue where you left off</h2>
-    <p class="muted">
-      Your checks are saved in this browser. This button jumps to the first unchecked item
-      on the checklist.
-    </p>
-    <a class="btn" id="continue-btn-2" href={url("/checklist#pre-start")}>Go to my next task</a>
   </section>
 </BaseLayout>
 
@@ -317,355 +96,157 @@ expectCondition(
   const KEY = "path-to-integration-checklist";
   let saved = {};
   try { saved = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch {}
-  document.querySelectorAll("[data-ring-ids]").forEach((ring) => {
-    const ids = JSON.parse(ring.getAttribute("data-ring-ids") || "[]");
-    const c = Number(ring.getAttribute("stroke-dasharray"));
-    const done = ids.filter((id) => saved[id]).length;
-    ring.setAttribute("stroke-dashoffset", String(ids.length ? c * (1 - done / ids.length) : c));
-  });
   const next = orderedIds.find((id) => !saved[id]);
   const btn = document.getElementById("continue-btn");
   if (btn && next && Object.keys(saved).length) {
     btn.setAttribute("href", `${checklistUrl}#${next}`);
     btn.hidden = false;
   }
-  const btn2 = document.getElementById("continue-btn-2");
-  if (btn2 && next) btn2.setAttribute("href", `${checklistUrl}#${next}`);
 </script>
 
 <style>
-  /* ---------- Hero ---------- */
-  .hero {
-    position: relative;
-    border: 1px solid var(--panel-edge);
-    border-radius: var(--r3);
-    overflow: hidden;
-    isolation: isolate;
-    display: grid;
-    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-    align-items: center;
-    background:
-      radial-gradient(900px 400px at 75% 40%, rgba(55, 224, 255, 0.10), transparent 60%),
-      linear-gradient(180deg, #0d1834, #0a1224);
+  .home-intro {
+    max-width: 790px;
+    padding: clamp(2rem, 6vw, 5rem) 0 clamp(2.5rem, 7vw, 5.5rem);
   }
-  .hero-visual { order: 2; padding: var(--s6) var(--s4) var(--s6) 0; }
-  .hero-inner {
-    order: 1;
-    position: relative;
-    z-index: 1;
-    padding: var(--s12) var(--s8);
-    display: grid;
-    gap: var(--s4);
-    justify-items: start;
-  }
-  .hero h1 {
-    font-size: clamp(2rem, 5vw, 3.2rem);
-    margin: 0;
-    line-height: 1.15;
-  }
-  .hero-sub {
-    margin: 0;
-    max-width: 56ch;
-    font-size: 1.05rem;
-  }
-  .hero-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--s3);
-    margin-top: var(--s2);
-  }
-
-  /* ---------- First-visit steps ---------- */
-  .hero-steps-label {
-    margin: var(--s2) 0 0;
+  .eyebrow {
+    margin: 0 0 var(--s4);
+    color: var(--cyan);
     font-size: 0.78rem;
     font-weight: 600;
-    letter-spacing: 0.09em;
-    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+  .home-intro h1 {
+    max-width: 14ch;
+    margin: 0;
+    font-size: clamp(2.4rem, 6vw, 4.25rem);
+    letter-spacing: -0.045em;
+    line-height: 1.08;
+  }
+  .home-lede {
+    max-width: 62ch;
+    margin: var(--s6) 0 0;
     color: var(--ink-dim);
+    font-size: clamp(1.05rem, 2vw, 1.2rem);
+    line-height: 1.7;
   }
-  .hero-steps ol {
-    margin: var(--s2) 0 0;
-    padding-left: 1.3rem;
-    display: grid;
-    gap: 6px;
-    font-size: 0.95rem;
-    line-height: 1.5;
-    color: var(--ink);
-  }
-  .hero-steps li::marker {
-    color: var(--cyan);
-    font-weight: 700;
-  }
-  .hero-steps a {
-    color: var(--cyan);
-    font-weight: 600;
-  }
-  .hero-steps .muted {
-    font-size: 0.88rem;
-  }
-
-  /* ---------- Stats strip ---------- */
-  .stats {
+  .home-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--s3);
     margin-top: var(--s6);
-    display: grid;
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    gap: var(--s4);
-    padding: var(--s6);
   }
-  .stat {
-    display: grid;
-    gap: 2px;
+  .continue-link {
+    flex-basis: 100%;
+    width: fit-content;
+    margin-top: var(--s1);
+    font-size: 0.95rem;
   }
-  .stat-num {
-    font-family: var(--font-head);
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: var(--cyan);
-  }
-  .stat-label {
-    font-size: 0.88rem;
-    color: var(--ink-dim);
-  }
-
-  /* ---------- Journey ---------- */
-  .journey {
-    margin-top: var(--s12);
-  }
-  .section-head {
+  .continue-link[hidden] { display: none; }
+  .home-path, .home-library { margin-top: var(--s8); }
+  .section-heading {
     display: flex;
     align-items: baseline;
     justify-content: space-between;
     gap: var(--s4);
+    margin-bottom: var(--s4);
   }
-  .see-all {
-    font-size: 0.95rem;
+  .section-heading h2 {
+    margin: 0;
+    font-size: clamp(1.35rem, 3vw, 1.7rem);
   }
-  .stage-row {
+  .section-heading > a {
+    flex-shrink: 0;
+    font-size: 0.9rem;
+  }
+  .path-list {
     list-style: none;
-    margin: var(--s4) 0 0;
     padding: 0;
+    margin: 0;
+    border-top: 1px solid var(--panel-edge);
+  }
+  .path-list li {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: var(--s3);
-  }
-  .stage a {
-    display: grid;
-    gap: var(--s1);
-    justify-items: start;
-    height: 100%;
-    background: var(--panel);
-    border: 1px solid var(--panel-edge);
-    border-radius: var(--r2);
-    padding: var(--s4);
-    text-decoration: none;
-    color: inherit;
-    transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
-  }
-  .stage a:hover {
-    border-color: var(--cyan);
-    box-shadow: var(--glow);
-    transform: translateY(-2px);
-  }
-  .stage.active a {
-    border-color: color-mix(in srgb, var(--cyan) 55%, var(--panel-edge));
-    box-shadow: var(--glow);
-  }
-  .node {
-    position: relative;
-    width: 48px;
-    height: 48px;
-    margin-bottom: var(--s2);
-  }
-  .node svg {
-    width: 48px;
-    height: 48px;
-    transform: rotate(-90deg);
-  }
-  .ring-track {
-    fill: var(--navy);
-    stroke: var(--panel-edge);
-    stroke-width: 3;
-  }
-  .ring-fill {
-    fill: none;
-    stroke: var(--green);
-    stroke-width: 3;
-    stroke-linecap: round;
-  }
-  .node-core {
-    fill: var(--blue);
-  }
-  .stage-index {
-    position: absolute;
-    inset: 0;
-    display: grid;
-    place-items: center;
-    font-family: var(--font-head);
-    font-weight: 700;
-    font-size: 0.95rem;
-    color: var(--ink);
-  }
-  .stage-label {
-    font-family: var(--font-head);
-    font-weight: 700;
-    color: var(--ink);
-    font-size: 1.02rem;
-  }
-  .stage-window {
-    font-size: 0.85rem;
-  }
-  .stage-desc {
-    font-size: 0.9rem;
-    line-height: 1.45;
-  }
-  .stage-now {
-    margin-top: var(--s2);
-  }
-  .journey-note {
-    margin: var(--s4) 0 0;
-    font-size: 0.92rem;
-  }
-
-  /* ---------- Library ---------- */
-  .library {
-    margin-top: var(--s12);
-  }
-  .grid {
-    margin-top: var(--s4);
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--s3);
-  }
-  .grid-secondary {
-    margin-top: var(--s3);
-  }
-  .lib-card {
-    display: flex;
+    grid-template-columns: 44px minmax(0, 1fr) auto;
+    align-items: center;
     gap: var(--s4);
-    align-items: flex-start;
-    padding: var(--s4) var(--s4);
-    border: 1px solid var(--panel-edge);
-    border-radius: var(--r2);
-    background: linear-gradient(180deg, #111c33, #0e1830);
-    color: var(--ink);
-    text-decoration: none;
-    transition: border-color .2s, transform .2s;
+    padding: var(--s4) 0;
+    border-bottom: 1px solid var(--panel-edge);
   }
-  .lib-text { display: grid; gap: var(--s1); }
-  .lib-card:hover {
-    border-color: var(--cyan);
-    box-shadow: var(--glow);
-    transform: translateY(-2px);
-  }
-  .lib-title {
+  .path-number {
+    color: var(--ink-dim);
     font-family: var(--font-head);
-    font-weight: 700;
-    color: var(--ink);
-  }
-  .lib-desc {
     font-size: 0.9rem;
-    line-height: 1.45;
+    font-variant-numeric: tabular-nums;
   }
-
-  /* ---------- Field guide ---------- */
-  .field-guide {
-    margin-top: var(--s12);
+  .path-list h3 {
+    margin: 0;
+    font-size: 1.05rem;
   }
-  .see-all-note {
-    font-size: 0.9rem;
-  }
-  .field-lede {
-    margin: var(--s2) 0 0;
+  .path-list p {
+    margin: var(--s1) 0 0;
     max-width: 62ch;
-    font-size: 0.95rem;
+    color: var(--ink-dim);
+    font-size: 0.93rem;
+    line-height: 1.5;
   }
-  .grid-field {
-    margin-top: var(--s4);
+  .path-list li > a {
+    font-size: 0.9rem;
+    text-align: right;
+    white-space: nowrap;
+  }
+  .topic-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--s3);
-  }
-  .field-card {
-    display: flex;
-    gap: var(--s3);
-    align-items: flex-start;
-    padding: var(--s4);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     border: 1px solid var(--panel-edge);
     border-radius: var(--r2);
-    background: linear-gradient(180deg, #111c33, #0e1830);
+    overflow: hidden;
+  }
+  .topic-link {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--s3);
+    min-width: 0;
+    padding: var(--s4);
     color: var(--ink);
     text-decoration: none;
-    transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+    background: color-mix(in srgb, var(--panel) 40%, transparent);
+    transition: background 160ms ease;
   }
-  .field-card:hover {
-    border-color: var(--cyan);
-    box-shadow: var(--glow);
-    transform: translateY(-2px);
-  }
-  .field-card .icon-badge {
-    --badge: 36px;
-    width: 36px;
-    height: 36px;
-  }
-  .field-text {
+  .topic-link + .topic-link { border-left: 1px solid var(--panel-edge); }
+  .topic-link:hover { background: var(--panel); }
+  .topic-icon {
     display: grid;
-    gap: 2px;
+    flex: 0 0 34px;
+    width: 34px;
+    height: 34px;
+    place-items: center;
+    border: 1px solid var(--panel-edge);
+    border-radius: var(--r1);
+    color: var(--cyan);
+    font-size: 1.15rem;
   }
-  .field-title {
-    font-family: var(--font-head);
-    font-weight: 600;
-    color: var(--ink);
-    font-size: 0.98rem;
-  }
-  .field-desc {
-    font-size: 0.86rem;
+  .topic-link strong, .topic-link small { display: block; }
+  .topic-link strong { font-family: var(--font-head); font-size: 0.98rem; }
+  .topic-link small {
+    margin-top: var(--s1);
+    color: var(--ink-dim);
+    font-size: 0.84rem;
     line-height: 1.45;
   }
-
-  /* ---------- Next ---------- */
-  .next {
-    margin-top: var(--s12);
-    display: grid;
-    gap: var(--s3);
-    justify-items: start;
-    padding: var(--s6);
+  @media (max-width: 760px) {
+    .topic-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .topic-link:nth-child(3) { border-left: 0; border-top: 1px solid var(--panel-edge); }
+    .topic-link:nth-child(4) { border-top: 1px solid var(--panel-edge); }
+    .path-list li { grid-template-columns: 32px minmax(0, 1fr); gap: var(--s3); }
+    .path-list li > a { grid-column: 2; text-align: left; }
   }
-  .next h2 {
-    margin: 0;
-  }
-  .next p {
-    margin: 0;
-  }
-
-  @media (max-width: 960px) {
-    .hero { grid-template-columns: 1fr; }
-    .hero-visual { order: 0; padding: var(--s4) var(--s4) 0; }
-    .hero-inner { padding: var(--s6) var(--s6) var(--s8); }
-    .stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .grid-field { grid-template-columns: repeat(2, 1fr); }
-    .stage-row {
-      grid-template-columns: repeat(2, 1fr);
-    }
-    .grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-  @media (max-width: 560px) {
-    .hero-actions { width: 100%; }
-    .hero-actions .btn { flex: 1 1 100%; text-align: center; justify-content: center; }
-    .stats { padding: var(--s4); gap: var(--s3); }
-    .stat-num { font-size: 1.3rem; }
-    .stat-label { font-size: 0.8rem; }
-    .hero-inner {
-      padding: var(--s4) var(--s4) var(--s6);
-    }
-    .stage-row {
-      grid-template-columns: 1fr;
-    }
-    .grid,
-    .grid-field {
-      grid-template-columns: 1fr;
-    }
+  @media (max-width: 520px) {
+    .home-actions { align-items: stretch; flex-direction: column; }
+    .home-actions .btn { justify-content: center; text-align: center; }
+    .section-heading { align-items: flex-start; flex-direction: column; gap: var(--s2); }
+    .topic-grid { grid-template-columns: 1fr; }
+    .topic-link + .topic-link { border-left: 0; border-top: 1px solid var(--panel-edge); }
   }
 </style>
