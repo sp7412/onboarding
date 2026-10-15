@@ -1,6 +1,6 @@
 # Business Metrics for Voice Agents
 
-**Facts as of: October 6, 2026 · Last reviewed: October 6, 2026**
+**Facts as of: October 15, 2026 · Last reviewed: October 15, 2026**
 
 The engineering objective is not "make the model score higher." It is to improve a contractor's
 customer and operating outcomes without increasing safety or operational risk.
@@ -60,4 +60,5 @@ downstream state.
 - [Lab 14: earning autonomy](../labs/README.md)
 - [Senior engineer track: evaluation and denominator design](../senior-engineer/eval-design.md)
 - [Evaluating voice agents](evaluating-voice-agents.md)
+- [ServiceTitan voice-agent public evidence](voice-agent-public-evidence.md) — vendor-reported booking figures and the denominator caveats.
 - [Pantheon 2026 AI roadmap](pantheon-2026-ai-roadmap.md)
