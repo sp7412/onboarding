@@ -251,7 +251,7 @@ print("All checks passed.")
 #
 # **Expected invariant:** no more than one committed appointment owns a slot, and no agent
 # reports success without a verified commit. This is a teaching model, not a description of
-# Max's private implementation. See the [Max public capability map](../../docs/max-capability-map.md).
+# Max's private implementation. See the [Max public capability map](../docs/max-capability-map.md).
 
 # %% [markdown]
 # ## Check your understanding
