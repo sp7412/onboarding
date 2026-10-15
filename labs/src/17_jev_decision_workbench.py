@@ -1,5 +1,5 @@
 # %% [markdown]
-# 17 · Prompting Jev for typed decisions
+# # 17 · Prompting Jev for typed decisions
 #
 # **Goal:** turn a vague classification prompt into a bounded, testable decision contract.
 # Define state, write discriminative instructions and criteria, inspect labeled fictional
