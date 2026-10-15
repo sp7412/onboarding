@@ -1,0 +1,208 @@
+# Review of ServiceTitan's Public GitHub Organization
+
+**Review date:** 2026-10-15  
+**Scope:** Public repositories visible under [github.com/servicetitan](https://github.com/servicetitan), with deeper reading of the projects most relevant to voice/agent engineering, real-time systems, API contracts, and AI developer tooling.  
+**Purpose:** Improve this public-source onboarding guide without implying access to ServiceTitan's private production architecture.
+
+## Executive summary
+
+The public organization is useful for understanding selected engineering tools and public experiments, but it is **not a public mirror of the production Voice Agent or Voice Intelligence systems**. In the public repositories reviewed, I found no clearly identified production voice-agent implementation, internal multi-agent registry, or complete LLM orchestration stack.
+
+The strongest technical learning resource is **[Stl.Fusion](https://github.com/servicetitan/Stl.Fusion)** and its [sample/tutorial repository](https://github.com/servicetitan/Stl.Fusion.Samples). Fusion is a .NET distributed reactive memoization framework. Its code and documentation explain dependency-aware computed state, invalidation propagation, client replicas, WebSocket RPC, reconnect behavior, and performance testing. These are relevant patterns for keeping real-time application state coherent. They are **not evidence that the production voice-agent backend uses Fusion**.
+
+Other notable findings:
+
+- **LazyProxy family:** .NET dependency-injection utilities that defer service construction. Useful for thinking about startup and object-graph costs; not an agent framework.
+- **Claude Code Action:** AI coding automation for PRs/issues, code review, implementation, and structured outputs. Relevant to developer tooling and automation safety, not evidence of a customer-facing voice runtime.
+- **AzureChatGPT:** a solution accelerator for private enterprise chat over Azure OpenAI and internal data. Historical architecture background, not proof of current internal deployment.
+- **Recording PWA prototype:** a small React/TypeScript/Vite application scaffold. Its repository name alone does not establish what was recorded, whether it is production, or how any voice product is implemented.
+- **Forks and general-purpose libraries:** much of the organization consists of inherited open-source tooling, schema/code-generation libraries, SDKs, and web infrastructure. A repository under the organization is not automatically a ServiceTitan-authored product.
+
+## Method and confidence
+
+I used the public organization repository listing and GitHub repository search, inspected README/documentation or project metadata for the most relevant projects, and searched for voice-agent, agent, AI, and MCP-related evidence. The organization listing showed **31 public repositories** in the snapshot captured for this review. Repository listings and code evolve; this is a dated snapshot, not a permanent inventory.
+
+This is a **source review, not a full line-by-line security audit of all 31 repositories**. Deeper review focused on Fusion, Fusion Samples, the LazyProxy family, Claude Code Action, AzureChatGPT, the recording PWA prototype, and selected API/schema tooling. Remaining repositories were classified from public metadata and available README information. A negative search result means I did not find public evidence in the reviewed material; it does not prove that no private implementation exists.
+
+## Deep review
+
+### 1. Stl.Fusion — highest-value technical read
+
+Repository: [servicetitan/Stl.Fusion](https://github.com/servicetitan/Stl.Fusion)  
+Documentation: [Fusion docs](https://github.com/servicetitan/Stl.Fusion/tree/master/docs)  
+Samples: [servicetitan/Stl.Fusion.Samples](https://github.com/servicetitan/Stl.Fusion.Samples)
+
+Fusion describes itself as **Distributed REActive Memoization (DREAM)**. The central idea is to cache results of computations while tracking dependencies between computed values. When a source value changes, invalidation propagates through dependent computations. Remote clients can hold replicas of computed results and receive invalidation notifications over a WebSocket-based RPC protocol.
+
+The repository includes source, documentation, samples, tests, build configuration, and performance-test scripts. The samples repository provides runnable .NET examples and tutorials, including single-server and multi-server RPC samples and benchmarks. The tutorial documents reconnect behavior and refreshing replicas after reconnect.
+
+**Patterns worth learning**
+
+1. **Make state dependencies explicit.** Derived state should be invalidated when authoritative inputs change; avoid downstream consumers silently keeping stale results.
+2. **Separate authoritative state from replicas.** A local cached view can improve latency, but it needs a defined consistency and invalidation contract.
+3. **Treat reconnect as state reconciliation.** Re-establishing transport is not enough; cached remote state may need refreshing or revalidation.
+4. **Measure the actual workload.** The repository includes performance tests and benchmark samples. Reproduce measurements with representative workloads rather than treating headline speed claims as universal.
+5. **Keep transport and application semantics distinct.** Fusion's RPC/invalidation protocol is a particular design, not a generic substitute for every messaging or event-streaming system.
+
+**Voice-agent application — engineering inference, not a ServiceTitan implementation claim**
+
+A voice agent may have to reconcile call state, customer facts, booking status, and UI updates while several services operate concurrently. Fusion's dependency/invalidation concepts are useful for thinking about stale reads and UI consistency. They do not by themselves solve turn-taking, audio transport, model orchestration, tool authorization, transaction semantics, or distributed booking locks.
+
+For a booking workflow, an invalidation notification must never be treated as an atomic reservation. The authoritative scheduling system still needs to validate availability and commit the booking with appropriate concurrency and idempotency controls.
+
+**Trade-offs and questions to investigate**
+
+- What is the source of truth, and what is merely a cached or replicated view?
+- What is the consistency contract during network partitions or reconnects?
+- How are invalidations, cache growth, cancellation, and failures handled under load?
+- What happens if an update arrives out of order or a client remains disconnected?
+- Which performance results hold for the target latency, fan-out, payload sizes, and failure profile?
+
+**Recommendation:** Read the Fusion README, then the samples/tutorial sections on computed values, live state, replicas, and RPC. Run the multi-server and RPC benchmark examples if the current SDK/environment supports them. Treat the project as a design study; do not assume it is deployed in the Voice Agent stack.
+
+### 2. Stl.Fusion.Samples — practical companion
+
+Repository: [servicetitan/Stl.Fusion.Samples](https://github.com/servicetitan/Stl.Fusion.Samples)  
+Published tutorial: [servicetitan.github.io/Stl.Fusion.Samples](https://servicetitan.github.io/Stl.Fusion.Samples/)
+
+The README says the examples target the .NET 8 SDK and includes HelloWorld/Blazor examples, MiniRpc, MultiServerRpc, and benchmark projects. It also points to **Actual Chat**, a separate application described as combining real-time audio, live transcription, and AI assistance, and notes that some Fusion examples come from that application's codebase.
+
+That Actual Chat reference is a useful adjacent example of a real-time application. It is **not evidence that Actual Chat is ServiceTitan's Voice Agent**, nor that the production voice product uses the same implementation.
+
+**Recommendation:** Use the sample projects to understand Fusion concepts in executable form. Keep the Actual Chat example labeled as an adjacent product example.
+
+### 3. LazyProxy family — deferred dependency construction
+
+Repositories: [lazy-proxy](https://github.com/servicetitan/lazy-proxy), [lazy-proxy-autofac](https://github.com/servicetitan/lazy-proxy-autofac), [lazy-proxy-serviceprovider](https://github.com/servicetitan/lazy-proxy-serviceprovider), [lazy-proxy-unity](https://github.com/servicetitan/lazy-proxy-unity).
+
+The core library builds runtime proxy types that defer creating the underlying service until a member is invoked. Companion repositories integrate the pattern with dependency-injection containers.
+
+**What it teaches:** dependency graphs, construction cost, proxy behavior, and the difference between resolving a service and actually using it. The core README documents support for sync/async and generic methods, properties, indexers, and thread-safe proxy generation, with limitations such as events not being supported.
+
+**Trade-offs:** deferred construction can reduce eager startup work, but moves cost and possible failures to first use. It can make latency less predictable if the first request constructs a large dependency graph. It does not eliminate the work and should not be added to a hot path without measuring cold-start and first-call latency.
+
+**Recommendation:** Relevant background for .NET service composition; low direct relevance to voice-agent design.
+
+### 4. Claude Code Action — AI-assisted engineering automation
+
+Repository: [servicetitan/claude-code-action](https://github.com/servicetitan/claude-code-action)
+
+The public README describes a GitHub Action for AI assistance on pull requests and issues: answering questions, reviewing code, implementing changes, and returning structured outputs. It describes authentication/provider options and links to setup, solutions, and security documentation. The repository content resembles the public Anthropic Claude Code Action project; treat its presence as evidence of an available public developer-tooling artifact, not a proprietary ServiceTitan agent architecture.
+
+**Useful lessons for engineering workflows**
+
+- Distinguish interactive comment-triggered operation from explicit prompt-driven automation.
+- Treat tool access and repository permissions as security boundaries.
+- Keep untrusted issue/PR content separate from trusted workflow configuration.
+- Use constrained permissions, auditable CI runs, and explicit test gates before accepting generated changes.
+- Prefer validated structured outputs when automation needs machine-readable results.
+- Do not equate a successful agent run with a correct patch; tests, review, and merge policy remain authoritative.
+
+**Security caution:** An AI coding action can execute tools in a repository context. Workflow triggers, tokens, permissions, project configuration, and untrusted PR content therefore matter. Review the current upstream security documentation before adopting any workflow.
+
+**Recommendation:** Useful for developer-experience onboarding and AI coding automation. Not a voice-agent runtime.
+
+### 5. AzureChatGPT — enterprise chat solution accelerator
+
+Repository: [servicetitan/azurechatgpt](https://github.com/servicetitan/azurechatgpt)
+
+The README describes a private ChatGPT-like experience on Azure OpenAI, with network/security controls and the ability to connect internal data or services. It includes deployment, identity, file-chat, and environment-variable guides.
+
+This is an example of an enterprise LLM application pattern: model access, identity, deployment, internal data integration, and policy controls. Treat it as a solution accelerator whose current compatibility and maintenance status need independent verification, not as a source of truth for ServiceTitan's current AI platform.
+
+**Recommendation:** Optional historical background. Prefer current vendor docs and maintained examples for implementation decisions.
+
+### 6. Recording PWA prototype — limited evidence
+
+Repository: [servicetitan/recording-PWA-proto](https://github.com/servicetitan/recording-PWA-proto)
+
+Available project metadata shows a React, TypeScript, and Vite application with IndexedDB support and PWA tooling. Its README is still the standard Vite scaffold. That is not enough to conclude what recording functionality is implemented, how media is stored, whether audio is uploaded, or whether this is used by a product.
+
+**Recommendation:** Do not cite it as a production voice-recording architecture. Inspect source files and history before drawing more specific conclusions.
+
+### 7. API contracts and code generation
+
+Relevant repositories include [NSwag](https://github.com/servicetitan/NSwag) and [NJsonSchema](https://github.com/servicetitan/NJsonSchema). Their README content identifies them as general-purpose .NET/OpenAPI and JSON Schema tooling associated with their respective open-source projects. The organization also contains forks or copies of other libraries and SDKs.
+
+These are useful ecosystem clues for API schema generation and typed client contracts, but a fork's presence does not establish which version ServiceTitan uses internally or how its production APIs are designed.
+
+**Recommendation:** Learn the general concepts—schema-first contracts, generated clients, compatibility checks—but do not infer internal service boundaries from repository ownership alone.
+
+## Inventory of the 31 public repositories
+
+The table records the public organization snapshot and each repository's relevance to this onboarding project. “Low” means it does not materially inform voice-agent architecture based on the public evidence reviewed; it does not mean the repository has no value to its maintainers.
+
+| Repository | Publicly apparent purpose / classification | Onboarding relevance |
+|---|---|---|
+| [Stl.Fusion](https://github.com/servicetitan/Stl.Fusion) | .NET distributed reactive memoization and real-time application framework | **High** — state consistency, invalidation, replicas, RPC, performance |
+| [Stl.Fusion.Samples](https://github.com/servicetitan/Stl.Fusion.Samples) | Runnable Fusion samples and tutorials | **High** — hands-on study |
+| [lazy-proxy](https://github.com/servicetitan/lazy-proxy) | Lazy interface proxies for .NET services | Medium — dependency construction and cold-path latency |
+| [lazy-proxy-autofac](https://github.com/servicetitan/lazy-proxy-autofac) | Autofac integration for lazy dependency injection | Low–medium |
+| [lazy-proxy-serviceprovider](https://github.com/servicetitan/lazy-proxy-serviceprovider) | Microsoft DI ServiceProvider integration | Low–medium |
+| [lazy-proxy-unity](https://github.com/servicetitan/lazy-proxy-unity) | Unity container integration | Low–medium |
+| [dataobjects-net](https://github.com/servicetitan/dataobjects-net) | Fork of a .NET data-access/object-relational library | Low — inspect if relevant to a concrete stack question |
+| [ReportGenerator](https://github.com/servicetitan/ReportGenerator) | Code-coverage report generation project | Low — testing/coverage tooling |
+| [Stl.Extras](https://github.com/servicetitan/Stl.Extras) | Archived supporting library | Low; archived |
+| [api-management-developer-portal](https://github.com/servicetitan/api-management-developer-portal) | Fork of Azure API Management developer portal | Low–medium — API publishing/developer experience |
+| [clrspy](https://github.com/servicetitan/clrspy) | Archived .NET runtime/debugging utility | Low; archived |
+| [editable-contracts](https://github.com/servicetitan/editable-contracts) | Archived contracts-related project | Low; archived |
+| [NSwag](https://github.com/servicetitan/NSwag) | OpenAPI/Swagger and typed client generation tooling | Medium conceptually; ecosystem tooling |
+| [tslint-yield](https://github.com/servicetitan/tslint-yield) | Archived TSLint-related utility | Low; archived |
+| [DarkSkyApi](https://github.com/servicetitan/DarkSkyApi) | Weather API client library | Low |
+| [claude-code-action](https://github.com/servicetitan/claude-code-action) | Claude Code GitHub automation action | **Medium–high** for AI developer tooling, permissions, and CI guardrails; not voice runtime |
+| [anvil2-docs-live-code](https://github.com/servicetitan/anvil2-docs-live-code) | Documentation/live-code examples | Low–medium; documentation UX, not agent architecture |
+| [NJsonSchema](https://github.com/servicetitan/NJsonSchema) | JSON Schema parsing, validation, and code generation tooling | Medium conceptually; ecosystem tooling |
+| [terraform-provider-sendgrid](https://github.com/servicetitan/terraform-provider-sendgrid) | SendGrid infrastructure provider | Low |
+| [mergetest-public](https://github.com/servicetitan/mergetest-public) | Explicitly described as a public CI/CD workflow test repository | Low; workflow demonstration |
+| [Xero-NetStandard](https://github.com/servicetitan/Xero-NetStandard) | Xero API client wrapper | Low |
+| [diff-match-patch](https://github.com/servicetitan/diff-match-patch) | Text-diff/patch utility | Low |
+| [unpkg](https://github.com/servicetitan/unpkg) | JavaScript package CDN-related project | Low; infrastructure dependency |
+| [AngleSharp.Css](https://github.com/servicetitan/AngleSharp.Css) | CSS extension for AngleSharp | Low |
+| [moltbot](https://github.com/servicetitan/moltbot) | Fork of a personal AI assistant project | **Medium as a public agent reference only**; not evidence of ServiceTitan production use |
+| [verdaccio-storage-proxy](https://github.com/servicetitan/verdaccio-storage-proxy) | npm registry/storage proxy component | Low |
+| [AngleSharp](https://github.com/servicetitan/AngleSharp) | HTML parsing library | Low |
+| [recording-PWA-proto](https://github.com/servicetitan/recording-PWA-proto) | React/Vite PWA prototype scaffold | Low pending source-level review |
+| [azurechatgpt](https://github.com/servicetitan/azurechatgpt) | Azure OpenAI private-chat solution accelerator | Medium as historical enterprise-LLM background |
+| [dotnet-dumps-devcontainer](https://github.com/servicetitan/dotnet-dumps-devcontainer) | .NET dump-analysis development container; README unavailable in this review | Low–medium for incident/debugging workflows; details unverified |
+| [html-sketchapp](https://github.com/servicetitan/html-sketchapp) | Archived design-tool integration | Low; archived |
+
+**Classification caveat:** Some repositories are forks, mirrors, or upstream projects. The table describes public purpose rather than attributing all implementation decisions to ServiceTitan.
+
+## What this does—and does not—tell us about the voice-agent stack
+
+### Supported by the public evidence reviewed
+
+- ServiceTitan publishes the Fusion real-time .NET framework and examples.
+- The organization has public code for lazy dependency-injection utilities and assorted application/developer infrastructure.
+- It has a public Claude Code Action repository and an AzureChatGPT solution accelerator.
+- A recording-named PWA prototype exists, but its README/metadata alone do not document a production audio architecture.
+- The reviewed public inventory does not expose an obvious, clearly labeled production Voice Agent implementation.
+
+### Not established by these repositories
+
+The review does **not** establish the internal voice stack's ASR/TTS providers, media transport, orchestration framework, agent count, inter-agent messaging, MCP usage, trace schema, Kafka/Snowflake design, scheduling transaction protocol, deployment topology, or model-routing policy. Those details require direct public documentation or authorized internal confirmation.
+
+The guide's existing architecture diagrams, trace schemas, orchestration patterns, and agent-coordination exercises should remain labeled as **reference architectures, public-product interpretations, or teaching examples**, not as recovered internal design.
+
+## Recommended learning order
+
+1. Read [Stl.Fusion README](https://github.com/servicetitan/Stl.Fusion) and the [Fusion documentation](https://github.com/servicetitan/Stl.Fusion/tree/master/docs).
+2. Run selected [Fusion Samples](https://github.com/servicetitan/Stl.Fusion.Samples), especially the tutorial and multi-server/RPC examples; inspect benchmark methodology before reusing any numbers.
+3. Read the [LazyProxy README](https://github.com/servicetitan/lazy-proxy) only if dependency-injection behavior or cold-start cost becomes relevant.
+4. Review [Claude Code Action](https://github.com/servicetitan/claude-code-action) with emphasis on trigger conditions, tool permissions, token scopes, untrusted pull-request inputs, structured output, and CI gates.
+5. Treat AzureChatGPT and the recording PWA as optional historical/prototype reading unless source history or a concrete engineering task makes them relevant.
+
+## Sources
+
+- [ServiceTitan GitHub organization](https://github.com/servicetitan) — repository inventory and organization-level metadata.
+- [Stl.Fusion README](https://github.com/servicetitan/Stl.Fusion) and [documentation](https://github.com/servicetitan/Stl.Fusion/tree/master/docs).
+- [Stl.Fusion.Samples README](https://github.com/servicetitan/Stl.Fusion.Samples) and [tutorial documentation](https://servicetitan.github.io/Stl.Fusion.Samples/).
+- [LazyProxy README](https://github.com/servicetitan/lazy-proxy) and the [ServiceProvider integration](https://github.com/servicetitan/lazy-proxy-serviceprovider).
+- [Claude Code Action README](https://github.com/servicetitan/claude-code-action); the current [upstream security documentation](https://github.com/anthropics/claude-code-action/blob/main/docs/security.md) is useful for general workflow-security principles, but is not proof of the fork's exact state.
+- [AzureChatGPT README](https://github.com/servicetitan/azurechatgpt).
+- [Recording PWA prototype](https://github.com/servicetitan/recording-PWA-proto).
+- [NSwag](https://github.com/servicetitan/NSwag) and [NJsonSchema](https://github.com/servicetitan/NJsonSchema).
+
+## Maintenance rule
+
+Revisit this review when the organization publishes a clearly relevant voice/agent repository, an existing repository changes materially, or a public technical disclosure substantiates a previously unknown architecture detail. Update claims only with source links and dates, and preserve the distinction between observed code and inference.
