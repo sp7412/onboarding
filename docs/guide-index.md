@@ -14,7 +14,7 @@ A topic-first map of the onboarding material. Use the **learning path** when you
 
 - [Voice-agent architecture](voice-agent-architecture.md) — component boundaries and control plane.
 - [ServiceTitan voice-agent public evidence](voice-agent-public-evidence.md) — documented workflows, Voice Intelligence, booking figures, and rollout caveats.
-- [ServiceTitan public GitHub review](servicetitan-github-review.md) — 31-repository inventory, Fusion deep dive, AI developer tooling, and evidence boundaries.
+- [ServiceTitan public GitHub review](servicetitan-github-review.md) — source-level clues in Voice Agent settings, Atlas/AI Kit, escalation cases, recording prototype, Fusion, and developer-tooling security.
 - [Speech-to-speech models](speech-to-speech-models.md) — full-duplex models versus cascaded pipelines.
 - [GPT-Live-1](gpt-live-1.md) — model behavior, delegation, and control-plane responsibilities.
 - [Build your own voice agent](build-your-own-voice-agent.md) — compare chained and realtime implementations.
