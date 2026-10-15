@@ -150,7 +150,7 @@ The table records the public organization snapshot and each repository's relevan
 | [tslint-yield](https://github.com/servicetitan/tslint-yield) | Archived TSLint-related utility | Low; archived |
 | [DarkSkyApi](https://github.com/servicetitan/DarkSkyApi) | Weather API client library | Low |
 | [claude-code-action](https://github.com/servicetitan/claude-code-action) | Claude Code GitHub automation action | **Medium–high** for AI developer tooling, permissions, and CI guardrails; not voice runtime |
-| [anvil2-docs-live-code](https://github.com/servicetitan/anvil2-docs-live-code) | Documentation/live-code examples | Low–medium; documentation UX, not agent architecture |
+| [anvil2-docs-live-code](https://github.com/servicetitan/anvil2-docs-live-code) | Anvil2 design-system examples, including Atlas and AI Kit interaction patterns | **High for product/UX clues**; examples are mostly static UI, not backend implementation |
 | [NJsonSchema](https://github.com/servicetitan/NJsonSchema) | JSON Schema parsing, validation, and code generation tooling | Medium conceptually; ecosystem tooling |
 | [terraform-provider-sendgrid](https://github.com/servicetitan/terraform-provider-sendgrid) | SendGrid infrastructure provider | Low |
 | [mergetest-public](https://github.com/servicetitan/mergetest-public) | Explicitly described as a public CI/CD workflow test repository | Low; workflow demonstration |
@@ -206,3 +206,133 @@ The guide's existing architecture diagrams, trace schemas, orchestration pattern
 ## Maintenance rule
 
 Revisit this review when the organization publishes a clearly relevant voice/agent repository, an existing repository changes materially, or a public technical disclosure substantiates a previously unknown architecture detail. Update claims only with source links and dates, and preserve the distinction between observed code and inference.
+
+
+## Second-pass, source-level clue review
+
+This section records the higher-signal findings after searching code across the organization for voice/audio, recording, agent, MCP, transcription, escalation, prompt, action-log, booking, payment, Atlas, and related terms, then reading the relevant source files. It supersedes the earlier shallow classification of `anvil2-docs-live-code` and `recording-PWA-proto`.
+
+### A. Anvil2 examples expose a useful product/UX vocabulary
+
+Repository: [servicetitan/anvil2-docs-live-code](https://github.com/servicetitan/anvil2-docs-live-code)
+
+The repository README is only a one-line title, so the evidence is in the examples themselves. These examples import `@servicetitan/anvil2`, `@servicetitan/anvil2-ai-kit`, and `@servicetitan/anvil2-ext-atlas`; most use hard-coded sample messages and no backend calls. They are source-backed clues about product concepts and interface states, **not proof of the runtime's internal orchestration**.
+
+#### A1. Voice Agent configuration appears to have five explicit areas
+
+File: [settings-page example](https://github.com/servicetitan/anvil2-docs-live-code/blob/main/examples/block-decorative-icon-settings-page/src/App.tsx)
+
+The `settingsPageSections` array names:
+
+1. **Persona** — brand identity and foundational knowledge.
+2. **Conversation Flow** — interaction logic and specialized responses for scenarios.
+3. **Rules** — permissions for actions such as booking jobs and processing payments.
+4. **Job Types and Fees** — job types, dispatch fees, and how fees are communicated.
+5. **Escalations and Fallbacks** — transition from Voice Agent to human support.
+
+This is the strongest direct Voice Agent clue in the organization outside public product marketing. It implies that customer/tenant configuration is separated into persona, flow, action permissions, domain-specific booking/fee configuration, and escalation/fallback behavior. The file only renders section cards with `Edit` buttons that log to the console; it does not show how those settings are stored, versioned, evaluated, or enforced.
+
+#### A2. Navigation suggests the broader assistant/product surface
+
+Files: [full-page navigation example](https://github.com/servicetitan/anvil2-docs-live-code/blob/main/examples/block-global-navigation-full-page/src/App.tsx) and [admin navigation example](https://github.com/servicetitan/anvil2-docs-live-code/blob/main/examples/block-global-navigation-admin-full-page/src/App.tsx)
+
+The navigation examples include **Agent Settings**, **Agent Workflows**, **Interactions**, **Calls**, **Bookings**, **Call Analytics**, and **Insights**, alongside operational areas such as AR Management, Invoices, and Customer Payments. This suggests the product experience is not just a voice endpoint: it includes configuration, workflows, interaction/call review, booking outcomes, and analytics. Since these are navigation mockups, they do not establish which sections are shipped, enabled for every tenant, or backed by a particular service.
+
+#### A3. The AI Kit examples make action visibility a first-class UX pattern
+
+Files: [ActionLog example](https://github.com/servicetitan/anvil2-docs-live-code/blob/main/examples/ai-kit-action-log/src/App.tsx), [labeled evidence disclosure](https://github.com/servicetitan/anvil2-docs-live-code/blob/main/examples/ai-kit-evidence-disclosure-labeled-do/src/App.tsx), and [response-first evidence disclosure](https://github.com/servicetitan/anvil2-docs-live-code/blob/main/examples/ai-kit-evidence-disclosure-response-first-do/src/App.tsx)
+
+The examples represent work as discrete steps with IDs, titles, statuses such as `success` and `in-progress`, and optional descriptions. One example shows “Looked up the customer account” followed by “Pulled the last 20 invoices”; another pairs an action log with the user-facing answer. Separate variants explicitly compare labeled vs. unlabeled evidence disclosure and response-first vs. other layouts.
+
+**Engineering implication:** the visible product pattern favors a user-facing answer plus an inspectable summary of what was checked or done. For our onboarding, this supports teaching traces/action logs as an auditable record of tool activity, not as a dump of hidden chain-of-thought. The examples do not show a backend trace schema, tool payloads, trace IDs, persistence, or how the displayed steps are generated.
+
+#### A4. Human-escalation examples encode a detailed boundary taxonomy
+
+These are especially valuable. The repository contains separate examples for different escalation reasons, including:
+
+| Example | What the sample demonstrates | System-design lesson |
+|---|---|---|
+| [Blocking escalation](https://github.com/servicetitan/anvil2-docs-live-code/blob/main/examples/ai-kit-patterns-human-escalation-blocking/src/App.tsx) | Explain why a connector/repository cannot be accessed, disclose the access gap, and offer concrete next steps | Do not pretend access; report blockers and give recovery options |
+| [Backdated invoice](https://github.com/servicetitan/anvil2-docs-live-code/blob/main/examples/ai-kit-patterns-human-escalation-backdated-invoice/src/App.tsx) | Refuse a request to falsify invoice dates; offer an accurate alternative | Integrity/business-rule refusals should be specific and redirect to a safe action |
+| [Another role](https://github.com/servicetitan/anvil2-docs-live-code/blob/main/examples/ai-kit-patterns-human-escalation-another-role/src/App.tsx) | CSR can see an invoice but cannot void it; the action belongs to Accounting; assistant drafts a handoff message | Read permission and write/action permission are distinct; handoff should preserve context |
+| [Credit limit](https://github.com/servicetitan/anvil2-docs-live-code/blob/main/examples/ai-kit-patterns-human-escalation-credit-limit/src/App.tsx) | $350 credit exceeds a $200 per-incident authority cap; offer partial action plus approval or one approval request | Encode quantitative authorization limits; approval should be explicit |
+| [Tenant setting](https://github.com/servicetitan/anvil2-docs-live-code/blob/main/examples/ai-kit-patterns-human-escalation-tenant-setting/src/App.tsx) | Feature is disabled tenant-wide; only Tenant Owner/IT Admin can change it | Distinguish tenant-level policy/configuration from an individual user's role |
+| [ServiceTitan permission](https://github.com/servicetitan/anvil2-docs-live-code/blob/main/examples/ai-kit-patterns-human-escalation-servicetitan-permission/src/App.tsx) | A feature flag is controlled by ServiceTitan, not the tenant; assistant offers to contact Support | Distinguish tenant authority from vendor-side feature enablement |
+| [Other tenant](https://github.com/servicetitan/anvil2-docs-live-code/blob/main/examples/ai-kit-patterns-human-escalation-other-tenant/src/App.tsx) | A broader search cannot cross tenant boundaries | Tenant isolation is a hard authorization boundary, not a prompt preference |
+| [Malicious intent](https://github.com/servicetitan/anvil2-docs-live-code/blob/main/examples/ai-kit-patterns-human-escalation-malicious-intent/src/App.tsx) | A claimed “authorized test” does not override tenant isolation | User assertions must not grant privileges; authorization comes from system policy |
+| [Stale guidance](https://github.com/servicetitan/anvil2-docs-live-code/blob/main/examples/ai-kit-patterns-human-escalation-stale-guidance/src/App.tsx) | The known answer may have been invalidated by a recent product change; hold final advice and ask to confirm | Knowledge needs freshness/provenance; uncertainty should trigger verification before consequential actions |
+| [Uncertain context](https://github.com/servicetitan/anvil2-docs-live-code/blob/main/examples/ai-kit-patterns-human-escalation-uncertain-context/src/App.tsx) | A plausible answer is labeled unconfirmed against recent policy changes | Make confidence and unresolved caveats visible; allow user-directed verification when appropriate |
+| [Disputed result](https://github.com/servicetitan/anvil2-docs-live-code/blob/main/examples/ai-kit-patterns-human-escalation-disputed-result/src/App.tsx) | System has a send confirmation but cannot verify final delivery; records customer dispute as a delivery gap | Distinguish tool acceptance from end-to-end outcome; log discrepancies rather than inventing certainty |
+| [Service degradation](https://github.com/servicetitan/anvil2-docs-live-code/blob/main/examples/ai-kit-patterns-human-escalation-service-degradation/src/App.tsx) | Slow responses are treated as possible platform degradation; avoid making the user wait on likely timeouts | Have explicit degraded-service behavior and escalation rather than retrying blindly |
+| [Outside abilities](https://github.com/servicetitan/anvil2-docs-live-code/blob/main/examples/ai-kit-patterns-human-escalation-outside-abilities/src/App.tsx) | Assistant cannot reroute GPS, but can offer a message to the technician or dispatch | Offer the nearest safe supported action rather than pretending to control an unavailable tool |
+| [Legal guidance](https://github.com/servicetitan/anvil2-docs-live-code/blob/main/examples/ai-kit-patterns-human-escalation-legal-guidance/src/App.tsx) | Refuses legal guidance and also avoids recasting it as “what other companies do” | Domain boundaries must survive paraphrasing and follow-up pressure |
+| [Personal topic](https://github.com/servicetitan/anvil2-docs-live-code/blob/main/examples/ai-kit-patterns-human-escalation-personal-topic/src/App.tsx) | After completing a schedule change, assistant responds empathetically to a personal disclosure and offers a manager handoff | Separate task completion from a new user need; use restrained empathy and a relevant handoff |
+| [Song lyrics](https://github.com/servicetitan/anvil2-docs-live-code/blob/main/examples/ai-kit-patterns-human-escalation-song-lyrics/src/App.tsx) | Refuses reproduction of copyrighted lyrics and offers original copy in a similar tone | Refusal should preserve the user's underlying goal with a compliant alternative |
+| [Non-blocking escalation](https://github.com/servicetitan/anvil2-docs-live-code/blob/main/examples/ai-kit-patterns-human-escalation-non-blocking/src/App.tsx) | Shows a partial result when a source is inaccessible, then records which integrations and commands were used | Partial completion and tool-access gaps should be explicit, not silently hidden |
+
+**Important caveat:** these are named example applications with hard-coded dialogue. Their taxonomy is a strong signal of intended UX/pattern coverage, but it is not proof that every rule is enforced in the production agent runtime. In particular, the examples' prose saying an action was “sent,” “submitted,” or “flagged” is illustrative text; the snippets do not call real backend APIs.
+
+#### A5. Prompting is represented as structured user interaction
+
+Files: [AgentPrompt single-step](https://github.com/servicetitan/anvil2-docs-live-code/blob/main/examples/ai-kit-agent-prompt/src/App.tsx), [multi-step](https://github.com/servicetitan/anvil2-docs-live-code/blob/main/examples/ai-kit-agent-prompt-multi-step/src/App.tsx), [free-text](https://github.com/servicetitan/anvil2-docs-live-code/blob/main/examples/ai-kit-agent-prompt-free-text/src/App.tsx), and [transcription prompt bar](https://github.com/servicetitan/anvil2-docs-live-code/blob/main/examples/ai-kit-prompt-bar-transcribing/src/App.tsx)
+
+The UI supports agent-generated questions with selectable options, optional free text, multi-step progression (Back/Next/Send), and transcription states including active waveform and microphone-access error. This is evidence for a human-in-the-loop interaction pattern: the assistant can request a structured decision rather than force all clarification through free-form chat. The transcription example is only a UI state fixture; it contains no ASR implementation.
+
+#### A6. “Atlas” appears as an assistant UI name
+
+The repo includes `@servicetitan/anvil2-ext-atlas` examples for header, footer, content, loader, welcome screen, suggestions, chat window, system errors, and user feedback. One example says “Welcome to Atlas — Your AI Assistant”; another uses “Ask Atlas.” A separate disputed-result sample says “Atlas confirmed send.” This supports that **Atlas is a named assistant experience in these public UI examples**, but does not establish that Atlas is the Voice Agent, how it is orchestrated, or whether the name applies to all AI products.
+
+### B. Recording PWA source-level review
+
+Repository: [servicetitan/recording-PWA-proto](https://github.com/servicetitan/recording-PWA-proto)
+
+Files reviewed: `src/hooks/useAudioRecorder.ts`, `src/services/recordingStorage.ts`, `src/services/platformDetect.ts`, `src/types/recording.ts`, `src/context/RecordingContext.tsx`, `src/components/RecordingControls.tsx`, `src/components/RecordingList.tsx`, `src/App.tsx`, and `package.json`.
+
+What is actually present:
+
+- Browser microphone capture via `getUserMedia` and `MediaRecorder`, with candidate MIME types including WebM/Opus and MP4.
+- Recording states `idle`, `recording`, `paused`, and `interrupted`.
+- One-second MediaRecorder chunks and persistence in IndexedDB stores `recordings` and `chunks`.
+- Segmentation after the page is hidden and microphone reacquisition when visible again.
+- Metadata records duration, MIME type, byte size, `uploaded: false`, and zero-length gap markers for lost audio intervals.
+- Local playback and deletion, plus a storage-quota estimate helper.
+
+What is not present in the inspected repository: a network upload client, transcription/ASR, speech recognition, a backend endpoint, or a sync queue. Searching the repository for `fetch(`, `XMLHttpRequest`, `transcription`, and `speech recognition` found no matching implementation.
+
+**Potential implementation defects found by reading the code:**
+
+1. **Background flush race:** on page hide, the code calls `requestData()` and then immediately persists the current in-memory chunk array. The final data event is asynchronous; later chunks may arrive after the snapshot and then be discarded when the next segment resets `chunksRef.current`. This needs an event-driven flush/stop sequence and a regression test.
+2. **Chunk ordering ambiguity:** `saveChunks()` restarts `chunkIndex` at zero on every batch, while `getChunks()` orders by segment then chunk index. Multiple flushes in one segment can therefore create duplicate sort keys and potentially reorder chunks. A monotonic per-segment counter or explicit sequence ID would be safer.
+3. **Listener cleanup:** `pagehide` is registered using an anonymous function but cleanup removes only `visibilitychange`; repeated mount/unmount can leak listeners.
+4. **Recovery/stop state:** stop controls are disabled while state is `interrupted`, even though that state represents a possible recoverable microphone failure. That may leave a user without an obvious way to finalize the recording after a failed reconnect.
+5. **Quota handling:** quota is measurable but the save path shown does not check it before writing or handle a quota failure with an explicit recovery path.
+6. **No upload lifecycle:** `uploaded` remains false and no code transitions it to true. It should not be interpreted as evidence of an implemented upload feature.
+
+These are code-reading hypotheses; I have not run the app in a browser or validated the race on device. They are useful leads for evaluating the prototype, not evidence of production behavior.
+
+### C. A semantic trap: “agent” in Fusion is not an LLM agent
+
+Files: [AgentInfo.cs](https://github.com/servicetitan/Stl.Fusion/blob/master/src/Stl.Fusion/Operations/AgentInfo.cs), [IOperation.cs](https://github.com/servicetitan/Stl.Fusion/blob/master/src/Stl.Fusion/Operations/IOperation.cs), [OperationCompletionNotifier.cs](https://github.com/servicetitan/Stl.Fusion/blob/master/src/Stl.Fusion/Operations/OperationCompletionNotifier.cs), and [DbOperationLogReader.cs](https://github.com/servicetitan/Stl.Fusion/blob/master/src/Stl.Fusion.EntityFramework/Operations/DbOperationLogReader.cs).
+
+The word `AgentId` appears in Fusion's operation framework. Reading the implementation clarifies that `AgentInfo` generates an ID from machine/process identity plus a local counter; operation notifications use it to distinguish local from remote process work. `DbOperationLogReader` polls newly committed operations, batches work, retries indefinitely with configured delays, and can use file-based or PostgreSQL LISTEN/NOTIFY change tracking (the tutorial also mentions Redis). This is a distributed-process/operation-log concept, **not evidence of multi-LLM-agent orchestration**.
+
+Still useful patterns: explicit operation IDs and origin IDs, deduplication via recently seen IDs, durable operation logs, idempotent invalidation/replay, batching, retry policy, and change notification with periodic reconciliation. These can inform distributed systems design, but they should not be mapped directly to an LLM agent registry or agent-to-agent protocol.
+
+### D. Claude Code Action — read the executable input contract, not just the README
+
+Files: [README](https://github.com/servicetitan/claude-code-action/blob/main/README.md) and [action.yml](https://github.com/servicetitan/claude-code-action/blob/main/action.yml).
+
+The action definition is unusually explicit about risk boundaries: default trigger phrase `@claude`; allowed bots default to none; allowing all bots on public repositories warns that external apps may invoke prompts; allowing non-write users warns about prompt injection; it notes that secret scrubbing is best-effort and does not eliminate risk; `show_full_output` warns logs may contain secrets; and `display_report` warns that model-authored output is only appropriate for trusted input. It also exposes explicit permission configuration and optional commit signing.
+
+This is a strong source for the onboarding's **agent harness / permission boundary** section: trigger filtering, actor trust, minimal permissions, secret isolation, output validation, and review gates. It remains developer tooling, not evidence of the customer-facing voice runtime. The organization contains a public copy/fork of the action; compare it with upstream before attributing every upstream behavior to the current fork.
+
+### E. Updated evidence ranking
+
+1. **Strongest direct product/UX clue:** Anvil2 Voice Agent settings example names Persona, Conversation Flow, Rules, Job Types and Fees, and Escalations/Fallbacks.
+2. **Strongest operational UX clue:** navigation and AI Kit examples name Agent Workflows, Interactions, Calls, Bookings, Call Analytics, Insights, action logs, and evidence-disclosure variants.
+3. **Strongest policy/quality clue:** escalation examples systematically cover authorization, tenant boundaries, money/approval limits, stale information, uncertainty, service degradation, disputed outcomes, and unsupported actions.
+4. **Useful prototype clue:** Field Pro Recorder implements local audio capture and interruption-aware persistence, but no upload/transcription pipeline was found.
+5. **Useful distributed-systems library clue:** Fusion's operation log and RPC machinery illustrate durable change notification and process identity; its `AgentId` is not an AI-agent identifier.
+6. **Useful harness-security clue:** Claude Code Action's `action.yml` makes trust, permissions, prompt injection, and log-secret exposure explicit.
+
+**Still not established:** voice transport/provider, telephony/SIP implementation, ASR/TTS vendors, LLM/provider routing, actual tool schemas, orchestration graph, multi-agent topology, MCP use in production, trace storage format, Kafka/Snowflake usage, and production scheduling transaction semantics. None of the source files reviewed here supplies those internals.
