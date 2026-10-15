@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-10-15
+
+### Max capability map and cross-agent workflows
+
+- Added a source-grounded map of publicly named residential, commercial, and planned roofing Max capabilities, with dated rollout caveats and an explicit boundary around undisclosed internals.
+- Connected the map from the README, topic-first index, Pantheon roadmap, and orchestration chapter; added the sources to the bibliography.
+- Extended Lab 10 with a concurrency/reservation exercise covering stale state, atomic claims, idempotent retries, and approval-gated follow-up actions.
+
 ## 2026-10-14
 
 ### Agent-scale source control
