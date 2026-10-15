@@ -13,7 +13,7 @@ import nbformat
 
 REPO = "sp7412/onboarding"
 SECRET_KEYS = ("OPENAI_API_KEY", "LANGSMITH_API_KEY", "LIVEKIT_URL", "LIVEKIT_API_KEY",
-               "LIVEKIT_API_SECRET")
+               "LIVEKIT_API_SECRET", "JEVMODEL_API_KEY")
 # Packages each lab needs beyond Colab's preinstalled stack (numpy, pandas, matplotlib, ...).
 # Keep these minimal: installing all of requirements.txt is slow and can replace Colab's own
 # versions mid-session.
