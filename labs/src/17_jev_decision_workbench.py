@@ -19,12 +19,6 @@
 # Primary reference: https://jevmodel.org/docs/
 # Companion guide: ../docs/jev-call-intent-classification.md
 
-# %% [markdown]
-# [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sp7412/onboarding/blob/main/labs/17_jev_decision_workbench.ipynb)
-#
-# Colab uses the Python standard library; no installation is required. For live mode, add
-# JEVMODEL_API_KEY under Colab Secrets and allow notebook access. Never commit API keys.
-
 # %%
 import json
 import os
