@@ -14,6 +14,8 @@ AI coding agents change the shape of source-control demand. One engineer can lau
 
 Anthropic's **Scion** is a purpose-built, in-house version-control system for an unusually large monorepo where most clients are online agents and jobs. It changes the client/server boundary and does not aim to be a general Git-compatible replacement.
 
+**Release status (checked October 14, 2026):** Anthropic's article describes the design and operating results; it does not publish Scion's source code, a download, or an open-source license. The article says the internal components are highly bespoke and questions whether a public version would be useful. The Register likewise reports that there will be no open-source release. Treat Anthropic Scion as an internal system, not a platform you can install. Be careful with name collisions: Google's open-source `Scion` is an AI-agent orchestration platform, not Anthropic's version-control system; any independent VCS implementation inspired by Anthropic's post is also separate and unaffiliated.
+
 GitLab's **next-generation source code management (SCM)** redesigns the backend and adds agent-facing interfaces while preserving the Git protocol and integrating with GitLab's merge requests, CI/CD, security, and governance. At the time of the article, next-gen SCM was in private beta.
 
 The practical distinction is **specialized redesign versus evolutionary compatibility**. Scion can optimize aggressively for Anthropic's workload because Anthropic can replace adjacent systems too. GitLab's approach has a broader adoption path for organizations that need to keep existing Git clients, integrations, policies, and operational practices.
@@ -187,6 +189,8 @@ Source-control internals are a specialized domain, but the architectural pattern
 ## Sources and caveats
 
 - Anthropic, [Redesigning source control at Anthropic](https://www.anthropic.com/engineering/redesigning-source-control), October 13, 2026. Primary source for Scion's architecture, internal results, and limitations.
+- The Register, [Anthropic reinvents source control as Claude floods the world with code](https://www.theregister.com/devops/2026/10/13/anthropic-reinvents-source-control-as-claude-floods-the-world-with-code/5302943), October 13, 2026. Secondary reporting on the absence of an open-source release.
+- Google Cloud Platform, [Scion overview](https://googlecloudplatform.github.io/scion/overview/). A separate open-source agent-orchestration project with the same name; not Anthropic's VCS.
 - GitLab, [Scaling Git for the agentic software factory](https://about.gitlab.com/blog/scaling-git-for-the-agentic-software-factory/), October 13, 2026. Primary source for next-gen SCM's stated architecture, performance claims, roadmap, and private-beta status.
 - GitLab, [Git was built for humans — agents need an upgrade](https://about.gitlab.com/blog/gitlab-next-gen-scm/), August 26, 2026. Additional architectural context for agent-facing interfaces and the backend.
 - All performance figures are vendor-reported and workload-specific. No direct, controlled Scion-versus-GitLab benchmark is established by these sources.
