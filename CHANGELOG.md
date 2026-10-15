@@ -2,6 +2,16 @@
 
 ## 2026-10-15
 
+### Voice-agent test scenario prompts and grading contracts
+
+- Added a “food for thought” section on versioned caller prompts, hidden evaluator
+  contracts, initial-state fixtures, fault injection, and reproducible run manifests.
+- Included a fictional scheduling example and a starter matrix for task completion,
+  ambiguity, audio/turn-taking, tool failures, policy, and adversarial requests.
+- Emphasized separate audio conditions, deterministic state assertions, layered metrics,
+  and distinct regression/discovery/holdout datasets; framed 20–30 scenarios as a
+  practical starting milestone rather than a universal benchmark.
+
 ### Production voice-agent benchmark architecture
 
 - Added an end-to-end benchmark and regression architecture diagram covering
