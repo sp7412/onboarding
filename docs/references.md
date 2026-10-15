@@ -336,3 +336,12 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [τ²-bench (tau2-bench)](https://github.com/sierra-research/tau2-bench) | Current tool-use benchmark | Realtime voice-agent evaluation |
 | [Original τ-bench](https://github.com/sierra-research/tau-bench) | Older benchmark implementation | Historical reference |
 
+
+
+## Agent-scale source control
+
+| Source | Type | Cited in |
+|---|---|---|
+| [Anthropic: Redesigning source control at Anthropic](https://www.anthropic.com/engineering/redesigning-source-control) | Engineering article | [Agent-scale source control](agent-scale-source-control.md) |
+| [GitLab: Scaling Git for the agentic software factory](https://about.gitlab.com/blog/scaling-git-for-the-agentic-software-factory/) | Engineering article | [Agent-scale source control](agent-scale-source-control.md) |
+| [GitLab: Git was built for humans — agents need an upgrade](https://about.gitlab.com/blog/gitlab-next-gen-scm/) | Engineering article | [Agent-scale source control](agent-scale-source-control.md) |
