@@ -2,6 +2,17 @@
 
 ## 2026-10-15
 
+### Production voice-agent benchmark architecture
+
+- Added an end-to-end benchmark and regression architecture diagram covering
+  versioned scenarios, audio simulation, production-equivalent agent execution,
+  sandbox business APIs, trace collection, deterministic assertions, baseline
+  comparison, release gates, canaries, and failure mining.
+- Documented CI/nightly/canary evaluation loops, reproducibility manifests, frozen
+  regression/discovery/holdout sets, hard safety gates, statistical comparisons, and
+  trace-based regression attribution.
+
+
 ### ServiceTitan public GitHub review
 
 - Reviewed the public organization inventory (31 repositories in the captured listing) and added a detailed classification and deep dives on Stl.Fusion, its samples, LazyProxy, Claude Code Action, AzureChatGPT, recording-PWA-proto, and API/schema tooling.
