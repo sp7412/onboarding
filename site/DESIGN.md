@@ -41,24 +41,32 @@ with the file name and the expectation that broke.
 
 ## 2. Design tokens
 
-### Colors (WCAG AA on all text; contrast ratios against `--navy` base unless noted)
+### Colors (ServiceTitan-aligned dark UI; validate text pairs against WCAG AA)
+
+This site uses the published ServiceTitan brand palette as its starting point, adapted
+for a dark engineering documentation experience. These are official brand hex values,
+not a claim that the live marketing site uses this exact dark-mode combination.
 
 | Token | Hex | Role |
 |---|---|---|
-| `--navy` | `#0A1224` | page background (base) |
-| `--panel` | `#111C33` | cards, deep panels |
-| `--panel-edge` | `#1E2C4F` | borders, dividers |
-| `--blue` | `#3E7BFF` | electric blue: primary actions, active path |
-| `--cyan` | `#37E0FF` | cyan glow: highlights, focus, links |
-| `--green` | `#4ADE80` | success: progress rings, checked items (AA on navy for text ≥ 16px; use `#2FA860`-darkened fills behind white text) |
-| `--gold` | `#F5C044` | warm gold: achievements, trophy |
-| `--ink` | `#E8EEFA` | body text on navy (14.8:1) |
-| `--ink-dim` | `#A8B5D1` | secondary text (7.4:1) |
-| `--danger` | `#FF7A6B` | failure states in simulations (5.6:1) |
+| `--navy` | `#17191C` | graphite page background (official Darkest) |
+| `--panel` | `#22252A` | raised surfaces (official Dark) |
+| `--panel-edge` | `#444445` | borders and dividers (official gray neutral) |
+| `--blue` | `#0265DC` | primary actions and active path (Titan Blue) |
+| `--cyan` | `#6DBAF8` | links, focus indicators, restrained accents (Skyline; legacy token name) |
+| `--green` | `#49CC93` | positive status and progress (official Green) |
+| `--gold` | `#FFE278` | warning and achievement accents (official Yellow) |
+| `--ink` | `#FFFFFF` | primary text (White/Surrender) |
+| `--ink-dim` | `#BCBCBD` | secondary text (official gray neutral) |
+| `--danger` | `#E24F4F` | critical status (official Critical red) |
 
-Text never sits on raw gradients; if a glow sits behind text it is at ≤ 12% opacity or
-backed by `--panel`. Buttons: `--blue` fill with `#FFFFFF` text (4.6:1). Links: `--cyan`
-on navy (11.6:1).
+Use Titan Blue for primary actions with white labels. Use Skyline for text links and focus
+indicators on graphite; reserve the brighter brand colors for status rather than long
+paragraphs. Keep the UI flat and calm: no neon cyan, large radial glows, or gradients
+behind content. Critical red is best used for icons, borders, and status cues; verify
+any red text or filled alert treatment against WCAG AA before shipping. Normal text
+should meet 4.5:1 contrast and large text 3:1, per WCAG 2.2 AA. Automated static
+contrast checks are a guardrail, not a replacement for rendered-page testing.
 
 ### Type (two OFL options, self-hosted; decision in Phase 1 after rendering both)
 
@@ -76,8 +84,8 @@ Sentence case everywhere; no all-caps eyebrow labels.
 
 4-point scale: `--s1: 4px · --s2: 8px · --s3: 12px · --s4: 16px · --s6: 24px ·
 --s8: 32px · --s12: 48px · --s16: 64px`. Radii: `--r1: 6px` (inputs), `--r2: 12px`
-(cards), `--r3: 20px` (panels). One shadow: `0 0 24px rgba(55,224,255,.18)` reserved
-for the active journey node and focused elements.
+(cards), `--r3: 20px` (panels). Shadows are avoided for ordinary UI; use borders,
+spacing, and restrained color accents to communicate hierarchy.
 
 ### Motion
 
@@ -202,9 +210,9 @@ on the hero title. Files:
 
 | File | Content (sketch in words) |
 |---|---|
-| `hero-banner.svg` | Wide 1440×480: deep navy field; 5 circuit traces enter from the left edge with elbow bends, cross small via-pads, and converge into a large bright central node (concentric cyan rings, soft glow) right of center; faint grid dots; the hero title is the only text. Small figure silhouettes omitted here — they live on the map. |
-| `journey-map-bg.svg` | 1440×760: a stepped rising path from bottom-left to top-right, drawn as parallel glowing lines (electric blue core, cyan halo) with rounded switchbacks like a PCB trace; faint horizontal scan lines; subtle vignette so foreground nodes pop. Node positions are fixed anchors the home page overlays. |
-| `icon-*.svg` ×16 | Circular badges, 96×96, ring + glyph: plan (clipboard), labs (flask), reading (book), podcasts (mic), whitepaper (document), templates (layers), notes (pencil), glossary (abc-cards), architecture (nodes-and-edges), guardrails (shield), evaluation (checklist-in-target), latency (stopwatch), telephony (handset), compliance (scales), milestone (flag), trophy. Glyphs stroke-based, 2.5 px, cyan/blue on panel circle; gold variant class for earned state. |
+| `hero-banner.svg` | Wide 1440×480: graphite field; 5 circuit traces enter from the left edge with elbow bends, cross small via-pads, and converge into a Titan Blue central node with restrained Skyline accents; faint grid dots; the hero title is the only text. Small figure silhouettes omitted here — they live on the map. |
+| `journey-map-bg.svg` | 1440×760: a stepped rising path from bottom-left to top-right, drawn as parallel lines in Titan Blue with restrained Skyline accents with rounded switchbacks like a PCB trace; faint horizontal scan lines; subtle vignette so foreground nodes pop. Node positions are fixed anchors the home page overlays. |
+| `icon-*.svg` ×16 | Circular badges, 96×96, ring + glyph: plan (clipboard), labs (flask), reading (book), podcasts (mic), whitepaper (document), templates (layers), notes (pencil), glossary (abc-cards), architecture (nodes-and-edges), guardrails (shield), evaluation (checklist-in-target), latency (stopwatch), telephony (handset), compliance (scales), milestone (flag), trophy. Glyphs stroke-based, 2.5 px, Skyline/Titan Blue on panel circle; yellow variant class for earned state. |
 
 Icon set covers: plan, labs, reading, podcasts, whitepaper, templates, notes, glossary,
 architecture, guardrails, evaluation, latency, telephony, compliance, milestone, trophy

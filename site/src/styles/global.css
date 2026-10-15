@@ -1,4 +1,4 @@
-/* Design tokens — see site/DESIGN.md §2. Dark-only theme. */
+/* Design tokens — see site/DESIGN.md §2. ServiceTitan-aligned dark theme. */
 
 @import "@fontsource/space-grotesk/500.css";
 @import "@fontsource/space-grotesk/700.css";
@@ -6,17 +6,17 @@
 @import "@fontsource/ibm-plex-sans/600.css";
 
 :root {
-  /* Named color tokens (DESIGN.md §2) */
-  --navy: #0a1224;
-  --panel: #111c33;
-  --panel-edge: #1e2c4f;
-  --blue: #3e7bff;
-  --cyan: #37e0ff;
-  --green: #4ade80;
-  --gold: #f5c044;
-  --ink: #e8eefa;
-  --ink-dim: #a8b5d1;
-  --danger: #ff7a6b;
+  /* ServiceTitan brand palette, adapted for a dark technical documentation UI. */
+  --navy: #17191c;
+  --panel: #22252a;
+  --panel-edge: #444445;
+  --blue: #0265dc;
+  --cyan: #6dbaf8; /* Skyline: kept as a token alias to avoid broad selector churn. */
+  --green: #49cc93;
+  --gold: #ffe278;
+  --ink: #ffffff;
+  --ink-dim: #bcbcbD;
+  --danger: #e24f4f;
 
   /* Spacing scale */
   --s1: 4px;
@@ -28,11 +28,11 @@
   --s12: 48px;
   --s16: 64px;
 
-  /* Radii + glow */
+  /* Radii + restrained effects: no neon glow on a reading-focused site. */
   --r1: 6px;
   --r2: 12px;
   --r3: 20px;
-  --glow: 0 0 24px rgba(55, 224, 255, 0.18);
+  --glow: none;
 
   --font-head: "Space Grotesk", "IBM Plex Sans", system-ui, sans-serif;
   --font-body: "IBM Plex Sans", system-ui, sans-serif;
@@ -50,13 +50,6 @@ html {
 body {
   margin: 0;
   background: var(--navy);
-  /* Faint top light — ≤12% opacity glow, never under raw text blocks (DESIGN.md §2) */
-  background-image: radial-gradient(
-    1100px 420px at 50% -140px,
-    rgba(62, 123, 255, 0.12),
-    transparent 70%
-  );
-  background-repeat: no-repeat;
   color: var(--ink);
   font-family: var(--font-body);
   font-size: 16px;
@@ -75,12 +68,13 @@ h1, h2, h3, h4 {
 
 a {
   color: var(--cyan);
-  text-decoration-color: color-mix(in srgb, var(--cyan) 45%, transparent);
+  text-decoration-color: color-mix(in srgb, var(--cyan) 65%, transparent);
   text-underline-offset: 3px;
 }
 
 a:hover {
-  text-decoration-color: var(--cyan);
+  color: #a8d7ff;
+  text-decoration-color: currentColor;
 }
 
 a:focus-visible,
@@ -140,17 +134,18 @@ pre code {
   font-size: 0.95rem;
   color: #ffffff;
   background: var(--blue);
-  border: 1px solid color-mix(in srgb, var(--blue) 70%, #ffffff 12%);
+  border: 1px solid var(--blue);
   border-radius: var(--r2);
   padding: var(--s2) var(--s4);
   cursor: pointer;
   text-decoration: none;
-  transition: box-shadow 160ms ease, transform 160ms ease, background 160ms ease;
+  transition: transform 160ms ease, background 160ms ease;
 }
 
 .btn:hover {
-  background: color-mix(in srgb, var(--blue) 85%, #ffffff 8%);
-  box-shadow: var(--glow);
+  background: #1b5abe;
+  color: #ffffff;
+  box-shadow: none;
 }
 
 .btn.btn-secondary {
@@ -160,8 +155,9 @@ pre code {
 }
 
 .btn.btn-secondary:hover {
+  background: #2c3036;
   border-color: var(--cyan);
-  box-shadow: var(--glow);
+  box-shadow: none;
 }
 
 .tag {
@@ -259,7 +255,7 @@ pre code {
 /* ---------- Jargon tooltips (first use per page) ---------- */
 .jargon {
   position: relative;
-  border-bottom: 1px dashed color-mix(in srgb, var(--cyan) 60%, transparent);
+  border-bottom: 1px dashed color-mix(in srgb, var(--cyan) 70%, transparent);
   cursor: help;
 }
 .jargon:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; border-radius: 2px; }
@@ -273,7 +269,7 @@ pre code {
   padding: 8px 11px;
   border-radius: var(--r1);
   border: 1px solid var(--panel-edge);
-  background: #0d1834;
+  background: var(--panel);
   color: var(--ink);
   font-size: 0.85rem;
   line-height: 1.45;
