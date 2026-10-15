@@ -2,6 +2,13 @@
 
 ## 2026-10-15
 
+### ServiceTitan public GitHub review
+
+- Reviewed the public organization inventory (31 repositories in the captured listing) and added a detailed classification and deep dives on Stl.Fusion, its samples, LazyProxy, Claude Code Action, AzureChatGPT, recording-PWA-proto, and API/schema tooling.
+- Distinguished documented repository behavior from engineering inference; explicitly recorded that the reviewed public inventory does not expose a clearly identified production Voice Agent implementation.
+- Linked the review from the README, topic-first index, and bibliography; documented scope and limitations so public code is not misrepresented as internal architecture.
+
+
 
 ### Voice-agent product evidence
 
