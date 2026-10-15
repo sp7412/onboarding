@@ -25,6 +25,89 @@ and a clean transcript does not prove that the model heard the audio correctly. 
 transcripts and traces for scalable grading, preserve the original audio where approved,
 and periodically audit sessions end to end.
 
+## Production benchmark and regression architecture
+
+Use one versioned scenario contract across local development, CI, nightly evaluation,
+staging, and production monitoring. The goal is not just to produce a score; it is to
+identify which layer regressed and preserve a reproducible case for the next run.
+
+```mermaid
+flowchart TD
+    A["Versioned evaluation dataset"] --> B["Scenario runner"]
+    B --> C["Audio / telephony simulator"]
+    C --> D["Production-equivalent agent stack"]
+    D --> E["Voice model + orchestrator"]
+    E --> F["Mock or sandbox business APIs"]
+    F --> G["State and side-effect verifier"]
+    D --> H["Trace collector"]
+    G --> I["Deterministic assertions"]
+    H --> I
+    I --> J["Metrics + failure classifier"]
+    J --> K["Baseline comparison"]
+    K --> L{"Regression gates"}
+    L -->|Pass| M["Merge / deploy candidate"]
+    L -->|Fail| N["Block and diagnose"]
+    M --> O["Small production canary"]
+    O --> P["Live outcome and latency monitoring"]
+    P --> Q["Review and minimize failure cases"]
+    Q --> A
+```
+
+### Three complementary evaluation loops
+
+- **Pull-request CI:** run a fast, deterministic critical suite for every relevant
+  change to prompts, model configuration, VAD/endpointing, tool schemas, orchestration,
+  or dependencies.
+- **Nightly evaluation:** run the broader audio, multi-turn, fault-injection, repeated
+  stochastic, and load-test suites. Keep load testing separate from task correctness.
+- **Production canary and monitoring:** compare a candidate against a control using
+  predefined safety, task-outcome, latency, transfer, abandonment, and cost metrics.
+  Shadow mode must not execute side effects or alter live routing.
+
+### Make the run reproducible
+
+Record a run manifest with the scenario-suite version and hash, runner commit, pinned
+model identifier (or provider alias and evaluation timestamp if pinning is unavailable),
+prompt/configuration hashes, tool-schema version, orchestration commit, audio profile,
+region, concurrency, fixture versions, random seed where supported, and grader version.
+Store per-scenario outcomes and traces—not only aggregate scores.
+
+Keep three datasets separate:
+
+- **Frozen regression set:** reviewed historical failures and critical workflows; do
+  not rewrite it just to make a candidate pass.
+- **Rolling discovery set:** newly observed failures and near misses, reproduced and
+  reviewed before promotion into the frozen set.
+- **Holdout set:** cases not used to tune prompts, thresholds, or graders; run
+  periodically to detect overfitting.
+
+### Release gates and regression attribution
+
+Use hard gates for critical safety invariants and statistical gates for quality metrics.
+For example, a critical regression suite should reject unauthorized side effects,
+duplicate mutations, and false confirmations even if the aggregate score improves.
+For task success and latency, define tolerances from a measured baseline and product
+risk; compare the same scenario IDs and report sample counts and confidence intervals.
+Do not interpret repeated runs of one scenario as independent customer calls.
+
+A useful initial gate set includes:
+
+- No critical false confirmations or unauthorized mutations in the critical suite.
+- No duplicate effective writes in retry and timeout scenarios.
+- Task success remains within its agreed absolute-degradation tolerance.
+- p95 and p99 latency remain within the agreed budget.
+- Required escalation and handoff behavior does not materially regress.
+- Cost per successfully resolved task stays within the approved budget.
+
+For paired binary outcomes, consider McNemar's test when its assumptions apply. For
+latency, compare paired per-scenario differences and use suitable confidence intervals.
+If evidence is inconclusive, increase the sample size rather than treating noise as a
+pass or fail.
+
+Classify each failure by layer—audio/endpointing, model interpretation, orchestration,
+tool execution, authoritative state, or spoken confirmation—before changing the prompt
+or swapping the model. The trace should make the root cause diagnosable.
+
 ## Build evaluation complexity in stages
 
 Use the OpenAI Cookbook's **Crawl → Walk → Run** progression. Keep test inputs and
