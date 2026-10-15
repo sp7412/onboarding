@@ -343,7 +343,7 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | Source | Type | Cited in |
 |---|---|---|
 | [ServiceTitan: Pantheon 2026 live coverage](https://www.servicetitan.com/blog/pantheon-2026-live-coverage) | Company live blog / keynote coverage | [Max public capability map](max-capability-map.md), [Pantheon roadmap](pantheon-2026-ai-roadmap.md) |
-| [ServiceTitan: New and expanded capabilities at Pantheon 2026](https://www.servicetitan.com/news/servicetitan-announcing-new-and-expanded-capabilities-at-pantheon-2026) | Company press release | [Max public capability map](max-capability-map.md) |
+| [ServiceTitan: New and expanded capabilities at Pantheon 2026](https://www.globenewswire.com/news-release/2026/10/06/3375320/0/en/servicetitan-announcing-new-and-expanded-capabilities-at-pantheon-2026.html) | Company press release | [Max public capability map](max-capability-map.md) |
 | [ServiceTitan Max Help Center](https://help.servicetitan.com/v1/docs/servicetitan-max) | Product documentation | [Max public capability map](max-capability-map.md) |
 | [Construction Metrics: commercial Max pilot](https://constructionmetrics.com/2026/10/11/servicetitan-max-pilot-commercial-daily-log-invoice/) | Industry reporting | [Max public capability map](max-capability-map.md) |
 
