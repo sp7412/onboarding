@@ -15,6 +15,7 @@ Other notable findings:
 - **LazyProxy family:** .NET dependency-injection utilities that defer service construction. Useful for thinking about startup and object-graph costs; not an agent framework.
 - **Claude Code Action:** AI coding automation for PRs/issues, code review, implementation, and structured outputs. Relevant to developer tooling and automation safety, not evidence of a customer-facing voice runtime.
 - **AzureChatGPT:** a solution accelerator for private enterprise chat over Azure OpenAI and internal data. Historical architecture background, not proof of current internal deployment.
+- **Moltbot/OpenClaw fork:** contains an inspectable public voice-call extension with Twilio/Telnyx/Plivo adapters, OpenAI Realtime transcription, TTS queues, barge-in, and normalized call events. It is upstream-derived and is not evidence of ServiceTitan's production architecture.
 - **Recording PWA prototype:** source inspection found a Field Pro Recorder with local browser audio capture, IndexedDB chunk persistence, and background-interruption recovery. It has no upload/ASR path in the inspected code; I also identified untested data-loss and cleanup risks.
 - **Forks and general-purpose libraries:** much of the organization consists of inherited open-source tooling, schema/code-generation libraries, SDKs, and web infrastructure. A repository under the organization is not automatically a ServiceTitan-authored product.
 
@@ -22,7 +23,7 @@ Other notable findings:
 
 I used the public organization repository listing and GitHub repository search, inspected README/documentation or project metadata for the most relevant projects, and searched for voice-agent, agent, AI, and MCP-related evidence. The organization listing showed **31 public repositories** in the snapshot captured for this review. Repository listings and code evolve; this is a dated snapshot, not a permanent inventory.
 
-This is a **source review, not a full line-by-line security audit of all 31 repositories**. Deeper review focused on Fusion, Fusion Samples, the LazyProxy family, Claude Code Action, AzureChatGPT, the recording PWA prototype, and selected API/schema tooling. Remaining repositories were classified from public metadata and available README information. A negative search result means I did not find public evidence in the reviewed material; it does not prove that no private implementation exists.
+This is a **source review, not a full line-by-line security audit of all 31 repositories**. Deeper review focused on Anvil2's Voice Agent/AI Kit examples, the Moltbot voice-call extension and selected commit history, the recording PWA implementation, Fusion operation internals/tutorials, Claude Code Action's executable contract/security/configuration docs, the LazyProxy family, AzureChatGPT, and selected API/schema tooling. Remaining repositories were classified from public metadata and available README information. A negative search result means I did not find public evidence in the reviewed material; it does not prove that no private implementation exists.
 
 ## Deep review
 
@@ -330,12 +331,13 @@ This is a strong source for the onboarding's **agent harness / permission bounda
 
 ### E. Updated evidence ranking
 
-1. **Strongest direct product/UX clue:** Anvil2 Voice Agent settings example names Persona, Conversation Flow, Rules, Job Types and Fees, and Escalations/Fallbacks.
-2. **Strongest operational UX clue:** navigation and AI Kit examples name Agent Workflows, Interactions, Calls, Bookings, Call Analytics, Insights, action logs, and evidence-disclosure variants.
-3. **Strongest policy/quality clue:** escalation examples systematically cover authorization, tenant boundaries, money/approval limits, stale information, uncertainty, service degradation, disputed outcomes, and unsupported actions.
-4. **Useful prototype clue:** Field Pro Recorder implements local audio capture and interruption-aware persistence, but no upload/transcription pipeline was found.
-5. **Useful distributed-systems library clue:** Fusion's operation log and RPC machinery illustrate durable change notification and process identity; its `AgentId` is not an AI-agent identifier.
-6. **Useful harness-security clue:** Claude Code Action's `action.yml` makes trust, permissions, prompt injection, and log-secret exposure explicit.
+1. **Strongest direct product/UX clue:** Anvil2 Voice Agent settings names Persona, Conversation Flow, Rules, Job Types and Fees, and Escalations/Fallbacks.
+2. **Strongest concrete voice-code reference:** the Moltbot/OpenClaw fork contains telephony adapters, streaming STT, TTS, barge-in, call lifecycle events, and webhook controls, but is upstream-derived rather than ServiceTitan-specific.
+3. **Strongest operational UX clue:** Anvil2 examples name Agent Workflows, Interactions, Calls, Bookings, Call Analytics, Insights, action logs, and evidence-disclosure variants.
+4. **Strongest policy/quality clue:** escalation examples cover authorization, tenant boundaries, money/approval limits, stale information, uncertainty, service degradation, disputed outcomes, and unsupported actions.
+5. **Useful prototype clue:** Field Pro Recorder implements local audio capture and interruption-aware persistence, but no upload/transcription pipeline was found.
+6. **Useful distributed-systems library clue:** Fusion's operation log and RPC machinery illustrate durable change notification and process identity; its `AgentId` is not an AI-agent identifier.
+7. **Useful harness-security clue:** Claude Code Action's `action.yml` makes trust, permissions, prompt injection, and log-secret exposure explicit.
 
 **Still not established:** voice transport/provider, telephony/SIP implementation, ASR/TTS vendors, LLM/provider routing, actual tool schemas, orchestration graph, multi-agent topology, MCP use in production, trace storage format, Kafka/Snowflake usage, and production scheduling transaction semantics. None of the source files reviewed here supplies those internals.
 
