@@ -15,7 +15,7 @@ from nbclient import NotebookClient
 from nbclient.exceptions import DeadKernelError
 
 LABS = Path(__file__).resolve().parents[1] / "labs"
-KEY_VARS = ["OPENAI_API_KEY", "LANGSMITH_API_KEY", "LIVEKIT_URL", "LIVEKIT_API_KEY", "LIVEKIT_API_SECRET"]
+KEY_VARS = ["OPENAI_API_KEY", "LANGSMITH_API_KEY", "LIVEKIT_URL", "LIVEKIT_API_KEY", "LIVEKIT_API_SECRET", "JEVMODEL_API_KEY"]
 
 
 def _summary(exc: BaseException) -> str:
