@@ -168,7 +168,7 @@ ServiceTitan publicly describes Max as a coordinated system of **30 agents acros
 
 The keynote also described a learning loop in which outcomes are tied back to the decisions that produced them.
 
-See the repo's [Pantheon 2026 AI roadmap](../pantheon-2026-ai-roadmap.md) for the source-by-source treatment.
+See the repo's [Pantheon 2026 AI roadmap](../pantheon-2026-ai-roadmap.md) for the source-by-source treatment and the [Max public capability map](../max-capability-map.md) for named capabilities, rollout caveats, and cross-agent workflow examples. The capability map deliberately does not claim to enumerate all 30 agents or reconstruct the private runtime.
 
 ### Public claim: shared context
 
@@ -1191,7 +1191,7 @@ ServiceTitan has publicly described:
 - capacity-aware booking;
 - voice intelligence as a separate evaluation/judging capability.
 
-These are the public product/architecture claims that motivate the orchestration model in this chapter.
+These are the public product/architecture claims that motivate the orchestration model in this chapter. Publicly named examples now extend beyond residential demand, booking, and dispatch: commercial coverage includes a Daily Log Agent, invoice review, site-walk/finding write-ups, an Equipment Agent, and a Findings Agent; the announcement also distinguishes several commercial/roofing capabilities as coming soon or planned. See the [Max public capability map](../max-capability-map.md) for the source-backed capability matrix and the status caveats. A named product capability is not proof that it is a separately deployed LLM or microservice.
 
 ### Publicly evidenced: the data platform
 

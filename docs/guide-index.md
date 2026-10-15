@@ -13,6 +13,7 @@ A topic-first map of the onboarding material. Use the **learning path** when you
 ## Voice-agent architecture and runtime
 
 - [Voice-agent architecture](voice-agent-architecture.md) — component boundaries and control plane.
+- [ServiceTitan voice-agent public evidence](voice-agent-public-evidence.md) — documented workflows, Voice Intelligence, booking figures, and rollout caveats.
 - [Speech-to-speech models](speech-to-speech-models.md) — full-duplex models versus cascaded pipelines.
 - [GPT-Live-1](gpt-live-1.md) — model behavior, delegation, and control-plane responsibilities.
 - [Build your own voice agent](build-your-own-voice-agent.md) — compare chained and realtime implementations.
@@ -34,6 +35,7 @@ A topic-first map of the onboarding material. Use the **learning path** when you
 ## Multi-agent coordination and booking trust
 
 - [Pantheon 2026 AI roadmap](pantheon-2026-ai-roadmap.md) — public roadmap context and implications for voice.
+- [Max public capability map](max-capability-map.md) — named capabilities, rollout caveats, and cross-agent workflows grounded in Pantheon disclosures.
 - [Call facts contract](call-facts-contract.md) — proposed versus verified facts shared across agents.
 - [Homh and AI-agent booking](homh-and-agent-booking.md) — trust boundaries for homeowner-side AI.
 - [MCP and external-agent trust boundary](mcp-and-external-agent-trust-boundary.md) — authorization, consent, idempotency, and audit.

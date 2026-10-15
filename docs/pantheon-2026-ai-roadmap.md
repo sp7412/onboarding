@@ -475,6 +475,7 @@ company and partner claims, distinguish inference from fact, and update this bri
 
 ## Related repo material
 
+- [Max public capability map](max-capability-map.md) — named capabilities, dated rollout caveats, cross-agent examples, and the boundary between public claims and engineering inference
 - [Call facts contract](call-facts-contract.md) — teaching schema for shared context from a call
 - [Homh and AI-agent booking](homh-and-agent-booking.md) — trust surfaces when an AI assistant is in the booking path
 - [MCP and external-agent trust boundary](mcp-and-external-agent-trust-boundary.md) — authorization and control boundaries for external AI agents

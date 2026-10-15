@@ -63,6 +63,8 @@ the exact lab map and prerequisites.
 | [`study-guide/`](study-guide/) | Archived original study guide (.docx) and a pointer to the canonical [architecture guide](docs/voice-agent-architecture.md) |
 | [`docs/`](docs/) | Public-source domain primer, Pantheon system model, autonomy policy, metrics, field exercise, first-90-days playbook and question bank, and agent architecture/harness/evaluation companions to whitepaper ch. 15 and 17 |
 | [`docs/pantheon-2026-ai-roadmap.md`](docs/pantheon-2026-ai-roadmap.md) | Pantheon 2026 public AI announcements and implications for voice |
+| [`docs/voice-agent-public-evidence.md`](docs/voice-agent-public-evidence.md) | Public voice-agent workflows, Voice Intelligence, reported booking metrics, and rollout caveats |
+| [`docs/max-capability-map.md`](docs/max-capability-map.md) | Publicly named Max capabilities, rollout status, and cross-agent workflow examples |
 | [`docs/call-facts-contract.md`](docs/call-facts-contract.md) | Teaching schema for shared context a voice agent might capture |
 | [`docs/homh-and-agent-booking.md`](docs/homh-and-agent-booking.md) | Trust surfaces for Homh and AI-assistant booking channels |
 | [`docs/mcp-and-external-agent-trust-boundary.md`](docs/mcp-and-external-agent-trust-boundary.md) | MCP and external-agent authorization, consent, idempotency, injection, audit, and outcome controls |
