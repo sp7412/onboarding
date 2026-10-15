@@ -132,6 +132,7 @@ export const DOC_PAGES: DocPage[] = [
   { repoPath: "senior-engineer/bookability-judge.md", icon: "compass", track: "senior-engineer" },
   { repoPath: "senior-engineer/autonomy-promotion.md", icon: "compass", track: "senior-engineer" },
   { repoPath: "docs/references.md", icon: "reading" },
+  { repoPath: "docs/agent-scale-source-control.md", icon: "architecture" },
   { repoPath: "notes/study-question.md", icon: "notes" },
   { repoPath: "notes/conversation-notes.md", icon: "notes" },
 ];
