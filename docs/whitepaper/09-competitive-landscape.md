@@ -9,7 +9,7 @@ This chapter separates two competitive questions that are easy to conflate:
 
 The first is product-market competition. The second is a build-versus-buy and vertical-integration question. A company can compete with ServiceTitan at one layer while integrating with it at another.
 
-## Five takeaways
+## Five Takeaways
 
 1. ServiceTitan's fiscal 2026 Form 10-K names competitors across point solutions, horizontal software, legacy field-service systems, and narrower bundles for smaller contractors. It specifically lists Salesforce, SAP, FieldEdge, WorkWave, ServiceTrade, AccuLynx, BuildOps, Housecall Pro, JobNimbus, and Jobber. [1]
 2. Voice-agent vendors can be both competitors and complements: a contractor may buy an outside agent that answers calls and writes bookings into ServiceTitan rather than replacing its system of record. [2][3]
