@@ -7,11 +7,15 @@ dimensions. It does not rank vendors.
 
 ## Five Takeaways
 
-1. ServiceTitan says the market for trades software is still early, with many businesses running on rudimentary workflows. [1]
-2. Its 10-K groups competitors into four types and names examples: Salesforce, SAP, FieldEdge, WorkWave, ServiceTrade, AccuLynx, BuildOps, Housecall Pro, JobNimbus and Jobber. [1]
-3. AI is now a competitive axis: the 10-K warns competitors may add AI faster or better. [1]
-4. Well-funded AI-native vendors sell voice agents directly to contractors, often integrating with ServiceTitan rather than replacing it. [2][3]
-5. Analysis: voice agents are where vertical platforms, point-solution AI startups and horizontal contact-center AI meet, so this is one of the most contested surfaces in the company.
+ServiceTitan says the market for trades software is still early, with many businesses running on rudimentary workflows. [1]
+
+Its 10-K groups competitors into four types and names examples: Salesforce, SAP, FieldEdge, WorkWave, ServiceTrade, AccuLynx, BuildOps, Housecall Pro, JobNimbus and Jobber. [1]
+
+AI is now a competitive axis: the 10-K warns competitors may add AI faster or better. [1]
+
+Well-funded AI-native vendors sell voice agents directly to contractors, often integrating with ServiceTitan rather than replacing it. [2][3]
+
+Analysis: voice agents are where vertical platforms, point-solution AI startups and horizontal contact-center AI meet, so this is one of the most contested surfaces in the company.
 
 ## How ServiceTitan frames competition
 
