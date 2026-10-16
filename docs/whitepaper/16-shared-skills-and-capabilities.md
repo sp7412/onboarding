@@ -8,11 +8,15 @@ description of ServiceTitan's internal systems.
 
 ## Five Takeaways
 
-1. An **agent** is a role (booking, dispatch, intake); a **skill** is a reusable capability several agents can apply (identify customer, check capacity, book, escalate).
-2. A production skill is a versioned artifact: applicability, required state, tools, policy, autonomy level, examples, evaluation cases, owner and history.
-3. ServiceTitan's Voice Agent has a documented "Skills and Capabilities" settings area that controls which scheduling actions the agent may perform [1]. That is evidence of modular capabilities, not of a cross-agent skills marketplace.
-4. Skills are not tools: the tool performs the side effect; the skill encodes when and how to use it, so procedure, reasoning and side effects stay separately testable.
-5. Versioned skills let the learning loop work at two levels: is this agent deciding well, and is this capability good across every agent that uses it?
+An **agent** is a role (booking, dispatch, intake); a **skill** is a reusable capability several agents can apply (identify customer, check capacity, book, escalate).
+
+A production skill is a versioned artifact: applicability, required state, tools, policy, autonomy level, examples, evaluation cases, owner and history.
+
+ServiceTitan's Voice Agent has a documented "Skills and Capabilities" settings area that controls which scheduling actions the agent may perform [1]. That is evidence of modular capabilities, not of a cross-agent skills marketplace.
+
+Skills are not tools: the tool performs the side effect; the skill encodes when and how to use it, so procedure, reasoning and side effects stay separately testable.
+
+Versioned skills let the learning loop work at two levels: is this agent deciding well, and is this capability good across every agent that uses it?
 
 ## The distinction
 
