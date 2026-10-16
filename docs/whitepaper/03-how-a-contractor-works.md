@@ -4,17 +4,15 @@
 
 ## Five Takeaways
 
-1. A residential service business runs a loop: demand comes in (mostly by phone), gets
-   booked into limited technician capacity, dispatched, worked, invoiced, paid, and turned
-   into repeat business through memberships and follow-up.
-2. Each step has an owner (CSR, dispatcher, technician, sales advisor, office, owner) and a
-   handoff where information gets lost.
-3. Booking is a constrained assignment problem: job type, location, required skills,
-   arrival windows, buffers and blocked dates all shape what can be offered. [1][2]
-4. Revenue per job is decided late (on site, via diagnosis and options), but the chance to
-   earn it is decided early, on the call.
-5. For a voice agent, every lifecycle step is either a place it reads context or a place
-   it changes state, and the state changes are where correctness matters.
+A residential service business runs a loop: demand comes in (mostly by phone), gets booked into limited technician capacity, dispatched, worked, invoiced, paid, and turned into repeat business through memberships and follow-up.
+
+Each step has an owner (CSR, dispatcher, technician, sales advisor, office, owner) and a handoff where information gets lost.
+
+Booking is a constrained assignment problem: job type, location, required skills, arrival windows, buffers and blocked dates all shape what can be offered. [1][2]
+
+Revenue per job is decided late (on site, via diagnosis and options), but the chance to earn it is decided early, on the call.
+
+For a voice agent, every lifecycle step is either a place it reads context or a place it changes state, and the state changes are where correctness matters.
 
 ## The job lifecycle
 
