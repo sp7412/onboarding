@@ -33,6 +33,18 @@ Each numbered chapter opens with **Five Takeaways**: exactly five concise, decis
 
 Chapter 00 uses the same five-point format before its longer executive summary. Keep the heading capitalization and placement consistent as chapters are revised.
 
+## Chapter takeaway standard
+
+Each numbered chapter opens with **Five Takeaways**: exactly five concise, decision-useful points before the detailed exposition. They should:
+
+- state the most important facts or conclusions, not merely preview section headings;
+- distinguish sourced claims from analysis or hypotheses;
+- emphasize implications for contractor outcomes, production engineering, or first-90-day learning where relevant;
+- avoid repeating the chapter introduction verbatim; and
+- remain consistent with the evidence and caveats in the chapter body.
+
+Chapter 00 uses the same five-point format before its longer executive summary. Keep the heading capitalization and placement consistent as chapters are revised.
+
 ## Reading Order
 
 1. [00 - Introduction](00-introduction.md)
