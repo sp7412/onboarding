@@ -4,11 +4,15 @@
 
 ## Five Takeaways
 
-1. ServiceTitan's Virtual Agents handle overflow and after-hours calls to book, reschedule and confirm appointments, using platform data and the contractor's rules. [1][2]
-2. At Pantheon 2026 the voice agent was presented as one of 30 agents in Max, coordinated through shared context, shared judgment, coordinated action, arbitration and centralized supervision. [7]
-3. The CEO placed voice agents at level 2 of a five-level AI maturity model: automating one workflow is the start, not the destination. [7]
-4. The company said in-product booking rates are easy to game, so it built a "voice intelligence" agent that reviews every call to judge whether it was a bookable lead. [7]
-5. Analysis: success is committed state (a correct job in the schedule), measured against a defensible bookable-call denominator, and handed cleanly to the other agents.
+ServiceTitan's Virtual Agents handle overflow and after-hours calls to book, reschedule and confirm appointments, using platform data and the contractor's rules. [1][2]
+
+At Pantheon 2026 the voice agent was presented as one of 30 agents in Max, coordinated through shared context, shared judgment, coordinated action, arbitration and centralized supervision. [7]
+
+The CEO placed voice agents at level 2 of a five-level AI maturity model: automating one workflow is the start, not the destination. [7]
+
+The company said in-product booking rates are easy to game, so it built a "voice intelligence" agent that reviews every call to judge whether it was a bookable lead. [7]
+
+Analysis: success is committed state (a correct job in the schedule), measured against a defensible bookable-call denominator, and handed cleanly to the other agents.
 
 ## What the product does
 
