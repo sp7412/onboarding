@@ -105,6 +105,8 @@ Vertical integration is not an all-or-nothing choice. A useful way to reason abo
 
 The table is a framework for reasoning, not a report of ServiceTitan's internal sourcing decisions. Public product announcements and filings do not disclose every internal provider, service boundary, or make-versus-buy decision.
 
+One important disclosed fact is that ServiceTitan's fiscal 2026 10-K says its AI solutions rely on third-party proprietary machine-learning algorithms and LLMs, naming Microsoft and OpenAI as examples. [1] That is evidence that ServiceTitan does not need to own every layer to build differentiated products. It does not, by itself, identify which provider serves each product or how much of the current voice stack is internally built.
+
 ### A practical make-versus-buy scorecard
 
 For each layer, score candidate approaches against the same workload:
