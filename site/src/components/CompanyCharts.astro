@@ -50,17 +50,19 @@ const line = vwap.map((p, i) => `${pointX(i)},${pointY(p.value)}`).join(" ");
       <svg class="chart" viewBox="0 0 760 236" role="img" aria-labelledby="gtv-svg-title gtv-svg-desc">
         <title id="gtv-svg-title">ServiceTitan quarterly gross transaction volume</title>
         <desc id="gtv-svg-desc">GTV was 17.7 billion dollars in Q1 FY2026, 22.9 in Q2, 21.7 in Q3, 19.8 in Q4, 21.7 in Q1 FY2027, and 26.8 in Q2 FY2027.</desc>
-        {#each [0, 10, 20, 30] as tick}
-          <line x1={chart.left} x2={chart.width} y1={chart.bottom - (tick / chart.max) * (chart.bottom - chart.top)} y2={chart.bottom - (tick / chart.max) * (chart.bottom - chart.top)} class="gridline" />
-          <text x={chart.left - 12} y={chart.bottom - (tick / chart.max) * (chart.bottom - chart.top) + 4} text-anchor="end" class="axis-label">{tick}</text>
-        {/each}
+        {[0, 10, 20, 30].map((tick) => (
+          <g>
+            <line x1={chart.left} x2={chart.width} y1={chart.bottom - (tick / chart.max) * (chart.bottom - chart.top)} y2={chart.bottom - (tick / chart.max) * (chart.bottom - chart.top)} class="gridline" />
+            <text x={chart.left - 12} y={chart.bottom - (tick / chart.max) * (chart.bottom - chart.top) + 4} text-anchor="end" class="axis-label">{tick}</text>
+          </g>
+        ))}
         <text x="14" y="15" class="axis-title">USD B</text>
         {quarters.map((q, i) => (
-          <>
+          <g>
             <rect x={barX(i)} y={chart.bottom - barHeight(q.value)} width={barWidth} height={barHeight(q.value)} rx="4" class={i === quarters.length - 1 ? "bar bar-highlight" : "bar"} />
             <text x={barX(i) + barWidth / 2} y={chart.bottom - barHeight(q.value) - 9} text-anchor="middle" class="value-label">{q.value.toFixed(1)}</text>
             <text x={barX(i) + barWidth / 2} y={chart.bottom + 22} text-anchor="middle" class="quarter-label">{q.label}</text>
-          </>
+          </g>
         ))}
         <line x1={chart.left} x2={chart.width} y1={chart.bottom} y2={chart.bottom} class="baseline" />
       </svg>
@@ -84,17 +86,19 @@ const line = vwap.map((p, i) => `${pointX(i)},${pointY(p.value)}`).join(" ");
       <svg class="chart" viewBox="0 0 760 220" role="img" aria-labelledby="vwap-svg-title vwap-svg-desc">
         <title id="vwap-svg-title">Estimated rolling three-month volume-weighted average price for TTAN</title>
         <desc id="vwap-svg-desc">The estimate rose from 84.01 dollars on September 1 to 84.16 on September 8, then fell to 77.03 on September 9, 71.10 on September 18, 69.74 on September 25, 69.45 on September 30, and 69.01 on October 12.</desc>
-        {#each [70, 75, 80, 85] as tick}
-          <line x1={plot.left} x2={plot.right} y1={pointY(tick)} y2={pointY(tick)} class="gridline" />
-          <text x={plot.left - 12} y={pointY(tick) + 4} text-anchor="end" class="axis-label">${tick}</text>
-        {/each}
+        {[70, 75, 80, 85].map((tick) => (
+          <g>
+            <line x1={plot.left} x2={plot.right} y1={pointY(tick)} y2={pointY(tick)} class="gridline" />
+            <text x={plot.left - 12} y={pointY(tick) + 4} text-anchor="end" class="axis-label">${tick}</text>
+          </g>
+        ))}
         <polyline points={line} class="vwap-line" />
         {vwap.map((p, i) => (
-          <>
+          <g>
             <circle cx={pointX(i)} cy={pointY(p.value)} r={i === vwap.length - 1 ? 5 : 3.5} class={i === vwap.length - 1 ? "point point-current" : "point"} />
             <text x={pointX(i)} y={pointY(p.value) - 11} text-anchor="middle" class="value-label">{p.value.toFixed(2)}</text>
             <text x={pointX(i)} y={plot.bottom + 24} text-anchor="middle" class="quarter-label">{p.label}</text>
-          </>
+          </g>
         ))}
         <line x1={plot.left} x2={plot.right} y1={plot.bottom} y2={plot.bottom} class="baseline" />
       </svg>
