@@ -67,7 +67,7 @@ Write:
 - Nothing in the voice agent changed. An upstream change made a demand-generation agent send
   more callers with a different mix of jobs. How would you detect that, and is it an incident?
 
-Separate **observed**, **inferred**, and **unknown** facts throughout.
+Separate **observed**, **inferred**, and **unknown** facts throughout. Before recommending a code fix, use the [evidence-first debugging protocol](../docs/evidence-first-debugging.md) to justify a control, identify discriminating signals, and test the leading hypothesis against every reliable observation.
 
 ## Self-check
 
