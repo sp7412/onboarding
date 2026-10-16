@@ -7,11 +7,15 @@ options and hypotheses to test.
 
 ## Five Takeaways
 
-1. The job, in one sentence: help the voice agent turn more of a contractor's calls into *correct* booked work, safely, and prove it with numbers the business trusts.
-2. The highest-leverage engineering is at the boundaries: tool validation, claim grounding, escalation, and evaluation.
-3. Evaluation, out-of-distribution detection and latency work are strong entry points for an ML engineer with a rigorous-testing background.
-4. Speak in contractor outcomes (booked jobs, recovered revenue, fewer missed calls, CSR hours) because that's how the company measures itself (GTV, share of wallet).
-5. Most of what matters (architecture, metrics, incidents, priorities) can only be learned inside. Arrive with sharp questions, not answers.
+The job, in one sentence: help the voice agent turn more of a contractor's calls into *correct* booked work, safely, and prove it with numbers the business trusts.
+
+The highest-leverage engineering is at the boundaries: tool validation, claim grounding, escalation, and evaluation.
+
+Evaluation, out-of-distribution detection and latency work are strong entry points for an ML engineer with a rigorous-testing background.
+
+Speak in contractor outcomes (booked jobs, recovered revenue, fewer missed calls, CSR hours) because that's how the company measures itself (GTV, share of wallet).
+
+Most of what matters (architecture, metrics, incidents, priorities) can only be learned inside. Arrive with sharp questions, not answers.
 
 ## What the business cares about (from Chapters [Chapter 01](./01-company.md), [Chapter 02](./02-the-trades-industry.md), [Chapter 03](./03-how-a-contractor-works.md), [Chapter 04](./04-the-contact-center.md), [Chapter 05](./05-pain-points.md), 11)
 
