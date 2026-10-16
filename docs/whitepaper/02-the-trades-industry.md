@@ -4,19 +4,15 @@
 
 ## Five Takeaways
 
-1. The trades are large and fragmented. ServiceTitan's IPO prospectus estimates that end
-   customers in the U.S. and Canada spend about $1.5 trillion a year on trades services. [1]
-2. "The trades" covers many different businesses: HVAC, plumbing, electrical, garage door,
-   pest control, landscaping, roofing and more, serving both homes and commercial
-   buildings. [1][2]
-3. Demand is seasonal and weather-driven. Summer heat raises HVAC demand, and cold snaps
-   raise furnace and repair demand; ServiceTitan's own revenue shows the pattern. [3]
-4. Skilled labor is the binding constraint. BLS projects about 40,100 HVACR and 44,000
-   plumbing openings a year through 2034, mostly to replace retiring or departing
-   workers. [4][5]
-5. Analysis: when technicians are scarce, every booked job must be the *right* job in the
-   *right* slot. That makes a voice agent a capacity-allocation system, not just an
-   answering service.
+The trades are large and fragmented. ServiceTitan's IPO prospectus estimates that end customers in the U.S. and Canada spend about $1.5 trillion a year on trades services. [1]
+
+"The trades" covers many different businesses: HVAC, plumbing, electrical, garage door, pest control, landscaping, roofing and more, serving both homes and commercial buildings. [1][2]
+
+Demand is seasonal and weather-driven. Summer heat raises HVAC demand, and cold snaps raise furnace and repair demand; ServiceTitan's own revenue shows the pattern. [3]
+
+Skilled labor is the binding constraint. BLS projects about 40,100 HVACR and 44,000 plumbing openings a year through 2034, mostly to replace retiring or departing workers. [4][5]
+
+Analysis: when technicians are scarce, every booked job must be the *right* job in the *right* slot. That makes a voice agent a capacity-allocation system, not just an answering service.
 
 ## Size and shape
 
