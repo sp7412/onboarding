@@ -66,7 +66,10 @@ the technician is on the way, with a photo and tracking link. [3]
 **7. On site.** The technician diagnoses the problem and often presents options from a
 pricebook with photos and warranties. [3] Analysis: this is where average ticket is made,
 which is why dispatch weighs sales performance, and why booking the *right* job type and
-technician matters.
+technician matters. The diagnostic workflow is a playbook; the catalog and prices are a
+pricebook. See [Chapter 17, section 5](17-running-agents-in-production.md#5-learning-from-technician-feedback-improve-the-playbook-not-just-the-model)
+for a detailed example of turning technician feedback into reviewed, evaluated, versioned
+playbook improvements without granting the AI authority to publish changes itself.
 
 **8. Invoice and payment.** Payments and consumer financing happen through the platform's
 FinTech products; payment volume drives part of ServiceTitan's usage revenue. [3]
