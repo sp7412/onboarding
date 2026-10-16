@@ -75,6 +75,60 @@ Gross dollar retention was over 95% in each of fiscal 2024–2026. Net dollar re
 Analysis: fiscal 2026 revenue of approximately $961 million divided by $82.1 billion of GTV is
 about 1.2%. This arithmetic is not a company-reported share-of-wallet ratio.
 
+## Private equity and the buy-and-build strategy
+
+ServiceTitan's fiscal 2026 Form 10-K identifies the influx of professional operators, including private-equity (PE) owners, as a trend in the trades. These investors acquire and consolidate trades businesses, standardize operations across portfolio companies, implement operating practices, and invest in technology to scale and improve efficiency. ServiceTitan says many of these consolidated businesses operate on its platform and that it focuses on increasing gross transaction volume (GTV), not simply the number of customers. [1]
+
+This is a **buy-and-build** model: a PE sponsor acquires a platform company, adds smaller businesses over time, and seeks to improve the combined operation before an eventual exit. The acquired businesses may have different brands, systems, processes, and levels of operational maturity. A common field-service platform can help unify scheduling, customer and job records, reporting, financial workflows, and operating practices. ServiceTitan markets directly to this use case with centralized multi-entity management, portfolio reporting, technology consolidation, and integration support. [2]
+
+### Which customers this strategy targets
+
+- **The PE sponsor:** the investment firm and its operating partners may influence platform selection and standards across a portfolio.
+- **The platform company:** a larger trades operator that serves as the acquisition base and coordinates multiple brands, locations, or subsidiaries.
+- **The acquired contractor:** an HVAC, plumbing, electrical, or other trades business that must be integrated into common processes without losing necessary local or trade-specific rules.
+- **The scaled independent operator:** a non-PE-owned company with multiple locations, substantial technician headcount, or expansion plans. The same operational needs can exist without financial-sponsor ownership.
+
+The sponsor is not always the software buyer or day-to-day user. Procurement, rollout, and adoption can involve executives at the platform company, local business leaders, dispatchers, customer-service representatives, technicians, finance teams, and IT. A portfolio-wide agreement therefore does not guarantee every acquired company migrates successfully or uses every product.
+
+### Why the segment matters to ServiceTitan
+
+1. **A sponsor relationship can influence multiple deployments.** One platform decision may create an opportunity across existing portfolio companies and future acquisitions.
+2. **Acquisitions create expansion opportunities.** Newly acquired companies bring potential additional locations, technicians, jobs, and GTV—but each deployment still requires integration and adoption.
+3. **Standardization can increase product penetration.** A group may adopt shared reporting, contact-center, dispatch, marketing, fleet, payments, and AI capabilities over time.
+4. **The data and workflow footprint can compound.** More activity on one platform can support more consistent cross-location reporting and create opportunities to improve recommendations and automation, provided the data is reliable and appropriately governed.
+5. **The business metric is expansion, not just logo count.** ServiceTitan explicitly says it focuses on increasing platform GTV rather than new customer count. In its fiscal 2026 filing, it also describes how customers that grow on the platform may add users, locations, transactions, and Pro products. [1]
+
+ServiceTitan's PE marketing page promotes portfolio consolidation, centralized management across entities, reporting, operational efficiency, and M&A integration. The page also publishes customer outcome claims; treat these as company marketing claims, not independent causal estimates or guarantees for a new customer. [2]
+
+### Engineering implications: the software must support the operating model
+
+For product and AI teams, the challenge is not merely supporting a large account. Portfolio operators need to compare performance across entities while preserving the right local differences. Important engineering questions include:
+
+- **Tenant and entity boundaries:** How are parent organizations, subsidiaries, brands, locations, users, and permissions represented?
+- **Integration after acquisition:** How are customer records, pricebooks, job histories, calendars, and identity systems mapped, reconciled, and validated?
+- **Configurable standardization:** Which workflows and policies are global defaults, and which can vary by trade, location, jurisdiction, or brand?
+- **Cross-portfolio reporting:** Are metrics defined consistently enough to compare booking conversion, technician utilization, average ticket, cancellations, and financial performance?
+- **AI deployment and governance:** Can a voice agent use the correct entity's business rules, schedule, service area, and escalation path? Can a portfolio-wide rollout be evaluated without masking failures in a specific brand or location?
+- **Change management:** Can the product expose migration status, configuration drift, adoption, and operational regressions to the teams responsible for rollout?
+
+A PE-backed customer may be a high-leverage deployment opportunity, but it also raises the cost of mistakes: a bad configuration, migration, or AI policy can affect many locations at once. Evaluation should therefore be segmented by entity, trade, location, and workflow—not just aggregated at the parent-account level.
+
+### Risks and limits
+
+- **Integration is not automatic.** Acquired businesses can have incompatible data, workflows, contracts, and operating practices.
+- **Standardization has limits.** Local licensing, service-area rules, trade differences, and brand promises may require explicit configuration rather than one universal workflow.
+- **Large accounts can exert negotiating leverage.** A sponsor with multiple businesses may press for discounts, implementation support, or product commitments.
+- **Concentration can increase exposure.** Losing or failing to expand a large platform relationship can matter more than losing a small independent customer.
+- **Acquisition activity is cyclical.** Slower deal activity can reduce one source of new portfolio deployments.
+- **Reported outcomes need attribution.** Improvements in growth or EBITDA can reflect acquisitions, pricing, labor, market conditions, and operating changes—not software alone.
+
+**Analysis:** the strategic value of PE is distribution and expansion across a consolidated customer group. The hypothesis to test is whether ServiceTitan can help those groups integrate acquisitions faster, operate more consistently, and generate better outcomes at a cost that supports the customer's return on investment. The sponsor relationship alone does not prove that value.
+
+### Sources for the PE strategy section
+
+1. ServiceTitan, fiscal 2026 Form 10-K, including growth strategy, customer definitions, GTV, and consolidation in the trades: <https://www.sec.gov/Archives/edgar/data/1638826/000163882626000028/ttan-20260131.htm>
+2. ServiceTitan, Private Equity solutions (company marketing page; outcome claims are company-reported): <https://www.servicetitan.com/market/private-equity-solutions-software>
+
 ## Financial trajectory
 
 | Period | Reported result | Source |

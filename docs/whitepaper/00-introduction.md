@@ -2,6 +2,14 @@
 
 **Estimated reading time:** 6 minutes · **Facts as of:** September 27, 2026
 
+## Five Takeaways
+
+1. ServiceTitan connects contractor workflows from customer intake through scheduling, field service, payments, and follow-up; its value proposition is broader than call handling.
+2. The market is large, fragmented, seasonal, and constrained by technician availability. More demand does not automatically mean more completed jobs.
+3. The phone is a revenue-critical entry point: an agent must qualify the need and book work into real capacity, not merely hold a convincing conversation.
+4. PE-backed consolidation gives ServiceTitan a route to expand across acquired contractors when sponsors standardize portfolio operations on one platform.
+5. Production success means a correctly booked, policy-compliant job that remains valid after the call. Tool authority, escalation, and defensible evaluation matter more than a raw booking-rate number.
+
 ## Executive Summary
 
 ServiceTitan (Nasdaq: TTAN) sells cloud software that helps trades businesses manage work from the first customer call through scheduling, field service, and final payment. The company has been publicly traded since December 2024. In fiscal 2026, approximately 10,800 Active Customers invoiced $82.1 billion through the platform, while ServiceTitan reported about $961 million in revenue. The revenue figure is roughly 1.2% of that transaction volume, and the company guided to $1.14 billion in fiscal 2027 revenue. These figures describe different measures: platform transaction volume is not the same as accounting revenue. See [Chapter 01](01-company.md) for definitions and sources.
