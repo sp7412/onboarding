@@ -4,11 +4,15 @@
 
 ## Five Takeaways
 
-1. The most dangerous failures are silent ones: the agent says something happened that didn't (or books something wrong) and nobody notices until a technician shows up.
-2. Safety emergencies (gas, carbon monoxide, electrical, flooding) must override every booking flow.
-3. Reliability has to be measured across repeated trials, not single demos; research benchmarks for customer-service agents show large drops when the same task is repeated. [1]
-4. Legal and privacy risks (AI-voiced outbound calls, recording consent, payment data) are design constraints, not afterthoughts. [2][3][4]
-5. ServiceTitan's own 10-K flags AI competition, regulatory and reputational risks; a bad agent experience threatens contractor trust, which underpins retention above 95%. [5]
+The most dangerous failures are silent ones: the agent says something happened that didn't (or books something wrong) and nobody notices until a technician shows up.
+
+Safety emergencies (gas, carbon monoxide, electrical, flooding) must override every booking flow.
+
+Reliability has to be measured across repeated trials, not single demos; research benchmarks for customer-service agents show large drops when the same task is repeated. [1]
+
+Legal and privacy risks (AI-voiced outbound calls, recording consent, payment data) are design constraints, not afterthoughts. [2][3][4]
+
+ServiceTitan's own 10-K flags AI competition, regulatory and reputational risks; a bad agent experience threatens contractor trust, which underpins retention above 95%. [5]
 
 ## Risk register
 
