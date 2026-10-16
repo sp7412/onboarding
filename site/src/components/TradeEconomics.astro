@@ -38,7 +38,7 @@ const largest = trades[0];
   <div class="section-intro">
     <p class="eyebrow">Industry economics · U.S. Census baseline</p>
     <h2 id="trade-economics-title">Which trades generate the most revenue?</h2>
-    <p class="lede">Six core trade categories recorded about ${"$"}{fmt(total)}B in 2022 establishment receipts. HVAC and plumbing is the largest combined category; the Census does not split the two trades in this NAICS code.</p>
+    <p class="lede">Six core trade categories recorded about {"$"}{fmt(total)}B in 2022 establishment receipts. HVAC and plumbing is the largest combined category; the Census does not split the two trades in this NAICS code.</p>
   </div>
 
   <article class="chart-card" aria-labelledby="trade-receipts-title">
@@ -48,7 +48,7 @@ const largest = trades[0];
         <p class="chart-subtitle">2022 · U.S. dollars · billions</p>
       </div>
       <div class="metric">
-        <strong>${"$"}{fmt(largest.receipts)}B</strong>
+        <strong>{"$"}{fmt(largest.receipts)}B</strong>
         <span>HVAC + plumbing</span>
       </div>
     </div>
@@ -56,10 +56,10 @@ const largest = trades[0];
       <figure class="pie-figure">
         <svg class="pie-chart" viewBox="0 0 300 290" role="img" aria-labelledby="trade-pie-title trade-pie-desc">
           <title id="trade-pie-title">Revenue shares among six selected U.S. trade categories</title>
-          <desc id="trade-pie-desc">The selected categories total ${"$"}{fmt(total)} billion in 2022 receipts. HVAC and plumbing account for ${"$"}{fmt(trades[0].receipts)} billion, electrical ${"$"}{fmt(trades[1].receipts)} billion, landscaping ${"$"}{fmt(trades[2].receipts)} billion, roofing ${"$"}{fmt(trades[3].receipts)} billion, painting ${"$"}{fmt(trades[4].receipts)} billion, and pest control ${"$"}{fmt(trades[5].receipts)} billion.</desc>
-          {slices.map((slice) => <path d={slice.path} fill={slice.color} stroke="#171c25" stroke-width="2"><title>{slice.name}: ${"$"}{fmt(slice.receipts)}B ({slice.share}%)</title></path>)}
+          <desc id="trade-pie-desc">The selected categories total {"$"}{fmt(total)} billion in 2022 receipts. HVAC and plumbing account for {"$"}{fmt(trades[0].receipts)} billion, electrical {"$"}{fmt(trades[1].receipts)} billion, landscaping {"$"}{fmt(trades[2].receipts)} billion, roofing {"$"}{fmt(trades[3].receipts)} billion, painting {"$"}{fmt(trades[4].receipts)} billion, and pest control {"$"}{fmt(trades[5].receipts)} billion.</desc>
+          {slices.map((slice) => <path d={slice.path} fill={slice.color} stroke="#171c25" stroke-width="2"><title>{slice.name}: {"$"}{fmt(slice.receipts)}B ({slice.share}%)</title></path>)}
           <circle cx={cx} cy={cy} r="57" fill="#171c25" />
-          <text x={cx} y={cy - 4} text-anchor="middle" class="pie-total">${"$"}{fmt(total)}B</text>
+          <text x={cx} y={cy - 4} text-anchor="middle" class="pie-total">{"$"}{fmt(total)}B</text>
           <text x={cx} y={cy + 16} text-anchor="middle" class="pie-caption">selected trades</text>
         </svg>
       </figure>
@@ -68,7 +68,7 @@ const largest = trades[0];
           <li>
             <span class="swatch" style={`--swatch: ${slice.color}`} aria-hidden="true"></span>
             <span class="legend-name">{slice.name}<small>NAICS {slice.naics} · {slice.share}%</small></span>
-            <strong>${"$"}{fmt(slice.receipts)}B</strong>
+            <strong>{"$"}{fmt(slice.receipts)}B</strong>
           </li>
         ))}
       </ul>
