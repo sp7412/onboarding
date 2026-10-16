@@ -8,20 +8,15 @@
 
 ## Five Takeaways
 
-1. **AI voices count as "artificial" under the TCPA.** Since February 2024 the FCC has
-   treated AI-generated human voices as artificial voices, so *outbound* calls that use
-   them need prior express consent unless an emergency purpose or exemption applies. [1]
-2. **Call recording consent varies by state.** Federal law and most states allow recording
-   with one party's consent, but about a dozen states require all parties to consent, and
-   the list has edge cases. [2][3]
-3. **AI disclosure laws are emerging.** Utah requires a business using generative AI with
-   consumers to disclose it when clearly asked, and gives a safe harbor for disclosing up
-   front. [4]
-4. **Payments and personal data carry their own regimes:** PCI DSS for card data and
-   state privacy laws such as the CCPA. [5][6]
-5. ServiceTitan's own 10-K names the TCPA and related rules as a business risk. [7]
-   Analysis: compliance should be designed into the agent's policy layer (per call,
-   per jurisdiction), not left to the prompt.
+**AI voices count as "artificial" under the TCPA.** Since February 2024 the FCC has treated AI-generated human voices as artificial voices, so *outbound* calls that use them need prior express consent unless an emergency purpose or exemption applies. [1]
+
+**Call recording consent varies by state.** Federal law and most states allow recording with one party's consent, but about a dozen states require all parties to consent, and the list has edge cases. [2][3]
+
+**AI disclosure laws are emerging.** Utah requires a business using generative AI with consumers to disclose it when clearly asked, and gives a safe harbor for disclosing up front. [4]
+
+**Payments and personal data carry their own regimes:** PCI DSS for card data and state privacy laws such as the CCPA. [5][6]
+
+ServiceTitan's own 10-K names the TCPA and related rules as a business risk. [7] Analysis: compliance should be designed into the agent's policy layer (per call, per jurisdiction), not left to the prompt.
 
 ## 1. Outbound calls and AI voices (TCPA)
 
