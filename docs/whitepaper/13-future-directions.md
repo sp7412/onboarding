@@ -39,7 +39,7 @@ paper's interpretation, not company plans.
    agent layer as Atlas.
 2. **Outbound and proactive contact.** *Hypothesis:* maintenance reminders, rescheduling
    around weather or capacity, and missed-call follow-ups. This is where TCPA consent rules
-   bite hardest (chapter 10). [6]
+   bite hardest ([Chapter 10](10-regulation-and-compliance.md)). [6]
 3. **Omnichannel continuity.** *Analysis:* callers move between phone, text and web; Contact
    Center Pro's Universal Inbox points toward one conversation across channels. [2]
 4. **Technician copilots.** *Hypothesis:* field-facing assistants for diagnosis, options and
@@ -50,7 +50,7 @@ paper's interpretation, not company plans.
 
 ## What this means for a voice-agent engineer
 
-Chapter 15, [Agentic orchestration](15-agentic-orchestration.md), maps the orchestration direction
+[Chapter 15](15-agentic-orchestration.md), [Agentic orchestration](15-agentic-orchestration.md), maps the orchestration direction
 onto public architectures (ServiceTitan, Salesforce, Microsoft) and the repo's multi-agent labs.
 
 - Build components (policy checks, evaluators, escalation contracts) that can serve more than
