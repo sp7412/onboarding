@@ -72,7 +72,8 @@ the exact lab map and prerequisites.
 | [`docs/whitepaper/`](docs/whitepaper/) | Public-source background whitepaper: chapters 00–17 (15–17: agentic orchestration, shared skills, running agents in production), appendices, and source ledger |
 | [`docs/reading-guide.md`](docs/reading-guide.md) | Ranked blogs, papers and talks with four takeaways each (start here for reading) |
 | [`docs/references.md`](docs/references.md) | Complete bibliography of every external source in the repo |
-| [`docs/podcast-prompts.md`](docs/podcast-prompts.md) | NotebookLM podcast prompts: seven technical and three company-context episodes plus four coaching episodes |
+| [`docs/podcast-prompts.md`](docs/podcast-prompts.md) | NotebookLM podcast prompts: technical, company-context, and coaching episodes |
+| [`docs/self-licking-ice-cream-cone.md`](docs/self-licking-ice-cream-cone.md) | Sourced history, refined NotebookLM prompt, full two-host script, and AI product-team diagnostic |
 | [`docs/livekit-hands-on.md`](docs/livekit-hands-on.md) | LiveKit track: Agent Builder → `lk` starter → fake ServiceTitan tools with guardrails |
 | [`docs/jev-call-intent-classification.md`](docs/jev-call-intent-classification.md) | Jev as an evaluation candidate for low-latency typed call-intent classification, with routing policy, fallback, and evaluation plan |\n| [`docs/realtime-voice-agent-evaluation.md`](docs/realtime-voice-agent-evaluation.md) | Practical GPT Realtime evaluation: Crawl/Walk/Run, audio and task graders, trace-level diagnosis, regression sets, and release gates |
 | [`docs/full-duplex-model-evaluation.md`](docs/full-duplex-model-evaluation.md) | Evidence-based PersonaPlex vs GPT-Live comparison, workload math, and a controlled evaluation plan |
