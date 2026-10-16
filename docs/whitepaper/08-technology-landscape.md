@@ -9,11 +9,15 @@ cost, use the site's [architecture explorer](https://sp7412.github.io/onboarding
 
 ## Five Takeaways
 
-1. A production voice agent is a stack of separable layers: telephony, transport, speech, orchestration, the business control plane, and observability. [1]
-2. Three architectures now compete: cascaded (STT, LLM, TTS), turn-based speech-to-speech, and full-duplex voice with delegation to a backend model. [1][2][9]
-3. OpenAI's current lineup includes gpt-realtime-2 (May 2026), gpt-realtime-2.1 and 2.1-mini (July 2026), gpt-live-transcribe (July 2026) and full-duplex gpt-live-1 (September 2026). [3][10][11][9]
-4. Turn-taking (when the caller has finished, when they interrupt) is a hard engineering problem that frameworks like LiveKit treat explicitly. [4][5]
-5. Analysis: models and transport are commoditizing; lasting differentiation is data, integration depth, policy and evaluation, where ServiceTitan argues its advantage lies. [6]
+A production voice agent is a stack of separable layers: telephony, transport, speech, orchestration, the business control plane, and observability. [1]
+
+Three architectures now compete: cascaded (STT, LLM, TTS), turn-based speech-to-speech, and full-duplex voice with delegation to a backend model. [1][2][9]
+
+OpenAI's current lineup includes gpt-realtime-2 (May 2026), gpt-realtime-2.1 and 2.1-mini (July 2026), gpt-live-transcribe (July 2026) and full-duplex gpt-live-1 (September 2026). [3][10][11][9]
+
+Turn-taking (when the caller has finished, when they interrupt) is a hard engineering problem that frameworks like LiveKit treat explicitly. [4][5]
+
+Analysis: models and transport are commoditizing; lasting differentiation is data, integration depth, policy and evaluation, where ServiceTitan argues its advantage lies. [6]
 
 ## The layers
 
