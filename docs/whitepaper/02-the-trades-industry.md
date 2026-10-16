@@ -121,6 +121,10 @@ should discuss without explicit, compliant scripts (chapter 10).
 - How do call volume and booking behavior change on weather-spike days?
 - How do capacity rules (job types, skills, zones, memberships) reach the agent?
 
+## Revenue and business models
+
+The chart below compares 2022 receipts across six major Census-defined trade categories, then summarizes how recurring service and project revenue tend to differ. It is a scale baseline, not a residential-only market share estimate: commercial and industrial receipts are included where they fall within the category, and smaller trades such as garage doors are not separately isolated in these codes.
+
 ## Sources
 
 1. ServiceTitan IPO prospectus (Form 424B4, December 2024): <https://www.sec.gov/Archives/edgar/data/1638826/000119312524277099/d577298d424b4.htm>
