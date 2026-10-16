@@ -27,7 +27,7 @@ the Pacific Conference Series*, volume 26 (1992), pp. 599–603. The paper is av
 [ResearchGate](https://www.researchgate.net/publication/234554226_On_Self-Licking_Ice_Cream_Cones)
 and is catalogued under Bibcode [1992ASPC...26..599W](https://ui.adsabs.harvard.edu/abs/1992ASPC...26..599W/abstract).
 The phrase is also commonly traced to Norman Friedman's 1991 book
-[*Desert Victory: The War for Kuwait*](https://books.google.com/books/about/Desert_Victory.html?id=); therefore,
+[*Desert Victory: The War for Kuwait*](https://books.google.com/books?q=Norman+Friedman+Desert+Victory+The+War+for+Kuwait); therefore,
 say it was **in circulation by 1991–1992** rather than confidently declaring Worden the sole inventor.
 
 Worden's core example was the Space Shuttle–Space Station relationship. His argument was that the
