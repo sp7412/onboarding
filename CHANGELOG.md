@@ -49,6 +49,17 @@
 
 ## 2026-10-14
 
+### Jev decision workbench
+
+- Added lab 17, a hands-on notebook for writing typed Jev decisions, defining operational
+  intent criteria, comparing a simple offline baseline against reviewed labels, and inspecting
+  classification errors.
+- Added an opt-in live Jev System One request using the documented HTTP contract; live calls
+  are disabled by default and may incur usage charges.
+- Added Jev API key loading from Colab Secrets and linked the lab from the notebook index.
+
+## 2026-10-14
+
 ### Agent-scale source control
 
 - Added a source-grounded comparison of Anthropic Scion and GitLab next-gen SCM, including background, architecture, trade-offs, maturity caveats, reported metrics, and a workload-based evaluation plan.

@@ -2,13 +2,14 @@
 
 **Facts as of: October 6, 2026 · Last reviewed: October 6, 2026**
 
-Seventeen hands-on Jupyter tutorials that build a phone agent for a fictional HVAC/plumbing
+Eighteen hands-on Jupyter tutorials that build a phone agent for a fictional HVAC/plumbing
 contractor, one architecture layer at a time. Labs 09–12 extend it to several agents working
 together (shared context, coordination, learning, agent-to-agent booking). Labs 13–14 are
 capstones on a shared synthetic call dataset: extracting and committing call facts, and
 deciding when an agent has earned more autonomy. Lab 15 builds and validates an LLM judge for
-the same calls (live with an OpenAI key, with a scripted stand-in offline). The
-[capstone rubric](../docs/capstone-rubric.md) includes optional evidence criteria for labs 09–16.
+the same calls (live with an OpenAI key, with a scripted stand-in offline). Lab 17 is a Jev
+workbench for typed decisions, prompt criteria, labeled examples, error analysis, and optional
+live API calls. The [capstone rubric](../docs/capstone-rubric.md) includes optional evidence criteria for labs 09–16.
 
 | # | Notebook | Layer | Keys needed | Time | Run |
 |---|---|---|---|---|---|
@@ -29,6 +30,7 @@ the same calls (live with an OpenAI key, with a scripted stand-in offline). The
 | 14 | earning_autonomy | promotion policy, SPRT, calibration, drift/OOD, segment-specific autonomy | none | 90–120 minutes | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sp7412/onboarding/blob/main/labs/14_earning_autonomy.ipynb) |
 | 15 | llm_judge | LLM-as-judge: rubric, JSON contract, kappa vs. humans, rubric bugs, self-grading and position bias, calibration, abstention | OpenAI (scripted judge offline) | 60–90 minutes | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sp7412/onboarding/blob/main/labs/15_llm_judge.ipynb) |
 | 16 | mcp_server_basics | MCP server: tools, resources, prompts, Inspector, client, trust boundary | none | 60–90 minutes | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sp7412/onboarding/blob/main/labs/16_mcp_server_basics.ipynb) |
+| 17 | jev_decision_workbench | typed Jev decisions, prompt criteria, labeled intent evals, deterministic routing | optional Jev API key; offline by default | 45–60 minutes | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sp7412/onboarding/blob/main/labs/17_jev_decision_workbench.ipynb) |
 
 ## Lab environments
 
