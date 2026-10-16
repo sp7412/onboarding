@@ -67,7 +67,7 @@ the technician is on the way, with a photo and tracking link. [3]
 pricebook with photos and warranties. [3] Analysis: this is where average ticket is made,
 which is why dispatch weighs sales performance, and why booking the *right* job type and
 technician matters. The diagnostic workflow is a playbook; the catalog and prices are a
-pricebook. See [Chapter 17, section 5](17-running-agents-in-production.md#5-learning-from-technician-feedback-improve-the-playbook-not-just-the-model)
+pricebook. See [Chapter 17, section 5](17-running-agents-in-production.md)
 for a detailed example of turning technician feedback into reviewed, evaluated, versioned
 playbook improvements without granting the AI authority to publish changes itself.
 
