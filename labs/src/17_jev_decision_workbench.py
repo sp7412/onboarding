@@ -332,3 +332,12 @@ for demo in [
 # - Evaluate with reviewed labels and error analysis; prompt quality is empirical.
 # - Treat probabilities as model outputs, not authorization.
 # - The orchestrator validates, applies policy, and owns tools and side effects.
+
+# %% [markdown]
+# ## Check your understanding
+#
+# 1. Why does the Census classify HVAC and plumbing together in one revenue category?
+# 2. Why would it be misleading to label a pie chart of six selected trades as the entire home-services market?
+# 3. Which selected trade category has the largest receipts, and what does that figure include beyond residential service?
+#
+# **Graded exercise:** Estimate residential-only revenue for two trades using a second source. Record the geography, year, scope, and uncertainty before comparing the estimates.
