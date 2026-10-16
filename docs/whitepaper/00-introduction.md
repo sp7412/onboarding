@@ -4,56 +4,32 @@
 
 ## Executive Summary
 
-**The company.** ServiceTitan (Nasdaq: TTAN, public since December 2024) sells a cloud
-platform that runs trades businesses (HVAC, plumbing, electrical, garage door, pest
-control, landscaping, roofing and more) from the first phone call to the final payment.
-In fiscal 2026 its roughly 10,800 Active Customers invoiced $82.1 billion through the
-platform, and it earned about $961 million in revenue, roughly 1.2% of that volume. It
-guides to $1.14 billion in fiscal 2027 revenue. (Chapter 01)
+ServiceTitan (Nasdaq: TTAN) sells cloud software that helps trades businesses manage work from the first customer call through scheduling, field service, and final payment. The company has been publicly traded since December 2024. In fiscal 2026, approximately 10,800 Active Customers invoiced $82.1 billion through the platform, while ServiceTitan reported about $961 million in revenue. The revenue figure is roughly 1.2% of that transaction volume, and the company guided to $1.14 billion in fiscal 2027 revenue. These figures describe different measures: platform transaction volume is not the same as accounting revenue. See Chapter 01 for definitions and sources.
 
-**The industry.** Trades spending in the U.S. and Canada is estimated at about $1.5
-trillion a year. Demand is seasonal and weather-driven, and skilled labor is the binding
-constraint: BLS projects about 40,000 HVAC and 44,000 plumbing openings a year through
-2034. (Chapter 02)
+The market is large, fragmented, and shaped by seasonality. Annual spending on trades services in the United States and Canada is estimated at about $1.5 trillion. Demand can rise sharply with extreme heat or cold, while the availability of qualified technicians limits how much work a contractor can complete. The U.S. Bureau of Labor Statistics projects roughly 40,000 annual openings for HVAC technicians and 44,000 for plumbers through 2034, including openings caused by workers leaving or retiring. Chapter 02 examines the market and its workforce constraints.
 
-**The workflow and the contact center.** Revenue starts with a phone call. Contractors
-must answer, qualify, and book the right job into real technician capacity, often on the
-busiest days of the year, with CSR teams that are hard to staff after hours. (Chapters
-03–05)
+For a contractor, a phone call is often the beginning of a revenue-generating workflow. The business must answer the call, understand the customer's need, determine whether the work is appropriate, and book it into actual technician capacity. Those steps become harder during seasonal peaks and after hours, when staffing a customer service representative (CSR) team can be difficult. Chapters 03–05 explain the contractor workflow and the role of the contact center.
 
-**The products.** The platform is organized as Core, FinTech and Pro add-ons. The phone
-stack (Phones Pro, Contact Center Pro, AI Virtual Agents) is a product line of its own, and
-AI now spans the platform through Atlas and the Max "Agentic Operating System" program.
-(Chapters 06–07)
+ServiceTitan's platform includes Core, FinTech, and Pro offerings. Its phone-related products include Phones Pro, Contact Center Pro, and AI Virtual Agents. The company's public AI strategy also includes Atlas and Max, which it describes as an "Agentic Operating System" for the trades. Chapters 06–07 describe the product landscape and the voice-agent offering.
 
-**The voice agent.** Virtual Agents handle overflow and after-hours calls: booking with
-capacity rules, rescheduling, confirmations, membership handling, and live escalation. It
-competes with well-funded AI-native vendors that integrate with ServiceTitan from outside.
-(Chapters 07–09)
+Virtual Agents are designed to handle overflow and after-hours calls, including appointment booking, rescheduling, confirmations, membership-related interactions, and escalation to a human when needed. They operate in a competitive market that also includes AI-native vendors integrating with ServiceTitan from outside its platform. Chapters 07–09 cover the product, the underlying technology, and the competitive landscape.
 
-**The constraints.** AI-voiced outbound calls need prior express consent under the TCPA;
-recording consent varies by state; AI disclosure laws are emerging; payments and personal
-data carry their own rules. These belong in the agent's policy layer. (Chapter 10)
+A production voice agent must follow the rules that govern the actions it takes and the data it handles. AI-generated outbound calls may require prior express consent under the Telephone Consumer Protection Act (TCPA); recording-consent requirements vary by state; and AI-disclosure laws are evolving. Payments and personal information introduce additional obligations. These requirements should be represented in the agent's policy and execution layers, not left to the model's discretion. Chapter 10 discusses the relevant legal and compliance considerations.
 
-**How to judge success.** The core metric is revenue captured correctly: booked jobs that
-fit capacity and don't unravel, measured against honest baselines that account for
-seasonality. (Chapter 11)
+The most useful measure of success is not simply whether a call ends or an appointment appears in a calendar. The outcome must be a correctly booked job that fits the contractor's capacity and remains valid after the call. Evaluation therefore needs a defensible denominator, honest baselines, and controls for seasonality. Chapter 11 discusses the economics and metrics needed to judge those outcomes.
 
-**For you.** The highest-leverage engineering work is at the boundaries where the agent
-changes state or makes claims: tool validation, grounding, escalation, and evaluation.
-(Chapters 12–14)
+For an engineer, the highest-leverage work often occurs at the boundaries where the agent changes business state or makes a claim to the customer. Tool validation, evidence grounding, escalation, and evaluation help ensure that the agent does what it is authorized to do and accurately communicates what happened. Chapters 12–14 examine failure modes, future directions, and the open questions that follow from this analysis.
 
-## How To Read This Paper
+## How to Read This Paper
 
-- **Essentials path (about 2 hours):** 00 → 01 → 02 → 06 → 07 → 10 → 11 → 14.
-- **Full path:** chapters in order, then the appendices.
+Readers who want a focused introduction can follow the essentials path—Chapters 00, 01, 02, 06, 07, 10, 11, and 14—which should take about two hours. This route covers the company, its market, the product, the voice-agent workflow, compliance, measurement, and the principal engineering implications.
+
+Readers who want the full context should read Chapters 00–17 in order and then consult the appendices. Each chapter builds on the terminology and assumptions introduced earlier.
 
 ## Sourcing Conventions
 
-- Every factual claim cites a public source; numbers carry an "as of" date.
-- **Analysis** marks interpretation. **Hypothesis** marks a testable guess.
-- Company-reported and customer-reported results are attributed, never presented as
-  general benchmarks.
-- Primary sources (SEC filings, regulators, BLS) are preferred; secondary sources are
-  labeled.
-- `[unverified]` marks gaps. The [claims ledger](claims-ledger.md) records verification.
+Every factual claim should be traceable to a public source, and numerical claims should include an "as of" date where relevant. The paper labels interpretation as **Analysis** and a testable but unconfirmed proposition as **Hypothesis**.
+
+Company-reported and customer-reported results are attributed to their source. They should not be treated as general benchmarks unless independent evidence supports that interpretation. Primary sources, such as SEC filings, regulators, and the Bureau of Labor Statistics, are preferred; secondary sources are identified as such.
+
+The marker `[unverified]` identifies claims that still need confirmation. The [claims ledger](claims-ledger.md) records those claims and their verification status.
