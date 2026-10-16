@@ -20,11 +20,15 @@ platform [1][2].
 
 ## Five Takeaways
 
-1. Trace the decision, not just the request: every run needs a correlated trace of model calls, tool calls, policy decisions, approvals and the final outcome.
-2. Debugging means walking back from a bad outcome to the decision boundary that failed, then saving that case as an evaluation example.
-3. A trace explains one execution; an analytical store lets you find patterns across millions, so design the IDs that join them before production.
-4. Evaluate at four levels (runtime, agent, policy, business outcome), offline before release and online on sampled production traces.
-5. Roll out with canaries judged on guardrail metrics first, stratified A/B tests and shadow mode; release, trace and evaluation form one loop.
+Trace the decision, not just the request: every run needs a correlated trace of model calls, tool calls, policy decisions, approvals and the final outcome.
+
+Debugging means walking back from a bad outcome to the decision boundary that failed, then saving that case as an evaluation example.
+
+A trace explains one execution; an analytical store lets you find patterns across millions, so design the IDs that join them before production.
+
+Evaluate at four levels (runtime, agent, policy, business outcome), offline before release and online on sampled production traces.
+
+Roll out with canaries judged on guardrail metrics first, stratified A/B tests and shadow mode; release, trace and evaluation form one loop.
 
 ## 1. Production observability: trace the decision, not just the request
 
