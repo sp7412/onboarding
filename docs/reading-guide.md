@@ -475,6 +475,16 @@ credentials, customer information, or live audio into this public repository.
 - [ ] <https://www.youtube.com/watch?v=LCEmiRjPEtQ> · talk · 40 min
 - **Look for:** partial-autonomy products, human-verification loops, and the "autonomy slider." A useful frame for how far to let a voice agent go before handing off to a CSR.
 
+### 28. How to effectively debug when you no longer understand the code (Cindy Sridharan)
+- [ ] <https://copyconstruct.medium.com/how-to-effectively-debug-when-you-no-longer-understand-the-code-bd3dcb2c5f7b> · essay · 45–60 min
+- **Why:** a practical method for investigating unfamiliar code with coding agents without accepting plausible but unverified root-cause stories.
+- **Look for:**
+  1. The variable/control/signal vocabulary and how a carefully selected control reveals differences a dashboard hides.
+  2. Why high-fidelity observations should precede code-based theories, and why a hypothesis must explain every reliable observation.
+  3. How to use competing hypotheses, targeted measurements, and explicit contradiction checks to keep an agent's diagnosis honest.
+  4. How missing diagnostics should become infrastructure improvements: regression cases, telemetry, reproducible fixtures, and safer read-only investigation.
+- **Pairs with:** [Evidence-first debugging](evidence-first-debugging.md) and [Production Incident Simulation](../senior-engineer/production-incident.md).
+
 ---
 
 ## After each item

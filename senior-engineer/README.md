@@ -23,6 +23,7 @@ The central pattern, used throughout:
 | 8 | [Bookability judge](bookability-judge.md) | 60 min | [Pantheon 2026 brief](../docs/pantheon-2026-ai-roadmap.md), [eval design](eval-design.md), labs 07–08 | a bookability definition, gaming paths, and audit plan |
 | 9 | [Autonomy promotion review](autonomy-promotion.md) | 45 min | [earning autonomy](../docs/earning-autonomy.md), [lab 14](../labs/14_earning_autonomy.ipynb) | a per-segment promote/hold decision memo |
 | 10 | [Capacity reservation review](capacity-reservation-review.md) | 30 min | Pantheon 2026 brief, [lab 10](../labs/README.md) | a state machine and race/retry/release test plan |
+| 11 | [Evidence-first debugging](../docs/evidence-first-debugging.md) | 45 min | [Production incident simulation](production-incident.md), labs 07–08 | an evidence ledger, control, falsifiable hypotheses, and verification plan |
 
 About six hours and 45 minutes in total. Exercises 2–5 are the core; if you only have two hours, do 3 and 4.
 After Pantheon 2026 reading (item 7B), do exercise 8 before or with the eval design exercise.

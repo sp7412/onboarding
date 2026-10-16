@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026-10-16
+
+### Evidence-first debugging with coding agents
+
+- Added a practical guide to controls, high-fidelity signals, competing hypotheses,
+  contradiction checks, verification, and diagnostic infrastructure improvements.
+- Included a fictional voice-agent latency investigation, a compact evidence-record
+  example, and guardrails for agent-assisted diagnosis.
+- Linked the guide from the topic index, README, ranked reading guide, and bibliography;
+  connected it to the existing production-incident exercise.
+
 ## 2026-10-15
 
 ### Voice-agent test scenario prompts and grading contracts

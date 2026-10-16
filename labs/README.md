@@ -31,6 +31,7 @@ live API calls. The [capstone rubric](../docs/capstone-rubric.md) includes optio
 | 15 | llm_judge | LLM-as-judge: rubric, JSON contract, kappa vs. humans, rubric bugs, self-grading and position bias, calibration, abstention | OpenAI (scripted judge offline) | 60–90 minutes | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sp7412/onboarding/blob/main/labs/15_llm_judge.ipynb) |
 | 16 | mcp_server_basics | MCP server: tools, resources, prompts, Inspector, client, trust boundary | none | 60–90 minutes | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sp7412/onboarding/blob/main/labs/16_mcp_server_basics.ipynb) |
 | 17 | jev_decision_workbench | typed Jev decisions, prompt criteria, labeled intent evals, deterministic routing | optional Jev API key; offline by default | 45–60 minutes | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sp7412/onboarding/blob/main/labs/17_jev_decision_workbench.ipynb) |
+| 18 | technician_feedback_playbook_learning | structured technician feedback, evidence validation, candidate playbook revisions, evaluation, approval gates, pilot and rollback | none | 60–90 minutes | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sp7412/onboarding/blob/main/labs/18_technician_feedback_playbook_learning.ipynb) |
 
 ## Lab environments
 
