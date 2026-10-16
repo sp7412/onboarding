@@ -79,6 +79,8 @@ describe("real repo content", () => {
 describe("repoLinkToRoute", () => {
   it("maps docs and whitepaper links to site routes", () => {
     expect(repoLinkToRoute("../docs/servicetitan-101.md")).toBe("/docs/servicetitan-101");
+    expect(repoLinkToRoute("docs/evidence-first-debugging.md")).toBe("/docs/evidence-first-debugging");
+    expect(bundle.docs.find((d) => d.slug === "evidence-first-debugging")?.title).toContain("Evidence-First Debugging");
     expect(repoLinkToRoute("docs/whitepaper/01-company.md")).toBe("/whitepaper/01-company");
     expect(repoLinkToRoute("docs/whitepaper/README.md")).toBe("/whitepaper");
     expect(repoLinkToRoute("docs/whitepaper/claims-ledger.md")).toBeNull();
