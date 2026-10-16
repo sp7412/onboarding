@@ -124,7 +124,7 @@ A PE-backed customer may be a high-leverage deployment opportunity, but it also 
 
 **Analysis:** the strategic value of PE is distribution and expansion across a consolidated customer group. The hypothesis to test is whether ServiceTitan can help those groups integrate acquisitions faster, operate more consistently, and generate better outcomes at a cost that supports the customer's return on investment. The sponsor relationship alone does not prove that value.
 
-## Sources
+### Sources for the PE strategy section
 
 1. ServiceTitan, fiscal 2026 Form 10-K, including growth strategy, customer definitions, GTV, and consolidation in the trades: <https://www.sec.gov/Archives/edgar/data/1638826/000163882626000028/ttan-20260131.htm>
 2. ServiceTitan, Private Equity solutions (company marketing page; outcome claims are company-reported): <https://www.servicetitan.com/market/private-equity-solutions-software>
