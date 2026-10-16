@@ -4,18 +4,15 @@
 
 ## Five Takeaways
 
-1. For most residential contractors the phone is the front door, and the contact center
-   (from one office manager to a multi-location team of CSRs) decides how much demand
-   becomes booked work.
-2. Demand is peaky: summer heat and cold snaps drive surges, exactly when staff are
-   stretched. [1]
-3. Coverage gaps (overflow, lunch, nights, weekends) are traditionally filled by voicemail,
-   answering services or callbacks, which book poorly. ServiceTitan's Virtual Agents target
-   precisely these gaps. [1][2]
-4. Contact centers are managed by numbers: answer speed, abandonment, call duration, booking
-   rate, with call recordings and transcripts for coaching. [1]
-5. Analysis: an AI agent joins this operation as a new kind of CSR, so it must be measured,
-   reviewed and escalated like one, alongside the humans.
+For most residential contractors the phone is the front door, and the contact center (from one office manager to a multi-location team of CSRs) decides how much demand becomes booked work.
+
+Demand is peaky: summer heat and cold snaps drive surges, exactly when staff are stretched. [1]
+
+Coverage gaps (overflow, lunch, nights, weekends) are traditionally filled by voicemail, answering services or callbacks, which book poorly. ServiceTitan's Virtual Agents target precisely these gaps. [1][2]
+
+Contact centers are managed by numbers: answer speed, abandonment, call duration, booking rate, with call recordings and transcripts for coaching. [1]
+
+Analysis: an AI agent joins this operation as a new kind of CSR, so it must be measured, reviewed and escalated like one, alongside the humans.
 
 ## Who answers the phone
 
