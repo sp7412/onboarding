@@ -318,3 +318,12 @@ print(json.dumps(review_packet, indent=2))
 # **Stretch goals:** replace the synthetic records with a richer fixture; add a false-positive feedback cluster; simulate callback outcomes with confounders; add a reviewer decision schema; or compare two candidate revisions while keeping the evaluation set fixed.
 #
 # **Takeaway:** this is a controlled data-and-evaluation loop, not automatic self-editing. The AI proposes; evidence tests; authorized people approve; field outcomes close the loop.
+
+# %% [markdown]
+# ## Check your understanding
+#
+# 1. Why is a technician's report a signal rather than proof that a proposed step is correct?
+# 2. Which evaluation and approval gates must pass before a candidate playbook revision can be released?
+# 3. Why should a pilot define rollback criteria before rollout?
+#
+# **Graded exercise:** produce a review packet for the synthetic missing-step report, including preserved unknowns, evidence requirements, evaluation results, explicit approval gates, and pilot rollback criteria.
