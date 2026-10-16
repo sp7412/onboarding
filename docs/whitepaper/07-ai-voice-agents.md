@@ -114,7 +114,7 @@ The broader comparison—including managed voice-agent products, composable runt
 
 Treat both as customer claims: the denominator (all calls? bookable calls?), period and
 comparison group are not given. The company's own statement that in-product booking rates
-are easy to game [7] is the best reason to ask. Chapter 11 covers how to measure impact.
+are easy to game [7] is the best reason to ask. [Chapter 11](11-economics-and-metrics.md) covers how to measure impact.
 
 ## Evaluation design
 

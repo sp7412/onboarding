@@ -24,7 +24,7 @@
 | **Hearing failures** | Accents, Spanish-speaking callers, noise, poor connections, speakerphones | Medium–High | Robust speech models; confirmation read-backs; language routing | Slice evals by audio condition and language |
 | **Vulnerable callers** | Elderly callers, distressed callers | Medium | Slower pacing, easy human transfer | Scenario coverage; complaint review |
 | **Adversarial callers** | Prompt injection by voice, social engineering for account data | Medium | Never expose other customers' data; policy outside the model | Red-team scripts |
-| **Regulatory breach** | AI-voiced outbound call without consent; recording without notice | High | Consent store; jurisdiction-aware notices (chapter 10) | Compliance test suite |
+| **Regulatory breach** | AI-voiced outbound call without consent; recording without notice | High | Consent store; jurisdiction-aware notices ([Chapter 10](10-regulation-and-compliance.md)) | Compliance test suite |
 | **Payment data exposure** | Caller reads a card number to the agent | High | Out-of-band payment capture; transcript redaction | Redaction tests on traces and datasets |
 | **Outages and slowness** | Model, telephony or backend degraded on a peak day | High | Timeouts, fallbacks to humans or voicemail, capacity planning | Chaos and load tests at peak volume |
 | **Untrusted agent channel** | A consumer AI assistant books for the wrong household, or retries create duplicates | High | Authenticate the platform and the homeowner; idempotency keys; same capacity and policy checks as phone | Agent-to-agent scenarios (lab 12) |
@@ -61,7 +61,7 @@ not the best.
 
 - AI-generated voices are "artificial" under the TCPA, so outbound AI-voiced calls need prior
   express consent absent an emergency or exemption. [2]
-- Recording consent varies by state (chapter 10).
+- Recording consent varies by state ([Chapter 10](10-regulation-and-compliance.md)).
 - Payment card data falls under PCI DSS; keep it out of model context. [3]
 - Consumer privacy laws such as the CCPA give callers rights over their data. [4]
 - The 10-K notes risks from AI (including competitors adopting it faster), laws restricting

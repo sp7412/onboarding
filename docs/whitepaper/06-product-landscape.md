@@ -31,7 +31,7 @@ Office staff use the platform in a browser; technicians mainly use the mobile ap
 
 ## Mapping products to the job lifecycle
 
-| Lifecycle step (chapter 03) | Relevant public capabilities | Source |
+| Lifecycle step ([Chapter 03](03-how-a-contractor-works.md)) | Relevant public capabilities | Source |
 |---|---|---|
 | Lead and marketing | Marketing Pro (AI-powered email, direct mail, reputation management, ads measurement, Audience Builder); Convex for commercial prospecting | [1] |
 | Inbound call | Phones Pro; Call Booking and Recording (auto-populates caller info and history for the CSR); Google Local Services Ads booking integration | [1] |
