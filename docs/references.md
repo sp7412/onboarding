@@ -45,6 +45,12 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [Building AI Voice Agents for Production (DeepLearning.AI × LiveKit)](https://www.deeplearning.ai/courses/building-ai-voice-agents-for-production) | Course | RG 25 |
 | [ITU-T G.114: One-way transmission time](https://www.itu.int/rec/T-REC-G.114) | Standard | Architecture explorer |
 
+## Debugging and agentic software engineering
+
+| Source | Type | Cited in |
+|---|---|---|
+| [How to effectively debug when you no longer understand the code](https://copyconstruct.medium.com/how-to-effectively-debug-when-you-no-longer-understand-the-code-bd3dcb2c5f7b) | Essay | Evidence-first debugging; RG 28 |
+
 ## OpenAI Realtime
 
 | Source | Type | Cited in |
