@@ -10,15 +10,15 @@ paper's interpretation, not company plans.
 
 ## Five Takeaways
 
-1. ServiceTitan's stated direction is an **Agentic Operating System for the Trades**:
-   automating contractor workflows end to end with AI. [1]
-2. Atlas (introduced in fiscal 2026) is the agentic layer; Max is the program bringing it to
-   customers, with more than 700 enrolled locations expected by fiscal year-end. [1][2]
-3. The company is also using AI internally to raise its own development speed. [1][3]
-4. Voice models are gaining reasoning and tool-use ability quickly, which expands what a
-   phone agent can safely attempt. [4]
-5. Analysis: voice will likely become one front door into a broader agent system, not a
-   standalone product.
+ServiceTitan's stated direction is an **Agentic Operating System for the Trades**: automating contractor workflows end to end with AI. [1]
+
+Atlas (introduced in fiscal 2026) is the agentic layer; Max is the program bringing it to customers, with more than 700 enrolled locations expected by fiscal year-end. [1][2]
+
+The company is also using AI internally to raise its own development speed. [1][3]
+
+Voice models are gaining reasoning and tool-use ability quickly, which expands what a phone agent can safely attempt. [4]
+
+Analysis: voice will likely become one front door into a broader agent system, not a standalone product.
 
 ## What the company has said
 
