@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-10-16
+
+### Self-licking ice cream cone: organizational incentives and AI delivery
+
+- Added a source-grounded history of the phrase, distinguishing Worden's 1992 NASA critique from uncertain claims about the phrase's first use.
+- Added a refined NotebookLM Audio Overview prompt and a complete two-host podcast script.
+- Translated the concept into a neutral voice-agent/AI product diagnostic with external outcome metrics, counter-metrics, and approval/rollback gates; included a fictional AC-not-cooling playbook feedback example.
+- Linked the material from the topic-first guide index. The examples are framed as patterns, not claims about ServiceTitan's internal operations.
+
 ## 2026-10-15
 
 ### Voice-agent test scenario prompts and grading contracts
