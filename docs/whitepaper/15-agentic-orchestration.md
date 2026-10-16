@@ -12,7 +12,7 @@ no internal ServiceTitan architecture is asserted.
 2. ServiceTitan publicly describes Max as 30 agents across 18 business drivers, coordinated through shared context, shared judgment, coordinated action, arbitration and centralized supervision [1][2]. How it is built is not public.
 3. Salesforce organizes the same problem as a primary agent delegating to specialists, with MCP and A2A as protocols and an Agent Gateway for governance [3][4]; Microsoft Agent Framework makes the topology explicit as workflows (sequential, concurrent, handoff, group chat, Magentic) [5][6].
 4. MCP and A2A are connectivity, not orchestration. Arbitration, policy and side effects belong to deterministic application code: the model proposes, the harness controls.
-5. Running these agents in production (traces, failure mining, evaluation, canary rollout) is chapter 17. ServiceTitan's job listings name Kafka, Snowflake and Airflow in its data platform [7][8]; their role in agent telemetry is a hypothesis.
+5. Running these agents in production (traces, failure mining, evaluation, canary rollout) is [Chapter 17](./17-running-agents-in-production.md). ServiceTitan's job listings name Kafka, Snowflake and Airflow in its data platform [7][8]; their role in agent telemetry is a hypothesis.
 
 > **Essentials path (12 minutes):** read sections 1–6 for the problem and the three approaches,
 > section 13 ("Arbitration does not have to be an LLM") and section 14 ("MCP and A2A are not
