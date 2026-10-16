@@ -35,7 +35,7 @@ Typical inbound call types (a general taxonomy; mixes vary widely by trade and b
 | Existing appointment | Confirm, reschedule, cancel, "where's my tech?" | Needs identity and ownership checks |
 | Membership | Book maintenance visits, answer plan questions | Priority rules for members |
 | Estimate or sales follow-up | Route to sales advisor | High value, not for scripts |
-| Billing and payments | Route to office | Payment data rules apply (chapter 10) |
+| Billing and payments | Route to office | Payment data rules apply ([Chapter 10](./10-regulation-and-compliance.md)) |
 | Vendors, spam, wrong numbers | Classify, end politely | Pollutes metrics if counted as bookable |
 
 ServiceTitan's Virtual Agents include AI call classification, and Second Chance Leads flags
