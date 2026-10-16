@@ -7,20 +7,15 @@
 
 ## Five Takeaways
 
-1. ServiceTitan is a public company. Its shares trade on Nasdaq under `TTAN`; the IPO
-   priced on December 11, 2024 and trading began on December 12, 2024. See the
-   [IPO pricing release](https://servicetitan.com/press/servicetitan-announces-ipo-pricing).
-2. The company was founded in **2012**, according to its IPO prospectus. The company’s
-   current [public history page](https://www.servicetitan.com/company) identifies Ara Mahdessian
-   and Vahe Kuzoyan as co-founders and describes the product’s origin in their fathers’
-   contracting businesses.
-3. The latest filing used here reported about 10,800 **Active Customers** as of January 31, 2026.
-   The current company website separately says “more than 11,800 trade customers”; the
-   website does not define that number on the page, so the figures should not be merged.
-4. The fiscal 2026 filing reported $82.1 billion of GTV and about $961 million of revenue.
-   GTV is transaction volume flowing through the platform, not accounting revenue.
-5. Analysis: software, payments, add-ons, and AI may increase customer value, but the
-   effect of a particular AI feature requires measurement.
+ServiceTitan is a public company. Its shares trade on Nasdaq under `TTAN`; the IPO priced on December 11, 2024 and trading began on December 12, 2024. See the [IPO pricing release](https://servicetitan.com/press/servicetitan-announces-ipo-pricing).
+
+The company was founded in **2012**, according to its IPO prospectus. The company’s current [public history page](https://www.servicetitan.com/company) identifies Ara Mahdessian and Vahe Kuzoyan as co-founders and describes the product’s origin in their fathers’ contracting businesses.
+
+The latest filing used here reported about 10,800 **Active Customers** as of January 31, 2026. The current company website separately says “more than 11,800 trade customers”; the website does not define that number on the page, so the figures should not be merged.
+
+The fiscal 2026 filing reported $82.1 billion of GTV and about $961 million of revenue. GTV is transaction volume flowing through the platform, not accounting revenue.
+
+Analysis: software, payments, add-ons, and AI may increase customer value, but the effect of a particular AI feature requires measurement.
 
 ## What the company is
 
