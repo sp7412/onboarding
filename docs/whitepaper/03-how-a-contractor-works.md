@@ -22,7 +22,8 @@ The diagram below is a generic teaching model of a residential service call. Rea
 businesses vary by trade and size.
 
 ```mermaid
-flowchart LR
+%%{init: {"themeVariables": {"fontSize": "18px"}, "flowchart": {"nodeSpacing": 36, "rankSpacing": 42}}}%%
+flowchart TB
     A[Demand: ads, referrals, memberships] --> B[Inbound call, web or text]
     B --> C[Qualify: who, where, what, how urgent]
     C --> D[Offer windows from capacity]
