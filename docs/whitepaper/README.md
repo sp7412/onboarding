@@ -19,6 +19,8 @@ and 14 and Appendix A carry shorter Pantheon updates. Details are in the
 
 **Essentials path (about 2 hours):** 00 → 01 → 02 → 06 → 07 → 10 → 11 → 14.
 
+**For the competitive/build-versus-buy question:** read Chapter 09 after Chapters 07–08. It separates contractor-platform competition from competition at the voice/model/runtime layers and includes a vertical-integration scorecard.
+
 ## Reading Order
 
 1. [00 - Introduction](00-introduction.md)

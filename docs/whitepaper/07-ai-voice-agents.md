@@ -103,6 +103,8 @@ the press release says AI CSRs get access to Adaptive Capacity, the intelligence
 ServiceTitan's own scheduling, [6] which (analysis) widens the field of agents booking into
 the same schedule.
 
+The broader comparison—including managed voice-agent products, composable runtimes, speech/model providers, and the question of which parts of the stack to own—is in the [competitive landscape chapter](09-competitive-landscape.md). Use that chapter to distinguish a vendor that competes for the caller experience from a provider that supplies infrastructure underneath the agent.
+
 ## Evidence and how to read it
 
 - The product page quotes a customer saying the agent's booking rate runs 80–85% with

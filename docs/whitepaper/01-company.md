@@ -118,6 +118,12 @@ labor conditions, and regulation as risks. It identifies TCPA and related telema
 regulatory risks; applicable consent, exemption, and calling-method requirements vary by
 communication type and recipient. This is general education, not legal advice.
 
+## Competitive position and vertical integration
+
+ServiceTitan competes at two levels: against other contractor platforms for the system-of-record relationship, and against providers of individual capabilities such as voice agents, speech models, orchestration, and telephony. Those boundaries overlap: a third-party voice agent can compete for the customer conversation while integrating with ServiceTitan to book into its schedule.
+
+The dedicated [competitive landscape chapter](09-competitive-landscape.md) maps both layers and examines the build-versus-buy question: which capabilities create durable differentiation when owned, and which are better sourced from specialist providers? The central distinction is between owning every component and owning the authoritative business workflow.
+
 ## What this means for a voice-agent engineer
 
 - Treat GTV, usage revenue, booking outcomes, retention, and customer experience as distinct
