@@ -24,7 +24,7 @@ platform [1][2].
 2. Debugging means walking back from a bad outcome to the decision boundary that failed, then saving that case as an evaluation example.
 3. A trace explains one execution; an analytical store lets you find patterns across millions, so design the IDs that join them before production.
 4. Evaluate at four levels (runtime, agent, policy, business outcome), offline before release and online on sampled production traces.
-5. Roll out with canaries judged on guardrail metrics first, stratified A/B tests and shadow mode; release, trace and evaluation form one loop.
+5. Roll out with canaries judged on guardrail metrics first, stratified A/B tests and shadow mode; for contractor playbooks, treat technician feedback as evidence for a reviewed, versioned learning loop.
 
 ## 1. Production observability: trace the decision, not just the request
 
@@ -622,6 +622,247 @@ EVALUATION
 ```
 
 That is the production learning loop around the agent.
+
+## 5. Learning from technician feedback: improve the playbook, not just the model
+
+The production learning loop applies to more than conversational agents. A contractor's
+operating knowledge also lives in **playbooks** (how work is diagnosed and performed) and a
+**pricebook** (the catalog of sellable services, materials, equipment, and their pricing).
+These are different assets with different risk profiles:
+
+- A **playbook** guides a decision or procedure: what to inspect, in what order, when to stop,
+  and when to escalate.
+- A **pricebook** defines what can be quoted or sold: item identity, scope, labor assumptions,
+  material compatibility, price, and related terms.
+
+They may share job evidence, but a technician saying a diagnostic step is missing must not
+silently change a price, labor allowance, or catalog item. Treat each change type as a separate,
+versioned proposal with its own reviewers and acceptance criteria.
+
+This section uses an illustrative **AC-not-cooling** playbook. It is a systems design example,
+not an HVAC service procedure or a substitute for manufacturer instructions, company policy,
+licensing requirements, or qualified technical judgment.
+
+### The feedback event: preserve what was reported
+
+Suppose a technician chooses **Missing diagnostic step** after working a job. Do not immediately
+ask an LLM to rewrite the playbook. First capture a small, structured event tied to the job and
+the exact playbook version. The initial report should be lightweight; permitted job evidence can
+be linked later.
+
+```json
+{
+  "feedback_id": "uuid",
+  "feedback_type": "playbook_defect",
+  "category": "missing_diagnostic_step",
+  "status": "needs_evidence",
+  "source": {
+    "technician_id": null,
+    "submitted_at": null,
+    "submission_channel": null
+  },
+  "context": {
+    "job_id": null,
+    "equipment_id": null,
+    "equipment_type": "HVAC",
+    "symptom": "AC not cooling",
+    "playbook_id": "ac-not-cooling",
+    "playbook_version": null,
+    "step_id": null
+  },
+  "observation": {
+    "original_text": null,
+    "expected_step": null,
+    "actual_workflow": null,
+    "reason_step_was_needed": null
+  },
+  "evidence": {
+    "measurements": [],
+    "diagnostic_findings": [],
+    "parts_used": [],
+    "labor_minutes": null,
+    "attachments": [],
+    "repair_outcome": null,
+    "callback_within_window": null
+  },
+  "assessment": {
+    "interpreted_issue": null,
+    "candidate_revision_id": null,
+    "confidence": null,
+    "supporting_feedback_ids": [],
+    "contradicting_evidence": []
+  },
+  "review": {
+    "technical_approval": null,
+    "safety_approval": null,
+    "publication_approval": null
+  },
+  "audit": {
+    "created_at": null,
+    "published_revision_id": null
+  }
+}
+```
+
+Null means **unknown or not supplied**, not false. In this example, technician details, playbook
+version, and the actual missing step are unknown and must remain unknown. Preserve the original
+report immutably; store corrections and AI interpretations in linked records so auditors can
+distinguish what the technician said from what the system inferred. Use stable IDs and controlled
+enums in implementation. Keep sensitive customer/job data behind access controls rather than
+copying it into every event.
+
+### Evidence to collect
+
+Use progressive enrichment instead of requiring a long form from a technician in the field.
+
+| Stage | Evidence | Why it matters |
+|---|---|---|
+| Initial triage | Playbook/version, step if known, technician's description, equipment family | Locate and understand the alleged gap |
+| Technical validation | Relevant readings, diagnostic codes, observations, actual sequence, approved reference | Determine whether a step is justified and where it belongs |
+| Outcome | Confirmed cause, work performed, parts, labor, verified result, repeat visit/callback | Test whether the step improved the result |
+| Pattern validation | Similar reports, workarounds, equipment configuration, season, successful counterexamples | Separate recurring gaps from one-off cases |
+
+Distinguish a genuinely missing step from an existing step that was overlooked, a model-specific
+exception, a training/usability problem, or a case outside the playbook's scope. Repeated reports
+raise investigation priority but do not prove the suggested change is correct. One credible
+safety-critical report may justify immediate expert review even without duplicates.
+
+### Example: AC-not-cooling feedback
+
+The illustrative playbook might guide a technician to confirm the complaint, collect relevant
+observations, follow approved diagnostic checks, determine whether evidence supports a diagnosis,
+present an estimate, perform authorized work, and verify the outcome. This is a high-level
+workflow only; exact checks must come from approved HVAC guidance.
+
+A technician selects **Missing diagnostic step**. With no description or evidence, the system
+creates a `needs_evidence` record and asks a short follow-up: *What check did you need that the
+current playbook did not include, and what did it help establish?* It should not guess.
+
+After evidence is supplied, an AI assistant may draft a candidate revision containing:
+
+- the proposed step and trigger conditions;
+- where it fits in the current sequence;
+- the observation or result to record;
+- stop conditions and escalation paths;
+- supporting and contradicting cases;
+- confidence, unresolved questions, and the exact playbook version affected.
+
+The draft remains a **proposal**, not live guidance. If evidence shows that a step applies only
+to one equipment family, encode that applicability explicitly rather than adding needless steps
+to every job.
+
+### End-to-end learning workflow
+
+```text
+Technician feedback
+        |
+        v
+Immutable feedback event + job/playbook IDs
+        |
+        v
+Enrich with permitted job evidence and outcomes
+        |
+        v
+Triage: duplicate, incomplete, safety-sensitive, or actionable?
+        |
+        v
+Cluster similar reports; inspect counterexamples
+        |
+        v
+Draft a versioned candidate playbook revision
+        |
+        v
+Technical review + safety/policy review
+        |
+        v
+Replay historical cases and run regression evaluations
+        |
+        v
+Authorized owner approves a limited pilot
+        |
+        v
+Monitor outcomes, compare with baseline, roll back if needed
+        |
+        v
+Retain feedback, decision, version, and measured outcome
+```
+
+Rejection and revision are first-class outcomes. A reviewer may find that the step already
+exists, that the issue reflects training or usability trouble, or that evidence is insufficient.
+Those decisions are useful labels for improving triage and documentation; they are not failed
+automation to discard.
+
+### Evaluation: measure outcomes, not agreement with a suggestion
+
+Define the intended improvement and guardrails before testing a proposed change. Evaluate it
+against a fixed, versioned set of historical jobs and expert-authored scenarios.
+
+| Dimension | Evaluation question |
+|---|---|
+| Diagnostic completeness | Does the candidate cover the confirmed gap? |
+| Correctness | Does it distinguish plausible causes without asserting unsupported diagnoses? |
+| Safety and compliance | Are required precautions, stop conditions, and escalation preserved? |
+| Applicability | Does the step run only for relevant equipment/configurations? |
+| Efficiency | Does it reduce avoidable rework without adding needless steps elsewhere? |
+| Field outcome | Do verified repairs, callbacks, and first-time-fix performance improve? |
+| Usability | Can technicians understand and follow the revised instructions? |
+| Regression | Does it degrade other symptom or equipment cohorts? |
+
+Treat safety and policy failures as hard gates, not values that can be traded against an average
+score. An LLM judge may help classify feedback or compare text, but it must not be the sole
+authority for technical correctness. Use deterministic checks where possible and qualified human
+labels for domain-specific judgments. Do not optimize only for revenue, average ticket, or job
+duration.
+
+Compare versions on comparable cases. Job difficulty, equipment age, region, season, technician
+experience, parts availability, and customer decisions can confound before/after comparisons.
+Use randomized pilots where appropriate; otherwise stratify cohorts and document limitations.
+
+### Approval gates and ownership
+
+1. **Triage gate.** Link the report to a real job and playbook version where possible. Request
+   missing context; do not treat a signal as a confirmed defect.
+2. **Technical gate.** A qualified HVAC subject-matter expert validates the step, applicability,
+   expected observation, and authoritative reference.
+3. **Safety/policy gate.** Confirm required safety controls, licensing constraints, and escalation
+   conditions. Safety-sensitive changes require the designated qualified approver.
+4. **Evaluation gate.** Historical replay, scenario tests, and regression checks meet predefined
+   acceptance criteria. Critical failures block release.
+5. **Publication gate.** An authorized playbook owner approves the exact diff, version, rationale,
+   applicability, and rollback plan.
+6. **Monitoring gate.** Release to a limited cohort and compare against baseline and guardrails.
+   Pause or roll back if safety, correctness, callbacks, or agreed measures regress.
+
+The path depends on change class. A wording clarification may need less review than a new
+diagnostic procedure; price, labor, and catalog changes need their own approval policies.
+Feedback about a missing diagnostic step never grants authority to change pricebook values.
+
+### What the system learns over time
+
+The learning system is more than a fine-tuned model. Its durable assets are linked feedback,
+evidence, approved revisions, evaluation cases, reviewer decisions, and observed outcomes.
+Models can assist with extraction, deduplication, clustering, applicability suggestions, and
+drafting. Statistical analysis can surface recurring patterns and estimate whether an approved
+change helped. Qualified owners remain accountable for operational guidance.
+
+Preserve the lineage:
+
+```text
+feedback -> evidence -> proposal -> review decision
+         -> published version -> job outcome -> evaluation set
+```
+
+This lets the system learn from rejected proposals, false alarms, and regressions as well as
+successful changes. Keep company-specific knowledge and cross-customer patterns appropriately
+segregated: one contractor's procedures, prices, or customer records must not silently become
+another contractor's policy. Cross-business learning requires appropriate data rights, privacy
+controls, and evidence that a pattern generalizes.
+
+A strong first release is deliberately modest: capture structured reports, enrich them from
+permitted job records, cluster repeated issues, and draft versioned revisions for human review.
+Add automated rollout only for narrowly defined change classes after the evaluation and approval
+policy is proven. **The AI proposes; evidence tests; authorized people approve; production
+outcomes close the loop.**
 
 ## Check your understanding
 
