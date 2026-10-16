@@ -7,17 +7,15 @@
 
 ## Five Takeaways
 
-1. The platform is organized as **Core** (the base system for all workflows), **FinTech**
-   (payments and consumer financing) and **Pro** add-ons that deepen one area. [1]
-2. The phone and contact-center stack is a product line of its own: Phones Pro (VoIP with
-   call KPIs and transcripts), Contact Center Pro (omnichannel, multi-location) and AI
-   Virtual Agents (overflow and after-hours booking). [1][2][3]
-3. AI runs through the product rather than sitting beside it: Titan Intelligence, then
-   Atlas (an agentic AI layer, fiscal 2026), then the Max program. [1][4]
-4. Acquisitions extend the platform into specific trades and workflows: FieldRoutes,
-   Aspire, Convex and Conduit Tech. [1][5]
-5. Analysis: a voice agent is valuable here because it can *act* inside the system of
-   record (customer, job, capacity), not because it can talk.
+The platform is organized as **Core** (the base system for all workflows), **FinTech** (payments and consumer financing) and **Pro** add-ons that deepen one area. [1]
+
+The phone and contact-center stack is a product line of its own: Phones Pro (VoIP with call KPIs and transcripts), Contact Center Pro (omnichannel, multi-location) and AI Virtual Agents (overflow and after-hours booking). [1][2][3]
+
+AI runs through the product rather than sitting beside it: Titan Intelligence, then Atlas (an agentic AI layer, fiscal 2026), then the Max program. [1][4]
+
+Acquisitions extend the platform into specific trades and workflows: FieldRoutes, Aspire, Convex and Conduit Tech. [1][5]
+
+Analysis: a voice agent is valuable here because it can *act* inside the system of record (customer, job, capacity), not because it can talk.
 
 ## Core, FinTech, Pro
 
