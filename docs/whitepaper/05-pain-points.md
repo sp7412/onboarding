@@ -4,16 +4,15 @@
 
 ## Five Takeaways
 
-1. Contractors' core problem is converting demand into profitable, well-matched work with
-   scarce people: technicians, CSRs and dispatchers.
-2. The phone sits at the center: missed, abandoned and badly handled calls are lost revenue,
-   and ServiceTitan builds products specifically to recover them. [1]
-3. Skilled labor is structurally short: BLS projects tens of thousands of openings a year in
-   HVAC and plumbing, mostly to replace workers who leave. [2][3]
-4. Demand is volatile (season and weather), and many businesses still run on fragmented or
-   rudimentary tools. [1]
-5. Analysis: the best AI products relieve a *scarce resource* (CSR time, technician time,
-   owner attention) without creating new work, like cleaning up bad bookings.
+Contractors' core problem is converting demand into profitable, well-matched work with scarce people: technicians, CSRs and dispatchers.
+
+The phone sits at the center: missed, abandoned and badly handled calls are lost revenue, and ServiceTitan builds products specifically to recover them. [1]
+
+Skilled labor is structurally short: BLS projects tens of thousands of openings a year in HVAC and plumbing, mostly to replace workers who leave. [2][3]
+
+Demand is volatile (season and weather), and many businesses still run on fragmented or rudimentary tools. [1]
+
+Analysis: the best AI products relieve a *scarce resource* (CSR time, technician time, owner attention) without creating new work, like cleaning up bad bookings.
 
 ## The pain-point map
 
