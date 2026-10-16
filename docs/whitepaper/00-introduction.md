@@ -7,7 +7,7 @@
 1. ServiceTitan connects contractor workflows from customer intake through scheduling, field service, payments, and follow-up; its value proposition is broader than call handling.
 2. The market is large, fragmented, seasonal, and constrained by technician availability. More demand does not automatically mean more completed jobs.
 3. The phone is a revenue-critical entry point: an agent must qualify the need and book work into real capacity, not merely hold a convincing conversation.
-4. ServiceTitan's voice agents sit within a broader product and AI strategy, while outside vendors can compete with or integrate into the contractor's system of record.
+4. PE-backed consolidation gives ServiceTitan a route to expand across acquired contractors when sponsors standardize portfolio operations on one platform.
 5. Production success means a correctly booked, policy-compliant job that remains valid after the call. Tool authority, escalation, and defensible evaluation matter more than a raw booking-rate number.
 
 ## Executive Summary
