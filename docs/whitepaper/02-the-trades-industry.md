@@ -106,7 +106,7 @@ are common revenue tools in residential trades. ServiceTitan's industries page h
 membership management for HVAC, and its FinTech offering includes third-party consumer
 financing. [2][3] Analysis: for voice agents, memberships create predictable outbound and
 rescheduling traffic and "member" priority rules; financing is not something an agent
-should discuss without explicit, compliant scripts (chapter 10).
+should discuss without explicit, compliant scripts ([Chapter 10](10-regulation-and-compliance.md)).
 
 ## What this means for a voice-agent engineer
 
