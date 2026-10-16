@@ -13,7 +13,7 @@ options and hypotheses to test.
 4. Speak in contractor outcomes (booked jobs, recovered revenue, fewer missed calls, CSR hours) because that's how the company measures itself (GTV, share of wallet).
 5. Most of what matters (architecture, metrics, incidents, priorities) can only be learned inside. Arrive with sharp questions, not answers.
 
-## What the business cares about (from chapters 01–05, 11)
+## What the business cares about (from Chapters [Chapter 01](./01-company.md), [Chapter 02](./02-the-trades-industry.md), [Chapter 03](./03-how-a-contractor-works.md), [Chapter 04](./04-the-contact-center.md), [Chapter 05](./05-pain-points.md), 11)
 
 - **Revenue flowing through the platform (GTV)** and the company's **share of wallet**. [ch. 01]
 - **Retention**, which depends on contractors trusting the platform with their customers. [ch. 01, 12]
@@ -90,7 +90,7 @@ never let it do?
 ## How to use this paper
 
 - Read the essentials path before day one (see the introduction).
-- Revisit chapters 04, 07, 11 and 12 during week 3, when the checklist has you listening to
+- Revisit [Chapter 04](./04-the-contact-center.md), 07, 11 and 12 during week 3, when the checklist has you listening to
   calls and learning the metrics.
 - Replace this chapter's hypotheses with real answers as you learn them, in private notes, not
   in this public repo.
