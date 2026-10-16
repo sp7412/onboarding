@@ -2,6 +2,7 @@
 import Icon from "../../components/Icon.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import DocBody from "../../components/DocBody.astro";
+import CompanyCharts from "../../components/CompanyCharts.astro";
 import { loadContent } from "../../lib/content/repo";
 import { url } from "../../lib/url";
 import { slugify } from "../../lib/content/ids";
@@ -27,6 +28,7 @@ const file = `docs/whitepaper/${chapter.slug}.md`;
     </details>
   )}
   <DocBody body={chapter.body} sourcePath={file} idPrefix={`whitepaper-${chapter.slug}`} />
+  {chapter.slug === "01-company" && <CompanyCharts />}
   <div class="card chapter-end">
     <label><input type="checkbox" data-check-id={`whitepaper-read-${chapter.slug}`} /> I've read this chapter</label>
     <nav class="pager" aria-label="Chapters">

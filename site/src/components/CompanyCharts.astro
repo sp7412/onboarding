@@ -1,0 +1,150 @@
+---
+const quarters = [
+  { label: "Q1 FY26", value: 17.7 },
+  { label: "Q2 FY26", value: 22.9 },
+  { label: "Q3 FY26", value: 21.7 },
+  { label: "Q4 FY26", value: 19.8 },
+  { label: "Q1 FY27", value: 21.7 },
+  { label: "Q2 FY27", value: 26.8 },
+];
+const chart = { left: 54, top: 24, bottom: 190, width: 720, max: 30 };
+const barWidth = 54;
+const step = 112;
+const barX = (i: number) => chart.left + 18 + i * step;
+const barHeight = (v: number) => (v / chart.max) * (chart.bottom - chart.top);
+const vwap = [
+  { label: "Sep 1", value: 84.01 },
+  { label: "Sep 8", value: 84.16 },
+  { label: "Sep 9", value: 77.03 },
+  { label: "Sep 18", value: 71.10 },
+  { label: "Sep 25", value: 69.74 },
+  { label: "Sep 30", value: 69.45 },
+  { label: "Oct 12", value: 69.01 },
+];
+const vwapMin = 65;
+const vwapMax = 88;
+const plot = { left: 54, top: 28, bottom: 170, right: 730 };
+const pointX = (i: number) => plot.left + i * ((plot.right - plot.left) / (vwap.length - 1));
+const pointY = (v: number) => plot.bottom - ((v - vwapMin) / (vwapMax - vwapMin)) * (plot.bottom - plot.top);
+const line = vwap.map((p, i) => `${pointX(i)},${pointY(p.value)}`).join(" ");
+---
+<section class="company-charts" aria-labelledby="company-charts-title">
+  <div class="section-intro">
+    <p class="eyebrow">Personal reference · supplemental charts</p>
+    <h2 id="company-charts-title">The business—and the stock</h2>
+    <p class="lede">Two different lenses: transaction volume shows activity across the platform; the stock-price estimate is only market context, not an operating metric.</p>
+  </div>
+
+  <article class="chart-card" aria-labelledby="gtv-title">
+    <div class="chart-heading">
+      <div>
+        <h3 id="gtv-title">Quarterly gross transaction volume</h3>
+        <p class="chart-subtitle">Reported GTV · USD billions · fiscal quarters</p>
+      </div>
+      <div class="metric">
+        <strong>$26.8B</strong>
+        <span>Q2 FY2027</span>
+      </div>
+    </div>
+    <figure>
+      <svg class="chart" viewBox="0 0 760 236" role="img" aria-labelledby="gtv-svg-title gtv-svg-desc">
+        <title id="gtv-svg-title">ServiceTitan quarterly gross transaction volume</title>
+        <desc id="gtv-svg-desc">GTV was 17.7 billion dollars in Q1 FY2026, 22.9 in Q2, 21.7 in Q3, 19.8 in Q4, 21.7 in Q1 FY2027, and 26.8 in Q2 FY2027.</desc>
+        {[0, 10, 20, 30].map((tick) => (
+          <g>
+            <line x1={chart.left} x2={chart.width} y1={chart.bottom - (tick / chart.max) * (chart.bottom - chart.top)} y2={chart.bottom - (tick / chart.max) * (chart.bottom - chart.top)} class="gridline" />
+            <text x={chart.left - 12} y={chart.bottom - (tick / chart.max) * (chart.bottom - chart.top) + 4} text-anchor="end" class="axis-label">{tick}</text>
+          </g>
+        ))}
+        <text x="14" y="15" class="axis-title">USD B</text>
+        {quarters.map((q, i) => (
+          <g>
+            <rect x={barX(i)} y={chart.bottom - barHeight(q.value)} width={barWidth} height={barHeight(q.value)} rx="4" class={i === quarters.length - 1 ? "bar bar-highlight" : "bar"} />
+            <text x={barX(i) + barWidth / 2} y={chart.bottom - barHeight(q.value) - 9} text-anchor="middle" class="value-label">{q.value.toFixed(1)}</text>
+            <text x={barX(i) + barWidth / 2} y={chart.bottom + 22} text-anchor="middle" class="quarter-label">{q.label}</text>
+          </g>
+        ))}
+        <line x1={chart.left} x2={chart.width} y1={chart.bottom} y2={chart.bottom} class="baseline" />
+      </svg>
+      <figcaption>GTV is the total dollar value invoiced by customers through the platform—not ServiceTitan’s own revenue. Q2 FY2027 GTV increased 17% year over year.</figcaption>
+    </figure>
+    <p class="source-line">Sources: <a href="https://investors.servicetitan.com/news-releases/news-release-details/servicetitan-announces-fiscal-first-quarter-financial-results-0">Q1 FY2027</a> · <a href="https://investors.servicetitan.com/news-releases/news-release-details/servicetitan-announces-fiscal-second-quarter-financial-results-0">Q2 FY2027</a> · <a href="https://investors.servicetitan.com/news-releases/news-release-details/servicetitan-announces-fiscal-third-quarter-financial-results">Q3 FY2026</a> · <a href="https://servicetitan.gcs-web.com/news-releases/news-release-details/servicetitan-announces-fiscal-fourth-quarter-and-full-fiscal">Q4 FY2026 and full year</a> · <a href="https://investors.servicetitan.com/news-releases/news-release-details/servicetitan-announces-fiscal-second-quarter-financial-results">Q2 FY2026</a>.</p>
+  </article>
+
+  <article class="chart-card stock-card" aria-labelledby="vwap-title">
+    <div class="chart-heading">
+      <div>
+        <h3 id="vwap-title">TTAN rolling three-month VWAP estimate</h3>
+        <p class="chart-subtitle">Selected dates · USD per share</p>
+      </div>
+      <div class="metric metric-muted">
+        <strong>$69.01</strong>
+        <span>Oct 12 estimate</span>
+      </div>
+    </div>
+    <figure>
+      <svg class="chart" viewBox="0 0 760 220" role="img" aria-labelledby="vwap-svg-title vwap-svg-desc">
+        <title id="vwap-svg-title">Estimated rolling three-month volume-weighted average price for TTAN</title>
+        <desc id="vwap-svg-desc">The estimate rose from 84.01 dollars on September 1 to 84.16 on September 8, then fell to 77.03 on September 9, 71.10 on September 18, 69.74 on September 25, 69.45 on September 30, and 69.01 on October 12.</desc>
+        {[70, 75, 80, 85].map((tick) => (
+          <g>
+            <line x1={plot.left} x2={plot.right} y1={pointY(tick)} y2={pointY(tick)} class="gridline" />
+            <text x={plot.left - 12} y={pointY(tick) + 4} text-anchor="end" class="axis-label">${tick}</text>
+          </g>
+        ))}
+        <polyline points={line} class="vwap-line" />
+        {vwap.map((p, i) => (
+          <g>
+            <circle cx={pointX(i)} cy={pointY(p.value)} r={i === vwap.length - 1 ? 5 : 3.5} class={i === vwap.length - 1 ? "point point-current" : "point"} />
+            <text x={pointX(i)} y={pointY(p.value) - 11} text-anchor="middle" class="value-label">{p.value.toFixed(2)}</text>
+            <text x={pointX(i)} y={plot.bottom + 24} text-anchor="middle" class="quarter-label">{p.label}</text>
+          </g>
+        ))}
+        <line x1={plot.left} x2={plot.right} y1={plot.bottom} y2={plot.bottom} class="baseline" />
+      </svg>
+      <figcaption>Illustrative trend only; the last point is October 12, 2026. The closing-price × volume approximation is not true intraday VWAP and may differ from any compensation-plan pricing method.</figcaption>
+    </figure>
+    <p class="source-line">Market data reference: <a href="https://chartexchange.com/symbol/nasdaq-ttan/historical/">TTAN historical prices</a>. This chart is personal context, not investment advice.</p>
+  </article>
+</section>
+
+<style>
+  .company-charts { margin: 3rem 0 1.5rem; max-width: 72ch; color: var(--ink); }
+  .section-intro { margin-bottom: 1rem; }
+  .eyebrow { margin: 0 0 .4rem; color: var(--cyan); font-size: .74rem; font-weight: 600; letter-spacing: .11em; text-transform: uppercase; }
+  .section-intro h2 { margin: 0 0 .5rem; padding: 0; border: 0; font-size: 1.4rem; }
+  .lede { margin: 0; color: var(--ink-dim); font-size: .94rem; line-height: 1.55; }
+  .chart-card { margin: 1rem 0; padding: 1rem 1rem .85rem; border: 1px solid var(--panel-edge); border-radius: var(--r2); background: linear-gradient(145deg, #20242b, #171c25 72%); }
+  .chart-heading { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: .6rem; }
+  .chart-heading h3 { margin: 0 0 .25rem; font-size: 1.02rem; }
+  .chart-subtitle { margin: 0; color: var(--ink-dim); font-size: .8rem; }
+  .metric { flex: none; text-align: right; }
+  .metric strong { display: block; color: var(--cyan); font: 700 1.35rem/1.15 var(--font-head); letter-spacing: -.03em; }
+  .metric span { color: var(--ink-dim); font-size: .7rem; }
+  .metric-muted strong { color: #a9c8ff; }
+  figure { margin: .5rem 0 0; }
+  .chart { display: block; width: 100%; height: auto; overflow: visible; }
+  .gridline { stroke: #454b55; stroke-width: 1; stroke-dasharray: 3 5; }
+  .baseline { stroke: #6c7480; stroke-width: 1; }
+  .axis-label { fill: #aeb6c2; font: 11px var(--font-body); }
+  .axis-title { fill: #aeb6c2; font: 11px var(--font-body); }
+  .bar { fill: #367fc5; opacity: .88; }
+  .bar-highlight { fill: #6dbaf8; opacity: 1; }
+  .value-label { fill: #f4f7fb; font: 600 11px var(--font-body); }
+  .quarter-label { fill: #aeb6c2; font: 10px var(--font-body); }
+  .vwap-line { fill: none; stroke: #8eb4ff; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+  .point { fill: #171c25; stroke: #8eb4ff; stroke-width: 2; }
+  .point-current { fill: #8eb4ff; stroke: #fff; stroke-width: 1.5; }
+  figcaption { margin-top: .4rem; color: var(--ink-dim); font-size: .78rem; line-height: 1.5; }
+  .source-line { margin: .7rem 0 0; color: var(--ink-dim); font-size: .76rem; line-height: 1.55; }
+  .source-line a { white-space: normal; }
+  @media (max-width: 560px) {
+    .chart-card { padding: .8rem .65rem; }
+    .chart-heading { gap: .5rem; }
+    .chart-heading h3 { font-size: .94rem; }
+    .metric strong { font-size: 1.12rem; }
+    .metric span { font-size: .65rem; }
+    .quarter-label { font-size: 9px; }
+    .value-label { font-size: 10px; }
+  }
+</style>
