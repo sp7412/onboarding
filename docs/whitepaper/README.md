@@ -92,8 +92,10 @@ the stronger hypothesis of a cross-agent skill registry or marketplace.
 
 Chapter 17 was split out of Chapter 15 on October 7, 2026. It holds the production playbook:
 per-run traces, debugging and failure mining (including event streaming vs. analytical
-storage), offline and online evaluation, and canary, A/B and shadow-mode rollout. It pairs
-with [Design by Evaluation](../design-by-evaluation.md) and lab 07.
+storage), offline and online evaluation, and canary, A/B and shadow-mode rollout. Section 5
+applies that loop to contractor operations: structured technician feedback, evidence-linked
+playbook revisions, evaluation, approval gates, and monitored release. It pairs with
+[Design by Evaluation](../design-by-evaluation.md) and lab 07.
 
 ## Comparative architecture and harness docs
 
