@@ -27,7 +27,7 @@
 | **Scheduling and capacity mismatch** | Dispatcher, CSR | Scheduling rules for job types, zones and capacity [5] | Manual juggling | Capacity-aware booking; risk of confidently wrong bookings |
 | **Marketing waste** | Owner, marketing | Marketing Pro measures ads and connects to bookings [1] | Guesswork on which ads work | Attribution from call to job to invoice |
 | **Fragmented tools** | Owner, office | 10-K: many trades businesses rely on rudimentary workflows [1] | Spreadsheets, paper, point tools | Integrated data makes agents possible; fragmented data makes them brittle |
-| **Cash flow** | Owner, office | FinTech payments and financing offerings [1] | Paper invoices, late collection | Faster invoicing and payment; agents should stay out of card handling (chapter 10) |
+| **Cash flow** | Owner, office | FinTech payments and financing offerings [1] | Paper invoices, late collection | Faster invoicing and payment; agents should stay out of card handling ([Chapter 10](./10-regulation-and-compliance.md)) |
 
 ## Missed calls: why this is the headline pain
 
@@ -39,7 +39,7 @@ An AI-voice vendor's founders make the same point more vividly, contrasting a sm
 restaurant order with a missed HVAC installation worth tens of thousands of dollars. [6]
 That's the high end: many calls are small service tickets, existing-customer questions or
 not bookable at all. The economic case is real but must be measured on bookable calls
-(chapter 11).
+([Chapter 11](./11-economics-and-metrics.md)).
 
 ## Labor: the constraint behind everything
 
