@@ -17,7 +17,7 @@ Speak in contractor outcomes (booked jobs, recovered revenue, fewer missed calls
 
 Most of what matters (architecture, metrics, incidents, priorities) can only be learned inside. Arrive with sharp questions, not answers.
 
-## What the business cares about (from Chapters [Chapter 01](./01-company.md), [Chapter 02](./02-the-trades-industry.md), [Chapter 03](./03-how-a-contractor-works.md), [Chapter 04](./04-the-contact-center.md), [Chapter 05](./05-pain-points.md), 11)
+## What the business cares about (from Chapters 01–05 and 11)
 
 - **Revenue flowing through the platform (GTV)** and the company's **share of wallet**. [ch. 01]
 - **Retention**, which depends on contractors trusting the platform with their customers. [ch. 01, 12]
