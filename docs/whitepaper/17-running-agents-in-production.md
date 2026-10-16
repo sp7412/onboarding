@@ -886,4 +886,4 @@ Try the question before reading the sketch below it.
 
 - [Chapter 15: agentic orchestration](15-agentic-orchestration.md), especially section 18 on what can and cannot be inferred about ServiceTitan's data platform
 - [Design by Evaluation](../design-by-evaluation.md) and [Earning autonomy](../earning-autonomy.md)
-- Labs: [07 tracing and evaluation](../../labs/07_langsmith_tracing_evals.ipynb), [11 learning loop](../../labs/11_learning_loop.ipynb), [14 earning autonomy](../../labs/14_earning_autonomy.ipynb)
+- Labs: [07 tracing and evaluation](../../labs/07_langsmith_tracing_evals.ipynb), [11 learning loop](../../labs/11_learning_loop.ipynb), [14 earning autonomy](../../labs/14_earning_autonomy.ipynb), [17 technician-feedback playbook learning](../../labs/17_technician_feedback_playbook_learning.ipynb)
