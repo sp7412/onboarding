@@ -314,6 +314,42 @@ that policy does not permit for this use.
 6. Governance: obtain workspace-owner/security approval and follow applicable consent, retention,
    privacy, and company data-handling rules.
 
+## Task tracking tools for Mac
+
+Choose a tracker based on whether the work is personal, shared across a team, or tied directly to code. Avoid maintaining duplicate backlogs unless one system is explicitly authoritative.
+
+### Personal tasks
+
+| Tool | Best fit | Strengths | Trade-offs |
+|---|---|---|---|
+| [Apple Reminders](https://support.apple.com/guide/reminders/welcome/mac) | Free, built-in option | Lists, tags, smart lists, subtasks, recurring reminders, shared lists, Siri capture | Lightweight rather than full project management; some features depend on iCloud |
+| [Things 3](https://culturedcode.com/things/) | Polished Apple-only personal planning | Inbox, Today and Upcoming views, projects, tags, natural-language scheduling, calendar events | Paid; Apple ecosystem only; no team project management |
+| [Todoist](https://todoist.com/) | Best general-purpose cross-platform choice | Fast capture, natural-language dates, filters, integrations, shared projects | Some advanced features require a paid plan |
+| [TickTick](https://ticktick.com/) | All-in-one personal planner | Tasks, calendar views, recurring work, habits, focus/Pomodoro tools | Busier interface; verify current plan limits |
+| [OmniFocus](https://www.omnigroup.com/omnifocus) | Complex personal workflows / GTD | Defer dates, Forecast, reviews, custom perspectives, automation | More setup and maintenance; primarily Apple-focused |
+
+### Shared projects and engineering work
+
+| Tool | Best fit | Strengths | Trade-offs |
+|---|---|---|---|
+| [Linear](https://linear.app/features) | Product and engineering teams | Issues, cycles, projects/roadmaps, triage, integrations, coding-session workflows | Use the team's existing tracker rather than creating a parallel backlog |
+| [GitHub Issues and Projects](https://github.com/features/issues) | Work tied to repositories and pull requests | Issues, sub-issues, milestones, custom fields, board/table views, links to code, CLI support | Best when the team works in GitHub; not a general personal task manager |
+| [Asana](https://asana.com/features/project-management) | Cross-functional project coordination | Ownership, dependencies, list/board/timeline views, status updates | More process overhead than an individual to-do list |
+| [Trello](https://trello.com/) | Simple visual workflows | Kanban boards, cards, checklists, lightweight automation | Can become cumbersome for large dependency-heavy programs |
+
+### Selection rule
+
+- **Free and native:** Apple Reminders.
+- **Focused Mac experience:** Things 3.
+- **Cross-platform or shared tasks:** Todoist.
+- **Tasks plus calendar and focus tools:** TickTick.
+- **Complex personal system:** OmniFocus.
+- **Software delivery:** the team's existing Linear or GitHub Issues/Projects workflow.
+
+For AI-assisted engineering, the task record should include an owner, goal, branch/worktree, scope, acceptance criteria, test results, and status such as `working`, `blocked`, or `ready for review`. Link tasks to branches and pull requests; an agent saying it finished is not proof of correctness.
+
+Before using a task app for company work, check approved data handling, account boundaries, export options, integrations, and external AI processing. Keep restricted work out of personal accounts unless that use is approved.
+
 ## Mac productivity and workflow automation
 
 These utilities reduce the small interruptions that accumulate during engineering work.
