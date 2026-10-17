@@ -42,6 +42,17 @@
 
 ## 2026-10-16
 
+### Slack-linked task capture and Grok Bot
+
+- Added a sourced workflow for converting a specific Slack message into a task, with
+  Todoist as the first integration to test and a requirement to verify exact-message
+  permalink preservation rather than assume it.
+- Compared Todoist, Microsoft To Do automation, and Apple Reminders for Slack capture,
+  distinguishing cloud-backed task stores from native apps and documenting company-data
+  safeguards.
+- Expanded Grok Bot coverage with personal Bots versus Team Bots, Slack app setup and
+  mention/DM behavior, shared cloud-computer boundaries, approval gates, and adoption checks.
+
 ### Mac task tracking tools
 
 - Added a practical comparison of Apple Reminders, Things 3, Todoist, TickTick, and OmniFocus for personal task management, plus Linear, GitHub Issues/Projects, Asana, and Trello for shared project work.
