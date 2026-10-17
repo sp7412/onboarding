@@ -446,6 +446,24 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [VS Code AI](https://code.visualstudio.com/docs/copilot/overview) | Official documentation | Developer tools catalog: AI coding workflows |
 | [GitHub Copilot coding agent](https://docs.github.com/en/copilot/concepts/agents/coding-agent) | Official documentation | Developer tools catalog: delegated coding agent |
 
+## Command-line developer tools
+
+| Source | Type | Cited in |
+|---|---|---|
+| [GitHub CLI manual](https://cli.github.com/manual/) | Official documentation | Developer tools catalog: PR, issue, and CI workflows |
+| [GitLab CLI project](https://gitlab.com/gitlab-org/cli) | Official project and documentation | Developer tools catalog: merge requests and pipeline workflows |
+| [Git documentation](https://git-scm.com/docs) | Official documentation | Developer tools catalog: source control and worktrees |
+| [ripgrep](https://github.com/BurntSushi/ripgrep) and [fd](https://github.com/sharkdp/fd) | Open-source project documentation | Developer tools catalog: code and file search |
+| [fzf](https://github.com/junegunn/fzf) | Open-source project documentation | Developer tools catalog: interactive selection |
+| [jq](https://jqlang.org/) and [yq](https://github.com/mikefarah/yq) | Project documentation | Developer tools catalog: JSON/YAML processing |
+| [mise](https://mise.jdx.dev/) | Official documentation | Developer tools catalog: runtime/tool version management |
+| [just](https://just.systems/) | Official documentation | Developer tools catalog: repeatable project recipes |
+| [direnv](https://direnv.net/) | Official documentation | Developer tools catalog: directory-scoped environment |
+| [lazygit](https://github.com/jesseduffield/lazygit) and [delta](https://github.com/dandavison/delta) | Open-source project documentation | Developer tools catalog: interactive Git and diff review |
+| [ShellCheck](https://www.shellcheck.net/) and [shfmt](https://github.com/mvdan/sh) | Project documentation | Developer tools catalog: shell linting and formatting |
+| [act](https://github.com/nektos/act) | Open-source project documentation | Developer tools catalog: local GitHub Actions caveats |
+| [Docker CLI reference](https://docs.docker.com/reference/cli/docker/) and [kubectl reference](https://kubernetes.io/docs/reference/kubectl/) | Official documentation | Developer tools catalog: container and Kubernetes operations |
+
 ## Multi-agent workstation and session tools
 
 | Source | Type | Cited in |
