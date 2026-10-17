@@ -45,6 +45,15 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [Building AI Voice Agents for Production (DeepLearning.AI × LiveKit)](https://www.deeplearning.ai/courses/building-ai-voice-agents-for-production) | Course | RG 25 |
 | [ITU-T G.114: One-way transmission time](https://www.itu.int/rec/T-REC-G.114) | Standard | Architecture explorer |
 
+## Developer workstation and terminal layouts
+
+| Source | Type | Cited in |
+|---|---|---|
+| [WezTerm features and panes](https://github.com/wez/wezterm/blob/main/docs/features.md) | Official documentation | Developer tools: terminal workspaces and panes |
+| [WezTerm workspaces and startup layouts](https://wezterm.org/recipes/workspaces.html) | Official documentation | Developer tools: repeatable terminal layouts |
+| [AeroSpace](https://github.com/nikitabobko/AeroSpace) | Project documentation | Developer tools: macOS desktop-window tiling |
+| [Rectangle](https://rectangleapp.com/) | Project website | Developer tools: macOS desktop-window placement |
+
 ## Debugging and agentic software engineering
 
 | Source | Type | Cited in |
@@ -421,6 +430,40 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [Otter](https://otter.ai/) | Product website | Developer tools catalog |
 | [Fireflies](https://fireflies.ai/) | Product website | Developer tools catalog |
 
+## AI coding environments
+
+| Source | Type | Cited in |
+|---|---|---|
+| [OpenCode documentation](https://opencode.ai/docs/) | Official documentation | Developer tools catalog: installation and getting started |
+| [OpenCode agents](https://opencode.ai/docs/agents/) | Official documentation | Developer tools catalog: planning, primary agents, and subagents |
+| [OpenCode tools and permissions](https://docs.opencode.ai/docs/tools/) | Official documentation | Developer tools catalog: permission controls |
+| [OpenCode models](https://opencode.ai/docs/models/) | Official documentation | Developer tools catalog: provider selection |
+| [OpenCode MCP servers](https://opencode.ai/docs/mcp-servers/) | Official documentation | Developer tools catalog: external tool integration |
+| [Cursor MCP](https://prod.cursor.com/docs/mcp) | Official documentation | Developer tools catalog: MCP configuration |
+| [Cursor agent security](https://prod.cursor.com/docs/agent/security) | Official documentation | Developer tools catalog: agent approvals and safeguards |
+| [Cursor privacy and data governance](https://prod.cursor.com/docs/enterprise/privacy-and-data-governance) | Official documentation | Developer tools catalog: model and cloud-agent data flows |
+| [VS Code documentation](https://code.visualstudio.com/docs) | Official documentation | Developer tools catalog: IDE comparison |
+| [VS Code AI](https://code.visualstudio.com/docs/copilot/overview) | Official documentation | Developer tools catalog: AI coding workflows |
+| [GitHub Copilot coding agent](https://docs.github.com/en/copilot/concepts/agents/coding-agent) | Official documentation | Developer tools catalog: delegated coding agent |
+
+## Command-line developer tools
+
+| Source | Type | Cited in |
+|---|---|---|
+| [GitHub CLI manual](https://cli.github.com/manual/) | Official documentation | Developer tools catalog: PR, issue, and CI workflows |
+| [GitLab CLI project](https://gitlab.com/gitlab-org/cli) | Official project and documentation | Developer tools catalog: merge requests and pipeline workflows |
+| [Git documentation](https://git-scm.com/docs) | Official documentation | Developer tools catalog: source control and worktrees |
+| [ripgrep](https://github.com/BurntSushi/ripgrep) and [fd](https://github.com/sharkdp/fd) | Open-source project documentation | Developer tools catalog: code and file search |
+| [fzf](https://github.com/junegunn/fzf) | Open-source project documentation | Developer tools catalog: interactive selection |
+| [jq](https://jqlang.org/) and [yq](https://github.com/mikefarah/yq) | Project documentation | Developer tools catalog: JSON/YAML processing |
+| [mise](https://mise.jdx.dev/) | Official documentation | Developer tools catalog: runtime/tool version management |
+| [just](https://just.systems/) | Official documentation | Developer tools catalog: repeatable project recipes |
+| [direnv](https://direnv.net/) | Official documentation | Developer tools catalog: directory-scoped environment |
+| [lazygit](https://github.com/jesseduffield/lazygit) and [delta](https://github.com/dandavison/delta) | Open-source project documentation | Developer tools catalog: interactive Git and diff review |
+| [ShellCheck](https://www.shellcheck.net/) and [shfmt](https://github.com/mvdan/sh) | Project documentation | Developer tools catalog: shell linting and formatting |
+| [act](https://github.com/nektos/act) | Open-source project documentation | Developer tools catalog: local GitHub Actions caveats |
+| [Docker CLI reference](https://docs.docker.com/reference/cli/docker/) and [kubectl reference](https://kubernetes.io/docs/reference/kubectl/) | Official documentation | Developer tools catalog: container and Kubernetes operations |
+
 ## Multi-agent workstation and session tools
 
 | Source | Type | Cited in |
@@ -430,10 +473,6 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [cmux](https://cmux.com/) | Project website and docs | Developer tools catalog |
 | [ccmux](https://ccmux.dev/) | Project website and docs | Developer tools catalog |
 | [Zellij](https://zellij.dev/) | Project website and docs | Developer tools catalog |
-| [Agent Sessions](https://github.com/ozankasikci/agent-sessions) | Source repository | Developer tools catalog |
-| [AgentHUD](https://github.com/neochoon/agenthud) | Source repository | Developer tools catalog |
-| [opensessions](https://github.com/Ataraxy-Labs/opensessions) | Source repository and docs | Developer tools catalog |
-| [AgentsView](https://github.com/kenn-io/agentsview) | Source repository and docs | Developer tools catalog |
 | [Grok CLI](https://github.com/superagent-ai/grok-cli) | Source repository | Developer tools catalog |
 | [AnythingLLM agent documentation](https://docs.anythingllm.com/agent/setup) | Official documentation | Developer tools catalog |
 | [Grok Bot documentation](https://docs.x.ai/grok-bot/overview) | Official documentation | Developer tools catalog |
@@ -457,13 +496,15 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [Trello](https://trello.com/) | Product website | Developer tools catalog |
 
 
-## Coding-agent engineering practices
+## Agent skills, MCP servers, and plugins
 
 | Source | Type | Cited in |
 |---|---|---|
-| [Git worktree documentation](https://git-scm.com/docs/git-worktree) | Official Git documentation | Developer tools catalog: parallel-agent isolation |
-| [GitHub secure use reference](https://docs.github.com/en/code-security) | Official security documentation | Developer tools catalog: trust boundaries and dependency review |
-| [OpenAI: Evaluation best practices](https://developers.openai.com/api/docs/guides/evaluation-best-practices) | Official evaluation guidance | Developer tools catalog: coding-agent benchmark |
-| [OpenTelemetry documentation](https://opentelemetry.io/docs/) | Observability framework documentation | Developer tools catalog: structured task telemetry |
-| [NIST Secure Software Development Framework (SSDF)](https://csrc.nist.gov/Projects/ssdf) | Standards guidance | Developer tools catalog: verification and supply-chain controls |
-| [GitHub dependency review](https://docs.github.com/en/code-security/concepts/supply-chain-security/dependency-review) | Official security documentation | Developer tools catalog: dependency/API verification |
+| [OpenCode skills documentation](https://opencode.ai/docs/skills) | Official documentation | Developer tools catalog |
+| [Agent Skills specification](https://agentskills.io/) | Specification | Developer tools catalog |
+| [Superpowers](https://github.com/obra/superpowers) | Open-source skill/workflow collection | Developer tools catalog |
+| [GitHub MCP Server](https://github.com/github/github-mcp-server) | Official GitHub MCP project | Developer tools catalog; MCP lab |
+| [Context7](https://github.com/upstash/context7) | Documentation retrieval integration | Developer tools catalog |
+| [MCP Inspector](https://github.com/modelcontextprotocol/inspector) | Official MCP debugging tool | Developer tools catalog; MCP lab |
+| [Claude Code plugins](https://docs.anthropic.com/en/docs/claude-code/plugins) | Official documentation | Developer tools catalog |
+| [Cursor plugins](https://docs.cursor.com/plugins) | Official documentation | Developer tools catalog |

@@ -20,6 +20,103 @@ these change faster than the rest of this guide.
 | Cross-platform local/cloud voice workflows | [OpenWhispr](https://github.com/openwhispr/openwhispr) | Open-source desktop dictation and transcription with local model choices, including Parakeet and Whisper |
 | Polished commercial dictation | [Wispr Flow](https://wisprflow.ai/) | A managed option if its editing workflow is worth the subscription and cloud-processing trade-off |
 
+## Command-line toolkit for AI-assisted software engineering
+
+The CLI is often the fastest, most scriptable interface for inspecting repository state,
+reviewing changes, and diagnosing CI failures. Learn the tools that remove repeated friction
+before collecting a large toolbox. Install only what you use, and check each tool's official
+installation instructions for the current operating system and release.
+
+### Start with these tools
+
+| Tool | Best fit | High-value uses |
+|---|---|---|
+| [GitHub CLI (`gh`)](https://cli.github.com/) | GitHub repositories and pull requests | Inspect PRs, review diffs, check required CI, browse runs, manage issues and releases |
+| [GitLab CLI (`glab`)](https://gitlab.com/gitlab-org/cli) | GitLab projects and merge requests | Inspect MRs, pipelines and jobs; create or review MRs; interact with GitLab from scripts |
+| [Git](https://git-scm.com/docs) | Source control and recovery | Branches, worktrees, bisect, reflog, and safe change inspection |
+| [ripgrep (`rg`)](https://github.com/BurntSushi/ripgrep) + [fd](https://github.com/sharkdp/fd) | Fast code and file search | Find symbols, configuration, tests, and files without noisy recursive output |
+| [fzf](https://github.com/junegunn/fzf) | Interactive selection | Filter branches, files, command history, and search results |
+| [jq](https://jqlang.org/) + [yq](https://github.com/mikefarah/yq) | Structured data | Inspect and transform JSON/YAML from APIs, test reports, and CI jobs |
+| [mise](https://mise.jdx.dev/) | Tool-version management | Pin and activate language/runtime versions per project |
+| [just](https://just.systems/) | Repeatable project commands | Expose memorable recipes for lint, tests, notebooks, and local development |
+| [direnv](https://direnv.net/) | Per-directory environment variables | Load project environment settings when entering a directory; keep secrets out of version control |
+
+### Install a small Mac-first baseline
+
+With Homebrew installed, a reasonable starting set is:
+
+```bash
+brew install gh glab jq yq ripgrep fd fzf mise just direnv
+```
+
+This installs several independent tools; it does not configure authentication, project
+versions, shell integration, or repository-specific recipes. Follow the official setup
+instructions for `gh`, `glab`, `mise`, `direnv`, and `fzf` before relying on them.
+On Linux or managed corporate machines, use the approved package manager or installation
+method instead of assuming Homebrew or unrestricted network access is available.
+
+### Source-control and CI triage examples
+
+Use the CLI that matches the repository host. Git commands work across both hosts; `gh`
+and `glab` are not interchangeable.
+
+```bash
+# GitHub: orient, inspect, and verify a pull request
+gh pr status
+gh pr list
+gh pr view 123
+gh pr diff 123
+gh pr checks 123
+gh run list
+gh run view <run-id> --log-failed
+
+# GitLab: inspect merge requests and pipeline activity
+glab mr list
+glab mr view 123
+glab ci list
+glab ci view
+
+# Find source/configuration and inspect structured output
+rg "TODO|FIXME" src tests
+fd "config" .
+jq '.jobs[] | {name, status}' result.json
+```
+
+Replace example IDs and paths with real values. CLI subcommands and flags can vary by
+version; check `gh help`, `glab help`, or the linked manuals when a command is unavailable.
+For GitLab projects, pipeline visibility also depends on the user's project permissions.
+
+### A reliable agent-assisted PR loop
+
+1. **Inspect before editing:** check the current branch, working tree, and intended base.
+2. **Keep parallel tasks isolated:** use one Git worktree per independently writable agent.
+3. **Use the host CLI for evidence:** inspect the PR/MR diff and required checks; open failed
+   job logs rather than treating a green summary or agent statement as proof.
+4. **Verify locally:** run the repository's documented tests, lint, type checks, or build.
+5. **Review before mutation:** examine staged and final diffs; explicitly authorize pushes,
+   merges, releases, or other consequential actions.
+6. **Record what happened:** capture the commit SHA, checks run, failures, and skipped checks.
+
+A CLI command is an interface, not a safety boundary: it acts with the credentials and
+permissions of the logged-in user. Authenticate with least privilege, avoid printing tokens
+or secret-bearing environment variables, and treat issue/PR text and downloaded artifacts as
+untrusted input. Prefer read-only inspection until a write operation is actually needed.
+
+### Add these only when the workflow needs them
+
+| Tool | Add it when | Caution |
+|---|---|---|
+| [lazygit](https://github.com/jesseduffield/lazygit) | You want a terminal UI for staging, commits, branches, and diffs | Review the resulting diff; the UI does not replace Git knowledge |
+| [delta](https://github.com/dandavison/delta) | You want syntax-highlighted, navigable Git diffs | Optional pager/configuration; plain `git diff` remains portable |
+| [ShellCheck](https://www.shellcheck.net/) + [shfmt](https://github.com/mvdan/sh) | You maintain shell scripts | Add them to CI where the project can support the tooling |
+| [act](https://github.com/nektos/act) | You want to test some GitHub Actions workflows locally | Runner images, secrets, services, and GitHub-hosted behavior may differ; local success is not proof hosted CI will pass |
+| [Docker CLI](https://docs.docker.com/reference/cli/docker/) and [kubectl](https://kubernetes.io/docs/reference/kubectl/) | Your project uses containers or Kubernetes | Follow team-approved contexts, namespaces, credential policies, and deployment gates |
+
+**Selection rule:** start with `git`, the host-specific CLI (`gh` or `glab`), `rg`,
+`fd`, `fzf`, and `jq`. Add environment/task runners when they make project setup
+reproducible. Avoid installing overlapping tools just because they are popular; choose based
+on a repeated task, a measurable reduction in friction, and an acceptable security boundary.
+
 ## Mac dictation for AI-assisted coding
 
 The goal is simple: place the cursor in OpenCode, VS Code, a terminal prompt, an issue,
@@ -98,25 +195,31 @@ workspaces and panes. Add tmux when durable sessions, remote SSH workflows, or a
 matter. Evaluate cmux or ccmux if the hard part is seeing which agent is running, waiting,
 or finished—not simply keeping terminals open.
 
-### Live session monitors and session-history browsers
+#### WezTerm: tiled panes versus separate windows
 
-These tools overlap, but they solve different parts of the workflow. A live monitor helps
-you notice an agent that is waiting for input and switch to its terminal. A session-history
-browser helps you search prior conversations, inspect activity, and understand usage. Neither
-automatically isolates concurrent file edits; use separate Git worktrees for that.
+WezTerm's built-in layout model is **panes inside a terminal window**. Split a window
+horizontally or vertically to tile shells side by side; resize panes as the workload
+changes. Tabs and workspaces organize larger collections of windows and panes. You can
+also define repeatable startup layouts with Lua configuration and the `gui-startup` /
+`mux-startup` events.
 
-| Tool | Best fit | What it offers | Trade-offs / checks |
-|---|---|---|---|
-| [Agent Sessions](https://github.com/ozankasikci/agent-sessions) | Lightweight macOS dashboard for active Claude Code and OpenCode sessions | Shows live session states, lets you name sessions, and click to focus the associated terminal; documents support for iTerm2 and Terminal | A session switcher, not a worktree manager or orchestrator; verify current macOS/terminal compatibility and how status detection behaves in your setup |
-| [AgentHUD](https://github.com/neochoon/agenthud) | Terminal-native live overview across several coding-agent CLIs | Combines sessions and sub-agents into a TUI; can produce daily/weekly summaries and structured reports | Requires a compatible Node runtime; check which agent session formats and versions are recognized |
-| [opensessions](https://github.com/Ataraxy-Labs/opensessions) | A live agent-status sidebar inside an existing tmux workflow | Rust-based sidebar with session switching, state markers, and a local API for status/progress updates | tmux-only supported multiplexer; more setup than a standalone Mac dashboard |
-| [AgentsView](https://github.com/kenn-io/agentsview) | Searching and analyzing session history across agents | Local-first session archive with search, activity and token/cost analytics, plus CLI/API integrations | Better for history, recall, and analysis than as a minimal live terminal switcher; review its data-sharing options before enabling optional integrations |
+Do not confuse pane tiling with desktop-window management: **WezTerm does not automatically
+tile or cascade multiple independent macOS windows** just because they are opened. If you
+want separate application windows arranged across the desktop, use a macOS window manager
+such as [AeroSpace](https://github.com/nikitabobko/AeroSpace) (keyboard-driven tiling) or
+[Rectangle](https://rectangleapp.com/) (manual and shortcut-based window placement).
 
-**Selection rule:** choose Agent Sessions if you want the smallest Mac-first “which agent
-needs me?” dashboard; AgentHUD if you prefer a terminal HUD; opensessions if tmux is already
-your control surface; and AgentsView if finding past work and understanding usage matter most.
-Start with one tool and a few real sessions. Check CPU/memory use, status accuracy, terminal
-focus behavior, supported agent versions, and whether session transcripts remain local.
+**A practical multi-agent layout:**
+1. Start with one WezTerm window and one pane per active coding-agent session.
+2. Keep each agent in its own Git worktree and branch; avoid having agents edit the same
+   working tree concurrently.
+3. Give each pane a stable task/agent label in your own notes or task tracker. A terminal
+   pane is not an agent supervisor: inspect diffs, tests, and tool activity separately.
+4. Use a saved Lua startup layout only after the pane arrangement stabilizes. Use a desktop
+   tiler only if you specifically need multiple independent windows.
+
+Official references: [WezTerm features and panes](https://github.com/wez/wezterm/blob/main/docs/features.md)
+and [WezTerm workspaces and startup layouts](https://wezterm.org/recipes/workspaces.html).
 
 ### Coding-agent session orchestration
 
@@ -171,227 +274,117 @@ Start with two agents on independent tasks before scaling up. Measure completed 
 hour, human context-switching time, integration conflicts, review defects, and cost—not the
 raw number of agents running.
 
+## AI coding environments: OpenCode, Cursor, and VS Code
 
-### From task to verified change: an agent operating contract
+These tools overlap, but they are not interchangeable. Compare the *control surface*
+you want (terminal agent vs. AI-native editor vs. general-purpose IDE), the model and
+provider choices available to your account, and the data path approved for the repository.
+Product features and plan limits change; use the linked official docs as the current source
+of truth rather than treating this comparison as a permanent feature matrix.
 
-The terminal/worktree setup above covers coordination. This section defines the contract each
-task follows, regardless of which coding agent or editor is used. Use it as a lightweight
-operating standard rather than another tool-specific checklist.
+### At a glance
 
-For deeper dives, see [agent-scale source control](agent-scale-source-control.md) for the
-repository/worktree model and [evidence-first debugging](evidence-first-debugging.md) for
-hypothesis-driven diagnosis. The guidance below connects those practices into one task lifecycle.
+| Dimension | [OpenCode](https://opencode.ai/) | [Cursor](https://cursor.com/) | [VS Code](https://code.visualstudio.com/) |
+|---|---|---|---|
+| Core interaction | Terminal-first coding agent, with a desktop app also available | AI-focused editor with integrated agent workflows | General-purpose editor/IDE; AI experience comes from built-in features, GitHub Copilot, and/or extensions |
+| Model flexibility | Provider-oriented; supports multiple hosted providers and local model endpoints where compatible | Model choice depends on Cursor's supported models, account/plan, and feature | Depends on Copilot plan and selected extensions/providers; no single universal model policy |
+| Repository context | Agent tools inspect and edit the working tree; configure project instructions and tools | Editor indexing, rules, agent tools, and project context | Language services, workspace search, Copilot/extension context, and repository instructions |
+| MCP | Configurable MCP servers and tool permissions | MCP configuration through `.cursor/mcp.json` and the UI | MCP availability and configuration depend on the selected agent/client version |
+| Multi-agent work | Primary agents and subagents; pair parallel work with separate Git worktrees | Integrated agent workflows and cloud agents, depending on product/plan | Agent and parallel-session experience depends on Copilot/extension capabilities and version |
+| Best reason to choose it | You want a scriptable, terminal-native agent and control over provider routing | You want a cohesive AI-centric editor experience | You want a mature, extensible IDE that can serve non-AI development workflows too |
 
-#### 1. Define the task and its definition of done
+This is a workflow comparison, not a benchmark. Evaluate on your actual task mix: navigating
+an unfamiliar service, implementing a bounded change, diagnosing a failing test, reviewing a
+diff, and working behind your organization's proxy and access controls.
 
-Before delegating, record:
+### OpenCode: a practical Mac starting point
 
-- **Outcome:** the observable behavior to add or repair, including what must not change.
-- **Scope:** repository, branch/worktree, files or subsystems in scope, and explicit exclusions.
-- **Acceptance criteria:** concrete assertions a reviewer can verify; include negative cases
-  and failure behavior where relevant.
-- **Verification plan:** exact test, lint, type-check, build, static-analysis, or manual checks
-  expected to run.
-- **Constraints:** supported runtime/library versions, compatibility requirements, security
-  boundaries, latency/resource budgets, and allowed dependencies.
-- **Stop conditions:** ambiguous requirements, missing credentials, destructive operations,
-  scope expansion, or failed checks that require human input.
+OpenCode is a strong candidate when you prefer an agent that fits into the terminal and lets
+you select among supported model providers. It is still an agent harness: provider choice
+does not remove the need to control tools, permissions, and the working directory.
 
-A useful task record is short and testable:
+1. **Install from the official instructions.** Use [OpenCode's installation guide](https://opencode.ai/docs/).
+   Check the current install method and version rather than copying an old one-liner into a
+   managed machine.
+2. **Choose the model route deliberately.** Configure an approved hosted provider, or a
+   compatible local endpoint if you want local inference. Confirm context-window limits,
+   tool-calling support, latency, and license/usage terms. A local model does not imply every
+   connected tool or request is local.
+3. **Start inside a repository.** Run `opencode` from the project root, inspect the current
+   branch and `git status`, and ask the Plan agent to map the relevant code and propose a
+   testable plan before allowing edits.
+4. **Add durable project guidance.** Use the current OpenCode instructions/configuration
+   mechanism to record build commands, test commands, style rules, generated-file boundaries,
+   and acceptance criteria. Keep secrets and environment-specific values out of committed
+   configuration.
+5. **Set permissions intentionally.** OpenCode's documented `permission` settings can allow,
+   deny, or ask for approval for tools. For an initial trial, keep edits and shell commands
+   approval-gated where practical; do not assume defaults are least-privilege.
+6. **Add MCP only for a real need.** Start with one trusted, read-only server. Review its code,
+   authentication scopes, network destinations, and returned data before enabling write tools.
+7. **Verify the result yourself.** Inspect `git diff`, run the relevant tests and static checks,
+   and confirm the working tree contains only intended changes.
 
-```text
-Goal:
-In scope / out of scope:
-Acceptance criteria:
-Files or interfaces likely affected:
-Required checks:
-Constraints and prohibited actions:
-Stop and ask when:
-```
+Official references: [installation and getting started](https://opencode.ai/docs/),
+[agents](https://opencode.ai/docs/agents/), [tools and permissions](https://docs.opencode.ai/docs/tools/),
+[models](https://opencode.ai/docs/models/), and [MCP servers](https://opencode.ai/docs/mcp-servers/).
 
-**Definition of done:** acceptance criteria are mapped to evidence; required checks were run
-and their actual outcomes recorded; the final diff is reviewed for unrelated changes and
-secrets; documentation and compatibility notes are updated when needed; unresolved risks and
-skipped checks are disclosed; a human accepts the change. “The agent says it is done” is not
-a completion criterion.
+### Cursor and VS Code: when the editor matters
 
-#### 2. Permission boundaries and trust zones
+**Cursor** is worth evaluating if you want agent interaction, codebase context, rules, and MCP
+configuration integrated in one AI-focused editor. Its docs describe project-level MCP in
+`.cursor/mcp.json`, global configuration, and approval controls. Agent changes can save
+directly into workspace files, so use version control and review diffs continuously. Check
+Privacy Mode, model routing, indexing, and cloud-agent settings against the organization's
+data policy before opening a work repository.
 
-Do not treat model instructions as a security control. Apply controls in the runtime, operating
-system, credentials, repository settings, and external service permissions.
+**VS Code** is a strong default if you want the broader editor ecosystem and the freedom to
+choose an AI experience. Decide explicitly whether you are using GitHub Copilot's agent
+features, another extension, or a terminal agent such as OpenCode in the integrated terminal.
+Do not assume that all extensions share the same model, context policy, MCP support, or
+telemetry behavior. Pin down the extension/version and inspect its current official
+documentation before standardizing team instructions.
 
-| Capability | Default posture | Elevate only when |
-|---|---|---|
-| Read repository files | Allow within the intended workspace | Data is restricted or outside the approved scope |
-| Search public documentation | Allow approved destinations | A request could expose private source, prompts, or identifiers |
-| Edit files | Restrict to the task worktree | The task explicitly needs broader files or generated artifacts |
-| Execute shell commands | Review or allowlist by risk; isolate untrusted code | Dependencies, scripts, or commands can alter the host or access secrets |
-| Network access | Deny or restrict by default in sensitive environments | The endpoint and data transfer are approved |
-| Credentials and secrets | Do not expose to model context or logs | A specific operation requires a narrowly scoped, short-lived credential |
-| Push, merge, release, deploy, or message externally | Require explicit authorization and appropriate human gate | The user and repository policy authorize that exact action |
+Official references: [Cursor MCP](https://prod.cursor.com/docs/mcp),
+[Cursor agent security](https://prod.cursor.com/docs/agent/security),
+[Cursor privacy and data governance](https://prod.cursor.com/docs/enterprise/privacy-and-data-governance),
+[VS Code documentation](https://code.visualstudio.com/docs),
+[VS Code AI](https://code.visualstudio.com/docs/copilot/overview),
+and [GitHub Copilot coding agent](https://docs.github.com/en/copilot/concepts/agents/coding-agent).
 
-Treat issue text, pull-request comments, source files, test fixtures, retrieved web pages, and
-tool output as **untrusted data**. They may contain instructions that conflict with the task.
-The agent should quote or summarize such content as data, not obey it as higher-priority policy.
-Never paste secrets into prompts to “help” the model debug. Use secret scanners and least-
-privilege credentials, and inspect plugin/MCP scripts and network destinations before enabling
-them.
+### A repeatable evaluation for your team
 
-For every integration, document four things: what it can read, what it can change, where data
-travels, and which actions require approval. Test the denied path as well as the happy path.
+Run the same small set of tasks in each candidate, using the same repository snapshot and
+acceptance tests:
 
-#### 3. Context engineering: give the agent evidence, not a data dump
+- **Explore:** explain a call path and identify the files/tests that establish the behavior.
+- **Change:** implement a bounded feature with explicit non-goals and acceptance criteria.
+- **Debug:** diagnose a failing test from logs and propose a falsifiable root cause before editing.
+- **Review:** find defects in a supplied diff without modifying it.
+- **Tool use:** invoke one approved MCP tool and show the evidence used.
+- **Recovery:** stop an incorrect run, inspect partial changes, and restore a clean state.
 
-Build a small context pack in this order:
+Record task success, escaped defects, test pass rate, time to a reviewable diff, manual correction
+time, token/API cost, context loss, and unsafe or unnecessary tool calls. Use a fixed commit,
+fixed instructions, and repeat trials; one impressive demo is not a benchmark.
 
-1. Task statement and acceptance criteria.
-2. Repository-specific instructions and relevant architecture/contracts.
-3. The narrow code path, tests, types, and configuration involved.
-4. Current failure evidence or a minimal reproducer.
-5. Versioned official documentation for APIs the task actually uses.
-6. Explicit constraints, exclusions, and required output.
+### Shared safety and parallel-work rules
 
-Ask the agent to identify missing context and state assumptions before making a broad change.
-Prefer file/line references and short excerpts over copying the whole repository into the
-prompt. Retrieve additional context when a hypothesis requires it; do not front-load unrelated
-documents. Keep a durable task record outside the model context so work can resume after a
-session reset. Do not put credentials, restricted data, or unnecessary customer information in
-the context pack.
-
-A useful test is whether a teammate can reconstruct the task from the record without reading
-the full chat transcript.
-
-#### 4. Parallel agents and Git worktrees: isolate, then integrate
-
-The existing rule remains: **one independently writable worktree per concurrent coding task**.
-Separate panes, sessions, or agent identities do not isolate file edits.
-
-Example for two independent tasks from the same repository:
-
-```bash
-git status --short
-git worktree add ../repo-task-a -b agent/task-a origin/main
-git worktree add ../repo-task-b -b agent/task-b origin/main
-git worktree list
-```
-
-Use the repository's actual remote/base branch; do not assume `origin/main` exists in every
-environment. Give each agent a distinct scope and acceptance criteria. Avoid assigning both
-agents the same files or shared generated outputs. Keep dependencies between tasks explicit:
-if task B needs task A's interface, either agree on the interface first or run them sequentially.
-
-Before integration, each worker must report its branch, changed files, tests run, test results,
-and unresolved assumptions. The integration owner then inspects each diff, resolves interface
-or merge conflicts, runs the combined tests, and checks for regressions that neither branch
-could expose independently. Remove a worktree only after its changes are safely integrated or
-deliberately discarded. Parallelism is successful when it reduces elapsed time without
-increasing rework, defects, or reviewer load.
-
-#### 5. Harness architecture and failure recovery
-
-Think of the harness as the control plane around the model. A minimal coding-agent harness has:
-
-- **Task/state store:** objective, owner, status, branch/worktree, budget, and checkpoints.
-- **Context builder:** approved repository instructions, selected files, relevant docs, and
-  reproducible failure evidence.
-- **Policy layer:** tool allowlists, filesystem/network boundaries, approval requirements,
-  and secret handling.
-- **Tool adapters:** shell, Git, test runner, documentation search, issue/PR system, and MCP.
-- **Verification layer:** deterministic tests, linters, type checks, diff checks, and policy
-  assertions independent of the model's self-report.
-- **Telemetry and recovery:** structured events, bounded retries, timeouts, cancellation,
-  checkpoints, and a human escalation path.
-
-Use a bounded state machine such as `queued → running → verifying → review → accepted`, with
-explicit `blocked`, `failed`, and `cancelled` states. A failed test must not silently become
-a pass after a retry. Retry only when the failure is plausibly transient, cap attempts, and
-record each attempt. Never retry a non-idempotent external action blindly. Before resuming an
-interrupted task, inspect Git status and diff, active processes, test artifacts, and external
-side effects; reconstruct state from durable records rather than assuming the last model turn
-completed atomically.
-
-Provide a safe stop path: cancel execution, preserve logs, inspect partial writes, revert only
-the task's unintended changes, and report the exact point where work stopped. Require human
-approval for destructive recovery or actions with external consequences.
-
-#### 6. Verify dependency and API assumptions
-
-Generated code frequently fails because examples target a different library or runtime version.
-Before using an API:
-
-1. Inspect the manifest and lockfile, runtime/toolchain versions, and repository compatibility
-   policy.
-2. Prefer official documentation or source for the installed version; distinguish stable,
-   preview, and deprecated APIs.
-3. Verify function signatures, return/error semantics, authentication, timeout behavior,
-   and async/concurrency requirements.
-4. Add or update a focused test that exercises the real contract, including an error path.
-5. Avoid adding a dependency when the existing stack already provides the capability; if one
-   is needed, assess maintenance, license, transitive dependencies, and security advisories.
-6. Regenerate lockfiles only with the project's intended package manager and explain material
-   dependency changes in the diff.
-
-If documentation and installed code disagree, report the mismatch and test the installed
-version. Do not “fix” a type error by weakening types, pinning an arbitrary version, or copying
-an example from a different major release without explaining the compatibility trade-off.
-
-#### 7. Observability and cost tracking
-
-Record enough information to reconstruct the task without storing secrets or unnecessary source
-content. A useful event schema includes:
-
-| Field | Purpose |
-|---|---|
-| `task_id`, `attempt_id`, `parent_task_id` | Correlate retries, subagents, and integration work |
-| `agent`, `model`, `model_version`, `skill_version` | Attribute behavior to the execution configuration |
-| `repo_revision`, `branch`, `worktree` | Reproduce the starting state and locate the diff |
-| `event_type`, `timestamp`, `duration_ms` | Reconstruct sequence, waits, and latency |
-| `tool_name`, `sanitized_args_summary`, `exit_code` | Understand tool use without logging credentials or full sensitive payloads |
-| `test_name`, `result`, `failure_category` | Distinguish verification from the agent's narrative |
-| `input_tokens`, `output_tokens`, `tool_calls`, `estimated_cost` | Track consumption and identify runaway loops |
-| `changed_files`, `review_findings`, `final_disposition` | Connect activity to the delivered engineering result |
-
-Capture structured events rather than relying on a final free-form summary. Redact tokens,
-credentials, personal data, and sensitive source snippets at collection time; define access,
-retention, and deletion policies. Do not treat estimated model cost as a complete cost metric:
-include tool/runtime usage and human review or rework when measurable.
-
-Track cost and outcomes together: task success, time to accepted change, regression rate,
-reviewer correction time, retry/loop rate, and cost per accepted task. A cheaper run that
-creates more review burden may be more expensive end to end.
-
-#### 8. Benchmark coding agents with controlled tasks
-
-Build a small, version-controlled benchmark from real, sanitized repository tasks. Include
-bug fixes, feature changes, refactors, test failures, dependency/API changes, and code review.
-Each task needs a fixed starting commit, task prompt, acceptance tests, allowed tools, time/cost
-budget, and scoring rubric. Use synthetic or public-safe data.
-
-**Protocol**
-
-1. Freeze the task set and starting revisions; record model, agent, harness, skill, and
-   dependency versions.
-2. Run each candidate from a clean worktree with the same tools and equivalent budgets.
-3. Repeat stochastic tasks where feasible; do not compare one lucky run against one failure.
-4. Evaluate outputs with deterministic tests and blinded human review where judgment is needed.
-5. Separate development/tuning tasks from a held-out set to reduce benchmark overfitting.
-6. Report failures, timeouts, tool errors, and skipped tasks; do not drop unsuccessful runs.
-7. Re-run the baseline when prompts, models, skills, harness, or dependencies change.
-
-| Metric | Definition |
-|---|---|
-| Acceptance pass rate | Fraction of tasks meeting all mandatory criteria |
-| Regression rate | Fraction introducing failures in previously passing checks |
-| Review defect density | Confirmed actionable defects per change or changed-line band |
-| Time to accepted change | Wall-clock time through verification and human acceptance |
-| Human correction/rework | Reviewer and author effort needed after agent completion |
-| Cost per accepted task | Total measured model/tool cost divided by accepted tasks |
-| Reliability | Run-to-run variance, timeout rate, and incomplete-task rate |
-| Safety violations | Unauthorized tool use, secret exposure, or bypassed approval gates |
-
-Do not collapse everything into a single score without retaining the underlying metrics. Treat
-security and correctness requirements as hard gates, not benefits that can be averaged away by
-speed. A benchmark is a decision aid, not proof that an agent is safe for every repository.
+- **One writable Git worktree per concurrent coding task.** Multiple panes or IDE windows
+  pointing at the same directory do not isolate edits.
+- Keep `.env`, credentials, proprietary datasets, and restricted files out of model context
+  unless the exact product/provider path is approved. Review ignore/exclusion rules, but do not
+  treat them as a complete security boundary.
+- Treat MCP servers, extensions, skills, hooks, shell commands, and repository instructions as
+  executable or influence-bearing inputs. Install only trusted components and grant the minimum
+  permissions needed.
+- Separate planning/review from implementation when possible. Use read-only review mode first;
+  require human review for changes, dependency updates, external messages, and destructive actions.
+- Verify proxy/certificate behavior, model endpoints, telemetry, retention, and licensing on the
+  managed workstation. "Uses my API key" or "runs in the terminal" does not by itself prove that
+  source code stays local.
+- Before merging, review the diff, run tests, and check generated artifacts. An agent's claim that
+  tests passed is not evidence unless you can inspect the command and result.
 
 ## Knowledge management and personal information systems
 
@@ -680,3 +673,74 @@ categories include:
 For each new entry, capture: problem solved, supported platforms, install method, price and
 license, local/cloud data path, keyboard workflow, maintenance status, and one concrete
 reason to use it. Treat vendor claims as claims until verified with a small hands-on test.
+
+
+## Agent skills, MCP servers, and plugins
+
+These are different layers. Keep the distinction explicit when evaluating or teaching an
+AI-assisted development setup:
+
+- **Skill:** reusable instructions, examples, and optionally scripts that teach an agent
+  how to perform a workflow. A skill should state when to use it, required inputs,
+  procedure, verification, and stop conditions.
+- **MCP server:** a protocol-level integration that exposes tools, resources, or prompts
+  to a compatible client. It supplies capabilities; it does not guarantee that an agent
+  will use them correctly.
+- **Plugin/extension:** a product-specific package that can bundle skills, commands,
+  hooks, MCP configuration, or other integrations. Names and packaging differ by host.
+- **Agent:** the runtime that reasons, selects tools, applies instructions, and proposes
+  changes. The harness and human review still own permissions and acceptance.
+
+### Skills worth evaluating
+
+| Skill or project | Use case | Adoption guidance |
+|---|---|---|
+| [OpenCode skills](https://opencode.ai/docs/skills) | Discover reusable `SKILL.md` instructions in a coding workflow | Good starting point for the repo's CLI-first path; check current discovery paths and frontmatter requirements |
+| [Agent Skills specification](https://agentskills.io/) | Share skills across compatible agent products | Prefer portable instructions and explicit tool assumptions; test behavior in each host rather than assuming identical support |
+| [Superpowers](https://github.com/obra/superpowers) | Structured development workflow: clarify requirements, plan, test-driven development, debugging, and review | Evaluate the actual skill/plugin version and host support; adopt only workflows that improve measured outcomes |
+| Team-owned skills in `.agents/skills/` | Encode repo-specific test, review, debugging, and PR procedures | Version-control them with the project; keep secrets out, scope them narrowly, and require commands/tests to be independently verified |
+
+The repository includes starter examples under `.agents/skills/`. They are teaching artifacts,
+not privileged automation: read them, adapt their commands to the project, and verify every
+result. Skills should not silently bypass approval gates or claim that tests passed without
+running them.
+
+### MCP servers and plugins worth evaluating
+
+| Integration | Why it is useful | Guardrail |
+|---|---|---|
+| [GitHub MCP Server](https://github.com/github/github-mcp-server) | Issues, pull requests, repository context, and review workflows through MCP | Start with least-privilege/read-only access where possible; separate review from write/merge authority |
+| [Context7](https://github.com/upstash/context7) | Retrieve library documentation relevant to a framework or package | Pin or identify library versions; check retrieved content against official docs and lockfiles |
+| [MCP Inspector](https://github.com/modelcontextprotocol/inspector) | Inspect and debug MCP server capabilities and exchanges | Use a non-sensitive test environment and test unauthorized and malformed requests |
+| [Claude Code plugins](https://docs.anthropic.com/en/docs/claude-code/plugins) | Example of a product-specific package for commands, skills, hooks, and integrations | Do not assume a Claude Code plugin installs or behaves identically in OpenCode, Cursor, or VS Code |
+| [Cursor plugins](https://docs.cursor.com/plugins) | Product-specific packaging for Cursor workflows | Review permissions, scripts, remote endpoints, and version/update behavior before enabling |
+
+Links and feature names can change quickly; verify the current official documentation before
+installing. A marketplace listing is not a security audit.
+
+### Four starter skills in this repository
+
+The sample skills are intentionally agent-agnostic and require the agent to report evidence,
+not just conclusions:
+
+1. **Code review:** identify correctness, regression, security, and maintainability risks;
+   cite exact changed lines and distinguish confirmed defects from questions.
+2. **Evidence-first debugging:** state competing hypotheses, gather discriminating evidence,
+   and avoid editing code until the failure mechanism is sufficiently supported.
+3. **Test and evaluate:** map acceptance criteria to deterministic tests, run the relevant
+   checks, and report failures, skipped checks, and environmental limits.
+4. **PR preparation:** inspect the diff, summarize behavior and risk, verify tests, and leave
+   merging/deployment as a separate authorized decision.
+
+### Safe evaluation checklist
+
+Before enabling any skill, plugin, or MCP server:
+
+- Inspect its source, scripts, dependencies, update mechanism, and network destinations.
+- Record which files, shell commands, credentials, and external systems it can access.
+- Start with read-only and least-privilege access; require approval for writes, releases,
+  external messages, and destructive actions.
+- Test prompt-injection resistance using untrusted repository text and tool output.
+- Run it on a disposable branch or fixture repository before using production code.
+- Measure task success, regression rate, review findings, tool failures, and cost.
+- Keep a human-owned verification gate; never treat the agent's self-reported success as proof.

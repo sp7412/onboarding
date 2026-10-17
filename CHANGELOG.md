@@ -10,11 +10,37 @@
 
 ## 2026-10-16
 
-### Coding-agent engineering practices
+### Command-line toolkit for AI-assisted software engineering
 
-- Integrated eight practical topics into the existing multi-agent workstation chapter: permissions/trust boundaries, definition of done, isolated worktrees and integration, controlled coding-agent benchmarks, harness architecture and recovery, context engineering, structured observability/cost, and dependency/API verification.
-- Added task-record templates, least-privilege guidance, an agent state model, sample Git worktree commands, a telemetry schema, and benchmark metrics with hard correctness/safety gates.
-- Added official Git, GitHub security, evaluation, OpenTelemetry, and NIST SSDF references. Emphasized measured evidence, reproducibility, redaction, and human acceptance rather than agent self-report.
+- Added a task-oriented CLI guide covering `gh` and `glab`, Git inspection and recovery,
+  `rg`, `fd`, `fzf`, `jq`/`yq`, and reproducible environment/task tools.
+- Included Mac-first install guidance, GitHub/GitLab PR and CI triage examples, an agent-assisted
+  review loop, and explicit caveats about permissions, secrets, local Actions fidelity, and
+  deployment-sensitive CLI contexts.
+- Added official/project documentation links for the recommended tools to the bibliography.
+
+## 2026-10-16
+
+### Agent skills, MCP servers, and plugins
+
+- Added a practical distinction between reusable agent skills, MCP integrations, product-specific plugins, and the agent runtime.
+- Added evaluation guidance for OpenCode skills, the Agent Skills specification, Superpowers, GitHub MCP Server, Context7, MCP Inspector, and vendor-specific plugin systems.
+- Added four portable starter skills for code review, evidence-first debugging, test/evaluation, and PR preparation.
+- Added least-privilege, prompt-injection, supply-chain, and human-verification checks.
+
+## 2026-10-16
+
+### AI coding environments: OpenCode, Cursor, and VS Code
+
+- Added a sourced comparison of terminal-first OpenCode, AI-focused Cursor, and VS Code with
+  its selectable AI-agent ecosystem.
+- Added a practical OpenCode Mac workflow covering provider selection, planning, project
+  instructions, permissions, MCP, Git verification, and test execution.
+- Added a repeatable cross-tool evaluation plan and shared controls for data handling,
+  extension/MCP trust, parallel Git worktrees, and human review.
+
+
+## 2026-10-16
 
 ### Mac task tracking tools
 
@@ -43,6 +69,14 @@
   Cursor, with links to official client docs and community Obsidian plugins.
 - Added a capture → curate → retrieve → act → review workflow and guidance to start with
   read-only permissions and verify data flows before granting write access.
+
+### WezTerm tiling and multi-agent terminal layout
+
+- Clarified that WezTerm tiles panes within a terminal window but does not automatically
+  tile or cascade independent macOS windows.
+- Added repeatable startup-layout/workspace guidance, a one-pane-per-agent starting layout,
+  Git-worktree isolation, and macOS desktop-window-manager alternatives.
+- Added official WezTerm references plus AeroSpace and Rectangle links.
 
 ### Developer workstation tools catalog
 ### Multi-agent workstation tools
