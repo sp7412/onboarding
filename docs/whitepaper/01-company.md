@@ -124,7 +124,13 @@ A PE-backed customer may be a high-leverage deployment opportunity, but it also 
 
 **Analysis:** the strategic value of PE is distribution and expansion across a consolidated customer group. The hypothesis to test is whether ServiceTitan can help those groups integrate acquisitions faster, operate more consistently, and generate better outcomes at a cost that supports the customer's return on investment. The sponsor relationship alone does not prove that value.
 
-### Sources for the PE strategy section
+### Stock chart methodology and data setup
+
+The TTAN charts use intraday one-minute bars rather than monthly close/volume estimates. Daily VWAP is aggregated from each minute bar's VWAP and volume; the rolling line is volume-weighted over 63 trading sessions. The separate price chart plots each session's last bar close without smoothing.
+
+The chart feed defaults to Alpaca's IEX data, which measures IEX venue activity only—not consolidated trading across US exchanges. Market-wide VWAP requires access to the SIP feed. To configure credentials and select the feed, follow the [TTAN daily VWAP data setup guide](../ttan-vwap-data.md). When credentials are missing, the site intentionally shows a setup notice instead of presenting an estimate as true VWAP.
+
+## Sources for the PE strategy section
 
 1. ServiceTitan, fiscal 2026 Form 10-K, including growth strategy, customer definitions, GTV, and consolidation in the trades: <https://www.sec.gov/Archives/edgar/data/1638826/000163882626000028/ttan-20260131.htm>
 2. ServiceTitan, Private Equity solutions (company marketing page; outcome claims are company-reported): <https://www.servicetitan.com/market/private-equity-solutions-software>

@@ -81,6 +81,8 @@ describe("repoLinkToRoute", () => {
     expect(repoLinkToRoute("../docs/servicetitan-101.md")).toBe("/docs/servicetitan-101");
     expect(repoLinkToRoute("docs/evidence-first-debugging.md")).toBe("/docs/evidence-first-debugging");
     expect(bundle.docs.find((d) => d.slug === "evidence-first-debugging")?.title).toContain("Evidence-First Debugging");
+    expect(repoLinkToRoute("docs/ttan-vwap-data.md")).toBe("/docs/ttan-vwap-data");
+    expect(bundle.docs.find((d) => d.slug === "ttan-vwap-data")?.title).toContain("TTAN daily VWAP");
     expect(repoLinkToRoute("docs/whitepaper/01-company.md")).toBe("/whitepaper/01-company");
     expect(repoLinkToRoute("docs/whitepaper/README.md")).toBe("/whitepaper");
     expect(repoLinkToRoute("docs/whitepaper/claims-ledger.md")).toBeNull();

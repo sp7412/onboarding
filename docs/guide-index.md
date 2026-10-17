@@ -27,6 +27,7 @@ A topic-first map of the onboarding material. Use the **learning path** when you
 ## Reliability, evaluation, and production
 
 - [Evidence-first debugging](evidence-first-debugging.md) — controls, high-fidelity signals, falsifiable hypotheses, and agent-assisted diagnosis.
+- [TTAN daily VWAP data](ttan-vwap-data.md) — intraday VWAP methodology, Alpaca setup, and IEX/SIP feed coverage.
 - [Realtime voice-agent evaluation](realtime-voice-agent-evaluation.md) — eval design, layered graders, trace diagnosis, regression sets, and release gates.
 - [Evaluating voice agents](evaluating-voice-agents.md) — task success, latency, containment, and quality metrics.
 - [Design by evaluation](design-by-evaluation.md) — use failures and evals to shape the architecture.
