@@ -98,6 +98,26 @@ workspaces and panes. Add tmux when durable sessions, remote SSH workflows, or a
 matter. Evaluate cmux or ccmux if the hard part is seeing which agent is running, waiting,
 or finished—not simply keeping terminals open.
 
+### Live session monitors and session-history browsers
+
+These tools overlap, but they solve different parts of the workflow. A live monitor helps
+you notice an agent that is waiting for input and switch to its terminal. A session-history
+browser helps you search prior conversations, inspect activity, and understand usage. Neither
+automatically isolates concurrent file edits; use separate Git worktrees for that.
+
+| Tool | Best fit | What it offers | Trade-offs / checks |
+|---|---|---|---|
+| [Agent Sessions](https://github.com/ozankasikci/agent-sessions) | Lightweight macOS dashboard for active Claude Code and OpenCode sessions | Shows live session states, lets you name sessions, and click to focus the associated terminal; documents support for iTerm2 and Terminal | A session switcher, not a worktree manager or orchestrator; verify current macOS/terminal compatibility and how status detection behaves in your setup |
+| [AgentHUD](https://github.com/neochoon/agenthud) | Terminal-native live overview across several coding-agent CLIs | Combines sessions and sub-agents into a TUI; can produce daily/weekly summaries and structured reports | Requires a compatible Node runtime; check which agent session formats and versions are recognized |
+| [opensessions](https://github.com/Ataraxy-Labs/opensessions) | A live agent-status sidebar inside an existing tmux workflow | Rust-based sidebar with session switching, state markers, and a local API for status/progress updates | tmux-only supported multiplexer; more setup than a standalone Mac dashboard |
+| [AgentsView](https://github.com/kenn-io/agentsview) | Searching and analyzing session history across agents | Local-first session archive with search, activity and token/cost analytics, plus CLI/API integrations | Better for history, recall, and analysis than as a minimal live terminal switcher; review its data-sharing options before enabling optional integrations |
+
+**Selection rule:** choose Agent Sessions if you want the smallest Mac-first “which agent
+needs me?” dashboard; AgentHUD if you prefer a terminal HUD; opensessions if tmux is already
+your control surface; and AgentsView if finding past work and understanding usage matter most.
+Start with one tool and a few real sessions. Check CPU/memory use, status accuracy, terminal
+focus behavior, supported agent versions, and whether session transcripts remain local.
+
 ### Coding-agent session orchestration
 
 | Tool / pattern | Best fit | What to evaluate |
