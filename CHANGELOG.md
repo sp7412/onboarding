@@ -51,6 +51,14 @@
 - Added a capture → curate → retrieve → act → review workflow and guidance to start with
   read-only permissions and verify data flows before granting write access.
 
+### WezTerm tiling and multi-agent terminal layout
+
+- Clarified that WezTerm tiles panes within a terminal window but does not automatically
+  tile or cascade independent macOS windows.
+- Added repeatable startup-layout/workspace guidance, a one-pane-per-agent starting layout,
+  Git-worktree isolation, and macOS desktop-window-manager alternatives.
+- Added official WezTerm references plus AeroSpace and Rectangle links.
+
 ### Developer workstation tools catalog
 ### Multi-agent workstation tools
 
