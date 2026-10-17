@@ -128,6 +128,39 @@ and integration.
 | [Grok Bot](https://docs.x.ai/grok-bot/overview) | Persistent cloud AI teammates | Bots have persistent cloud computers, browser/filesystem/terminal access, retained context, and can coordinate in parallel or group chats | A delegation and cloud-computer model, not a local terminal multiplexer; check account eligibility, approvals, and data access |
 | [Grok CLI](https://github.com/superagent-ai/grok-cli) | Local terminal coding agent | Works inside a terminal workflow and documents sub-agents and Telegram remote control | Separate product/project from Grok Bot; do not conflate their capabilities, billing, or execution environments |
 
+#### Grok Bot in practice: persistent agents and Slack
+
+Grok Bot is a cloud-computer delegation product, not the same thing as the Grok chatbot or
+Grok CLI. Its agents can use a persistent browser, filesystem, terminal, and connectors; they
+can continue working while the user's Mac is closed. The macOS app is a control surface, but
+the work computer is hosted in the cloud, so this is **not an on-device-only workflow**.
+
+- **Personal Bots:** named agents retain role context and memory. Bots on one account share
+  that account's cloud computer, including files, browser sessions, and logins. Do not use
+  separate Bots as a security boundary.
+- **Team Bots:** publish a configured Bot for teammates to use from Grok Bot or Slack. The
+  owner configures shared plugins, secrets, skills, files, and team memory; individual
+  conversations remain separate. Treat shared Bot setup and credentials as team-wide access.
+- **Slack entry point:** a published Team Bot can be installed as its own Slack app. Teammates
+  can DM it or @mention it in channels. It replies to DMs and to mentioned channel/group-DM
+  threads; it does not automatically process every top-level channel message unless a
+  channel-listener routine is configured. Installation requires the Bot owner/manager to
+  connect a Slack workspace, and workspace app-approval rules may apply.
+- **Execution boundary:** direct chats and Slack channel/thread conversations can use different
+  cloud-computer contexts. Official docs say channel/group-DM threads use a shared computer
+  for that Team Bot, so don't place information in a thread that should not be available to
+  channel participants or the Bot's shared context.
+- **Good first trial:** use a non-sensitive task that produces a draft or report, give it
+  read-only access where practical, inspect the result, and only then consider a reusable
+  skill or scheduled routine. Require explicit approval for external messages, destructive
+  changes, or other consequential actions.
+- **Before adoption:** verify current plan eligibility, usage limits, connector permissions,
+  retention and training settings, auditability, and company approval. Do not connect work
+  repositories, customer data, or credentials to a personal account without authorization.
+
+Official starting points: [Grok Bot overview](https://docs.x.ai/grok-bot/overview) and
+[Team Bots and Slack setup](https://docs.x.ai/grok-bot/team-bots).
+
 For cloud bots, assess permissions and data boundaries separately from local coding agents:
 what repositories and credentials can the bot access, where does execution happen, how are
 actions approved, and what persists between tasks? For local tools, assess shell permissions,
@@ -345,6 +378,33 @@ Choose a tracker based on whether the work is personal, shared across a team, or
 - **Tasks plus calendar and focus tools:** TickTick.
 - **Complex personal system:** OmniFocus.
 - **Software delivery:** the team's existing Linear or GitHub Issues/Projects workflow.
+
+### Capture a Slack message as a task
+
+If the goal is to turn a specific Slack message into a personal follow-up, [Todoist's official
+Slack integration](https://www.todoist.com/help/todoist/integrations/use-slack-with-todoist)
+is the most direct documented option:
+
+1. Authorize Todoist for the intended Slack workspace.
+2. Open the message's **More actions** menu (three dots) and choose **Add a task**.
+3. Edit the task title, project, priority, and due date as needed. The integration also supports
+   the `/todoist` command for creating tasks directly in Slack.
+4. **Verify the backlink:** Todoist's guide confirms message-to-task creation, but does not
+   guarantee in every client/version that the resulting task preserves a clickable permalink to
+   the exact source message. Test this with a non-sensitive message on both desktop and mobile
+   before relying on it. If the link is missing, use a supported automation/API workflow that
+   explicitly writes the Slack permalink into the task description.
+
+| Destination | Slack capture pattern | Link-preservation note |
+|---|---|---|
+| [Todoist](https://todoist.com/) | Native Slack message menu → Add a task | Best first test; verify the resulting task links back to the exact message |
+| [Microsoft To Do](https://to-do.office.com/) | Automation such as Power Automate or a third-party connector, where supported | Map Slack's message permalink into a task notes field explicitly; test authentication, thread links, and workspace policy |
+| [Apple Reminders](https://support.apple.com/guide/reminders/welcome/mac) | Shortcut or custom automation | Possible, but generally requires custom capture logic to carry the Slack permalink; not a native Slack workflow |
+
+Todoist and Microsoft To Do are cloud-backed services, not strict local-only stores. Apple
+Reminders is native to Apple platforms but may sync through iCloud. For confidential work,
+use only company-approved apps and connectors; the source permalink may itself expose
+restricted conversation context to anyone who can open the task.
 
 For AI-assisted engineering, the task record should include an owner, goal, branch/worktree, scope, acceptance criteria, test results, and status such as `working`, `blocked`, or `ready for review`. Link tasks to branches and pull requests; an agent saying it finished is not proof of correctness.
 
