@@ -451,3 +451,15 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [GitHub Issues and Projects](https://github.com/features/issues) | Official product documentation | Developer tools catalog |
 | [Asana project management](https://asana.com/features/project-management) | Official product documentation | Developer tools catalog |
 | [Trello](https://trello.com/) | Product website | Developer tools catalog |
+
+
+## Coding-agent engineering practices
+
+| Source | Type | Cited in |
+|---|---|---|
+| [Git worktree documentation](https://git-scm.com/docs/git-worktree) | Official Git documentation | Developer tools catalog: parallel-agent isolation |
+| [GitHub secure use reference](https://docs.github.com/en/code-security) | Official security documentation | Developer tools catalog: trust boundaries and dependency review |
+| [OpenAI: Evaluation best practices](https://developers.openai.com/api/docs/guides/evaluation-best-practices) | Official evaluation guidance | Developer tools catalog: coding-agent benchmark |
+| [OpenTelemetry documentation](https://opentelemetry.io/docs/) | Observability framework documentation | Developer tools catalog: structured task telemetry |
+| [NIST Secure Software Development Framework (SSDF)](https://csrc.nist.gov/Projects/ssdf) | Standards guidance | Developer tools catalog: verification and supply-chain controls |
+| [GitHub dependency review](https://docs.github.com/en/code-security/concepts/supply-chain-security/dependency-review) | Official security documentation | Developer tools catalog: dependency/API verification |
