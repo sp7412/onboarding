@@ -44,6 +44,10 @@ A topic-first map of the onboarding material. Use the **learning path** when you
 - [Comparative agent architectures](comparative-agent-architectures.md) — where orchestration, policy, and evaluation sit across vendors.
 - [Pantheon hypothesis map](hypothesis-map.md) — public claims translated into validation questions.
 
+## Developer workstation and tools
+
+- [Developer tools catalog](developer-tools.md) — Mac dictation, local transcription, AI-assisted coding utilities, selection criteria, and a repeatable evaluation checklist.
+
 ## Hands-on learning
 
 - [Lab index](../labs/README.md) — all notebooks, prerequisites, estimated time, and Colab links.
