@@ -2,6 +2,15 @@
 
 ## 2026-10-16
 
+### Agent skills, MCP servers, and plugins
+
+- Added a practical distinction between reusable agent skills, MCP integrations, product-specific plugins, and the agent runtime.
+- Added evaluation guidance for OpenCode skills, the Agent Skills specification, Superpowers, GitHub MCP Server, Context7, MCP Inspector, and vendor-specific plugin systems.
+- Added four portable starter skills for code review, evidence-first debugging, test/evaluation, and PR preparation.
+- Added least-privilege, prompt-injection, supply-chain, and human-verification checks.
+
+## 2026-10-16
+
 ### AI coding environments: OpenCode, Cursor, and VS Code
 
 - Added a sourced comparison of terminal-first OpenCode, AI-focused Cursor, and VS Code with
