@@ -20,6 +20,103 @@ these change faster than the rest of this guide.
 | Cross-platform local/cloud voice workflows | [OpenWhispr](https://github.com/openwhispr/openwhispr) | Open-source desktop dictation and transcription with local model choices, including Parakeet and Whisper |
 | Polished commercial dictation | [Wispr Flow](https://wisprflow.ai/) | A managed option if its editing workflow is worth the subscription and cloud-processing trade-off |
 
+## Command-line toolkit for AI-assisted software engineering
+
+The CLI is often the fastest, most scriptable interface for inspecting repository state,
+reviewing changes, and diagnosing CI failures. Learn the tools that remove repeated friction
+before collecting a large toolbox. Install only what you use, and check each tool's official
+installation instructions for the current operating system and release.
+
+### Start with these tools
+
+| Tool | Best fit | High-value uses |
+|---|---|---|
+| [GitHub CLI (`gh`)](https://cli.github.com/) | GitHub repositories and pull requests | Inspect PRs, review diffs, check required CI, browse runs, manage issues and releases |
+| [GitLab CLI (`glab`)](https://gitlab.com/gitlab-org/cli) | GitLab projects and merge requests | Inspect MRs, pipelines and jobs; create or review MRs; interact with GitLab from scripts |
+| [Git](https://git-scm.com/docs) | Source control and recovery | Branches, worktrees, bisect, reflog, and safe change inspection |
+| [ripgrep (`rg`)](https://github.com/BurntSushi/ripgrep) + [fd](https://github.com/sharkdp/fd) | Fast code and file search | Find symbols, configuration, tests, and files without noisy recursive output |
+| [fzf](https://github.com/junegunn/fzf) | Interactive selection | Filter branches, files, command history, and search results |
+| [jq](https://jqlang.org/) + [yq](https://github.com/mikefarah/yq) | Structured data | Inspect and transform JSON/YAML from APIs, test reports, and CI jobs |
+| [mise](https://mise.jdx.dev/) | Tool-version management | Pin and activate language/runtime versions per project |
+| [just](https://just.systems/) | Repeatable project commands | Expose memorable recipes for lint, tests, notebooks, and local development |
+| [direnv](https://direnv.net/) | Per-directory environment variables | Load project environment settings when entering a directory; keep secrets out of version control |
+
+### Install a small Mac-first baseline
+
+With Homebrew installed, a reasonable starting set is:
+
+```bash
+brew install gh glab jq yq ripgrep fd fzf mise just direnv
+```
+
+This installs several independent tools; it does not configure authentication, project
+versions, shell integration, or repository-specific recipes. Follow the official setup
+instructions for `gh`, `glab`, `mise`, `direnv`, and `fzf` before relying on them.
+On Linux or managed corporate machines, use the approved package manager or installation
+method instead of assuming Homebrew or unrestricted network access is available.
+
+### Source-control and CI triage examples
+
+Use the CLI that matches the repository host. Git commands work across both hosts; `gh`
+and `glab` are not interchangeable.
+
+```bash
+# GitHub: orient, inspect, and verify a pull request
+gh pr status
+gh pr list
+gh pr view 123
+gh pr diff 123
+gh pr checks 123
+gh run list
+gh run view <run-id> --log-failed
+
+# GitLab: inspect merge requests and pipeline activity
+glab mr list
+glab mr view 123
+glab ci list
+glab ci view
+
+# Find source/configuration and inspect structured output
+rg "TODO|FIXME" src tests
+fd "config" .
+jq '.jobs[] | {name, status}' result.json
+```
+
+Replace example IDs and paths with real values. CLI subcommands and flags can vary by
+version; check `gh help`, `glab help`, or the linked manuals when a command is unavailable.
+For GitLab projects, pipeline visibility also depends on the user's project permissions.
+
+### A reliable agent-assisted PR loop
+
+1. **Inspect before editing:** check the current branch, working tree, and intended base.
+2. **Keep parallel tasks isolated:** use one Git worktree per independently writable agent.
+3. **Use the host CLI for evidence:** inspect the PR/MR diff and required checks; open failed
+   job logs rather than treating a green summary or agent statement as proof.
+4. **Verify locally:** run the repository's documented tests, lint, type checks, or build.
+5. **Review before mutation:** examine staged and final diffs; explicitly authorize pushes,
+   merges, releases, or other consequential actions.
+6. **Record what happened:** capture the commit SHA, checks run, failures, and skipped checks.
+
+A CLI command is an interface, not a safety boundary: it acts with the credentials and
+permissions of the logged-in user. Authenticate with least privilege, avoid printing tokens
+or secret-bearing environment variables, and treat issue/PR text and downloaded artifacts as
+untrusted input. Prefer read-only inspection until a write operation is actually needed.
+
+### Add these only when the workflow needs them
+
+| Tool | Add it when | Caution |
+|---|---|---|
+| [lazygit](https://github.com/jesseduffield/lazygit) | You want a terminal UI for staging, commits, branches, and diffs | Review the resulting diff; the UI does not replace Git knowledge |
+| [delta](https://github.com/dandavison/delta) | You want syntax-highlighted, navigable Git diffs | Optional pager/configuration; plain `git diff` remains portable |
+| [ShellCheck](https://www.shellcheck.net/) + [shfmt](https://github.com/mvdan/sh) | You maintain shell scripts | Add them to CI where the project can support the tooling |
+| [act](https://github.com/nektos/act) | You want to test some GitHub Actions workflows locally | Runner images, secrets, services, and GitHub-hosted behavior may differ; local success is not proof hosted CI will pass |
+| [Docker CLI](https://docs.docker.com/reference/cli/docker/) and [kubectl](https://kubernetes.io/docs/reference/kubectl/) | Your project uses containers or Kubernetes | Follow team-approved contexts, namespaces, credential policies, and deployment gates |
+
+**Selection rule:** start with `git`, the host-specific CLI (`gh` or `glab`), `rg`,
+`fd`, `fzf`, and `jq`. Add environment/task runners when they make project setup
+reproducible. Avoid installing overlapping tools just because they are popular; choose based
+on a repeated task, a measurable reduction in friction, and an acceptable security boundary.
+
 ## Mac dictation for AI-assisted coding
 
 The goal is simple: place the cursor in OpenCode, VS Code, a terminal prompt, an issue,
