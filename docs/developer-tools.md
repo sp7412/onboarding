@@ -151,6 +151,118 @@ Start with two agents on independent tasks before scaling up. Measure completed 
 hour, human context-switching time, integration conflicts, review defects, and cost—not the
 raw number of agents running.
 
+## AI coding environments: OpenCode, Cursor, and VS Code
+
+These tools overlap, but they are not interchangeable. Compare the *control surface*
+you want (terminal agent vs. AI-native editor vs. general-purpose IDE), the model and
+provider choices available to your account, and the data path approved for the repository.
+Product features and plan limits change; use the linked official docs as the current source
+of truth rather than treating this comparison as a permanent feature matrix.
+
+### At a glance
+
+| Dimension | [OpenCode](https://opencode.ai/) | [Cursor](https://cursor.com/) | [VS Code](https://code.visualstudio.com/) |
+|---|---|---|---|
+| Core interaction | Terminal-first coding agent, with a desktop app also available | AI-focused editor with integrated agent workflows | General-purpose editor/IDE; AI experience comes from built-in features, GitHub Copilot, and/or extensions |
+| Model flexibility | Provider-oriented; supports multiple hosted providers and local model endpoints where compatible | Model choice depends on Cursor's supported models, account/plan, and feature | Depends on Copilot plan and selected extensions/providers; no single universal model policy |
+| Repository context | Agent tools inspect and edit the working tree; configure project instructions and tools | Editor indexing, rules, agent tools, and project context | Language services, workspace search, Copilot/extension context, and repository instructions |
+| MCP | Configurable MCP servers and tool permissions | MCP configuration through `.cursor/mcp.json` and the UI | MCP availability and configuration depend on the selected agent/client version |
+| Multi-agent work | Primary agents and subagents; pair parallel work with separate Git worktrees | Integrated agent workflows and cloud agents, depending on product/plan | Agent and parallel-session experience depends on Copilot/extension capabilities and version |
+| Best reason to choose it | You want a scriptable, terminal-native agent and control over provider routing | You want a cohesive AI-centric editor experience | You want a mature, extensible IDE that can serve non-AI development workflows too |
+
+This is a workflow comparison, not a benchmark. Evaluate on your actual task mix: navigating
+an unfamiliar service, implementing a bounded change, diagnosing a failing test, reviewing a
+diff, and working behind your organization's proxy and access controls.
+
+### OpenCode: a practical Mac starting point
+
+OpenCode is a strong candidate when you prefer an agent that fits into the terminal and lets
+you select among supported model providers. It is still an agent harness: provider choice
+does not remove the need to control tools, permissions, and the working directory.
+
+1. **Install from the official instructions.** Use [OpenCode's installation guide](https://opencode.ai/docs/).
+   Check the current install method and version rather than copying an old one-liner into a
+   managed machine.
+2. **Choose the model route deliberately.** Configure an approved hosted provider, or a
+   compatible local endpoint if you want local inference. Confirm context-window limits,
+   tool-calling support, latency, and license/usage terms. A local model does not imply every
+   connected tool or request is local.
+3. **Start inside a repository.** Run `opencode` from the project root, inspect the current
+   branch and `git status`, and ask the Plan agent to map the relevant code and propose a
+   testable plan before allowing edits.
+4. **Add durable project guidance.** Use the current OpenCode instructions/configuration
+   mechanism to record build commands, test commands, style rules, generated-file boundaries,
+   and acceptance criteria. Keep secrets and environment-specific values out of committed
+   configuration.
+5. **Set permissions intentionally.** OpenCode's documented `permission` settings can allow,
+   deny, or ask for approval for tools. For an initial trial, keep edits and shell commands
+   approval-gated where practical; do not assume defaults are least-privilege.
+6. **Add MCP only for a real need.** Start with one trusted, read-only server. Review its code,
+   authentication scopes, network destinations, and returned data before enabling write tools.
+7. **Verify the result yourself.** Inspect `git diff`, run the relevant tests and static checks,
+   and confirm the working tree contains only intended changes.
+
+Official references: [installation and getting started](https://opencode.ai/docs/),
+[agents](https://opencode.ai/docs/agents/), [tools and permissions](https://docs.opencode.ai/docs/tools/),
+[models](https://opencode.ai/docs/models/), and [MCP servers](https://opencode.ai/docs/mcp-servers/).
+
+### Cursor and VS Code: when the editor matters
+
+**Cursor** is worth evaluating if you want agent interaction, codebase context, rules, and MCP
+configuration integrated in one AI-focused editor. Its docs describe project-level MCP in
+`.cursor/mcp.json`, global configuration, and approval controls. Agent changes can save
+directly into workspace files, so use version control and review diffs continuously. Check
+Privacy Mode, model routing, indexing, and cloud-agent settings against the organization's
+data policy before opening a work repository.
+
+**VS Code** is a strong default if you want the broader editor ecosystem and the freedom to
+choose an AI experience. Decide explicitly whether you are using GitHub Copilot's agent
+features, another extension, or a terminal agent such as OpenCode in the integrated terminal.
+Do not assume that all extensions share the same model, context policy, MCP support, or
+telemetry behavior. Pin down the extension/version and inspect its current official
+documentation before standardizing team instructions.
+
+Official references: [Cursor MCP](https://prod.cursor.com/docs/mcp),
+[Cursor agent security](https://prod.cursor.com/docs/agent/security),
+[Cursor privacy and data governance](https://prod.cursor.com/docs/enterprise/privacy-and-data-governance),
+[VS Code documentation](https://code.visualstudio.com/docs),
+[VS Code AI](https://code.visualstudio.com/docs/copilot/overview),
+and [GitHub Copilot coding agent](https://docs.github.com/en/copilot/concepts/agents/coding-agent).
+
+### A repeatable evaluation for your team
+
+Run the same small set of tasks in each candidate, using the same repository snapshot and
+acceptance tests:
+
+- **Explore:** explain a call path and identify the files/tests that establish the behavior.
+- **Change:** implement a bounded feature with explicit non-goals and acceptance criteria.
+- **Debug:** diagnose a failing test from logs and propose a falsifiable root cause before editing.
+- **Review:** find defects in a supplied diff without modifying it.
+- **Tool use:** invoke one approved MCP tool and show the evidence used.
+- **Recovery:** stop an incorrect run, inspect partial changes, and restore a clean state.
+
+Record task success, escaped defects, test pass rate, time to a reviewable diff, manual correction
+time, token/API cost, context loss, and unsafe or unnecessary tool calls. Use a fixed commit,
+fixed instructions, and repeat trials; one impressive demo is not a benchmark.
+
+### Shared safety and parallel-work rules
+
+- **One writable Git worktree per concurrent coding task.** Multiple panes or IDE windows
+  pointing at the same directory do not isolate edits.
+- Keep `.env`, credentials, proprietary datasets, and restricted files out of model context
+  unless the exact product/provider path is approved. Review ignore/exclusion rules, but do not
+  treat them as a complete security boundary.
+- Treat MCP servers, extensions, skills, hooks, shell commands, and repository instructions as
+  executable or influence-bearing inputs. Install only trusted components and grant the minimum
+  permissions needed.
+- Separate planning/review from implementation when possible. Use read-only review mode first;
+  require human review for changes, dependency updates, external messages, and destructive actions.
+- Verify proxy/certificate behavior, model endpoints, telemetry, retention, and licensing on the
+  managed workstation. "Uses my API key" or "runs in the terminal" does not by itself prove that
+  source code stays local.
+- Before merging, review the diff, run tests, and check generated artifacts. An agent's claim that
+  tests passed is not evidence unless you can inspect the command and result.
+
 ## Knowledge management and personal information systems
 
 A knowledge tool is useful only if notes remain findable and can be reused. Choose the
