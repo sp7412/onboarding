@@ -112,6 +112,14 @@ can overwrite each other's changes or leave the repository in a confusing state.
 each agent a bounded task, explicit acceptance criteria, and an owner responsible for review
 and integration.
 
+### Additional orchestration projects to watch
+
+| Project | Why it belongs on the watchlist | Maturity check |
+|---|---|---|
+| [Agentdesktop](https://github.com/agentdesktop-dev/agentdesktop) | Inventory and configure multiple AI developer tools, MCP servers, skills, and policy across a workstation or fleet | More of a governance/configuration layer than a live terminal-session switcher; check supported tools and deployment requirements |
+| [Agents in a Box](https://github.com/stevengonsalvez/agents-in-a-box) | Terminal-native agent management with multiple coding-agent integrations and git-worktree isolation | Broad, fast-moving toolkit; inspect setup complexity and supported agents before adopting |
+| [TermSnap](https://github.com/Dannykkh/TermSnap-releases) | Explores an AI workstation that orchestrates agents across terminals, desktop applications, and remote systems | Treat as an exploratory candidate; verify release cadence, platform fit, and actual integration depth |
+
 ### Desktop AI workbenches and persistent bots
 
 | Tool | Category | Where it fits | Important distinction |
