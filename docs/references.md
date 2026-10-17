@@ -433,6 +433,8 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [Grok CLI](https://github.com/superagent-ai/grok-cli) | Source repository | Developer tools catalog |
 | [AnythingLLM agent documentation](https://docs.anythingllm.com/agent/setup) | Official documentation | Developer tools catalog |
 | [Grok Bot documentation](https://docs.x.ai/grok-bot/overview) | Official documentation | Developer tools catalog |
+| [Grok Bot Team Bots and Slack](https://docs.x.ai/grok-bot/team-bots) | Official documentation | Developer tools catalog |
+
 | [Agentdesktop](https://github.com/agentdesktop-dev/agentdesktop) | Source repository | Developer tools catalog |
 | [Agents in a Box](https://github.com/stevengonsalvez/agents-in-a-box) | Source repository | Developer tools catalog |
 | [TermSnap](https://github.com/Dannykkh/TermSnap-releases) | Source repository | Developer tools catalog |
@@ -445,6 +447,8 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [Apple Reminders user guide](https://support.apple.com/guide/reminders/welcome/mac) | Official documentation | Developer tools catalog |
 | [Things](https://culturedcode.com/things/) | Product website | Developer tools catalog |
 | [Todoist](https://todoist.com/) | Product website | Developer tools catalog |
+| [Todoist Slack integration guide](https://www.todoist.com/help/todoist/integrations/use-slack-with-todoist) | Official help documentation | Developer tools catalog |
+
 | [TickTick](https://ticktick.com/) | Product website | Developer tools catalog |
 | [OmniFocus](https://www.omnigroup.com/omnifocus) | Product website | Developer tools catalog |
 | [Linear features](https://linear.app/features) | Official product documentation | Developer tools catalog |
