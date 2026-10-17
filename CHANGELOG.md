@@ -42,6 +42,7 @@
 - Expanded the developer-tools catalog with WezTerm, tmux, cmux, ccmux, Zellij, Grok CLI, AnythingLLM, and Grok Bot.
 - Distinguished terminal multiplexing from coding-agent orchestration and persistent cloud-agent delegation.
 - Added a parallel-agent operating model covering git worktree isolation, task ownership, status visibility, review gates, and cost/safety controls.
+- Added a comparison of live coding-agent session monitors and session-history browsers: Agent Sessions, AgentHUD, opensessions, and AgentsView, with guidance on choosing by workflow and checking local-data boundaries.
 
 
 - Added a curated developer-tools page, starting with MacParakeet, OpenWispr, Apple Dictation, OpenWhispr, Wispr Flow, and Superwhisper.
