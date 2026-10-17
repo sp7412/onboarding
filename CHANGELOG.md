@@ -2,6 +2,17 @@
 
 ## 2026-10-16
 
+### Command-line toolkit for AI-assisted software engineering
+
+- Added a task-oriented CLI guide covering `gh` and `glab`, Git inspection and recovery,
+  `rg`, `fd`, `fzf`, `jq`/`yq`, and reproducible environment/task tools.
+- Included Mac-first install guidance, GitHub/GitLab PR and CI triage examples, an agent-assisted
+  review loop, and explicit caveats about permissions, secrets, local Actions fidelity, and
+  deployment-sensitive CLI contexts.
+- Added official/project documentation links for the recommended tools to the bibliography.
+
+## 2026-10-16
+
 ### Agent skills, MCP servers, and plugins
 
 - Added a practical distinction between reusable agent skills, MCP integrations, product-specific plugins, and the agent runtime.
