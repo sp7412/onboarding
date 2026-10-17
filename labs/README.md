@@ -2,7 +2,7 @@
 
 **Facts as of: October 6, 2026 · Last reviewed: October 6, 2026**
 
-Eighteen hands-on Jupyter tutorials that build a phone agent for a fictional HVAC/plumbing
+Twenty hands-on Jupyter tutorials that build a phone agent for a fictional HVAC/plumbing
 contractor, one architecture layer at a time. Labs 09–12 extend it to several agents working
 together (shared context, coordination, learning, agent-to-agent booking). Labs 13–14 are
 capstones on a shared synthetic call dataset: extracting and committing call facts, and
@@ -32,6 +32,7 @@ live API calls. The [capstone rubric](../docs/capstone-rubric.md) includes optio
 | 16 | mcp_server_basics | MCP server: tools, resources, prompts, Inspector, client, trust boundary | none | 60–90 minutes | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sp7412/onboarding/blob/main/labs/16_mcp_server_basics.ipynb) |
 | 17 | jev_decision_workbench | typed Jev decisions, prompt criteria, labeled intent evals, deterministic routing | optional Jev API key; offline by default | 45–60 minutes | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sp7412/onboarding/blob/main/labs/17_jev_decision_workbench.ipynb) |
 | 18 | technician_feedback_playbook_learning | structured technician feedback, evidence validation, candidate playbook revisions, evaluation, approval gates, pilot and rollback | none | 60–90 minutes | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sp7412/onboarding/blob/main/labs/18_technician_feedback_playbook_learning.ipynb) |
+| 19 | production_agent_simulation_suite | dispatch arbitration, estimate guardrails, tool outages/idempotency, failure mining, prompt injection, causal rollout gates, tenant isolation | none | 60–90 minutes | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sp7412/onboarding/blob/main/labs/19_production_agent_simulation_suite.ipynb) |
 
 ## Lab environments
 
