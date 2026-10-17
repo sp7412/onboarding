@@ -4,6 +4,11 @@
 
 ### Developer tools: Agent Sessions
 
+### Developer tools: AnythingLLM discoverability
+
+- Added AnythingLLM to the developer-tools quick-start shortlist so the desktop LLM workspace is visible near the top, while retaining its more detailed comparison in the desktop AI workbenches section.
+
+
 - Added a dedicated Agent Sessions entry to the developer-tools guide, covering its macOS live-session dashboard, supported terminals, session switching, and the distinction between visibility and actual agent orchestration.
 
 
