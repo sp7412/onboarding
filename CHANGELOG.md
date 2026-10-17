@@ -2,6 +2,12 @@
 
 ## 2026-10-16
 
+### Mac task tracking tools
+
+- Added a practical comparison of Apple Reminders, Things 3, Todoist, TickTick, and OmniFocus for personal task management, plus Linear, GitHub Issues/Projects, Asana, and Trello for shared project work.
+- Added selection guidance and an AI-assisted engineering task-record checklist covering ownership, worktree/branch, scope, acceptance criteria, tests, and review status.
+- Added official/product references and cautions about duplicate backlogs and company-data handling.
+
 ### Slack call capture and conversation RAG
 
 - Clarified on-demand MCP retrieval versus custom RAG indexing and hybrid retrieval; added a decision rule, example lookup sequence, and authorization, provenance, and deletion guardrails.
