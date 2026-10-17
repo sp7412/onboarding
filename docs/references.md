@@ -411,6 +411,15 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [BetterTouchTool](https://folivora.ai/) | Product website | Developer tools catalog |
 | [Rectangle](https://rectangleapp.com/) | Product website | Developer tools catalog |
 
+| [Slack AI huddle notes](https://slack.com/help/articles/31377193680019-Use-AI-to-take-huddle-notes-in-Slack) | Official help documentation | Developer tools catalog |
+| [Slack Huddles notes canvas](https://api.slack.com/help/articles/4402059015315-Use-huddles-in-Slack) | Official help documentation | Developer tools catalog |
+| [Slack workspace data export](https://slack.com/help/articles/201658943-Export-your-workspace-data) | Official help documentation | Developer tools catalog |
+| [Slack `conversations.replies` API](https://docs.slack.dev/reference/methods/conversations.replies/) | Official API documentation | Developer tools catalog |
+| [Slack MCP server guide](https://slack.com/help/articles/48855576908307-Guide-to-the-Slack-MCP-server) | Official help documentation | Developer tools catalog |
+| [Granola](https://www.granola.ai/) | Product website | Developer tools catalog |
+| [Otter](https://otter.ai/) | Product website | Developer tools catalog |
+| [Fireflies](https://fireflies.ai/) | Product website | Developer tools catalog |
+
 ## Multi-agent workstation and session tools
 
 | Source | Type | Cited in |
