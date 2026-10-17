@@ -1,0 +1,10 @@
+{
+  "symbol": "TTAN",
+  "feed": "sip",
+  "method": "Intraday data not loaded. Configure ALPACA_API_KEY and ALPACA_SECRET_KEY in repository Actions secrets; SIP feed covers consolidated US exchanges.",
+  "generatedAt": null,
+  "firstDate": null,
+  "lastDate": null,
+  "sessions": 0,
+  "data": []
+}
