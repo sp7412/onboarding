@@ -421,6 +421,22 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [Otter](https://otter.ai/) | Product website | Developer tools catalog |
 | [Fireflies](https://fireflies.ai/) | Product website | Developer tools catalog |
 
+## AI coding environments
+
+| Source | Type | Cited in |
+|---|---|---|
+| [OpenCode documentation](https://opencode.ai/docs/) | Official documentation | Developer tools catalog: installation and getting started |
+| [OpenCode agents](https://opencode.ai/docs/agents/) | Official documentation | Developer tools catalog: planning, primary agents, and subagents |
+| [OpenCode tools and permissions](https://docs.opencode.ai/docs/tools/) | Official documentation | Developer tools catalog: permission controls |
+| [OpenCode models](https://opencode.ai/docs/models/) | Official documentation | Developer tools catalog: provider selection |
+| [OpenCode MCP servers](https://opencode.ai/docs/mcp-servers/) | Official documentation | Developer tools catalog: external tool integration |
+| [Cursor MCP](https://prod.cursor.com/docs/mcp) | Official documentation | Developer tools catalog: MCP configuration |
+| [Cursor agent security](https://prod.cursor.com/docs/agent/security) | Official documentation | Developer tools catalog: agent approvals and safeguards |
+| [Cursor privacy and data governance](https://prod.cursor.com/docs/enterprise/privacy-and-data-governance) | Official documentation | Developer tools catalog: model and cloud-agent data flows |
+| [VS Code documentation](https://code.visualstudio.com/docs) | Official documentation | Developer tools catalog: IDE comparison |
+| [VS Code AI](https://code.visualstudio.com/docs/copilot/overview) | Official documentation | Developer tools catalog: AI coding workflows |
+| [GitHub Copilot coding agent](https://docs.github.com/en/copilot/concepts/agents/coding-agent) | Official documentation | Developer tools catalog: delegated coding agent |
+
 ## Multi-agent workstation and session tools
 
 | Source | Type | Cited in |
