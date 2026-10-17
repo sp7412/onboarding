@@ -394,3 +394,16 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [Apple Dictation guide](https://support.apple.com/guide/mac-help/dictate-messages-and-documents-mh40584/mac) | Vendor documentation | Developer tools catalog |
 | [Wispr Flow](https://wisprflow.ai/) | Product website | Developer tools catalog |
 | [Superwhisper](https://superwhisper.com/) | Product website | Developer tools catalog |
+
+## Multi-agent workstation and session tools
+
+| Source | Type | Cited in |
+|---|---|---|
+| [WezTerm](https://wezterm.org/) and [workspaces documentation](https://wezterm.org/recipes/workspaces.html) | Official documentation | Developer tools catalog |
+| [tmux](https://github.com/tmux/tmux/wiki) | Project documentation | Developer tools catalog |
+| [cmux](https://cmux.com/) | Project website and docs | Developer tools catalog |
+| [ccmux](https://ccmux.dev/) | Project website and docs | Developer tools catalog |
+| [Zellij](https://zellij.dev/) | Project website and docs | Developer tools catalog |
+| [Grok CLI](https://github.com/superagent-ai/grok-cli) | Source repository | Developer tools catalog |
+| [AnythingLLM agent documentation](https://docs.anythingllm.com/agent/setup) | Official documentation | Developer tools catalog |
+| [Grok Bot documentation](https://docs.x.ai/grok-bot/overview) | Official documentation | Developer tools catalog |
