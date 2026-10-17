@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - "site/**"
+      - "scripts/**"
       - "plan/**"
       - "docs/**"
       - "notes/**"
@@ -15,6 +16,8 @@ on:
       - "README.md"
       - ".github/workflows/deploy-site.yml"
   workflow_dispatch:
+  schedule:
+    - cron: "30 22 * * 1-5"
 
 permissions:
   contents: read
@@ -30,6 +33,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+      - name: Test intraday VWAP aggregation
+        run: python3 -m unittest discover -s scripts -p 'test_update_ttan_vwap.py'
+      - name: Refresh TTAN intraday VWAP when credentials are configured
+        env:
+          ALPACA_API_KEY: ${{ secrets.ALPACA_API_KEY }}
+          ALPACA_SECRET_KEY: ${{ secrets.ALPACA_SECRET_KEY }}
+          ALPACA_DATA_FEED: ${{ vars.ALPACA_DATA_FEED }}
+        run: |
+          if [ -z "$ALPACA_API_KEY" ] || [ -z "$ALPACA_SECRET_KEY" ]; then
+            echo "::warning::TTAN charts will show a data-setup notice until ALPACA_API_KEY and ALPACA_SECRET_KEY are added as repository Actions secrets."
+          else
+            python3 scripts/update_ttan_vwap.py --days 370 --output site/src/data/ttan-vwap.json
+          fi
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: 1.1.38
