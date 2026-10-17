@@ -12,21 +12,72 @@ const barWidth = 54;
 const step = 112;
 const barX = (i: number) => chart.left + 18 + i * step;
 const barHeight = (v: number) => (v / chart.max) * (chart.bottom - chart.top);
-const vwap = [
-  { label: "Sep 1", value: 84.01 },
-  { label: "Sep 8", value: 84.16 },
-  { label: "Sep 9", value: 77.03 },
-  { label: "Sep 18", value: 71.10 },
-  { label: "Sep 25", value: 69.74 },
-  { label: "Sep 30", value: 69.45 },
-  { label: "Oct 12", value: 69.01 },
+const monthlyMarketData = [
+  { label: "Jul ’25", date: "2025-07", close: 116.71, volume: 21897545 },
+  { label: "Aug ’25", date: "2025-08", close: 107.23, volume: 14730392 },
+  { label: "Sep ’25", date: "2025-09", close: 100.83, volume: 38945013 },
+  { label: "Oct ’25", date: "2025-10", close: 94.36, volume: 16891898 },
+  { label: "Nov ’25", date: "2025-11", close: 89.36, volume: 13606750 },
+  { label: "Dec ’25", date: "2025-12", close: 106.50, volume: 25433230 },
+  { label: "Jan ’26", date: "2026-01", close: 78.34, volume: 21959863 },
+  { label: "Feb ’26", date: "2026-02", close: 72.39, volume: 38980500 },
+  { label: "Mar ’26", date: "2026-03", close: 63.46, volume: 28621727 },
+  { label: "Apr ’26", date: "2026-04", close: 59.46, volume: 21000081 },
+  { label: "May ’26", date: "2026-05", close: 72.36, volume: 23974747 },
+  { label: "Jun ’26", date: "2026-06", close: 70.71, volume: 46678735 },
+  { label: "Jul ’26", date: "2026-07", close: 83.06, volume: 31400474 },
+  { label: "Aug ’26", date: "2026-08", close: 98.04, volume: 23449202 },
+  { label: "Sep ’26", date: "2026-09", close: 65.79, volume: 90031730 },
+  { label: "Oct 16", date: "2026-10", close: 74.98, volume: 21740538 },
 ];
-const vwapMin = 65;
-const vwapMax = 88;
-const plot = { left: 54, top: 28, bottom: 170, right: 730 };
-const pointX = (i: number) => plot.left + i * ((plot.right - plot.left) / (vwap.length - 1));
-const pointY = (v: number) => plot.bottom - ((v - vwapMin) / (vwapMax - vwapMin)) * (plot.bottom - plot.top);
-const line = vwap.map((p, i) => `${pointX(i)},${pointY(p.value)}`).join(" ");
+const annualPrices = monthlyMarketData.filter((p) => p.date >= "2025-10");
+const vwapProxy = monthlyMarketData.slice(2).map((p, i) => {
+  const window = monthlyMarketData.slice(i, i + 3);
+  const volume = window.reduce((sum, item) => sum + item.volume, 0);
+  const weightedClose = window.reduce((sum, item) => sum + item.close * item.volume, 0);
+  return { label: p.label, value: weightedClose / volume };
+});
+const recentPrices = [
+  { label: "Sep 30", value: 65.79 },
+  { label: "Oct 1", value: 67.34 },
+  { label: "Oct 2", value: 67.09 },
+  { label: "Oct 5", value: 72.16 },
+  { label: "Oct 6", value: 68.67 },
+  { label: "Oct 7", value: 71.74 },
+  { label: "Oct 8", value: 72.93 },
+  { label: "Oct 9", value: 72.59 },
+  { label: "Oct 12", value: 72.28 },
+  { label: "Oct 13", value: 71.76 },
+  { label: "Oct 14", value: 72.69 },
+  { label: "Oct 15", value: 76.11 },
+  { label: "Oct 16", value: 74.98 },
+];
+const annualPlot = { left: 54, top: 34, bottom: 218, right: 718 };
+const annualX = (i: number, count: number) =>
+  annualPlot.left + i * ((annualPlot.right - annualPlot.left) / (count - 1));
+const annualY = (value: number, min: number, max: number) =>
+  annualPlot.bottom - ((value - min) / (max - min)) * (annualPlot.bottom - annualPlot.top);
+const vwapMin = 55;
+const vwapMax = 115;
+const priceMin = 50;
+const priceMax = 125;
+const vwapLine = vwapProxy.slice(-13).map((p, i) =>
+  annualX(i, 13) + "," + annualY(p.value, vwapMin, vwapMax)
+).join(" ");
+const priceLine = annualPrices.map((p, i) =>
+  annualX(i, annualPrices.length) + "," + annualY(p.close, priceMin, priceMax)
+).join(" ");
+const inset = { left: 494, top: 40, right: 724, bottom: 143 };
+const insetX = (i: number) =>
+  inset.left + i * ((inset.right - inset.left) / (recentPrices.length - 1));
+const insetY = (value: number) =>
+  inset.bottom - ((value - 60) / (80 - 60)) * (inset.bottom - inset.top);
+const recentPriceLine = recentPrices.map((p, i) =>
+  insetX(i) + "," + insetY(p.value)
+).join(" ");
+const latestVwapProxy = vwapProxy[vwapProxy.length - 1].value;
+const latestVwapLabel = "$" + latestVwapProxy.toFixed(2);
+
 ---
 <section class="company-charts" aria-labelledby="company-charts-title">
   <div class="section-intro">
@@ -71,40 +122,107 @@ const line = vwap.map((p, i) => `${pointX(i)},${pointY(p.value)}`).join(" ");
     <p class="source-line">Sources: <a href="https://investors.servicetitan.com/news-releases/news-release-details/servicetitan-announces-fiscal-first-quarter-financial-results-0">Q1 FY2027</a> · <a href="https://investors.servicetitan.com/news-releases/news-release-details/servicetitan-announces-fiscal-second-quarter-financial-results-0">Q2 FY2027</a> · <a href="https://investors.servicetitan.com/news-releases/news-release-details/servicetitan-announces-fiscal-third-quarter-financial-results">Q3 FY2026</a> · <a href="https://servicetitan.gcs-web.com/news-releases/news-release-details/servicetitan-announces-fiscal-fourth-quarter-and-full-fiscal">Q4 FY2026 and full year</a> · <a href="https://investors.servicetitan.com/news-releases/news-release-details/servicetitan-announces-fiscal-second-quarter-financial-results">Q2 FY2026</a>.</p>
   </article>
 
-  <article class="chart-card stock-card" aria-labelledby="vwap-title">
+  <article id="ttan-vwap-year" class="chart-card stock-card" aria-labelledby="vwap-title">
     <div class="chart-heading">
       <div>
-        <h3 id="vwap-title">TTAN rolling three-month VWAP estimate</h3>
-        <p class="chart-subtitle">Selected dates · USD per share</p>
+        <h3 id="vwap-title">TTAN three-month VWAP proxy · one-year view</h3>
+        <p class="chart-subtitle">Monthly close × volume checkpoints · USD per share</p>
       </div>
       <div class="metric metric-muted">
-        <strong>$69.01</strong>
-        <span>Oct 12 estimate</span>
+        <strong>{latestVwapLabel}</strong>
+        <span>Oct 16 proxy</span>
       </div>
     </div>
     <figure>
-      <svg class="chart" viewBox="0 0 760 220" role="img" aria-labelledby="vwap-svg-title vwap-svg-desc">
-        <title id="vwap-svg-title">Estimated rolling three-month volume-weighted average price for TTAN</title>
-        <desc id="vwap-svg-desc">The estimate rose from 84.01 dollars on September 1 to 84.16 on September 8, then fell to 77.03 on September 9, 71.10 on September 18, 69.74 on September 25, 69.45 on September 30, and 69.01 on October 12.</desc>
-        {[70, 75, 80, 85].map((tick) => (
+      <svg class="chart" viewBox="0 0 760 270" role="img" aria-labelledby="vwap-svg-title vwap-svg-desc">
+        <title id="vwap-svg-title">TTAN three-month volume-weighted price proxy over one year</title>
+        <desc id="vwap-svg-desc">A year-long monthly checkpoint view of a three-month close-and-volume-weighted price proxy, with an inset showing daily closing prices from September 30 through October 16, 2026 and the latest proxy as a reference line.</desc>
+        {[60, 75, 90, 105].map((tick) => (
           <g>
-            <line x1={plot.left} x2={plot.right} y1={pointY(tick)} y2={pointY(tick)} class="gridline" />
-            <text x={plot.left - 12} y={pointY(tick) + 4} text-anchor="end" class="axis-label">${tick}</text>
+            <line x1={annualPlot.left} x2={annualPlot.right} y1={annualY(tick, vwapMin, vwapMax)} y2={annualY(tick, vwapMin, vwapMax)} class="gridline" />
+            <text x={annualPlot.left - 10} y={annualY(tick, vwapMin, vwapMax) + 4} text-anchor="end" class="axis-label">{"$" + tick}</text>
           </g>
         ))}
-        <polyline points={line} class="vwap-line" />
-        {vwap.map((p, i) => (
+        <polyline points={vwapLine} class="vwap-line" />
+        {vwapProxy.slice(-13).map((p, i) => (
           <g>
-            <circle cx={pointX(i)} cy={pointY(p.value)} r={i === vwap.length - 1 ? 5 : 3.5} class={i === vwap.length - 1 ? "point point-current" : "point"} />
-            <text x={pointX(i)} y={pointY(p.value) - 11} text-anchor="middle" class="value-label">{p.value.toFixed(2)}</text>
-            <text x={pointX(i)} y={plot.bottom + 24} text-anchor="middle" class="quarter-label">{p.label}</text>
+            <circle cx={annualX(i, 13)} cy={annualY(p.value, vwapMin, vwapMax)} r={i === 12 ? 4.5 : 2.8} class={i === 12 ? "point point-current" : "point"} />
+            <text x={annualX(i, 13)} y={annualPlot.bottom + 19} text-anchor="middle" class="quarter-label">{p.label}</text>
           </g>
         ))}
-        <line x1={plot.left} x2={plot.right} y1={plot.bottom} y2={plot.bottom} class="baseline" />
+        <rect x={inset.left - 7} y={inset.top - 20} width={inset.right - inset.left + 14} height={inset.bottom - inset.top + 34} rx="7" class="inset-frame" />
+        <text x={inset.left} y={inset.top - 7} class="inset-title">LAST 2 WEEKS · CLOSE</text>
+        {[60, 70, 80].map((tick) => (
+          <g>
+            <line x1={inset.left} x2={inset.right} y1={insetY(tick)} y2={insetY(tick)} class="gridline" />
+            <text x={inset.left - 5} y={insetY(tick) + 3} text-anchor="end" class="inset-axis">{"$" + tick}</text>
+          </g>
+        ))}
+        <line x1={inset.left} x2={inset.right} y1={insetY(latestVwapProxy)} y2={insetY(latestVwapProxy)} class="proxy-reference" />
+        <polyline points={recentPriceLine} class="price-line" />
+        {recentPrices.map((p, i) => (
+          <circle cx={insetX(i)} cy={insetY(p.value)} r="2.2" class="price-point" />
+        ))}
+        <text x={inset.left + 4} y={inset.bottom + 13} class="inset-axis">Sep 30</text>
+        <text x={inset.right - 4} y={inset.bottom + 13} text-anchor="end" class="inset-axis">Oct 16</text>
+        <line x1={annualPlot.left} x2={annualPlot.right} y1={annualPlot.bottom} y2={annualPlot.bottom} class="baseline" />
       </svg>
-      <figcaption>Illustrative trend only; the last point is October 12, 2026. The closing-price × volume approximation is not true intraday VWAP and may differ from any compensation-plan pricing method.</figcaption>
+      <div class="chart-legend">
+        <span><i class="legend-vwap"></i> 3-month proxy</span>
+        <span><i class="legend-price"></i> Daily close in inset</span>
+      </div>
+      <figcaption>The annual line uses month-end closing prices weighted by each month’s reported trading volume, then rolls over three monthly aggregates. It is a transparent long-range proxy—not a true daily close×volume VWAP or intraday VWAP. The inset uses daily closes through October 16, 2026.</figcaption>
     </figure>
-    <p class="source-line">Market data reference: <a href="https://chartexchange.com/symbol/nasdaq-ttan/historical/">TTAN historical prices</a>. This chart is personal context, not investment advice.</p>
+    <p class="source-line">Data: <a href="https://stockscan.io/stocks/TTAN/price-history">monthly trading volume and historical range</a> · <a href="https://stockanalysis.com/stocks/ttan/history/">daily closes</a>. <a class="chart-link" href="https://sp7412.github.io/onboarding/whitepaper/01-company/#ttan-vwap-year">Permanent direct link to this VWAP plot ↗</a></p>
+  </article>
+
+  <article id="ttan-stock-price-year" class="chart-card stock-card" aria-labelledby="stock-price-title">
+    <div class="chart-heading">
+      <div>
+        <h3 id="stock-price-title">TTAN raw closing price · one-year view</h3>
+        <p class="chart-subtitle">Unsmoothed month-end closes, with daily detail inset · USD per share</p>
+      </div>
+      <div class="metric">
+        <strong>$74.98</strong>
+        <span>Oct 16, 2026 close</span>
+      </div>
+    </div>
+    <figure>
+      <svg class="chart" viewBox="0 0 760 270" role="img" aria-labelledby="price-svg-title price-svg-desc">
+        <title id="price-svg-title">TTAN raw closing price over one year</title>
+        <desc id="price-svg-desc">Monthly closing-price checkpoints from October 2025 through October 16, 2026, with a daily closing-price inset from September 30 through October 16, 2026.</desc>
+        {[50, 70, 90, 110].map((tick) => (
+          <g>
+            <line x1={annualPlot.left} x2={annualPlot.right} y1={annualY(tick, priceMin, priceMax)} y2={annualY(tick, priceMin, priceMax)} class="gridline" />
+            <text x={annualPlot.left - 10} y={annualY(tick, priceMin, priceMax) + 4} text-anchor="end" class="axis-label">{"$" + tick}</text>
+          </g>
+        ))}
+        <polyline points={priceLine} class="price-line annual-price-line" />
+        {annualPrices.map((p, i) => (
+          <g>
+            <circle cx={annualX(i, annualPrices.length)} cy={annualY(p.close, priceMin, priceMax)} r={i === annualPrices.length - 1 ? 4.5 : 2.8} class={i === annualPrices.length - 1 ? "price-point price-point-current" : "price-point"} />
+            <text x={annualX(i, annualPrices.length)} y={annualPlot.bottom + 19} text-anchor="middle" class="quarter-label">{p.label}</text>
+          </g>
+        ))}
+        <rect x={inset.left - 7} y={inset.top - 20} width={inset.right - inset.left + 14} height={inset.bottom - inset.top + 34} rx="7" class="inset-frame" />
+        <text x={inset.left} y={inset.top - 7} class="inset-title">LAST 2 WEEKS · DAILY CLOSE</text>
+        {[60, 70, 80].map((tick) => (
+          <g>
+            <line x1={inset.left} x2={inset.right} y1={insetY(tick)} y2={insetY(tick)} class="gridline" />
+            <text x={inset.left - 5} y={insetY(tick) + 3} text-anchor="end" class="inset-axis">{"$" + tick}</text>
+          </g>
+        ))}
+        <polyline points={recentPriceLine} class="price-line" />
+        {recentPrices.map((p, i) => (
+          <circle cx={insetX(i)} cy={insetY(p.value)} r={i === recentPrices.length - 1 ? 3.5 : 2.2} class={i === recentPrices.length - 1 ? "price-point price-point-current" : "price-point"} />
+        ))}
+        <text x={inset.left + 4} y={inset.bottom + 13} class="inset-axis">Sep 30</text>
+        <text x={inset.right - 4} y={inset.bottom + 13} text-anchor="end" class="inset-axis">Oct 16</text>
+        <line x1={annualPlot.left} x2={annualPlot.right} y1={annualPlot.bottom} y2={annualPlot.bottom} class="baseline" />
+      </svg>
+      <figcaption>This plot shows the stock’s raw monthly closing-price checkpoints, not a moving average. The inset shows each available trading-day close from September 30 through October 16, 2026.</figcaption>
+    </figure>
+    <p class="source-line">Data: <a href="https://stockanalysis.com/stocks/ttan/history/">TTAN historical closing prices</a>. <a class="chart-link" href="https://sp7412.github.io/onboarding/whitepaper/01-company/#ttan-stock-price-year">Permanent direct link to this raw-price plot ↗</a></p>
   </article>
 </section>
 
@@ -147,4 +265,20 @@ const line = vwap.map((p, i) => `${pointX(i)},${pointY(p.value)}`).join(" ");
     .quarter-label { font-size: 9px; }
     .value-label { font-size: 10px; }
   }
+
+  .inset-frame { fill: #111720; stroke: #687382; stroke-width: 1; }
+  .inset-title { fill: #f4f7fb; font: 600 9px var(--font-body); letter-spacing: .04em; }
+  .inset-axis { fill: #aeb6c2; font: 8px var(--font-body); }
+  .price-line { fill: none; stroke: #f3b45b; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .annual-price-line { stroke-width: 2.5; }
+  .price-point { fill: #171c25; stroke: #f3b45b; stroke-width: 1.5; }
+  .price-point-current { fill: #f3b45b; stroke: #fff; stroke-width: 1; }
+  .proxy-reference { stroke: #8eb4ff; stroke-width: 1.4; stroke-dasharray: 4 3; }
+  .chart-legend { display: flex; gap: .9rem; flex-wrap: wrap; margin-top: .4rem; color: var(--ink-dim); font-size: .72rem; }
+  .chart-legend span { display: inline-flex; align-items: center; gap: .35rem; }
+  .chart-legend i { display: inline-block; width: 15px; height: 2px; }
+  .legend-vwap { background: #8eb4ff; }
+  .legend-price { background: #f3b45b; }
+  .chart-link { display: inline-block; margin-left: .45rem; color: #b9d5ff; font-weight: 600; }
+
 </style>
