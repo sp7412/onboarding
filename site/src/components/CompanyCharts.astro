@@ -31,22 +31,45 @@ const getRange = (values: number[], fallbackMin: number, fallbackMax: number): [
   const pad = Math.max(1, (high - low) * 0.08);
   return [Math.floor((low - pad) / 5) * 5, Math.ceil((high + pad) / 5) * 5];
 };
-const [vwapMin, vwapMax] = getRange(dailyPrices.map((p) => p.rollingCloseVwap), 50, 100);
 const [priceMin, priceMax] = getRange(dailyPrices.map((p) => p.close), 50, 125);
-const vwapLine = dailyPrices.map((p, i) => annualX(i, dailyPrices.length) + "," + annualY(p.rollingCloseVwap, vwapMin, vwapMax)).join(" ");
 const priceLine = dailyPrices.map((p, i) => annualX(i, dailyPrices.length) + "," + annualY(p.close, priceMin, priceMax)).join(" ");
 const inset = { left: 494, top: 278, right: 724, bottom: 352 };
 const insetX = (i: number) => recentPrices.length <= 1 ? 609 :
   inset.left + i * ((inset.right - inset.left) / (recentPrices.length - 1));
-const insetValues = recentPrices.flatMap((p) => [p.close, p.rollingCloseVwap]);
+const insetValues = recentPrices.map((p) => p.close);
 const [insetMin, insetMax] = getRange(insetValues, 50, 100);
 const insetY = (value: number) => inset.bottom - ((value - insetMin) / (insetMax - insetMin || 1)) * (inset.bottom - inset.top);
 const recentPriceLine = recentPrices.map((p, i) => insetX(i) + "," + insetY(p.close)).join(" ");
-const recentVwapLine = recentPrices.map((p, i) => insetX(i) + "," + insetY(p.rollingCloseVwap)).join(" ");
 const latest = dailyPrices[dailyPrices.length - 1];
-const latestVwapLabel = latest ? "$" + latest.rollingCloseVwap.toFixed(2) : "—";
 const latestCloseLabel = latest ? "$" + latest.close.toFixed(2) : "—";
 const latestDateLabel = latest ? latest.date : "No daily data loaded";
+const fiscalQuarter = (date: string) => {
+  const month = Number(date.slice(5, 7));
+  const year = Number(date.slice(0, 4));
+  const quarter = month === 1 || month >= 11 ? 4 : Math.ceil((month - 1) / 3);
+  return { key: `FY${String(month === 1 ? year : year + 1).slice(-2)} Q${quarter}`, quarter };
+};
+const quarterGroups = new Map<string, { label: string; quarter: number; firstDate: string; lastDate: string; volume: number; weightedClose: number }>();
+for (const row of dailyPrices) {
+  const { key, quarter } = fiscalQuarter(row.date);
+  const group = quarterGroups.get(key) ?? { label: key, quarter, firstDate: row.date, lastDate: row.date, volume: 0, weightedClose: 0 };
+  group.firstDate = row.date < group.firstDate ? row.date : group.firstDate;
+  group.lastDate = row.date > group.lastDate ? row.date : group.lastDate;
+  group.volume += row.volume;
+  group.weightedClose += row.close * row.volume;
+  quarterGroups.set(key, group);
+}
+const allQuarters = [...quarterGroups.values()].sort((a, b) => a.firstDate.localeCompare(b.firstDate));
+const latestQuarter = allQuarters.at(-1)?.label;
+const quarterPrices = allQuarters.filter((q) => {
+  const startMonth = q.quarter === 1 ? "02" : q.quarter === 2 ? "05" : q.quarter === 3 ? "08" : "11";
+  const expectedStart = `${q.firstDate.slice(0, 4)}-${startMonth}-01`;
+  const startedNearQuarterBoundary = q.firstDate.slice(0, 7) === expectedStart.slice(0, 7) && Number(q.firstDate.slice(8, 10)) <= 7;
+  return q.label === latestQuarter || startedNearQuarterBoundary;
+}).map((q) => ({ ...q, value: q.weightedClose / q.volume, partial: q.label === latestQuarter }));
+const [quarterPriceMin, quarterPriceMax] = getRange(quarterPrices.map((q) => q.value), 50, 100);
+const quarterStep = (annualPlot.right - annualPlot.left) / Math.max(1, quarterPrices.length - 1);
+const quarterLine = quarterPrices.map((q, i) => (annualPlot.left + i * quarterStep) + "," + annualY(q.value, quarterPriceMin, quarterPriceMax)).join(" ");
 
 ---
 <section class="company-charts" aria-labelledby="company-charts-title">
@@ -95,48 +118,39 @@ const latestDateLabel = latest ? latest.date : "No daily data loaded";
   <article id="ttan-vwap-year" class="chart-card stock-card" aria-labelledby="vwap-title">
     <div class="chart-heading">
       <div>
-        <h3 id="vwap-title">TTAN 63-session rolling VWAP proxy · one year</h3>
-        <p class="chart-subtitle">Daily close × daily volume · USD per share</p>
+        <h3 id="vwap-title">TTAN quarterly volume-weighted closing price</h3>
+        <p class="chart-subtitle">Daily closes weighted by daily volume · USD per share</p>
       </div>
       <div class="metric metric-muted">
-        <strong>{latestVwapLabel}</strong>
-        <span>Latest 63-session proxy · {latestDateLabel}</span>
+        <strong>{quarterPrices.length ? "$" + quarterPrices[quarterPrices.length - 1]!.value.toFixed(2) : "—"}</strong>
+        <span>{quarterPrices[quarterPrices.length - 1]?.label ?? "No data"} quarter-to-date · {latestDateLabel}</span>
       </div>
     </div>
     <figure>
-      <svg class="chart" viewBox="0 0 760 390" role="img" aria-labelledby="vwap-svg-title vwap-svg-desc">
-        <title id="vwap-svg-title">TTAN daily close and 63-session rolling VWAP proxy</title>
-        <desc id="vwap-svg-desc">Daily closing prices and their 63-session volume-weighted closing-price proxy across one year; the inset shows the last ten trading sessions.</desc>
-        {[vwapMin, (vwapMin + vwapMax) / 2, vwapMax].map((tick) => (
+      <svg class="chart" viewBox="0 0 760 270" role="img" aria-labelledby="vwap-svg-title vwap-svg-desc">
+        <title id="vwap-svg-title">TTAN quarterly volume-weighted average closing price</title>
+        <desc id="vwap-svg-desc">Quarterly volume-weighted average closing prices for ServiceTitan stock, using daily closing prices weighted by daily volume. The latest fiscal quarter is quarter-to-date.</desc>
+        {[quarterPriceMin, (quarterPriceMin + quarterPriceMax) / 2, quarterPriceMax].map((tick) => (
           <g>
-            <line x1={annualPlot.left} x2={annualPlot.right} y1={annualY(tick, vwapMin, vwapMax)} y2={annualY(tick, vwapMin, vwapMax)} class="gridline" />
-            <text x={annualPlot.left - 10} y={annualY(tick, vwapMin, vwapMax) + 4} text-anchor="end" class="axis-label">{"$" + tick.toFixed(0)}</text>
+            <line x1={annualPlot.left} x2={annualPlot.right} y1={annualY(tick, quarterPriceMin, quarterPriceMax)} y2={annualY(tick, quarterPriceMin, quarterPriceMax)} class="gridline" />
+            <text x={annualPlot.left - 10} y={annualY(tick, quarterPriceMin, quarterPriceMax) + 4} text-anchor="end" class="axis-label">{"$" + tick.toFixed(0)}</text>
           </g>
         ))}
-        {dailyPrices.length > 1 && <polyline points={vwapLine} class="vwap-line" />}
-        {monthTicks.map((tick) => (
-          <text x={annualX(tick.index, dailyPrices.length)} y={annualPlot.bottom + 19} text-anchor="middle" class="quarter-label">{tick.label}</text>
-        ))}
-        {dailyPrices.length === 0 && <text x="380" y="125" text-anchor="middle" class="empty-state">No daily price data available</text>}
-        <rect x={inset.left - 7} y={inset.top - 20} width={inset.right - inset.left + 14} height={inset.bottom - inset.top + 34} rx="7" class="inset-frame" />
-        <text x={inset.left} y={inset.top - 7} class="inset-title">LAST 2 WEEKS · CLOSE + VWAP PROXY</text>
-        {[insetMin, (insetMin + insetMax) / 2, insetMax].map((tick) => (
+        {quarterPrices.length > 1 && <polyline points={quarterLine} class="vwap-line" />}
+        {quarterPrices.map((q, i) => (
           <g>
-            <line x1={inset.left} x2={inset.right} y1={insetY(tick)} y2={insetY(tick)} class="gridline" />
-            <text x={inset.left - 5} y={insetY(tick) + 3} text-anchor="end" class="inset-axis">{"$" + tick.toFixed(0)}</text>
+            <circle cx={annualPlot.left + i * quarterStep} cy={annualY(q.value, quarterPriceMin, quarterPriceMax)} r="5" class={q.partial ? "quarter-point quarter-point-current" : "quarter-point"} />
+            <text x={annualPlot.left + i * quarterStep} y={annualY(q.value, quarterPriceMin, quarterPriceMax) - 10} text-anchor="middle" class="value-label">{"$" + q.value.toFixed(2)}</text>
+            <text x={annualPlot.left + i * quarterStep} y={annualPlot.bottom + 19} text-anchor="middle" class="quarter-label">{q.label}{q.partial ? " · QTD" : ""}</text>
           </g>
         ))}
-        {recentPrices.length > 1 && <polyline points={recentVwapLine} class="vwap-line inset-vwap-line" />}
-        {recentPrices.length > 1 && <polyline points={recentPriceLine} class="price-line" />}
-        {recentPrices.map((p, i) => <circle cx={insetX(i)} cy={insetY(p.close)} r="2.4" class="price-point" />)}
-        <text x={inset.left + 4} y={inset.bottom + 13} class="inset-axis">{recentPrices[0]?.date ?? "—"}</text>
-        <text x={inset.right - 4} y={inset.bottom + 13} text-anchor="end" class="inset-axis">{latestDateLabel}</text>
+        {quarterPrices.length === 0 && <text x="380" y="125" text-anchor="middle" class="empty-state">No quarterly price data available</text>}
         <line x1={annualPlot.left} x2={annualPlot.right} y1={annualPlot.bottom} y2={annualPlot.bottom} class="baseline" />
       </svg>
-      <div class="chart-legend"><span><i class="legend-vwap"></i> 63-session rolling VWAP proxy</span><span><i class="legend-price"></i> Daily close</span></div>
-      <figcaption>The line is the daily closing price weighted by daily volume over the latest 63 sessions. It is a daily close×volume proxy, not trade-level VWAP; true VWAP requires intraday trade or bar data.</figcaption>
+      <div class="chart-legend"><span><i class="legend-vwap"></i> Quarterly volume-weighted closing price</span><span><i class="legend-price"></i> QTD = quarter-to-date</span></div>
+      <figcaption>ServiceTitan disclosed using the volume-weighted average closing trading price over the first fiscal quarter of FY2026 to convert executive equity target values into RSUs. This plot applies that daily-close × daily-volume method to each fiscal quarter shown; the active quarter is preliminary. It does not establish the pricing method for every employee grant.</figcaption>
     </figure>
-    <p class="source-line">Data: <a href="https://finance.yahoo.com/quote/TTAN/history/">Yahoo Finance historical daily prices and volume</a>. <a class="chart-link" href="https://sp7412.github.io/onboarding/whitepaper/01-company/#ttan-vwap-year">Permanent link to the rolling price plot ↗</a></p>
+    <p class="source-line">Data: <a href="https://finance.yahoo.com/quote/TTAN/history/">Yahoo Finance historical daily prices and volume</a>. Method: <a href="https://www.sec.gov/Archives/edgar/data/1638826/000163882626000038/ttan-20260505.htm">ServiceTitan FY2026 proxy statement</a>. <a class="chart-link" href="https://sp7412.github.io/onboarding/whitepaper/01-company/#ttan-vwap-year">Permanent link to the quarterly price plot ↗</a></p>
   </article>
 
   <article id="ttan-stock-price-year" class="chart-card stock-card" aria-labelledby="stock-price-title">
@@ -228,6 +242,8 @@ const latestDateLabel = latest ? latest.date : "No daily data loaded";
   .price-line { fill: none; stroke: #f3b45b; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
   .annual-price-line { stroke-width: 2.5; }
   .price-point { fill: #171c25; stroke: #f3b45b; stroke-width: 1.5; }
+  .quarter-point { fill: #171c25; stroke: #8eb4ff; stroke-width: 2.5; }
+  .quarter-point-current { fill: #8eb4ff; stroke: #fff; stroke-width: 1.5; }
   .price-point-current { fill: #f3b45b; stroke: #fff; stroke-width: 1; }
   .proxy-reference { stroke: #8eb4ff; stroke-width: 1.4; stroke-dasharray: 4 3; }
   .chart-legend { display: flex; gap: .9rem; flex-wrap: wrap; margin-top: .4rem; color: var(--ink-dim); font-size: .72rem; }

@@ -222,6 +222,7 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 |---|---|---|
 | [Yahoo Finance TTAN historical data](https://finance.yahoo.com/quote/TTAN/history/) | Market data | WP 01 charts |
 | [yfinance download API](https://ranaroussi.github.io/yfinance/reference/api/yfinance.download.html) | Python library documentation | WP 01 chart data script |
+| [ServiceTitan FY2026 definitive proxy statement](https://www.sec.gov/Archives/edgar/data/1638826/000163882626000038/ttan-20260505.htm) | SEC filing | WP 01 stock chart methodology |
 
 ## Background whitepaper (primary and secondary sources)
 
