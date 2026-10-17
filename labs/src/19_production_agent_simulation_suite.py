@@ -278,3 +278,12 @@ print(f"\n{sum(r.passed for r in results)}/{len(results)} scenario contracts pas
 # ## Where it stops
 #
 # This lab is a deterministic teaching harness, not a realistic LLM, telephony simulator, causal-inference package, or production security test. The fixtures are fictional and intentionally small. Production use requires threat modeling, realistic fault distributions, independent review, privacy controls, and tests against the actual orchestration and backend contracts.
+
+# %% [markdown]
+# ## Check your understanding
+#
+# 1. Why is a passing scenario count insufficient evidence that a production agent is safe to release?
+# 2. How do idempotency and post-write verification address different parts of a timeout retry?
+# 3. Why must tenant isolation remain a hard invariant even when aggregate task success improves?
+#
+# **Graded exercise:** extend the tool-outage scenario to model a write that commits but whose response times out. Add a reconciliation read, retry the same idempotency key, and assert exactly one booking exists while the agent reports only the state the backend confirms.
