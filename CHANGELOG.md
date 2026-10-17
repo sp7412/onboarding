@@ -4,6 +4,7 @@
 
 ### Slack call capture and conversation RAG
 
+- Clarified on-demand MCP retrieval versus custom RAG indexing and hybrid retrieval; added a decision rule, example lookup sequence, and authorization, provenance, and deletion guardrails.
 - Added a Slack call-capture comparison covering native Huddle AI notes and external meeting
   note/transcription tools, with explicit compatibility and consent checks.
 - Documented authorized Slack exports versus scoped API ingestion and live MCP retrieval.
