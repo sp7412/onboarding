@@ -383,3 +383,14 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [Recording PWA prototype](https://github.com/servicetitan/recording-PWA-proto) | Local audio capture and IndexedDB persistence prototype | [Public GitHub review](servicetitan-github-review.md) |
 | [NSwag](https://github.com/servicetitan/NSwag) | OpenAPI tooling and client generation | [Public GitHub review](servicetitan-github-review.md) |
 | [NJsonSchema](https://github.com/servicetitan/NJsonSchema) | JSON Schema validation and code generation | [Public GitHub review](servicetitan-github-review.md) |
+
+## Developer workstation tools
+
+| Source | Type | Cited in |
+|---|---|---|
+| [MacParakeet](https://www.macparakeet.com/) and [source repository](https://github.com/moona3k/macparakeet) | Project website and source | Developer tools catalog |
+| [OpenWispr](https://open-wispr.com/) and [source repository](https://github.com/human37/open-wispr) | Project website and source | Developer tools catalog |
+| [OpenWhispr](https://github.com/openwhispr/openwhispr) | Source repository | Developer tools catalog |
+| [Apple Dictation guide](https://support.apple.com/guide/mac-help/dictate-messages-and-documents-mh40584/mac) | Vendor documentation | Developer tools catalog |
+| [Wispr Flow](https://wisprflow.ai/) | Product website | Developer tools catalog |
+| [Superwhisper](https://superwhisper.com/) | Product website | Developer tools catalog |
