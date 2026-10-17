@@ -2,6 +2,13 @@
 
 ## 2026-10-16
 
+### Developer workstation tools catalog
+
+- Added a curated developer-tools page, starting with MacParakeet, OpenWispr, Apple Dictation, OpenWhispr, Wispr Flow, and Superwhisper.
+- Compared hotkey ergonomics, local/cloud processing, platform support, licensing, and workflows; included a repeatable dictation evaluation checklist and a roadmap for future tool categories.
+- Linked the page from the topic index, README, and published site's document registry.
+
+
 ### TTAN annual VWAP proxy and raw-price charts
 
 - Replaced the stale selected-date stock chart with a one-year monthly close/volume-weighted proxy and a two-week daily inset.
