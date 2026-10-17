@@ -436,3 +436,18 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [Agentdesktop](https://github.com/agentdesktop-dev/agentdesktop) | Source repository | Developer tools catalog |
 | [Agents in a Box](https://github.com/stevengonsalvez/agents-in-a-box) | Source repository | Developer tools catalog |
 | [TermSnap](https://github.com/Dannykkh/TermSnap-releases) | Source repository | Developer tools catalog |
+
+
+## Mac task tracking tools
+
+| Source | Type | Cited in |
+|---|---|---|
+| [Apple Reminders user guide](https://support.apple.com/guide/reminders/welcome/mac) | Official documentation | Developer tools catalog |
+| [Things](https://culturedcode.com/things/) | Product website | Developer tools catalog |
+| [Todoist](https://todoist.com/) | Product website | Developer tools catalog |
+| [TickTick](https://ticktick.com/) | Product website | Developer tools catalog |
+| [OmniFocus](https://www.omnigroup.com/omnifocus) | Product website | Developer tools catalog |
+| [Linear features](https://linear.app/features) | Official product documentation | Developer tools catalog |
+| [GitHub Issues and Projects](https://github.com/features/issues) | Official product documentation | Developer tools catalog |
+| [Asana project management](https://asana.com/features/project-management) | Official product documentation | Developer tools catalog |
+| [Trello](https://trello.com/) | Product website | Developer tools catalog |
