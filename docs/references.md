@@ -430,6 +430,10 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [cmux](https://cmux.com/) | Project website and docs | Developer tools catalog |
 | [ccmux](https://ccmux.dev/) | Project website and docs | Developer tools catalog |
 | [Zellij](https://zellij.dev/) | Project website and docs | Developer tools catalog |
+| [Agent Sessions](https://github.com/ozankasikci/agent-sessions) | Source repository | Developer tools catalog |
+| [AgentHUD](https://github.com/neochoon/agenthud) | Source repository | Developer tools catalog |
+| [opensessions](https://github.com/Ataraxy-Labs/opensessions) | Source repository and docs | Developer tools catalog |
+| [AgentsView](https://github.com/kenn-io/agentsview) | Source repository and docs | Developer tools catalog |
 | [Grok CLI](https://github.com/superagent-ai/grok-cli) | Source repository | Developer tools catalog |
 | [AnythingLLM agent documentation](https://docs.anythingllm.com/agent/setup) | Official documentation | Developer tools catalog |
 | [Grok Bot documentation](https://docs.x.ai/grok-bot/overview) | Official documentation | Developer tools catalog |
