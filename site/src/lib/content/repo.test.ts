@@ -54,8 +54,8 @@ describe("real repo content", () => {
 
   it("parses every lab with questions and exercises", () => {
     expect(bundle.labs.map((l) => l.number)).toEqual(Array.from({ length: bundle.labs.length }, (_, i) => String(i).padStart(2, "0")));
-    // Keep this count aligned with the labs/README.md table (currently 19 labs, 00-18).
-    expect(bundle.labs.length).toBe(19);
+    // Keep this count aligned with the labs/README.md table (currently 20 labs, 00-19).
+    expect(bundle.labs.length).toBe(20);
     for (const lab of bundle.labs) {
       expect(lab.questions.length).toBeGreaterThanOrEqual(2);
       expect(lab.exercise).toBeTruthy();
