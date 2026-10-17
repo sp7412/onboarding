@@ -467,3 +467,17 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [GitHub Issues and Projects](https://github.com/features/issues) | Official product documentation | Developer tools catalog |
 | [Asana project management](https://asana.com/features/project-management) | Official product documentation | Developer tools catalog |
 | [Trello](https://trello.com/) | Product website | Developer tools catalog |
+
+
+## Agent skills, MCP servers, and plugins
+
+| Source | Type | Cited in |
+|---|---|---|
+| [OpenCode skills documentation](https://opencode.ai/docs/skills) | Official documentation | Developer tools catalog |
+| [Agent Skills specification](https://agentskills.io/) | Specification | Developer tools catalog |
+| [Superpowers](https://github.com/obra/superpowers) | Open-source skill/workflow collection | Developer tools catalog |
+| [GitHub MCP Server](https://github.com/github/github-mcp-server) | Official GitHub MCP project | Developer tools catalog; MCP lab |
+| [Context7](https://github.com/upstash/context7) | Documentation retrieval integration | Developer tools catalog |
+| [MCP Inspector](https://github.com/modelcontextprotocol/inspector) | Official MCP debugging tool | Developer tools catalog; MCP lab |
+| [Claude Code plugins](https://docs.anthropic.com/en/docs/claude-code/plugins) | Official documentation | Developer tools catalog |
+| [Cursor plugins](https://docs.cursor.com/plugins) | Official documentation | Developer tools catalog |
