@@ -383,3 +383,71 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [Recording PWA prototype](https://github.com/servicetitan/recording-PWA-proto) | Local audio capture and IndexedDB persistence prototype | [Public GitHub review](servicetitan-github-review.md) |
 | [NSwag](https://github.com/servicetitan/NSwag) | OpenAPI tooling and client generation | [Public GitHub review](servicetitan-github-review.md) |
 | [NJsonSchema](https://github.com/servicetitan/NJsonSchema) | JSON Schema validation and code generation | [Public GitHub review](servicetitan-github-review.md) |
+
+## Developer workstation tools
+
+| Source | Type | Cited in |
+|---|---|---|
+| [MacParakeet](https://www.macparakeet.com/) and [source repository](https://github.com/moona3k/macparakeet) | Project website and source | Developer tools catalog |
+| [OpenWispr](https://open-wispr.com/) and [source repository](https://github.com/human37/open-wispr) | Project website and source | Developer tools catalog |
+| [OpenWhispr](https://github.com/openwhispr/openwhispr) | Source repository | Developer tools catalog |
+| [Apple Dictation guide](https://support.apple.com/guide/mac-help/dictate-messages-and-documents-mh40584/mac) | Vendor documentation | Developer tools catalog |
+| [Wispr Flow](https://wisprflow.ai/) | Product website | Developer tools catalog |
+| [Superwhisper](https://superwhisper.com/) | Product website | Developer tools catalog |
+
+| [Obsidian](https://obsidian.md/) | Product website | Developer tools catalog |
+| [DEVONthink](https://www.devontechnologies.com/) | Product website | Developer tools catalog |
+| [Apple Notes](https://www.apple.com/ios/notes/) | Product website | Developer tools catalog |
+| [Notion](https://www.notion.com/) | Product website | Developer tools catalog |
+| [Readwise Reader](https://readwise.io/read) | Product website | Developer tools catalog |
+| [NotebookLM](https://notebooklm.google.com/) | Product website | Developer tools catalog |
+| [Obsidian MCP Connector](https://community.obsidian.md/plugins/mcp-tools-istefox) | Community plugin listing | Developer tools catalog |
+| [Obsidian MCP Server](https://community.obsidian.md/plugins/mcp-server) | Community plugin listing | Developer tools catalog |
+| [Claude Desktop local MCP setup](https://support.claude.com/en/articles/10949351-getting-started-with-local-mcp-servers-on-claude-desktop) | Official documentation | Developer tools catalog |
+| [Cursor MCP documentation](https://prod.cursor.com/docs/mcp) and [plugins documentation](https://prod.cursor.com/docs/plugins) | Official documentation | Developer tools catalog |
+| [Raycast](https://www.raycast.com/) and [extensions manual](https://manual.raycast.com/extensions) | Product website and documentation | Developer tools catalog |
+| [Alfred](https://www.alfredapp.com/) | Product website | Developer tools catalog |
+| [Keyboard Maestro](https://www.keyboardmaestro.com/main/) | Product website | Developer tools catalog |
+| [BetterTouchTool](https://folivora.ai/) | Product website | Developer tools catalog |
+| [Rectangle](https://rectangleapp.com/) | Product website | Developer tools catalog |
+
+| [Slack AI huddle notes](https://slack.com/help/articles/31377193680019-Use-AI-to-take-huddle-notes-in-Slack) | Official help documentation | Developer tools catalog |
+| [Slack Huddles notes canvas](https://api.slack.com/help/articles/4402059015315-Use-huddles-in-Slack) | Official help documentation | Developer tools catalog |
+| [Slack workspace data export](https://slack.com/help/articles/201658943-Export-your-workspace-data) | Official help documentation | Developer tools catalog |
+| [Slack `conversations.replies` API](https://docs.slack.dev/reference/methods/conversations.replies/) | Official API documentation | Developer tools catalog |
+| [Slack MCP server guide](https://slack.com/help/articles/48855576908307-Guide-to-the-Slack-MCP-server) | Official help documentation | Developer tools catalog |
+| [Model Context Protocol overview](https://modelcontextprotocol.io/introduction) | Official protocol documentation | MCP retrieval vs. custom RAG explanation |
+| [Granola](https://www.granola.ai/) | Product website | Developer tools catalog |
+| [Otter](https://otter.ai/) | Product website | Developer tools catalog |
+| [Fireflies](https://fireflies.ai/) | Product website | Developer tools catalog |
+
+## Multi-agent workstation and session tools
+
+| Source | Type | Cited in |
+|---|---|---|
+| [WezTerm](https://wezterm.org/) and [workspaces documentation](https://wezterm.org/recipes/workspaces.html) | Official documentation | Developer tools catalog |
+| [tmux](https://github.com/tmux/tmux/wiki) | Project documentation | Developer tools catalog |
+| [cmux](https://cmux.com/) | Project website and docs | Developer tools catalog |
+| [ccmux](https://ccmux.dev/) | Project website and docs | Developer tools catalog |
+| [Zellij](https://zellij.dev/) | Project website and docs | Developer tools catalog |
+| [Grok CLI](https://github.com/superagent-ai/grok-cli) | Source repository | Developer tools catalog |
+| [AnythingLLM agent documentation](https://docs.anythingllm.com/agent/setup) | Official documentation | Developer tools catalog |
+| [Grok Bot documentation](https://docs.x.ai/grok-bot/overview) | Official documentation | Developer tools catalog |
+| [Agentdesktop](https://github.com/agentdesktop-dev/agentdesktop) | Source repository | Developer tools catalog |
+| [Agents in a Box](https://github.com/stevengonsalvez/agents-in-a-box) | Source repository | Developer tools catalog |
+| [TermSnap](https://github.com/Dannykkh/TermSnap-releases) | Source repository | Developer tools catalog |
+
+
+## Mac task tracking tools
+
+| Source | Type | Cited in |
+|---|---|---|
+| [Apple Reminders user guide](https://support.apple.com/guide/reminders/welcome/mac) | Official documentation | Developer tools catalog |
+| [Things](https://culturedcode.com/things/) | Product website | Developer tools catalog |
+| [Todoist](https://todoist.com/) | Product website | Developer tools catalog |
+| [TickTick](https://ticktick.com/) | Product website | Developer tools catalog |
+| [OmniFocus](https://www.omnigroup.com/omnifocus) | Product website | Developer tools catalog |
+| [Linear features](https://linear.app/features) | Official product documentation | Developer tools catalog |
+| [GitHub Issues and Projects](https://github.com/features/issues) | Official product documentation | Developer tools catalog |
+| [Asana project management](https://asana.com/features/project-management) | Official product documentation | Developer tools catalog |
+| [Trello](https://trello.com/) | Product website | Developer tools catalog |

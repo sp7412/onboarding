@@ -2,6 +2,47 @@
 
 ## 2026-10-16
 
+### Mac task tracking tools
+
+- Added a practical comparison of Apple Reminders, Things 3, Todoist, TickTick, and OmniFocus for personal task management, plus Linear, GitHub Issues/Projects, Asana, and Trello for shared project work.
+- Added selection guidance and an AI-assisted engineering task-record checklist covering ownership, worktree/branch, scope, acceptance criteria, tests, and review status.
+- Added official/product references and cautions about duplicate backlogs and company-data handling.
+
+### Slack call capture and conversation RAG
+
+- Clarified on-demand MCP retrieval versus custom RAG indexing and hybrid retrieval; added a decision rule, example lookup sequence, and authorization, provenance, and deletion guardrails.
+- Added a Slack call-capture comparison covering native Huddle AI notes and external meeting
+  note/transcription tools, with explicit compatibility and consent checks.
+- Documented authorized Slack exports versus scoped API ingestion and live MCP retrieval.
+- Added a Slack-to-RAG pipeline, metadata schema, access-control and deletion requirements,
+  and a production-readiness checklist for thread reconstruction, provenance, retrieval quality,
+  and governance.
+
+### Knowledge management, Mac productivity, and AI integrations
+
+- Expanded the developer-tools catalog with Obsidian, DEVONthink, Apple Notes, Notion,
+  Readwise Reader, and NotebookLM; distinguished personal notes, document archives,
+  shared team knowledge, and source-grounded research.
+- Added Raycast, Alfred, Keyboard Maestro, BetterTouchTool, and Rectangle as task-oriented
+  Mac productivity options, including clipboard/privacy and automation guardrails.
+- Documented how MCP connects knowledge stores and applications to Claude Desktop and
+  Cursor, with links to official client docs and community Obsidian plugins.
+- Added a capture → curate → retrieve → act → review workflow and guidance to start with
+  read-only permissions and verify data flows before granting write access.
+
+### Developer workstation tools catalog
+### Multi-agent workstation tools
+
+- Expanded the developer-tools catalog with WezTerm, tmux, cmux, ccmux, Zellij, Grok CLI, AnythingLLM, and Grok Bot.
+- Distinguished terminal multiplexing from coding-agent orchestration and persistent cloud-agent delegation.
+- Added a parallel-agent operating model covering git worktree isolation, task ownership, status visibility, review gates, and cost/safety controls.
+
+
+- Added a curated developer-tools page, starting with MacParakeet, OpenWispr, Apple Dictation, OpenWhispr, Wispr Flow, and Superwhisper.
+- Compared hotkey ergonomics, local/cloud processing, platform support, licensing, and workflows; included a repeatable dictation evaluation checklist and a roadmap for future tool categories.
+- Linked the page from the topic index, README, and published site's document registry.
+
+
 ### TTAN annual VWAP proxy and raw-price charts
 
 - Replaced the stale selected-date stock chart with a one-year monthly close/volume-weighted proxy and a two-week daily inset.
