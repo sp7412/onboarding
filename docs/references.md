@@ -45,6 +45,15 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [Building AI Voice Agents for Production (DeepLearning.AI × LiveKit)](https://www.deeplearning.ai/courses/building-ai-voice-agents-for-production) | Course | RG 25 |
 | [ITU-T G.114: One-way transmission time](https://www.itu.int/rec/T-REC-G.114) | Standard | Architecture explorer |
 
+## Developer workstation and terminal layouts
+
+| Source | Type | Cited in |
+|---|---|---|
+| [WezTerm features and panes](https://github.com/wez/wezterm/blob/main/docs/features.md) | Official documentation | Developer tools: terminal workspaces and panes |
+| [WezTerm workspaces and startup layouts](https://wezterm.org/recipes/workspaces.html) | Official documentation | Developer tools: repeatable terminal layouts |
+| [AeroSpace](https://github.com/nikitabobko/AeroSpace) | Project documentation | Developer tools: macOS desktop-window tiling |
+| [Rectangle](https://rectangleapp.com/) | Project website | Developer tools: macOS desktop-window placement |
+
 ## Debugging and agentic software engineering
 
 | Source | Type | Cited in |
