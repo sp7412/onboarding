@@ -80,7 +80,8 @@ const { html } = renderMarkdown(body, {
     background-attachment: local, local, scroll, scroll;
   }
   .doc-body table { border-collapse: collapse; width: 100%; font-size: 0.93rem; line-height: 1.5; min-width: 32rem; }
-  .doc-body th, .doc-body td { border-bottom: 1px solid var(--panel-edge); padding: 0.6em 0.8em; text-align: left; vertical-align: top; }
+  .doc-body th, .doc-body td { border-bottom: 1px solid var(--panel-edge); padding: 0.85em 1.05em; text-align: left; vertical-align: top; }
+  .doc-body th a, .doc-body td a { overflow-wrap: break-word; }
   .doc-body thead th { color: var(--cyan); font-family: var(--font-head); font-weight: 500; background: #0d1731; position: sticky; top: 0; }
   .doc-body tbody tr:nth-child(even) td { background: rgba(255,255,255,0.015); }
   .doc-body pre { background: #0d1731; border: 1px solid var(--panel-edge); border-radius: var(--r2); padding: 1em; overflow-x: auto; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 0.86rem; }
@@ -105,5 +106,6 @@ const { html } = renderMarkdown(body, {
     .doc-body h2 { font-size: 1.3rem; }
     .doc-body h3 { font-size: 1.1rem; }
     .doc-body table { font-size: 0.88rem; }
+    .doc-body th, .doc-body td { padding: 0.75em 0.9em; }
   }
 </style>
