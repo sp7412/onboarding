@@ -57,6 +57,9 @@ the exact lab map and prerequisites.
 
 ## Layout
 
+The [developer tools catalog](docs/developer-tools.md) tracks practical workstation utilities, starting with local Mac dictation and a repeatable tool-evaluation checklist.
+
+
 | Path | What's there |
 |---|---|
 | [`plan/30-60-90-checklist.md`](plan/30-60-90-checklist.md) | Operating plan (loosely based on Watkins, *The First 90 Days*) with 30/60/90 outcomes, weekly actions, stakeholder work, and exit criteria |
