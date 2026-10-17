@@ -98,6 +98,32 @@ workspaces and panes. Add tmux when durable sessions, remote SSH workflows, or a
 matter. Evaluate cmux or ccmux if the hard part is seeing which agent is running, waiting,
 or finished—not simply keeping terminals open.
 
+#### WezTerm: tiled panes versus separate windows
+
+WezTerm's built-in layout model is **panes inside a terminal window**. Split a window
+horizontally or vertically to tile shells side by side; resize panes as the workload
+changes. Tabs and workspaces organize larger collections of windows and panes. You can
+also define repeatable startup layouts with Lua configuration and the `gui-startup` /
+`mux-startup` events.
+
+Do not confuse pane tiling with desktop-window management: **WezTerm does not automatically
+tile or cascade multiple independent macOS windows** just because they are opened. If you
+want separate application windows arranged across the desktop, use a macOS window manager
+such as [AeroSpace](https://github.com/nikitabobko/AeroSpace) (keyboard-driven tiling) or
+[Rectangle](https://rectangleapp.com/) (manual and shortcut-based window placement).
+
+**A practical multi-agent layout:**
+1. Start with one WezTerm window and one pane per active coding-agent session.
+2. Keep each agent in its own Git worktree and branch; avoid having agents edit the same
+   working tree concurrently.
+3. Give each pane a stable task/agent label in your own notes or task tracker. A terminal
+   pane is not an agent supervisor: inspect diffs, tests, and tool activity separately.
+4. Use a saved Lua startup layout only after the pane arrangement stabilizes. Use a desktop
+   tiler only if you specifically need multiple independent windows.
+
+Official references: [WezTerm features and panes](https://github.com/wez/wezterm/blob/main/docs/features.md)
+and [WezTerm workspaces and startup layouts](https://wezterm.org/recipes/workspaces.html).
+
 ### Coding-agent session orchestration
 
 | Tool / pattern | Best fit | What to evaluate |
