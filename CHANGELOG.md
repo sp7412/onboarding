@@ -2,6 +2,18 @@
 
 ## 2026-10-16
 
+### AI coding environments: OpenCode, Cursor, and VS Code
+
+- Added a sourced comparison of terminal-first OpenCode, AI-focused Cursor, and VS Code with
+  its selectable AI-agent ecosystem.
+- Added a practical OpenCode Mac workflow covering provider selection, planning, project
+  instructions, permissions, MCP, Git verification, and test execution.
+- Added a repeatable cross-tool evaluation plan and shared controls for data handling,
+  extension/MCP trust, parallel Git worktrees, and human review.
+
+
+## 2026-10-16
+
 ### Mac task tracking tools
 
 - Added a practical comparison of Apple Reminders, Things 3, Todoist, TickTick, and OmniFocus for personal task management, plus Linear, GitHub Issues/Projects, Asana, and Trello for shared project work.
