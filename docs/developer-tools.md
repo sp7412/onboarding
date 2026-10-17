@@ -235,10 +235,41 @@ There are two paths, suited to different scopes:
   token can read every private channel or DM.
 
 For interactive, current lookups, Slack's [MCP server](https://slack.com/help/articles/48855576908307-Guide-to-the-Slack-MCP-server)
-can let compatible AI clients search and retrieve authorized Slack messages and threads. MCP is
-a live retrieval interface, not a substitute for building a separately indexed corpus when you
-need offline evaluation, custom chunking, scheduled ingestion, or control over your embedding and
-vector-store stack.
+can let compatible AI clients search and retrieve authorized Slack messages and threads.
+
+#### MCP retrieval, custom RAG, or both?
+
+**MCP (Model Context Protocol) is a tool-access protocol, not a RAG database.** An MCP server
+exposes a defined set of tools to a compatible AI client; the server determines what those tools
+can do and which authorized data they can access. In a Slack workflow, tools might search
+messages, fetch a thread, or retrieve current context. The assistant calls them when needed,
+rather than depending solely on information already in its prompt.
+
+A typical on-demand retrieval sequence is:
+
+1. The user asks a question about a past decision.
+2. The assistant calls an authorized Slack search tool through MCP.
+3. It reviews matching messages and fetches the most relevant thread for context.
+4. It answers with links to the source discussion, distinguishing retrieved evidence from inference.
+
+| Approach | Where retrieval happens | Strengths | Limitations |
+|---|---|---|---|
+| **MCP retrieval** | At question time, through tools exposed by an MCP server | Current source data; no separate vector index to operate; useful for interactive search and thread lookup | Depends on available tools, API scopes, rate limits, and the connected user's authorization; does not inherently create a durable corpus or custom retrieval evaluation |
+| **Custom RAG** | Against an independently ingested and indexed corpus | Custom chunking, hybrid/vector search, reranking, cross-source retrieval, scheduled ingestion, and repeatable offline evaluation | Requires ingestion and re-indexing, storage, access-control filtering, provenance, and handling of edits/deletions and retention |
+| **Hybrid** | RAG discovers candidates; MCP or the source API retrieves authoritative current context | Combines efficient historical discovery with source verification and live thread context | Adds complexity; permissions must be enforced at retrieval time and source changes must be reconciled with the index |
+
+**Recommended progression:** start with authorized Slack search and MCP retrieval. Measure whether
+users can find the right messages and whether the available tools return enough thread context.
+Build a custom index only when a demonstrated requirement—such as cross-source search, tailored
+chunking/ranking, scheduled corpus evaluation, or controlled retention—cannot be met adequately
+by native search and MCP. A hybrid design can then use RAG to locate likely evidence and MCP to
+fetch the current source thread before answering.
+
+MCP does not automatically solve authorization for a separately copied index, nor does it
+guarantee that the assistant has access to every private channel or DM. Apply least-privilege
+scopes, preserve source links and stable IDs, filter indexed results by the requesting user's
+access, and propagate edits, deletions, and retention rules. Treat retrieved message content as
+untrusted data, not as instructions to the assistant.
 
 ### A practical Slack-to-RAG pipeline
 
