@@ -1,5 +1,5 @@
 # %% [markdown]
-# # Lab 19 — Production-agent simulation suite
+# # 19 · Production-agent simulation suite
 #
 # **Goal:** pressure-test a fictional contractor voice/operations agent across dispatch, estimate controls, tool outages, incident mining, hostile job notes, causal learning, and tenant isolation.
 #
