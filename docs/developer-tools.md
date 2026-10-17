@@ -76,6 +76,73 @@ window and makes longer prompts less tedious.
 | [Wispr Flow](https://wisprflow.ai/) | You value polished cleanup and a managed user experience | Current free-tier limits, subscription price, and cloud data handling |
 | [Superwhisper](https://superwhisper.com/) | You want configurable modes and multiple transcription workflows | Current plan limits, supported models, and which modes process data locally |
 
+## Managing many simultaneous agent sessions
+
+Dictation solves input friction; multi-agent session management solves attention and
+coordination friction. The useful setup depends on whether you need to organize terminal
+processes, supervise coding agents, or delegate independent work to persistent cloud agents.
+These are related but different jobs.
+
+### Terminal workspaces and multiplexers
+
+| Tool | Best fit | Strengths | Trade-offs |
+|---|---|---|---|
+| [WezTerm](https://wezterm.org/) | A powerful terminal GUI for macOS, Linux, and Windows | Native tabs, panes, workspaces, remote multiplexing, configurable Lua workflows, and a CLI that can spawn or target panes | It organizes terminal processes; it does not itself understand agent tasks or decide which agent needs attention |
+| [tmux](https://github.com/tmux/tmux/wiki) | Persistent terminal sessions, especially over SSH | Mature session/window/pane model; scripts well; sessions survive terminal disconnects | More keyboard- and configuration-oriented; session status is not automatically agent-aware |
+| [cmux](https://cmux.com/) | Agent-centric terminal workspaces | Organizes each task in a workspace; keeps coding agents beside tests, logs, and browser surfaces; notifications and agent state are tied to workspace surfaces | Evaluate its current platform and remote-workflow requirements; it is a workspace layer, not a universal agent orchestrator |
+| [ccmux](https://ccmux.dev/) | Finding and switching among many agents already running in tmux | Open-source session picker for agent sessions, with search and previews; works with existing tmux habits | Depends on a tmux-based workflow and the agents/session patterns it recognizes |
+| [Zellij](https://zellij.dev/) | A modern terminal multiplexer alternative | Sessions, panes, tabs, layouts, and plugin support | Like tmux, it manages terminal layout and persistence rather than agent-level coordination |
+
+**Practical starting point:** use WezTerm if you want a configurable native terminal with
+workspaces and panes. Add tmux when durable sessions, remote SSH workflows, or automation
+matter. Evaluate cmux or ccmux if the hard part is seeing which agent is running, waiting,
+or finished—not simply keeping terminals open.
+
+### Coding-agent session orchestration
+
+| Tool / pattern | Best fit | What to evaluate |
+|---|---|---|
+| [Grok CLI](https://github.com/superagent-ai/grok-cli) | A terminal coding agent using the Grok API | Its TUI, persistent sessions, sub-agents, MCP support, and Telegram remote control; verify API costs and project maturity |
+| [OpenCode](https://opencode.ai/) and editor/CLI agents | Running coding agents directly in repository worktrees | Session resume, permission controls, worktree isolation, branch ownership, and whether parallel runs can edit the same files |
+| Git worktrees + one agent per worktree | A tool-agnostic way to parallelize repository tasks | Separate branches and working directories, clear task boundaries, independent tests, and a defined integration/review step |
+
+The core safety rule is **one independently writable worktree per parallel coding task**.
+Separate terminal panes do not isolate file edits: two agents in the same working directory
+can overwrite each other's changes or leave the repository in a confusing state. Assign
+each agent a bounded task, explicit acceptance criteria, and an owner responsible for review
+and integration.
+
+### Desktop AI workbenches and persistent bots
+
+| Tool | Category | Where it fits | Important distinction |
+|---|---|---|---|
+| [AnythingLLM](https://anythingllm.com/) | Desktop/local-first LLM workspace with agent tools | Workspace-based chats, configurable models, agent skills, and custom tools/MCP integrations | Useful for model- and knowledge-centric workflows; not primarily a dashboard for managing arbitrary terminal coding sessions |
+| [Grok Bot](https://docs.x.ai/grok-bot/overview) | Persistent cloud AI teammates | Bots have persistent cloud computers, browser/filesystem/terminal access, retained context, and can coordinate in parallel or group chats | A delegation and cloud-computer model, not a local terminal multiplexer; check account eligibility, approvals, and data access |
+| [Grok CLI](https://github.com/superagent-ai/grok-cli) | Local terminal coding agent | Works inside a terminal workflow and documents sub-agents and Telegram remote control | Separate product/project from Grok Bot; do not conflate their capabilities, billing, or execution environments |
+
+For cloud bots, assess permissions and data boundaries separately from local coding agents:
+what repositories and credentials can the bot access, where does execution happen, how are
+actions approved, and what persists between tasks? For local tools, assess shell permissions,
+filesystem scope, model/API routing, and whether transcripts or source code are sent to a
+provider.
+
+### A simple operating model for parallel agents
+
+1. **Coordinator:** maintain the task list, assign bounded tasks, and own integration.
+2. **Workers:** one task and one worktree per agent; avoid concurrent edits to the same files.
+3. **Shared task record:** write down objective, branch/worktree, files in scope, acceptance
+   criteria, tests to run, and current status.
+4. **Visible state:** use distinct workspace/session names and status labels such as
+   `working`, `waiting for input`, `tests running`, and `ready for review`.
+5. **Review gate:** inspect diffs and run tests before merging. Agent completion is not proof
+   of correctness.
+6. **Budget and safety:** set limits for tool calls/API spend and require approval for
+   destructive operations, external messages, and credential-sensitive actions.
+
+Start with two agents on independent tasks before scaling up. Measure completed tasks per
+hour, human context-switching time, integration conflicts, review defects, and cost—not the
+raw number of agents running.
+
 ## How to choose a dictation tool
 
 1. **Shortcut ergonomics:** can you hold one key, speak, release, and continue typing
