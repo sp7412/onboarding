@@ -74,6 +74,7 @@ The [developer tools catalog](docs/developer-tools.md) tracks practical workstat
 | [`docs/mcp-and-external-agent-trust-boundary.md`](docs/mcp-and-external-agent-trust-boundary.md) | MCP and external-agent authorization, consent, idempotency, injection, audit, and outcome controls |
 | [`docs/whitepaper/`](docs/whitepaper/) | Public-source background whitepaper: chapters 00–17 (15–17: agentic orchestration, shared skills, running agents in production), appendices, and source ledger |
 | [`docs/reading-guide.md`](docs/reading-guide.md) | Ranked blogs, papers and talks with four takeaways each (start here for reading) |
+| [`docs/ttan-vwap-data.md`](docs/ttan-vwap-data.md) | True daily TTAN VWAP chart: Alpaca setup, intraday aggregation, and IEX-versus-SIP coverage |
 | [`docs/references.md`](docs/references.md) | Complete bibliography of every external source in the repo |
 | [`docs/podcast-prompts.md`](docs/podcast-prompts.md) | NotebookLM podcast prompts: technical, company-context, and coaching episodes |
 | [`docs/self-licking-ice-cream-cone.md`](docs/self-licking-ice-cream-cone.md) | Sourced history, refined NotebookLM prompt, two-host script, and AI product-team diagnostic |
