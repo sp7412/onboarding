@@ -221,6 +221,19 @@ such as [AeroSpace](https://github.com/nikitabobko/AeroSpace) (keyboard-driven t
 Official references: [WezTerm features and panes](https://github.com/wez/wezterm/blob/main/docs/features.md)
 and [WezTerm workspaces and startup layouts](https://wezterm.org/recipes/workspaces.html).
 
+### Live dashboard for agent sessions
+
+[Agent Sessions](https://github.com/ozankasikci/agent-sessions) is a macOS dashboard
+for keeping track of multiple Claude Code and OpenCode sessions. It shows live session
+states (such as thinking, processing, waiting, and idle), lets you switch to a session,
+supports custom session names, and can surface development-server URLs. It supports
+iTerm2 and Apple's Terminal.
+
+**Use it when:** the bottleneck is knowing which agent needs attention across many
+simultaneous sessions. Pair it with WezTerm or tmux for terminal organization, and keep
+each independently writable task in its own Git worktree. Agent Sessions improves
+visibility; it does not replace code review, worktree isolation, or CI verification.
+
 ### Coding-agent session orchestration
 
 | Tool / pattern | Best fit | What to evaluate |
