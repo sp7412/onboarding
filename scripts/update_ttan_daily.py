@@ -3,34 +3,15 @@
 from __future__ import annotations
 
 import argparse
-from datetime import datetime, time as dt_time, timedelta, timezone
+from datetime import date, datetime, time as dt_time, timedelta, timezone
 import json
 import math
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
-import yfinance as yf
 
-
-def fetch(days: int = 370) -> dict:
-    now = datetime.now(timezone.utc)
-    history = yf.download(
-        "TTAN",
-        period="2y",  # Enough history to warm up the rolling 63-session window.
-        interval="1d",
-        auto_adjust=False,
-        actions=False,
-        progress=False,
-        threads=False,
-        multi_level_index=False,
-        timeout=30,
-    )
-    if history is None or history.empty:
-        raise RuntimeError("yfinance returned no TTAN daily history")
-
-    et_now = datetime.now(ZoneInfo("America/New_York"))
-    complete_through = et_now.date() if et_now.time() >= dt_time(16, 15) else et_now.date() - timedelta(days=1)
-    display_start = (et_now.date() - timedelta(days=days)).isoformat()
+def build_rows(history, complete_through: date, display_start: str) -> list[dict]:
+    """Filter daily bars, calculate the rolling close-volume proxy, and trim output."""
     all_rows = []
     for session, bar in history.iterrows():
         date = session.date().isoformat()
@@ -50,7 +31,35 @@ def fetch(days: int = 370) -> dict:
         row["rollingCloseVwap"] = round(
             sum(item["close"] * item["volume"] for item in window) / total_volume, 4
         )
-    rows = [row for row in all_rows if row["date"] >= display_start]
+    return [row for row in all_rows if row["date"] >= display_start]
+
+
+def fetch(days: int = 370) -> dict:
+    import yfinance as yf
+
+    now = datetime.now(timezone.utc)
+    history = yf.download(
+        "TTAN",
+        period="2y",  # Enough history to warm up the rolling 63-session window.
+        interval="1d",
+        auto_adjust=False,
+        actions=False,
+        progress=False,
+        threads=False,
+        multi_level_index=False,
+        timeout=30,
+    )
+    if history is None or history.empty:
+        raise RuntimeError("yfinance returned no TTAN daily history")
+
+    et_now = datetime.now(ZoneInfo("America/New_York"))
+    complete_through = (
+        et_now.date()
+        if et_now.time() >= dt_time(16, 15)
+        else et_now.date() - timedelta(days=1)
+    )
+    display_start = (et_now.date() - timedelta(days=days)).isoformat()
+    rows = build_rows(history, complete_through, display_start)
     if len(rows) < 65:
         raise RuntimeError(f"Only {len(rows)} complete daily bars returned")
 
