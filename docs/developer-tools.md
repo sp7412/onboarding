@@ -197,6 +197,92 @@ search and retrieval. Keep write, shell, external-message, and destructive tools
 until their need and approval boundary are explicit. Do not point consumer AI clients at
 sensitive work notes or repositories unless that use is approved.
 
+## Slack calls, conversation capture, and RAG
+
+Treat Slack calls and Slack messages as two different ingestion sources. A huddle transcript
+captures spoken discussion; a thread export captures the written context, follow-ups, and
+corrections around it. A useful knowledge system links the two when possible instead of
+flattening everything into anonymous text.
+
+### Recording and transcribing Slack calls
+
+| Option | Best fit | Important details |
+|---|---|---|
+| [Slack AI huddle notes](https://slack.com/help/articles/31377193680019-Use-AI-to-take-huddle-notes-in-Slack) | First option to evaluate for Slack Huddles | Available on paid plans; a participant starts notes, and people are notified. Notes and transcript are placed in a canvas in the huddle thread. Slack says the embedded transcript does not appear in search results, so it may not by itself meet a searchable RAG requirement. |
+| [Slack Huddles notes canvas](https://api.slack.com/help/articles/4402059015315-Use-huddles-in-Slack) | Human-written meeting notes and shared links | Useful as a durable location for decisions and follow-ups, even if automated transcription is not enabled. |
+| [Granola](https://www.granola.ai/) | Mac meeting notes workflow to evaluate | Check current support for capturing Slack Huddles specifically, audio-routing requirements, storage/retention, and company approval before relying on it. |
+| [Otter](https://otter.ai/) or [Fireflies](https://fireflies.ai/) | Meeting transcription and summaries for supported meeting workflows | Verify Slack Huddle compatibility rather than assuming a bot that joins Zoom/Meet/Teams can capture a Slack Huddle. Review recording disclosure, retention, data processing, and workspace policy. |
+
+**Recommendation:** start with Slack's native huddle notes if the workspace plan supports them.
+If you need external capture, run a short, approved compatibility test on a non-sensitive meeting.
+Confirm that every participant receives the required notice and that the resulting transcript can
+be exported or retrieved through a supported interface. Do not work around organization recording
+controls or upload confidential conversations to an unapproved service.
+
+### Exporting Slack threads
+
+There are two paths, suited to different scopes:
+
+- **One-time or periodic archive:** use Slack's owner/admin export workflow. The export options
+  depend on plan and authorization. Public-channel message exports are broadly available to
+  authorized owners/admins; exports of private channels and DMs have additional plan and approval
+  requirements. Exports generally contain file links, not the underlying file contents.
+  See [Slack's export guide](https://slack.com/help/articles/201658943-Export-your-workspace-data).
+- **Ongoing, scoped ingestion:** use an approved Slack app and API. The
+  [`conversations.replies` API](https://docs.slack.dev/reference/methods/conversations.replies/)
+  retrieves a thread; history/search APIs can discover messages in the approved scope. Design
+  around scopes, pagination, rate limits, and the actual token type's access. Do not assume a bot
+  token can read every private channel or DM.
+
+For interactive, current lookups, Slack's [MCP server](https://slack.com/help/articles/48855576908307-Guide-to-the-Slack-MCP-server)
+can let compatible AI clients search and retrieve authorized Slack messages and threads. MCP is
+a live retrieval interface, not a substitute for building a separately indexed corpus when you
+need offline evaluation, custom chunking, scheduled ingestion, or control over your embedding and
+vector-store stack.
+
+### A practical Slack-to-RAG pipeline
+
+```text
+Slack Huddle notes/transcript ─┐
+                               ├─> authorized source ingestion
+Slack thread/API export ───────┘
+          -> normalize and preserve source metadata
+          -> apply scope, ACL, retention, and redaction rules
+          -> chunk by thread or coherent topic
+          -> embed and index
+          -> retrieve relevant chunks with source links
+          -> answer with citations and permission checks
+```
+
+Preserve at least these fields for each message or transcript segment:
+
+| Field | Why it matters |
+|---|---|
+| Workspace, channel/conversation ID, and channel name | Identifies the source and supports access filtering |
+| Message timestamp, permalink, and parent/thread timestamp | Reconstructs order and lets a reader open the original context |
+| Author ID and display name, where permitted | Attribution; do not treat display names as stable identifiers |
+| Text, file links, and relevant thread context | Actual retrieval content and surrounding discussion |
+| Source type, ingestion time, and source version | Provenance, debugging, and incremental updates |
+| Visibility/ACL metadata and retention classification | Prevents a broad index from exposing content to unauthorized users |
+| Edit/delete state and stable source ID | Enables re-indexing or removal when the source changes |
+
+**Do not build a flat dump of all messages into one vector index and assume that it is safe.**
+At retrieval time, enforce the caller's access to the original channel/thread; a filter applied only
+when documents are initially ingested can become stale when membership or permissions change.
+Sync edits and deletions, keep source permalinks, and exclude secrets, credentials, and material
+that policy does not permit for this use.
+
+### What to test before calling it production-ready
+
+1. Thread reconstruction: parent message, replies, edited messages, and pagination survive export.
+2. Access control: private-channel content is never returned to a user who lacks source access.
+3. Deletion and retention: removed or expired source material disappears from retrieval and caches.
+4. Attribution: every answer links to the exact source thread or transcript segment.
+5. Quality: evaluate retrieval recall, citation correctness, stale/conflicting answers, and abstention
+   when the corpus does not support a claim.
+6. Governance: obtain workspace-owner/security approval and follow applicable consent, retention,
+   privacy, and company data-handling rules.
+
 ## Mac productivity and workflow automation
 
 These utilities reduce the small interruptions that accumulate during engineering work.
