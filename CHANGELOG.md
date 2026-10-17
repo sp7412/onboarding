@@ -2,6 +2,12 @@
 
 ## 2026-10-16
 
+### Coding-agent engineering practices
+
+- Integrated eight practical topics into the existing multi-agent workstation chapter: permissions/trust boundaries, definition of done, isolated worktrees and integration, controlled coding-agent benchmarks, harness architecture and recovery, context engineering, structured observability/cost, and dependency/API verification.
+- Added task-record templates, least-privilege guidance, an agent state model, sample Git worktree commands, a telemetry schema, and benchmark metrics with hard correctness/safety gates.
+- Added official Git, GitHub security, evaluation, OpenTelemetry, and NIST SSDF references. Emphasized measured evidence, reproducibility, redaction, and human acceptance rather than agent self-report.
+
 ### Mac task tracking tools
 
 - Added a practical comparison of Apple Reminders, Things 3, Todoist, TickTick, and OmniFocus for personal task management, plus Linear, GitHub Issues/Projects, Asana, and Trello for shared project work.
