@@ -2,6 +2,15 @@
 
 ## 2026-10-16
 
+### Slack call capture and conversation RAG
+
+- Added a Slack call-capture comparison covering native Huddle AI notes and external meeting
+  note/transcription tools, with explicit compatibility and consent checks.
+- Documented authorized Slack exports versus scoped API ingestion and live MCP retrieval.
+- Added a Slack-to-RAG pipeline, metadata schema, access-control and deletion requirements,
+  and a production-readiness checklist for thread reconstruction, provenance, retrieval quality,
+  and governance.
+
 ### Knowledge management, Mac productivity, and AI integrations
 
 - Expanded the developer-tools catalog with Obsidian, DEVONthink, Apple Notes, Notion,
