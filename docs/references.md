@@ -216,6 +216,13 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 |---|---|---|
 | [Software Is Changing (Again) (Andrej Karpathy)](https://www.youtube.com/watch?v=LCEmiRjPEtQ) | Talk | RG 27 |
 
+## Market data
+
+| Source | Type | Cited in |
+|---|---|---|
+| [Yahoo Finance TTAN historical data](https://finance.yahoo.com/quote/TTAN/history/) | Market data | WP 01 charts |
+| [yfinance download API](https://ranaroussi.github.io/yfinance/reference/api/yfinance.download.html) | Python library documentation | WP 01 chart data script |
+
 ## Background whitepaper (primary and secondary sources)
 
 | Source | Type | Cited in |

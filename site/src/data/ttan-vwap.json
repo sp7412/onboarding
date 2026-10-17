@@ -1,10 +1,1541 @@
 {
   "symbol": "TTAN",
-  "feed": "sip",
-  "method": "Intraday data not loaded. Configure ALPACA_API_KEY and ALPACA_SECRET_KEY in repository Actions secrets; SIP feed covers consolidated US exchanges.",
-  "generatedAt": null,
-  "firstDate": null,
-  "lastDate": null,
-  "sessions": 0,
-  "data": []
+  "feed": "yahoo-daily",
+  "method": "Daily closing prices and volumes. RollingCloseVwap is a 63-session volume-weighted average of daily closes; it is a proxy, not trade VWAP.",
+  "generatedAt": "2026-10-17T03:27:06.139953+00:00",
+  "firstDate": "2025-10-13",
+  "lastDate": "2026-10-16",
+  "sessions": 255,
+  "data": [
+    {
+      "date": "2025-10-13",
+      "close": 96.01,
+      "volume": 753400,
+      "rollingCloseVwap": 109.8139
+    },
+    {
+      "date": "2025-10-14",
+      "close": 97.01,
+      "volume": 676100,
+      "rollingCloseVwap": 109.6708
+    },
+    {
+      "date": "2025-10-15",
+      "close": 94.27,
+      "volume": 1063300,
+      "rollingCloseVwap": 109.3959
+    },
+    {
+      "date": "2025-10-16",
+      "close": 92.69,
+      "volume": 623400,
+      "rollingCloseVwap": 109.1893
+    },
+    {
+      "date": "2025-10-17",
+      "close": 92.49,
+      "volume": 757700,
+      "rollingCloseVwap": 108.972
+    },
+    {
+      "date": "2025-10-20",
+      "close": 93.5,
+      "volume": 448200,
+      "rollingCloseVwap": 108.7692
+    },
+    {
+      "date": "2025-10-21",
+      "close": 96.48,
+      "volume": 720500,
+      "rollingCloseVwap": 108.5802
+    },
+    {
+      "date": "2025-10-22",
+      "close": 94.79,
+      "volume": 534300,
+      "rollingCloseVwap": 108.4265
+    },
+    {
+      "date": "2025-10-23",
+      "close": 98.42,
+      "volume": 828800,
+      "rollingCloseVwap": 108.2569
+    },
+    {
+      "date": "2025-10-24",
+      "close": 98.46,
+      "volume": 760500,
+      "rollingCloseVwap": 108.0365
+    },
+    {
+      "date": "2025-10-27",
+      "close": 100.0,
+      "volume": 524300,
+      "rollingCloseVwap": 107.9041
+    },
+    {
+      "date": "2025-10-28",
+      "close": 99.8,
+      "volume": 417500,
+      "rollingCloseVwap": 107.704
+    },
+    {
+      "date": "2025-10-29",
+      "close": 96.37,
+      "volume": 406000,
+      "rollingCloseVwap": 107.5868
+    },
+    {
+      "date": "2025-10-30",
+      "close": 95.79,
+      "volume": 318800,
+      "rollingCloseVwap": 107.4931
+    },
+    {
+      "date": "2025-10-31",
+      "close": 94.36,
+      "volume": 1033300,
+      "rollingCloseVwap": 107.2656
+    },
+    {
+      "date": "2025-11-03",
+      "close": 94.78,
+      "volume": 486800,
+      "rollingCloseVwap": 107.1226
+    },
+    {
+      "date": "2025-11-04",
+      "close": 92.13,
+      "volume": 457700,
+      "rollingCloseVwap": 106.9739
+    },
+    {
+      "date": "2025-11-05",
+      "close": 91.79,
+      "volume": 275400,
+      "rollingCloseVwap": 106.8834
+    },
+    {
+      "date": "2025-11-06",
+      "close": 92.035,
+      "volume": 845800,
+      "rollingCloseVwap": 106.7852
+    },
+    {
+      "date": "2025-11-07",
+      "close": 94.25,
+      "volume": 525100,
+      "rollingCloseVwap": 106.7914
+    },
+    {
+      "date": "2025-11-10",
+      "close": 95.03,
+      "volume": 813500,
+      "rollingCloseVwap": 106.7065
+    },
+    {
+      "date": "2025-11-11",
+      "close": 91.92,
+      "volume": 1047300,
+      "rollingCloseVwap": 106.5143
+    },
+    {
+      "date": "2025-11-12",
+      "close": 92.99,
+      "volume": 1579000,
+      "rollingCloseVwap": 106.2596
+    },
+    {
+      "date": "2025-11-13",
+      "close": 88.99,
+      "volume": 634300,
+      "rollingCloseVwap": 106.1273
+    },
+    {
+      "date": "2025-11-14",
+      "close": 89.34,
+      "volume": 423000,
+      "rollingCloseVwap": 106.0102
+    },
+    {
+      "date": "2025-11-17",
+      "close": 84.97,
+      "volume": 583100,
+      "rollingCloseVwap": 105.8524
+    },
+    {
+      "date": "2025-11-18",
+      "close": 86.04,
+      "volume": 700800,
+      "rollingCloseVwap": 105.6797
+    },
+    {
+      "date": "2025-11-19",
+      "close": 86.26,
+      "volume": 426900,
+      "rollingCloseVwap": 105.5764
+    },
+    {
+      "date": "2025-11-20",
+      "close": 85.14,
+      "volume": 1034300,
+      "rollingCloseVwap": 105.2791
+    },
+    {
+      "date": "2025-11-21",
+      "close": 86.75,
+      "volume": 890000,
+      "rollingCloseVwap": 105.0689
+    },
+    {
+      "date": "2025-11-24",
+      "close": 88.89,
+      "volume": 1141600,
+      "rollingCloseVwap": 104.8509
+    },
+    {
+      "date": "2025-11-25",
+      "close": 89.49,
+      "volume": 825000,
+      "rollingCloseVwap": 104.6648
+    },
+    {
+      "date": "2025-11-26",
+      "close": 88.71,
+      "volume": 555800,
+      "rollingCloseVwap": 104.4912
+    },
+    {
+      "date": "2025-11-28",
+      "close": 89.36,
+      "volume": 368900,
+      "rollingCloseVwap": 104.3839
+    },
+    {
+      "date": "2025-12-01",
+      "close": 88.66,
+      "volume": 899500,
+      "rollingCloseVwap": 104.1954
+    },
+    {
+      "date": "2025-12-02",
+      "close": 90.075,
+      "volume": 655000,
+      "rollingCloseVwap": 104.078
+    },
+    {
+      "date": "2025-12-03",
+      "close": 93.31,
+      "volume": 998700,
+      "rollingCloseVwap": 104.0581
+    },
+    {
+      "date": "2025-12-04",
+      "close": 95.59,
+      "volume": 1995100,
+      "rollingCloseVwap": 103.2649
+    },
+    {
+      "date": "2025-12-05",
+      "close": 105.6,
+      "volume": 4686600,
+      "rollingCloseVwap": 102.7942
+    },
+    {
+      "date": "2025-12-08",
+      "close": 108.04,
+      "volume": 2210700,
+      "rollingCloseVwap": 102.2973
+    },
+    {
+      "date": "2025-12-09",
+      "close": 109.02,
+      "volume": 2244600,
+      "rollingCloseVwap": 102.3119
+    },
+    {
+      "date": "2025-12-10",
+      "close": 106.97,
+      "volume": 1409900,
+      "rollingCloseVwap": 102.1902
+    },
+    {
+      "date": "2025-12-11",
+      "close": 106.03,
+      "volume": 1071400,
+      "rollingCloseVwap": 102.1144
+    },
+    {
+      "date": "2025-12-12",
+      "close": 104.07,
+      "volume": 880900,
+      "rollingCloseVwap": 101.9881
+    },
+    {
+      "date": "2025-12-15",
+      "close": 103.11,
+      "volume": 952900,
+      "rollingCloseVwap": 101.7001
+    },
+    {
+      "date": "2025-12-16",
+      "close": 105.12,
+      "volume": 891700,
+      "rollingCloseVwap": 101.3466
+    },
+    {
+      "date": "2025-12-17",
+      "close": 105.89,
+      "volume": 1491400,
+      "rollingCloseVwap": 100.7334
+    },
+    {
+      "date": "2025-12-18",
+      "close": 107.53,
+      "volume": 908600,
+      "rollingCloseVwap": 99.318
+    },
+    {
+      "date": "2025-12-19",
+      "close": 108.64,
+      "volume": 1622300,
+      "rollingCloseVwap": 99.2053
+    },
+    {
+      "date": "2025-12-22",
+      "close": 110.31,
+      "volume": 928000,
+      "rollingCloseVwap": 99.0974
+    },
+    {
+      "date": "2025-12-23",
+      "close": 109.9,
+      "volume": 537700,
+      "rollingCloseVwap": 99.1184
+    },
+    {
+      "date": "2025-12-24",
+      "close": 108.18,
+      "volume": 218100,
+      "rollingCloseVwap": 99.0682
+    },
+    {
+      "date": "2025-12-26",
+      "close": 107.71,
+      "volume": 347200,
+      "rollingCloseVwap": 99.0367
+    },
+    {
+      "date": "2025-12-29",
+      "close": 107.9,
+      "volume": 477600,
+      "rollingCloseVwap": 99.0497
+    },
+    {
+      "date": "2025-12-30",
+      "close": 107.18,
+      "volume": 628100,
+      "rollingCloseVwap": 99.0865
+    },
+    {
+      "date": "2025-12-31",
+      "close": 106.5,
+      "volume": 585500,
+      "rollingCloseVwap": 99.0806
+    },
+    {
+      "date": "2026-01-02",
+      "close": 101.59,
+      "volume": 1234000,
+      "rollingCloseVwap": 99.0421
+    },
+    {
+      "date": "2026-01-05",
+      "close": 99.49,
+      "volume": 954200,
+      "rollingCloseVwap": 99.0125
+    },
+    {
+      "date": "2026-01-06",
+      "close": 101.78,
+      "volume": 734400,
+      "rollingCloseVwap": 99.0218
+    },
+    {
+      "date": "2026-01-07",
+      "close": 105.74,
+      "volume": 568000,
+      "rollingCloseVwap": 99.0865
+    },
+    {
+      "date": "2026-01-08",
+      "close": 104.15,
+      "volume": 617900,
+      "rollingCloseVwap": 99.1399
+    },
+    {
+      "date": "2026-01-09",
+      "close": 109.23,
+      "volume": 738100,
+      "rollingCloseVwap": 99.2435
+    },
+    {
+      "date": "2026-01-12",
+      "close": 106.34,
+      "volume": 597200,
+      "rollingCloseVwap": 99.3271
+    },
+    {
+      "date": "2026-01-13",
+      "close": 101.51,
+      "volume": 1206600,
+      "rollingCloseVwap": 99.4187
+    },
+    {
+      "date": "2026-01-14",
+      "close": 96.99,
+      "volume": 992200,
+      "rollingCloseVwap": 99.4049
+    },
+    {
+      "date": "2026-01-15",
+      "close": 90.11,
+      "volume": 1296800,
+      "rollingCloseVwap": 99.2883
+    },
+    {
+      "date": "2026-01-16",
+      "close": 90.78,
+      "volume": 994800,
+      "rollingCloseVwap": 99.2119
+    },
+    {
+      "date": "2026-01-20",
+      "close": 89.59,
+      "volume": 2241500,
+      "rollingCloseVwap": 98.9299
+    },
+    {
+      "date": "2026-01-21",
+      "close": 88.04,
+      "volume": 1393500,
+      "rollingCloseVwap": 98.7153
+    },
+    {
+      "date": "2026-01-22",
+      "close": 90.52,
+      "volume": 1448000,
+      "rollingCloseVwap": 98.5446
+    },
+    {
+      "date": "2026-01-23",
+      "close": 92.49,
+      "volume": 1304200,
+      "rollingCloseVwap": 98.4479
+    },
+    {
+      "date": "2026-01-26",
+      "close": 94.35,
+      "volume": 965000,
+      "rollingCloseVwap": 98.3834
+    },
+    {
+      "date": "2026-01-27",
+      "close": 91.72,
+      "volume": 798400,
+      "rollingCloseVwap": 98.2953
+    },
+    {
+      "date": "2026-01-28",
+      "close": 91.57,
+      "volume": 688300,
+      "rollingCloseVwap": 98.2051
+    },
+    {
+      "date": "2026-01-29",
+      "close": 81.03,
+      "volume": 1982800,
+      "rollingCloseVwap": 97.6519
+    },
+    {
+      "date": "2026-01-30",
+      "close": 78.34,
+      "volume": 1348400,
+      "rollingCloseVwap": 97.2514
+    },
+    {
+      "date": "2026-02-02",
+      "close": 74.45,
+      "volume": 1833600,
+      "rollingCloseVwap": 96.6176
+    },
+    {
+      "date": "2026-02-03",
+      "close": 67.51,
+      "volume": 3925600,
+      "rollingCloseVwap": 94.9744
+    },
+    {
+      "date": "2026-02-04",
+      "close": 64.25,
+      "volume": 3251700,
+      "rollingCloseVwap": 93.5663
+    },
+    {
+      "date": "2026-02-05",
+      "close": 61.29,
+      "volume": 3037400,
+      "rollingCloseVwap": 92.2408
+    },
+    {
+      "date": "2026-02-06",
+      "close": 63.74,
+      "volume": 1730300,
+      "rollingCloseVwap": 91.5842
+    },
+    {
+      "date": "2026-02-09",
+      "close": 62.98,
+      "volume": 1570400,
+      "rollingCloseVwap": 90.9853
+    },
+    {
+      "date": "2026-02-10",
+      "close": 64.66,
+      "volume": 1706300,
+      "rollingCloseVwap": 90.3783
+    },
+    {
+      "date": "2026-02-11",
+      "close": 60.74,
+      "volume": 2569200,
+      "rollingCloseVwap": 89.3611
+    },
+    {
+      "date": "2026-02-12",
+      "close": 61.18,
+      "volume": 2288100,
+      "rollingCloseVwap": 88.5197
+    },
+    {
+      "date": "2026-02-13",
+      "close": 62.74,
+      "volume": 1849000,
+      "rollingCloseVwap": 87.8364
+    },
+    {
+      "date": "2026-02-17",
+      "close": 61.0,
+      "volume": 969700,
+      "rollingCloseVwap": 87.5038
+    },
+    {
+      "date": "2026-02-18",
+      "close": 64.07,
+      "volume": 1634300,
+      "rollingCloseVwap": 87.0251
+    },
+    {
+      "date": "2026-02-19",
+      "close": 66.98,
+      "volume": 1752900,
+      "rollingCloseVwap": 86.6153
+    },
+    {
+      "date": "2026-02-20",
+      "close": 66.54,
+      "volume": 1978600,
+      "rollingCloseVwap": 86.1477
+    },
+    {
+      "date": "2026-02-23",
+      "close": 62.73,
+      "volume": 1901800,
+      "rollingCloseVwap": 85.6266
+    },
+    {
+      "date": "2026-02-24",
+      "close": 64.28,
+      "volume": 1551300,
+      "rollingCloseVwap": 85.2477
+    },
+    {
+      "date": "2026-02-25",
+      "close": 66.11,
+      "volume": 1201300,
+      "rollingCloseVwap": 84.9661
+    },
+    {
+      "date": "2026-02-26",
+      "close": 73.56,
+      "volume": 2263200,
+      "rollingCloseVwap": 84.62
+    },
+    {
+      "date": "2026-02-27",
+      "close": 72.39,
+      "volume": 2009800,
+      "rollingCloseVwap": 84.2975
+    },
+    {
+      "date": "2026-03-02",
+      "close": 74.68,
+      "volume": 1455100,
+      "rollingCloseVwap": 84.114
+    },
+    {
+      "date": "2026-03-03",
+      "close": 75.78,
+      "volume": 960600,
+      "rollingCloseVwap": 84.0037
+    },
+    {
+      "date": "2026-03-04",
+      "close": 77.2,
+      "volume": 1198000,
+      "rollingCloseVwap": 83.8674
+    },
+    {
+      "date": "2026-03-05",
+      "close": 78.26,
+      "volume": 1472500,
+      "rollingCloseVwap": 83.7324
+    },
+    {
+      "date": "2026-03-06",
+      "close": 82.95,
+      "volume": 1429900,
+      "rollingCloseVwap": 83.6159
+    },
+    {
+      "date": "2026-03-09",
+      "close": 80.67,
+      "volume": 1093600,
+      "rollingCloseVwap": 83.3175
+    },
+    {
+      "date": "2026-03-10",
+      "close": 77.9,
+      "volume": 1167800,
+      "rollingCloseVwap": 82.049
+    },
+    {
+      "date": "2026-03-11",
+      "close": 78.49,
+      "volume": 834500,
+      "rollingCloseVwap": 81.3458
+    },
+    {
+      "date": "2026-03-12",
+      "close": 75.65,
+      "volume": 2966000,
+      "rollingCloseVwap": 80.434
+    },
+    {
+      "date": "2026-03-13",
+      "close": 70.8,
+      "volume": 3284800,
+      "rollingCloseVwap": 79.654
+    },
+    {
+      "date": "2026-03-16",
+      "close": 70.91,
+      "volume": 1463000,
+      "rollingCloseVwap": 79.1923
+    },
+    {
+      "date": "2026-03-17",
+      "close": 69.63,
+      "volume": 1119000,
+      "rollingCloseVwap": 78.8266
+    },
+    {
+      "date": "2026-03-18",
+      "close": 68.74,
+      "volume": 1109900,
+      "rollingCloseVwap": 78.4421
+    },
+    {
+      "date": "2026-03-19",
+      "close": 68.51,
+      "volume": 897100,
+      "rollingCloseVwap": 78.0761
+    },
+    {
+      "date": "2026-03-20",
+      "close": 67.74,
+      "volume": 1280900,
+      "rollingCloseVwap": 77.462
+    },
+    {
+      "date": "2026-03-23",
+      "close": 67.25,
+      "volume": 1163400,
+      "rollingCloseVwap": 77.0234
+    },
+    {
+      "date": "2026-03-24",
+      "close": 64.81,
+      "volume": 1241000,
+      "rollingCloseVwap": 76.2767
+    },
+    {
+      "date": "2026-03-25",
+      "close": 63.08,
+      "volume": 893400,
+      "rollingCloseVwap": 75.7891
+    },
+    {
+      "date": "2026-03-26",
+      "close": 63.06,
+      "volume": 869700,
+      "rollingCloseVwap": 75.4597
+    },
+    {
+      "date": "2026-03-27",
+      "close": 60.39,
+      "volume": 717400,
+      "rollingCloseVwap": 75.2598
+    },
+    {
+      "date": "2026-03-30",
+      "close": 60.65,
+      "volume": 884400,
+      "rollingCloseVwap": 74.992
+    },
+    {
+      "date": "2026-03-31",
+      "close": 63.46,
+      "volume": 1261200,
+      "rollingCloseVwap": 74.6598
+    },
+    {
+      "date": "2026-04-01",
+      "close": 62.43,
+      "volume": 695600,
+      "rollingCloseVwap": 74.3425
+    },
+    {
+      "date": "2026-04-02",
+      "close": 62.93,
+      "volume": 696400,
+      "rollingCloseVwap": 74.0492
+    },
+    {
+      "date": "2026-04-06",
+      "close": 63.01,
+      "volume": 587200,
+      "rollingCloseVwap": 73.6027
+    },
+    {
+      "date": "2026-04-07",
+      "close": 62.9,
+      "volume": 570300,
+      "rollingCloseVwap": 73.2614
+    },
+    {
+      "date": "2026-04-08",
+      "close": 62.12,
+      "volume": 792500,
+      "rollingCloseVwap": 72.9317
+    },
+    {
+      "date": "2026-04-09",
+      "close": 58.76,
+      "volume": 1201600,
+      "rollingCloseVwap": 72.5396
+    },
+    {
+      "date": "2026-04-10",
+      "close": 55.29,
+      "volume": 1046400,
+      "rollingCloseVwap": 72.1283
+    },
+    {
+      "date": "2026-04-13",
+      "close": 57.35,
+      "volume": 1553300,
+      "rollingCloseVwap": 71.5822
+    },
+    {
+      "date": "2026-04-14",
+      "close": 57.34,
+      "volume": 1344800,
+      "rollingCloseVwap": 71.1528
+    },
+    {
+      "date": "2026-04-15",
+      "close": 61.93,
+      "volume": 1180800,
+      "rollingCloseVwap": 70.6413
+    },
+    {
+      "date": "2026-04-16",
+      "close": 62.89,
+      "volume": 1037700,
+      "rollingCloseVwap": 70.2735
+    },
+    {
+      "date": "2026-04-17",
+      "close": 64.31,
+      "volume": 1305800,
+      "rollingCloseVwap": 69.9131
+    },
+    {
+      "date": "2026-04-20",
+      "close": 66.28,
+      "volume": 1410300,
+      "rollingCloseVwap": 69.6359
+    },
+    {
+      "date": "2026-04-21",
+      "close": 64.1,
+      "volume": 1201500,
+      "rollingCloseVwap": 69.0795
+    },
+    {
+      "date": "2026-04-22",
+      "close": 64.59,
+      "volume": 737500,
+      "rollingCloseVwap": 68.7552
+    },
+    {
+      "date": "2026-04-23",
+      "close": 60.93,
+      "volume": 1422000,
+      "rollingCloseVwap": 68.29
+    },
+    {
+      "date": "2026-04-24",
+      "close": 62.66,
+      "volume": 943500,
+      "rollingCloseVwap": 67.8861
+    },
+    {
+      "date": "2026-04-27",
+      "close": 60.28,
+      "volume": 837200,
+      "rollingCloseVwap": 67.5361
+    },
+    {
+      "date": "2026-04-28",
+      "close": 60.68,
+      "volume": 988500,
+      "rollingCloseVwap": 67.2506
+    },
+    {
+      "date": "2026-04-29",
+      "close": 59.88,
+      "volume": 631800,
+      "rollingCloseVwap": 67.0163
+    },
+    {
+      "date": "2026-04-30",
+      "close": 59.46,
+      "volume": 907000,
+      "rollingCloseVwap": 66.6323
+    },
+    {
+      "date": "2026-05-01",
+      "close": 61.72,
+      "volume": 1261900,
+      "rollingCloseVwap": 66.3884
+    },
+    {
+      "date": "2026-05-04",
+      "close": 63.82,
+      "volume": 995700,
+      "rollingCloseVwap": 66.1943
+    },
+    {
+      "date": "2026-05-05",
+      "close": 63.915,
+      "volume": 649900,
+      "rollingCloseVwap": 66.117
+    },
+    {
+      "date": "2026-05-06",
+      "close": 62.84,
+      "volume": 820000,
+      "rollingCloseVwap": 66.1575
+    },
+    {
+      "date": "2026-05-07",
+      "close": 65.3,
+      "volume": 1307400,
+      "rollingCloseVwap": 66.3244
+    },
+    {
+      "date": "2026-05-08",
+      "close": 63.04,
+      "volume": 754000,
+      "rollingCloseVwap": 66.3491
+    },
+    {
+      "date": "2026-05-11",
+      "close": 60.29,
+      "volume": 1033500,
+      "rollingCloseVwap": 66.337
+    },
+    {
+      "date": "2026-05-12",
+      "close": 57.5,
+      "volume": 1562500,
+      "rollingCloseVwap": 66.2005
+    },
+    {
+      "date": "2026-05-13",
+      "close": 56.16,
+      "volume": 1575100,
+      "rollingCloseVwap": 66.178
+    },
+    {
+      "date": "2026-05-14",
+      "close": 57.15,
+      "volume": 1662400,
+      "rollingCloseVwap": 66.1325
+    },
+    {
+      "date": "2026-05-15",
+      "close": 58.52,
+      "volume": 1212000,
+      "rollingCloseVwap": 66.0946
+    },
+    {
+      "date": "2026-05-18",
+      "close": 62.52,
+      "volume": 1675700,
+      "rollingCloseVwap": 66.0813
+    },
+    {
+      "date": "2026-05-19",
+      "close": 62.45,
+      "volume": 1275900,
+      "rollingCloseVwap": 66.0641
+    },
+    {
+      "date": "2026-05-20",
+      "close": 62.78,
+      "volume": 743600,
+      "rollingCloseVwap": 66.0117
+    },
+    {
+      "date": "2026-05-21",
+      "close": 61.33,
+      "volume": 739900,
+      "rollingCloseVwap": 65.9524
+    },
+    {
+      "date": "2026-05-22",
+      "close": 63.17,
+      "volume": 707800,
+      "rollingCloseVwap": 66.008
+    },
+    {
+      "date": "2026-05-26",
+      "close": 62.71,
+      "volume": 1263500,
+      "rollingCloseVwap": 65.9881
+    },
+    {
+      "date": "2026-05-27",
+      "close": 63.29,
+      "volume": 965800,
+      "rollingCloseVwap": 65.951
+    },
+    {
+      "date": "2026-05-28",
+      "close": 65.79,
+      "volume": 1976200,
+      "rollingCloseVwap": 65.7142
+    },
+    {
+      "date": "2026-05-29",
+      "close": 72.36,
+      "volume": 1830900,
+      "rollingCloseVwap": 65.6973
+    },
+    {
+      "date": "2026-06-01",
+      "close": 77.68,
+      "volume": 2130900,
+      "rollingCloseVwap": 65.8645
+    },
+    {
+      "date": "2026-06-02",
+      "close": 75.01,
+      "volume": 1610700,
+      "rollingCloseVwap": 65.9337
+    },
+    {
+      "date": "2026-06-03",
+      "close": 72.63,
+      "volume": 2355300,
+      "rollingCloseVwap": 65.9635
+    },
+    {
+      "date": "2026-06-04",
+      "close": 74.33,
+      "volume": 3039000,
+      "rollingCloseVwap": 66.0574
+    },
+    {
+      "date": "2026-06-05",
+      "close": 77.4,
+      "volume": 4697500,
+      "rollingCloseVwap": 66.4162
+    },
+    {
+      "date": "2026-06-08",
+      "close": 72.95,
+      "volume": 2180100,
+      "rollingCloseVwap": 66.3999
+    },
+    {
+      "date": "2026-06-09",
+      "close": 70.71,
+      "volume": 1798900,
+      "rollingCloseVwap": 66.3314
+    },
+    {
+      "date": "2026-06-10",
+      "close": 71.39,
+      "volume": 1470800,
+      "rollingCloseVwap": 66.299
+    },
+    {
+      "date": "2026-06-11",
+      "close": 68.24,
+      "volume": 1666700,
+      "rollingCloseVwap": 66.0011
+    },
+    {
+      "date": "2026-06-12",
+      "close": 66.77,
+      "volume": 963700,
+      "rollingCloseVwap": 65.8131
+    },
+    {
+      "date": "2026-06-15",
+      "close": 68.8,
+      "volume": 1092000,
+      "rollingCloseVwap": 65.7604
+    },
+    {
+      "date": "2026-06-16",
+      "close": 66.57,
+      "volume": 1371400,
+      "rollingCloseVwap": 65.72
+    },
+    {
+      "date": "2026-06-17",
+      "close": 62.45,
+      "volume": 1682200,
+      "rollingCloseVwap": 65.6099
+    },
+    {
+      "date": "2026-06-18",
+      "close": 64.23,
+      "volume": 1699400,
+      "rollingCloseVwap": 65.5489
+    },
+    {
+      "date": "2026-06-22",
+      "close": 62.57,
+      "volume": 1057100,
+      "rollingCloseVwap": 65.4754
+    },
+    {
+      "date": "2026-06-23",
+      "close": 64.19,
+      "volume": 1277100,
+      "rollingCloseVwap": 65.4297
+    },
+    {
+      "date": "2026-06-24",
+      "close": 65.03,
+      "volume": 1033600,
+      "rollingCloseVwap": 65.4341
+    },
+    {
+      "date": "2026-06-25",
+      "close": 63.4,
+      "volume": 1457000,
+      "rollingCloseVwap": 65.4235
+    },
+    {
+      "date": "2026-06-26",
+      "close": 69.2,
+      "volume": 11154500,
+      "rollingCloseVwap": 65.9053
+    },
+    {
+      "date": "2026-06-29",
+      "close": 70.2,
+      "volume": 1595900,
+      "rollingCloseVwap": 66.022
+    },
+    {
+      "date": "2026-06-30",
+      "close": 70.71,
+      "volume": 1552300,
+      "rollingCloseVwap": 66.151
+    },
+    {
+      "date": "2026-07-01",
+      "close": 74.035,
+      "volume": 1395500,
+      "rollingCloseVwap": 66.3052
+    },
+    {
+      "date": "2026-07-02",
+      "close": 78.31,
+      "volume": 1411800,
+      "rollingCloseVwap": 66.5139
+    },
+    {
+      "date": "2026-07-06",
+      "close": 77.79,
+      "volume": 1193300,
+      "rollingCloseVwap": 66.6825
+    },
+    {
+      "date": "2026-07-07",
+      "close": 79.7,
+      "volume": 2270900,
+      "rollingCloseVwap": 67.012
+    },
+    {
+      "date": "2026-07-08",
+      "close": 78.01,
+      "volume": 1203500,
+      "rollingCloseVwap": 67.1727
+    },
+    {
+      "date": "2026-07-09",
+      "close": 79.44,
+      "volume": 1526200,
+      "rollingCloseVwap": 67.4055
+    },
+    {
+      "date": "2026-07-10",
+      "close": 77.69,
+      "volume": 662000,
+      "rollingCloseVwap": 67.5825
+    },
+    {
+      "date": "2026-07-13",
+      "close": 80.35,
+      "volume": 772400,
+      "rollingCloseVwap": 67.8172
+    },
+    {
+      "date": "2026-07-14",
+      "close": 80.09,
+      "volume": 1428200,
+      "rollingCloseVwap": 68.1666
+    },
+    {
+      "date": "2026-07-15",
+      "close": 78.35,
+      "volume": 1226200,
+      "rollingCloseVwap": 68.4466
+    },
+    {
+      "date": "2026-07-16",
+      "close": 75.5,
+      "volume": 1667300,
+      "rollingCloseVwap": 68.647
+    },
+    {
+      "date": "2026-07-17",
+      "close": 76.0,
+      "volume": 1218400,
+      "rollingCloseVwap": 68.8005
+    },
+    {
+      "date": "2026-07-20",
+      "close": 79.46,
+      "volume": 2372200,
+      "rollingCloseVwap": 69.1173
+    },
+    {
+      "date": "2026-07-21",
+      "close": 72.96,
+      "volume": 1291200,
+      "rollingCloseVwap": 69.2086
+    },
+    {
+      "date": "2026-07-22",
+      "close": 69.9,
+      "volume": 1544500,
+      "rollingCloseVwap": 69.2817
+    },
+    {
+      "date": "2026-07-23",
+      "close": 69.07,
+      "volume": 993700,
+      "rollingCloseVwap": 69.3146
+    },
+    {
+      "date": "2026-07-24",
+      "close": 70.48,
+      "volume": 668000,
+      "rollingCloseVwap": 69.4441
+    },
+    {
+      "date": "2026-07-27",
+      "close": 74.92,
+      "volume": 1390200,
+      "rollingCloseVwap": 69.5864
+    },
+    {
+      "date": "2026-07-28",
+      "close": 78.39,
+      "volume": 1126200,
+      "rollingCloseVwap": 69.7656
+    },
+    {
+      "date": "2026-07-29",
+      "close": 84.22,
+      "volume": 3169800,
+      "rollingCloseVwap": 70.3083
+    },
+    {
+      "date": "2026-07-30",
+      "close": 79.87,
+      "volume": 1608700,
+      "rollingCloseVwap": 70.5238
+    },
+    {
+      "date": "2026-07-31",
+      "close": 83.06,
+      "volume": 1358200,
+      "rollingCloseVwap": 70.7881
+    },
+    {
+      "date": "2026-08-03",
+      "close": 83.37,
+      "volume": 973600,
+      "rollingCloseVwap": 71.0201
+    },
+    {
+      "date": "2026-08-04",
+      "close": 86.24,
+      "volume": 1331700,
+      "rollingCloseVwap": 71.288
+    },
+    {
+      "date": "2026-08-05",
+      "close": 86.5,
+      "volume": 822700,
+      "rollingCloseVwap": 71.4566
+    },
+    {
+      "date": "2026-08-06",
+      "close": 85.59,
+      "volume": 654000,
+      "rollingCloseVwap": 71.6158
+    },
+    {
+      "date": "2026-08-07",
+      "close": 85.83,
+      "volume": 1069300,
+      "rollingCloseVwap": 71.8453
+    },
+    {
+      "date": "2026-08-10",
+      "close": 86.89,
+      "volume": 893500,
+      "rollingCloseVwap": 72.0415
+    },
+    {
+      "date": "2026-08-11",
+      "close": 88.39,
+      "volume": 2275200,
+      "rollingCloseVwap": 72.5178
+    },
+    {
+      "date": "2026-08-12",
+      "close": 92.0,
+      "volume": 1892500,
+      "rollingCloseVwap": 73.0983
+    },
+    {
+      "date": "2026-08-13",
+      "close": 93.7,
+      "volume": 1201200,
+      "rollingCloseVwap": 73.595
+    },
+    {
+      "date": "2026-08-14",
+      "close": 90.4,
+      "volume": 934700,
+      "rollingCloseVwap": 74.0136
+    },
+    {
+      "date": "2026-08-17",
+      "close": 88.39,
+      "volume": 701200,
+      "rollingCloseVwap": 74.2957
+    },
+    {
+      "date": "2026-08-18",
+      "close": 91.11,
+      "volume": 779000,
+      "rollingCloseVwap": 74.6194
+    },
+    {
+      "date": "2026-08-19",
+      "close": 95.02,
+      "volume": 1609500,
+      "rollingCloseVwap": 75.0947
+    },
+    {
+      "date": "2026-08-20",
+      "close": 92.57,
+      "volume": 1010700,
+      "rollingCloseVwap": 75.3576
+    },
+    {
+      "date": "2026-08-21",
+      "close": 94.87,
+      "volume": 964800,
+      "rollingCloseVwap": 75.6432
+    },
+    {
+      "date": "2026-08-24",
+      "close": 95.635,
+      "volume": 587100,
+      "rollingCloseVwap": 75.8446
+    },
+    {
+      "date": "2026-08-25",
+      "close": 91.87,
+      "volume": 920300,
+      "rollingCloseVwap": 76.1526
+    },
+    {
+      "date": "2026-08-26",
+      "close": 92.23,
+      "volume": 611200,
+      "rollingCloseVwap": 76.3719
+    },
+    {
+      "date": "2026-08-27",
+      "close": 100.64,
+      "volume": 2118800,
+      "rollingCloseVwap": 77.0841
+    },
+    {
+      "date": "2026-08-28",
+      "close": 99.87,
+      "volume": 1347600,
+      "rollingCloseVwap": 77.4734
+    },
+    {
+      "date": "2026-08-31",
+      "close": 98.04,
+      "volume": 759600,
+      "rollingCloseVwap": 77.6257
+    },
+    {
+      "date": "2026-09-01",
+      "close": 95.45,
+      "volume": 810900,
+      "rollingCloseVwap": 77.8144
+    },
+    {
+      "date": "2026-09-02",
+      "close": 92.17,
+      "volume": 855900,
+      "rollingCloseVwap": 78.0659
+    },
+    {
+      "date": "2026-09-03",
+      "close": 93.1,
+      "volume": 1002800,
+      "rollingCloseVwap": 78.343
+    },
+    {
+      "date": "2026-09-04",
+      "close": 87.92,
+      "volume": 1419900,
+      "rollingCloseVwap": 78.5387
+    },
+    {
+      "date": "2026-09-08",
+      "close": 81.58,
+      "volume": 5034200,
+      "rollingCloseVwap": 78.8283
+    },
+    {
+      "date": "2026-09-09",
+      "close": 57.12,
+      "volume": 22950500,
+      "rollingCloseVwap": 74.663
+    },
+    {
+      "date": "2026-09-10",
+      "close": 56.01,
+      "volume": 6299700,
+      "rollingCloseVwap": 73.7311
+    },
+    {
+      "date": "2026-09-11",
+      "close": 54.68,
+      "volume": 5556100,
+      "rollingCloseVwap": 72.9564
+    },
+    {
+      "date": "2026-09-14",
+      "close": 58.99,
+      "volume": 5709100,
+      "rollingCloseVwap": 72.387
+    },
+    {
+      "date": "2026-09-15",
+      "close": 58.6,
+      "volume": 4559900,
+      "rollingCloseVwap": 71.9439
+    },
+    {
+      "date": "2026-09-16",
+      "close": 58.67,
+      "volume": 4952000,
+      "rollingCloseVwap": 71.5167
+    },
+    {
+      "date": "2026-09-17",
+      "close": 54.25,
+      "volume": 5628100,
+      "rollingCloseVwap": 70.9339
+    },
+    {
+      "date": "2026-09-18",
+      "close": 55.04,
+      "volume": 2908200,
+      "rollingCloseVwap": 70.6882
+    },
+    {
+      "date": "2026-09-21",
+      "close": 56.53,
+      "volume": 5388900,
+      "rollingCloseVwap": 70.2247
+    },
+    {
+      "date": "2026-09-22",
+      "close": 61.56,
+      "volume": 5037800,
+      "rollingCloseVwap": 69.9849
+    },
+    {
+      "date": "2026-09-23",
+      "close": 61.65,
+      "volume": 1992500,
+      "rollingCloseVwap": 69.9087
+    },
+    {
+      "date": "2026-09-24",
+      "close": 59.98,
+      "volume": 1779100,
+      "rollingCloseVwap": 69.8546
+    },
+    {
+      "date": "2026-09-25",
+      "close": 58.05,
+      "volume": 1769100,
+      "rollingCloseVwap": 69.7588
+    },
+    {
+      "date": "2026-09-28",
+      "close": 59.92,
+      "volume": 2090000,
+      "rollingCloseVwap": 69.6093
+    },
+    {
+      "date": "2026-09-29",
+      "close": 63.52,
+      "volume": 2980400,
+      "rollingCloseVwap": 69.4711
+    },
+    {
+      "date": "2026-09-30",
+      "close": 65.79,
+      "volume": 2091400,
+      "rollingCloseVwap": 69.3737
+    },
+    {
+      "date": "2026-10-01",
+      "close": 67.34,
+      "volume": 1644300,
+      "rollingCloseVwap": 69.2633
+    },
+    {
+      "date": "2026-10-02",
+      "close": 67.09,
+      "volume": 1523400,
+      "rollingCloseVwap": 69.1702
+    },
+    {
+      "date": "2026-10-05",
+      "close": 72.16,
+      "volume": 1857600,
+      "rollingCloseVwap": 69.0432
+    },
+    {
+      "date": "2026-10-06",
+      "close": 68.67,
+      "volume": 1572800,
+      "rollingCloseVwap": 68.9647
+    },
+    {
+      "date": "2026-10-07",
+      "close": 71.74,
+      "volume": 2215100,
+      "rollingCloseVwap": 68.8971
+    },
+    {
+      "date": "2026-10-08",
+      "close": 72.93,
+      "volume": 3403400,
+      "rollingCloseVwap": 68.9504
+    },
+    {
+      "date": "2026-10-09",
+      "close": 72.59,
+      "volume": 1669700,
+      "rollingCloseVwap": 68.9321
+    },
+    {
+      "date": "2026-10-12",
+      "close": 72.28,
+      "volume": 1077700,
+      "rollingCloseVwap": 68.8493
+    },
+    {
+      "date": "2026-10-13",
+      "close": 71.76,
+      "volume": 1377400,
+      "rollingCloseVwap": 68.798
+    },
+    {
+      "date": "2026-10-14",
+      "close": 72.69,
+      "volume": 1386200,
+      "rollingCloseVwap": 68.7592
+    },
+    {
+      "date": "2026-10-15",
+      "close": 76.11,
+      "volume": 1903500,
+      "rollingCloseVwap": 68.7938
+    },
+    {
+      "date": "2026-10-16",
+      "close": 74.98,
+      "volume": 2098600,
+      "rollingCloseVwap": 68.7112
+    }
+  ]
 }

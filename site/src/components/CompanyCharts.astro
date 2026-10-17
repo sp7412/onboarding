@@ -13,42 +13,40 @@ const step = 112;
 const barX = (i: number) => chart.left + 18 + i * step;
 const barHeight = (v: number) => (v / chart.max) * (chart.bottom - chart.top);
 import marketData from "../data/ttan-vwap.json";
-type VWAPRow = { date: string; close: number; dailyVwap: number; rollingVwap: number; volume: number };
-const vwapData = marketData.data as VWAPRow[];
-const recentPrices = vwapData.slice(-10);
+type PriceRow = { date: string; close: number; volume: number; rollingCloseVwap: number };
+const dailyPrices = marketData.data as PriceRow[];
+const recentPrices = dailyPrices.slice(-10);
 const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-const monthTicks = vwapData.map((p, i) => ({ p, i })).filter(({ p, i }) =>
-  i === 0 || p.date.slice(0, 7) !== (vwapData[i - 1]?.date ?? "").slice(0, 7)
+const monthTicks = dailyPrices.map((p, i) => ({ p, i })).filter(({ p, i }) =>
+  i === 0 || p.date.slice(0, 7) !== (dailyPrices[i - 1]?.date ?? "").slice(0, 7)
 ).map(({ p, i }) => ({ index: i, label: (monthNames[Number(p.date.slice(5, 7)) - 1] ?? "???") + " '" + p.date.slice(2, 4) }));
 const annualPlot = { left: 54, top: 34, bottom: 218, right: 718 };
 const annualX = (i: number, count: number) => count <= 1 ? 386 :
   annualPlot.left + i * ((annualPlot.right - annualPlot.left) / (count - 1));
 const annualY = (value: number, min: number, max: number) =>
-  annualPlot.bottom - ((value - min) / (max - min || 1)) * (annualPlot.bottom - annualPlot.top);
+  annualPlot.bottom - ((value - min) / (max - min)) * (annualPlot.bottom - annualPlot.top);
 const getRange = (values: number[], fallbackMin: number, fallbackMax: number): [number, number] => {
   if (!values.length) return [fallbackMin, fallbackMax];
   const low = Math.min(...values), high = Math.max(...values);
   const pad = Math.max(1, (high - low) * 0.08);
   return [Math.floor((low - pad) / 5) * 5, Math.ceil((high + pad) / 5) * 5];
 };
-const [vwapMin, vwapMax] = getRange(vwapData.map((p) => p.rollingVwap), 50, 100);
-const [priceMin, priceMax] = getRange(vwapData.map((p) => p.close), 50, 125);
-const vwapLine = vwapData.map((p, i) => annualX(i, vwapData.length) + "," + annualY(p.rollingVwap, vwapMin, vwapMax)).join(" ");
-const priceLine = vwapData.map((p, i) => annualX(i, vwapData.length) + "," + annualY(p.close, priceMin, priceMax)).join(" ");
+const [vwapMin, vwapMax] = getRange(dailyPrices.map((p) => p.rollingCloseVwap), 50, 100);
+const [priceMin, priceMax] = getRange(dailyPrices.map((p) => p.close), 50, 125);
+const vwapLine = dailyPrices.map((p, i) => annualX(i, dailyPrices.length) + "," + annualY(p.rollingCloseVwap, vwapMin, vwapMax)).join(" ");
+const priceLine = dailyPrices.map((p, i) => annualX(i, dailyPrices.length) + "," + annualY(p.close, priceMin, priceMax)).join(" ");
 const inset = { left: 494, top: 40, right: 724, bottom: 143 };
 const insetX = (i: number) => recentPrices.length <= 1 ? 609 :
   inset.left + i * ((inset.right - inset.left) / (recentPrices.length - 1));
-const insetValues = recentPrices.flatMap((p) => [p.dailyVwap, p.close]);
+const insetValues = recentPrices.flatMap((p) => [p.close, p.rollingCloseVwap]);
 const [insetMin, insetMax] = getRange(insetValues, 50, 100);
 const insetY = (value: number) => inset.bottom - ((value - insetMin) / (insetMax - insetMin || 1)) * (inset.bottom - inset.top);
-const recentVwapLine = recentPrices.map((p, i) => insetX(i) + "," + insetY(p.dailyVwap)).join(" ");
 const recentPriceLine = recentPrices.map((p, i) => insetX(i) + "," + insetY(p.close)).join(" ");
-const latest = vwapData[vwapData.length - 1];
-const latestVwapLabel = latest ? "$" + latest.rollingVwap.toFixed(2) : "Awaiting data";
-const latestCloseLabel = latest ? "$" + latest.close.toFixed(2) : "Awaiting data";
-const latestDateLabel = latest ? latest.date : "No intraday data loaded";
-const feedLabel = marketData.feed === "sip" ? "SIP consolidated feed" : "IEX exchange feed";
-
+const recentVwapLine = recentPrices.map((p, i) => insetX(i) + "," + insetY(p.rollingCloseVwap)).join(" ");
+const latest = dailyPrices[dailyPrices.length - 1];
+const latestVwapLabel = latest ? "$" + latest.rollingCloseVwap.toFixed(2) : "—";
+const latestCloseLabel = latest ? "$" + latest.close.toFixed(2) : "—";
+const latestDateLabel = latest ? latest.date : "No daily data loaded";
 
 ---
 <section class="company-charts" aria-labelledby="company-charts-title">
@@ -96,149 +94,92 @@ const feedLabel = marketData.feed === "sip" ? "SIP consolidated feed" : "IEX exc
 
   <article id="ttan-vwap-year" class="chart-card stock-card" aria-labelledby="vwap-title">
     <div class="chart-heading">
-      <div><h3 id="vwap-title">TTAN rolling 63-session VWAP · one year</h3><p class="chart-subtitle">Daily VWAP aggregated from 1-minute bars · {feedLabel}</p></div>
-      <div class="metric metric-muted"><strong>{latestVwapLabel}</strong><span>Latest rolling VWAP · {latestDateLabel}</span></div>
+      <div>
+        <h3 id="vwap-title">TTAN 63-session rolling close×volume proxy · one year</h3>
+        <p class="chart-subtitle">Daily close × daily volume · USD per share</p>
+      </div>
+      <div class="metric metric-muted">
+        <strong>{latestVwapLabel}</strong>
+        <span>Latest 63-session proxy · {latestDateLabel}</span>
+      </div>
     </div>
     <figure>
       <svg class="chart" viewBox="0 0 760 270" role="img" aria-labelledby="vwap-svg-title vwap-svg-desc">
-        <title id="vwap-svg-title">TTAN rolling 63-session VWAP from intraday bars</title>
-        <desc id="vwap-svg-desc">Daily rolling VWAP over one year, with an inset showing daily VWAP and closing price for the last ten sessions.</desc>
+        <title id="vwap-svg-title">TTAN daily close and 63-session rolling close-volume proxy</title>
+        <desc id="vwap-svg-desc">Daily closing prices and their 63-session volume-weighted closing-price proxy across one year; the inset shows the last ten trading sessions.</desc>
         {[vwapMin, (vwapMin + vwapMax) / 2, vwapMax].map((tick) => (
           <g>
-            <line
-              x1={annualPlot.left}
-              x2={annualPlot.right}
-              y1={annualY(tick, vwapMin, vwapMax)}
-              y2={annualY(tick, vwapMin, vwapMax)}
-              class="gridline"
-            />
-            <text
-              x={annualPlot.left - 10}
-              y={annualY(tick, vwapMin, vwapMax) + 4}
-              text-anchor="end"
-              class="axis-label"
-            >
-              {"$" + tick.toFixed(0)}
-            </text>
+            <line x1={annualPlot.left} x2={annualPlot.right} y1={annualY(tick, vwapMin, vwapMax)} y2={annualY(tick, vwapMin, vwapMax)} class="gridline" />
+            <text x={annualPlot.left - 10} y={annualY(tick, vwapMin, vwapMax) + 4} text-anchor="end" class="axis-label">{"$" + tick.toFixed(0)}</text>
           </g>
         ))}
-        {vwapData.length > 1 && <polyline points={vwapLine} class="vwap-line" />}
+        {dailyPrices.length > 1 && <polyline points={vwapLine} class="vwap-line" />}
         {monthTicks.map((tick) => (
-          <text
-            x={annualX(tick.index, vwapData.length)}
-            y={annualPlot.bottom + 19}
-            text-anchor="middle"
-            class="quarter-label"
-          >
-            {tick.label}
-          </text>
+          <text x={annualX(tick.index, dailyPrices.length)} y={annualPlot.bottom + 19} text-anchor="middle" class="quarter-label">{tick.label}</text>
         ))}
-        {vwapData.length === 0 && <text x="380" y="125" text-anchor="middle" class="empty-state">Intraday data not loaded yet</text>}
-        <rect x={inset.left - 7} y={inset.top - 20} width={inset.right - inset.left + 14} height={inset.bottom - inset.top + 34} rx="7" class="inset-frame" />
-        <text x={inset.left} y={inset.top - 7} class="inset-title">LAST 2 WEEKS · DAILY VWAP</text>
-        {[insetMin, (insetMin + insetMax) / 2, insetMax].map((tick) => (
-          <g>
-            <line
-              x1={inset.left}
-              x2={inset.right}
-              y1={insetY(tick)}
-              y2={insetY(tick)}
-              class="gridline"
-            />
-            <text
-              x={inset.left - 5}
-              y={insetY(tick) + 3}
-              text-anchor="end"
-              class="inset-axis"
-            >
-              {"$" + tick.toFixed(0)}
-            </text>
-          </g>
-        ))}
-        {recentPrices.length > 1 && <polyline points={recentVwapLine} class="vwap-line inset-vwap-line" />}
-        {recentPrices.length > 1 && <polyline points={recentPriceLine} class="price-line" />}
-        {recentPrices.map((p, i) => (
-          <g>
-            <circle cx={insetX(i)} cy={insetY(p.dailyVwap)} r="2.2" class="point" />
-            <circle cx={insetX(i)} cy={insetY(p.close)} r="2.2" class="price-point" />
-          </g>
-        ))}
-        <text x={inset.left + 4} y={inset.bottom + 13} class="inset-axis">{recentPrices[0]?.date ?? "—"}</text>
-        <text x={inset.right - 4} y={inset.bottom + 13} text-anchor="end" class="inset-axis">{latestDateLabel}</text>
-        <line x1={annualPlot.left} x2={annualPlot.right} y1={annualPlot.bottom} y2={annualPlot.bottom} class="baseline" />
-      </svg>
-      <div class="chart-legend"><span><i class="legend-vwap"></i> Rolling 63-session VWAP</span><span><i class="legend-vwap-daily"></i> Daily VWAP</span><span><i class="legend-price"></i> Daily close</span></div>
-      <figcaption>{vwapData.length === 0 ? "Intraday data is not configured yet. Add the Alpaca API secrets and trigger a site deployment using the data-setup guide below." : "Each daily VWAP is aggregated from the minute bars’ VWAP and volume. The annual line is the rolling volume-weighted value across the latest 63 trading sessions. The default SIP feed covers consolidated US exchanges; IEX is a single-exchange fallback, not market-wide VWAP."}</figcaption>
-    </figure>
-    <p class="source-line">Source: <a href="https://docs.alpaca.markets/us/reference/stockbars">Alpaca historical stock bars API</a> · <a href="https://sp7412.github.io/onboarding/docs/ttan-vwap-data/">data setup</a>. <a class="chart-link" href="https://sp7412.github.io/onboarding/whitepaper/01-company/#ttan-vwap-year">Permanent direct link to this VWAP plot ↗</a></p>
-  </article>
-
-  <article id="ttan-stock-price-year" class="chart-card stock-card" aria-labelledby="stock-price-title">
-    <div class="chart-heading">
-      <div><h3 id="stock-price-title">TTAN raw closing price · one year</h3><p class="chart-subtitle">Daily closes from the same intraday bars · {feedLabel}</p></div>
-      <div class="metric"><strong>{latestCloseLabel}</strong><span>Latest close · {latestDateLabel}</span></div>
-    </div>
-    <figure>
-      <svg class="chart" viewBox="0 0 760 270" role="img" aria-labelledby="price-svg-title price-svg-desc">
-        <title id="price-svg-title">TTAN raw daily closing price over one year</title>
-        <desc id="price-svg-desc">Daily closing prices over the past year, with an inset showing the most recent ten trading sessions.</desc>
-        {[priceMin, (priceMin + priceMax) / 2, priceMax].map((tick) => (
-          <g>
-            <line
-              x1={annualPlot.left}
-              x2={annualPlot.right}
-              y1={annualY(tick, priceMin, priceMax)}
-              y2={annualY(tick, priceMin, priceMax)}
-              class="gridline"
-            />
-            <text
-              x={annualPlot.left - 10}
-              y={annualY(tick, priceMin, priceMax) + 4}
-              text-anchor="end"
-              class="axis-label"
-            >
-              {"$" + tick.toFixed(0)}
-            </text>
-          </g>
-        ))}
-        {vwapData.length > 1 && <polyline points={priceLine} class="price-line annual-price-line" />}
-        {monthTicks.map((tick) => <text x={annualX(tick.index, vwapData.length)} y={annualPlot.bottom + 19} text-anchor="middle" class="quarter-label">{tick.label}</text>)}
-        {vwapData.length === 0 && <text x="380" y="125" text-anchor="middle" class="empty-state">Intraday data not loaded yet</text>}
+        {dailyPrices.length === 0 && <text x="380" y="125" text-anchor="middle" class="empty-state">No daily price data available</text>}
         <rect x={inset.left - 7} y={inset.top - 20} width={inset.right - inset.left + 14} height={inset.bottom - inset.top + 34} rx="7" class="inset-frame" />
         <text x={inset.left} y={inset.top - 7} class="inset-title">LAST 2 WEEKS · DAILY CLOSE</text>
         {[insetMin, (insetMin + insetMax) / 2, insetMax].map((tick) => (
           <g>
-            <line
-              x1={inset.left}
-              x2={inset.right}
-              y1={insetY(tick)}
-              y2={insetY(tick)}
-              class="gridline"
-            />
-            <text
-              x={inset.left - 5}
-              y={insetY(tick) + 3}
-              text-anchor="end"
-              class="inset-axis"
-            >
-              {"$" + tick.toFixed(0)}
-            </text>
+            <line x1={inset.left} x2={inset.right} y1={insetY(tick)} y2={insetY(tick)} class="gridline" />
+            <text x={inset.left - 5} y={insetY(tick) + 3} text-anchor="end" class="inset-axis">{"$" + tick.toFixed(0)}</text>
           </g>
         ))}
+        {recentPrices.length > 1 && <polyline points={recentVwapLine} class="vwap-line inset-vwap-line" />}
         {recentPrices.length > 1 && <polyline points={recentPriceLine} class="price-line" />}
-        {recentPrices.map((p, i) => (
-          <circle cx={insetX(i)} cy={insetY(p.close)} r="2.4" class="price-point" />
-        ))}
+        {recentPrices.map((p, i) => <circle cx={insetX(i)} cy={insetY(p.close)} r="2.4" class="price-point" />)}
         <text x={inset.left + 4} y={inset.bottom + 13} class="inset-axis">{recentPrices[0]?.date ?? "—"}</text>
         <text x={inset.right - 4} y={inset.bottom + 13} text-anchor="end" class="inset-axis">{latestDateLabel}</text>
         <line x1={annualPlot.left} x2={annualPlot.right} y1={annualPlot.bottom} y2={annualPlot.bottom} class="baseline" />
       </svg>
-      <figcaption>{vwapData.length === 0 ? "Daily prices will appear here after the intraday data pipeline is configured. See the data-setup guide." : "This plot preserves the raw daily closing-price path rather than smoothing it. The inset zooms in on the most recent ten trading sessions."}</figcaption>
+      <div class="chart-legend"><span><i class="legend-vwap"></i> 63-session close×volume proxy</span><span><i class="legend-price"></i> Daily close</span></div>
+      <figcaption>The line is the daily closing price weighted by daily volume over the latest 63 sessions. It is a daily close×volume proxy, not trade-level VWAP; true VWAP requires intraday trade or bar data.</figcaption>
     </figure>
-    <p class="source-line">Source: <a href="https://docs.alpaca.markets/us/reference/stockbars">Alpaca historical stock bars API</a> · <a href="https://sp7412.github.io/onboarding/docs/ttan-vwap-data/">data setup</a>. <a class="chart-link" href="https://sp7412.github.io/onboarding/whitepaper/01-company/#ttan-stock-price-year">Permanent direct link to this raw-price plot ↗</a></p>
+    <p class="source-line">Data: <a href="https://finance.yahoo.com/quote/TTAN/history/">Yahoo Finance historical daily prices and volume</a>. <a class="chart-link" href="https://sp7412.github.io/onboarding/whitepaper/01-company/#ttan-vwap-year">Permanent link to the rolling price plot ↗</a></p>
   </article>
 
-  
+  <article id="ttan-stock-price-year" class="chart-card stock-card" aria-labelledby="stock-price-title">
+    <div class="chart-heading">
+      <div>
+        <h3 id="stock-price-title">TTAN raw daily closing price · one year</h3>
+        <p class="chart-subtitle">Every trading session, unsmoothed · USD per share</p>
+      </div>
+      <div class="metric">
+        <strong>{latestCloseLabel}</strong>
+        <span>Latest close · {latestDateLabel}</span>
+      </div>
+    </div>
+    <figure>
+      <svg class="chart" viewBox="0 0 760 270" role="img" aria-labelledby="price-svg-title price-svg-desc">
+        <title id="price-svg-title">TTAN daily closing price over one year</title>
+        <desc id="price-svg-desc">Unsmoothed daily closing prices for every available trading session over one year, with the latest ten sessions shown in the inset.</desc>
+        {[priceMin, (priceMin + priceMax) / 2, priceMax].map((tick) => (
+          <g>
+            <line x1={annualPlot.left} x2={annualPlot.right} y1={annualY(tick, priceMin, priceMax)} y2={annualY(tick, priceMin, priceMax)} class="gridline" />
+            <text x={annualPlot.left - 10} y={annualY(tick, priceMin, priceMax) + 4} text-anchor="end" class="axis-label">{"$" + tick.toFixed(0)}</text>
+          </g>
+        ))}
+        {dailyPrices.length > 1 && <polyline points={priceLine} class="price-line annual-price-line" />}
+        {monthTicks.map((tick) => <text x={annualX(tick.index, dailyPrices.length)} y={annualPlot.bottom + 19} text-anchor="middle" class="quarter-label">{tick.label}</text>)}
+        <rect x={inset.left - 7} y={inset.top - 20} width={inset.right - inset.left + 14} height={inset.bottom - inset.top + 34} rx="7" class="inset-frame" />
+        <text x={inset.left} y={inset.top - 7} class="inset-title">LAST 2 WEEKS · DAILY CLOSE</text>
+        {[insetMin, (insetMin + insetMax) / 2, insetMax].map((tick) => (
+          <g>
+            <line x1={inset.left} x2={inset.right} y1={insetY(tick)} y2={insetY(tick)} class="gridline" />
+            <text x={inset.left - 5} y={insetY(tick) + 3} text-anchor="end" class="inset-axis">{"$" + tick.toFixed(0)}</text>
+          </g>
+        ))}
+        {recentPrices.length > 1 && <polyline points={recentPriceLine} class="price-line" />}
+        {recentPrices.map((p, i) => <circle cx={insetX(i)} cy={insetY(p.close)} r={i === recentPrices.length - 1 ? 3.5 : 2.2} class={i === recentPrices.length - 1 ? "price-point price-point-current" : "price-point"} />)}
+        <text x={inset.left + 4} y={inset.bottom + 13} class="inset-axis">{recentPrices[0]?.date ?? "—"}</text>
+        <text x={inset.right - 4} y={inset.bottom + 13} text-anchor="end" class="inset-axis">{latestDateLabel}</text>
+        <line x1={annualPlot.left} x2={annualPlot.right} y1={annualPlot.bottom} y2={annualPlot.bottom} class="baseline" />
+      </svg>
+      <figcaption>This plot shows every available daily close across the year without smoothing. The inset zooms in on the latest ten trading sessions.</figcaption>
+    </figure>
+    <p class="source-line">Data: <a href="https://finance.yahoo.com/quote/TTAN/history/">Yahoo Finance historical daily prices</a>. <a class="chart-link" href="https://sp7412.github.io/onboarding/whitepaper/01-company/#ttan-stock-price-year">Permanent link to daily closing prices ↗</a></p>
+  </article>
 </section>
 
 <style>
@@ -295,8 +236,5 @@ const feedLabel = marketData.feed === "sip" ? "SIP consolidated feed" : "IEX exc
   .legend-vwap { background: #8eb4ff; }
   .legend-price { background: #f3b45b; }
   .chart-link { display: inline-block; margin-left: .45rem; color: #b9d5ff; font-weight: 600; }
-  .inset-vwap-line { stroke-width: 1.8; }
-  .legend-vwap-daily { background: #8eb4ff; border-top: 1px dashed #8eb4ff; }
-  .empty-state { fill: #f3b45b; font: 600 12px var(--font-body); }
 
 </style>

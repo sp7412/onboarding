@@ -126,9 +126,9 @@ A PE-backed customer may be a high-leverage deployment opportunity, but it also 
 
 ### Stock chart methodology and data setup
 
-The TTAN charts use intraday one-minute bars rather than monthly close/volume estimates. Daily VWAP is aggregated from each minute bar's VWAP and volume; the rolling line is volume-weighted over 63 trading sessions. The separate price chart plots each session's last bar close without smoothing.
+The TTAN charts use daily closing prices across the full year, rather than monthly checkpoints. One plot shows the raw daily close; the companion line is a 63-session volume-weighted average of daily closes. That line is a close×volume proxy, not trade-level VWAP. The data refreshes during each site build.
 
-The chart feed defaults to Alpaca's IEX data, which measures IEX venue activity only—not consolidated trading across US exchanges. Market-wide VWAP requires access to the SIP feed. To configure credentials and select the feed, follow the [TTAN daily VWAP data setup guide](../ttan-vwap-data.md). When credentials are missing, the site intentionally shows a setup notice instead of presenting an estimate as true VWAP.
+The source is [Yahoo Finance historical data for TTAN](https://finance.yahoo.com/quote/TTAN/history/). Stock prices are supplemental market context, not an operating metric.
 
 ## Sources for the PE strategy section
 
