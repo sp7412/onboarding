@@ -151,6 +151,224 @@ Start with two agents on independent tasks before scaling up. Measure completed 
 hour, human context-switching time, integration conflicts, review defects, and cost—not the
 raw number of agents running.
 
+
+### From task to verified change: an agent operating contract
+
+The terminal/worktree setup above covers coordination. This section defines the contract each
+task follows, regardless of which coding agent or editor is used. Use it as a lightweight
+operating standard rather than another tool-specific checklist.
+
+#### 1. Define the task and its definition of done
+
+Before delegating, record:
+
+- **Outcome:** the observable behavior to add or repair, including what must not change.
+- **Scope:** repository, branch/worktree, files or subsystems in scope, and explicit exclusions.
+- **Acceptance criteria:** concrete assertions a reviewer can verify; include negative cases
+  and failure behavior where relevant.
+- **Verification plan:** exact test, lint, type-check, build, static-analysis, or manual checks
+  expected to run.
+- **Constraints:** supported runtime/library versions, compatibility requirements, security
+  boundaries, latency/resource budgets, and allowed dependencies.
+- **Stop conditions:** ambiguous requirements, missing credentials, destructive operations,
+  scope expansion, or failed checks that require human input.
+
+A useful task record is short and testable:
+
+```text
+Goal:
+In scope / out of scope:
+Acceptance criteria:
+Files or interfaces likely affected:
+Required checks:
+Constraints and prohibited actions:
+Stop and ask when:
+```
+
+**Definition of done:** acceptance criteria are mapped to evidence; required checks were run
+and their actual outcomes recorded; the final diff is reviewed for unrelated changes and
+secrets; documentation and compatibility notes are updated when needed; unresolved risks and
+skipped checks are disclosed; a human accepts the change. “The agent says it is done” is not
+a completion criterion.
+
+#### 2. Permission boundaries and trust zones
+
+Do not treat model instructions as a security control. Apply controls in the runtime, operating
+system, credentials, repository settings, and external service permissions.
+
+| Capability | Default posture | Elevate only when |
+|---|---|---|
+| Read repository files | Allow within the intended workspace | Data is restricted or outside the approved scope |
+| Search public documentation | Allow approved destinations | A request could expose private source, prompts, or identifiers |
+| Edit files | Restrict to the task worktree | The task explicitly needs broader files or generated artifacts |
+| Execute shell commands | Review or allowlist by risk; isolate untrusted code | Dependencies, scripts, or commands can alter the host or access secrets |
+| Network access | Deny or restrict by default in sensitive environments | The endpoint and data transfer are approved |
+| Credentials and secrets | Do not expose to model context or logs | A specific operation requires a narrowly scoped, short-lived credential |
+| Push, merge, release, deploy, or message externally | Require explicit authorization and appropriate human gate | The user and repository policy authorize that exact action |
+
+Treat issue text, pull-request comments, source files, test fixtures, retrieved web pages, and
+tool output as **untrusted data**. They may contain instructions that conflict with the task.
+The agent should quote or summarize such content as data, not obey it as higher-priority policy.
+Never paste secrets into prompts to “help” the model debug. Use secret scanners and least-
+privilege credentials, and inspect plugin/MCP scripts and network destinations before enabling
+them.
+
+For every integration, document four things: what it can read, what it can change, where data
+travels, and which actions require approval. Test the denied path as well as the happy path.
+
+#### 3. Context engineering: give the agent evidence, not a data dump
+
+Build a small context pack in this order:
+
+1. Task statement and acceptance criteria.
+2. Repository-specific instructions and relevant architecture/contracts.
+3. The narrow code path, tests, types, and configuration involved.
+4. Current failure evidence or a minimal reproducer.
+5. Versioned official documentation for APIs the task actually uses.
+6. Explicit constraints, exclusions, and required output.
+
+Ask the agent to identify missing context and state assumptions before making a broad change.
+Prefer file/line references and short excerpts over copying the whole repository into the
+prompt. Retrieve additional context when a hypothesis requires it; do not front-load unrelated
+documents. Keep a durable task record outside the model context so work can resume after a
+session reset. Do not put credentials, restricted data, or unnecessary customer information in
+the context pack.
+
+A useful test is whether a teammate can reconstruct the task from the record without reading
+the full chat transcript.
+
+#### 4. Parallel agents and Git worktrees: isolate, then integrate
+
+The existing rule remains: **one independently writable worktree per concurrent coding task**.
+Separate panes, sessions, or agent identities do not isolate file edits.
+
+Example for two independent tasks from the same repository:
+
+```bash
+git status --short
+git worktree add ../repo-task-a -b agent/task-a origin/main
+git worktree add ../repo-task-b -b agent/task-b origin/main
+git worktree list
+```
+
+Use the repository's actual remote/base branch; do not assume `origin/main` exists in every
+environment. Give each agent a distinct scope and acceptance criteria. Avoid assigning both
+agents the same files or shared generated outputs. Keep dependencies between tasks explicit:
+if task B needs task A's interface, either agree on the interface first or run them sequentially.
+
+Before integration, each worker must report its branch, changed files, tests run, test results,
+and unresolved assumptions. The integration owner then inspects each diff, resolves interface
+or merge conflicts, runs the combined tests, and checks for regressions that neither branch
+could expose independently. Remove a worktree only after its changes are safely integrated or
+deliberately discarded. Parallelism is successful when it reduces elapsed time without
+increasing rework, defects, or reviewer load.
+
+#### 5. Harness architecture and failure recovery
+
+Think of the harness as the control plane around the model. A minimal coding-agent harness has:
+
+- **Task/state store:** objective, owner, status, branch/worktree, budget, and checkpoints.
+- **Context builder:** approved repository instructions, selected files, relevant docs, and
+  reproducible failure evidence.
+- **Policy layer:** tool allowlists, filesystem/network boundaries, approval requirements,
+  and secret handling.
+- **Tool adapters:** shell, Git, test runner, documentation search, issue/PR system, and MCP.
+- **Verification layer:** deterministic tests, linters, type checks, diff checks, and policy
+  assertions independent of the model's self-report.
+- **Telemetry and recovery:** structured events, bounded retries, timeouts, cancellation,
+  checkpoints, and a human escalation path.
+
+Use a bounded state machine such as `queued → running → verifying → review → accepted`, with
+explicit `blocked`, `failed`, and `cancelled` states. A failed test must not silently become
+a pass after a retry. Retry only when the failure is plausibly transient, cap attempts, and
+record each attempt. Never retry a non-idempotent external action blindly. Before resuming an
+interrupted task, inspect Git status and diff, active processes, test artifacts, and external
+side effects; reconstruct state from durable records rather than assuming the last model turn
+completed atomically.
+
+Provide a safe stop path: cancel execution, preserve logs, inspect partial writes, revert only
+the task's unintended changes, and report the exact point where work stopped. Require human
+approval for destructive recovery or actions with external consequences.
+
+#### 6. Verify dependency and API assumptions
+
+Generated code frequently fails because examples target a different library or runtime version.
+Before using an API:
+
+1. Inspect the manifest and lockfile, runtime/toolchain versions, and repository compatibility
+   policy.
+2. Prefer official documentation or source for the installed version; distinguish stable,
+   preview, and deprecated APIs.
+3. Verify function signatures, return/error semantics, authentication, timeout behavior,
+   and async/concurrency requirements.
+4. Add or update a focused test that exercises the real contract, including an error path.
+5. Avoid adding a dependency when the existing stack already provides the capability; if one
+   is needed, assess maintenance, license, transitive dependencies, and security advisories.
+6. Regenerate lockfiles only with the project's intended package manager and explain material
+   dependency changes in the diff.
+
+If documentation and installed code disagree, report the mismatch and test the installed
+version. Do not “fix” a type error by weakening types, pinning an arbitrary version, or copying
+an example from a different major release without explaining the compatibility trade-off.
+
+#### 7. Observability and cost tracking
+
+Record enough information to reconstruct the task without storing secrets or unnecessary source
+content. A useful event schema includes:
+
+| Field | Purpose |
+|---|---|
+| `task_id`, `attempt_id`, `parent_task_id` | Correlate retries, subagents, and integration work |
+| `agent`, `model`, `model_version`, `skill_version` | Attribute behavior to the execution configuration |
+| `repo_revision`, `branch`, `worktree` | Reproduce the starting state and locate the diff |
+| `event_type`, `timestamp`, `duration_ms` | Reconstruct sequence, waits, and latency |
+| `tool_name`, `sanitized_args_summary`, `exit_code` | Understand tool use without logging credentials or full sensitive payloads |
+| `test_name`, `result`, `failure_category` | Distinguish verification from the agent's narrative |
+| `input_tokens`, `output_tokens`, `tool_calls`, `estimated_cost` | Track consumption and identify runaway loops |
+| `changed_files`, `review_findings`, `final_disposition` | Connect activity to the delivered engineering result |
+
+Capture structured events rather than relying on a final free-form summary. Redact tokens,
+credentials, personal data, and sensitive source snippets at collection time; define access,
+retention, and deletion policies. Do not treat estimated model cost as a complete cost metric:
+include tool/runtime usage and human review or rework when measurable.
+
+Track cost and outcomes together: task success, time to accepted change, regression rate,
+reviewer correction time, retry/loop rate, and cost per accepted task. A cheaper run that
+creates more review burden may be more expensive end to end.
+
+#### 8. Benchmark coding agents with controlled tasks
+
+Build a small, version-controlled benchmark from real, sanitized repository tasks. Include
+bug fixes, feature changes, refactors, test failures, dependency/API changes, and code review.
+Each task needs a fixed starting commit, task prompt, acceptance tests, allowed tools, time/cost
+budget, and scoring rubric. Use synthetic or public-safe data.
+
+**Protocol**
+
+1. Freeze the task set and starting revisions; record model, agent, harness, skill, and
+   dependency versions.
+2. Run each candidate from a clean worktree with the same tools and equivalent budgets.
+3. Repeat stochastic tasks where feasible; do not compare one lucky run against one failure.
+4. Evaluate outputs with deterministic tests and blinded human review where judgment is needed.
+5. Separate development/tuning tasks from a held-out set to reduce benchmark overfitting.
+6. Report failures, timeouts, tool errors, and skipped tasks; do not drop unsuccessful runs.
+7. Re-run the baseline when prompts, models, skills, harness, or dependencies change.
+
+| Metric | Definition |
+|---|---|
+| Acceptance pass rate | Fraction of tasks meeting all mandatory criteria |
+| Regression rate | Fraction introducing failures in previously passing checks |
+| Review defect density | Confirmed actionable defects per change or changed-line band |
+| Time to accepted change | Wall-clock time through verification and human acceptance |
+| Human correction/rework | Reviewer and author effort needed after agent completion |
+| Cost per accepted task | Total measured model/tool cost divided by accepted tasks |
+| Reliability | Run-to-run variance, timeout rate, and incomplete-task rate |
+| Safety violations | Unauthorized tool use, secret exposure, or bypassed approval gates |
+
+Do not collapse everything into a single score without retaining the underlying metrics. Treat
+security and correctness requirements as hard gates, not benefits that can be averaged away by
+speed. A benchmark is a decision aid, not proof that an agent is safe for every repository.
+
 ## Knowledge management and personal information systems
 
 A knowledge tool is useful only if notes remain findable and can be reused. Choose the
