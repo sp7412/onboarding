@@ -2,6 +2,17 @@
 
 ## 2026-10-16
 
+### TTAN annual VWAP proxy and raw-price charts
+
+- Replaced the stale selected-date stock chart with a one-year monthly close/volume-weighted proxy and a two-week daily inset.
+- Added a separate raw closing-price plot with its own two-week daily inset and stable direct links.
+- Explicitly documented that monthly close/volume checkpoints are a long-range proxy, not true daily or intraday VWAP.
+
+### Self-licking ice cream cone: organizational incentives and AI delivery
+
+- Added a source-grounded history of the phrase, a refined NotebookLM prompt, a two-host script, and a neutral AI product-team diagnostic.
+- Kept contemporary examples illustrative and distinguished historical claims from the original author's interpretation.
+
 ### Evidence-first debugging with coding agents
 
 - Added a practical guide to controls, high-fidelity signals, competing hypotheses,
