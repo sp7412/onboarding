@@ -34,6 +34,49 @@ def build_rows(history, complete_through: date, display_start: str) -> list[dict
     return [row for row in all_rows if row["date"] >= display_start]
 
 
+def build_quarterly_rows(history, complete_through: date) -> list[dict]:
+    """Calculate fiscal-quarter volume-weighted averages of daily closes."""
+    quarters: dict[str, dict] = {}
+    for session, bar in history.iterrows():
+        session_date = session.date()
+        if session_date > complete_through:
+            continue
+        close, volume = float(bar["Close"]), float(bar["Volume"])
+        if not math.isfinite(close) or not math.isfinite(volume) or volume <= 0:
+            continue
+        month = session_date.month
+        quarter = 4 if month in (11, 12, 1) else (month - 1 + 2) // 3
+        fiscal_year = session_date.year if month == 1 else session_date.year + 1
+        label = f"FY{fiscal_year % 100:02d} Q{quarter}"
+        item = quarters.setdefault(label, {
+            "label": label,
+            "quarter": quarter,
+            "firstDate": session_date.isoformat(),
+            "lastDate": session_date.isoformat(),
+            "sessions": 0,
+            "volume": 0,
+            "weightedClose": 0.0,
+        })
+        item["firstDate"] = min(item["firstDate"], session_date.isoformat())
+        item["lastDate"] = max(item["lastDate"], session_date.isoformat())
+        item["sessions"] += 1
+        item["volume"] += int(volume)
+        item["weightedClose"] += close * volume
+
+    return [
+        {
+            "label": item["label"],
+            "quarter": item["quarter"],
+            "firstDate": item["firstDate"],
+            "lastDate": item["lastDate"],
+            "sessions": item["sessions"],
+            "volume": item["volume"],
+            "volumeWeightedClose": round(item["weightedClose"] / item["volume"], 4),
+        }
+        for item in sorted(quarters.values(), key=lambda q: q["firstDate"])
+    ]
+
+
 def fetch(days: int = 370) -> dict:
     import yfinance as yf
 
@@ -66,11 +109,12 @@ def fetch(days: int = 370) -> dict:
     return {
         "symbol": "TTAN",
         "feed": "yahoo-daily",
-        "method": "Daily closing prices and volumes. RollingCloseVwap is a 63-session volume-weighted average of daily closes; it is a proxy, not trade VWAP.",
+        "method": "Daily closing prices and volumes. quarterlyClosingVwap is each fiscal quarter's volume-weighted average of daily closing prices; this matches the published FY26 executive-grant wording but is not trade-level VWAP. rollingCloseVwap is a 63-session close-based reference series.",
         "generatedAt": now.isoformat(),
         "firstDate": rows[0]["date"],
         "lastDate": rows[-1]["date"],
         "sessions": len(rows),
+        "quarterlyClosingVwap": build_quarterly_rows(history, complete_through),
         "data": rows,
     }
 

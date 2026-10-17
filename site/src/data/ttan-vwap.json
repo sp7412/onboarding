@@ -1,11 +1,85 @@
 {
   "symbol": "TTAN",
   "feed": "yahoo-daily",
-  "method": "Daily closing prices and volumes. RollingCloseVwap is a 63-session volume-weighted average of daily closes; it is a proxy, not trade VWAP.",
-  "generatedAt": "2026-10-17T03:27:06.139953+00:00",
+  "method": "Daily closing prices and volumes. quarterlyClosingVwap is each fiscal quarter's volume-weighted average of daily closing prices; this matches the published FY26 executive-grant wording but is not trade-level VWAP. rollingCloseVwap is a 63-session close-based reference series.",
+  "generatedAt": "2026-10-17T04:03:09.054694+00:00",
   "firstDate": "2025-10-13",
   "lastDate": "2026-10-16",
   "sessions": 255,
+  "quarterlyClosingVwap": [
+    {
+      "label": "FY25 Q4",
+      "quarter": 4,
+      "firstDate": "2024-12-12",
+      "lastDate": "2025-01-31",
+      "sessions": 33,
+      "volume": 16415200,
+      "volumeWeightedClose": 101.7064
+    },
+    {
+      "label": "FY26 Q1",
+      "quarter": 1,
+      "firstDate": "2025-02-03",
+      "lastDate": "2025-04-30",
+      "sessions": 61,
+      "volume": 25327100,
+      "volumeWeightedClose": 99.2678
+    },
+    {
+      "label": "FY26 Q2",
+      "quarter": 2,
+      "firstDate": "2025-05-01",
+      "lastDate": "2025-07-31",
+      "sessions": 63,
+      "volume": 73444500,
+      "volumeWeightedClose": 109.3753
+    },
+    {
+      "label": "FY26 Q3",
+      "quarter": 3,
+      "firstDate": "2025-08-01",
+      "lastDate": "2025-10-31",
+      "sessions": 65,
+      "volume": 70716600,
+      "volumeWeightedClose": 107.3403
+    },
+    {
+      "label": "FY26 Q4",
+      "quarter": 4,
+      "firstDate": "2025-11-03",
+      "lastDate": "2026-01-30",
+      "sessions": 61,
+      "volume": 62360100,
+      "volumeWeightedClose": 97.3068
+    },
+    {
+      "label": "FY27 Q1",
+      "quarter": 1,
+      "firstDate": "2026-02-02",
+      "lastDate": "2026-04-30",
+      "sessions": 62,
+      "volume": 88879400,
+      "volumeWeightedClose": 66.4547
+    },
+    {
+      "label": "FY27 Q2",
+      "quarter": 2,
+      "firstDate": "2026-05-01",
+      "lastDate": "2026-07-31",
+      "sessions": 63,
+      "volume": 102398200,
+      "volumeWeightedClose": 70.7881
+    },
+    {
+      "label": "FY27 Q3",
+      "quarter": 3,
+      "firstDate": "2026-08-03",
+      "lastDate": "2026-10-16",
+      "sessions": 54,
+      "volume": 136004400,
+      "volumeWeightedClose": 67.8657
+    }
+  ],
   "data": [
     {
       "date": "2025-10-13",
