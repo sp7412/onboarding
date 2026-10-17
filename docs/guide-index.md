@@ -51,6 +51,7 @@ A topic-first map of the onboarding material. Use the **learning path** when you
 - [Senior engineer judgment track](../senior-engineer/README.md) — scenario exercises on architecture, incidents, latency, and autonomy.
 - [Solutions](../labs/solutions/) — consult after attempting each exercise.
 - [Podcast prompts](podcast-prompts.md) — NotebookLM episode prompts for technical topics and company context.
+- [Self-licking ice cream cone](self-licking-ice-cream-cone.md) — sourced history, refined NotebookLM prompt, full two-host script, and an AI-product-team diagnostic.
 
 ## First 90 days and working notes
 
