@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-10-17
+
+### TTAN true daily VWAP
+
+- Replaced monthly close/volume VWAP proxy with a one-minute-bar aggregation pipeline and a rolling 63-session VWAP.
+- Added daily VWAP and raw closing-price charts with a ten-session inset and stable plot anchors.
+- Added Alpaca IEX/SIP configuration instructions, feed-coverage caveats, and unit tests.
+
 ## 2026-10-16
 
 ### Coding-agent engineering practices
