@@ -416,6 +416,7 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [Slack workspace data export](https://slack.com/help/articles/201658943-Export-your-workspace-data) | Official help documentation | Developer tools catalog |
 | [Slack `conversations.replies` API](https://docs.slack.dev/reference/methods/conversations.replies/) | Official API documentation | Developer tools catalog |
 | [Slack MCP server guide](https://slack.com/help/articles/48855576908307-Guide-to-the-Slack-MCP-server) | Official help documentation | Developer tools catalog |
+| [Model Context Protocol overview](https://modelcontextprotocol.io/introduction) | Official protocol documentation | MCP retrieval vs. custom RAG explanation |
 | [Granola](https://www.granola.ai/) | Product website | Developer tools catalog |
 | [Otter](https://otter.ai/) | Product website | Developer tools catalog |
 | [Fireflies](https://fireflies.ai/) | Product website | Developer tools catalog |
