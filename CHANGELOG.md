@@ -2,6 +2,18 @@
 
 ## 2026-10-16
 
+### Knowledge management, Mac productivity, and AI integrations
+
+- Expanded the developer-tools catalog with Obsidian, DEVONthink, Apple Notes, Notion,
+  Readwise Reader, and NotebookLM; distinguished personal notes, document archives,
+  shared team knowledge, and source-grounded research.
+- Added Raycast, Alfred, Keyboard Maestro, BetterTouchTool, and Rectangle as task-oriented
+  Mac productivity options, including clipboard/privacy and automation guardrails.
+- Documented how MCP connects knowledge stores and applications to Claude Desktop and
+  Cursor, with links to official client docs and community Obsidian plugins.
+- Added a capture → curate → retrieve → act → review workflow and guidance to start with
+  read-only permissions and verify data flows before granting write access.
+
 ### Developer workstation tools catalog
 ### Multi-agent workstation tools
 
