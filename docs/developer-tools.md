@@ -550,3 +550,74 @@ categories include:
 For each new entry, capture: problem solved, supported platforms, install method, price and
 license, local/cloud data path, keyboard workflow, maintenance status, and one concrete
 reason to use it. Treat vendor claims as claims until verified with a small hands-on test.
+
+
+## Agent skills, MCP servers, and plugins
+
+These are different layers. Keep the distinction explicit when evaluating or teaching an
+AI-assisted development setup:
+
+- **Skill:** reusable instructions, examples, and optionally scripts that teach an agent
+  how to perform a workflow. A skill should state when to use it, required inputs,
+  procedure, verification, and stop conditions.
+- **MCP server:** a protocol-level integration that exposes tools, resources, or prompts
+  to a compatible client. It supplies capabilities; it does not guarantee that an agent
+  will use them correctly.
+- **Plugin/extension:** a product-specific package that can bundle skills, commands,
+  hooks, MCP configuration, or other integrations. Names and packaging differ by host.
+- **Agent:** the runtime that reasons, selects tools, applies instructions, and proposes
+  changes. The harness and human review still own permissions and acceptance.
+
+### Skills worth evaluating
+
+| Skill or project | Use case | Adoption guidance |
+|---|---|---|
+| [OpenCode skills](https://opencode.ai/docs/skills) | Discover reusable `SKILL.md` instructions in a coding workflow | Good starting point for the repo's CLI-first path; check current discovery paths and frontmatter requirements |
+| [Agent Skills specification](https://agentskills.io/) | Share skills across compatible agent products | Prefer portable instructions and explicit tool assumptions; test behavior in each host rather than assuming identical support |
+| [Superpowers](https://github.com/obra/superpowers) | Structured development workflow: clarify requirements, plan, test-driven development, debugging, and review | Evaluate the actual skill/plugin version and host support; adopt only workflows that improve measured outcomes |
+| Team-owned skills in `.agents/skills/` | Encode repo-specific test, review, debugging, and PR procedures | Version-control them with the project; keep secrets out, scope them narrowly, and require commands/tests to be independently verified |
+
+The repository includes starter examples under `.agents/skills/`. They are teaching artifacts,
+not privileged automation: read them, adapt their commands to the project, and verify every
+result. Skills should not silently bypass approval gates or claim that tests passed without
+running them.
+
+### MCP servers and plugins worth evaluating
+
+| Integration | Why it is useful | Guardrail |
+|---|---|---|
+| [GitHub MCP Server](https://github.com/github/github-mcp-server) | Issues, pull requests, repository context, and review workflows through MCP | Start with least-privilege/read-only access where possible; separate review from write/merge authority |
+| [Context7](https://github.com/upstash/context7) | Retrieve library documentation relevant to a framework or package | Pin or identify library versions; check retrieved content against official docs and lockfiles |
+| [MCP Inspector](https://github.com/modelcontextprotocol/inspector) | Inspect and debug MCP server capabilities and exchanges | Use a non-sensitive test environment and test unauthorized and malformed requests |
+| [Claude Code plugins](https://docs.anthropic.com/en/docs/claude-code/plugins) | Example of a product-specific package for commands, skills, hooks, and integrations | Do not assume a Claude Code plugin installs or behaves identically in OpenCode, Cursor, or VS Code |
+| [Cursor plugins](https://docs.cursor.com/plugins) | Product-specific packaging for Cursor workflows | Review permissions, scripts, remote endpoints, and version/update behavior before enabling |
+
+Links and feature names can change quickly; verify the current official documentation before
+installing. A marketplace listing is not a security audit.
+
+### Four starter skills in this repository
+
+The sample skills are intentionally agent-agnostic and require the agent to report evidence,
+not just conclusions:
+
+1. **Code review:** identify correctness, regression, security, and maintainability risks;
+   cite exact changed lines and distinguish confirmed defects from questions.
+2. **Evidence-first debugging:** state competing hypotheses, gather discriminating evidence,
+   and avoid editing code until the failure mechanism is sufficiently supported.
+3. **Test and evaluate:** map acceptance criteria to deterministic tests, run the relevant
+   checks, and report failures, skipped checks, and environmental limits.
+4. **PR preparation:** inspect the diff, summarize behavior and risk, verify tests, and leave
+   merging/deployment as a separate authorized decision.
+
+### Safe evaluation checklist
+
+Before enabling any skill, plugin, or MCP server:
+
+- Inspect its source, scripts, dependencies, update mechanism, and network destinations.
+- Record which files, shell commands, credentials, and external systems it can access.
+- Start with read-only and least-privilege access; require approval for writes, releases,
+  external messages, and destructive actions.
+- Test prompt-injection resistance using untrusted repository text and tool output.
+- Run it on a disposable branch or fixture repository before using production code.
+- Measure task success, regression rate, review findings, tool failures, and cost.
+- Keep a human-owned verification gate; never treat the agent's self-reported success as proof.
