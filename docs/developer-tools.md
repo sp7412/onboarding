@@ -151,6 +151,85 @@ Start with two agents on independent tasks before scaling up. Measure completed 
 hour, human context-switching time, integration conflicts, review defects, and cost—not the
 raw number of agents running.
 
+## Knowledge management and personal information systems
+
+A knowledge tool is useful only if notes remain findable and can be reused. Choose the
+system of record first; add AI access as a separate integration layer. Avoid scattering
+the same canonical information across several competing stores.
+
+| Tool | Best fit | Strengths | Trade-offs and checks |
+|---|---|---|---|
+| [Obsidian](https://obsidian.md/) | Personal technical knowledge base | Local Markdown vault, links/backlinks, graph, community plugins, portable files | Plugins can add maintenance and permissions risk; choose a sync and backup strategy deliberately |
+| [DEVONthink](https://www.devontechnologies.com/) | Mac document archive and research library | Strong document organization and search across accumulated references | Mac-centric and more document-library-oriented than a plain-Markdown vault; evaluate export and automation needs |
+| [Apple Notes](https://www.apple.com/ios/notes/) | Fast, low-friction capture | Built in to Apple platforms; convenient for short notes, scans, and checklists | Less suitable as a version-controlled, agent-facing technical knowledge repository |
+| [Notion](https://www.notion.com/) | Shared team wiki and structured workspace | Pages, databases, project documentation, and collaboration | Cloud workspace; distinguish team-authoritative content from personal notes and check access controls |
+| [Readwise Reader](https://readwise.io/read) | Reading inbox and highlight collection | Collects web articles and reading material and supports highlight workflows | It complements rather than replaces a canonical project wiki or source repository |
+| [NotebookLM](https://notebooklm.google.com/) | Source-grounded exploration of a selected corpus | Useful for asking questions of supplied sources and generating audio overviews | Treat outputs as a research aid; verify claims against the cited source material |
+
+**Suggested default:** keep durable technical notes in a well-backed-up Markdown vault or
+team repository; keep team decisions and project status in the team's approved systems;
+keep transient capture lightweight. Store secrets and restricted company material only in
+approved locations.
+
+### Make knowledge available to Claude Desktop and Cursor
+
+Model Context Protocol (MCP) is one way to expose a knowledge store or application to an
+AI client. It is an integration protocol, not a knowledge base in itself.
+
+- [Obsidian MCP Connector](https://community.obsidian.md/plugins/mcp-tools-istefox) is a
+  community plugin that documents vault search, file operations, and connections to
+  Claude Desktop, Cursor, and other MCP clients. Confirm the current plugin source,
+  permissions, and release activity before installing.
+- [Obsidian MCP Server](https://community.obsidian.md/plugins/mcp-server) is another
+  community-plugin option. Compare its capabilities and setup instructions rather than
+  assuming all plugins named “MCP” provide the same tools or transport.
+- [Claude Desktop local MCP setup](https://support.claude.com/en/articles/10949351-getting-started-with-local-mcp-servers-on-claude-desktop)
+  documents local MCP servers and desktop extensions, including a simpler extension-based
+  installation path for supported servers.
+- [Cursor MCP documentation](https://prod.cursor.com/docs/mcp) covers local and remote
+  MCP servers, project-level `.cursor/mcp.json`, global configuration, and tool approvals.
+  Cursor also supports reusable plugins, rules, skills, subagents, commands, and hooks
+  ([plugin documentation](https://prod.cursor.com/docs/plugins)).
+
+Before connecting an agent, answer four questions: what can it read, what can it modify,
+where does data travel, and which actions require approval? Prefer read-only access for
+search and retrieval. Keep write, shell, external-message, and destructive tools disabled
+until their need and approval boundary are explicit. Do not point consumer AI clients at
+sensitive work notes or repositories unless that use is approved.
+
+## Mac productivity and workflow automation
+
+These utilities reduce the small interruptions that accumulate during engineering work.
+Choose by task instead of installing overlapping tools that all try to own the same shortcut.
+
+| Tool | Best fit | Useful capabilities | Evaluation notes |
+|---|---|---|---|
+| [Raycast](https://www.raycast.com/) | Keyboard-first launcher and command surface | App/file search, snippets, clipboard history, quicklinks, extensions, window controls, and optional AI workflows | Many features are free; some AI and retention capabilities are paid. Review extension permissions and clipboard exclusions |
+| [Alfred](https://www.alfredapp.com/) | Launcher and custom workflows | Fast search, snippets, hotkeys, and extensible workflows | Some advanced workflows require the Powerpack; compare with Raycast rather than running both by default |
+| [Keyboard Maestro](https://www.keyboardmaestro.com/main/) | Multi-step Mac automation | Triggered macros across applications, keyboard shortcuts, text actions, and repeatable procedures | Powerful automation can act in the wrong window or context; include explicit guards and test destructive actions |
+| [BetterTouchTool](https://folivora.ai/) | Custom input and window actions | Trackpad, keyboard, mouse, and window-management customization | Overlaps with other automation tools; evaluate whether it solves a specific ergonomic problem |
+| [Rectangle](https://rectangleapp.com/) | Window layout | Keyboard-driven window snapping and placement | Simple, focused alternative when full workflow automation is unnecessary |
+
+Raycast's official documentation describes clipboard history, snippets, extensions, and AI
+extensions that can invoke actions from installed tools. See its
+[extensions guide](https://manual.raycast.com/extensions) and
+[clipboard history guide](https://manual.raycast.com/clipboard-history). Clipboard tools
+can capture credentials and confidential text, so configure exclusions and retention before
+enabling them on a work machine.
+
+### Integration patterns worth testing
+
+1. **Capture:** use a launcher, dictation, or quick note to capture an idea without changing
+   context.
+2. **Curate:** move durable knowledge into the chosen vault or repository with source,
+   date, project, and status.
+3. **Retrieve:** connect a compatible AI client through a narrowly scoped integration such
+   as MCP; start with search/read access.
+4. **Act:** expose write or automation tools only when the workflow requires them, with
+   explicit approval and an audit trail where possible.
+5. **Review:** periodically remove stale notes, broken links, unused integrations, and
+   plugins that no longer need access.
+
 ## How to choose a dictation tool
 
 1. **Shortcut ergonomics:** can you hold one key, speak, release, and continue typing
