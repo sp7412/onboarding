@@ -91,6 +91,7 @@ export interface DocPage {
 export const DOC_PAGES: DocPage[] = [
   { repoPath: "docs/guide-index.md", icon: "reading" },
   { repoPath: "docs/evidence-first-debugging.md", icon: "reading" },
+  { repoPath: "docs/developer-tools.md", icon: "notes" },
   { repoPath: "docs/jev-call-intent-classification.md", icon: "architecture" },
   { repoPath: "docs/realtime-voice-agent-evaluation.md", icon: "evaluation" },
   { repoPath: "docs/servicetitan-101.md", icon: "reading" },
