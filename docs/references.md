@@ -395,6 +395,22 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [Wispr Flow](https://wisprflow.ai/) | Product website | Developer tools catalog |
 | [Superwhisper](https://superwhisper.com/) | Product website | Developer tools catalog |
 
+| [Obsidian](https://obsidian.md/) | Product website | Developer tools catalog |
+| [DEVONthink](https://www.devontechnologies.com/) | Product website | Developer tools catalog |
+| [Apple Notes](https://www.apple.com/ios/notes/) | Product website | Developer tools catalog |
+| [Notion](https://www.notion.com/) | Product website | Developer tools catalog |
+| [Readwise Reader](https://readwise.io/read) | Product website | Developer tools catalog |
+| [NotebookLM](https://notebooklm.google.com/) | Product website | Developer tools catalog |
+| [Obsidian MCP Connector](https://community.obsidian.md/plugins/mcp-tools-istefox) | Community plugin listing | Developer tools catalog |
+| [Obsidian MCP Server](https://community.obsidian.md/plugins/mcp-server) | Community plugin listing | Developer tools catalog |
+| [Claude Desktop local MCP setup](https://support.claude.com/en/articles/10949351-getting-started-with-local-mcp-servers-on-claude-desktop) | Official documentation | Developer tools catalog |
+| [Cursor MCP documentation](https://prod.cursor.com/docs/mcp) and [plugins documentation](https://prod.cursor.com/docs/plugins) | Official documentation | Developer tools catalog |
+| [Raycast](https://www.raycast.com/) and [extensions manual](https://manual.raycast.com/extensions) | Product website and documentation | Developer tools catalog |
+| [Alfred](https://www.alfredapp.com/) | Product website | Developer tools catalog |
+| [Keyboard Maestro](https://www.keyboardmaestro.com/main/) | Product website | Developer tools catalog |
+| [BetterTouchTool](https://folivora.ai/) | Product website | Developer tools catalog |
+| [Rectangle](https://rectangleapp.com/) | Product website | Developer tools catalog |
+
 ## Multi-agent workstation and session tools
 
 | Source | Type | Cited in |
