@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Fetch TTAN one-minute bars and calculate daily and rolling VWAP.
 
-Requires ALPACA_API_KEY and ALPACA_SECRET_KEY. The default SIP feed is queried as historical data ending at least 20 minutes
-before the current time. Set ALPACA_DATA_FEED=iex only if SIP access is denied;
+Requires ALPACA_API_KEY and ALPACA_SECRET_KEY. The default SIP feed is queried as
+historical data ending at least 20 minutes before the current time. Set
+ALPACA_DATA_FEED=iex only if SIP access is denied;
 IEX represents one exchange, not the consolidated US market.
 """
 from __future__ import annotations
@@ -31,7 +32,10 @@ def aggregate_bars(bars: list[dict], rolling_sessions: int = 63) -> list[dict]:
     for bar in sorted(bars, key=lambda item: item["t"]):
         timestamp = datetime.fromisoformat(bar["t"].replace("Z", "+00:00"))
         local_time = timestamp.astimezone(ET)
-        if (local_time.hour, local_time.minute) < (9, 30) or (local_time.hour, local_time.minute) >= (16, 0):
+        outside_session = (local_time.hour, local_time.minute) < (9, 30) or (
+            local_time.hour, local_time.minute
+        ) >= (16, 0)
+        if outside_session:
             continue
         session_date = local_time.date().isoformat()
         volume = float(bar.get("v") or 0)
@@ -70,7 +74,9 @@ def aggregate_bars(bars: list[dict], rolling_sessions: int = 63) -> list[dict]:
     return rows
 
 
-def fetch_bars(api_key: str, secret_key: str, feed: str, start: date, end: str) -> list[dict]:
+def fetch_bars(
+    api_key: str, secret_key: str, feed: str, start: date, end: str
+) -> list[dict]:
     """Fetch every page of one-minute bars for the requested interval."""
     bars: list[dict] = []
     page_token = None
@@ -100,7 +106,9 @@ def fetch_bars(api_key: str, secret_key: str, feed: str, start: date, end: str) 
                 payload = json.load(response)
         except HTTPError as exc:
             detail = exc.read().decode("utf-8", errors="replace")[:500]
-            raise RuntimeError(f"Alpaca API returned HTTP {exc.code}: {detail}") from exc
+            raise RuntimeError(
+                f"Alpaca API returned HTTP {exc.code}: {detail}"
+            ) from exc
         except URLError as exc:
             raise RuntimeError(f"Could not reach Alpaca API: {exc.reason}") from exc
         bars.extend(payload.get("bars", []))
@@ -112,7 +120,10 @@ def fetch_bars(api_key: str, secret_key: str, feed: str, start: date, end: str) 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--days", type=int, default=370, help="Calendar-day chart window to output")
+    parser.add_argument(
+        "--days", type=int, default=370,
+        help="Calendar-day chart window to output",
+    )
     parser.add_argument(
         "--output", type=Path, default=Path("site/src/data/ttan-vwap.json"),
         help="Output JSON consumed by the Astro chart",
@@ -129,21 +140,32 @@ def main() -> int:
         print("ALPACA_API_KEY and ALPACA_SECRET_KEY are required.", file=sys.stderr)
         return 2
     if args.days < 95:
-        parser.error("--days must be at least 95 to calculate a three-month rolling window")
+        parser.error(
+            "--days must be at least 95 to calculate a three-month rolling window"
+        )
 
     now_et = datetime.now(ET)
     today = now_et.date()
     # SIP historical requests are ended 20 minutes in the past. Do not plot a
     # partial current session when the workflow is manually run before close.
-    end = (datetime.now(timezone.utc) - timedelta(minutes=20)).isoformat(timespec="seconds").replace("+00:00", "Z")
-    complete_through = today if now_et.time() >= dt_time(16, 15) else today - timedelta(days=1)
+    end = (
+        (datetime.now(timezone.utc) - timedelta(minutes=20))
+        .isoformat(timespec="seconds")
+        .replace("+00:00", "Z")
+    )
+    complete_through = (
+        today if now_et.time() >= dt_time(16, 15) else today - timedelta(days=1)
+    )
     # Fetch a 100-calendar-day warm-up so the first displayed point has a full
     # 63-session rolling window, then trim the output to the requested chart span.
     fetch_start = today - timedelta(days=args.days + 100)
     display_start = today - timedelta(days=args.days)
     bars = fetch_bars(api_key, secret_key, args.feed, fetch_start, end)
     all_rows = aggregate_bars(bars)
-    rows = [row for row in all_rows if display_start.isoformat() <= row["date"] <= complete_through.isoformat()]
+    rows = [
+        row for row in all_rows
+        if display_start.isoformat() <= row["date"] <= complete_through.isoformat()
+    ]
     if len(rows) < 65:
         raise RuntimeError(
             f"Only {len(rows)} sessions returned; expected at least 65. "
