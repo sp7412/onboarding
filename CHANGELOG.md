@@ -3,6 +3,12 @@
 ## 2026-10-16
 
 ### Developer workstation tools catalog
+### Multi-agent workstation tools
+
+- Expanded the developer-tools catalog with WezTerm, tmux, cmux, ccmux, Zellij, Grok CLI, AnythingLLM, and Grok Bot.
+- Distinguished terminal multiplexing from coding-agent orchestration and persistent cloud-agent delegation.
+- Added a parallel-agent operating model covering git worktree isolation, task ownership, status visibility, review gates, and cost/safety controls.
+
 
 - Added a curated developer-tools page, starting with MacParakeet, OpenWispr, Apple Dictation, OpenWhispr, Wispr Flow, and Superwhisper.
 - Compared hotkey ergonomics, local/cloud processing, platform support, licensing, and workflows; included a repeatable dictation evaluation checklist and a roadmap for future tool categories.
