@@ -19,6 +19,7 @@ these change faster than the rest of this guide.
 | No-install fallback | [Apple Dictation](https://support.apple.com/guide/mac-help/dictate-messages-and-documents-mh40584/mac) | Built into macOS; try it before adding another background app |
 | Cross-platform local/cloud voice workflows | [OpenWhispr](https://github.com/openwhispr/openwhispr) | Open-source desktop dictation and transcription with local model choices, including Parakeet and Whisper |
 | Polished commercial dictation | [Wispr Flow](https://wisprflow.ai/) | A managed option if its editing workflow is worth the subscription and cloud-processing trade-off |
+| Desktop LLM workspace with knowledge and tool integrations | [AnythingLLM](https://anythingllm.com/) | Run workspace-based chats with configurable models, documents/knowledge, agent tools, and custom tools/MCP integrations; it is not a dashboard for arbitrary terminal coding-agent sessions |
 
 ## Command-line toolkit for AI-assisted software engineering
 
