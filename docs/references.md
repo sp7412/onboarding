@@ -407,3 +407,6 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [Grok CLI](https://github.com/superagent-ai/grok-cli) | Source repository | Developer tools catalog |
 | [AnythingLLM agent documentation](https://docs.anythingllm.com/agent/setup) | Official documentation | Developer tools catalog |
 | [Grok Bot documentation](https://docs.x.ai/grok-bot/overview) | Official documentation | Developer tools catalog |
+| [Agentdesktop](https://github.com/agentdesktop-dev/agentdesktop) | Source repository | Developer tools catalog |
+| [Agents in a Box](https://github.com/stevengonsalvez/agents-in-a-box) | Source repository | Developer tools catalog |
+| [TermSnap](https://github.com/Dannykkh/TermSnap-releases) | Source repository | Developer tools catalog |
