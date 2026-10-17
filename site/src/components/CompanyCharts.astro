@@ -35,7 +35,7 @@ const [vwapMin, vwapMax] = getRange(dailyPrices.map((p) => p.rollingCloseVwap), 
 const [priceMin, priceMax] = getRange(dailyPrices.map((p) => p.close), 50, 125);
 const vwapLine = dailyPrices.map((p, i) => annualX(i, dailyPrices.length) + "," + annualY(p.rollingCloseVwap, vwapMin, vwapMax)).join(" ");
 const priceLine = dailyPrices.map((p, i) => annualX(i, dailyPrices.length) + "," + annualY(p.close, priceMin, priceMax)).join(" ");
-const inset = { left: 494, top: 40, right: 724, bottom: 143 };
+const inset = { left: 494, top: 278, right: 724, bottom: 352 };
 const insetX = (i: number) => recentPrices.length <= 1 ? 609 :
   inset.left + i * ((inset.right - inset.left) / (recentPrices.length - 1));
 const insetValues = recentPrices.flatMap((p) => [p.close, p.rollingCloseVwap]);
@@ -95,7 +95,7 @@ const latestDateLabel = latest ? latest.date : "No daily data loaded";
   <article id="ttan-vwap-year" class="chart-card stock-card" aria-labelledby="vwap-title">
     <div class="chart-heading">
       <div>
-        <h3 id="vwap-title">TTAN 63-session rolling close×volume proxy · one year</h3>
+        <h3 id="vwap-title">TTAN 63-session rolling VWAP proxy · one year</h3>
         <p class="chart-subtitle">Daily close × daily volume · USD per share</p>
       </div>
       <div class="metric metric-muted">
@@ -104,8 +104,8 @@ const latestDateLabel = latest ? latest.date : "No daily data loaded";
       </div>
     </div>
     <figure>
-      <svg class="chart" viewBox="0 0 760 270" role="img" aria-labelledby="vwap-svg-title vwap-svg-desc">
-        <title id="vwap-svg-title">TTAN daily close and 63-session rolling close-volume proxy</title>
+      <svg class="chart" viewBox="0 0 760 390" role="img" aria-labelledby="vwap-svg-title vwap-svg-desc">
+        <title id="vwap-svg-title">TTAN daily close and 63-session rolling VWAP proxy</title>
         <desc id="vwap-svg-desc">Daily closing prices and their 63-session volume-weighted closing-price proxy across one year; the inset shows the last ten trading sessions.</desc>
         {[vwapMin, (vwapMin + vwapMax) / 2, vwapMax].map((tick) => (
           <g>
@@ -119,7 +119,7 @@ const latestDateLabel = latest ? latest.date : "No daily data loaded";
         ))}
         {dailyPrices.length === 0 && <text x="380" y="125" text-anchor="middle" class="empty-state">No daily price data available</text>}
         <rect x={inset.left - 7} y={inset.top - 20} width={inset.right - inset.left + 14} height={inset.bottom - inset.top + 34} rx="7" class="inset-frame" />
-        <text x={inset.left} y={inset.top - 7} class="inset-title">LAST 2 WEEKS · DAILY CLOSE</text>
+        <text x={inset.left} y={inset.top - 7} class="inset-title">LAST 2 WEEKS · CLOSE + VWAP PROXY</text>
         {[insetMin, (insetMin + insetMax) / 2, insetMax].map((tick) => (
           <g>
             <line x1={inset.left} x2={inset.right} y1={insetY(tick)} y2={insetY(tick)} class="gridline" />
@@ -133,7 +133,7 @@ const latestDateLabel = latest ? latest.date : "No daily data loaded";
         <text x={inset.right - 4} y={inset.bottom + 13} text-anchor="end" class="inset-axis">{latestDateLabel}</text>
         <line x1={annualPlot.left} x2={annualPlot.right} y1={annualPlot.bottom} y2={annualPlot.bottom} class="baseline" />
       </svg>
-      <div class="chart-legend"><span><i class="legend-vwap"></i> 63-session close×volume proxy</span><span><i class="legend-price"></i> Daily close</span></div>
+      <div class="chart-legend"><span><i class="legend-vwap"></i> 63-session rolling VWAP proxy</span><span><i class="legend-price"></i> Daily close</span></div>
       <figcaption>The line is the daily closing price weighted by daily volume over the latest 63 sessions. It is a daily close×volume proxy, not trade-level VWAP; true VWAP requires intraday trade or bar data.</figcaption>
     </figure>
     <p class="source-line">Data: <a href="https://finance.yahoo.com/quote/TTAN/history/">Yahoo Finance historical daily prices and volume</a>. <a class="chart-link" href="https://sp7412.github.io/onboarding/whitepaper/01-company/#ttan-vwap-year">Permanent link to the rolling price plot ↗</a></p>
@@ -151,7 +151,7 @@ const latestDateLabel = latest ? latest.date : "No daily data loaded";
       </div>
     </div>
     <figure>
-      <svg class="chart" viewBox="0 0 760 270" role="img" aria-labelledby="price-svg-title price-svg-desc">
+      <svg class="chart" viewBox="0 0 760 390" role="img" aria-labelledby="price-svg-title price-svg-desc">
         <title id="price-svg-title">TTAN daily closing price over one year</title>
         <desc id="price-svg-desc">Unsmoothed daily closing prices for every available trading session over one year, with the latest ten sessions shown in the inset.</desc>
         {[priceMin, (priceMin + priceMax) / 2, priceMax].map((tick) => (
