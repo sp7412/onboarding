@@ -158,6 +158,10 @@ The terminal/worktree setup above covers coordination. This section defines the 
 task follows, regardless of which coding agent or editor is used. Use it as a lightweight
 operating standard rather than another tool-specific checklist.
 
+For deeper dives, see [agent-scale source control](agent-scale-source-control.md) for the
+repository/worktree model and [evidence-first debugging](evidence-first-debugging.md) for
+hypothesis-driven diagnosis. The guidance below connects those practices into one task lifecycle.
+
 #### 1. Define the task and its definition of done
 
 Before delegating, record:
