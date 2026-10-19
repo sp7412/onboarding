@@ -7,6 +7,7 @@
 - Added a local-first Markdown vault workflow for curating ChatGPT exports, repository documentation, decisions, and research while preserving source provenance.
 - Documented Grok Bot cloud/local access boundaries, staged ingestion, approval-gated updates, Git/backup recovery, and criteria for adding semantic search only when needed.
 - Linked the workflow from the topic-first guide index.
+- Expanded the workflow to make Slack and email first-class inputs, with thread/message provenance, shared metadata, incremental ingestion, deduplication, correction/deletion handling, and a bounded pilot checklist.
 
 ## 2026-10-18
 
