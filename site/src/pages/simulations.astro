@@ -178,6 +178,8 @@ import traces from "../data/guardrail-traces.json";
   .sim { margin-bottom: var(--s8); max-width: 90ch; }
   .sim .controls { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: var(--s3) var(--s6); margin: var(--s4) 0; }
   .sim .controls label { display: grid; gap: var(--s1); font-size: 0.95rem; align-content: start; }
+  /* Keep dynamic slider values visually separated from adjacent label text and units. */
+  .sim label output { display: inline-block; margin-inline: 0.2em; white-space: nowrap; font-variant-numeric: tabular-nums; }
   .sim label.check { display: flex !important; flex-direction: row; gap: var(--s2); align-items: center; }
   .sim label.check input { width: 1.1rem; height: 1.1rem; accent-color: var(--cyan); }
   .sim .controls input[type="range"] { width: 100%; accent-color: var(--cyan); }
