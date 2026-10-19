@@ -2,6 +2,12 @@
 
 ## 2026-10-18
 
+### Grok Bot knowledge-base runbook
+
+- Added a step-by-step guide for configuring a Grok Bot, connecting approved sources one at a time, creating a source-linked Markdown knowledge store, validating action extraction, saving a reusable skill, and testing daily/weekly routines.
+- Included copy-ready prompts, storage and local-vault caveats, safety boundaries, troubleshooting, and acceptance criteria; linked it from the guide index and developer-tools catalog.
+
+
 ### Developer tools: personal work-intelligence pipeline
 
 - Added an end-to-end reference workflow for capturing Slack messages, email, Zoom meetings, and Slack Huddles as source-linked tasks and local Markdown knowledge.
