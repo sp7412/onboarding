@@ -185,17 +185,20 @@ These are related but different jobs.
 
 | Tool | Best fit | Strengths | Trade-offs |
 |---|---|---|---|
-| [WezTerm](https://wezterm.org/) | A powerful terminal GUI for macOS, Linux, and Windows | Native tabs, panes, workspaces, remote multiplexing, configurable Lua workflows, and a CLI that can spawn or target panes | It organizes terminal processes; it does not itself understand agent tasks or decide which agent needs attention |
-| [tmux](https://github.com/tmux/tmux/wiki) | Persistent terminal sessions, especially over SSH | Mature session/window/pane model; scripts well; sessions survive terminal disconnects | More keyboard- and configuration-oriented; session status is not automatically agent-aware |
-| [cmux](https://cmux.com/) | Agent-centric terminal workspaces | Organizes each task in a workspace; keeps coding agents beside tests, logs, and browser surfaces; notifications and agent state are tied to workspace surfaces | Evaluate its current platform and remote-workflow requirements; it is a workspace layer, not a universal agent orchestrator |
-| [Agent Deck](https://github.com/asheshgoplani/agent-deck) | Agent-aware session command center for Claude Code, Codex, OpenCode, Gemini, and more | Tracks running/waiting/idle sessions, groups and searches sessions, supports session forking and Git worktrees, and adds agent-aware status on top of tmux | Best when you need agent-specific status and session operations; it uses tmux and is more opinionated than a plain terminal multiplexer |
-| [ccmux](https://ccmux.dev/) | Finding and switching among many agents already running in tmux | Open-source session picker for agent sessions, with search and previews; works with existing tmux habits | Depends on a tmux-based workflow and the agents/session patterns it recognizes |
-| [Zellij](https://zellij.dev/) | A modern terminal multiplexer alternative | Sessions, panes, tabs, layouts, and plugin support | Like tmux, it manages terminal layout and persistence rather than agent-level coordination |
+| [Agent Deck](https://github.com/asheshgoplani/agent-deck) | Agent-aware session command center for Claude Code, Codex, OpenCode, Gemini, and more | Tracks running/waiting/idle sessions, groups and searches sessions, supports session forking and Git worktrees, and adds agent-aware status on top of tmux | Best first evaluation when you need agent-specific status and session operations; it uses tmux and is more opinionated than a plain terminal multiplexer |
+| [cmux](https://cmux.com/) | Agent-centric terminal workspaces | Organizes each task in a workspace; keeps coding agents beside tests, logs, and browser surfaces; notifications and agent state are tied to workspace surfaces | Strong alternative if you prefer a native graphical Mac workflow; evaluate platform and remote-workflow requirements |
+| [WezTerm](https://wezterm.org/) | A powerful terminal GUI for macOS, Linux, and Windows | Native tabs, panes, workspaces, remote multiplexing, configurable Lua workflows, and a CLI that can spawn or target panes | Excellent general-purpose terminal, but it organizes terminal processes rather than understanding agent tasks or deciding which agent needs attention |
+| [tmux](https://github.com/tmux/tmux/wiki) | Persistent terminal sessions, especially over SSH | Mature session/window/pane model; scripts well; sessions survive terminal disconnects | The underlying session layer for Agent Deck; more keyboard- and configuration-oriented when used directly |
+| [ccmux](https://ccmux.dev/) | Finding and switching among many agents already running in tmux | Open-source session picker for agent sessions, with search and previews; works with existing tmux habits | A focused, lighter option if you already use tmux; lower priority if Agent Deck covers your needs |
+| [Zellij](https://zellij.dev/) | A modern terminal multiplexer alternative | Sessions, panes, tabs, layouts, and plugin support | A credible tmux alternative, but less additive if you choose a tmux-based agent manager |
 
-**Practical starting point:** use WezTerm if you want a configurable native terminal with
-workspaces and panes. Add tmux when durable sessions, remote SSH workflows, or automation
-matter. Evaluate cmux or ccmux if the hard part is seeing which agent is running, waiting,
-or finished—not simply keeping terminals open.
+**Practical starting point:** evaluate Agent Deck first if you need to supervise multiple
+OpenCode/Codex sessions and want agent-aware status plus Git worktree support. Choose cmux
+instead if you prefer a native graphical Mac workspace. WezTerm is the best general-purpose
+terminal choice in this list; add or use tmux directly when durable sessions, remote SSH, or
+scripting are the main requirements. Consider ccmux if you want a narrower session picker,
+and choose Zellij primarily if you prefer it over tmux as your multiplexer. Avoid adopting
+multiple overlapping session managers until you have identified a specific gap.
 
 #### WezTerm: tiled panes versus separate windows
 
