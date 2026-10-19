@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-10-19
+
+### Obsidian personal knowledge workflow
+
+- Added a local-first Markdown vault workflow for curating ChatGPT exports, repository documentation, decisions, and research while preserving source provenance.
+- Documented Grok Bot cloud/local access boundaries, staged ingestion, approval-gated updates, Git/backup recovery, and criteria for adding semantic search only when needed.
+- Linked the workflow from the topic-first guide index.
+
 ## 2026-10-18
 
 ### Automatic meeting transcript capture
