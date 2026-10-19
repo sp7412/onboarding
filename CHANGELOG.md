@@ -7,6 +7,7 @@
 - Added an end-to-end reference workflow for capturing Slack messages, email, Zoom meetings, and Slack Huddles as source-linked tasks and local Markdown knowledge.
 - Documented task-system trade-offs, transcript/summary sources, structured action-item extraction, provenance and idempotency, local Obsidian vault organization, and safe OpenCode curation.
 - Added a phased rollout and acceptance checklist emphasizing review gates, least privilege, privacy, and reversible agent edits.
+- Compared Grok Bot, Hermes Agent, and OpenCode as distinct optional roles, with cloud/local boundaries, a read-only evaluation pilot, and human approval requirements.
 
 ## 2026-10-16
 
