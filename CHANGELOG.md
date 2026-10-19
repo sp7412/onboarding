@@ -2,6 +2,15 @@
 
 ## 2026-10-18
 
+### Automatic meeting transcript capture
+
+- Expanded the Grok Bot runbook with verified setup steps for Zoom cloud audio transcripts
+  and Slack AI Huddle Notes, including eligibility, access, and coverage limitations.
+- Added an approved-ingestion pattern, duplicate/failure handling, calendar-based gap
+  detection, and explicit privacy/consent boundaries; distinguished automatic capture
+  from manual export and semi-automatic processing.
+
+
 ### Grok Bot knowledge-base runbook
 
 - Added a step-by-step guide for configuring a Grok Bot, connecting approved sources one at a time, creating a source-linked Markdown knowledge store, validating action extraction, saving a reusable skill, and testing daily/weekly routines.
