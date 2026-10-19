@@ -174,7 +174,11 @@ import traces from "../data/guardrail-traces.json";
 <style is:global>
   .simulation-list { counter-reset: simulation; }
   .simulation-list .sim { counter-increment: simulation; }
-  .simulation-list .sim h2::before { content: counter(simulation) ". "; }
+  .simulation-list .sim h2::before {
+    content: counter(simulation) ".";
+    display: inline-block;
+    margin-inline-end: 0.35em;
+  }
   .sim { margin-bottom: var(--s8); max-width: 90ch; }
   .sim .controls { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: var(--s3) var(--s6); margin: var(--s4) 0; }
   .sim .controls label { display: grid; gap: var(--s1); font-size: 0.95rem; align-content: start; }
