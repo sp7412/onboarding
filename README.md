@@ -82,7 +82,7 @@ The [developer tools catalog](docs/developer-tools.md) tracks practical workstat
 | [`docs/jev-call-intent-classification.md`](docs/jev-call-intent-classification.md) | Jev as an evaluation candidate for low-latency typed call-intent classification, with routing policy, fallback, and evaluation plan |
 | [`docs/realtime-voice-agent-evaluation.md`](docs/realtime-voice-agent-evaluation.md) | Practical GPT Realtime evaluation: Crawl/Walk/Run, audio and task graders, trace-level diagnosis, regression sets, and release gates |
 | [`docs/full-duplex-model-evaluation.md`](docs/full-duplex-model-evaluation.md) | Evidence-based PersonaPlex vs GPT-Live comparison, workload math, and a controlled evaluation plan |
-| [`labs/`](labs/) | Seventeen Jupyter tutorials: OpenAI Realtime, LiveKit, LangChain/LangGraph, LangSmith, multi-agent coordination (09–12), Mini-Max (13), earning autonomy (14), an LLM judge (15), and an MCP server (16) |
+| [`labs/`](labs/) | Twenty Jupyter tutorials: OpenAI Realtime, LiveKit, LangChain/LangGraph, LangSmith, multi-agent coordination (09–12), Mini-Max (13), earning autonomy (14), an LLM judge (15), an MCP server (16), typed Jev decisions (17), technician-feedback learning (18), and production-agent simulations (19) |
 | [`labs/solutions/`](labs/solutions/) | Offline-safe solution notes for the lab exercises |
 | [`senior-engineer/`](senior-engineer/) | Judgment track: ten fictional exercises with self-checks (including bookability judge and autonomy promotion review) |
 | [`templates/`](templates/) | Onboarding log, 1:1 questions, working-with-me, weekly status, field notes, pre-mortem, 30-day memo, design doc, brag document, 90-day retro |
@@ -108,7 +108,7 @@ cp .env.example .env      # optional; every notebook runs offline without keys
 cd labs && jupyter lab
 ```
 
-Work through `00` → `08` in order, then `09` → `12` for multi-agent coordination, `13` → `14` for the system capstone and autonomy policy, and `15` for LLM-judge evaluation, then `16` for building an MCP server. See [`labs/README.md`](labs/README.md) for details.
+Work through `00` → `08` in order, then `09` → `12` for multi-agent coordination, `13` → `14` for the system capstone and autonomy policy, `15` for LLM-judge evaluation, and `16` for building an MCP server. Labs `17` → `19` extend the path with typed decisions, a reviewable technician-feedback learning loop, and production-agent simulations. See [`labs/README.md`](labs/README.md) for details.
 
 To run the offline test suite without activating the environment:
 

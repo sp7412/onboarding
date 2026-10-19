@@ -7,7 +7,7 @@ Target length: 3:35 · Approx. 510 words · Running example: a caller reading a 
 “My number is eight one seven…” Pause. “Five five five…” Pause again. If your agent treats
 every silence as the end, a phone number becomes three conversations.
 
-*Source: `site/src/pages/simulations.astro`, turn-taking simulation; `labs/src/03_turn_taking.py`.*
+*Source: `site/src/pages/simulations.astro`, turn-taking simulation; `labs/src/03_turn_taking_and_interruptions.py`.*
 
 ## Scene 1 — Speech probability — 0:10–0:55
 
@@ -34,7 +34,7 @@ whether the idea is finished. Together they trade a little decision time for few
 cutoffs. For a booking call, test this on addresses, phone numbers, model numbers, and
 restarts—not just clean sentences.
 
-*Source: `docs/video-notes.md`, “Fix AI Voice Interruptions with Semantic Turn Detection”; `site/src/pages/simulations.astro`; `labs/src/03_turn_taking.py`.*
+*Source: `docs/video-notes.md`, “Fix AI Voice Interruptions with Semantic Turn Detection”; `site/src/pages/simulations.astro`; `labs/src/03_turn_taking_and_interruptions.py`.*
 
 ## Scene 3 — Interruptions and backchannels — 1:40–2:25
 
@@ -56,7 +56,7 @@ caller wait too long. Record both. Measure endpointing delay, premature cutoffs,
 response time, and the gap after a caller really finishes. Slice the results by utterance
 type. A detector that looks good on ordinary sentences can still fail on digits.
 
-*Source: `docs/evaluating-voice-agents.md`, “Metrics” and “Adversarial set”; `site/src/pages/simulations.astro`, turn-taking score; `labs/src/03_turn_taking.py`.*
+*Source: `docs/evaluating-voice-agents.md`, “Metrics” and “Adversarial set”; `site/src/pages/simulations.astro`, turn-taking score; `labs/src/03_turn_taking_and_interruptions.py`.*
 
 ## Recap and end card — 3:10–3:35
 
@@ -64,4 +64,4 @@ Two questions: **How should uncertainty about turn completion change the agent�
 And **which false interruption costs the caller the most?** Explore them in lab 03, then see
 how lab 01 section 4 cancels and truncates an interrupted response.
 
-*Source: `docs/video-notes.md`, “Fix AI Voice Interruptions with Semantic Turn Detection”; `labs/src/03_turn_taking.py`; `labs/src/01_realtime_protocol.py`.*
+*Source: `docs/video-notes.md`, “Fix AI Voice Interruptions with Semantic Turn Detection”; `labs/src/03_turn_taking_and_interruptions.py`; `labs/src/01_realtime_protocol.py`.*

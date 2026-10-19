@@ -4,6 +4,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import { loadContent, readRepoFile } from "../lib/content/repo";
 import { renderMarkdown } from "../lib/markdown";
 import { parseVideos } from "../lib/content/videos";
+import { lessons } from "../lib/lessons";
 import { url } from "../lib/url";
 const content = loadContent();
 const ids = (file: string, prefix: string) =>
@@ -15,7 +16,7 @@ const sections = [
   { name: "Podcasts", href: "/podcasts", ids: ids("docs/podcast-prompts.md", "podcasts") },
   { name: "Whitepaper chapters", href: "/whitepaper", ids: content.whitepaper.chapters.map((c) => `whitepaper-read-${c.slug}`) },
   { name: "Labs", href: "/labs", ids: content.labs.map((l) => `lab-done-${l.number}`) },
-  { name: "Lessons", href: "/lessons", ids: ["lesson-pass-k"] },
+  { name: "Lessons", href: "/lessons", ids: lessons.map(({ slug }) => `lesson-${slug}`) },
 ];
 ---
 <BaseLayout title="Progress · Path to Integration" description="Your onboarding progress, saved in this browser.">

@@ -56,7 +56,7 @@ The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubr
 - [ ] Read [Homh and AI-agent booking](../docs/homh-and-agent-booking.md) and note trust questions for AI-assistant channels.
 - [ ] Read [MCP and external-agent trust boundaries](../docs/mcp-and-external-agent-trust-boundary.md) and write down who may call what, with whose authority, for Homh and the MCP server.
 - [ ] Read [`docs/voice-agent-architecture.md`](../docs/voice-agent-architecture.md).
-- [ ] Try interactive lessons 4, 6 and 2: [Lessons](/lessons).
+- [ ] Try interactive lessons 4, 6 and 2: [Lessons](https://sp7412.github.io/onboarding/lessons/).
 - [ ] Watch explainer episodes 3–4: [Voice Agents from First Principles](../docs/reading-guide.md#0-voice-agents-from-first-principles-four-episode-explainer-) item 0.
 - [ ] Complete labs 04–06 and compare realtime, cascaded, and workflow paths (needs a laptop).
 - [ ] Read [Build your own voice agent](../docs/build-your-own-voice-agent.md): the chained vs. GPT-Live implementation differences.
@@ -73,7 +73,7 @@ The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubr
 - [ ] Read [Tools and guardrails](../docs/tools-and-guardrails.md) and run its checklist against the lab tools.
 - [ ] Do the [bookability judge](../senior-engineer/bookability-judge.md) exercise (private notes only).
 - [ ] **Stretch:** do the [evaluation and denominator design](../senior-engineer/eval-design.md) and [latency budget](../senior-engineer/latency-budget.md) exercises (about 1 h 45 min, private notes only). These are the two exercises to keep if you only have two hours for the [judgment track](../senior-engineer/README.md).
-- [ ] Try interactive lessons 1, 3, 5 and 9: [Lessons](/lessons).
+- [ ] Try interactive lessons 1, 3, 5 and 9: [Lessons](https://sp7412.github.io/onboarding/lessons/).
 - [ ] Use [`docs/capstone-rubric.md`](../docs/capstone-rubric.md) to collect pass/fail evidence.
 - [ ] Read [`docs/evaluating-voice-agents.md`](../docs/evaluating-voice-agents.md).
 - [ ] Write the answer in [`notes/study-question.md`](../notes/study-question.md).
@@ -115,7 +115,7 @@ The acceptance criteria are in [`docs/capstone-rubric.md`](../docs/capstone-rubr
 - [ ] Meet manager, PM/product partner, senior engineer, and evaluation/observability partner; use the [First-90-Days Question Bank](../docs/first-90-days-question-bank.md) for two to four questions per conversation.
 - [ ] Start the internal copy of [`templates/onboarding-log.md`](../templates/onboarding-log.md).
 - [ ] Get the development environment running and make a list of setup gaps (needs a laptop).
-- [ ] Try interactive lessons 7, 8 and 10: [Lessons](/lessons).
+- [ ] Try interactive lessons 7, 8 and 10: [Lessons](https://sp7412.github.io/onboarding/lessons/).
 
 **Output:** written success contract, stakeholder list, access plan, and learning agenda.
 - [ ] Reading guide Tier 3 (items 15–23), spread across weeks 1–4.

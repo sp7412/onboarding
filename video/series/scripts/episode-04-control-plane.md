@@ -19,7 +19,7 @@ operation belongs to that customer and current call phase.
 This boundary is deliberately boring. Boring is good when a voice model is probabilistic.
 It turns “please book it” into a proposed operation with evidence, policy, and an owner.
 
-*Source: `docs/voice-agent-architecture.md`, “Where Each Component Stops”; `labs/src/02_tools_and_guardrails.py`; `docs/gpt-live-1.md`, section 4.*
+*Source: `docs/voice-agent-architecture.md`, “Where Each Component Stops”; `labs/src/02_realtime_tools_and_guardrails.py`; `docs/gpt-live-1.md`, section 4.*
 
 ## Scene 2 — Grounded confirmation — 0:55–1:40
 
@@ -32,7 +32,7 @@ The same rule applies to spoken claims. Never say “you’re booked” before t
 write commits. A preamble may say that the system is checking. It must not turn an intention
 into a fact.
 
-*Source: `docs/voice-agent-architecture.md`, “Talker And Thinker”; `docs/evaluating-voice-agents.md`, “Code Evaluators First”; `labs/src/02_tools_and_guardrails.py`; `labs/src/07_evaluation.py`.*
+*Source: `docs/voice-agent-architecture.md`, “Talker And Thinker”; `docs/evaluating-voice-agents.md`, “Code Evaluators First”; `labs/src/02_realtime_tools_and_guardrails.py`; `labs/src/07_langsmith_tracing_evals.py`.*
 
 ## Scene 3 — Interrupt-safe writes — 1:40–2:25
 
@@ -46,7 +46,7 @@ Observability records the trajectory: proposal, checks, backend response, retry,
 outcome. That trace lets evaluation ask whether the workflow was legal, not just whether the
 last sentence sounded confident.
 
-*Source: `docs/gpt-live-1.md`, sections 3–4; `docs/evaluating-voice-agents.md`, “Code Evaluators First”; `labs/src/01_realtime_protocol.py`; `labs/src/02_tools_and_guardrails.py`.*
+*Source: `docs/gpt-live-1.md`, sections 3–4; `docs/evaluating-voice-agents.md`, “Code Evaluators First”; `labs/src/01_realtime_protocol.py`; `labs/src/02_realtime_tools_and_guardrails.py`.*
 
 ## Scene 4 — Emergency escalation — 2:25–3:05
 
@@ -59,7 +59,7 @@ The model can detect a clue. The application owns the routing policy. That disti
 an OOD detector from becoming a magic classifier and keeps a safety decision out of a prompt
 alone.
 
-*Source: `docs/evaluating-voice-agents.md`, “OOD Detection And Routing”; `docs/whitepaper/12-risks-and-failure-modes.md`; `labs/src/02_tools_and_guardrails.py`.*
+*Source: `docs/evaluating-voice-agents.md`, “OOD Detection And Routing”; `docs/whitepaper/12-risks-and-failure-modes.md`; `labs/src/02_realtime_tools_and_guardrails.py`.*
 
 ## Scene 5 — Repeat trials — 3:05–3:25
 
@@ -68,7 +68,7 @@ and regression failures. Gate hard invariants with deterministic checks: offered
 verified customer, grounded address, no emergency booking, and idempotent retry. Use human or
 judge review for tone and clarity, but never let a soft score override a hard invariant.
 
-*Source: `docs/evaluating-voice-agents.md`, “Dataset Strategy”, “Code Evaluators First”, and “Offline And Online Evaluation”; `labs/src/07_evaluation.py`.*
+*Source: `docs/evaluating-voice-agents.md`, “Dataset Strategy”, “Code Evaluators First”, and “Offline And Online Evaluation”; `labs/src/07_langsmith_tracing_evals.py`.*
 
 ## Recap and end card — 3:25–3:40
 
@@ -76,4 +76,4 @@ The control plane owns identity, authorization, evidence grounding, phase state,
 safety, escalation, redaction, and outcome definitions. The model can be swapped. Those
 responsibilities cannot disappear. Start with labs 02 and 07.
 
-*Source: `docs/voice-agent-architecture.md`, “Where Each Component Stops”; `labs/src/02_tools_and_guardrails.py`; `labs/src/07_evaluation.py`.*
+*Source: `docs/voice-agent-architecture.md`, “Where Each Component Stops”; `labs/src/02_realtime_tools_and_guardrails.py`; `labs/src/07_langsmith_tracing_evals.py`.*

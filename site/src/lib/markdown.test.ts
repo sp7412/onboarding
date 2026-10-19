@@ -45,6 +45,11 @@ describe("renderMarkdown", () => {
     expect(html).toContain('<h2 id="five-takeaways"><a class="heading-link" href="#five-takeaways">Five Takeaways</a></h2>');
     expect(html).toContain('<h3 id="five-takeaways-1"><a class="heading-link" href="#five-takeaways-1">');
   });
+  it("normalizes punctuation in source heading anchors", () => {
+    const { html, headings } = r("## Template: Short, Source-Grounded Episode (5–10 Minutes)");
+    expect(headings[0].id).toBe("template-short-source-grounded-episode-5-10-minutes");
+    expect(html).toContain('id="template-short-source-grounded-episode-5-10-minutes"');
+  });
   it("prefixes heading ids when several documents share a page", () => {
     const res = renderMarkdown("## Fictional example", { sourcePath: "templates/a.md", resolveRepoLink: () => null, headingIdPrefix: "a" });
     expect(res.html).toContain('<h2 id="a-fictional-example"><a class="heading-link" href="#a-fictional-example">');

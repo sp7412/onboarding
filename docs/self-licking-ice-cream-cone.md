@@ -77,7 +77,7 @@ value.
 **Suggested sources for NotebookLM**
 
 - Worden, S. Pete (1992), [“On Self-Licking Ice Cream Cones”](https://www.researchgate.net/publication/234554226_On_Self-Licking_Ice_Cream_Cones).
-- Norman Friedman (1991), [*Desert Victory: The War for Kuwait*](https://books.google.com/books/about/Desert_Victory.html?id=).
+- Norman Friedman (1991), [*Desert Victory: The War for Kuwait*](https://books.google.com/books?q=Norman+Friedman+Desert+Victory+The+War+for+Kuwait).
 - [U.S. Air Force Academy professional-development article (PDF)](https://www.usafa.af.mil/Portals/21/documents/10ABW/10ABW_Documents/DEC2017_Self-licking%20Ice%20Cream%20Cones.pdf?ver=2017-12-19-121225-727).
 - [Responsible Statecraft: Afghanistan and institutional incentives](https://responsiblestatecraft.org/2021/10/04/how-the-self-licking-ice-cream-cone-prolonged-the-20-year-war/).
 - [The New Yorker, “The Intelligence Gap” (1999)](https://www.newyorker.com/magazine/1999/12/06/the-intelligence-gap), for an example of the phrase in an intelligence-community critique.

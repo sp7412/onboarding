@@ -53,3 +53,18 @@ test("rejects internal paths that omit the configured base path", async (t) => {
   assert.equal(result.broken.length, 1);
   assert.match(result.broken[0], /missing \/onboarding\/ base path/);
 });
+
+test("accepts a punctuation-normalized source anchor", async (t) => {
+  const root = fixture(t);
+  fs.mkdirSync(path.join(root, "podcasts"), { recursive: true });
+  fs.writeFileSync(
+    path.join(root, "index.html"),
+    '<a href="/onboarding/podcasts/#template-short-source-grounded-episode-5-10-minutes">template</a>',
+  );
+  fs.writeFileSync(
+    path.join(root, "podcasts", "index.html"),
+    '<h2 id="template-short-source-grounded-episode-5-10-minutes">Template</h2>',
+  );
+  const result = await checkLinks({ dist: root });
+  assert.deepEqual(result.broken, []);
+});

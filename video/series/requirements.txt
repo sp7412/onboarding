@@ -1,0 +1,6 @@
+# Local-only dependencies for video/series. They are intentionally separate from the
+# offline notebook requirements because rendering is optional and heavyweight.
+manim==0.21.0
+kokoro==0.9.4
+torch==2.14.1
+soundfile

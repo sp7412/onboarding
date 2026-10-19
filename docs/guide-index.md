@@ -76,7 +76,7 @@ A topic-first map of the onboarding material. Use the **learning path** when you
 - [Whitepaper chapters](whitepaper/README.md) — longer-form technical background.
 - [Glossary](../notes/glossary.md) — terms and definitions.
 - [Changelog](../CHANGELOG.md) — what has changed and why.
-- [Templates](../templates/README.md) — reusable blank working documents.
+- [Templates](../templates/) — reusable blank working documents.
 
 ---
 

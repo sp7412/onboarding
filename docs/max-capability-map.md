@@ -33,7 +33,7 @@ ServiceTitan announced a limited commercial and roofing Max pilot at Pantheon on
 | Collections agent | Supports collections workflow | Announced as coming soon |
 | Applications-for-payment (AFP) recommendation advisor | Advises on applications for payment | Announced as coming soon |
 
-Sources: [ServiceTitan press release](https://www.servicetitan.com/news/servicetitan-announcing-new-and-expanded-capabilities-at-pantheon-2026), [Pantheon live coverage](https://www.servicetitan.com/blog/pantheon-2026-live-coverage), and [industry reporting on the commercial pilot](https://constructionmetrics.com/2026/10/11/servicetitan-max-pilot-commercial-daily-log-invoice/). Treat the table as a dated public snapshot, not a live feature-availability guarantee.
+Sources: [ServiceTitan press release](https://www.servicetitan.com/press/servicetitan-announcing-new-and-expanded-capabilities-at-pantheon-2026), [Pantheon live coverage](https://www.servicetitan.com/blog/pantheon-2026-live-coverage), and [industry reporting on the commercial pilot](https://constructionmetrics.com/2026/10/11/servicetitan-max-pilot-commercial-daily-log-invoice/). Treat the table as a dated public snapshot, not a live feature-availability guarantee.
 
 ## Announced future direction: commercial and roofing
 

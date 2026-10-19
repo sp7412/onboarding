@@ -13,8 +13,9 @@ ServiceTitan tools behind the same control plane the labs use. It complements
 [lab 04](../labs/04_livekit_agents.ipynb), which writes agent files by hand. Here you use LiveKit's
 own project template and CLI, which is closer to how a team would start a real service.
 
-**Time:** about 4–6 hours across three sessions. **Needs:** a free LiveKit Cloud account. Phase 2
-onward also needs Python 3.11+ and [`uv`](https://docs.astral.sh/uv/).
+**Time:** about 4–6 hours for the guided path; allow another 1–2 hours for the five-prompt
+comparisons, debugger checks, tests, and the Phase 3 workshop checklist. **Needs:** a free
+LiveKit Cloud account. Phase 2 onward also needs Python 3.11+ and [`uv`](https://docs.astral.sh/uv/).
 
 > Public-safe: every "ServiceTitan" tool here is a mock from `labs/stlab`. Don't connect anything to
 > real ServiceTitan systems or data.
@@ -105,7 +106,7 @@ keeps its `gpt-realtime-2` target; check the current OpenAI model page before ch
 snapshot.)
 
 - [ ] Compare cascaded vs realtime on the five Phase 1 prompts. Record end-of-speech → first-audio
-      for each in the latency worksheet (`study-guide/`).
+      for each in the [latency worksheet](voice-agent-architecture.md#latency-worksheet).
 
 ---
 

@@ -1,0 +1,127 @@
+{
+  "audit_date": "2026-10-18",
+  "scope": "Tracked repository source, generated-notebook consistency, offline labs, site source, CI workflows, and selected current vendor documentation.",
+  "findings": [
+    {
+      "id": "AUD-2026-10-18-01",
+      "severity": "P1",
+      "category": "curriculum consistency",
+      "locations": ["README.md:85", "AGENTS.md:9-10,46,78"],
+      "current_behavior": "Root and contributor guidance described 17 labs through lab 16 although 20 source/notebook pairs (00-19) exist.",
+      "evidence": "labs/README.md lists 00-19 and scripts/run_notebooks.py selects every two-digit notebook.",
+      "remediation": "Updated authoritative overview and contributor instructions to describe 20 labs and the 20/20 offline result.",
+      "external_research_needed": false,
+      "status": "fixed_and_verified",
+      "validation": [".venv/bin/python scripts/run_notebooks.py"]
+    },
+    {
+      "id": "AUD-2026-10-18-02",
+      "severity": "P1",
+      "category": "navigation",
+      "locations": ["docs/guide-index.md:78", "docs/whitepaper/17-running-agents-in-production.md:889"],
+      "current_behavior": "One guide link targeted an absent templates README; another mislabeled lab 18 as lab 17 and targeted a nonexistent notebook.",
+      "evidence": "The templates directory has no README; labs are numbered 00-19 and lab 18 is technician_feedback_playbook_learning.",
+      "remediation": "Linked the templates directory and corrected the lab 18 link and label.",
+      "external_research_needed": false,
+      "status": "fixed_and_verified",
+      "validation": ["site internal-link check after build"]
+    },
+    {
+      "id": "AUD-2026-10-18-03",
+      "severity": "P1",
+      "category": "site progress correctness",
+      "locations": ["site/src/pages/progress.astro:18", "site/src/lib/lessons/index.ts:1-13"],
+      "current_behavior": "The progress card counted only lesson-pass-k even though the lessons page persists one completion ID for each of 11 lessons.",
+      "evidence": "The canonical lessons array contains 11 slugs.",
+      "remediation": "Derived progress IDs from the canonical lessons array.",
+      "external_research_needed": false,
+      "status": "fixed_and_verified",
+      "validation": ["site test suite passed (131 tests)", "Astro check passed", "site build and internal-link check passed"]
+    },
+    {
+      "id": "AUD-2026-10-18-04",
+      "severity": "P1",
+      "category": "site navigation",
+      "locations": ["site/src/pages/podcasts.astro:14", "docs/podcast-prompts.md:28", "site/src/lib/markdown.ts:125"],
+      "current_behavior": "A hidden anchor used an en dash while the rendered Markdown heading and source link normalize it to an ASCII hyphen.",
+      "evidence": "slugify normalizes punctuation to hyphens, so the source fragment could not resolve on the rendered page.",
+      "remediation": "Removed the incompatible workaround and added renderer/link-check regression coverage for the canonical normalized anchor.",
+      "external_research_needed": false,
+      "status": "fixed_and_verified",
+      "validation": ["Markdown renderer test passed", "site build and internal-link check passed"]
+    },
+    {
+      "id": "AUD-2026-10-18-05",
+      "severity": "P2",
+      "category": "configuration consistency",
+      "locations": [".env.example:1-7", "labs/src/17_jev_decision_workbench.py:13-14", "scripts/run_notebooks.py:18"],
+      "current_behavior": "The optional Jev live path reads JEVMODEL_API_KEY but the canonical environment template omitted it.",
+      "evidence": "The notebook, runner, and Colab generator all name the variable.",
+      "remediation": "Added an empty JEVMODEL_API_KEY placeholder only; no credential or live call is added.",
+      "external_research_needed": false,
+      "status": "fixed_and_verified",
+      "validation": ["offline notebook suite removes the variable and completed without live requests"]
+    },
+    {
+      "id": "AUD-2026-10-18-06",
+      "severity": "P2",
+      "category": "source auditability",
+      "locations": ["video/series/README.md:39-40", "video/series/scripts/episode-01-anatomy.md", "video/series/scripts/episode-02-turn-taking.md", "video/series/scripts/episode-04-control-plane.md"],
+      "current_behavior": "Video source notes cited renamed, nonexistent lab source files.",
+      "evidence": "Current lab sources use realtime_tools_and_guardrails, turn_taking_and_interruptions, langsmith_tracing_evals, and capstone_talker_thinker names.",
+      "remediation": "Updated source citations to current lab-source paths.",
+      "external_research_needed": false,
+      "status": "fixed_and_verified",
+      "validation": ["tracked-path consistency inspection"]
+    },
+    {
+      "id": "AUD-2026-10-18-07",
+      "severity": "P2",
+      "category": "prerequisites",
+      "locations": ["video/series/README.md:9-14", "video/series/src/render_series.py:38-51,86-95"],
+      "current_behavior": "Video production instructions implied the repository environment contained Manim, Kokoro, Torch, and SoundFile although they are not core requirements.",
+      "evidence": "The renderer imports Kokoro and SoundFile and invokes Manim and ffmpeg; requirements.txt does not list them.",
+      "remediation": "Added a separate local video requirements file and explicit ffmpeg preflight.",
+      "external_research_needed": false,
+      "status": "fixed_and_verified",
+      "validation": ["requirements file and documented command inspected; heavyweight install intentionally not run"]
+    },
+    {
+      "id": "AUD-2026-10-18-08",
+      "severity": "P2",
+      "category": "link-check coverage",
+      "locations": ["scripts/check_external_links.py:19,26-27", ".github/workflows/links.yml:22-23"],
+      "current_behavior": "Weekly source checking omitted external URLs embedded in site source.",
+      "evidence": "site/src contains cited vendor, standards, and data-source URLs while the checker scanned Markdown only.",
+      "remediation": "Extended the existing checker to scan tracked site Astro/TypeScript source while excluding test fixtures and URL-processing implementation code.",
+      "external_research_needed": false,
+      "status": "fixed_verification_incomplete",
+      "validation": ["expanded checker completed after source-template exclusion and bot-protection policy updates; remaining failures are documented in the audit report"]
+    },
+    {
+      "id": "AUD-2026-10-18-09",
+      "severity": "P3",
+      "category": "practical guidance",
+      "locations": ["docs/livekit-hands-on.md:16-17,107-108", "plan/30-60-90-checklist.md:59,76,118"],
+      "current_behavior": "The LiveKit time estimate did not distinguish required validation work and referenced an absent worksheet path; checklist lesson links were GitHub-invalid root-relative URLs.",
+      "evidence": "Required steps extend the stated guided durations; the worksheet is in voice-agent-architecture.md; root-relative links do not resolve on GitHub project pages.",
+      "remediation": "Clarified guided versus validation time, linked the actual worksheet, and used the deployed lessons URL.",
+      "external_research_needed": false,
+      "status": "fixed_and_verified",
+      "validation": ["source-path and URL inspection"]
+    },
+    {
+      "id": "AUD-2026-10-18-10",
+      "severity": "P2",
+      "category": "external freshness",
+      "locations": ["docs/livekit-hands-on.md:5-8", "docs/references.md:119-145"],
+      "current_behavior": "LiveKit guidance needed current primary-source confirmation.",
+      "evidence": "LiveKit official Agents documentation retrieved on 2026-10-18 confirms Python/Node SDK support, Agent Builder browser prototyping, and voice quickstart/deployment paths.",
+      "remediation": "No product change was warranted: existing guidance remains directionally consistent. Record the successful review and retain its explicit model/API verification caveat.",
+      "external_research_needed": true,
+      "research": [{"source_title": "LiveKit Agents documentation", "publisher": "LiveKit", "research_date": "2026-10-18", "claim": "Agents supports Python/Node programs and browser-based Agent Builder; voice quickstart and deployment paths remain documented.", "evidence_type": "official documentation", "limitation": "Specific SDK snippets are still version-sensitive and require per-upgrade verification. The direct URL is already cataloged in docs/references.md."}],
+      "status": "rejected_after_investigation",
+      "validation": ["official documentation fetched and compared"]
+    }
+  ]
+}

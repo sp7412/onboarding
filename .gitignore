@@ -1,5 +1,6 @@
 .env
 .venv/
+node_modules/
 __pycache__/
 .ipynb_checkpoints/
 *.db
@@ -18,11 +19,13 @@ site/.astro/
 
 # nlm podcast automation state
 .nlm-podcasts.json
+.notebooklm-browser/
 build/
 
 # rendered media and Manim caches (videos go to GitHub releases, not git)
 media/
 video/series/rendered/
+video/series/.venv/
 *.mp4
 *.mov
 *.wav

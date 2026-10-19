@@ -17,7 +17,7 @@ when a turn is committed. Only then does the next stage receive a stable piece o
 In our example, the caller says, “My AC stopped working.” The system turns that sound into a
 turn event, then speech-to-text produces words the reasoning system can inspect.
 
-*Source: `docs/voice-agent-architecture.md`, “One Call Turn”; `site/src/pages/simulations.astro`, turn-taking simulation; `labs/src/03_turn_taking.py`.*
+*Source: `docs/voice-agent-architecture.md`, “One Call Turn”; `site/src/pages/simulations.astro`, turn-taking simulation; `labs/src/03_turn_taking_and_interruptions.py`.*
 
 ## Scene 2 — The relay race — 0:45–1:35
 
@@ -32,7 +32,7 @@ interpretation and proposed language. The application owns the action. That sepa
 the first principle: a model can suggest “find availability,” but it does not own the
 schedule.
 
-*Source: `docs/voice-agent-architecture.md`, “Reference Architecture”, “One Call Turn”, and “Ownership Rules”; `labs/src/01_realtime_protocol.py`; `labs/src/02_tools_and_guardrails.py`.*
+*Source: `docs/voice-agent-architecture.md`, “Reference Architecture”, “One Call Turn”, and “Ownership Rules”; `labs/src/01_realtime_protocol.py`; `labs/src/02_realtime_tools_and_guardrails.py`.*
 
 ## Scene 3 — The latency waterfall — 1:35–2:25
 
@@ -47,7 +47,7 @@ visible. A spoken preamble like “one moment while I check that” can make the
 intentional. It does not make the tool faster. It changes perceived silence, not the
 waterfall underneath.
 
-*Source: `docs/voice-agent-architecture.md`, “Latency Budget”; `site/src/pages/simulations.astro`, “Latency budget”; `labs/src/08_latency_and_scale.py`; `docs/video-notes.md`, “Deploy Voice AI Agents to Production with Full Observability”.*
+*Source: `docs/voice-agent-architecture.md`, “Latency Budget”; `site/src/pages/simulations.astro`, “Latency budget”; `labs/src/08_capstone_talker_thinker.py`; `docs/video-notes.md`, “Deploy Voice AI Agents to Production with Full Observability”.*
 
 ## Scene 4 — The control boundary — 2:25–3:10
 
@@ -57,7 +57,7 @@ workflow commits the authoritative result. Only then should the voice say what h
 This is why tracing needs more than model tokens. Connect the caller turn, the model event,
 the tool call, the backend result, and the audio response into one trace.
 
-*Source: `docs/voice-agent-architecture.md`, “Where Each Component Stops”; `docs/evaluating-voice-agents.md`, “Code Evaluators First”; `labs/src/02_tools_and_guardrails.py`; `labs/src/07_evaluation.py`.*
+*Source: `docs/voice-agent-architecture.md`, “Where Each Component Stops”; `docs/evaluating-voice-agents.md`, “Code Evaluators First”; `labs/src/02_realtime_tools_and_guardrails.py`; `labs/src/07_langsmith_tracing_evals.py`.*
 
 ## Recap and end card — 3:10–3:35
 
@@ -65,4 +65,4 @@ One call is a chain of boundaries: hear, decide, propose, validate, commit, and 
 Your job is to measure each boundary instead of arguing from one end-to-end number. The
 question to carry into lab 08 is: **what adds the most latency in your pipeline?**
 
-*Source: `docs/voice-agent-architecture.md`, “Latency Worksheet”; `labs/src/08_latency_and_scale.py`.*
+*Source: `docs/voice-agent-architecture.md`, “Latency Worksheet”; `labs/src/08_capstone_talker_thinker.py`.*

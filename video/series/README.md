@@ -6,11 +6,20 @@ MP4, MP3, and PDF release assets are deliberately not committed to git; they bel
 
 ## Local production
 
-Production uses Manim Community Edition 0.21.0, Kokoro 0.9.4 with Torch 2.14.1, and ffmpeg
-9.0.2. Run commands from the repository root with the repository `.venv` active:
+Production uses Manim Community Edition 0.21.0, Kokoro 0.9.4 with Torch 2.14.1, SoundFile,
+and ffmpeg 9.0.2. These are video-production dependencies, not the core notebook environment:
+install the pinned local video environment before rendering, and ensure `ffmpeg` is on `PATH`:
 
 ```bash
-python video/series/src/render_series.py --all
+python3.12 -m venv video/series/.venv
+video/series/.venv/bin/pip install -r video/series/requirements.txt
+ffmpeg -version
+```
+
+Run commands from the repository root with that environment active:
+
+```bash
+video/series/.venv/bin/python video/series/src/render_series.py --all
 ```
 
 The renderer creates local working files under `video/series/rendered/` and committed-sized
@@ -36,8 +45,9 @@ script. Local transcript files were not available when this series was produced.
 - `docs/whitepaper/12-risks-and-failure-modes.md`
 - `docs/video-notes.md`
 - `docs/evaluating-voice-agents.md`
-- `labs/src/01_realtime_protocol.py`, `02_tools_and_guardrails.py`, `03_turn_taking.py`,
-  `07_evaluation.py`, and `08_latency_and_scale.py`
+- `labs/src/01_realtime_protocol.py`, `02_realtime_tools_and_guardrails.py`,
+  `03_turn_taking_and_interruptions.py`, `07_langsmith_tracing_evals.py`, and
+  `08_capstone_talker_thinker.py`
 - `site/src/pages/simulations.astro`
 
 Model names, prices, and benchmarks are marked as “as of October 2026” in the scripts and
