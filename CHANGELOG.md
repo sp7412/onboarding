@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-10-18
+
+### Developer tools: personal work-intelligence pipeline
+
+- Added an end-to-end reference workflow for capturing Slack messages, email, Zoom meetings, and Slack Huddles as source-linked tasks and local Markdown knowledge.
+- Documented task-system trade-offs, transcript/summary sources, structured action-item extraction, provenance and idempotency, local Obsidian vault organization, and safe OpenCode curation.
+- Added a phased rollout and acceptance checklist emphasizing review gates, least privilege, privacy, and reversible agent edits.
+
 ## 2026-10-16
 
 ### Production-agent simulation suite
