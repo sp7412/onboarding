@@ -49,6 +49,90 @@ For ChatGPT, use the account's data-export flow to obtain an archive. Keep the e
 
 For the onboarding guide, start with the GitHub repository's Markdown, notebooks, diagrams, and source links. Preserve the repository URL, path, branch or commit, and pull-request link where relevant. A ZIP is convenient for a snapshot; a Git clone is better for ongoing change tracking. Neither contains all conversation history or every PR discussion unless those are captured separately.
 
+## Slack and email ingestion are core requirements
+
+Treat Slack and email as first-class inputs, not as an afterthought. They often contain the rationale behind decisions, commitments, corrections, project history, and links to the canonical work. The aim is to make that material findable from Obsidian without turning the vault into an unstructured dump of every message.
+
+Use a **two-layer ingestion design**:
+
+1. **Preserved source archive:** retain authorized exports or source-system records in a restricted archive location, with the original structure intact. Keep large exports and attachments out of the curated vault unless there is a concrete reason to store them there.
+2. **Obsidian knowledge layer:** create concise Markdown notes for meaningful threads, decisions, meetings, project updates, and action candidates. Include stable links back to the original Slack message/thread or email, where available.
+
+### Slack: preserve the thread, not just the one message
+
+For a Slack capture, include the original message and enough surrounding thread context to understand what it responds to. Preserve, where available:
+
+- Workspace/team, channel, message timestamp, author, and stable permalink.
+- Thread/reply relationships and relevant parent message.
+- Message timestamps and edit/deletion indicators when the source exposes them.
+- Referenced files, documents, pull requests, and follow-up messages as links.
+- Export or ingestion batch identifier and capture timestamp.
+
+A channel export may not preserve the same navigable permalink behavior as live Slack, and a connector may only expose conversations the authorized account can access. Test the actual output rather than assuming an export contains every private channel, DM, file, or historical message. Use an approved export or scoped connector; do not bypass workspace permissions.
+
+### Email: preserve message identity and conversation context
+
+For an email capture, retain enough metadata to distinguish messages and reconstruct the conversation:
+
+- From, To, Cc, sent timestamp, subject, and mailbox/folder where available.
+- Message-ID and In-Reply-To/References headers when available.
+- A stable source URL or connector reference if the provider supports one.
+- Attachment names and links or archive paths; do not silently discard attachment context.
+- Whether the message is inbound, sent, forwarded, or part of a larger thread.
+
+Email exports may not contain working web links back to the mailbox. When no stable source link exists, store the export filename/path and message identifier so the original can still be found. Keep attachments in the preserved archive or a controlled attachment folder and link to them from the note.
+
+### Normalize both sources into a shared record
+
+Use one schema across Slack and email so search and review can work consistently. Example frontmatter:
+
+```yaml
+---
+type: correspondence
+source_system: slack # or email
+source_id: "provider message/thread identifier"
+source_url: "canonical permalink when available"
+project: []
+participants: []
+sent_at: "YYYY-MM-DDTHH:MM:SSZ"
+captured_at: "YYYY-MM-DDTHH:MM:SSZ"
+ingestion_batch: "YYYY-MM-DD-source-name"
+status: captured # captured, reviewed, promoted, superseded
+sensitivity: review # public, personal, work-restricted, review
+---
+```
+
+Use only metadata the source actually supplies. The example values are placeholders, not facts. Do not place secrets, sensitive personal data, or restricted employer/customer information in a personal vault. If classification is uncertain, quarantine the item and ask before processing it further.
+
+### What should become a durable note?
+
+Do not make a permanent standalone note for every message by default. Instead:
+
+- Preserve the source record in the archive.
+- Create a short thread/conversation note when the exchange contains meaningful context, a decision, a commitment, or useful technical reasoning.
+- Promote durable decisions into `30 Decisions/` and link the evidence note.
+- Put candidate follow-ups in `00 Inbox/` with an explicit proposed status; do not treat extracted actions as approved commitments.
+- Update a project summary only when the evidence materially changes project status, scope, risks, or next steps.
+- Keep opinions, hypotheses, and confirmed decisions clearly distinct.
+
+### Incremental ingestion, deduplication, and corrections
+
+Prefer incremental sync or date-bounded export batches after the initial import. Track a source identifier plus a content hash or equivalent deduplication key so reruns do not create duplicate notes. Record the last successful sync watermark, the time range checked, and any permission or API failures. A failed run must be reported as incomplete; it must not be interpreted as "no new messages."
+
+Edits and deletions need an explicit policy. If a source message changes, update the captured record with provenance and retain an audit trail where appropriate. If a source is deleted, do not automatically erase derived notes without considering retention requirements and the reason for deletion; flag affected notes for review. Respect provider retention, organization policy, legal holds, and user deletion requests.
+
+### A safe pilot for both sources
+
+1. Choose one low-risk Slack channel and one mailbox/folder you are authorized to process.
+2. Export or retrieve a small, date-bounded sample, including a multi-message Slack thread and a multi-message email conversation.
+3. Verify author/recipient, timestamps, thread relationships, attachments, links, and source IDs against the original systems.
+4. Run ingestion twice and confirm it does not create duplicates.
+5. Confirm that restricted channels, unrelated mailboxes, and inaccessible records are not pulled in.
+6. Review the generated notes for correct summaries, explicit uncertainty, source links, and false action items.
+7. Only then expand scope or schedule recurring ingestion.
+
+A practical first milestone is **reliable, repeatable export and traceability**, not full automation. A second milestone can add scheduled incremental ingestion once permissions, coverage, deduplication, and recovery behavior have been tested.
+
 ## Note conventions and provenance
 
 Use a small, consistent metadata set. For example, a project note can begin with:
