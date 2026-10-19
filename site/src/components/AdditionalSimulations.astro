@@ -1,6 +1,6 @@
 ---
 ---
-<section class="card sim">
+<section id="tool-reliability" class="card sim">
   <h2>4. Tool reliability: retry, timeout, or recover?</h2>
   <p>Simulate a tool call that may fail. Change failure rate, retry policy, and idempotency to see how retries affect success, latency, and duplicate side effects. This is a teaching model, not a production reliability forecast.</p>
   <div class="controls">
@@ -14,7 +14,7 @@
   <p class="muted">Key lesson: retries improve the chance of completion, but a timeout does not prove the operation failed. For non-idempotent actions, blind retries can create duplicate bookings or other side effects.</p>
 </section>
 
-<section class="card sim">
+<section id="contention" class="card sim">
   <h2>5. Agent orchestration: contention for a shared resource</h2>
   <p>Multiple agents try to reserve the same technician or appointment slot. Adjust concurrency and coordination to explore throughput, conflicts, and wasted work.</p>
   <div class="controls">
@@ -28,7 +28,7 @@
   <p class="muted">This simplified model illustrates a systems principle: more parallel agents do not automatically create more useful throughput when they compete for a constrained resource. Real outcomes depend on scheduling policy, resource availability, and workload.</p>
 </section>
 
-<section class="card sim">
+<section id="deferral" class="card sim">
   <h2>6. Evaluation: when should the agent defer to a person?</h2>
   <p>Move the confidence threshold and compare automatic handling with deferral. A lower threshold automates more calls but risks acting on uncertain predictions; a higher threshold is safer but sends more calls to a human.</p>
   <div class="controls">
