@@ -662,6 +662,37 @@ Before using a task app for company work, check approved data handling, account 
 
 ## Personal work-intelligence pipeline: messages, meetings, tasks, and a local knowledge base
 
+### Where Grok Bot, Hermes, and OpenCode fit
+
+These tools overlap, but they are not interchangeable. Use the smallest number of runtimes
+that covers the workflow, and keep capture, durable storage, orchestration, and file editing
+as separate responsibilities.
+
+| Component | Recommended responsibility | Boundary to remember |
+|---|---|---|
+| [Grok Bot](https://docs.x.ai/grok-bot/overview) | Optional always-on cloud coordinator: answer requests from Slack, run approved recurring routines, and deliver source-linked digests or draft reports | Runs on a cloud computer, not your Mac. A Slack Bot is an interaction surface, not automatically a complete workspace-wide ingestion pipeline. Verify which messages a routine can read and what context is shared. |
+| [Hermes Agent](https://github.com/NousResearch/hermes-agent) | Optional alternative runtime for persistent agent workflows, scheduled jobs, memory/session search, and MCP-based tool access | Hosting determines whether it is local or remote. MCP exposes tools; it does not itself provide authorized Slack/email/Zoom ingestion or make a local vault safe for remote-model processing. |
+| [OpenCode](https://opencode.ai/) | Specialist for repository work and controlled Markdown knowledge-base maintenance: inspect, validate, and propose reviewable diffs | Use a scoped directory/worktree and explicit permissions. Do not let multiple agents write the same files concurrently. |
+| Local Markdown vault + task system | Durable record for curated knowledge and the authoritative list of commitments | Keep source links, stable IDs, timestamps, review status, and backups. Do not make an agent's session memory the only copy of a decision. |
+
+**Suggested flow:** approved source adapters capture Slack/email/meeting artifacts; a
+normalizer records source IDs and links; a coordinator (Grok Bot *or* Hermes, not necessarily
+both) produces candidate actions and a source-linked digest; a person approves task creation
+and material decisions; OpenCode checks or proposes vault changes as diffs. The task manager
+and Markdown vault remain the durable records.
+
+Start with a read-only pilot: provide a small, non-sensitive Markdown subset and a task export;
+ask the chosen coordinator to identify overdue actions, duplicate tasks, broken links, and
+possible decision conflicts, with evidence for every finding. Save a report, not edits. Measure
+false positives, missed findings, review time, and operating cost before expanding access.
+
+Before connecting cloud bots to company or personal data, verify provider approval, retention
+and training settings, connector scopes, logging, and who can access shared bot context. Do not
+put credentials, restricted transcripts, or private vault content into a cloud bot unless that
+data flow is explicitly approved. Require human approval for external messages, assignments,
+task mutations, and destructive or irreversible actions.
+
+
 The goal is not to install one more note-taking app. It is to create a dependable loop:
 capture a commitment wherever it appears, turn it into a reviewable task, preserve the
 source and decision context in a local knowledge base, and let an AI coding agent maintain
