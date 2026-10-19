@@ -8,7 +8,7 @@ websockets>=13
 langchain>=1.4.4
 langchain-openai
 langgraph
-langgraph-sdk>=0.4.4  # Fixes CVE-2026-104873 reported by pip-audit
+langgraph-sdk>=0.4.7  # Fixes CVE-2026-104873 reported by pip-audit
 langgraph-checkpoint-sqlite
 langsmith>=0.14.7
 # Notebook 04 (LiveKit agents); tested against livekit-agents 1.8.x
