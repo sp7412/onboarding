@@ -665,6 +665,8 @@ Before using a task app for company work, check approved data handling, account 
 
 ## Personal work-intelligence pipeline: messages, meetings, tasks, and a local knowledge base
 
+**Grok Bot step-by-step runbook:** [Build the workflow from first Bot to validated daily and weekly routines](grok-bot-knowledge-workflow.md). Follow this guide when you want concrete setup steps and copy-ready prompts; this section below remains the broader architecture and tool-selection reference.
+
 ### Where Grok Bot, Hermes, and OpenCode fit
 
 These tools overlap, but they are not interchangeable. Use the smallest number of runtimes
