@@ -660,6 +660,233 @@ For AI-assisted engineering, the task record should include an owner, goal, bran
 
 Before using a task app for company work, check approved data handling, account boundaries, export options, integrations, and external AI processing. Keep restricted work out of personal accounts unless that use is approved.
 
+## Personal work-intelligence pipeline: messages, meetings, tasks, and a local knowledge base
+
+The goal is not to install one more note-taking app. It is to create a dependable loop:
+capture a commitment wherever it appears, turn it into a reviewable task, preserve the
+source and decision context in a local knowledge base, and let an AI coding agent maintain
+that knowledge without silently rewriting history.
+
+**Keep four responsibilities separate:**
+
+1. **Capture:** Slack messages and Huddles, email, Zoom meetings, documents, and quick notes.
+2. **Interpret:** transcribe or summarize; identify decisions, explicit commitments, owners,
+   deadlines, dependencies, and unresolved questions.
+3. **Publish:** create a task in one authoritative task system and a source-linked Markdown
+   note in the knowledge base.
+4. **Maintain:** use OpenCode or another agent to find duplicates, improve links and indexes,
+   surface conflicts and stale notes, and propose—not silently make—material changes.
+
+```text
+Slack messages / Huddles ─┐
+Email / flagged messages ─┼─> capture adapters ─> normalized source record
+Zoom transcript / notes ──┘                           |
+                                                     v
+                                      summarize + extract candidate actions
+                                                     |
+                                  ┌──────────────────┴──────────────────┐
+                                  v                                     v
+                       human-reviewed task                       local Markdown vault
+                       owner / due date / status                  summary / decisions /
+                       source permalink                           transcript reference
+                                  |                                     |
+                                  v                                     v
+                       one task system of record             OpenCode curation agent
+                                  |                                     |
+                                  └──────── review / reconcile ─────────┘
+```
+
+This is a reference architecture, not a claim that every connector is preconfigured.
+Provider plans, OAuth scopes, APIs, device permissions, and organizational policies determine
+which steps can be automated. Start with manual capture and local files; automate one source
+at a time after proving that the result is accurate and recoverable.
+
+### Pick one task system of record
+
+Choose one primary destination and do not let every integration create a competing backlog.
+
+| Destination | Use when | Integration reality |
+|---|---|---|
+| [Apple Reminders](https://support.apple.com/guide/reminders/welcome/mac) | You want a native Mac/iPhone personal task list | Shortcuts and Apple-platform automation can create tasks; iCloud may sync them, so “native” does not mean strictly local-only |
+| [Things 3](https://culturedcode.com/things/) | You want a focused Apple-only personal planning system | Supports URL-based and shortcut-oriented capture patterns; verify fields and deep links in the current version before building around them |
+| [OmniFocus](https://www.omnigroup.com/omnifocus) | You want a more structured personal/GTD system | Automation is powerful, but requires a deliberate capture template and review process |
+| [Todoist](https://todoist.com/) | You prioritize cross-platform integrations and quick capture | Has a documented [Slack integration](https://www.todoist.com/help/todoist/integrations/use-slack-with-todoist) that can create tasks from messages and commands; it is cloud-backed |
+| Team tracker (for example, [Linear](https://linear.app/features) or [GitHub Issues](https://github.com/features/issues)) | The action is team-owned engineering work | Keep the team’s existing tracker authoritative rather than copying work into a personal backlog |
+
+**Practical choice:** use Reminders, Things, or OmniFocus if local-first personal task management is
+the priority and accept that some capture paths will need Shortcuts or a small adapter. Choose
+Todoist if direct Slack capture and cross-platform integration outweigh the cloud-storage trade-off.
+Before choosing, test the exact task fields, source backlink, due-date behavior, and mobile capture
+flow. Never assume a connector preserves a source permalink unless you verify it.
+
+### Capture Slack messages and email without losing provenance
+
+**Slack messages.** The [Todoist Slack integration guide](https://www.todoist.com/help/todoist/integrations/use-slack-with-todoist)
+documents message-to-task capture and the `/todoist` command. Test the native flow first. If the
+destination does not preserve a link to the exact message/thread, use an approved automation or API
+adapter that explicitly writes the permalink into the task notes. For a local-first task manager,
+a Slack message action can instead invoke a Shortcut/custom capture form that sends the title,
+permalink, channel, author, and timestamp to the task system.
+
+**Email.** Email-to-task behavior varies by client and provider; do not treat a generic “email
+integration” as universal. Begin with the email client's built-in flag/follow-up feature or a
+manual share/Shortcut action. For automation, use the provider's supported API or approved
+connector (for example, Microsoft Graph for Microsoft 365) and request the minimum scopes needed.
+Capture the message's stable web URL or message ID where available; retain sender, subject, received
+time, and a short user-approved excerpt rather than copying an entire thread by default. If a
+provider cannot supply a durable link, record enough metadata to find the original message without
+embedding sensitive content in the task.
+
+**Normalize both into the same task envelope:**
+
+| Field | Rule |
+|---|---|
+| Title | A concise, verb-led action; do not convert a discussion topic into a commitment |
+| Owner | Set only when explicitly assigned or confirmed; otherwise mark “unassigned” |
+| Due date | Use only an explicit date or a clearly grounded deadline; never invent one from vague language |
+| Source | Canonical permalink/deep link, source type, stable message ID, and timestamp |
+| Context | Short excerpt and thread/email context needed to act; minimize copied sensitive text |
+| Confidence | Distinguish explicit commitment from inferred suggestion or uncertain speaker attribution |
+| Status | `proposed`, `approved`, `in progress`, `blocked`, `done`, or `dismissed` |
+| Idempotency key | Source ID + action identity, so reprocessing the same message does not create duplicates |
+
+Use a review inbox for inferred actions. Creating a task, assigning a colleague, sending a message, or
+changing a deadline is a side effect; require confirmation unless a narrowly scoped, tested rule
+explicitly authorizes it. Preserve a path back to the source, and allow a user to dismiss a false
+positive without the automation recreating it on the next sync.
+
+### Transcribe and summarize Zoom meetings and Slack Huddles
+
+For Slack Huddles, see the [Slack AI huddle notes](https://slack.com/help/articles/31377193680019-Use-AI-to-take-huddle-notes-in-Slack)
+guidance above. Native notes are the least-friction first option when available and approved.
+Validate whether the transcript is exportable/searchable for your intended workflow; a transcript
+visible in a huddle canvas is not automatically part of a durable knowledge index.
+
+For Zoom, evaluate native AI Companion summaries and supported recording/transcript APIs before
+adding a separate meeting bot:
+
+- [Zoom AI Companion meeting summaries](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0057960):
+  check account eligibility, admin settings, host controls, participant notice, and retention.
+- [Zoom Meetings API](https://developers.zoom.us/docs/api/meetings/): supported accounts and
+  permissions can expose meeting artifacts such as transcripts and summaries; availability depends
+  on recording configuration, ownership, and scopes.
+- [Zoom AI Services APIs](https://developers.zoom.us/docs/api/ai-services/): evaluate supported
+  AI artifact workflows where your account and use case qualify.
+- [MacParakeet](https://www.macparakeet.com/) can transcribe supported local media/files as a
+  local-first fallback after you have lawfully obtained an approved recording. It is not, by itself,
+  proof of automatic capture from every live Zoom meeting or Slack Huddle.
+
+For each meeting source, record the meeting title/ID, date, attendees where appropriate, transcript
+origin, recording/consent status, source link, and processing timestamp. Separate verbatim transcript
+from generated summary. A summary is a derived artifact and must link back to the transcript or
+original meeting. Do not record or transcribe meetings without the required notice and authorization;
+do not route sensitive recordings to unapproved cloud services.
+
+### Extract action items from meetings
+
+Ask the summarizer for structured fields, not just a prose recap. A useful meeting note has:
+
+- **Summary:** a short, factual overview with uncertainty called out.
+- **Decisions:** what was decided, who confirmed it, and any conditions.
+- **Action items:** verb, owner, due date, status, and source timestamp or transcript excerpt.
+- **Open questions and risks:** items explicitly unresolved, not guessed answers.
+- **Evidence:** links to the source recording/transcript and timestamped excerpts for important claims.
+
+An action item should be emitted as a *candidate* until a person or an explicit deterministic rule
+confirms that it is a real commitment. Distinguish “Alex will send the draft by Friday” from “we
+could ask Alex to send a draft”; identify speaker attribution uncertainty; do not infer an owner from
+the person who happened to speak. If the deadline is relative (“next Friday”), resolve it against the
+meeting date and preserve both the interpreted date and original wording for review.
+
+After approval, create the task through the selected task adapter. Store the task ID and status back
+in the meeting note or a small local manifest so later runs update the existing task instead of
+creating a duplicate. If the task system offers no reliable API, keep the handoff human-mediated.
+
+### Keep the knowledge base local, source-linked, and maintainable
+
+For a local-first setup, use an [Obsidian](https://obsidian.md/) vault of Markdown files as the
+human-readable system of record. Store source links and minimal useful summaries—not an indiscriminate
+copy of every Slack message, email, or transcript. A starter structure could be:
+
+```text
+Knowledge/
+  Inbox/                 # unreviewed captures and proposed action items
+  Meetings/YYYY/MM/      # dated summaries, decisions, transcript links
+  Decisions/             # durable decisions with status and evidence
+  Projects/<project>/    # curated project context and links
+  People/                # only appropriate, non-sensitive working context
+  Indexes/               # generated indexes; mark them as generated
+  .automation/            # manifests, cursors, and deduplication state
+```
+
+Use YAML front matter or another consistent metadata format. For example:
+
+```yaml
+---
+type: meeting-summary
+date: 2026-10-18
+source_type: zoom
+source_url: "https://example.invalid/meeting-or-transcript"
+source_id: "provider-stable-id"
+processed_at: 2026-10-18T20:00:00-05:00
+status: reviewed
+---
+```
+
+The URL and ID above are placeholders, not real records. Do not commit actual private messages,
+recordings, tokens, OAuth exports, or personal knowledge files to a public repository. Keep the vault
+outside the repo unless the repository is intentionally private and authorized for that data. Back up
+the vault, version-control only appropriate Markdown, and document how to restore it.
+
+### Use OpenCode or agents to improve the vault safely
+
+Treat OpenCode as a **curation and maintenance agent**, not an unrestricted autonomous editor of
+personal records. Give it a dedicated vault/worktree or a narrowly scoped directory and start with
+read-only access. Useful bounded jobs include:
+
+1. Find duplicate meeting summaries and merge candidates; do not delete originals automatically.
+2. Suggest links between meeting notes, decisions, projects, and tasks.
+3. Detect unresolved placeholders, missing source links, invalid dates, broken local links, and
+   inconsistent metadata.
+4. Compare a proposed decision with prior notes and report contradictions with citations.
+5. Propose updates to project summaries when new evidence changes the picture.
+6. Regenerate indexes from source notes using a deterministic script; mark generated files clearly.
+7. Produce a weekly digest of open actions, overdue dates, blockers, and decisions awaiting review.
+
+Require the agent to cite the exact note paths and source links for every proposed change. Prefer
+patches/diffs over free-form rewrites; keep originals and history. Use one worktree per independently
+writable agent, and never have multiple agents edit the same vault files concurrently. A separate
+review pass should check factual support, privacy, links, duplicate actions, and whether a change
+overwrites a human decision. Enable write access only for a specific reviewed operation. Keep shell,
+network, messaging, and destructive tools disabled unless needed and explicitly approved.
+
+MCP can expose approved search/read or task-creation tools to OpenCode, but MCP is not the knowledge
+base itself. Local Markdown remains the durable store; an index/vector database is optional and should
+be added only if vault search is demonstrably insufficient. If a remote model processes vault content,
+that content leaves the device even if the vault files remain local—verify provider retention and
+organizational approval before enabling it.
+
+### Build it incrementally
+
+1. **Manual baseline:** pick one task system and one local Markdown vault. Capture one Slack message,
+   one email, and one meeting summary with source links by hand.
+2. **Single-source automation:** automate Slack *or* email capture first; test duplicate handling,
+   permissions, links, and mobile behavior.
+3. **Meeting artifacts:** enable approved native notes/transcripts for Zoom and Slack Huddles; add a
+   local-file transcription fallback only where needed.
+4. **Action extraction:** generate candidate actions into an inbox, then approve before creating tasks.
+5. **Knowledge curation:** run OpenCode in read-only/diff-only mode to detect duplicates, broken links,
+   stale notes, and contradictions.
+6. **Controlled writes:** enable a small set of reviewed write operations; keep an audit log and a
+   tested rollback/backup procedure.
+7. **Evaluate monthly:** sample captures for false positives, missed commitments, wrong owners/dates,
+   duplicate tasks, broken backlinks, stale knowledge, and access-control failures.
+
+**Acceptance checklist:** every task has a source or an explicit “manual capture” origin; no inferred
+owner/deadline is silently treated as fact; repeated ingestion is idempotent; transcripts and summaries
+are distinguishable; important summary claims link to evidence; source access/retention rules are
+honored; agent changes are diffable and reversible; and the vault can be restored from backup.
+
 ## Mac productivity and workflow automation
 
 These utilities reduce the small interruptions that accumulate during engineering work.
