@@ -1,7 +1,7 @@
 ---
 ---
 <section id="tool-reliability" class="card sim">
-  <h2>4. Tool reliability: retry, timeout, or recover?</h2>
+  <h2>Tool reliability: retry, timeout, or recover?</h2>
   <p>Simulate a tool call that may fail. Change failure rate, retry policy, and idempotency to see how retries affect success, latency, and duplicate side effects. This is a teaching model, not a production reliability forecast.</p>
   <div class="controls">
     <label><span>Transient failure probability: <output id="rt-fail-o">30%</output></span><input id="rt-fail" type="range" min="0" max="0.8" step="0.05" value="0.3" /></label>
@@ -15,7 +15,7 @@
 </section>
 
 <section id="contention" class="card sim">
-  <h2>5. Agent orchestration: contention for a shared resource</h2>
+  <h2>Agent orchestration: contention for a shared resource</h2>
   <p>Multiple agents try to reserve the same technician or appointment slot. Adjust concurrency and coordination to explore throughput, conflicts, and wasted work.</p>
   <div class="controls">
     <label><span>Agents acting at once: <output id="cc-agents-o">6</output></span><input id="cc-agents" type="range" min="1" max="20" step="1" value="6" /></label>
@@ -29,7 +29,7 @@
 </section>
 
 <section id="deferral" class="card sim">
-  <h2>6. Evaluation: when should the agent defer to a person?</h2>
+  <h2>Evaluation: when should the agent defer to a person?</h2>
   <p>Move the confidence threshold and compare automatic handling with deferral. A lower threshold automates more calls but risks acting on uncertain predictions; a higher threshold is safer but sends more calls to a human.</p>
   <div class="controls">
     <label><span>Confidence threshold: <output id="ev-threshold-o">0.75</output></span><input id="ev-threshold" type="range" min="0.4" max="0.98" step="0.01" value="0.75" /></label>

@@ -14,8 +14,9 @@ import traces from "../data/guardrail-traces.json";
     <a href="#turn-taking">Turn-taking</a><a href="#guardrails">Guardrails</a><a href="#latency">Latency budget</a><a href="#tool-reliability">Tool reliability</a><a href="#contention">Agent contention</a><a href="#deferral">Evaluation and deferral</a>
   </nav>
 
+  <div class="simulation-list">
   <section id="turn-taking" class="card sim">
-    <h2>1. Turn-taking: when is the caller done?</h2>
+    <h2>Turn-taking: when is the caller done?</h2>
     <p>A caller reads a phone number with pauses. Orange labels are pauses mid-thought; red lines are where the agent commits to a turn — that decision is <Fragment set:html={jargonSpan("endpointing", "endpointing")} />.</p>
     <div class="controls">
       <label><span>Silence timer (min delay): <output id="tt-min-o"></output> ms</span><input type="range" id="tt-min" min="200" max="1500" step="50" value="500" /></label>
@@ -29,7 +30,7 @@ import traces from "../data/guardrail-traces.json";
   </section>
 
   <section id="guardrails" class="card sim">
-    <h2>2. Guardrails: the control plane on and off</h2>
+    <h2>Guardrails: the control plane on and off</h2>
     <p>Replays scripted calls through a small browser-based scenario model. Flip the control plane off and watch which tool calls go through; compare allowed actions, blocked actions, and the resulting outcome.</p>
     <div class="controls">
       <label>Scenario <select id="gr-scn"></select></label>
@@ -40,13 +41,14 @@ import traces from "../data/guardrail-traces.json";
   </section>
 
   <section id="latency" class="card sim">
-    <h2>3. Latency budget: time to first sound</h2>
+    <h2>Latency budget: time to first sound</h2>
     <p>Adjust each stage and compare with a roughly one-second target. A spoken preamble ("one moment…") can hide a slow tool without making it faster, and the model's <Fragment set:html={jargonSpan("ttft", "time to first token")} /> is its thinking time before the answer starts.</p>
     <div class="controls" id="lat-controls"></div>
     <label class="check"><input type="checkbox" id="lat-filler" checked /> Agent says "one moment while I check" before the tool runs (a spoken preamble)</label>
     <div id="lat-bars" class="bars"></div>
   </section>
   <AdditionalSimulations />
+  </div>
 </BaseLayout>
 
 <script define:vars={{ traces }}>
@@ -170,6 +172,9 @@ import traces from "../data/guardrail-traces.json";
 </script>
 
 <style is:global>
+  .simulation-list { counter-reset: simulation; }
+  .simulation-list .sim { counter-increment: simulation; }
+  .simulation-list .sim h2::before { content: counter(simulation) ". "; }
   .sim { margin-bottom: var(--s8); max-width: 90ch; }
   .sim .controls { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: var(--s3) var(--s6); margin: var(--s4) 0; }
   .sim .controls label { display: grid; gap: var(--s1); font-size: 0.95rem; align-content: start; }
