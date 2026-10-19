@@ -1,6 +1,7 @@
 ---
 import Icon from "../components/Icon.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import AdditionalSimulations from "../components/AdditionalSimulations.astro";
 import { url } from "../lib/url";
 import { jargonSpan } from "../lib/jargon";
 import traces from "../data/guardrail-traces.json";
@@ -45,6 +46,7 @@ import traces from "../data/guardrail-traces.json";
     <label class="check"><input type="checkbox" id="lat-filler" checked /> Agent says "one moment while I check" before the tool runs (a spoken preamble)</label>
     <div id="lat-bars" class="bars"></div>
   </section>
+  <AdditionalSimulations />
 </BaseLayout>
 
 <script define:vars={{ traces }}>
