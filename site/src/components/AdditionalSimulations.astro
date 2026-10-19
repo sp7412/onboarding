@@ -41,7 +41,8 @@
   <p class="muted">The sample uses a deliberately simplified confidence distribution. Confidence is not automatically calibrated probability; evaluate thresholds against labeled outcomes, business costs, and subgroup performance before using them in production.</p>
 </section>
 
-<script>
+<script is:inline>
+(() => {
   const byId = (id) => document.getElementById(id);
   const pct = (x) => Math.round(x * 100) + "%";
   function metric(label, value, note = "") {
@@ -120,6 +121,7 @@
   }
   ["ev-threshold", "ev-volume", "ev-quality"].forEach(id => byId(id).addEventListener("input", drawEval));
   drawEval();
+})();
 </script>
 
 <style>
