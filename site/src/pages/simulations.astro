@@ -10,8 +10,20 @@ import traces from "../data/guardrail-traces.json";
   <div class="page-title"><Icon name="wave" badge size={22} tone="green" /><h1>Simulations</h1></div>
   <p class="page-lede">Three small simulations of the ideas in the labs. They are teaching models, not real voice systems; the labs run the full versions in Python.</p>
   <nav class="toc" aria-label="Simulations">
-    <a href="#turn-taking">Turn-taking</a><a href="#guardrails">Guardrails</a><a href="#latency">Latency budget</a>
+    <a href="#turn-taking">Turn-taking</a><a href="#guardrails">Guardrails</a><a href="#latency">Latency budget</a><a href="#production-agent-suite">Production agent suite</a><a href="#technician-feedback">Technician feedback</a>
   </nav>
+
+  <section id="production-agent-suite" class="card sim">
+    <h2>4. Production agent simulation suite</h2>
+    <p>Stress-test agent behavior across production-style scenarios: changing constraints, shared context, failures, deferral, and evaluation. The notebook includes a reusable scenario harness and synthetic test cases.</p>
+    <p><a href="https://github.com/sp7412/onboarding/blob/main/labs/19_production_agent_simulation_suite.ipynb">Open Lab 19 in GitHub</a> · <a href={url("/labs#lab-19")}>Find it in the labs index</a></p>
+  </section>
+
+  <section id="technician-feedback" class="card sim">
+    <h2>5. Technician feedback → playbook learning</h2>
+    <p>Explore how structured technician feedback becomes a candidate playbook revision, then passes held-out evaluation, approval gates, a monitored pilot, and rollback criteria.</p>
+    <p><a href="https://github.com/sp7412/onboarding/blob/main/labs/18_technician_feedback_playbook_learning.ipynb">Open Lab 18 in GitHub</a> · <a href={url("/labs#lab-18")}>Find it in the labs index</a></p>
+  </section>
 
   <section id="turn-taking" class="card sim">
     <h2>1. Turn-taking: when is the caller done?</h2>
