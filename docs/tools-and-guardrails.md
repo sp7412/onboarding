@@ -78,9 +78,10 @@ The Agents SDK has four controls: [1]
 
 **Mind the workflow boundaries.** Input guardrails run only for the first agent in a chain;
 output guardrails only for the agent that produces the final output; tool guardrails only on
-the tools they're attached to. OpenAI's advice is to put validation next to the tool that
-creates the side effect. [1] This repo's `execute_tool` follows that rule; the SDK features
-below are additional layers, not replacements.
+the tools they're attached to. Input guardrails commonly run in parallel with the agent unless
+configured as blocking, so they are not a reliable pre-write authorization boundary. OpenAI's
+advice is to put validation next to the tool that creates the side effect. [1] This repo's
+`execute_tool` follows that rule; SDK features are additional layers, not replacements.
 
 ### A tool input guardrail
 
@@ -135,13 +136,14 @@ from voice_tools import BACKEND_MODEL
 
 
 @function_tool(needs_approval=True)
-async def cancel_installation(job_id: str, reason: str) -> str:
-    """Cancel a scheduled system installation (requires CSR approval)."""
-    return f"Cancelled {job_id}"
+async def request_installation_cancellation(job_id: str, reason: str) -> str:
+    """Request cancellation; approval is required before the guarded service may commit it."""
+    # Teaching placeholder only: this is deliberately not the mutation.
+    return f"Cancellation request for {job_id} is ready for guarded execution."
 
 
 agent = Agent(name="Backend", instructions="Handle the caller's request.", model=BACKEND_MODEL,
-              tools=[cancel_installation])
+              tools=[request_installation_cancellation])
 
 
 async def main() -> None:
@@ -161,7 +163,11 @@ if __name__ == "__main__":
 
 On a live call, approval takes time. Analysis: tell the caller honestly what's happening
 ("I've sent that to the team; you'll get a text within the hour"), never imply the action is
-done, and serialize the run state so the approval can resume later. [1]
+done, and serialize the run state so the approval can resume later. [1] Approval is not
+authorization or a commit: after approval, a server-owned service must recheck the principal,
+resource version, policy, and idempotency key before it performs the mutation. Keep approval
+state authenticated, authorized, and replay-protected; never trust a browser or model to carry
+the final authority.
 
 ## 4. Prompt injection in a voice agent
 

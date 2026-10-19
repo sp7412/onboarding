@@ -47,7 +47,7 @@ The product surfaces include **Call Analysis** for individual calls and **Insigh
 
 This addresses a major measurement problem: a CSR's post-call disposition can be wrong or missing. Voice Intelligence attempts to classify the conversation itself and flag mismatches between what was said and how the call was recorded. Custom scorecards are also documented in the [Voice Intelligence custom-scorecards release note](https://help.servicetitan.com/release-hub/docs/score-calls-your-way-with-voice-intelligence-custom-scorecards).
 
-**Rollout caveat:** the cited September article says Voice Intelligence with Calls is available in Early Access for ServiceTitan Max. Availability, eligible call sources, and permissions can vary by release and configuration. The release notes specifically caution that when Contact Center Pro and ServiceTitan Core telephony are both enabled, only Contact Center Pro calls are analyzed in the described configuration.
+**Rollout caveat:** the cited help documentation describes Voice Intelligence with Calls as Early Access for ServiceTitan Max. Availability, eligible call sources, and permissions can vary by release and configuration. The release notes specifically caution that when Contact Center Pro and ServiceTitan Core telephony are both enabled, only Contact Center Pro calls are analyzed in the described configuration.
 
 ## Published booking and adoption figures
 
@@ -81,6 +81,8 @@ The public behavior suggests several questions worth validating with the team ra
 6. **Evaluation denominator:** Who determines that a call was genuinely bookable, and how are capacity constraints separated from agent errors?
 7. **Evidence and privacy:** What retention and permission controls govern recordings, transcripts, and quoted evidence in call scorecards?
 8. **Outcome linkage:** Can evaluation connect call-level decisions to the committed job, technician response, completed service, invoice, and revenue without attributing unrelated effects to the agent?
+9. **Comparable populations:** Which channels, telephony configurations, feature flags, model/policy versions, and rollout cohorts are included in each metric? Which calls are ineligible for Voice Intelligence analysis?
+10. **Release control:** What is the rollback trigger, who can activate it, and how is a scorecard/model/configuration change tied to its rollout cohort?
 
 These are engineering questions derived from public product behavior—not assertions about internal implementation.
 

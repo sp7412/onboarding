@@ -188,6 +188,7 @@ from livekit.agents import AgentServer, AgentSession, JobContext, JobProcess, cl
 from livekit.plugins import silero
 from livekit.plugins.turn_detector.multilingual import MultilingualModel
 
+from stlab import backend as be
 from stlab import load_env
 from stlab.tools import CallState
 
@@ -206,6 +207,7 @@ server.setup_fnc = prewarm
 
 @server.rtc_session()
 async def entrypoint(ctx: JobContext):
+    state = CallState(call_id=ctx.room.name)
     session = AgentSession[CallState](
         stt="deepgram/nova-3",
         llm="openai/gpt-5.4-mini",
@@ -217,8 +219,17 @@ async def entrypoint(ctx: JobContext):
             "interruption": {"enabled": True, "min_duration": 0.5, "resume_false_interruption": True},
             "preemptive_generation": {"enabled": True},  # start the LLM before the turn is final
         },
-        userdata=CallState(call_id=ctx.room.name),
+        userdata=state,
     )
+
+    @session.on("user_input_transcribed")
+    def _on_transcript(ev):
+        if not ev.is_final:
+            return
+        state.last_user_text = ev.transcript
+        if be.detect_emergency(ev.transcript):
+            state.emergency = True
+
     await session.start(agent=BookingAgent(), room=ctx.room)
 
 

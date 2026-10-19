@@ -894,10 +894,16 @@ A server can offer three kinds of things [9]:
 | **Prompts** | Templated messages and workflows | a "reschedule" script the user can pick |
 
 Servers can also ask the user for missing information through the client (*elicitation*).
-The current revision (2026-07-28) makes requests stateless and self-contained, and adds
+The cited 2026-07-28 revision makes requests stateless and self-contained, and adds
 opt-in extensions, including **Tasks** for long-running operations and a community working
 group on **Skills over MCP**, structured workflow instructions discovered through MCP, which
-is the same idea as [chapter 16](16-shared-skills-and-capabilities.md). [9]
+resembles only one part of [chapter 16](16-shared-skills-and-capabilities.md). It is not an
+authorization or capability-manifest standard. [9]
+
+**Implementation consequence.** Never bind tenant, principal, authorization, conversation, or
+idempotency state to an MCP transport connection. Authenticate application context and carry
+explicit operation identifiers with each request; verify every mutation again at the
+authoritative service.
 
 ```text
            Host (booking agent runtime)

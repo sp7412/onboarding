@@ -3,7 +3,7 @@
 Run locally with:
     uv run mcp dev server.py
 or:
-    uv run mcp run server.py --transport streamable-http
+    uv run mcp run mcp_demo/server.py --transport streamable-http
 """
 
 from mcp.server import MCPServer

@@ -115,6 +115,11 @@ Those are application and governance questions. The MCP specification says as mu
 tools as arbitrary code execution, says hosts must get user consent before invoking them, and
 notes that the protocol itself cannot enforce these principles [5].
 
+The cited MCP revision is stateless: do not infer a tenant, principal, authorization decision,
+conversation, or idempotency key from a connection. Authenticate and authorize application
+context per request, use explicit operation identifiers for work that spans requests or
+reconnects, and recheck every write at the authoritative service.
+
 A good design keeps the MCP/tool surface narrow and puts business authorization behind it.
 
 ## 3. Treat tool descriptions and arguments as untrusted input
@@ -317,4 +322,3 @@ Public sources only, checked October 8, 2026. Company and partner statements are
 
 Related: [Pantheon 2026 brief](pantheon-2026-ai-roadmap.md), [Homh and AI-agent booking](homh-and-agent-booking.md),
 [whitepaper chapter 15, section 14 (MCP and A2A)](whitepaper/15-agentic-orchestration.md), lab 12.
-

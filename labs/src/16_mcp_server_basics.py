@@ -152,10 +152,10 @@ print(completed.stdout)
 # %% [markdown]
 # ## 5. Put the server on a real transport
 #
-# Save the server in `server.py` and run:
+# The repository's server is `mcp_demo/server.py`. From `labs/`, run:
 #
 # ```bash
-# uv run mcp run server.py --transport streamable-http
+# uv run mcp run mcp_demo/server.py --transport streamable-http
 # ```
 #
 # Then the MCP endpoint is normally:
@@ -167,10 +167,10 @@ print(completed.stdout)
 # For local development, the SDK also provides:
 #
 # ```bash
-# uv run mcp dev server.py
+# uv run mcp dev mcp_demo/server.py
 # ```
 #
-# Use **MCP Inspector** to list the server's tools/resources/prompts and invoke the tool. The
+# Use **MCP Inspector** (which needs Node/npx) to list the server's tools/resources/prompts and invoke the tool. The
 # point of this exercise is to see that MCP is a protocol surface you can inspect independently
 # of whichever LLM eventually chooses to call the tool.
 #

@@ -47,19 +47,16 @@ must be drawn by counsel.
 ## 2. Recording and transcription consent
 
 Federal law (the Wiretap Act, part of the Electronic Communications Privacy Act) allows a
-party to a call to record it with one party's consent. Most states follow that one-party
-rule, and a smaller group requires every party to consent. [2][3] Commonly cited all-party
-states for phone calls include California, Connecticut, Delaware, Florida, Illinois,
-Maryland, Massachusetts, Montana, Nevada, New Hampshire, Pennsylvania and Washington, but
-published lists run from roughly 11 to 13 states because several are edge cases. [3]
-Justia's 50-state survey notes that some states apply the rule only where there is a
-reasonable expectation of privacy, and that courts disagree about which state's law applies
-to interstate calls. [2]
+party to a call to record it with one party's consent. State rules can be stricter, but no
+short "all-party state" list is reliable enough to implement from: statutes distinguish
+participants from nonparticipants, reasonable-expectation-of-privacy conditions, notification
+methods, and call type. Interstate calls add a choice-of-law question. [2][3]
 
-**Analysis for design.** Voice agents record, transcribe and summarize by nature. The safest
-default is an up-front recording notice on every call, with the notice text and behavior
-configurable per business and jurisdiction. Downstream uses (training, quality review,
-model evaluation) may need their own consent and retention rules.
+**Analysis for design.** Voice agents record, transcribe and summarize by nature. Use an
+up-front recording notice by default, but have counsel maintain the jurisdiction-specific
+matrix that selects notice, consent, retention, and feature behavior for each deployment.
+Downstream uses (training, quality review, model evaluation) may need their own consent and
+retention rules. Do not treat a generic state list as legal implementation guidance.
 
 ## 3. Telling callers they are talking to AI
 

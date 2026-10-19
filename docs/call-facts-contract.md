@@ -64,6 +64,21 @@ travels in the same small envelope, so a downstream agent can tell "the caller s
 | `account_match` | matched, ambiguous, new, unresolved | Tool or lookup result, not free text |
 | `preferred_callback` | E.164 or "none" | Never invent a number |
 
+### Authorization for an existing record
+
+Identity is not authority. A matched phone number or a claimed caller role does not by itself
+authorize a reschedule, cancellation, or disclosure of an existing appointment. Keep a
+separate, fictional teaching fact group for the evidence the application checked:
+
+| Field | Example values | Notes |
+|---|---|---|
+| `requested_resource` | appointment id or account scope | The existing record the caller wants to read or change |
+| `authority_basis` | verified account holder, approved delegate, property manager, unknown | Policy-defined relationship; never model-inferred authority |
+| `verification_method` | authenticated portal, account challenge, human verification | Application-owned proof, not a transcript assertion |
+| `authorized_scope` | read_status, reschedule, cancel | Least privilege; a status check need not permit a mutation |
+| `authorization_status` | verified, denied, unresolved | Only `verified` can unlock the requested scope |
+| `verified_at` | timestamp plus policy version | Makes the decision auditable and short-lived when appropriate |
+
 ### Intent and job
 
 | Field | Example values | Notes |
@@ -112,6 +127,8 @@ These are design prompts, not production rules:
 - **No silent invention.** Phone numbers, addresses, account ids, and slot ids must come
   from tools or explicit caller confirmation.
 - **Offer before select.** `selected_slot` must be in `offered_slots`.
+- **Verify authority before an existing-record action.** A match or claimed role is not enough;
+  read and write scopes require a verified, policy-defined authority record.
 - **Confirm before commit.** Spoken "you're booked" requires a successful create/update in
   the source of truth.
 - **Confidence gates.** Low-confidence identity or address → clarify or escalate; do not

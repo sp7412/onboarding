@@ -5,7 +5,7 @@
 ## Five Takeaways
 
 1. ServiceTitan's customers invoiced $82.1 billion through the platform in fiscal 2026, averaging roughly $7.6 million per Active Customer (a skewed average). [1]
-2. The company earns about 1.2% of that volume (analysis from reported figures) and grows by raising this share with add-ons. [1][2]
+2. Revenue divided by GTV is about 1.2%, a derived comparison rather than a company-reported share-of-wallet metric. [1][2]
 3. The economic case for a voice agent is recovered revenue: calls that would otherwise go unanswered, abandoned or unbooked. Vendors frame one missed call as potentially a five-figure installation, but that is the high end, not the average. [3]
 4. Booking rate alone is misleading; ServiceTitan's CEO said in-product booking rates are easy to game, and job value, capacity use and escalation quality matter too. [7]
 5. Measuring impact needs baselines and counterfactuals, because demand swings with season and weather. [1]
@@ -21,8 +21,9 @@
 | GTV, fiscal Q2 2027 | $26.8 billion (+17% YoY) | [2] |
 
 Analysis: $82.1 billion ÷ ~10,800 customers ≈ $7.6 million invoiced per customer per year,
-and ~$961 million ÷ $82.1 billion ≈ 1.2% share of wallet. Both are back-of-envelope figures
-from public numbers; the real distributions are unknown from outside.
+and ~$961 million ÷ $82.1 billion ≈ 1.2%. Both are back-of-envelope comparisons from public
+numbers, not reported share-of-wallet measures; the real distributions and growth mechanisms
+are unknown from outside.
 
 ## Unit economics of a call (framework)
 

@@ -337,6 +337,11 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [ServiceTitan job listing: Engineering Manager, Data Foundations](https://servicetitan.wd1.myworkdayjobs.com/en-US/ServiceTitan/job/Manager--Software-Engineering_JR114911) | Job listing (expires) | Whitepaper 15, 17 |
 | [ServiceTitan job listing on Built In: Staff Product Manager, Communications Intelligence](https://builtin.com/job/staff-product-manager-communications-intelligence/10448969) | Job listing (expires) | Whitepaper 15, 17 |
 | [ServiceTitan Help: Configure your Voice Agent settings in Contact Center Pro](https://help.servicetitan.com/docs/configure-your-voice-agent-settings) | Help center (company claim) | Whitepaper 16 |
+| [LiveKit Agent Platform](https://livekit.com/products/agent-platform) | Product page | Whitepaper 09 competitive landscape |
+| [Vapi introduction](https://docs.vapi.ai/quickstart/introduction) | Documentation | Whitepaper 09 competitive landscape |
+| [ElevenLabs documentation overview](https://elevenlabs.io/docs/overview/intro) | Documentation | Whitepaper 09 competitive landscape |
+| [Jobber](https://www.getjobber.com/) | Product website | Whitepaper 09 competitive landscape |
+| [Salesforce ServiceTitan alternatives](https://www.salesforce.com/compare/servicetitan-alternatives/) | Vendor-authored comparison | Whitepaper 09 competitive landscape |
 
 ## Maintaining this page
 - Add a row whenever a new external link appears anywhere in the repo.

@@ -99,6 +99,14 @@ class BookingState(AgentState):
     customer_id: str | None
     offered_slot_ids: list[str]
     address_confirmed: bool
+    address_confirmation_quote: str | None
+
+def latest_caller_text(state: BookingState) -> str:
+    """Use the application-visible caller message, never a model memory, as confirmation evidence."""
+    for message in reversed(state["messages"]):
+        if isinstance(message, HumanMessage):
+            return str(message.content).lower()
+    return ""
 
 @tool
 def lookup_caller(runtime: ToolRuntime[CallContext, BookingState]) -> Command:
@@ -122,14 +130,28 @@ def find_open_slots(job_type: str, runtime: ToolRuntime[CallContext, BookingStat
         "messages": [ToolMessage(json.dumps(payload), tool_call_id=runtime.tool_call_id)]})
 
 @tool
-def confirm_address(runtime: ToolRuntime[CallContext, BookingState]) -> Command:
-    """Record that the caller confirmed their service address out loud."""
-    return Command(update={"address_confirmed": True, "messages": [
-        ToolMessage('{"ok": true}', tool_call_id=runtime.tool_call_id)]})
+def confirm_address(caller_said: str, runtime: ToolRuntime[CallContext, BookingState]) -> Command:
+    """Record a quoted address confirmation only when it appears in the latest caller turn."""
+    quote = caller_said.strip().lower()
+    heard = latest_caller_text(runtime.state)
+    affirmative = any(word in heard for word in ("yes", "yeah", "yep", "correct", "right"))
+    if not quote or quote not in heard or not affirmative:
+        return Command(update={"messages": [ToolMessage(json.dumps({
+            "ok": False, "error": "confirmation_not_grounded",
+            "message": "Quote the caller's affirmative address confirmation from the latest turn.",
+        }), tool_call_id=runtime.tool_call_id)]})
+    return Command(update={"address_confirmed": True, "address_confirmation_quote": caller_said,
+                           "messages": [ToolMessage('{"ok": true}', tool_call_id=runtime.tool_call_id)]})
 
 @tool
 def create_job(slot_id: str, job_type: str, summary: str, runtime: ToolRuntime[CallContext, BookingState]) -> dict:
-    """Book the job in an offered slot."""
+    """Book the job in an offered, grounded, address-confirmed slot."""
+    if not runtime.state.get("customer_id"):
+        return {"ok": False, "error": "customer_not_verified"}
+    if not runtime.state.get("address_confirmed") or not runtime.state.get("address_confirmation_quote"):
+        return {"ok": False, "error": "address_not_confirmed"}
+    if slot_id not in (runtime.state.get("offered_slot_ids") or []):
+        return {"ok": False, "error": "slot_not_offered"}
     key = f"{runtime.context.call_id}:{slot_id}"   # idempotency key from context, not from the model
     try:
         return {"ok": True, "job": be.create_job(runtime.state["customer_id"], slot_id, job_type, summary, key)}
@@ -168,6 +190,8 @@ def booking_guard(request, handler):
             problems.append("customer not identified")
         if not state.get("address_confirmed"):
             problems.append("address not confirmed")
+        if not state.get("address_confirmation_quote"):
+            problems.append("address confirmation was not grounded in caller words")
         if call["args"].get("slot_id") not in (state.get("offered_slot_ids") or []):
             problems.append("slot was not offered to the caller")
         if problems:
@@ -231,7 +255,7 @@ def v2_policy(messages, tool_names):
         return call("find_open_slots", {"job_type": "ac_repair"})
     m = re.search(r"s-\d{4}-t-\d{2}-\d{2}", said)
     if "yes" in said and "address" in said:
-        return call("confirm_address", {})
+        return call("confirm_address", {"caller_said": str(humans[-1].content)})
     if "book" in said or "yes" in said:   # reckless: tries to book right away
         return call("create_job", {"slot_id": LAST_OFFER[0], "job_type": "ac_repair", "summary": "AC not cooling"})
     return AIMessage("Anything else?")
@@ -264,7 +288,7 @@ turn("Hi, it's Marcus.")
 turn("My AC is blowing warm air.")
 out = turn("Yes, book it.")                          # tries to book before address confirmation
 out = turn("Yes, the address is right.")
-print("state →", {k: out.get(k) for k in ["customer_id", "offered_slot_ids", "address_confirmed"]})
+print("state →", {k: out.get(k) for k in ["customer_id", "offered_slot_ids", "address_confirmed", "address_confirmation_quote"]})
 print("audit →", [n for n, _ in AUDIT])
 
 # %%
@@ -304,7 +328,7 @@ print("what the model saw:", r["messages"][0].content)
 # ## Exercises
 #
 # 1. With a live model, time 5 full bookings and count model round-trips per booking. What's the p50 wall-clock? Would you put this between a caller and the next word?
-# 2. Move the `slot not offered` check from `booking_guard` into the `create_job` tool itself. Which location is better, and why might you keep both?
+# 2. Try `confirm_address` with a fabricated quote, then with an exact affirmative caller quote. Why should the tool reject the first even though the model called it?
 # 3. Add a `SummarizationMiddleware` and simulate a 40-turn call. What facts must survive summarization (hint: they should be in *state*, not only in messages)?
 
 # %% [markdown]
@@ -314,6 +338,7 @@ print("what the model saw:", r["messages"][0].content)
 # 2. Why can middleware be useful but still not define product policy by itself?
 # 3. Why is a multi-round agent loop usually a poor direct audio hot path?
 #
-# **Graded exercise:** add a middleware assertion that blocks `create_job` when the slot
-# was not offered, then show the invariant survives a reckless model call. See
+# **Graded exercise:** add middleware assertions that block `create_job` when the slot was not
+# offered or the address confirmation was not grounded, then show both invariants survive a
+# reckless model call. See
 # [`solutions/05_langchain_create_agent.md`](../solutions/05_langchain_create_agent.md).

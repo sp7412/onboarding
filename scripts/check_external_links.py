@@ -46,7 +46,7 @@ def main() -> int:
             url = match.group(0).rstrip(".,;")
             # Source templates (for example Astro interpolation and documentation
             # placeholders) are not concrete destinations and cannot be link-checked.
-            if "${" not in url and "[" not in url and url not in URL_TEMPLATES:
+            if "${" not in url and "[" not in url and ".invalid/" not in url and url not in URL_TEMPLATES:
                 urls.setdefault(url, relative)
     failures = []
     for url, source in sorted(urls.items()):
