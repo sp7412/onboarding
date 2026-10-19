@@ -1,6 +1,7 @@
 ---
 import Icon from "../components/Icon.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import AdditionalSimulations from "../components/AdditionalSimulations.astro";
 import { url } from "../lib/url";
 import { jargonSpan } from "../lib/jargon";
 import traces from "../data/guardrail-traces.json";
@@ -8,26 +9,14 @@ import traces from "../data/guardrail-traces.json";
 <BaseLayout title="Simulations · Path to Integration" description="Turn-taking, guardrails and latency, playable in the browser.">
   <p class="crumb muted"><a href={url("/")}>Journey</a> / simulations</p>
   <div class="page-title"><Icon name="wave" badge size={22} tone="green" /><h1>Simulations</h1></div>
-  <p class="page-lede">Three small simulations of the ideas in the labs. They are teaching models, not real voice systems; the labs run the full versions in Python.</p>
+  <p class="page-lede">Six small, playable teaching models for building intuition about production voice-agent behavior. Change the controls, watch the system respond, and compare the trade-offs. These are simplified browser simulations, not live voice systems.</p>
   <nav class="toc" aria-label="Simulations">
-    <a href="#turn-taking">Turn-taking</a><a href="#guardrails">Guardrails</a><a href="#latency">Latency budget</a><a href="#production-agent-suite">Production agent suite</a><a href="#technician-feedback">Technician feedback</a>
+    <a href="#turn-taking">Turn-taking</a><a href="#guardrails">Guardrails</a><a href="#latency">Latency budget</a><a href="#tool-reliability">Tool reliability</a><a href="#contention">Agent contention</a><a href="#deferral">Evaluation and deferral</a>
   </nav>
-
-  <section id="production-agent-suite" class="card sim">
-    <h2>4. Production agent simulation suite</h2>
-    <p>Stress-test agent behavior across production-style scenarios: changing constraints, shared context, failures, deferral, and evaluation. The notebook includes a reusable scenario harness and synthetic test cases.</p>
-    <p><a href="https://github.com/sp7412/onboarding/blob/main/labs/19_production_agent_simulation_suite.ipynb">Open Lab 19 in GitHub</a> · <a href={url("/labs#lab-19")}>Find it in the labs index</a></p>
-  </section>
-
-  <section id="technician-feedback" class="card sim">
-    <h2>5. Technician feedback → playbook learning</h2>
-    <p>Explore how structured technician feedback becomes a candidate playbook revision, then passes held-out evaluation, approval gates, a monitored pilot, and rollback criteria.</p>
-    <p><a href="https://github.com/sp7412/onboarding/blob/main/labs/18_technician_feedback_playbook_learning.ipynb">Open Lab 18 in GitHub</a> · <a href={url("/labs#lab-18")}>Find it in the labs index</a></p>
-  </section>
 
   <section id="turn-taking" class="card sim">
     <h2>1. Turn-taking: when is the caller done?</h2>
-    <p>A caller reads a phone number with pauses. Orange labels are pauses mid-thought; red lines are where the agent commits to a turn — that decision is <Fragment set:html={jargonSpan("endpointing", "endpointing")} />. Mirrors <a href={url("/labs#lab-03")}>lab 03</a>.</p>
+    <p>A caller reads a phone number with pauses. Orange labels are pauses mid-thought; red lines are where the agent commits to a turn — that decision is <Fragment set:html={jargonSpan("endpointing", "endpointing")} />.</p>
     <div class="controls">
       <label><span>Silence timer (min delay): <output id="tt-min-o"></output> ms</span><input type="range" id="tt-min" min="200" max="1500" step="50" value="500" /></label>
       <label class="check"><input type="checkbox" id="tt-sem" /> Semantic end-of-turn detection</label>
@@ -41,7 +30,7 @@ import traces from "../data/guardrail-traces.json";
 
   <section id="guardrails" class="card sim">
     <h2>2. Guardrails: the control plane on and off</h2>
-    <p>Replays scripted calls through the lab's simulator, recorded from <code>labs/stlab</code>. Flip the control plane off and watch which tool calls go through. Mirrors <a href={url("/labs#lab-02")}>lab 02</a>; lab 07 adds a claim guard on top.</p>
+    <p>Replays scripted calls through a small browser-based scenario model. Flip the control plane off and watch which tool calls go through; compare allowed actions, blocked actions, and the resulting outcome.</p>
     <div class="controls">
       <label>Scenario <select id="gr-scn"></select></label>
       <label class="check"><input type="checkbox" id="gr-on" checked /> Control plane on</label>
@@ -52,11 +41,12 @@ import traces from "../data/guardrail-traces.json";
 
   <section id="latency" class="card sim">
     <h2>3. Latency budget: time to first sound</h2>
-    <p>Adjust each stage and compare with a roughly one-second target. A spoken preamble ("one moment…") hides a slow tool without making it faster, and the model's <Fragment set:html={jargonSpan("ttft", "time to first token")} /> is its thinking time before the answer starts. Mirrors <a href={url("/labs#lab-08")}>lab 08</a>.</p>
+    <p>Adjust each stage and compare with a roughly one-second target. A spoken preamble ("one moment…") can hide a slow tool without making it faster, and the model's <Fragment set:html={jargonSpan("ttft", "time to first token")} /> is its thinking time before the answer starts.</p>
     <div class="controls" id="lat-controls"></div>
     <label class="check"><input type="checkbox" id="lat-filler" checked /> Agent says "one moment while I check" before the tool runs (a spoken preamble)</label>
     <div id="lat-bars" class="bars"></div>
   </section>
+  <AdditionalSimulations />
 </BaseLayout>
 
 <script define:vars={{ traces }}>

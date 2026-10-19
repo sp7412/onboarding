@@ -1,0 +1,144 @@
+---
+---
+<section id="tool-reliability" class="card sim">
+  <h2>4. Tool reliability: retry, timeout, or recover?</h2>
+  <p>Simulate a tool call that may fail. Change failure rate, retry policy, and idempotency to see how retries affect success, latency, and duplicate side effects. This is a teaching model, not a production reliability forecast.</p>
+  <div class="controls">
+    <label><span>Transient failure probability: <output id="rt-fail-o">30%</output></span><input id="rt-fail" type="range" min="0" max="0.8" step="0.05" value="0.3" /></label>
+    <label><span>Maximum attempts: <output id="rt-attempt-o">3</output></span><input id="rt-attempt" type="range" min="1" max="5" step="1" value="3" /></label>
+    <label class="check"><input id="rt-idem" type="checkbox" checked /> Tool supports idempotency keys</label>
+    <label class="check"><input id="rt-retry" type="checkbox" checked /> Retry transient failures</label>
+  </div>
+  <div class="sim-metrics" id="rt-metrics" aria-live="polite"></div>
+  <div id="rt-path" class="sim-path" aria-label="Example tool call attempt sequence"></div>
+  <p class="muted">Key lesson: retries improve the chance of completion, but a timeout does not prove the operation failed. For non-idempotent actions, blind retries can create duplicate bookings or other side effects.</p>
+</section>
+
+<section id="contention" class="card sim">
+  <h2>5. Agent orchestration: contention for a shared resource</h2>
+  <p>Multiple agents try to reserve the same technician or appointment slot. Adjust concurrency and coordination to explore throughput, conflicts, and wasted work.</p>
+  <div class="controls">
+    <label><span>Agents acting at once: <output id="cc-agents-o">6</output></span><input id="cc-agents" type="range" min="1" max="20" step="1" value="6" /></label>
+    <label><span>Shared-slot scarcity: <output id="cc-scarcity-o">70%</output></span><input id="cc-scarcity" type="range" min="0.1" max="1" step="0.05" value="0.7" /></label>
+    <label class="check"><input id="cc-lock" type="checkbox" checked /> Atomic reservation / arbitration</label>
+    <label class="check"><input id="cc-backoff" type="checkbox" checked /> Back off and retry on conflict</label>
+  </div>
+  <div class="sim-metrics" id="cc-metrics" aria-live="polite"></div>
+  <div id="cc-grid" class="sim-path" aria-label="Reservation outcomes by agent"></div>
+  <p class="muted">This simplified model illustrates a systems principle: more parallel agents do not automatically create more useful throughput when they compete for a constrained resource. Real outcomes depend on scheduling policy, resource availability, and workload.</p>
+</section>
+
+<section id="deferral" class="card sim">
+  <h2>6. Evaluation: when should the agent defer to a person?</h2>
+  <p>Move the confidence threshold and compare automatic handling with deferral. A lower threshold automates more calls but risks acting on uncertain predictions; a higher threshold is safer but sends more calls to a human.</p>
+  <div class="controls">
+    <label><span>Confidence threshold: <output id="ev-threshold-o">0.75</output></span><input id="ev-threshold" type="range" min="0.4" max="0.98" step="0.01" value="0.75" /></label>
+    <label><span>Incoming calls in this sample: <output id="ev-volume-o">1,000</output></span><input id="ev-volume" type="range" min="100" max="5000" step="100" value="1000" /></label>
+    <label><span>Model quality (ranking signal): <output id="ev-quality-o">85%</output></span><input id="ev-quality" type="range" min="0.5" max="0.99" step="0.01" value="0.85" /></label>
+  </div>
+  <div class="sim-metrics" id="ev-metrics" aria-live="polite"></div>
+  <div class="sim-bars" id="ev-bars"></div>
+  <p class="muted">The sample uses a deliberately simplified confidence distribution. Confidence is not automatically calibrated probability; evaluate thresholds against labeled outcomes, business costs, and subgroup performance before using them in production.</p>
+</section>
+
+<script is:inline>
+(() => {
+  const byId = (id) => document.getElementById(id);
+  const pct = (x) => Math.round(x * 100) + "%";
+  function metric(label, value, note = "") {
+    return '<div class="sim-metric"><span>' + label + '</span><strong>' + value + '</strong><small>' + note + '</small></div>';
+  }
+  function drawRetry() {
+    const fail = +byId("rt-fail").value;
+    const attempts = +byId("rt-attempt").value;
+    const idem = byId("rt-idem").checked;
+    const retry = byId("rt-retry").checked;
+    byId("rt-fail-o").value = pct(fail);
+    byId("rt-attempt-o").value = attempts;
+    const max = retry ? attempts : 1;
+    const success = 1 - Math.pow(fail, max);
+    const expected = Array.from({ length: max }, (_, i) => Math.pow(fail, i)).reduce((a, b) => a + b, 0);
+    const duplicateRisk = !idem && retry ? Math.max(0, (1 - fail) * (1 - Math.pow(fail, max - 1))) : 0;
+    byId("rt-metrics").innerHTML =
+      metric("Eventual success", pct(success), "Assumes independent transient failures") +
+      metric("Expected attempts", expected.toFixed(2), "Average over many calls") +
+      metric("Duplicate-side-effect exposure", idem ? "Mitigated" : pct(duplicateRisk), idem ? "Idempotency key deduplicates repeats" : "Illustrative risk if a timed-out action actually succeeded");
+    const labels = [];
+    for (let i = 1; i <= max; i++) {
+      const likelySuccess = i === max ? "final attempt" : "retry if needed";
+      labels.push('<div class="sim-step"><b>Attempt ' + i + '</b><span>' + likelySuccess + '</span></div>');
+    }
+    byId("rt-path").innerHTML = labels.join("");
+  }
+  ["rt-fail", "rt-attempt", "rt-idem", "rt-retry"].forEach(id => byId(id).addEventListener("input", drawRetry));
+  drawRetry();
+
+  function drawContention() {
+    const agents = +byId("cc-agents").value;
+    const scarcity = +byId("cc-scarcity").value;
+    const lock = byId("cc-lock").checked;
+    const backoff = byId("cc-backoff").checked;
+    byId("cc-agents-o").value = agents;
+    byId("cc-scarcity-o").value = pct(scarcity);
+    const available = Math.max(1, Math.round(agents * (1 - scarcity) + 1));
+    const winners = lock ? Math.min(agents, available) : Math.min(agents, Math.max(1, Math.round(agents * (1 - scarcity * 0.65))));
+    const conflicts = Math.max(0, agents - winners);
+    const waste = lock ? conflicts * (backoff ? 0.5 : 1) : Math.round(agents * scarcity * (backoff ? 0.65 : 1.35));
+    byId("cc-metrics").innerHTML =
+      metric("Successful reservations", winners + " / " + agents, "Approximate useful throughput") +
+      metric("Conflicts / retries", conflicts, lock ? "Arbitration prevents double booking" : "Concurrent writes can collide") +
+      metric("Wasted work units", Math.max(0, Math.round(waste)), backoff ? "Backoff reduces repeated contention" : "No backoff amplifies collisions");
+    byId("cc-grid").innerHTML = Array.from({ length: agents }, (_, i) => {
+      const won = i < winners;
+      return '<div class="sim-step ' + (won ? "step-good" : "step-bad") + '"><b>Agent ' + (i + 1) + '</b><span>' + (won ? "Reserved" : (backoff ? "Retry / defer" : "Conflict")) + '</span></div>';
+    }).join("");
+  }
+  ["cc-agents", "cc-scarcity", "cc-lock", "cc-backoff"].forEach(id => byId(id).addEventListener("input", drawContention));
+  drawContention();
+
+  function drawEval() {
+    const threshold = +byId("ev-threshold").value;
+    const volume = +byId("ev-volume").value;
+    const quality = +byId("ev-quality").value;
+    byId("ev-threshold-o").value = threshold.toFixed(2);
+    byId("ev-volume-o").value = volume.toLocaleString();
+    byId("ev-quality-o").value = pct(quality);
+    const autoRate = Math.max(0.02, Math.min(0.98, (1 - threshold) / 0.6));
+    const auto = Math.round(volume * autoRate);
+    const deferred = volume - auto;
+    const errorRate = (1 - quality) * (0.25 + threshold * 0.75);
+    const unsafe = Math.round(auto * errorRate);
+    const correct = auto - unsafe;
+    byId("ev-metrics").innerHTML =
+      metric("Auto-handled", auto.toLocaleString(), pct(auto / volume) + " of calls") +
+      metric("Deferred to human", deferred.toLocaleString(), pct(deferred / volume) + " of calls") +
+      metric("Estimated wrong auto-actions", unsafe.toLocaleString(), "Illustrative proxy; validate on labeled data");
+    byId("ev-bars").innerHTML = [
+      ["Correct automatic handling", correct, "good"],
+      ["Wrong automatic handling", unsafe, "bad"],
+      ["Human deferral", deferred, "warn"]
+    ].map(([label, value, cls]) => '<div class="bar-row"><span class="bar-label">' + label + '</span><span class="bar ' + cls + '" style="width:' + (Number(value) / volume * 100) + '%"></span><span class="bar-val">' + Number(value).toLocaleString() + '</span></div>').join("");
+  }
+  ["ev-threshold", "ev-volume", "ev-quality"].forEach(id => byId(id).addEventListener("input", drawEval));
+  drawEval();
+})();
+</script>
+
+<style>
+  .sim-metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--s3); margin: var(--s4) 0; }
+  .sim-metric { display: grid; gap: var(--s1); padding: var(--s3); border: 1px solid var(--panel-edge); border-radius: var(--r1); background: var(--panel); }
+  .sim-metric span, .sim-metric small { color: var(--ink-dim); font-size: 0.82rem; }
+  .sim-metric strong { font-size: 1.45rem; font-variant-numeric: tabular-nums; }
+  .sim-path { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: var(--s2); margin: var(--s4) 0; }
+  .sim-step { display: grid; gap: var(--s1); padding: var(--s3); border: 1px solid var(--panel-edge); border-radius: var(--r1); background: var(--panel); }
+  .sim-step span { color: var(--ink-dim); font-size: 0.86rem; }
+  .step-good { border-color: color-mix(in srgb, var(--green) 55%, var(--panel-edge)); }
+  .step-bad { border-color: color-mix(in srgb, var(--danger) 55%, var(--panel-edge)); }
+  .sim-bars { display: grid; gap: var(--s3); margin: var(--s4) 0; }
+  .sim-bars .bar-row { display: grid; grid-template-columns: 14rem 1fr 5rem; align-items: center; gap: var(--s3); }
+  .sim-bars .bar { height: 14px; border-radius: 99px; min-width: 2px; background: var(--blue); }
+  .sim-bars .bar.good { background: var(--green); }
+  .sim-bars .bar.bad { background: var(--danger); }
+  .sim-bars .bar.warn { background: var(--gold); }
+  @media (max-width: 640px) { .sim-bars .bar-row { grid-template-columns: 1fr; } }
+</style>
