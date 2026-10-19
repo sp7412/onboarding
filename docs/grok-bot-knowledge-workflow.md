@@ -134,6 +134,69 @@ Recommended order:
 For each connection, record what the connector can read and write, the account identity it uses,
 retention/data-processing constraints, and how to revoke access. Use the minimum permissions.
 
+### Automatic meeting capture: Zoom and Slack
+
+Treat transcription as a separate capture layer from Grok Bot. Grok Bot should process
+approved transcript artifacts; do not assume it can join every meeting, record live audio,
+or automatically retrieve every platform transcript.
+
+**Zoom meetings**
+
+1. In the Zoom web portal, open **Settings → Recording** (or ask the account admin to
+   check **Admin Center → Settings → Recording & Transcript**).
+2. Confirm **Cloud recording** is enabled and enable **Create audio transcript** if the
+   account permits it. This creates a timestamped VTT transcript for cloud recordings;
+   it does not transcribe local computer recordings.
+3. If available and approved, enable Zoom **Smart Recording with AI** for summaries,
+   chapters/highlights, and suggested next steps. These features depend on the account,
+   cloud recording, transcript, and admin settings.
+4. Test a meeting you are authorized to record. Verify that the transcript exists, who
+   can access it, how long it is retained, and whether the host's permissions let your
+   integration retrieve it. Do not assume that being an attendee gives you access to the
+   host's cloud recording.
+
+Official setup: [Zoom cloud audio transcripts](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0065911)
+and [Smart Recording with AI](https://support.zoom.com/hc/en/article?cms_guid=false&id=zm_kb&onlycontent=1&sysparm_article=KB0061101).
+
+**Slack Huddles**
+
+1. In each relevant channel, open the channel name → **Settings** → **Always start AI
+   notes** → **Start AI notes automatically for every huddle**. If the setting is absent,
+   ask a workspace owner/admin whether the feature is available and permitted.
+2. Slack AI Huddle Notes are available on paid plans to members, subject to workspace
+   controls. Everyone in the huddle is notified when notes start. The resulting canvas
+   contains notes and an embedded transcript, but the transcript itself does not appear
+   in Slack search results.
+3. Do not count on this for Huddles with external people or guests; Slack says AI notes
+   are not available for those sessions. Live captions alone are not a durable transcript.
+4. Test a normal internal Huddle and an external/guest scenario, and record the expected
+   limitation in your coverage report.
+
+Official setup: [Slack AI Huddle Notes](https://slack.com/help/articles/31377193680019-Use-AI-to-take-huddle-notes-in-Slack).
+
+**Deliver transcripts to the knowledge workflow**
+
+- Preferred: use an approved connector or platform API/event integration to detect a new
+  transcript/summary, retrieve it with authorized credentials, and hand it to the capture
+  skill. Keep the original artifact URL and provider ID in metadata.
+- If automatic retrieval is not supported, use an approved export/download path and mark
+  the workflow as **semi-automatic**. Do not describe manual export as automatic ingestion.
+- Use a small integration service or workflow orchestrator only if needed. It should retry
+  transient failures, deduplicate by provider artifact ID, preserve source permissions,
+  record processing status, and never bypass access controls.
+- Add a calendar-based completeness check when an approved calendar source is available:
+  compare meetings you attended against captured transcript records and report missing
+  artifacts. A calendar event is a detection signal, not proof that a recording exists.
+- Do not install a third-party meeting bot or route work audio/transcripts to a personal AI
+  account unless organizational policy and participant-notification/consent requirements
+  permit it.
+
+**Coverage expectation:** the realistic goal is every eligible meeting for which the host,
+platform, account plan, permissions, and policy allow a transcript—not literally every
+meeting you could join. External meetings, guest Huddles, host-controlled recordings,
+restricted content, and meetings without recording/transcription enabled will create gaps.
+The workflow must report those gaps instead of silently marking the meeting as processed.
+
 ## Step 4 — Run a small, read-only capture test
 
 Give the Bot 10–20 examples from one source. Use this prompt:
