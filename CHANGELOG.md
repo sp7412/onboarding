@@ -10,6 +10,13 @@
 - Expanded the workflow to make Slack and email first-class inputs, with thread/message provenance, shared metadata, incremental ingestion, deduplication, correction/deletion handling, and a bounded pilot checklist.
 - Added a scheduled Grok Bot Routine design for daily incremental Slack/email ingestion, including checkpointing, dry-run and approval gates, run reporting, failure handling, and explicit cloud-to-local vault access verification.
 
+## 2026-10-19
+
+### System One models for production AI
+
+- Added a reusable guide distinguishing typed decision and extraction tasks from general-purpose generation, with a practical hybrid architecture and product-claim caveats.
+- Added evaluation criteria for quality, uncertainty/calibration, latency, cost, provenance, fallback, and downstream outcomes; linked it from the guide index.
+
 ## 2026-10-18
 
 ### Automatic meeting transcript capture
