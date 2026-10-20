@@ -226,11 +226,12 @@ export function repoLinkToRoute(target: string): string | null {
     return withHash(`/whitepaper/${slug}`);
   }
   if (clean === "senior-engineer") return withHash(docRoute("senior-engineer/README.md"));
-  const page = ALL_MARKDOWN_PAGES.find((d) => d.repoPath === clean);
-  if (page) return withHash(`/docs/${docSlug(page)}`);
+  // Purpose-built views must take precedence over the generic Markdown catalog.
   if (clean === "docs/reading-guide.md") return withHash("/reading");
   if (clean === "docs/podcast-prompts.md") return withHash("/podcasts");
   if (clean === "docs/video-notes.md") return withHash("/videos");
+  const page = ALL_MARKDOWN_PAGES.find((d) => d.repoPath === clean);
+  if (page) return withHash(`/docs/${docSlug(page)}`);
   if (clean === "docs/capstone-rubric.md") return withHash("/docs/capstone-rubric");
   if (clean === "notes/glossary.md") return withHash("/glossary");
   if (clean === "plan/30-60-90-checklist.md") return withHash("/checklist");
