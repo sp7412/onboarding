@@ -94,6 +94,7 @@ export const DOC_PAGES: DocPage[] = [
   { repoPath: "docs/ttan-vwap-data.md", icon: "chart" },
   { repoPath: "docs/developer-tools.md", icon: "notes" },
   { repoPath: "docs/jev-call-intent-classification.md", icon: "architecture" },
+  { repoPath: "docs/system-one-models.md", icon: "architecture" },
   { repoPath: "docs/realtime-voice-agent-evaluation.md", icon: "evaluation" },
   { repoPath: "docs/servicetitan-101.md", icon: "reading" },
   { repoPath: "docs/how-a-contractor-works.md", icon: "reading" },
