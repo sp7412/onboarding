@@ -147,18 +147,6 @@ export const DOC_PAGES: DocPage[] = [
 // Publish every Markdown content file in the repository, not only manually
 // curated entries. Special-format sources already have dedicated routes and
 // parsers; all other content gets a stable, collision-resistant docs route.
-const SPECIAL_MARKDOWN_SOURCES = new Set([
-  "docs/reading-guide.md",
-  "docs/podcast-prompts.md",
-  "docs/video-notes.md",
-  "docs/whitepaper/README.md",
-  "notes/glossary.md",
-  "plan/30-60-90-checklist.md",
-  "labs/README.md",
-  "labs/solutions/README.md",
-  "templates/README.md",
-]);
-
 function discoverMarkdownPages(dir: string, relative = ""): DocPage[] {
   if (!fs.existsSync(dir)) return [];
   return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
@@ -170,7 +158,6 @@ function discoverMarkdownPages(dir: string, relative = ""): DocPage[] {
       return discoverMarkdownPages(fullPath, repoPath);
     }
     if (!entry.isFile() || !entry.name.endsWith(".md")) return [];
-    if (SPECIAL_MARKDOWN_SOURCES.has(repoPath)) return [];
     if (DOC_PAGES.some((page) => page.repoPath === repoPath)) return [];
     const routeSlug = `repo-${repoPath.replace(/\\.md$/, "").replace(/[^a-zA-Z0-9]+/g, "-").replace(/^-|-$/g, "").toLowerCase()}`;
     return [{ repoPath, icon: "reading", slug: routeSlug, track: "repository-content" }];
@@ -193,7 +180,7 @@ function discoverRootMarkdownPages(): DocPage[] {
 export const ALL_MARKDOWN_PAGES: DocPage[] = [
   ...DOC_PAGES,
   ...discoverRootMarkdownPages(),
-  ...["docs", "notes", "plan", "senior-engineer", "templates", "labs/solutions", "study-guide", "video"]
+  ...["docs", "notes", "plan", "senior-engineer", "templates", "labs", "study-guide", "video"]
     .flatMap((relative) => discoverMarkdownPages(path.join(REPO_ROOT, relative), relative)),
 ];
 
