@@ -141,6 +141,47 @@ export const DOC_PAGES: DocPage[] = [
   { repoPath: "notes/conversation-notes.md", icon: "notes" },
 ];
 
+// Publish every Markdown content file in the repository, not only manually
+// curated entries. Special-format sources already have dedicated routes and
+// parsers; all other content gets a stable, collision-resistant docs route.
+const SPECIAL_MARKDOWN_SOURCES = new Set([
+  "docs/reading-guide.md",
+  "docs/podcast-prompts.md",
+  "docs/video-notes.md",
+  "docs/whitepaper/README.md",
+  "notes/glossary.md",
+  "plan/30-60-90-checklist.md",
+  "labs/README.md",
+  "labs/solutions/README.md",
+  "templates/README.md",
+]);
+
+function discoverMarkdownPages(dir: string, relative = ""): DocPage[] {
+  if (!fs.existsSync(dir)) return [];
+  return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
+    const repoPath = path.posix.join(relative, entry.name);
+    const fullPath = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      // Fixtures and generated/developer-only content are not site material.
+      if (["__fixtures__", "node_modules", "dist", ".git"].includes(entry.name)) return [];
+      return discoverMarkdownPages(fullPath, repoPath);
+    }
+    if (!entry.isFile() || !entry.name.endsWith(".md")) return [];
+    if (SPECIAL_MARKDOWN_SOURCES.has(repoPath)) return [];
+    if (DOC_PAGES.some((page) => page.repoPath === repoPath)) return [];
+    const routeSlug = `repo-${repoPath.replace(/\\.md$/, "").replace(/[^a-zA-Z0-9]+/g, "-").replace(/^-|-$/g, "").toLowerCase()}`;
+    return [{ repoPath, icon: "reading", slug: routeSlug, track: "repository-content" }];
+  });
+}
+
+export const ALL_MARKDOWN_PAGES: DocPage[] = [
+  ...DOC_PAGES,
+  ...["docs", "notes", "plan", "senior-engineer", "templates", "labs/solutions", "study-guide", "video"]
+    .flatMap((relative) => discoverMarkdownPages(path.join(REPO_ROOT, relative), relative)),
+];
+
+// Keep the existing curated list stable while ensuring newly added content is
+// included automatically on the next site build.
 export const TEMPLATE_FILES = [
   "onboarding-log.md",
   "1on1-questions.md",
@@ -160,7 +201,7 @@ export function docSlug(page: DocPage): string {
 
 /** Site route for a DOC_PAGES entry. */
 export function docRoute(repoPath: string): string {
-  const page = DOC_PAGES.find((d) => d.repoPath === repoPath);
+  const page = ALL_MARKDOWN_PAGES.find((d) => d.repoPath === repoPath);
   if (!page) throw new Error(`not a doc page: ${repoPath}`);
   return `/docs/${docSlug(page)}`;
 }
@@ -181,7 +222,7 @@ export function repoLinkToRoute(target: string): string | null {
     return withHash(`/whitepaper/${slug}`);
   }
   if (clean === "senior-engineer") return withHash(docRoute("senior-engineer/README.md"));
-  const page = DOC_PAGES.find((d) => d.repoPath === clean);
+  const page = ALL_MARKDOWN_PAGES.find((d) => d.repoPath === clean);
   if (page) return withHash(`/docs/${docSlug(page)}`);
   if (clean === "docs/reading-guide.md") return withHash("/reading");
   if (clean === "docs/podcast-prompts.md") return withHash("/podcasts");
@@ -226,7 +267,7 @@ export function loadContent(): ContentBundle {
   expectCondition("labs", "exactly matching source and generated lab sets",
     sourceLabs.length === labRows.length && stems(sourceLabs) === stems(notebookLabs));
 
-  const docs = DOC_PAGES.map((d) => parseDoc(d.repoPath, d.slug));
+  const docs = ALL_MARKDOWN_PAGES.map((d) => parseDoc(d.repoPath, d.slug));
   const slugs = docs.map((d) => d.slug);
   expectCondition("DOC_PAGES", "unique doc slugs", new Set(slugs).size === slugs.length);
   const templates = TEMPLATE_FILES.map((f) => parseDoc(`templates/${f}`));
