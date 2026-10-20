@@ -121,6 +121,43 @@ Prefer incremental sync or date-bounded export batches after the initial import.
 
 Edits and deletions need an explicit policy. If a source message changes, update the captured record with provenance and retain an audit trail where appropriate. If a source is deleted, do not automatically erase derived notes without considering retention requirements and the reason for deletion; flag affected notes for review. Respect provider retention, organization policy, legal holds, and user deletion requests.
 
+## Scheduled Slack and email ingestion with Grok Bot Routines
+
+For recurring capture, prefer a supported Grok Bot cloud **Routine** over building a second scheduler, provided Routines are available in the account and can access the required sources and destination. A schedule only initiates work; it does not itself guarantee complete source coverage, persistent state, or access to a local Obsidian vault. Verify the actual account capabilities and run history before relying on it. See the official [Grok Bot overview](https://docs.x.ai/grok-bot/overview), [connectors and apps](https://docs.x.ai/grok-bot/computer-and-apps), [files and results](https://docs.x.ai/grok-bot/files-and-results), and [security and approvals](https://docs.x.ai/grok-bot/approvals-security-and-privacy) documentation.
+
+### Suggested first schedule
+
+Start with one daily run at **9:00 PM America/Chicago**, then adjust frequency once the pilot proves reliable. Run against one authorized Slack channel and one mailbox/folder before broadening scope. Keep the schedule, timezone, source scope, destination, and last successful run visible in the runbook.
+
+### Routine contract
+
+Use this as a starting instruction for the scheduled Routine; adapt it to the actual connected apps and available file tools:
+
+> Every day at 9:00 PM America/Chicago, synchronize newly available, authorized Slack and email correspondence into my Obsidian knowledge base.
+>
+> 1. Read only the explicitly approved channels and mailboxes. Report source access or history limitations; do not imply complete coverage unless verified.
+> 2. Retrieve changes since the last successful checkpoint, with a small overlap window where supported to avoid gaps. Preserve stable source IDs, timestamps, authors/recipients, thread context, permalinks, and attachment references where available.
+> 3. Deduplicate by stable source ID and content hash. Make reruns safe. Detect edits and handle deletions only to the extent supported by the source; preserve an audit trail and flag derived notes for review when needed.
+> 4. Separate preserved source evidence from curated notes. Extract meaningful decisions, project updates, unresolved questions, and candidate actions. Label candidate actions as proposed, not confirmed commitments, unless the source explicitly confirms them.
+> 5. Link each material claim to source evidence. Update existing notes instead of generating duplicates. Do not invent missing metadata.
+> 6. Do not send messages, modify source correspondence, delete source records, publish notes, or push changes. Do not overwrite existing knowledge notes without validating and reporting the diff.
+> 7. If a source or destination is unavailable, stop the affected write path and report the run as incomplete. Never treat a failed source query as proof that no new items exist.
+> 8. Record the run timestamp, sources checked, time range, items read/changed/skipped, notes proposed or written, errors, and checkpoint status. Preserve enough state to retry safely.
+> 9. Quarantine uncertain classifications and exclude restricted employer/customer information from a personal vault unless retention and storage are explicitly authorized.
+>
+> Begin in dry-run mode: show proposed notes and diffs without applying changes. After review, enable writes only to the approved vault location and low-risk destinations.
+
+### Verify before enabling unattended writes
+
+- Confirm the Routine actually saved the intended schedule and timezone, and inspect its execution history after a test run.
+- Confirm whether it runs in a cloud workspace or on a machine with access to the vault. A local-only vault is not automatically visible to a cloud Routine; use only a supported, approved sync or filesystem bridge.
+- Confirm the connected Slack and email accounts expose the required history, threads, metadata, and attachment references.
+- Run the same sample twice and verify that the second run creates no duplicates.
+- Simulate an inaccessible source and a failed write; both must be reported as incomplete, not successful empty runs.
+- Review sensitive-data handling, diffs, and restore behavior before permitting unattended writes.
+
+Treat scheduled automation as a staged rollout: **dry run → reviewed writes → limited unattended writes → broader coverage**. Keep destructive actions, decisions with material consequences, and external side effects behind explicit approval.
+
 ### A safe pilot for both sources
 
 1. Choose one low-risk Slack channel and one mailbox/folder you are authorized to process.
