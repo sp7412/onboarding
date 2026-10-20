@@ -159,7 +159,7 @@ function discoverMarkdownPages(dir: string, relative = ""): DocPage[] {
     }
     if (!entry.isFile() || !entry.name.endsWith(".md")) return [];
     if (DOC_PAGES.some((page) => page.repoPath === repoPath)) return [];
-    const routeSlug = `repo-${repoPath.replace(/\\.md$/, "").replace(/[^a-zA-Z0-9]+/g, "-").replace(/^-|-$/g, "").toLowerCase()}`;
+    const routeSlug = `repo-${repoPath.replace(/\.md$/, "").replace(/[^a-zA-Z0-9]+/g, "-").replace(/^-|-$/g, "").toLowerCase()}`;
     return [{ repoPath, icon: "reading", slug: routeSlug, track: "repository-content" }];
   });
 }
@@ -172,7 +172,7 @@ function discoverRootMarkdownPages(): DocPage[] {
     .map((repoPath) => ({
       repoPath,
       icon: "reading",
-      slug: `repo-${repoPath.replace(/\\.md$/, "").toLowerCase()}`,
+      slug: `repo-${repoPath.replace(/\.md$/, "").toLowerCase()}`,
       track: "repository-content",
     }));
 }
