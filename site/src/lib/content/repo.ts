@@ -174,8 +174,22 @@ function discoverMarkdownPages(dir: string, relative = ""): DocPage[] {
   });
 }
 
+function discoverRootMarkdownPages(): DocPage[] {
+  return fs.readdirSync(REPO_ROOT, { withFileTypes: true })
+    .filter((entry) => entry.isFile() && entry.name.endsWith(".md"))
+    .map((entry) => entry.name)
+    .filter((repoPath) => !DOC_PAGES.some((page) => page.repoPath === repoPath))
+    .map((repoPath) => ({
+      repoPath,
+      icon: "reading",
+      slug: `repo-${repoPath.replace(/\\.md$/, "").toLowerCase()}`,
+      track: "repository-content",
+    }));
+}
+
 export const ALL_MARKDOWN_PAGES: DocPage[] = [
   ...DOC_PAGES,
+  ...discoverRootMarkdownPages(),
   ...["docs", "notes", "plan", "senior-engineer", "templates", "labs/solutions", "study-guide", "video"]
     .flatMap((relative) => discoverMarkdownPages(path.join(REPO_ROOT, relative), relative)),
 ];
