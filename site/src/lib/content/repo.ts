@@ -74,9 +74,12 @@ function parseDoc(repoRelative: string, slugOverride?: string): RepoDoc {
   const body = read(repoRelative);
   const lines = body.split("\n");
   const h1 = lines.find((l) => l.startsWith("# "));
-  expectCondition(repoRelative, "an H1 title", Boolean(h1));
+  // Repository Markdown is not always authored as a polished guide; publish
+  // it anyway with a filename-derived title rather than silently omitting it.
+  const title = h1?.slice(2).trim()
+    ?? path.basename(repoRelative, ".md").replace(/[-_]+/g, " ");
   const slug = slugOverride ?? path.basename(repoRelative, ".md");
-  return { repoPath: repoRelative, slug, title: h1!.slice(2).trim(), body };
+  return { repoPath: repoRelative, slug, title, body };
 }
 
 export interface DocPage {
