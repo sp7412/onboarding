@@ -18,6 +18,7 @@ A topic-first map of the onboarding material. Use the **learning path** when you
 - [Speech-to-speech models](speech-to-speech-models.md) — full-duplex models versus cascaded pipelines.
 - [GPT-Live-1](gpt-live-1.md) — model behavior, delegation, and control-plane responsibilities.
 - [Build your own voice agent](build-your-own-voice-agent.md) — compare chained and realtime implementations.
+- [System One models for production AI](system-one-models.md) — typed decisions, structured extraction, hybrid architectures, and evaluation.
 - [Jev call-intent classification](jev-call-intent-classification.md) — low-latency typed intent decisions, routing, fallback, and evaluation.
 - [Agent harness](agent-harness.md) — state, memory, RAG, tools, and the side-effect boundary.
 - [Tools and guardrails](tools-and-guardrails.md) — safe tool design, authorization, and prompt-injection defenses.
