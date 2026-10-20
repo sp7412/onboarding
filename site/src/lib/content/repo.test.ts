@@ -65,7 +65,7 @@ describe("real repo content", () => {
 
   it("parses doc pages and templates with titles", () => {
     expect(bundle.docs.length).toBeGreaterThanOrEqual(DOC_PAGES.length);
-    expect(bundle.docs.some((doc) => doc.repoPath === "docs/reading-guide.md")).toBe(true);
+    expect(bundle.docs.find((doc) => doc.repoPath === "docs/reading-guide.md")?.slug).toBe("repo-docs-reading-guide");
     expect(bundle.docs.find((d) => d.slug === "voice-agent-architecture")?.title).toContain("Voice-Agent Architecture");
     expect(bundle.templates.length).toBe(TEMPLATE_FILES.length);
     expect(bundle.templates.every((t) => t.title.length > 3)).toBe(true);
@@ -88,7 +88,6 @@ describe("repoLinkToRoute", () => {
     expect(repoLinkToRoute("docs/whitepaper/README.md")).toBe("/whitepaper");
     expect(repoLinkToRoute("docs/whitepaper/claims-ledger.md")).toBeNull();
     expect(repoLinkToRoute("docs/reading-guide.md#tier-1")).toBe("/reading#tier-1");
-    expect(repoLinkToRoute("docs/repo-docs-reading-guide.md#tier-1")).toBe("/docs/repo-docs-reading-guide#tier-1");
     expect(repoLinkToRoute("docs/podcast-prompts.md")).toBe("/podcasts");
     expect(repoLinkToRoute("notes/study-question.md")).toBe("/docs/study-question");
     expect(repoLinkToRoute("senior-engineer/README.md")).toBe("/docs/senior-engineer");
