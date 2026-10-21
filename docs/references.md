@@ -44,6 +44,10 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [Engineering voice agents: latency, quality, and scale (Together AI)](https://www.youtube.com/watch?v=N7b1PJc7SFc) | Talk | RG 23 |
 | [Building AI Voice Agents for Production (DeepLearning.AI × LiveKit)](https://www.deeplearning.ai/courses/building-ai-voice-agents-for-production) | Course | RG 25 |
 | [ITU-T G.114: One-way transmission time](https://www.itu.int/rec/T-REC-G.114) | Standard | Architecture explorer |
+| [Pipecat Little Voices](https://github.com/pipecat-ai/ios-little-voices) | Source repository and architecture docs | On-device voice-agent research |
+| [Pipecat Build iOS](https://github.com/pipecat-ai/pipecat-build-ios) | Source repository | On-device voice-agent research |
+| [local-voice](https://github.com/mthomas100/local-voice) | Source repository and reported prototype measurements | On-device voice-agent research |
+| [Pipecat iOS client SDK](https://github.com/pipecat-ai/pipecat-client-ios) | Source repository | On-device voice-agent research |
 
 ## Developer workstation and terminal layouts
 
