@@ -1,6 +1,6 @@
 # Pantheon 2026: The AI Roadmap Brief
 
-**Facts as of: October 12, 2026 · Last reviewed: October 12, 2026**
+**Facts as of: October 21, 2026 · Last reviewed: October 21, 2026**
 
 ServiceTitan's annual user conference, Pantheon, is a three-day event in Orlando; the 2026 keynotes
 opened it on Tuesday, October 6. [1][3] This brief
@@ -9,7 +9,9 @@ joining the voice-agent team. It uses only public sources: the company's press r
 published keynote transcript, the conference live blog, and current ServiceTitan help documentation. Company claims are attributed as
 such, and anything marked **Analysis** is this repo's interpretation.
 
-> **Update (October 12):** clarified the public evidence on Avoca's A/B testing and Homh's contractor-ranking signals. Avoca splits calls between two versions, tests changes as small as the greeting, and rolls out a winner only when the difference is statistically significant. The public recap does not disclose the variants tested, primary metric, sample size, statistical test, or stopping rule. Homh's three stated signals are punctuality, hired rate, and job quality/satisfaction; weights and ranking formula are not public. The live blog now includes additional partner and customer recaps
+> **Update (October 21):** new official documentation makes the capacity boundary more concrete: Adaptive Capacity calculates open capacity from technician shifts or business hours minus scheduled jobs and timed non-job events; the same real-time calculation is used by Scheduling, CSR booking, Voice Agent, Dispatch, and Marketing. Its strategic-rule audit trail records changes; 0% technician-to-zone and technician-to-job-type rules are hard Dispatch exclusions, while 1–99% caps guide the optimizer. Atlas drafts Strategic Rules for human review but does not alter capacity settings, exclusions, adjustments, or reports. New outbound-agent documentation says SMS and Voice Agents can offer real capacity-backed appointments and book without a CSR; a CSR takeover stops that lead's automated messages. An October 19 official keynote recap reinforces the coordination claims already captured below. No public Pantheon session recording or complete transcript is available yet; the official guidance still says breakouts reach Academy about 4–6 weeks after the event. [7][8][9][10][11]
+>
+> **Previous update (October 12):** clarified the public evidence on Avoca's A/B testing and Homh's contractor-ranking signals. Avoca splits calls between two versions, tests changes as small as the greeting, and rolls out a winner only when the difference is statistically significant. The public recap does not disclose the variants tested, primary metric, sample size, statistical test, or stopping rule. Homh's three stated signals are punctuality, hired rate, and job quality/satisfaction; weights and ranking formula are not public. The live blog now includes additional partner and customer recaps
 > plus a public write-up of the "Charging Ahead with AI and Max" breakout. Strengthened caveats
 > on partner-reported A/B testing, certified-partner booking, planned webhooks and programmatic
 > onboarding, and customer anecdotes (sections 2b–2d). Section 2e covers the remaining recaps:
@@ -446,6 +448,33 @@ a static calendar. [1][3] Analysis: that is a capacity-reservation problem at th
 an external agent and the platform's source of truth. The
 [capacity reservation review](../senior-engineer/capacity-reservation-review.md) is the exercise.
 
+### October 15 documentation: a shared, auditable capacity calculation
+
+The newer product documentation gives public implementation-level behavior without disclosing
+the underlying service architecture. **Open Capacity** is defined as Capacity Provided minus
+Capacity Consumed: provided capacity comes from technician shifts (or business hours when shifts
+are absent), while consumption includes scheduled jobs and timed non-job events. Scheduling, CSR
+call booking, Voice Agent, Dispatch, and Marketing use that capacity signal. [7]
+
+Strategic Rules layer percentage thresholds on natural capacity. When rules overlap, the most
+restrictive applies; 0% technician-to-zone and technician-to-job-type rules are hard Dispatch
+exclusions, while 1–99% caps guide the optimizer. Rules and capacity settings have an exportable
+audit trail. Atlas can draft or revise a Strategic Rule from a natural-language request, but the
+documentation limits it to that builder: a human reviews before saving, and Atlas does not modify
+capacity settings, technician exclusions, manual adjustments, or reporting. [7][8]
+
+**Outbound agents.** The new outbound guide says SMS and Voice Agents can quote real appointment
+times from Adaptive Capacity and book jobs without CSR involvement. They share persona, skills,
+job-type, knowledge-base, follow-up, and escalation configuration; a CSR takeover stops automated
+messages for that lead. It describes this as ServiceTitan-managed activation, not self-service.
+[9]
+
+Analysis: these disclosures strengthen the case for treating capacity as an authoritative control
+plane, but they do not establish API semantics, locking, idempotency keys, or the identity and
+authorization checks on any particular booking path. The audit trail and human review of
+Atlas-generated rules are useful controls; booking writes still need their own authoritative
+commit and outcome verification.
+
 ## 5. Atlas as a permissioned, action-taking interface
 
 ServiceTitan's current Atlas documentation adds implementation-relevant evidence:
@@ -459,7 +488,9 @@ The repo's new [MCP and external-agent trust boundary](mcp-and-external-agent-tr
 
 The live blog now includes additional partner coverage and a public recap of the "Charging
 Ahead with AI and Max" breakout (section 2e), but that is not the same as a full session
-transcript. The following remain useful verification targets as of October 10:
+transcript. The official recording-access guidance was updated October 15 and still says that
+breakouts reach Academy about 4–6 weeks after the event. The following remain useful verification
+targets as of October 21: [11]
 
 - **Charging Ahead with AI and Max**, Oct 7, 11:15 am ET: a live-blog recap is public as of
   October 10 (section 2e); verify the full recording when it becomes available. ServiceTitan
@@ -496,3 +527,8 @@ company and partner claims, distinguish inference from fact, and update this bri
 4. ServiceTitan Help Center, "Assign Atlas personas and manage access" (updated September 28, 2026): <https://help.servicetitan.com/docs/assign-atlas-access-and-personas>
 5. ServiceTitan Help Center, "Use Atlas in Adaptive Capacity Strategic Rules" (updated October 8, 2026): <https://help.servicetitan.com/commercial/docs/use-atlas-in-adaptive-capacity-strategic-rules-1>
 6. ServiceTitan Help Center, "How can I access Pantheon slides and video recordings?" (updated April 9, 2026): <https://help.servicetitan.com/docs/how-can-i-access-pantheon-slides-and-video-recordings>
+7. ServiceTitan Help Center, "Configure Adaptive Capacity in ServiceTitan Max" (October 15, 2026): <https://help.servicetitan.com/docs/configure-adaptive-capacity-in-servicetitan-max.md>
+8. ServiceTitan Help Center, "Optimizing Adaptive Capacity after Go-Live" (October 15, 2026): <https://help.servicetitan.com/docs/optimizing-adaptive-capacity-after-go-live.md>
+9. ServiceTitan Help Center, "Outbound virtual agents overview in ServiceTitan Max: Configuration and management" (October 15, 2026): <https://help.servicetitan.com/docs/outbound-virtual-agents-overview-in-servicetitan-max.md>
+10. ServiceTitan, "From concept to reality in a year: Dozens of agents that act together expand ServiceTitan Max's capability" (October 19, 2026): <https://www.servicetitan.com/blog/pantheon-2026-keynote-address-ara-mahdessian>
+11. ServiceTitan Help Center, "How can I access Pantheon slides and video recordings?" (October 15, 2026): <https://help.servicetitan.com/docs/how-can-i-access-pantheon-slides-and-video-recordings.md>

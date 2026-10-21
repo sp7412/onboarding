@@ -275,6 +275,11 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [Get ready for Voice Intelligence with ServiceTitan Calls](https://help.servicetitan.com/release-hub/docs/coming-soon-get-ready-for-voice-intelligence-in-servicetitan-core) | Help center (company claim) | Hypothesis map, business metrics, claims ledger |
 | [Book jobs from your website with Webchat in Virtual Agent](https://help.servicetitan.com/release-hub/docs/book-jobs-from-your-website-with-webchat-in-virtual-agent) | Help center (company claim) | Hypothesis map, claims ledger |
 | [An introduction to ServiceTitan Max: what it is and why it matters](https://help.servicetitan.com/docs/an-introduction-to-servicetitan-max-what-it-is-and-why-it-matters) | Help center (company claim) | Hypothesis map, claims ledger |
+| [Configure Adaptive Capacity in ServiceTitan Max](https://help.servicetitan.com/docs/configure-adaptive-capacity-in-servicetitan-max.md) | ServiceTitan Help Center | Pantheon brief |
+| [Optimizing Adaptive Capacity after Go-Live](https://help.servicetitan.com/docs/optimizing-adaptive-capacity-after-go-live.md) | ServiceTitan Help Center | Pantheon brief |
+| [Outbound virtual agents overview in ServiceTitan Max: Configuration and management](https://help.servicetitan.com/docs/outbound-virtual-agents-overview-in-servicetitan-max.md) | ServiceTitan Help Center | Pantheon brief |
+| [From concept to reality in a year: Dozens of agents that act together expand ServiceTitan Max's capability](https://www.servicetitan.com/blog/pantheon-2026-keynote-address-ara-mahdessian) | Company keynote recap | Pantheon brief |
+| [How can I access Pantheon slides and video recordings?](https://help.servicetitan.com/docs/how-can-i-access-pantheon-slides-and-video-recordings.md) | ServiceTitan Help Center | Pantheon brief |
 
 ## Pantheon 2026 follow-ups (October 8)
 
