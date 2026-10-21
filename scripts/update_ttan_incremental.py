@@ -104,8 +104,8 @@ def main() -> int:
     # Update the current fiscal quarter's aggregate from its prior aggregate plus
     # newly cached sessions. Existing quarterly rows retain their original history.
     quarters = chart.get("quarterlyClosingVwap", [])
-    known_dates = {r["date"] for r in chart.get("data", [])}
-    additions = [r for r in all_rows if r["date"] not in known_dates]
+    previous_last_date = chart.get("lastDate", "")
+    additions = [r for r in all_rows if r["date"] > previous_last_date]
     for row in additions:
         session = date.fromisoformat(row["date"])
         quarter, fiscal_year, label = quarter_for(session)
