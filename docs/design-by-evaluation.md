@@ -566,3 +566,115 @@ must not silently transfer to another technician or another company.
 **Design rule:** personalize how the agent prepares and explains an estimate; keep pricing,
 eligibility, factual job state, and commitments governed by authoritative systems and explicit
 controls.
+
+## 9. The validation ladder and the CI regression loop
+
+Design by evaluation needs two complementary mechanisms:
+
+- The **validation ladder** increases the cost and scope of a test only after cheaper
+  checks answer their questions.
+- **Continuous regression testing** reruns a stable set of checks as code, prompts,
+  model configuration, dependencies, and workflows change.
+
+They are not competing test stages. Regression checks cut across the ladder: a fast
+unit test, a semantic agent scenario, and a small end-to-end run can all be regression
+tests when they preserve previously demonstrated behavior.
+
+### The validation ladder: fail fast, scale safely
+
+```mermaid
+flowchart TD
+    A["Static checks and unit tests<br/>Imports, config, shapes, loss"] --> B{"Pass?"}
+    B -->|No| X["Stop, diagnose, fix"]
+    B -->|Yes| C["Data smoke test<br/>Tiny sample, labels, preprocessing"]
+    C --> D{"Pass?"}
+    D -->|No| X
+    D -->|Yes| E["Training smoke test<br/>One batch or short run / one epoch"]
+    E --> F{"Pass?"}
+    F -->|No| X
+    F -->|Yes| G["Tiny-batch overfit test<br/>Can it learn a deliberately small case?"]
+    G --> H{"Pass?"}
+    H -->|No| X
+    H -->|Yes| I["Mini end-to-end run<br/>Validation, checkpoint round-trip, inference"]
+    I --> J{"Pass?"}
+    J -->|No| X
+    J -->|Yes| K["Full benchmark / training run"]
+    K --> L["Compare quality, robustness, cost and performance"]
+    X --> M["Add a regression case when the failure is reproducible"]
+    M --> A
+```
+
+Each rung answers a different question:
+
+| Rung | Evidence to require | What it does **not** prove |
+|---|---|---|
+| Static and unit tests | Configuration and local contracts are valid | The data or full workflow is valid |
+| Data smoke test | A tiny representative sample loads and transforms correctly | The model can optimize or generalize |
+| Training smoke test | Forward/backward pass, optimizer step, metrics and device execution complete with finite values | The model can learn the task |
+| Tiny-batch overfit | The model can fit a fixed, deliberately small batch under controlled conditions | It will generalize to unseen data |
+| Mini end-to-end run | Validation, checkpoint save/load, inference and output contracts work together | Full-scale quality, throughput or stability |
+| Full evaluation | Predefined quality, robustness, performance and resource criteria are met | Future changes cannot regress |
+
+A smoke test is a **plumbing test**, not a quality benchmark. Use the smallest
+representative data that can expose the failure in question. One batch may be enough
+for execution checks; a one-epoch run is useful only if it remains cheap and its
+acceptance criteria are meaningful. Tiny-batch overfit is a separate diagnostic for
+learning behavior, not a substitute for validation on held-out data.
+
+### CI: preserve evidence on every change
+
+A practical CI policy uses tiers rather than forcing every expensive evaluation into
+every pull request:
+
+1. **Every PR:** lint/type checks, unit and contract tests, curated deterministic
+   regressions, and fast smoke tests. Include the tiny training path when its runtime
+   and hardware requirements are reliable enough for the PR gate.
+2. **Selected PRs or nightly:** broader semantic evaluations, repeated stochastic
+   runs, audio and multi-turn scenarios, fault injection, tiny-batch overfit checks,
+   and performance tests.
+3. **Pre-release or scheduled:** full benchmark suites, representative-scale training,
+   robustness and load tests, human review, and release acceptance.
+4. **Canary / production:** monitor real outcomes and operational metrics; investigate
+   failures and feed minimized, reviewed cases back into the regression suite.
+
+Keep fast correctness tests separate from load tests. A CI pass should mean the
+candidate met the declared gates, not that every possible behavior was exhaustively
+tested.
+
+### Use deterministic tests and LLM judges together
+
+Prefer exact assertions whenever a property is objectively checkable: schema validity,
+tool arguments, authorization, state mutations, duplicate actions, checkpoint
+round-trips, and whether a success claim matches the system of record.
+
+Use an LLM judge for semantic properties such as relevance, instruction following,
+grounded explanations, or response quality. Keep a versioned dataset and rubric; record
+the judge model/configuration and compare against a baseline. Calibrate the judge against
+human-reviewed examples and track its disagreement and variability. Treat the judge as
+an imperfect measurement instrument, not ground truth. Critical safety or authorization
+invariants must not be overridden by a favorable aggregate judge score.
+
+### Turn every useful failure into a regression
+
+When a failure is reproducible:
+
+1. Save the smallest case that still reproduces it, including relevant inputs, expected
+   behavior, and required state or side-effect assertions.
+2. Label the failure layer (data, model, prompt, orchestration, tool, state, audio,
+   infrastructure, or evaluator).
+3. Add it to the appropriate test set. Keep high-value, reviewed historical failures in
+   a **frozen regression set**; put newly discovered cases in a rolling set until
+   reviewed.
+4. Fix the underlying cause, then rerun both the new regression and the existing suite.
+5. Compare against the same baseline and report sample counts. For noisy judge or model
+   scores, use appropriate tolerances and repeat runs rather than failing on an
+   unsubstantiated tiny difference.
+6. Promote the change only when hard invariants pass and quality metrics meet their
+   declared thresholds.
+
+Do not rewrite a frozen test merely to make a candidate pass. If requirements genuinely
+change, document the rationale and version the evaluation contract.
+
+**Operating principle:** every stage earns the next investment with evidence; every
+meaningful regression becomes a test that protects the system from repeating that
+failure.
