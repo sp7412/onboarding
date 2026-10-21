@@ -1,0 +1,58 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { loadContent } from "../lib/content/repo";
+import { url } from "../lib/url";
+
+const content = loadContent();
+const docs = [...content.docs].sort((a, b) => a.repoPath.localeCompare(b.repoPath));
+const groups = new Map<string, typeof docs>();
+for (const doc of docs) {
+  const group = doc.repoPath.includes("/") ? doc.repoPath.split("/")[0] : "Repository root";
+  groups.set(group, [...(groups.get(group) ?? []), doc]);
+}
+---
+
+<BaseLayout
+  title="Repository content · Path to Integration"
+  description="Browse the Markdown content published from the onboarding repository."
+>
+  <p class="crumb muted"><a href={url("/")}>Journey</a> / repository content</p>
+  <header>
+    <p class="eyebrow">CONTENT CATALOG</p>
+    <h1>Repository content</h1>
+    <p class="lede">
+      All Markdown files in the repository are published here or through their
+      purpose-built views. Newly added Markdown files are discovered at build
+      time, so adding a document no longer requires a separate route registry edit.
+    </p>
+    <p class="muted">{docs.length} Markdown pages</p>
+  </header>
+
+  {Array.from(groups.entries()).map(([group, items]) => (
+    <section aria-labelledby={`group-${group}`}>
+      <h2 id={`group-${group}`}>{group}</h2>
+      <ul>
+        {items.map((doc) => (
+          <li>
+            <a href={url(`/docs/${doc.slug}`)}>{doc.title}</a>
+            <span class="path">{doc.repoPath}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  ))}
+</BaseLayout>
+
+<style>
+  .crumb { font-size: 0.9rem; }
+  header { max-width: 760px; margin: var(--s6) 0 var(--s8); }
+  .eyebrow { color: var(--cyan); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.12em; }
+  h1 { margin: 0 0 var(--s4); }
+  .lede { color: var(--ink-dim); line-height: 1.7; }
+  section { margin: var(--s8) 0; }
+  section h2 { border-bottom: 1px solid var(--panel-edge); padding-bottom: var(--s2); }
+  ul { list-style: none; margin: 0; padding: 0; }
+  li { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s2) var(--s4); padding: var(--s3) 0; border-bottom: 1px solid var(--panel-edge); }
+  .path { color: var(--ink-dim); font-size: 0.82rem; overflow-wrap: anywhere; }
+  @media (max-width: 600px) { li { flex-direction: column; } }
+</style>

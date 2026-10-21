@@ -74,9 +74,12 @@ function parseDoc(repoRelative: string, slugOverride?: string): RepoDoc {
   const body = read(repoRelative);
   const lines = body.split("\n");
   const h1 = lines.find((l) => l.startsWith("# "));
-  expectCondition(repoRelative, "an H1 title", Boolean(h1));
+  // Repository Markdown is not always authored as a polished guide; publish
+  // it anyway with a filename-derived title rather than silently omitting it.
+  const title = h1?.slice(2).trim()
+    ?? path.basename(repoRelative, ".md").replace(/[-_]+/g, " ");
   const slug = slugOverride ?? path.basename(repoRelative, ".md");
-  return { repoPath: repoRelative, slug, title: h1!.slice(2).trim(), body };
+  return { repoPath: repoRelative, slug, title, body };
 }
 
 export interface DocPage {
@@ -94,6 +97,7 @@ export const DOC_PAGES: DocPage[] = [
   { repoPath: "docs/ttan-vwap-data.md", icon: "chart" },
   { repoPath: "docs/developer-tools.md", icon: "notes" },
   { repoPath: "docs/jev-call-intent-classification.md", icon: "architecture" },
+  { repoPath: "docs/system-one-models.md", icon: "architecture" },
   { repoPath: "docs/realtime-voice-agent-evaluation.md", icon: "evaluation" },
   { repoPath: "docs/servicetitan-101.md", icon: "reading" },
   { repoPath: "docs/how-a-contractor-works.md", icon: "reading" },
@@ -140,6 +144,48 @@ export const DOC_PAGES: DocPage[] = [
   { repoPath: "notes/conversation-notes.md", icon: "notes" },
 ];
 
+// Publish every Markdown content file in the repository, not only manually
+// curated entries. Special-format sources already have dedicated routes and
+// parsers; all other content gets a stable, collision-resistant docs route.
+function discoverMarkdownPages(dir: string, relative = ""): DocPage[] {
+  if (!fs.existsSync(dir)) return [];
+  return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
+    const repoPath = path.posix.join(relative, entry.name);
+    const fullPath = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      // Fixtures and generated/developer-only content are not site material.
+      if (["__fixtures__", "node_modules", "dist", ".git"].includes(entry.name)) return [];
+      return discoverMarkdownPages(fullPath, repoPath);
+    }
+    if (!entry.isFile() || !entry.name.endsWith(".md")) return [];
+    if (DOC_PAGES.some((page) => page.repoPath === repoPath)) return [];
+    const routeSlug = `repo-${repoPath.replace(/\.md$/, "").replace(/[^a-zA-Z0-9]+/g, "-").replace(/^-|-$/g, "").toLowerCase()}`;
+    return [{ repoPath, icon: "reading", slug: routeSlug, track: "repository-content" }];
+  });
+}
+
+function discoverRootMarkdownPages(): DocPage[] {
+  return fs.readdirSync(REPO_ROOT, { withFileTypes: true })
+    .filter((entry) => entry.isFile() && entry.name.endsWith(".md"))
+    .map((entry) => entry.name)
+    .filter((repoPath) => !DOC_PAGES.some((page) => page.repoPath === repoPath))
+    .map((repoPath) => ({
+      repoPath,
+      icon: "reading",
+      slug: `repo-${repoPath.replace(/\.md$/, "").toLowerCase()}`,
+      track: "repository-content",
+    }));
+}
+
+export const ALL_MARKDOWN_PAGES: DocPage[] = [
+  ...DOC_PAGES,
+  ...discoverRootMarkdownPages(),
+  ...["docs", "notes", "plan", "senior-engineer", "templates", "labs", "study-guide", "video"]
+    .flatMap((relative) => discoverMarkdownPages(path.join(REPO_ROOT, relative), relative)),
+];
+
+// Keep the existing curated list stable while ensuring newly added content is
+// included automatically on the next site build.
 export const TEMPLATE_FILES = [
   "onboarding-log.md",
   "1on1-questions.md",
@@ -159,7 +205,7 @@ export function docSlug(page: DocPage): string {
 
 /** Site route for a DOC_PAGES entry. */
 export function docRoute(repoPath: string): string {
-  const page = DOC_PAGES.find((d) => d.repoPath === repoPath);
+  const page = ALL_MARKDOWN_PAGES.find((d) => d.repoPath === repoPath);
   if (!page) throw new Error(`not a doc page: ${repoPath}`);
   return `/docs/${docSlug(page)}`;
 }
@@ -180,17 +226,23 @@ export function repoLinkToRoute(target: string): string | null {
     return withHash(`/whitepaper/${slug}`);
   }
   if (clean === "senior-engineer") return withHash(docRoute("senior-engineer/README.md"));
-  const page = DOC_PAGES.find((d) => d.repoPath === clean);
-  if (page) return withHash(`/docs/${docSlug(page)}`);
+  // Purpose-built views must take precedence over the generic Markdown catalog.
   if (clean === "docs/reading-guide.md") return withHash("/reading");
   if (clean === "docs/podcast-prompts.md") return withHash("/podcasts");
   if (clean === "docs/video-notes.md") return withHash("/videos");
   if (clean === "docs/capstone-rubric.md") return withHash("/docs/capstone-rubric");
   if (clean === "notes/glossary.md") return withHash("/glossary");
-  if (clean === "plan/30-60-90-checklist.md") return withHash("/checklist");
-  if (clean === "templates" || clean === "templates/README.md") return "/templates";
-  if (clean.startsWith("templates/") && clean.endsWith(".md")) return `/templates#${path.basename(clean, ".md")}`;
+  if (clean === "plan/30-60-90-checklist.md") {
+    // Preserve section links by routing anchored references to the rendered Markdown page.
+    return hash
+      ? withHash("/docs/repo-plan-30-60-90-checklist")
+      : withHash("/checklist");
+  }
+  if (clean === "templates" || clean === "templates/README.md") return withHash("/templates");
+  if (clean.startsWith("templates/") && clean.endsWith(".md")) return withHash(`/templates#${path.basename(clean, ".md")}`);
   if (clean === "labs" || clean === "labs/README.md") return withHash("/labs");
+  const page = ALL_MARKDOWN_PAGES.find((d) => d.repoPath === clean);
+  if (page) return withHash(`/docs/${docSlug(page)}`);
   return null;
 }
 
@@ -225,7 +277,7 @@ export function loadContent(): ContentBundle {
   expectCondition("labs", "exactly matching source and generated lab sets",
     sourceLabs.length === labRows.length && stems(sourceLabs) === stems(notebookLabs));
 
-  const docs = DOC_PAGES.map((d) => parseDoc(d.repoPath, d.slug));
+  const docs = ALL_MARKDOWN_PAGES.map((d) => parseDoc(d.repoPath, d.slug));
   const slugs = docs.map((d) => d.slug);
   expectCondition("DOC_PAGES", "unique doc slugs", new Set(slugs).size === slugs.length);
   const templates = TEMPLATE_FILES.map((f) => parseDoc(`templates/${f}`));

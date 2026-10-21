@@ -64,7 +64,8 @@ describe("real repo content", () => {
   });
 
   it("parses doc pages and templates with titles", () => {
-    expect(bundle.docs.length).toBe(DOC_PAGES.length);
+    expect(bundle.docs.length).toBeGreaterThanOrEqual(DOC_PAGES.length);
+    expect(bundle.docs.find((doc) => doc.repoPath === "docs/reading-guide.md")?.slug).toBe("repo-docs-reading-guide");
     expect(bundle.docs.find((d) => d.slug === "voice-agent-architecture")?.title).toContain("Voice-Agent Architecture");
     expect(bundle.templates.length).toBe(TEMPLATE_FILES.length);
     expect(bundle.templates.every((t) => t.title.length > 3)).toBe(true);
