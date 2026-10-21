@@ -13,6 +13,7 @@ A topic-first map of the onboarding material. Use the **learning path** when you
 ## Voice-agent architecture and runtime
 
 - [Voice-agent architecture](voice-agent-architecture.md) — component boundaries and control plane.
+- [On-device voice agents](on-device-voice-agents.md) — compare embedded local voice stacks with client/server agents; focus on interruption, playback-aware context, and a testable prototype.
 - [ServiceTitan voice-agent public evidence](voice-agent-public-evidence.md) — documented workflows, Voice Intelligence, booking figures, and rollout caveats.
 - [ServiceTitan public GitHub review](servicetitan-github-review.md) — source-level clues in Voice Agent settings, Atlas/AI Kit, the upstream Moltbot voice-call extension, recording PWA, Fusion, and harness security.
 - [Speech-to-speech models](speech-to-speech-models.md) — full-duplex models versus cascaded pipelines.
