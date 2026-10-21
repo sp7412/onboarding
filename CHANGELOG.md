@@ -2,6 +2,16 @@
 
 ## 2026-10-19
 
+### Obsidian personal knowledge workflow
+
+- Added a local-first Markdown vault workflow for curating ChatGPT exports, repository documentation, decisions, and research while preserving source provenance.
+- Documented Grok Bot cloud/local access boundaries, staged ingestion, approval-gated updates, Git/backup recovery, and criteria for adding semantic search only when needed.
+- Linked the workflow from the topic-first guide index.
+- Expanded the workflow to make Slack and email first-class inputs, with thread/message provenance, shared metadata, incremental ingestion, deduplication, correction/deletion handling, and a bounded pilot checklist.
+- Added a scheduled Grok Bot Routine design for daily incremental Slack/email ingestion, including checkpointing, dry-run and approval gates, run reporting, failure handling, and explicit cloud-to-local vault access verification.
+
+## 2026-10-19
+
 ### System One models for production AI
 
 - Added a reusable guide distinguishing typed decision and extraction tasks from general-purpose generation, with a practical hybrid architecture and product-claim caveats.
