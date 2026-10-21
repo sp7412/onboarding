@@ -1082,3 +1082,21 @@ Before enabling any skill, plugin, or MCP server:
 - Run it on a disposable branch or fixture repository before using production code.
 - Measure task success, regression rate, review findings, tool failures, and cost.
 - Keep a human-owned verification gate; never treat the agent's self-reported success as proof.
+
+## Research queue: computer-use agents
+
+### CUA — connect an agent to a computer
+
+- **Status:** Investigate; not yet an adopted dependency or recommended production tool.
+- **Starting point:** [CUA agent connection guide](https://cua.ai/docs/spaces/guides/connect-your-agent#what-your-agent-can-do).
+- **Why it may be useful:** CUA describes a way to connect an existing agent to computer-use capabilities, potentially enabling visual QA, browser-based workflows, and interaction with desktop applications when a stable API is unavailable.
+- **Questions to answer in a small proof of concept:**
+  1. Which agent runtimes and computer backends are supported, and what runs locally versus remotely?
+  2. Can execution be isolated in a disposable VM or similarly strong sandbox, with explicit network and filesystem boundaries?
+  3. How are screenshots, mouse/keyboard actions, credentials, and browser sessions exposed to the agent?
+  4. Can actions be audited and replayed, and can high-impact actions require human approval?
+  5. What are the latency, reliability, operating-system, licensing, and cost constraints?
+- **Suggested evaluation:** Use a non-sensitive test app to have an agent open a page, perform a short deterministic workflow, capture evidence, and recover from one deliberately introduced UI change. Compare reliability and setup cost against Playwright/API-based automation.
+- **Guardrails:** Treat page content and downloaded files as untrusted input. Use test credentials and synthetic data; do not connect a personal browser profile or grant broad filesystem access. Keep human approval for destructive or externally visible actions.
+- **Decision rule:** Keep it on the shortlist until the proof of concept demonstrates a meaningful capability beyond browser automation or direct APIs, with acceptable isolation and observability.
+
