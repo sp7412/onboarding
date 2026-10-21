@@ -15,7 +15,7 @@ sources added October 7, 2026.
 | <https://investors.servicetitan.com/news-releases/news-release-details/servicetitan-announces-fiscal-fourth-quarter-and-full-year> | 01, A |
 | <https://www.sec.gov/Archives/edgar/data/0001638826/000163882626000044/ttan-ex99_1.htm> | 02 |
 | <https://www.sec.gov/Archives/edgar/data/1638826/000163882626000009/ttan-ex99_1.htm> | A |
-| <https://www.globenewswire.com/news-release/2026/10/06/3375320/0/en/servicetitan-announcing-new-and-expanded-capabilities-at-pantheon-2026.html> | 07, 09, 12, 14, 15, A |
+| <https://www.globenewswire.com/news-release/2026/10/06/3375320/0/en/servicetitan-announcing-new-and-expanded-capabilities-at-pantheon-2026.html> | 01, 07, 09, 12, 14, 15, A |
 
 ## ServiceTitan web pages
 

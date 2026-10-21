@@ -1,9 +1,9 @@
 # 01 - Company
 
-**Estimated reading time:** 8 minutes · **Facts as of:** September 30, 2026 · **Last reviewed:** September 30, 2026
+**Estimated reading time:** 8 minutes · **Facts as of:** October 6, 2026 · **Last reviewed:** October 7, 2026
 
 
-> **Update (Pantheon 2026, October 6, 2026):** the press release says Max is now available to all residential in-home contractors (a keynote stated it more narrowly: plumbing, heating, electrical and garage-door customers with four or more technicians), with a limited commercial and roofing pilot; the company also announced the Atlas mobile app and Homh. See the [Pantheon 2026 AI roadmap brief](../pantheon-2026-ai-roadmap.md).
+> **Update (Pantheon 2026, October 6, 2026):** the press release says Max is now available to all residential in-home contractors (a keynote stated it more narrowly: plumbing, heating, electrical and garage-door customers with four or more technicians), with a limited commercial and roofing pilot; the company also announced the Atlas mobile app and Homh. See the [Pantheon 2026 AI roadmap brief](../pantheon-2026-ai-roadmap.md) and source [7].
 
 ## Five Takeaways
 
@@ -206,8 +206,4 @@ The dedicated [competitive landscape chapter](09-competitive-landscape.md) maps 
 4. ServiceTitan, [IPO pricing release](https://servicetitan.com/press/servicetitan-announces-ipo-pricing).
 5. ServiceTitan, [fiscal Q2 2027 results](https://www.sec.gov/Archives/edgar/data/1638826/000163882626000093/ttan-ex99_1.htm).
 6. ServiceTitan, [Pantheon 2025 Atlas recap](https://www.servicetitan.com/blog/pantheon-2025-vahe-keynote-atlas).
-
-**Verification note:** the SEC pages returned HTTP 403 through the configured proxy during the
-September 30, 2026 review. Their claims remain explicitly attributed to the cited filings and
-are recorded in the claims ledger; recheck them from the filing or an accessible official copy
-before relying on a number.
+7. ServiceTitan, [Pantheon 2026 press release](https://www.globenewswire.com/news-release/2026/10/06/3375320/0/en/servicetitan-announcing-new-and-expanded-capabilities-at-pantheon-2026.html).
