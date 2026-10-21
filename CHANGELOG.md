@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-10-21
+
+### On-device voice-agent architecture research
+
+- Added a sourced comparison of Pipecat Little Voices, Pipecat Build iOS, local-voice, and the Pipecat iOS client SDK.
+- Captured reusable patterns for native audio, barge-in/cancellation, playback-aware context, and a separate authoritative tool/control plane.
+- Proposed a deterministic interruption-and-context-integrity prototype with measurable acceptance criteria; no production-stack commitment.
+- Linked the research from the topic-first guide index and bibliography.
+
+
 ## 2026-10-19
 
 ### Obsidian personal knowledge workflow
