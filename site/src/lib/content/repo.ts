@@ -232,7 +232,12 @@ export function repoLinkToRoute(target: string): string | null {
   if (clean === "docs/video-notes.md") return withHash("/videos");
   if (clean === "docs/capstone-rubric.md") return withHash("/docs/capstone-rubric");
   if (clean === "notes/glossary.md") return withHash("/glossary");
-  if (clean === "plan/30-60-90-checklist.md") return withHash("/checklist");
+  if (clean === "plan/30-60-90-checklist.md") {
+    // Preserve section links by routing anchored references to the rendered Markdown page.
+    return hash
+      ? withHash("/docs/repo-plan-30-60-90-checklist")
+      : withHash("/checklist");
+  }
   if (clean === "templates" || clean === "templates/README.md") return withHash("/templates");
   if (clean.startsWith("templates/") && clean.endsWith(".md")) return withHash(`/templates#${path.basename(clean, ".md")}`);
   if (clean === "labs" || clean === "labs/README.md") return withHash("/labs");
