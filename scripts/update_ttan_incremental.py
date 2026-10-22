@@ -153,7 +153,7 @@ def main() -> int:
         "quarterlyClosingVwap": sorted(quarters, key=lambda q: q["firstDate"]),
         "data": display,
     })
-    args.output.write_text(json.dumps(chart, indent=2) + "\\n", encoding="utf-8")
+    args.output.write_text(json.dumps(chart, indent=2) + "\n", encoding="utf-8")
     print(f"Updated cache through {all_rows[-1]['date']} ({len(fetched)} fetched rows); "
           f"wrote {len(display)} chart sessions.")
     return 0
