@@ -40,9 +40,9 @@ These are **local-only** notebooks for Apple Silicon macOS, not Colab. They keep
 
 | Notebook | Purpose | Run |
 |---|---|---|
-| 18 | Moshi MLX hardware preflight and guarded environment setup | [Open notebook](18_moshi_mlx_preflight.ipynb) |
-| 19 | Start local browser UI and manually verify microphone, speech, and barge-in | [Open notebook](19_moshi_mlx_live_demo.ipynb) |
-| 20 | Repeatable interruption scenarios, CSV observations, and latency summaries | [Open notebook](20_full_duplex_eval.ipynb) |
+| 20 | Moshi MLX hardware preflight and guarded environment setup | [Open notebook](20_moshi_mlx_preflight.ipynb) |
+| 21 | Start local browser UI and manually verify microphone, speech, and barge-in | [Open notebook](21_moshi_mlx_live_demo.ipynb) |
+| 22 | Repeatable interruption scenarios, CSV observations, and latency summaries | [Open notebook](22_full_duplex_eval.ipynb) |
 
 Complete the [local full-duplex experiment guide](../docs/local-full-duplex-experiment.md) first. The live browser checks are manual; no model run or performance result is implied by the notebooks.
 
