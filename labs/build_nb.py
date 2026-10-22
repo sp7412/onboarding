@@ -12,7 +12,7 @@ from pathlib import Path
 import nbformat
 
 REPO = "sp7412/onboarding"
-LOCAL_ONLY_STEMS = {"18_moshi_mlx_preflight", "19_moshi_mlx_live_demo", "20_full_duplex_eval"}
+LOCAL_ONLY_STEMS = {"20_moshi_mlx_preflight", "21_moshi_mlx_live_demo", "22_full_duplex_eval"}
 SECRET_KEYS = ("OPENAI_API_KEY", "LANGSMITH_API_KEY", "LIVEKIT_URL", "LIVEKIT_API_KEY",
                "LIVEKIT_API_SECRET")
 # Keep lab-specific secrets scoped to the notebooks that actually use them. This avoids
