@@ -2,6 +2,14 @@
 
 ## 2026-10-21
 
+### Expand agent-session and voice-agent observability research
+
+- Added cmux, ccmanager, opensessions, and Vibe Kanban as adjacent coding-agent session/task-management candidates.
+- Added a dedicated voice-agent observability section comparing LiveKit Agent Insights, Pipecat Tail, LangSmith voice tracing, Langfuse, Arize Phoenix, and Braintrust.
+- Documented practical voice telemetry, latency and outcome signals, and privacy/retention considerations for audio and transcripts.
+
+## 2026-10-21
+
 ### Document AI-agent session visibility tools
 
 - Added a distinct terminal-visualizer/session-dashboard category for live coding-agent activity, status, and progress, separate from application-log observability.
