@@ -18,11 +18,23 @@ class ColabCellTests(unittest.TestCase):
     def test_every_notebook_has_title_badge_and_current_setup_cell(self):
         for src in sorted((LABS / "src").glob("*.py")):
             nb = nbformat.read(LABS / f"{src.stem}.ipynb", as_version=4)
-            title, badge, setup = nb.cells[0], nb.cells[1], nb.cells[2]
-            self.assertTrue(title.source.startswith(f"# {src.stem[:2]} · "), src.stem)
-            self.assertIn(f"blob/main/labs/{src.stem}.ipynb", badge.source, src.stem)
-            self.assertEqual(setup.source, build_nb.colab_setup_cell(src.stem).source,
-                             f"{src.stem}: rebuild notebooks with `cd labs && python build_nb.py`")
+            title = nb.cells[0]
+            if src.stem in build_nb.LOCAL_ONLY_STEMS:
+                # Local hardware/microphone labs intentionally omit Colab cells.
+                self.assertTrue(title.source.startswith(f"# Lab {int(src.stem[:2])} — "), src.stem)
+                self.assertFalse(any(
+                    "Open In Colab" in cell.source or "Colab setup" in cell.source
+                    for cell in nb.cells
+                ), f"{src.stem}: local-only notebooks must not contain Colab cells")
+            else:
+                badge, setup = nb.cells[1], nb.cells[2]
+                self.assertTrue(title.source.startswith(f"# {src.stem[:2]} · "), src.stem)
+                self.assertIn(f"blob/main/labs/{src.stem}.ipynb", badge.source, src.stem)
+                self.assertEqual(
+                    setup.source,
+                    build_nb.colab_setup_cell(src.stem).source,
+                    f"{src.stem}: rebuild notebooks with `cd labs && python build_nb.py`",
+                )
             self.assertNotIn("Colab setup", src.read_text(), "sources must stay free of generated cells")
 
     def test_package_map_keys_are_real_labs(self):

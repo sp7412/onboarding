@@ -84,6 +84,8 @@ can reduce per-minute vendor fees and network dependence, but it transfers
 availability, security, scaling, patching, and GPU-utilization responsibilities
 to the operator.
 
+For a hands-on local baseline, see the [local full-duplex experiment](local-full-duplex-experiment.md). It deliberately separates setup/model-load smoke tests from live conversation tests and end-to-end evaluation.
+
 ## Focused evaluation plan
 
 Run this as an optional experiment alongside [the LiveKit hands-on track](livekit-hands-on.md).
