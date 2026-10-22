@@ -15,10 +15,13 @@ WORK_DIR = Path.home() / "moshi-demo"
 VENV_PYTHON = WORK_DIR / ".venv" / "bin" / "python"
 RESULTS_DIR = WORK_DIR / "results"
 RESULTS_DIR.mkdir(parents=True, exist_ok=True)
-assert platform.system() == "Darwin" and platform.machine() == "arm64", "Apple Silicon macOS required."
-assert VENV_PYTHON.exists(), f"Environment missing at {VENV_PYTHON}; complete Lab 18 first."
+SUPPORTED_PLATFORM = platform.system() == "Darwin" and platform.machine() == "arm64"
 print("Free disk:", f"{shutil.disk_usage(Path.home()).free / (1024**3):.1f} GiB")
 print("Official command: python -m moshi_mlx.local_web")
+if not SUPPORTED_PLATFORM:
+    print("SKIP: live Moshi MLX server requires Apple Silicon macOS.")
+elif not VENV_PYTHON.exists():
+    print(f"Environment missing at {VENV_PYTHON}; complete Lab 18 before starting the server.")
 
 # %%
 # This may download weights. Re-check upstream documentation and disk first.
@@ -27,6 +30,10 @@ SERVER_LOG = RESULTS_DIR / "moshi-server.log"
 server = None
 
 if START_SERVER:
+    if not SUPPORTED_PLATFORM:
+        raise RuntimeError("Starting the Moshi MLX server requires Apple Silicon macOS.")
+    if not VENV_PYTHON.exists():
+        raise RuntimeError(f"Environment missing at {VENV_PYTHON}; complete Lab 18 first.")
     log_file = SERVER_LOG.open("w")
     env = os.environ.copy()
     env["PYTHONUNBUFFERED"] = "1"
