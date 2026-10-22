@@ -1,5 +1,5 @@
 # %% [markdown]
-# # Lab 19 — Start and verify the local Moshi browser demo
+# # Lab 21 — Start and verify the local Moshi browser demo
 #
 # This notebook starts the official local MLX web UI on Apple Silicon macOS. It cannot grant microphone permissions or automate a real conversation; those checks must happen in your browser.
 #
