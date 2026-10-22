@@ -44,9 +44,9 @@ Never commit downloaded weights, credentials, recordings, or machine-specific se
 
 The notebooks are local-only and are intentionally not Colab-backed because the live test needs the Mac's microphone and browser.
 
-1. [Lab 18 — MLX preflight and guarded setup](../labs/18_moshi_mlx_preflight.ipynb): records OS, architecture, Python, and free disk; optional package installation is off by default.
-2. [Lab 19 — Start and verify the browser demo](../labs/19_moshi_mlx_live_demo.ipynb): optionally starts the official local MLX web UI, checks localhost readiness, and provides a manual microphone/barge-in checklist.
-3. [Lab 20 — Full-duplex evaluation](../labs/20_full_duplex_eval.ipynb): defines repeatable scenarios, logs observations to CSV outside the repo, and reports p50/p95 only after at least 20 numeric samples per metric.
+1. [Lab 18 — MLX preflight and guarded setup](../labs/20_moshi_mlx_preflight.ipynb): records OS, architecture, Python, and free disk; optional package installation is off by default.
+2. [Lab 19 — Start and verify the browser demo](../labs/21_moshi_mlx_live_demo.ipynb): optionally starts the official local MLX web UI, checks localhost readiness, and provides a manual microphone/barge-in checklist.
+3. [Lab 20 — Full-duplex evaluation](../labs/22_full_duplex_eval.ipynb): defines repeatable scenarios, logs observations to CSV outside the repo, and reports p50/p95 only after at least 20 numeric samples per metric.
 
 Notebook source files live in `labs/src/`; `labs/build_nb.py` intentionally skips Colab badge/setup injection for these local-only notebooks. The notebooks do not download weights or start a server unless the relevant opt-in flag is changed. The first live model launch may fetch weights; verify the current upstream model, license, and available disk first.
 
