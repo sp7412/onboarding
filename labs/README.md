@@ -36,7 +36,7 @@ live API calls. The [capstone rubric](../docs/capstone-rubric.md) includes optio
 
 ## Local full-duplex voice experiments
 
-These are **local-only** notebooks for Apple Silicon macOS, not Colab. They keep model state and evaluation logs under `~/moshi-demo` and require explicit opt-in before package installation or server startup.
+These are **local-only** notebooks for Apple Silicon macOS, not Colab. They keep model state and evaluation logs under `~/moshi-demo` and require explicit opt-in before package installation or server startup. They use lab numbers 20–22 so the existing labs 18–19 keep their canonical numbering.
 
 | Notebook | Purpose | Run |
 |---|---|---|
