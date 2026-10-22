@@ -15,15 +15,19 @@ print("OS:", platform.platform())
 print("Machine:", platform.machine())
 print("Python:", sys.version.split()[0], sys.executable)
 print("Free disk:", f"{shutil.disk_usage(Path.home()).free / (1024**3):.1f} GiB")
-assert platform.system() == "Darwin", "This notebook targets macOS."
-assert platform.machine() == "arm64", "This notebook targets Apple Silicon."
+SUPPORTED_PLATFORM = platform.system() == "Darwin" and platform.machine() == "arm64"
+if not SUPPORTED_PLATFORM:
+    print("SKIP: Moshi MLX setup requires Apple Silicon macOS; safe preflight only.")
 
 # %%
-try:
-    import mlx.core as mx
-    print("MLX device:", mx.default_device())
-except ImportError:
-    print("MLX is not installed in this kernel yet; expected before optional setup.")
+if SUPPORTED_PLATFORM:
+    try:
+        import mlx.core as mx
+        print("MLX device:", mx.default_device())
+    except ImportError:
+        print("MLX is not installed in this kernel yet; expected before optional setup.")
+else:
+    print("Skipped MLX import: this host is not Apple Silicon macOS.")
 
 # %%
 WORK_DIR = Path.home() / "moshi-demo"
@@ -39,6 +43,8 @@ print("Results directory:", RESULTS_DIR)
 INSTALL_MOSHI_MLX = False
 
 if INSTALL_MOSHI_MLX:
+    if not SUPPORTED_PLATFORM:
+        raise RuntimeError("moshi_mlx installation requires Apple Silicon macOS.")
     if not shutil.which("python3.12"):
         raise RuntimeError("Python 3.12 not found; install it with your normal user-level tool.")
     if not VENV_DIR.exists():
