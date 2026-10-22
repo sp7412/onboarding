@@ -95,17 +95,35 @@ def main() -> int:
     args.cache.write_text(json.dumps(cache, indent=2) + "\n", encoding="utf-8")
 
     chart = json.loads(args.output.read_text(encoding="utf-8"))
-    rolling = add_rolling(all_rows)
+    previous_last_date = chart.get("lastDate", "")
+    existing_chart_rows = chart.get("data", [])
     display_start = (et_now.date() - timedelta(days=args.days)).isoformat()
-    display = [r for r in rolling if display_start <= r["date"] <= complete_through.isoformat()]
+
+    # Preserve previously computed rolling values (including hidden warm-up bars).
+    # Only calculate rolling values for newly appended sessions.
+    additions = [row for row in all_rows if row["date"] > previous_last_date
+                 and row["date"] <= complete_through.isoformat()]
+    chart_rows = list(existing_chart_rows)
+    for row in additions:
+        index = next(i for i, item in enumerate(all_rows)
+                     if item["date"] == row["date"])
+        window = all_rows[max(0, index - 62):index + 1]
+        volume = sum(item["volume"] for item in window)
+        chart_rows.append({
+            **row,
+            "rollingCloseVwap": round(
+                sum(item["close"] * item["volume"] for item in window) / volume, 4
+            ),
+        })
+    display = [row for row in chart_rows
+               if row["date"] >= display_start
+               and row["date"] <= complete_through.isoformat()]
     if len(display) < 65:
         raise RuntimeError(f"Only {len(display)} chart sessions available after cache update")
 
-    # Update the current fiscal quarter's aggregate from its prior aggregate plus
-    # newly cached sessions. Existing quarterly rows retain their original history.
+    # Only append sessions later than the published chart end. Repeated runs are
+    # idempotent and cannot add a session to a quarter more than once.
     quarters = chart.get("quarterlyClosingVwap", [])
-    previous_last_date = chart.get("lastDate", "")
-    additions = [r for r in all_rows if r["date"] > previous_last_date]
     for row in additions:
         session = date.fromisoformat(row["date"])
         quarter, fiscal_year, label = quarter_for(session)
@@ -135,7 +153,7 @@ def main() -> int:
         "quarterlyClosingVwap": sorted(quarters, key=lambda q: q["firstDate"]),
         "data": display,
     })
-    args.output.write_text(json.dumps(chart, indent=2) + "\n", encoding="utf-8")
+    args.output.write_text(json.dumps(chart, indent=2) + "\\n", encoding="utf-8")
     print(f"Updated cache through {all_rows[-1]['date']} ({len(fetched)} fetched rows); "
           f"wrote {len(display)} chart sessions.")
     return 0
