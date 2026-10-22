@@ -261,6 +261,83 @@ method and the privacy guidance below before sharing logs with a coding agent.
 and other sensitive data. Redact or synthesize data before sharing it with an external
 service or agent; prefer least-privilege, read-only access and approved retention practices.
 
+### Production voice-agent debugging: logs, traces, and Grok-assisted investigation
+
+For production voice agents, the goal is to reconstruct a **single failed call across the
+entire pipeline**: telephony/media, turn detection, speech-to-text, orchestration, LLM
+generation, tool/API calls, text-to-speech, and handoff. A terminal log viewer is useful,
+but it is only one layer of the investigation.
+
+#### Tooling shortlist
+
+| Tool | Role in the investigation | Fit and limitations |
+|---|---|---|
+| [Gonzo](https://github.com/control-theory/gonzo) | Live log-stream triage in a terminal, with filters, time-oriented views, pattern analysis, and AI-assisted log investigation | Strong candidate for quickly spotting error bursts and unusual patterns. It does not replace a distributed trace or a voice-session timeline. Validate its current OTLP input and model-provider setup against your environment. |
+| [OpenTelemetry](https://opentelemetry.io/docs/) | Common instrumentation and correlation format for traces, metrics, and logs | Instrument each service and propagate trace/context IDs across model and tool boundaries. Avoid putting raw transcripts, caller identifiers, or secrets in span attributes. |
+| [LiveKit Agent Insights](https://docs.livekit.io/testing/observability/insights/) | Voice-session view combining recordings, transcripts, traces, logs, and metrics | Especially useful for LiveKit Agents. The hosted insights experience requires LiveKit Cloud; entirely self-hosted deployments need a separate observability path. |
+| [Langfuse](https://langfuse.com/) | LLM/agent trace inspection and evaluation | Evaluate for prompt/output, generation, and tool-call context, and for linking an LLM trace to the broader call trace. Confirm the SDK/export path and data-retention controls. |
+| [Grafana Tempo](https://grafana.com/oss/tempo/) + [Grafana](https://grafana.com/) | Distributed trace storage and investigation, alongside metrics and logs | A flexible option when you need service-to-service traces and want to own the observability stack. Requires instrumentation, deployment, and operational ownership. |
+| [lnav](https://lnav.org/) / [toolong](https://github.com/Textualize/toolong) | Local log-file investigation and searching | Useful companions for downloaded, sanitized incident bundles; less suitable than a trace UI for understanding cross-service causality. |
+
+#### A practical incident workflow
+
+1. **Find the call:** identify it with a generated session/correlation ID, not a phone number
+   or customer name. Record the deployment/version and a narrow time window.
+2. **Reconstruct the timeline:** align user audio/transcript, turn boundaries, model requests,
+   tool calls, retries, API responses, agent audio, and handoffs.
+3. **Find the bottleneck or incorrect decision:** inspect trace spans and latency breakdowns
+   (for example, STT delay, end-of-turn detection, LLM time-to-first-token, tool latency,
+   and TTS time-to-first-byte). Separate a slow component from a bad model decision.
+4. **Compare with a control:** inspect a successful call with the same agent version and a
+   similar intent. State what differs instead of assuming the first visible error is causal.
+5. **Export a bounded evidence bundle:** include relevant structured events, trace/span IDs,
+   timestamps, sanitized tool inputs/outputs, latency fields, and only the transcript excerpts
+   needed to explain the failure.
+6. **Use Grok as an investigator, not an oracle:** ask it to rank hypotheses against the
+   evidence, cite the exact event/span supporting each claim, identify missing evidence, and
+   suggest the next discriminating query. Verify its conclusions against the original telemetry.
+7. **Turn the incident into a regression case:** preserve a privacy-safe fixture and expected
+   behavior, then add it to deterministic tests or the voice-agent evaluation suite.
+
+#### Example Grok investigation prompt
+
+```text
+Investigate this production voice-agent incident using only the attached sanitized evidence.
+
+1. Reconstruct the event timeline in timestamp order.
+2. Identify the earliest observed divergence from the expected behavior.
+3. Separate confirmed facts from hypotheses; cite event IDs or trace/span IDs for each claim.
+4. Rank plausible root causes and explain what evidence supports or contradicts each.
+5. Identify the next query or artifact that would best distinguish the leading hypotheses.
+6. Recommend a minimal regression test for the failure.
+
+Do not infer missing events, claim causality from correlation alone, or invent log fields.
+If the evidence is insufficient, say what is missing. Do not recommend a production write
+or customer-impacting action without human review.
+```
+
+#### Instrumentation fields worth standardizing
+
+Use consistent, non-sensitive fields across services wherever possible:
+
+- `session_id` (opaque generated ID), `trace_id`, `span_id`, `agent_version`,
+  `environment`, and `component`;
+- event name and timestamp, status/error category, retry count, and dependency name;
+- stage timings for STT, turn detection, LLM, tool execution, TTS, and end-to-end response;
+- tool name and outcome, with redacted or synthetic arguments rather than raw customer data.
+
+Keep transcript/audio storage, access, retention, and redaction separate from ordinary logs.
+Do not send recordings, full transcripts, customer identifiers, authentication material, or
+production secrets to Grok or any external model unless the data flow is explicitly approved.
+Prefer an approved enterprise endpoint or synthetic/reduced evidence, and retain links to the
+authoritative trace/log records so model-generated summaries remain auditable.
+
+**Recommended first experiment:** use Gonzo to inspect a live or replayed sanitized log stream,
+while OpenTelemetry trace IDs link the same incident to a trace viewer. Then pass only the
+bounded evidence bundle to Grok and measure whether it correctly identifies the root cause
+and proposes a useful next query. This tests the whole workflow without assuming any one
+vendor's dashboard can explain every voice failure.
+
 ## Mac dictation for AI-assisted coding
 
 The goal is simple: place the cursor in OpenCode, VS Code, a terminal prompt, an issue,
