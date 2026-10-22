@@ -1,11 +1,18 @@
 # %% [markdown]
-# # Lab 22 — Full-duplex interaction evaluation and regression log
+# # 22 · Full-Duplex Interaction Evaluation and Regression Log
 #
-# Use this after Lab 19 has a real browser conversation working. This notebook creates a small, repeatable manual test set and a local CSV log.
+# Use this after Lab 21 has a real browser conversation working. This notebook creates a small, repeatable manual test set and a local CSV log.
 #
 # It does not fabricate model metrics or automate human audio judgments. Record timestamps at defined boundaries, include failures, and separate subjective ratings from measured latency. Do not enter customer/company data or save audio recordings.
 #
 # For this pilot, collect at least 20 valid observations per latency metric before reporting p50/p95. Keep model revision, environment, browser, and test conditions with each run.
+#
+# ## Check your understanding
+# #
+# 1. Why should subjective interaction ratings remain separate from measured latency?
+# 2. Why is a minimum sample count required before reporting tail latency?
+#
+# **Graded exercise:** Run the defined fictional interruption scenarios, log the observations outside the repository, and explain any failed or excluded measurements.
 
 # %%
 from pathlib import Path
@@ -135,4 +142,3 @@ manifest = {
 manifest_path = RESULTS_DIR / "evaluation-manifest.json"
 manifest_path.write_text(json.dumps(manifest, indent=2) + "\n")
 print("Wrote:", manifest_path)
-

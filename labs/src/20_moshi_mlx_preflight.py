@@ -1,11 +1,18 @@
 # %% [markdown]
-# # Lab 20 — Local Moshi MLX preflight and guarded setup
+# # 20 · Local Moshi MLX Preflight and Guarded Setup
 #
 # Verify the machine before installing anything. This path targets Apple Silicon macOS using Kyutai's MLX backend; it is not intended for Colab or a remote notebook kernel.
 #
 # Official source: https://github.com/kyutai-labs/moshi
 #
 # **Safety defaults:** installation is opt-in, no sudo is used, and runtime state lives outside this repository. Upstream recommends Python 3.12 for MLX. Re-check the current README before running because dependencies and commands can change.
+#
+# ## Check your understanding
+# #
+# 1. Why should a hardware preflight complete before an optional installation?
+# 2. Why should model state live outside this repository?
+#
+# **Graded exercise:** Document whether a target machine meets the operating-system, architecture, disk, and Python-version prerequisites without installing packages.
 
 # %%
 import platform, shutil, subprocess, sys
@@ -72,4 +79,3 @@ manifest_path = RESULTS_DIR / "preflight.json"
 manifest_path.write_text(json.dumps(manifest, indent=2) + "\n")
 print("Wrote:", manifest_path)
 print(json.dumps(manifest, indent=2))
-

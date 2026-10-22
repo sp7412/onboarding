@@ -2,7 +2,7 @@
 
 **Facts as of: October 6, 2026 · Last reviewed: October 6, 2026**
 
-Twenty hands-on Jupyter tutorials that build a phone agent for a fictional HVAC/plumbing
+Twenty-three hands-on Jupyter tutorials that build a phone agent for a fictional HVAC/plumbing
 contractor, one architecture layer at a time. Labs 09–12 extend it to several agents working
 together (shared context, coordination, learning, agent-to-agent booking). Labs 13–14 are
 capstones on a shared synthetic call dataset: extracting and committing call facts, and
@@ -33,16 +33,13 @@ live API calls. The [capstone rubric](../docs/capstone-rubric.md) includes optio
 | 17 | jev_decision_workbench | typed Jev decisions, prompt criteria, labeled intent evals, deterministic routing | optional Jev API key; offline by default | 45–60 minutes | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sp7412/onboarding/blob/main/labs/17_jev_decision_workbench.ipynb) |
 | 18 | technician_feedback_playbook_learning | structured technician feedback, evidence validation, candidate playbook revisions, evaluation, approval gates, pilot and rollback | none | 60–90 minutes | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sp7412/onboarding/blob/main/labs/18_technician_feedback_playbook_learning.ipynb) |
 | 19 | production_agent_simulation_suite | dispatch arbitration, estimate guardrails, tool outages/idempotency, failure mining, prompt injection, causal rollout gates, tenant isolation | none | 60–90 minutes | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sp7412/onboarding/blob/main/labs/19_production_agent_simulation_suite.ipynb) |
+| 20 | moshi_mlx_preflight | Moshi MLX hardware preflight and guarded environment setup | Apple Silicon macOS | 30–45 minutes | [Open notebook](20_moshi_mlx_preflight.ipynb) |
+| 21 | moshi_mlx_live_demo | local browser UI, microphone, speech, and barge-in verification | Apple Silicon macOS | 30–45 minutes | [Open notebook](21_moshi_mlx_live_demo.ipynb) |
+| 22 | full_duplex_eval | repeatable interruption scenarios, CSV observations, and latency summaries | Apple Silicon macOS | 30–45 minutes | [Open notebook](22_full_duplex_eval.ipynb) |
 
 ## Local full-duplex voice experiments
 
 These are **local-only** notebooks for Apple Silicon macOS, not Colab. They keep model state and evaluation logs under `~/moshi-demo` and require explicit opt-in before package installation or server startup. They use lab numbers 20–22 so the existing labs 18–19 keep their canonical numbering.
-
-| Notebook | Purpose | Run |
-|---|---|---|
-| 20 | Moshi MLX hardware preflight and guarded environment setup | [Open notebook](20_moshi_mlx_preflight.ipynb) |
-| 21 | Start local browser UI and manually verify microphone, speech, and barge-in | [Open notebook](21_moshi_mlx_live_demo.ipynb) |
-| 22 | Repeatable interruption scenarios, CSV observations, and latency summaries | [Open notebook](22_full_duplex_eval.ipynb) |
 
 Complete the [local full-duplex experiment guide](../docs/local-full-duplex-experiment.md) first. The live browser checks are manual; no model run or performance result is implied by the notebooks.
 

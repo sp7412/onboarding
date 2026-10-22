@@ -1,11 +1,18 @@
 # %% [markdown]
-# # Lab 21 — Start and verify the local Moshi browser demo
+# # 21 · Start and Verify the Local Moshi Browser Demo
 #
 # This notebook starts the official local MLX web UI on Apple Silicon macOS. It cannot grant microphone permissions or automate a real conversation; those checks must happen in your browser.
 #
 # Upstream documents the command python -m moshi_mlx.local_web and the local UI at http://localhost:8998: https://github.com/kyutai-labs/moshi
 #
 # **Important:** enabling the server can trigger model-weight downloads. Confirm disk space, the current model/weight license, and upstream behavior first. Keep the server on localhost; do not create a public tunnel. The notebook defaults to not starting the server.
+#
+# ## Check your understanding
+# #
+# 1. Why is the local server opt-in rather than started automatically?
+# 2. Which browser checks cannot be reliably automated by this notebook?
+#
+# **Graded exercise:** Complete the manual microphone, intelligibility, and barge-in checklist for a fictional prompt and record only non-sensitive observations.
 
 # %%
 import os, platform, shutil, subprocess, time
@@ -21,7 +28,7 @@ print("Official command: python -m moshi_mlx.local_web")
 if not SUPPORTED_PLATFORM:
     print("SKIP: live Moshi MLX server requires Apple Silicon macOS.")
 elif not VENV_PYTHON.exists():
-    print(f"Environment missing at {VENV_PYTHON}; complete Lab 18 before starting the server.")
+    print(f"Environment missing at {VENV_PYTHON}; complete Lab 20 before starting the server.")
 
 # %%
 # This may download weights. Re-check upstream documentation and disk first.
@@ -88,4 +95,3 @@ if STOP_SERVER and server is not None and server.poll() is None:
     print("Server stopped.")
 else:
     print("Server left unchanged. Set STOP_SERVER=True to stop this notebook's process.")
-
