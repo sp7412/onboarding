@@ -125,6 +125,88 @@ local reproduction, test run, or production incident. They belong beside develop
 tools because they shorten investigation loops, but they are not code editors or
 substitutes for an observability platform.
 
+### AI-agent session visibility and terminal visualizers
+
+This is a different problem from inspecting application logs. These tools help you
+see **which coding agents are active, what they are doing, when they need input, and
+how a long-running session is progressing**. Think of this as the operator's view
+of the agent loop, not another log viewer or another model.
+
+| Tool | Best fit | What to evaluate |
+|---|---|---|
+| [Agent View](https://github.com/doyled-it/agent-view) | Cross-agent session dashboard in a terminal | Live working/waiting/error states, notifications, worktree integration, session history, and support for OpenCode, Codex CLI, Claude Code, and Gemini CLI |
+| [AI Terminal Sessions](https://marketplace.visualstudio.com/items?itemName=visul.terminal-sessions) | Persistent agent-aware terminals inside VS Code-compatible editors | Whether live state, recent messages, tool activity, context/cost indicators, and restart recovery reduce terminal hunting in your actual editor workflow |
+| [Agent of Empires](https://www.agent-of-empires.com/tui/) | Keyboard-driven multi-agent cockpit | Session status, quick attach/switch, worktree handling, and whether its tmux-based workflow fits your existing setup |
+| [dsh-TUI](https://dshtui.com/en/features/) | Rich terminal interaction for a single agent session | Streaming Markdown, structured tool activity, context/token/runtime indicators, and long-session responsiveness |
+
+**Recommended evaluation:** try one tool against the workflow you already use before
+changing your terminal stack. Run two or three agents in separate repositories or
+worktrees; verify that busy, waiting-for-approval, finished, and failed states are
+distinguishable; confirm that notifications are timely; and test recovery after closing
+the UI or restarting the editor. Check whether the tool reads authoritative agent events
+or infers status by scraping terminal text, because the latter can be brittle.
+
+A typewriter-style live-output view can make streaming responses feel legible, but
+animation alone is not observability. The useful version combines readable streaming
+output with explicit tool-call/activity states, elapsed time, progress where the task
+provides a meaningful signal, and an unmistakable indication when human input is
+required. Do not invent percentages or ETAs when the underlying command or agent does
+not expose enough information to support them.
+
+If existing tools do not provide the exact experience you want, a small custom
+visualizer is feasible. Keep the display layer separate from the agent/runtime, consume
+structured events when available, preserve raw output for inspection, and degrade
+gracefully when an event source is unavailable. Treat terminal content and agent output
+as untrusted; do not let a visualizer silently execute suggested commands or bypass
+permission prompts.
+
+### Additional session managers worth comparing
+
+The ecosystem changes quickly, so treat popularity as a discovery signal rather than a
+quality guarantee. These projects cover adjacent but distinct workflows:
+
+| Tool | Best fit | Why include it |
+|---|---|---|
+| [cmux](https://github.com/manaflow-ai/cmux) | macOS terminal and parallel agent workspaces | Compare workspace organization and notifications with a dedicated session dashboard |
+| [ccmanager](https://github.com/kbwo/ccmanager) | Switching among coding-agent CLI sessions | Evaluate agent coverage, reliable resume/attach behavior, and low-friction navigation |
+| [opensessions](https://github.com/opensessions/opensessions) | tmux sidebar and session-state integration | Interesting when a local API and status markers matter more than a standalone GUI |
+| [Vibe Kanban](https://github.com/BloopAI/vibe-kanban) | Task-level coordination and review across coding agents | Compare task orchestration and result review with terminal-first session monitoring |
+
+Keep these in the candidate list, not as assumed recommendations. Before adopting
+one, verify current maintenance, supported agent versions, permissions, session-state
+detection, worktree behavior, and whether notifications remain useful with several
+agents running concurrently.
+
+### Voice-agent observability and live-session debugging
+
+Voice agents need more than a transcript or a stream of terminal output. During a
+single call, developers need to align **audio, transcript, user/agent turns, VAD,
+interruptions, tool calls, model stages, errors, and latency** on one timeline. This
+category is distinct from coding-agent session managers and general application logs.
+
+| Tool | Best fit | Why evaluate it | Important caveat |
+|---|---|---|---|
+| [LiveKit Agent Insights](https://docs.livekit.io/testing/observability/insights/) | Debugging individual LiveKit voice sessions | Built-in timeline for audio, transcripts, traces, logs, and metrics; lets you correlate a slow or failed turn with its pipeline stages | Requires LiveKit Cloud observability; not available for entirely self-hosted deployments |
+| [Pipecat Tail](https://github.com/pipecat-ai/tail) | Live, terminal-native debugging of Pipecat pipelines | Combines runtime logs, conversations, audio levels, and service metrics; can run locally or connect to a session | Framework-specific; verify it exposes the events your pipeline emits |
+| [LangSmith voice tracing](https://www.langchain.com/blog/trace-voice-agents-in-langsmith) | Cross-stage traces for supported voice frameworks | Traces audio/model events, STT/LLM/TTS timing, VAD, interruptions, and tool calls for Pipecat, LiveKit, OpenAI Realtime, and Gemini Live integrations | Managed tracing and data-retention/privacy requirements need review |
+| [Langfuse](https://langfuse.com/) | Open-source/self-hostable tracing and evaluation | Useful when you want trace inspection and eval workflows with more control over deployment | Confirm the framework's current integration and instrument audio/turn events explicitly |
+| [Arize Phoenix](https://phoenix.arize.com/) | OpenTelemetry-oriented tracing and evaluation | A self-managed option for tracing and evaluation when the voice stack exports compatible spans | Requires instrumentation and a useful trace schema; it is not a turnkey audio player |
+| [Braintrust](https://www.braintrust.dev/) | Turning real failures into repeatable evals | Useful for comparing voice-agent behavior across datasets, scorers, and releases | Treat evals as a complement to real-time session debugging, not a replacement |
+
+**Suggested starting point:** for a LiveKit-based prototype, start with Agent Insights;
+for a Pipecat prototype, try Tail. Then export structured traces into one evaluation
+system if you need cross-run comparisons and regression gates. Do not begin by deploying
+every observability product at once.
+
+For voice-agent traces, capture timestamps for audio ingress, end-of-user-turn, VAD,
+ASR/transcription, intent classification, LLM first token, tool start/end, TTS first
+audio, first audible response, interruptions, handoffs, and call completion. Track
+turn-level p50/p95/p99 latency, silence and timeout rates, barge-in success, tool
+success/failure, fallback/handoff rates, and task outcomes. Preserve correlation IDs
+across the call, turn, model request, and tool invocation. Audio and transcripts may
+contain sensitive personal data: define consent, redaction, access, retention, and
+data-residency rules before collecting them.
+
 ### Log exploration tools to evaluate
 
 | Tool | Best fit | Why consider it | Evaluation notes |

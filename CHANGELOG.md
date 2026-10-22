@@ -2,6 +2,22 @@
 
 ## 2026-10-21
 
+### Expand agent-session and voice-agent observability research
+
+- Added cmux, ccmanager, opensessions, and Vibe Kanban as adjacent coding-agent session/task-management candidates.
+- Added a dedicated voice-agent observability section comparing LiveKit Agent Insights, Pipecat Tail, LangSmith voice tracing, Langfuse, Arize Phoenix, and Braintrust.
+- Documented practical voice telemetry, latency and outcome signals, and privacy/retention considerations for audio and transcripts.
+
+## 2026-10-21
+
+### Document AI-agent session visibility tools
+
+- Added a distinct terminal-visualizer/session-dashboard category for live coding-agent activity, status, and progress, separate from application-log observability.
+- Compared Agent View, AI Terminal Sessions, Agent of Empires, and dsh-TUI with practical evaluation criteria and caveats about inferred progress.
+- Documented when a custom typewriter-style live-output view is justified and why it should consume structured events without bypassing agent permissions.
+
+## 2026-10-21
+
 ### Runnable local full-duplex notebooks
 
 - Added three source-backed Jupyter notebooks for Apple Silicon Moshi MLX: hardware preflight/guarded setup, local browser demo startup and manual microphone checks, and repeatable full-duplex evaluation with CSV logging.

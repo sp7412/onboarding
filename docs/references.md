@@ -548,3 +548,27 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [asciinema](https://asciinema.org/) | Project website and documentation | Developer tools catalog: terminal recording/playback example |
 | [tlog](https://github.com/Scribery/tlog) | Source repository | Developer tools catalog: terminal recording/playback example |
 
+## AI-agent session visibility and terminal visualizers
+
+| Source | Type | Cited in |
+|---|---|---|
+| [Agent View](https://github.com/doyled-it/agent-view) | Source repository and project documentation | Developer tools catalog: multi-agent session visibility |
+| [AI Terminal Sessions](https://marketplace.visualstudio.com/items?itemName=visul.terminal-sessions) | Extension listing and feature documentation | Developer tools catalog: persistent agent-aware terminals |
+| [Agent of Empires](https://www.agent-of-empires.com/tui/) | Project website and TUI documentation | Developer tools catalog: terminal-based agent cockpit |
+| [dsh-TUI](https://dshtui.com/en/features/) | Project feature documentation | Developer tools catalog: rich interactive agent terminal |
+
+## AI-agent session managers and voice-agent observability
+
+| Source | Type | Cited in |
+|---|---|---|
+| [cmux](https://github.com/manaflow-ai/cmux) | Source repository | Developer tools catalog: macOS agent terminal and workspace management |
+| [ccmanager](https://github.com/kbwo/ccmanager) | Source repository | Developer tools catalog: coding-agent session management |
+| [opensessions](https://github.com/opensessions/opensessions) | Source repository | Developer tools catalog: tmux session sidebar and local API |
+| [Vibe Kanban](https://github.com/BloopAI/vibe-kanban) | Source repository | Developer tools catalog: task-level coding-agent coordination |
+| [LiveKit Agent Insights](https://docs.livekit.io/testing/observability/insights/) | Official documentation | Developer tools catalog: voice-session audio, transcript, trace, and metric timeline |
+| [Pipecat Tail](https://github.com/pipecat-ai/tail) | Source repository | Developer tools catalog: terminal dashboard for Pipecat sessions |
+| [LangSmith voice tracing](https://www.langchain.com/blog/trace-voice-agents-in-langsmith) | Official product/engineering announcement | Developer tools catalog: voice-pipeline tracing |
+| [Langfuse](https://langfuse.com/) | Project website and documentation | Developer tools catalog: open-source tracing and evaluation |
+| [Arize Phoenix](https://phoenix.arize.com/) | Project website and documentation | Developer tools catalog: OpenTelemetry-oriented tracing and evaluation |
+| [Braintrust](https://www.braintrust.dev/) | Project website and documentation | Developer tools catalog: evaluation datasets and release regression |
+
