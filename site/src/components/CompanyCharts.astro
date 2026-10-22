@@ -66,7 +66,7 @@ const rollingRows = dailyPrices.map((p, i) => {
   })) as Record<5 | 10 | 21 | 63, number>;
   return { ...p, ...traces };
 });
-const rollingRecent = rollingRows.slice(-90);
+const rollingRecent = rollingRows;
 const rollingValues = rollingRecent.flatMap((p) => rollingWindows.map((window) => p[window]));
 const [rollingMin, rollingMax] = getRange(rollingValues, 50, 100);
 const rollingPlot = { left: 54, top: 34, bottom: 218, right: 718 };
@@ -79,6 +79,25 @@ const rollingLine = (window: 5 | 10 | 21 | 63) =>
 const rollingMonthTicks = rollingRecent.map((p, i) => ({ p, i })).filter(({ p, i }) =>
   i === 0 || p.date.slice(0, 7) !== (rollingRecent[i - 1]?.date ?? "").slice(0, 7)
 );
+const rollingInsetRecent = rollingRows.slice(-10);
+const rollingInsetValues = rollingInsetRecent.flatMap((p) =>
+  rollingWindows.map((window) => p[window])
+);
+const [rollingInsetMin, rollingInsetMax] = getRange(rollingInsetValues, 50, 100);
+const rollingInset = { left: 488, top: 43, right: 720, bottom: 139 };
+const rollingInsetPlot = { left: 501, top: 66, right: 708, bottom: 119 };
+const rollingInsetX = (i: number) => rollingInsetRecent.length <= 1
+  ? (rollingInsetPlot.left + rollingInsetPlot.right) / 2
+  : rollingInsetPlot.left + i * (
+    (rollingInsetPlot.right - rollingInsetPlot.left) / (rollingInsetRecent.length - 1)
+  );
+const rollingInsetY = (value: number) => rollingInsetPlot.bottom -
+  ((value - rollingInsetMin) / (rollingInsetMax - rollingInsetMin || 1)) *
+  (rollingInsetPlot.bottom - rollingInsetPlot.top);
+const rollingInsetLine = (window: 5 | 10 | 21 | 63) =>
+  rollingInsetRecent.map((p, i) =>
+    rollingInsetX(i) + "," + rollingInsetY(p[window])
+  ).join(" ");
 const filingImpliedPrice = 6_500_000 / 65_670;
 
 ---
@@ -169,7 +188,7 @@ const filingImpliedPrice = 6_500_000 / 65_670;
     <div class="chart-heading">
       <div>
         <h3 id="rolling-vwap-title">TTAN rolling VWAP proxy · daily resolution</h3>
-        <p class="chart-subtitle">Last 90 sessions · volume-weighted daily closes · USD per share</p>
+        <p class="chart-subtitle">One year of daily traces · inset zooms to the latest 10 sessions (~2 weeks) · USD per share</p>
       </div>
       <div class="metric metric-muted">
         <strong>{rollingRecent.length ? "$" + rollingRecent[rollingRecent.length - 1]![63].toFixed(2) : "—"}</strong>
@@ -178,8 +197,8 @@ const filingImpliedPrice = 6_500_000 / 65_670;
     </div>
     <figure>
       <svg class="chart" viewBox="0 0 760 270" role="img" aria-labelledby="rolling-vwap-svg-title rolling-vwap-svg-desc">
-        <title id="rolling-vwap-svg-title">TTAN rolling volume-weighted closing-price proxies</title>
-        <desc id="rolling-vwap-svg-desc">Daily rolling volume-weighted averages of closing prices over 5, 10, 21, and 63 trading sessions for the latest 90 sessions. Shorter windows respond more quickly to price changes and show more noise. These are not trade-level VWAPs.</desc>
+        <title id="rolling-vwap-svg-title">TTAN one-year rolling volume-weighted closing-price proxies</title>
+        <desc id="rolling-vwap-svg-desc">Daily rolling volume-weighted averages of closing prices over 5, 10, 21, and 63 trading sessions across one year. An inset zooms in on the latest ten sessions. These daily-close proxies are not trade-level VWAPs.</desc>
         {[rollingMin, (rollingMin + rollingMax) / 2, rollingMax].map((tick) => (
           <g>
             <line x1={rollingPlot.left} x2={rollingPlot.right} y1={rollingY(tick)} y2={rollingY(tick)} class="gridline" />
@@ -192,6 +211,36 @@ const filingImpliedPrice = 6_500_000 / 65_670;
         {rollingRecent.length > 1 && <polyline points={rollingLine(63)} class="rolling-line rolling-63" />}
         {rollingMonthTicks.map((tick) => <text x={rollingX(tick.i)} y={rollingPlot.bottom + 19} text-anchor="middle" class="quarter-label">{(monthNames[Number(tick.p.date.slice(5, 7)) - 1] ?? "???") + " '" + tick.p.date.slice(2, 4)}</text>)}
         <line x1={rollingPlot.left} x2={rollingPlot.right} y1={rollingPlot.bottom} y2={rollingPlot.bottom} class="baseline" />
+        <g aria-label="Latest ten sessions inset">
+          <rect
+            x={rollingInset.left}
+            y={rollingInset.top}
+            width={rollingInset.right - rollingInset.left}
+            height={rollingInset.bottom - rollingInset.top}
+            rx="6"
+            class="inset-frame"
+          />
+          <text x={rollingInsetPlot.left} y={rollingInset.top + 13} class="inset-title">
+            LATEST 10 SESSIONS · ~2 WEEKS
+          </text>
+          <line
+            x1={rollingInsetPlot.left}
+            x2={rollingInsetPlot.right}
+            y1={(rollingInsetPlot.top + rollingInsetPlot.bottom) / 2}
+            y2={(rollingInsetPlot.top + rollingInsetPlot.bottom) / 2}
+            class="gridline"
+          />
+          {rollingInsetRecent.length > 1 && <polyline points={rollingInsetLine(5)} class="rolling-line rolling-5" />}
+          {rollingInsetRecent.length > 1 && <polyline points={rollingInsetLine(10)} class="rolling-line rolling-10" />}
+          {rollingInsetRecent.length > 1 && <polyline points={rollingInsetLine(21)} class="rolling-line rolling-21" />}
+          {rollingInsetRecent.length > 1 && <polyline points={rollingInsetLine(63)} class="rolling-line rolling-63" />}
+          <text x={rollingInsetPlot.left} y={rollingInset.bottom - 5} class="inset-axis">
+            {rollingInsetRecent[0]?.date.slice(5) ?? ""}
+          </text>
+          <text x={rollingInsetPlot.right} y={rollingInset.bottom - 5} text-anchor="end" class="inset-axis">
+            {rollingInsetRecent[rollingInsetRecent.length - 1]?.date.slice(5) ?? ""}
+          </text>
+        </g>
       </svg>
       <div class="chart-legend rolling-legend">
         <span><i class="legend-rolling-5"></i> 5-session · most responsive/noisy</span>
@@ -199,7 +248,7 @@ const filingImpliedPrice = 6_500_000 / 65_670;
         <span><i class="legend-rolling-21"></i> 21-session · about one month</span>
         <span><i class="legend-rolling-63"></i> 63-session · about one quarter</span>
       </div>
-      <figcaption>Each point is recomputed from a trailing window ending on that session: sum(close × volume) ÷ sum(volume). Short windows expose more day-to-day movement; longer windows damp it. Because the source is daily OHLCV, this is a close-based VWAP proxy—not consolidated intraday trade-level VWAP.</figcaption>
+      <figcaption>Each point is recomputed from a trailing window ending on that session: sum(close × volume) ÷ sum(volume). The main plot shows the full available year; the inset zooms in on the latest ten trading sessions. Because the source is daily OHLCV, these are close-based VWAP proxies—not consolidated intraday trade-level VWAP.</figcaption>
     </figure>
     <p class="source-line">Data: <a href="https://finance.yahoo.com/quote/TTAN/history/">Yahoo Finance historical daily prices and volume</a>. <a class="chart-link" href="https://sp7412.github.io/onboarding/whitepaper/01-company/#ttan-vwap-rolling">Permanent link to rolling price traces ↗</a></p>
   </article>
