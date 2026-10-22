@@ -160,6 +160,53 @@ gracefully when an event source is unavailable. Treat terminal content and agent
 as untrusted; do not let a visualizer silently execute suggested commands or bypass
 permission prompts.
 
+### Additional session managers worth comparing
+
+The ecosystem changes quickly, so treat popularity as a discovery signal rather than a
+quality guarantee. These projects cover adjacent but distinct workflows:
+
+| Tool | Best fit | Why include it |
+|---|---|---|
+| [cmux](https://github.com/manaflow-ai/cmux) | macOS terminal and parallel agent workspaces | Compare workspace organization and notifications with a dedicated session dashboard |
+| [ccmanager](https://github.com/kbwo/ccmanager) | Switching among coding-agent CLI sessions | Evaluate agent coverage, reliable resume/attach behavior, and low-friction navigation |
+| [opensessions](https://github.com/opensessions/opensessions) | tmux sidebar and session-state integration | Interesting when a local API and status markers matter more than a standalone GUI |
+| [Vibe Kanban](https://github.com/BloopAI/vibe-kanban) | Task-level coordination and review across coding agents | Compare task orchestration and result review with terminal-first session monitoring |
+
+Keep these in the candidate list, not as assumed recommendations. Before adopting
+one, verify current maintenance, supported agent versions, permissions, session-state
+detection, worktree behavior, and whether notifications remain useful with several
+agents running concurrently.
+
+### Voice-agent observability and live-session debugging
+
+Voice agents need more than a transcript or a stream of terminal output. During a
+single call, developers need to align **audio, transcript, user/agent turns, VAD,
+interruptions, tool calls, model stages, errors, and latency** on one timeline. This
+category is distinct from coding-agent session managers and general application logs.
+
+| Tool | Best fit | Why evaluate it | Important caveat |
+|---|---|---|---|
+| [LiveKit Agent Insights](https://docs.livekit.io/testing/observability/insights/) | Debugging individual LiveKit voice sessions | Built-in timeline for audio, transcripts, traces, logs, and metrics; lets you correlate a slow or failed turn with its pipeline stages | Requires LiveKit Cloud observability; not available for entirely self-hosted deployments |
+| [Pipecat Tail](https://github.com/pipecat-ai/tail) | Live, terminal-native debugging of Pipecat pipelines | Combines runtime logs, conversations, audio levels, and service metrics; can run locally or connect to a session | Framework-specific; verify it exposes the events your pipeline emits |
+| [LangSmith voice tracing](https://www.langchain.com/blog/trace-voice-agents-in-langsmith) | Cross-stage traces for supported voice frameworks | Traces audio/model events, STT/LLM/TTS timing, VAD, interruptions, and tool calls for Pipecat, LiveKit, OpenAI Realtime, and Gemini Live integrations | Managed tracing and data-retention/privacy requirements need review |
+| [Langfuse](https://langfuse.com/) | Open-source/self-hostable tracing and evaluation | Useful when you want trace inspection and eval workflows with more control over deployment | Confirm the framework's current integration and instrument audio/turn events explicitly |
+| [Arize Phoenix](https://phoenix.arize.com/) | OpenTelemetry-oriented tracing and evaluation | A self-managed option for tracing and evaluation when the voice stack exports compatible spans | Requires instrumentation and a useful trace schema; it is not a turnkey audio player |
+| [Braintrust](https://www.braintrust.dev/) | Turning real failures into repeatable evals | Useful for comparing voice-agent behavior across datasets, scorers, and releases | Treat evals as a complement to real-time session debugging, not a replacement |
+
+**Suggested starting point:** for a LiveKit-based prototype, start with Agent Insights;
+for a Pipecat prototype, try Tail. Then export structured traces into one evaluation
+system if you need cross-run comparisons and regression gates. Do not begin by deploying
+every observability product at once.
+
+For voice-agent traces, capture timestamps for audio ingress, end-of-user-turn, VAD,
+ASR/transcription, intent classification, LLM first token, tool start/end, TTS first
+audio, first audible response, interruptions, handoffs, and call completion. Track
+turn-level p50/p95/p99 latency, silence and timeout rates, barge-in success, tool
+success/failure, fallback/handoff rates, and task outcomes. Preserve correlation IDs
+across the call, turn, model request, and tool invocation. Audio and transcripts may
+contain sensitive personal data: define consent, redaction, access, retention, and
+data-residency rules before collecting them.
+
 ### Log exploration tools to evaluate
 
 | Tool | Best fit | Why consider it | Evaluation notes |
