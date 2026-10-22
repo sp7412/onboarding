@@ -33,7 +33,7 @@ class ColabCellTests(unittest.TestCase):
                 self.assertEqual(
                     setup.source,
                     build_nb.colab_setup_cell(src.stem).source,
-                    f"{src.stem}: rebuild notebooks with `cd labs && python build_nb.py`,
+                    f"{src.stem}: rebuild notebooks with `cd labs && python build_nb.py`",
                 )
             self.assertNotIn("Colab setup", src.read_text(), "sources must stay free of generated cells")
 
