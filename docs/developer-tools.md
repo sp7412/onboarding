@@ -118,7 +118,7 @@ untrusted input. Prefer read-only inspection until a write operation is actually
 reproducible. Avoid installing overlapping tools just because they are popular; choose based
 on a repeated task, a measurable reduction in friction, and an acceptable security boundary.
 
-## Operational Diagnostics & Observability
+## Operational Diagnostics and Observability
 
 These tools help answer **what happened, when, and in what sequence** during a
 local reproduction, test run, or production incident. They belong beside developer
