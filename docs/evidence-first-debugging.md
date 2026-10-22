@@ -14,7 +14,7 @@ This guide adapts the method in Cindy Sridharan's [How to effectively debug when
 
 
 
-For the **local log-exploration layer**, see [Operational Diagnostics & Observability](developer-tools.md#operational-diagnostics--observability) in the developer tools catalog. Log viewers can make raw events easier to navigate; they do not replace a matched control, discriminating signals, trace/span correlation, or regression verification. Treat logs as potentially sensitive evidence and redact them before sharing with external agents.
+For the **local log-exploration layer**, see [Operational Diagnostics & Observability](developer-tools.md#operational-diagnostics-observability) in the developer tools catalog. Log viewers can make raw events easier to navigate; they do not replace a matched control, discriminating signals, trace/span correlation, or regression verification. Treat logs as potentially sensitive evidence and redact them before sharing with external agents.
 
 ## The three-part vocabulary
 

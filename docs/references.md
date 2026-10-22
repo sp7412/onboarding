@@ -547,4 +547,3 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [Gonzo](https://github.com/control-theory/gonzo) | Source repository | Developer tools catalog: live terminal-oriented observability |
 | [asciinema](https://asciinema.org/) | Project website and documentation | Developer tools catalog: terminal recording/playback example |
 | [tlog](https://github.com/Scribery/tlog) | Source repository | Developer tools catalog: terminal recording/playback example |
-
