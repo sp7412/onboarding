@@ -12,6 +12,7 @@ from pathlib import Path
 import nbformat
 
 REPO = "sp7412/onboarding"
+LOCAL_ONLY_STEMS = {"18_moshi_mlx_preflight", "19_moshi_mlx_live_demo", "20_full_duplex_eval"}
 SECRET_KEYS = ("OPENAI_API_KEY", "LANGSMITH_API_KEY", "LIVEKIT_URL", "LIVEKIT_API_KEY",
                "LIVEKIT_API_SECRET")
 # Keep lab-specific secrets scoped to the notebooks that actually use them. This avoids
@@ -104,7 +105,8 @@ def convert(src: Path, dst: Path):
     flush()
     if not cells or cells[0].cell_type != "markdown":
         sys.exit(f"{src}: the first cell must be the markdown title")
-    cells[1:1] = [colab_badge_cell(src.stem), colab_setup_cell(src.stem)]
+    if src.stem not in LOCAL_ONLY_STEMS:
+        cells[1:1] = [colab_badge_cell(src.stem), colab_setup_cell(src.stem)]
     nb = nbformat.v4.new_notebook(cells=cells, metadata={
         "kernelspec": {"name": "python3", "display_name": "Python 3", "language": "python"},
         "language_info": {"name": "python"}})
