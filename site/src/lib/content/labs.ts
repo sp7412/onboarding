@@ -66,9 +66,10 @@ export function parseLabSource(filename: string, source: string, readme: { keys:
 
   expectCondition(file, "at least one markdown cell", markdown.length > 0);
   const first = markdown[0];
-  const titleMatch = first.match(/^# (\d{2}) · (.+)$/m);
-  expectCondition(file, "an `# NN · Title` heading in the first markdown cell", Boolean(titleMatch));
-  const title = titleMatch![2].trim();
+  const titleMatch = first.match(/^# (?:(\d{2}) ·|Lab (\d{2}) —) (.+)$/m);
+  expectCondition(file, "an `# NN · Title` or `# Lab NN — Title` heading in the first markdown cell", Boolean(titleMatch));
+  expectCondition(file, "a title number matching the filename", titleMatch![1] === number || titleMatch![2] === number);
+  const title = titleMatch![3].trim();
 
   const goalParagraph = first
     .split("\n\n")

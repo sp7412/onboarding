@@ -1,5 +1,5 @@
 # %% [markdown]
-# # 22 · Full-Duplex Interaction Evaluation and Regression Log
+# # Lab 22 — Full-Duplex Interaction Evaluation and Regression Log
 #
 # Use this after Lab 21 has a real browser conversation working. This notebook creates a small, repeatable manual test set and a local CSV log.
 #
