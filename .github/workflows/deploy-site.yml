@@ -20,7 +20,7 @@ on:
     - cron: "30 22 * * 1-5"
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -38,8 +38,17 @@ jobs:
           python-version: "3.12"
       - name: Install TTAN market-data client
         run: python3 -m pip install 'yfinance>=1.7.0'
-      - name: Refresh public TTAN daily closing prices
-        run: python3 scripts/update_ttan_daily.py --days 370 --output site/src/data/ttan-vwap.json
+      - name: Incrementally refresh public TTAN daily closing prices
+        run: python3 scripts/update_ttan_incremental.py --days 370
+      - name: Persist updated TTAN history and chart data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add site/src/data/ttan-daily-history.json site/src/data/ttan-vwap.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Update TTAN daily market data"
+            git push origin HEAD:main
+          fi
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: 1.1.38
