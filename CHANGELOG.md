@@ -2,6 +2,14 @@
 
 ## 2026-10-21
 
+### Local full-duplex speech-to-speech experiment
+
+- Added an optional, hardware-aware setup and evaluation protocol for local Kyutai Moshi, with NVIDIA PersonaPlex as a follow-on backend.
+- Defined preflight, environment isolation, model/license/download checks, startup smoke tests, interruption tests, and acceptance criteria without claiming the demo has been run.
+- Linked the experiment from the full-duplex model comparison and topic-first guide index.
+
+## 2026-10-21
+
 ### On-device voice-agent architecture research
 
 - Added a sourced comparison of Pipecat Little Voices, Pipecat Build iOS, local-voice, and the Pipecat iOS client SDK.
