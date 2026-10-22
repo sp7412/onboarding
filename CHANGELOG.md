@@ -2,6 +2,15 @@
 
 ## 2026-10-21
 
+### Runnable local full-duplex notebooks
+
+- Added three source-backed Jupyter notebooks for Apple Silicon Moshi MLX: hardware preflight/guarded setup, local browser demo startup and manual microphone checks, and repeatable full-duplex evaluation with CSV logging.
+- Kept installation and server startup opt-in; placed runtime manifests and observations under `~/moshi-demo`, not in the repository.
+- Added local-only notebook handling to the notebook builder so these microphone-dependent labs do not receive misleading Colab setup cells.
+- Linked the notebooks from the lab index and experiment guide; no model run or performance result is claimed.
+
+## 2026-10-21
+
 ### Local full-duplex speech-to-speech experiment
 
 - Added an optional, hardware-aware setup and evaluation protocol for local Kyutai Moshi, with NVIDIA PersonaPlex as a follow-on backend.
