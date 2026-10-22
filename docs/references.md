@@ -548,3 +548,12 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [asciinema](https://asciinema.org/) | Project website and documentation | Developer tools catalog: terminal recording/playback example |
 | [tlog](https://github.com/Scribery/tlog) | Source repository | Developer tools catalog: terminal recording/playback example |
 
+## AI-agent session visibility and terminal visualizers
+
+| Source | Type | Cited in |
+|---|---|---|
+| [Agent View](https://github.com/doyled-it/agent-view) | Source repository and project documentation | Developer tools catalog: multi-agent session visibility |
+| [AI Terminal Sessions](https://marketplace.visualstudio.com/items?itemName=visul.terminal-sessions) | Extension listing and feature documentation | Developer tools catalog: persistent agent-aware terminals |
+| [Agent of Empires](https://www.agent-of-empires.com/tui/) | Project website and TUI documentation | Developer tools catalog: terminal-based agent cockpit |
+| [dsh-TUI](https://dshtui.com/en/features/) | Project feature documentation | Developer tools catalog: rich interactive agent terminal |
+
