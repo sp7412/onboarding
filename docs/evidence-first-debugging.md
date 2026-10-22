@@ -12,6 +12,10 @@ This guide adapts the method in Cindy Sridharan's [How to effectively debug when
 4. **Make every hypothesis satisfy every constraint.** A theory that contradicts one reliable observation is not the root cause.
 5. **Turn debugging into infrastructure.** Preserve the reproduction, add a regression test, and improve telemetry so the next investigation starts with better evidence.
 
+
+
+For the **local log-exploration layer**, see [Operational Diagnostics & Observability](developer-tools.md#operational-diagnostics--observability) in the developer tools catalog. Log viewers can make raw events easier to navigate; they do not replace a matched control, discriminating signals, trace/span correlation, or regression verification. Treat logs as potentially sensitive evidence and redact them before sharing with external agents.
+
 ## The three-part vocabulary
 
 | Term | Meaning | Voice-agent example |
