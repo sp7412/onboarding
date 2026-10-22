@@ -55,6 +55,30 @@ const quarterPrices = quarterlyPrices.filter((q) => {
 const [quarterPriceMin, quarterPriceMax] = getRange(quarterPrices.map((q) => q.value), 50, 100);
 const quarterStep = (annualPlot.right - annualPlot.left) / Math.max(1, quarterPrices.length - 1);
 const quarterLine = quarterPrices.map((q, i) => (annualPlot.left + i * quarterStep) + "," + annualY(q.value, quarterPriceMin, quarterPriceMax)).join(" ");
+const rollingWindows = [5, 10, 21, 63] as const;
+const rollingRows = dailyPrices.map((p, i) => {
+  const traces = Object.fromEntries(rollingWindows.map((window) => {
+    const start = Math.max(0, i - window + 1);
+    const slice = dailyPrices.slice(start, i + 1);
+    const volume = slice.reduce((sum, row) => sum + row.volume, 0);
+    const weightedClose = slice.reduce((sum, row) => sum + row.close * row.volume, 0);
+    return [window, volume > 0 ? weightedClose / volume : p.close];
+  })) as Record<5 | 10 | 21 | 63, number>;
+  return { ...p, ...traces };
+});
+const rollingRecent = rollingRows.slice(-90);
+const rollingValues = rollingRecent.flatMap((p) => rollingWindows.map((window) => p[window]));
+const [rollingMin, rollingMax] = getRange(rollingValues, 50, 100);
+const rollingPlot = { left: 54, top: 34, bottom: 218, right: 718 };
+const rollingX = (i: number) => rollingRecent.length <= 1 ? 386 :
+  rollingPlot.left + i * ((rollingPlot.right - rollingPlot.left) / (rollingRecent.length - 1));
+const rollingY = (value: number) =>
+  rollingPlot.bottom - ((value - rollingMin) / (rollingMax - rollingMin || 1)) * (rollingPlot.bottom - rollingPlot.top);
+const rollingLine = (window: 5 | 10 | 21 | 63) =>
+  rollingRecent.map((p, i) => rollingX(i) + "," + rollingY(p[window])).join(" ");
+const rollingMonthTicks = rollingRecent.map((p, i) => ({ p, i })).filter(({ p, i }) =>
+  i === 0 || p.date.slice(0, 7) !== (rollingRecent[i - 1]?.date ?? "").slice(0, 7)
+);
 const filingImpliedPrice = 6_500_000 / 65_670;
 
 ---
@@ -139,6 +163,45 @@ const filingImpliedPrice = 6_500_000 / 65_670;
       <figcaption>The FY26 Q1 daily-close × daily-volume result is $99.27, about 0.29% above the $98.98 price implied by the filing’s rounded $6.5M target and 65,670 RSUs. The filing does not disclose an exact conversion price. Later quarters use the same calculation for comparison; Q3 FY27 is quarter-to-date. The filing describes FY26 executive grants and does not establish the method for every employee grant.</figcaption>
     </figure>
     <p class="source-line">Data: <a href="https://finance.yahoo.com/quote/TTAN/history/">Yahoo Finance historical daily prices and volume</a>. Method: <a href="https://www.sec.gov/Archives/edgar/data/1638826/000163882626000038/ttan-20260505.htm">ServiceTitan FY2026 proxy statement</a>. <a class="chart-link" href="https://sp7412.github.io/onboarding/whitepaper/01-company/#ttan-vwap-year">Permanent link to the quarterly price plot ↗</a></p>
+  </article>
+
+  <article id="ttan-vwap-rolling" class="chart-card stock-card" aria-labelledby="rolling-vwap-title">
+    <div class="chart-heading">
+      <div>
+        <h3 id="rolling-vwap-title">TTAN rolling VWAP proxy · daily resolution</h3>
+        <p class="chart-subtitle">Last 90 sessions · volume-weighted daily closes · USD per share</p>
+      </div>
+      <div class="metric metric-muted">
+        <strong>{rollingRecent.length ? "$" + rollingRecent[rollingRecent.length - 1]![63].toFixed(2) : "—"}</strong>
+        <span>63-session reference · {latestDateLabel}</span>
+      </div>
+    </div>
+    <figure>
+      <svg class="chart" viewBox="0 0 760 270" role="img" aria-labelledby="rolling-vwap-svg-title rolling-vwap-svg-desc">
+        <title id="rolling-vwap-svg-title">TTAN rolling volume-weighted closing-price proxies</title>
+        <desc id="rolling-vwap-svg-desc">Daily rolling volume-weighted averages of closing prices over 5, 10, 21, and 63 trading sessions for the latest 90 sessions. Shorter windows respond more quickly to price changes and show more noise. These are not trade-level VWAPs.</desc>
+        {[rollingMin, (rollingMin + rollingMax) / 2, rollingMax].map((tick) => (
+          <g>
+            <line x1={rollingPlot.left} x2={rollingPlot.right} y1={rollingY(tick)} y2={rollingY(tick)} class="gridline" />
+            <text x={rollingPlot.left - 10} y={rollingY(tick) + 4} text-anchor="end" class="axis-label">{"$" + tick.toFixed(0)}</text>
+          </g>
+        ))}
+        {rollingRecent.length > 1 && <polyline points={rollingLine(5)} class="rolling-line rolling-5" />}
+        {rollingRecent.length > 1 && <polyline points={rollingLine(10)} class="rolling-line rolling-10" />}
+        {rollingRecent.length > 1 && <polyline points={rollingLine(21)} class="rolling-line rolling-21" />}
+        {rollingRecent.length > 1 && <polyline points={rollingLine(63)} class="rolling-line rolling-63" />}
+        {rollingMonthTicks.map((tick) => <text x={rollingX(tick.i)} y={rollingPlot.bottom + 19} text-anchor="middle" class="quarter-label">{(monthNames[Number(tick.p.date.slice(5, 7)) - 1] ?? "???") + " '" + tick.p.date.slice(2, 4)}</text>)}
+        <line x1={rollingPlot.left} x2={rollingPlot.right} y1={rollingPlot.bottom} y2={rollingPlot.bottom} class="baseline" />
+      </svg>
+      <div class="chart-legend rolling-legend">
+        <span><i class="legend-rolling-5"></i> 5-session · most responsive/noisy</span>
+        <span><i class="legend-rolling-10"></i> 10-session</span>
+        <span><i class="legend-rolling-21"></i> 21-session · about one month</span>
+        <span><i class="legend-rolling-63"></i> 63-session · about one quarter</span>
+      </div>
+      <figcaption>Each point is recomputed from a trailing window ending on that session: sum(close × volume) ÷ sum(volume). Short windows expose more day-to-day movement; longer windows damp it. Because the source is daily OHLCV, this is a close-based VWAP proxy—not consolidated intraday trade-level VWAP.</figcaption>
+    </figure>
+    <p class="source-line">Data: <a href="https://finance.yahoo.com/quote/TTAN/history/">Yahoo Finance historical daily prices and volume</a>. <a class="chart-link" href="https://sp7412.github.io/onboarding/whitepaper/01-company/#ttan-vwap-rolling">Permanent link to rolling price traces ↗</a></p>
   </article>
 
   <article id="ttan-stock-price-year" class="chart-card stock-card" aria-labelledby="stock-price-title">
@@ -236,6 +299,16 @@ const filingImpliedPrice = 6_500_000 / 65_670;
   .filing-reference-label { fill: #f3b45b; font: 600 9px var(--font-body); }
   .price-point-current { fill: #f3b45b; stroke: #fff; stroke-width: 1; }
   .proxy-reference { stroke: #8eb4ff; stroke-width: 1.4; stroke-dasharray: 4 3; }
+  .rolling-line { fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .rolling-5 { stroke: #f3b45b; stroke-width: 1.6; }
+  .rolling-10 { stroke: #9bd8a5; }
+  .rolling-21 { stroke: #65c7d5; }
+  .rolling-63 { stroke: #a9bfff; stroke-width: 2.6; }
+  .legend-rolling-5 { background: #f3b45b; }
+  .legend-rolling-10 { background: #9bd8a5; }
+  .legend-rolling-21 { background: #65c7d5; }
+  .legend-rolling-63 { background: #a9bfff; }
+  .rolling-legend { gap: .65rem .9rem; }
   .chart-legend { display: flex; gap: .9rem; flex-wrap: wrap; margin-top: .4rem; color: var(--ink-dim); font-size: .72rem; }
   .chart-legend span { display: inline-flex; align-items: center; gap: .35rem; }
   .chart-legend i { display: inline-block; width: 15px; height: 2px; }
