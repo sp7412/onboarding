@@ -34,6 +34,18 @@ live API calls. The [capstone rubric](../docs/capstone-rubric.md) includes optio
 | 18 | technician_feedback_playbook_learning | structured technician feedback, evidence validation, candidate playbook revisions, evaluation, approval gates, pilot and rollback | none | 60–90 minutes | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sp7412/onboarding/blob/main/labs/18_technician_feedback_playbook_learning.ipynb) |
 | 19 | production_agent_simulation_suite | dispatch arbitration, estimate guardrails, tool outages/idempotency, failure mining, prompt injection, causal rollout gates, tenant isolation | none | 60–90 minutes | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sp7412/onboarding/blob/main/labs/19_production_agent_simulation_suite.ipynb) |
 
+## Local full-duplex voice experiments
+
+These are **local-only** notebooks for Apple Silicon macOS, not Colab. They keep model state and evaluation logs under `~/moshi-demo` and require explicit opt-in before package installation or server startup.
+
+| Notebook | Purpose | Run |
+|---|---|---|
+| 18 | Moshi MLX hardware preflight and guarded environment setup | [Open notebook](18_moshi_mlx_preflight.ipynb) |
+| 19 | Start local browser UI and manually verify microphone, speech, and barge-in | [Open notebook](19_moshi_mlx_live_demo.ipynb) |
+| 20 | Repeatable interruption scenarios, CSV observations, and latency summaries | [Open notebook](20_full_duplex_eval.ipynb) |
+
+Complete the [local full-duplex experiment guide](../docs/local-full-duplex-experiment.md) first. The live browser checks are manual; no model run or performance result is implied by the notebooks.
+
 ## Lab environments
 
 - **Full environment:** open the repo in [Codespaces or the dev container](../docs/lab-environments.md#codespaces-and-the-dev-container).
