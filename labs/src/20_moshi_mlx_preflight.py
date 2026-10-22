@@ -1,5 +1,5 @@
 # %% [markdown]
-# # Lab 18 — Local Moshi MLX preflight and guarded setup
+# # Lab 20 — Local Moshi MLX preflight and guarded setup
 #
 # Verify the machine before installing anything. This path targets Apple Silicon macOS using Kyutai's MLX backend; it is not intended for Colab or a remote notebook kernel.
 #
