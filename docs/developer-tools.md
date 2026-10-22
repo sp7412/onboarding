@@ -118,6 +118,67 @@ untrusted input. Prefer read-only inspection until a write operation is actually
 reproducible. Avoid installing overlapping tools just because they are popular; choose based
 on a repeated task, a measurable reduction in friction, and an acceptable security boundary.
 
+## Operational Diagnostics and Observability
+
+These tools help answer **what happened, when, and in what sequence** during a
+local reproduction, test run, or production incident. They belong beside developer
+tools because they shorten investigation loops, but they are not code editors or
+substitutes for an observability platform.
+
+### Log exploration tools to evaluate
+
+| Tool | Best fit | Why consider it | Evaluation notes |
+|---|---|---|---|
+| [lnav](https://lnav.org/) | First tool to try for local log investigation | Terminal log viewer with navigation, filtering, time-oriented analysis, and support for structured logs | Try it on mixed application logs and timestamped files; verify format detection and query needs against your real data |
+| [toolong](https://github.com/Textualize/toolong) | Interactive exploration of large log files | Terminal UI for browsing and searching logs, including JSONL-oriented workflows | Evaluate responsiveness on representative file sizes, filtering ergonomics, and whether its view fits your team's formats |
+| [Gonzo](https://github.com/control-theory/gonzo) | Live terminal-oriented observability and log exploration | A visual, terminal-native way to inspect streams and spot patterns during active debugging | Treat as a candidate for live streams; check supported inputs, setup requirements, and whether its summaries expose the raw evidence you need |
+
+Start with **lnav** for a concrete local log file, then compare toolong if the
+interactive large-file workflow is a better fit. Evaluate Gonzo separately for
+live-stream workflows rather than assuming all three solve the same problem.
+Project capabilities and maintenance change; confirm current installation, release,
+and input-format details in the linked project documentation before standardizing.
+
+### Replay and time-oriented debugging
+
+Playback is a capability to look for, not necessarily a separate category of tool.
+For intermittent bugs, being able to replay timestamped events at a controlled rate
+can reveal bursts, ordering problems, race conditions, and gradual degradation that
+are hard to see in a static tail. Depending on the source, investigate terminal-session
+recording/playback such as [asciinema](https://asciinema.org/) or [tlog](https://github.com/Scribery/tlog);
+these record terminal activity, and are **not automatically equivalent to replaying structured
+application logs**. Validate what is captured, whether timestamps are preserved, and
+whether the playback can reproduce the conditions relevant to the bug.
+
+A purpose-built log replay TUI could combine:
+
+- playback speed and a visible time/progress position;
+- pause, seek, and a bounded context window around an event;
+- filters for severity, component, trace/request ID, and event type;
+- event counts or selected metrics aligned to the same time window;
+- bookmarks and export of a small, privacy-reviewed evidence bundle.
+
+Build a custom tool only if existing viewers cannot support a repeated, high-value
+workflow. Keep the original log records accessible; summaries and visualizations should
+help navigation, not silently discard contradictory evidence.
+
+### How this fits into observability
+
+- **Logs** record discrete events and their attributes.
+- **Metrics** summarize behavior over time, such as rates, queue depth, and latency percentiles.
+- **Traces** connect work across components through spans and causal relationships.
+
+A terminal log viewer is usually the local investigation layer. It does not replace
+distributed tracing, durable centralized storage, alerting, access controls, or retention
+policies. Correlate timestamps and trace/request IDs where available, compare a failing
+case with a useful control, and preserve the exact query or fixture used to reproduce the
+finding. See [Evidence-First Debugging](evidence-first-debugging.md) for the investigation
+method and the privacy guidance below before sharing logs with a coding agent.
+
+**Safety:** logs can contain credentials, tokens, caller/customer identifiers, transcripts,
+and other sensitive data. Redact or synthesize data before sharing it with an external
+service or agent; prefer least-privilege, read-only access and approved retention practices.
+
 ## Mac dictation for AI-assisted coding
 
 The goal is simple: place the cursor in OpenCode, VS Code, a terminal prompt, an issue,

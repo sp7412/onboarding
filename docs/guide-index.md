@@ -49,7 +49,7 @@ A topic-first map of the onboarding material. Use the **learning path** when you
 
 ## Developer workstation and tools
 
-- [Developer tools catalog](developer-tools.md) — Mac dictation, local transcription, AI-assisted coding utilities, selection criteria, and a repeatable evaluation checklist.
+- [Developer tools catalog](developer-tools.md) — Mac dictation, AI-assisted coding, operational log diagnostics, observability utilities, and practical tool-selection criteria.
 - [Build a personal knowledge base with Grok Bot](grok-bot-knowledge-workflow.md) — step-by-step setup, source connections, Markdown structure, skills, daily/weekly routines, and safety checks.
 - [Obsidian personal knowledge workflow](obsidian-personal-knowledge-workflow.md) — local-first Markdown vault, ChatGPT/repository imports, Grok Bot access models, source provenance, and approval-gated maintenance.
 

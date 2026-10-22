@@ -536,3 +536,15 @@ PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](w
 | [MCP Inspector](https://github.com/modelcontextprotocol/inspector) | Official MCP debugging tool | Developer tools catalog; MCP lab |
 | [Claude Code plugins](https://docs.anthropic.com/en/docs/claude-code/plugins) | Official documentation | Developer tools catalog |
 | [Cursor plugins](https://docs.cursor.com/plugins) | Official documentation | Developer tools catalog |
+
+
+## Operational diagnostics and observability
+
+| Source | Type | Cited in |
+|---|---|---|
+| [lnav](https://lnav.org/) | Project website and documentation | Developer tools catalog: local log exploration |
+| [toolong](https://github.com/Textualize/toolong) | Source repository | Developer tools catalog: interactive large-log exploration |
+| [Gonzo](https://github.com/control-theory/gonzo) | Source repository | Developer tools catalog: live terminal-oriented observability |
+| [asciinema](https://asciinema.org/) | Project website and documentation | Developer tools catalog: terminal recording/playback example |
+| [tlog](https://github.com/Scribery/tlog) | Source repository | Developer tools catalog: terminal recording/playback example |
+
