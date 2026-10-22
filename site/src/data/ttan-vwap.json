@@ -1,11 +1,11 @@
 {
   "symbol": "TTAN",
   "feed": "yahoo-daily",
-  "method": "Daily closing prices and volumes. quarterlyClosingVwap is each fiscal quarter's volume-weighted average of daily closing prices; this matches the published FY26 executive-grant wording but is not trade-level VWAP. rollingCloseVwap is a 63-session close-based reference series.",
-  "generatedAt": "2026-10-17T04:03:09.054694+00:00",
+  "method": "Daily closing prices and volumes. quarterlyClosingVwap is each fiscal quarter's volume-weighted average of daily closing prices; this is not trade-level VWAP. rollingCloseVwap is a 63-session close-based reference series.",
+  "generatedAt": "2026-10-22T01:06:00+00:00",
   "firstDate": "2025-10-13",
-  "lastDate": "2026-10-16",
-  "sessions": 255,
+  "lastDate": "2026-10-21",
+  "sessions": 258,
   "quarterlyClosingVwap": [
     {
       "label": "FY25 Q4",
@@ -74,10 +74,10 @@
       "label": "FY27 Q3",
       "quarter": 3,
       "firstDate": "2026-08-03",
-      "lastDate": "2026-10-16",
-      "sessions": 54,
-      "volume": 136004400,
-      "volumeWeightedClose": 67.8657
+      "lastDate": "2026-10-21",
+      "sessions": 57,
+      "volume": 140150831,
+      "volumeWeightedClose": 68.2371
     }
   ],
   "data": [
@@ -143,7 +143,7 @@
     },
     {
       "date": "2025-10-27",
-      "close": 100.0,
+      "close": 100,
       "volume": 524300,
       "rollingCloseVwap": 107.9041
     },
@@ -599,7 +599,7 @@
     },
     {
       "date": "2026-02-17",
-      "close": 61.0,
+      "close": 61,
       "volume": 969700,
       "rollingCloseVwap": 87.5038
     },
@@ -1223,7 +1223,7 @@
     },
     {
       "date": "2026-07-17",
-      "close": 76.0,
+      "close": 76,
       "volume": 1218400,
       "rollingCloseVwap": 68.8005
     },
@@ -1331,7 +1331,7 @@
     },
     {
       "date": "2026-08-12",
-      "close": 92.0,
+      "close": 92,
       "volume": 1892500,
       "rollingCloseVwap": 73.0983
     },
@@ -1610,6 +1610,24 @@
       "close": 74.98,
       "volume": 2098600,
       "rollingCloseVwap": 68.7112
+    },
+    {
+      "date": "2026-10-19",
+      "close": 78.26,
+      "volume": 1325900,
+      "rollingCloseVwap": 68.7593
+    },
+    {
+      "date": "2026-10-20",
+      "close": 80.71,
+      "volume": 1523505,
+      "rollingCloseVwap": 68.8695
+    },
+    {
+      "date": "2026-10-21",
+      "close": 82.29,
+      "volume": 1297026,
+      "rollingCloseVwap": 68.9846
     }
   ]
 }
