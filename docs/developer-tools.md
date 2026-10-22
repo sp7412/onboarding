@@ -125,6 +125,41 @@ local reproduction, test run, or production incident. They belong beside develop
 tools because they shorten investigation loops, but they are not code editors or
 substitutes for an observability platform.
 
+### AI-agent session visibility and terminal visualizers
+
+This is a different problem from inspecting application logs. These tools help you
+see **which coding agents are active, what they are doing, when they need input, and
+how a long-running session is progressing**. Think of this as the operator's view
+of the agent loop, not another log viewer or another model.
+
+| Tool | Best fit | What to evaluate |
+|---|---|---|
+| [Agent View](https://github.com/doyled-it/agent-view) | Cross-agent session dashboard in a terminal | Live working/waiting/error states, notifications, worktree integration, session history, and support for OpenCode, Codex CLI, Claude Code, and Gemini CLI |
+| [AI Terminal Sessions](https://marketplace.visualstudio.com/items?itemName=visul.terminal-sessions) | Persistent agent-aware terminals inside VS Code-compatible editors | Whether live state, recent messages, tool activity, context/cost indicators, and restart recovery reduce terminal hunting in your actual editor workflow |
+| [Agent of Empires](https://www.agent-of-empires.com/tui/) | Keyboard-driven multi-agent cockpit | Session status, quick attach/switch, worktree handling, and whether its tmux-based workflow fits your existing setup |
+| [dsh-TUI](https://dshtui.com/en/features/) | Rich terminal interaction for a single agent session | Streaming Markdown, structured tool activity, context/token/runtime indicators, and long-session responsiveness |
+
+**Recommended evaluation:** try one tool against the workflow you already use before
+changing your terminal stack. Run two or three agents in separate repositories or
+worktrees; verify that busy, waiting-for-approval, finished, and failed states are
+distinguishable; confirm that notifications are timely; and test recovery after closing
+the UI or restarting the editor. Check whether the tool reads authoritative agent events
+or infers status by scraping terminal text, because the latter can be brittle.
+
+A typewriter-style live-output view can make streaming responses feel legible, but
+animation alone is not observability. The useful version combines readable streaming
+output with explicit tool-call/activity states, elapsed time, progress where the task
+provides a meaningful signal, and an unmistakable indication when human input is
+required. Do not invent percentages or ETAs when the underlying command or agent does
+not expose enough information to support them.
+
+If existing tools do not provide the exact experience you want, a small custom
+visualizer is feasible. Keep the display layer separate from the agent/runtime, consume
+structured events when available, preserve raw output for inspection, and degrade
+gracefully when an event source is unavailable. Treat terminal content and agent output
+as untrusted; do not let a visualizer silently execute suggested commands or bypass
+permission prompts.
+
 ### Log exploration tools to evaluate
 
 | Tool | Best fit | Why consider it | Evaluation notes |
