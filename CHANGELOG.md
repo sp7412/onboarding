@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-10-23
+
+### Agent team operating playbook
+
+- Added a vendor-neutral playbook synthesizing coordinator/specialist contracts, durable handoffs, shared-workspace security boundaries, staged automation, quota-aware operations, independent review, and a first-week checklist.
+- Linked it from the topic-first guide index and added the source carousel and its secondary transcription to the bibliography.
+- Connected the playbook to existing harness, coordination, autonomy, evaluation, and MCP trust-boundary material rather than duplicating labs.
+
 ## 2026-10-21
 
 ### Expand agent-session and voice-agent observability research

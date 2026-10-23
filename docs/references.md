@@ -10,7 +10,7 @@ Video summaries are collected in [video notes](video-notes.md).
 RL = [reading guide](reading-guide.md) · 101 = [ServiceTitan 101](servicetitan-101.md) ·
 PP = [podcast prompts](podcast-prompts.md) episode number · WP = [whitepaper](whitepaper/README.md) chapter.
 
-## ServiceTitan (company and products)
+## Multi-agent operations\n\n| Source | Type | Cited in |\n|---|---|---|\n| [GrokBot Field Manual](https://mikesblogdesign.com/grokbotfieldmanual/) | Community field guide (secondary transcription and analysis of a three-page carousel) | Agent team operating playbook; used as an operational case study, not as authoritative product documentation |\n| [Original Grok Bot Field Manual carousel](https://x.com/RoundtableSpace/status/2092654556748337186) | Social post / source carousel | Agent team operating playbook source trail |\n\n## ServiceTitan (company and products)
 
 | Source | Type | Cited in |
 |---|---|---|
