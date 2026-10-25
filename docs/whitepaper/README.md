@@ -5,17 +5,27 @@ engineering implications of voice agents.
 
 ## Status
 
-Research passes completed September 27–28, 2026. Every chapter is now built on public
-primary sources where they exist (SEC filings, the FCC, BLS, regulators, vendor
-documentation), with analysis labeled. Chapter 14 is a working brief for the first 90 days.
+**Current status (October 24, 2026):** chapters 00–17 are built on public primary sources where
+they exist (SEC filings, the FCC, BLS, regulators, vendor documentation), with analysis
+labeled; facts are current to the Pantheon 2026 refresh (October 7, 2026). Chapter 14 is a
+working brief for the first 90 days.
 
-**Post-Pantheon refresh (October 7, 2026):** chapter 07 now covers what ServiceTitan said
-publicly at Pantheon 2026 about voice agents (one of 30 coordinated agents in Max, level 2 of
-a five-level maturity model, a voice intelligence judge for bookable leads, and Homh as an
-AI-assistant booking channel). Chapter 08 adds the current OpenAI voice lineup and the
-cascaded vs. speech-to-speech vs. full-duplex-with-delegation trade-off. Chapters 09, 11, 12
-and 14 and Appendix A carry shorter Pantheon updates. Details are in the
-[Pantheon 2026 AI roadmap brief](../pantheon-2026-ai-roadmap.md).
+### Revision history
+
+- **October 24, 2026:** editorial review. Chapter 00 now summarizes chapters 15–17 and adds an
+  engineering reading path; chapter 15 gains a reader's map; chapter 17 opens with its Five
+  Takeaways and links to [Design by Evaluation](../design-by-evaluation.md) instead of
+  repeating it; Appendix B synced with chapters 16–17; reading times corrected for chapters
+  01 and 17.
+- **October 7, 2026:** post-Pantheon refresh. Chapter 07 covers what ServiceTitan said
+  publicly at Pantheon 2026 about voice agents (one of 30 coordinated agents in Max, level 2
+  of a five-level maturity model, a voice intelligence judge for bookable leads, and Homh as
+  an AI-assistant booking channel). Chapter 08 adds the current OpenAI voice lineup and the
+  cascaded vs. speech-to-speech vs. full-duplex-with-delegation trade-off. Chapters 09, 11,
+  12 and 14 and Appendix A carry shorter Pantheon updates; chapter 17 was split out of
+  chapter 15. Details are in the [Pantheon 2026 AI roadmap brief](../pantheon-2026-ai-roadmap.md).
+- **September 27–28, 2026:** research passes completed for chapters 00–14, the appendices
+  and the claims ledger.
 
 **Essentials path (about 2 hours):** 00 → 01 → 02 → 06 → 07 → 10 → 11 → 14.
 
@@ -67,6 +77,15 @@ source lists. `[unverified]` marks a claim that needs a source or validation.
 
 Industry-wide call-mix, CSR turnover and missed-call cost statistics from neutral sources
 remain gaps; figures from vendors are attributed as vendor claims.
+
+Claims the [claims ledger](claims-ledger.md) still marks `[unverified]` (none are stated as
+fact in the chapters):
+
+| Claim area | Chapters | Ledger note |
+|---|---|---|
+| General call mix, CSR turnover, missed-call cost, labor shortage, and market sizes | 02, 04, 05 | Omitted from factual prose pending verified sources |
+| Internal architecture, owners, pricing, adoption, roadmap, and KPI SQL | 01–05 | Post-joining validation questions only |
+| Complete competitor map, ranking, pricing, win/loss, and differentiation | 09 | Deliberately omitted pending individual source verification |
 
 ## Agentic orchestration chapter
 
