@@ -45,7 +45,8 @@ A topic-first map of the onboarding material. Use the **learning path** when you
 - [Call facts contract](call-facts-contract.md) — proposed versus verified facts shared across agents.
 - [Homh and AI-agent booking](homh-and-agent-booking.md) — trust boundaries for homeowner-side AI.
 - [MCP and external-agent trust boundary](mcp-and-external-agent-trust-boundary.md) — authorization, consent, idempotency, and audit.
-- [Comparative agent architectures](comparative-agent-architectures.md) — where orchestration, policy, and evaluation sit across vendors.\n- [Agent team operating playbook](agent-team-operating-playbook.md) — coordinator/specialist contracts, durable handoffs, trust boundaries, staged automation, and quota-aware operations.
+- [Comparative agent architectures](comparative-agent-architectures.md) — where orchestration, policy, and evaluation sit across vendors.
+- [Agent team operating playbook](agent-team-operating-playbook.md) — coordinator/specialist contracts, durable handoffs, trust boundaries, staged automation, and quota-aware operations.
 - [Pantheon hypothesis map](hypothesis-map.md) — public claims translated into validation questions.
 
 ## Developer workstation and tools
