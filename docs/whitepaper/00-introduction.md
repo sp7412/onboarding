@@ -1,6 +1,6 @@
 # 00 - Introduction
 
-**Estimated reading time:** 6 minutes · **Facts as of:** September 27, 2026
+**Estimated reading time:** 6 minutes · **Facts as of:** September 27, 2026 (Pantheon 2026 updates through October 7, 2026 are in Chapters 01, 07–09, 11, 12, 14–17 and Appendix A)
 
 ## Five Takeaways
 
@@ -28,9 +28,13 @@ The most useful measure of success is not simply whether a call ends or an appoi
 
 For an engineer, the highest-leverage work often occurs at the boundaries where the agent changes business state or makes a claim to the customer. Tool validation, evidence grounding, escalation, and evaluation help ensure that the agent does what it is authorized to do and accurately communicates what happened. [Chapter 12](./12-risks-and-failure-modes.md), [Chapter 13](./13-future-directions.md), and [Chapter 14](./14-implications-and-open-questions.md) examine failure modes, future directions, and the open questions that follow from this analysis.
 
+The last three chapters move from the voice agent to the system around it. [Chapter 15](./15-agentic-orchestration.md) compares publicly described approaches to coordinating many agents (ServiceTitan's Pantheon 2026 model, Salesforce, and Microsoft) and argues that the model should propose while a deterministic harness controls state changes. [Chapter 16](./16-shared-skills-and-capabilities.md) treats reusable skills as versioned, evaluated business capabilities. [Chapter 17](./17-running-agents-in-production.md) covers running agents once they are live: per-run traces, failure mining, offline and online evaluation, and staged rollout. These chapters are labeled **Analysis** where they go beyond public evidence; none describes ServiceTitan's internal architecture.
+
 ## How to Read This Paper
 
 Readers who want a focused introduction can follow the essentials path—Chapters 00, 01, 02, 06, 07, 10, 11, and 14—which should take about two hours. This route covers the company, its market, the product, the voice-agent workflow, compliance, measurement, and the principal engineering implications.
+
+Engineers focused on agent architecture can follow the engineering path—Chapters 00, 07, 08, 12, 15, 16, and 17—which takes about two and a half hours and pairs with the hands-on labs.
 
 Readers who want the full context should read [Chapter 00](./00-introduction.md) through [Chapter 17](./17-running-agents-in-production.md) in order and then consult the appendices. Each chapter builds on the terminology and assumptions introduced earlier.
 

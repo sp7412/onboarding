@@ -2,7 +2,7 @@
 
 Every source cited in the whitepaper, deduplicated and grouped by type, with the chapters
 that cite it (A = Appendix A). Checked September 27–28, 2026; Pantheon 2026 and OpenAI voice-model
-sources added October 7, 2026.
+sources added October 7, 2026. Chapter 16 and 17 sources synced October 24, 2026.
 
 ## SEC filings and company releases
 
@@ -28,6 +28,9 @@ sources added October 7, 2026.
 | <https://www.servicetitan.com/features/pro/contact-center> | 04, 06 |
 | <https://www.servicetitan.com/features/atlas> | 06, 13 |
 | <https://www.servicetitan.com/blog/pantheon-2026-live-coverage> | 07, 09, 11, 12, 14, 15 |
+| <https://help.servicetitan.com/docs/configure-your-voice-agent-settings> | 16 |
+| <https://servicetitan.wd1.myworkdayjobs.com/en-US/ServiceTitan/job/Manager--Software-Engineering_JR114911> (job listing; may be taken down) | 15, 17 |
+| <https://builtin.com/job/staff-product-manager-communications-intelligence/10448969> (job listing, third-party mirror; may be taken down) | 15, 17 |
 
 ## Government, regulators and standards bodies
 

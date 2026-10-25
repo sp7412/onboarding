@@ -21,6 +21,19 @@ no internal ServiceTitan architecture is asserted.
 > production playbook (tracing, failure mining, evaluation and rollout) is
 > [chapter 17](17-running-agents-in-production.md).
 
+## Reader's map
+
+| Sections | Question answered | Read when |
+|---|---|---|
+| 1–2 | Why do specialist agents need orchestration, and what are the building blocks? | Always |
+| 3–6 | How do ServiceTitan, Salesforce and Microsoft publicly describe the problem? | Always |
+| 7–8 | What do open-source frameworks (LangGraph, Microsoft Agent Framework) teach? | Before the labs |
+| 9–14 | How does the harness control state: idempotency, human-in-the-loop, shared context, arbitration, MCP/A2A? | When building or reviewing an agent |
+| 15–17 | What prototype and experiment should I build, and which labs map here? | Hands-on work |
+| 18–20 | What can and cannot be inferred about ServiceTitan, and the final mental model | Always |
+
+Production operation (traces, failure mining, evaluation, rollout) is in [Chapter 17](17-running-agents-in-production.md).
+
 ## 1. Why orchestration matters
 
 A single agent is easy to understand:

@@ -1,22 +1,6 @@
 # 17 - Running Agents in Production: Traces, Failure Mining, Evaluation and Rollout
 
-**Estimated reading time:** 10 minutes · **Facts as of:** October 7, 2026
-
-Continues [chapter 15](15-agentic-orchestration.md), which covers how agents are coordinated.
-This chapter covers how they are run once they are live: tracing each decision, mining
-production failures, evaluating changes and rolling them out safely. It was split out of
-[Chapter 15](15-agentic-orchestration.md) on October 7, 2026; the content is unchanged apart from section numbers.
-
-It pairs with [Design by Evaluation](../design-by-evaluation.md), which treats evaluation as a
-design input. That doc's [section 6, "Finding failures in production"](../design-by-evaluation.md#6-finding-failures-in-production)
-and [section 7, "Failure mining creates new evals"](../design-by-evaluation.md#7-failure-mining-creates-new-evals)
-overlap with sections 2 and 3 here; read them together rather than twice.
-
-For a symptom-first production response, use the [Voice Agent Production Troubleshooting Runbook](../voice-agent-production-troubleshooting.md), which maps caller-visible failures to telemetry, likely causes, containment, and recovery checks.
-
-As in [Chapter 15](15-agentic-orchestration.md), the architecture below is generic. Nothing here describes ServiceTitan's
-internal systems; the only ServiceTitan evidence is public job listings about its data
-platform [1][2].
+**Estimated reading time:** 19 minutes · **Facts as of:** October 7, 2026
 
 ## Five Takeaways
 
@@ -25,6 +9,24 @@ platform [1][2].
 3. A trace explains one execution; an analytical store lets you find patterns across millions, so design the IDs that join them before production.
 4. Evaluate at four levels (runtime, agent, policy, business outcome), offline before release and online on sampled production traces.
 5. Roll out with canaries judged on guardrail metrics first, stratified A/B tests and shadow mode; for contractor playbooks, treat technician feedback as evidence for a reviewed, versioned learning loop.
+
+Continues [chapter 15](15-agentic-orchestration.md), which covers how agents are coordinated.
+This chapter covers how they are run once they are live: tracing each decision, mining
+production failures, evaluating changes and rolling them out safely. It was split out of
+[Chapter 15](15-agentic-orchestration.md) on October 7, 2026; the content is unchanged apart from section numbers.
+
+## How this chapter relates to other docs
+
+It pairs with [Design by Evaluation](../design-by-evaluation.md), which treats evaluation as a
+design input. That doc's [section 6, "Finding failures in production"](../design-by-evaluation.md#6-finding-failures-in-production)
+and [section 7, "Failure mining creates new evals"](../design-by-evaluation.md#7-failure-mining-creates-new-evals)
+cover the general method; sections 2 and 3 here summarize it and link out, and keep only the production-specific parts (trace queries, the worked "wrong technician" example, storage design and the evaluation record).
+
+For a symptom-first production response, use the [Voice Agent Production Troubleshooting Runbook](../voice-agent-production-troubleshooting.md), which maps caller-visible failures to telemetry, likely causes, containment, and recovery checks.
+
+As in [Chapter 15](15-agentic-orchestration.md), the architecture below is generic. Nothing here describes ServiceTitan's
+internal systems; the only ServiceTitan evidence is public job listings about its data
+platform [1][2].
 
 ## 1. Production observability: trace the decision, not just the request
 
@@ -257,38 +259,13 @@ Compare:
 
 ### Turn production failures into the eval set
 
-This is one of the most important production-agent practices:
-
-```text
-Production
-   |
-   v
-traces
-   |
-   v
-failure mining
-   |
-   +--> representative failures
-   +--> rare edge cases
-   +--> policy violations
-   +--> expensive failures
-   +--> high-confidence user complaints
-   |
-   v
-curated evaluation set
-   |
-   v
-candidate agent
-   |
-   v
-regression evaluation
-   |
-   v
-canary
-   |
-   v
-production
-```
+Every confirmed production failure should become a redacted regression case that preserves the
+failure **mechanism** (stale capacity, wrong technician, bad tool argument, policy violation),
+not just the final text. That case joins the curated evaluation set, which gates the next
+candidate through regression evaluation and canary (section 4). The full loop, with a failure
+taxonomy, is in [Design by Evaluation, section 7](../design-by-evaluation.md#7-failure-mining-creates-new-evals);
+how to find the failures in the first place (signal sources, random vs. targeted samples,
+signal precision) is in [section 6](../design-by-evaluation.md#6-finding-failures-in-production).
 
 Do not simply collect the worst examples. Also sample successful traces so the evaluation set does not become a collection of pathological cases. Maintain slices for important cohorts and failure modes.
 
@@ -409,21 +386,11 @@ But:
 - margin below threshold.
 ```
 
-Production evaluation therefore needs multiple levels:
-
-```text
-Level 1: runtime correctness
-  Did the workflow complete?
-
-Level 2: agent correctness
-  Did it choose an appropriate action?
-
-Level 3: policy correctness
-  Was the action permitted?
-
-Level 4: business outcome
-  Did the action improve the target metric?
-```
+Production evaluation therefore needs several levels: runtime correctness (did the workflow
+complete?), agent correctness (was the action appropriate?), policy correctness (was it
+permitted?) and business outcome (did it improve the target metric?). The layer table and why
+each layer can pass while the next fails are in
+[Design by Evaluation, section 3](../design-by-evaluation.md#3-four-layers-of-evaluation).
 
 A useful evaluation record is:
 
