@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-10-25
+
+### Close Developer tools catalog gaps
+
+- Added a "This repo's own checks" section covering `check_repo.py`, `check_sensitive.py`, `check_external_links.py`, `run_notebooks.py`, the optional pre-commit hook, and the `quality.yml`/`links.yml` CI workflows.
+- Linked the parallel-agent and Grok Bot sections to the agent team operating playbook, linked the four starter skills to their `SKILL.md` files, and added a Related guides block (harness, guardrails, MCP trust boundary, source control, labs, autonomy, Obsidian workflow, whitepaper).
+- Added a last-reviewed date and refreshed the README and guide-index descriptions to match the page's current scope.
+
 ## 2026-10-23
 
 ### Agent team operating playbook
