@@ -2,10 +2,20 @@
 
 **Estimated reading time:** 19 minutes · **Facts as of:** October 7, 2026
 
+## Five Takeaways
+
+1. Trace the decision, not just the request: every run needs a correlated trace of model calls, tool calls, policy decisions, approvals and the final outcome.
+2. Debugging means walking back from a bad outcome to the decision boundary that failed, then saving that case as an evaluation example.
+3. A trace explains one execution; an analytical store lets you find patterns across millions, so design the IDs that join them before production.
+4. Evaluate at four levels (runtime, agent, policy, business outcome), offline before release and online on sampled production traces.
+5. Roll out with canaries judged on guardrail metrics first, stratified A/B tests and shadow mode; for contractor playbooks, treat technician feedback as evidence for a reviewed, versioned learning loop.
+
 Continues [chapter 15](15-agentic-orchestration.md), which covers how agents are coordinated.
 This chapter covers how they are run once they are live: tracing each decision, mining
 production failures, evaluating changes and rolling them out safely. It was split out of
 [Chapter 15](15-agentic-orchestration.md) on October 7, 2026; the content is unchanged apart from section numbers.
+
+## How this chapter relates to other docs
 
 It pairs with [Design by Evaluation](../design-by-evaluation.md), which treats evaluation as a
 design input. That doc's [section 6, "Finding failures in production"](../design-by-evaluation.md#6-finding-failures-in-production)
@@ -17,14 +27,6 @@ For a symptom-first production response, use the [Voice Agent Production Trouble
 As in [Chapter 15](15-agentic-orchestration.md), the architecture below is generic. Nothing here describes ServiceTitan's
 internal systems; the only ServiceTitan evidence is public job listings about its data
 platform [1][2].
-
-## Five Takeaways
-
-1. Trace the decision, not just the request: every run needs a correlated trace of model calls, tool calls, policy decisions, approvals and the final outcome.
-2. Debugging means walking back from a bad outcome to the decision boundary that failed, then saving that case as an evaluation example.
-3. A trace explains one execution; an analytical store lets you find patterns across millions, so design the IDs that join them before production.
-4. Evaluate at four levels (runtime, agent, policy, business outcome), offline before release and online on sampled production traces.
-5. Roll out with canaries judged on guardrail metrics first, stratified A/B tests and shadow mode; for contractor playbooks, treat technician feedback as evidence for a reviewed, versioned learning loop.
 
 ## 1. Production observability: trace the decision, not just the request
 
