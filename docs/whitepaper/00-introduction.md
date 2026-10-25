@@ -1,6 +1,6 @@
 # 00 - Introduction
 
-**Estimated reading time:** 6 minutes · **Facts as of:** September 27, 2026 (Pantheon 2026 updates through October 7, 2026 are in Chapters 01, 07–09, 11–17 and Appendix A)
+**Estimated reading time:** 6 minutes · **Facts as of:** September 27, 2026 (Pantheon 2026 updates through October 7, 2026 are in Chapters 01, 07–09, 11, 12, 14–17 and Appendix A)
 
 ## Five Takeaways
 
