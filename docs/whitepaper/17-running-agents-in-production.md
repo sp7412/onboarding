@@ -1,6 +1,6 @@
 # 17 - Running Agents in Production: Traces, Failure Mining, Evaluation and Rollout
 
-**Estimated reading time:** 10 minutes · **Facts as of:** October 7, 2026
+**Estimated reading time:** 19 minutes · **Facts as of:** October 7, 2026
 
 Continues [chapter 15](15-agentic-orchestration.md), which covers how agents are coordinated.
 This chapter covers how they are run once they are live: tracing each decision, mining

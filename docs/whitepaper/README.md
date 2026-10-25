@@ -19,6 +19,8 @@ and 14 and Appendix A carry shorter Pantheon updates. Details are in the
 
 **Essentials path (about 2 hours):** 00 → 01 → 02 → 06 → 07 → 10 → 11 → 14.
 
+**Engineering path (about 2.5 hours):** 00 → 07 → 08 → 12 → 15 → 16 → 17, then the labs.
+
 **For the PE-backed consolidation strategy:** start with [Chapter 01](01-company.md), which explains the buy-and-build model, ServiceTitan's target customer profiles, the platform expansion opportunity, and the associated risks.
 
 **For the competitive/build-versus-buy question:** read Chapter 09 after Chapters 07–08. It separates contractor-platform competition from competition at the voice/model/runtime layers and includes a vertical-integration scorecard.
