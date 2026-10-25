@@ -57,7 +57,7 @@ the exact lab map and prerequisites.
 
 ## Layout
 
-The [developer tools catalog](docs/developer-tools.md) tracks practical workstation utilities, starting with local Mac dictation and a repeatable tool-evaluation checklist.
+The [developer tools catalog](docs/developer-tools.md) tracks practical workstation utilities: a CLI toolkit and this repo's own checks, Mac dictation, agent-session visibility and observability, parallel-agent workflows, AI coding editors, knowledge management, Slack capture/RAG, task tools, and agent skills/MCP.
 
 
 | Path | What's there |

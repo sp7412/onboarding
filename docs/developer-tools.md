@@ -10,6 +10,8 @@ Prefer tools with clear data-flow, predictable shortcuts, and easy removal. Re-c
 pricing, release status, platform support, and privacy claims before adopting a tool;
 these change faster than the rest of this guide.
 
+_Last reviewed: 2026-10-25. Pricing, release status, and platform support for third-party tools change quickly; re-verify before adopting._
+
 ## Quick-start shortlist
 
 | Need | Start here | Why |
@@ -102,6 +104,24 @@ A CLI command is an interface, not a safety boundary: it acts with the credentia
 permissions of the logged-in user. Authenticate with least privilege, avoid printing tokens
 or secret-bearing environment variables, and treat issue/PR text and downloaded artifacts as
 untrusted input. Prefer read-only inspection until a write operation is actually needed.
+
+### This repo's own checks
+
+Run these from the repository root before opening a PR (see [AGENTS.md](../AGENTS.md) for the full map):
+
+| Command | What it checks |
+|---|---|
+| `python scripts/check_repo.py` | Generated notebooks present and output-free; generated-file hygiene |
+| `python scripts/check_sensitive.py` | Sensitive or non-public-safe content |
+| `python scripts/run_notebooks.py` | Executes the lab notebooks |
+| `python scripts/check_external_links.py` | External URLs still resolve (network required) |
+
+Optionally install the local hook described in the [README](../README.md):
+`ln -s ../../scripts/pre-commit .git/hooks/pre-commit` (it runs `check_sensitive.py`).
+
+In CI, [`quality.yml`](../.github/workflows/quality.yml) runs ruff, unit tests, `pip-audit`,
+the repo/notebook/sensitive checks, and the site build, tests, link, and accessibility checks;
+[`links.yml`](../.github/workflows/links.yml) runs the external and site link checks.
 
 ### Add these only when the workflow needs them
 
@@ -448,6 +468,8 @@ and [WezTerm workspaces and startup layouts](https://wezterm.org/recipes/workspa
 
 ### Live dashboard for agent sessions
 
+See also [AI-agent session visibility and terminal visualizers](#ai-agent-session-visibility-and-terminal-visualizers) for comparable dashboards.
+
 [Agent Sessions](https://github.com/ozankasikci/agent-sessions) is a macOS dashboard
 for keeping track of multiple Claude Code and OpenCode sessions. It shows live session
 states (such as thinking, processing, waiting, and idle), lets you switch to a session,
@@ -522,6 +544,9 @@ the work computer is hosted in the cloud, so this is **not an on-device-only wor
 Official starting points: [Grok Bot overview](https://docs.x.ai/grok-bot/overview) and
 [Team Bots and Slack setup](https://docs.x.ai/grok-bot/team-bots).
 
+For coordinator/specialist contracts, handoffs, and shared-workspace boundaries when running
+several Bots, see the [Agent team operating playbook](agent-team-operating-playbook.md).
+
 For cloud bots, assess permissions and data boundaries separately from local coding agents:
 what repositories and credentials can the bot access, where does execution happen, how are
 actions approved, and what persists between tasks? For local tools, assess shell permissions,
@@ -529,6 +554,9 @@ filesystem scope, model/API routing, and whether transcripts or source code are 
 provider.
 
 ### A simple operating model for parallel agents
+
+This is a short summary; the [Agent team operating playbook](agent-team-operating-playbook.md)
+is the authoritative, fuller version.
 
 1. **Coordinator:** maintain the task list, assign bounded tasks, and own integration.
 2. **Workers:** one task and one worktree per agent; avoid concurrent edits to the same files.
@@ -1060,7 +1088,7 @@ creating a duplicate. If the task system offers no reliable API, keep the handof
 
 ### Keep the knowledge base local, source-linked, and maintainable
 
-For a local-first setup, use an [Obsidian](https://obsidian.md/) vault of Markdown files as the
+For a local-first setup (step-by-step: [Obsidian personal knowledge workflow](obsidian-personal-knowledge-workflow.md)), use an [Obsidian](https://obsidian.md/) vault of Markdown files as the
 human-readable system of record. Store source links and minimal useful summaries—not an indiscriminate
 copy of every Slack message, email, or transcript. A starter structure could be:
 
@@ -1281,13 +1309,13 @@ installing. A marketplace listing is not a security audit.
 The sample skills are intentionally agent-agnostic and require the agent to report evidence,
 not just conclusions:
 
-1. **Code review:** identify correctness, regression, security, and maintainability risks;
+1. **[Code review](../.agents/skills/code-review/SKILL.md):** identify correctness, regression, security, and maintainability risks;
    cite exact changed lines and distinguish confirmed defects from questions.
-2. **Evidence-first debugging:** state competing hypotheses, gather discriminating evidence,
+2. **[Evidence-first debugging](../.agents/skills/evidence-first-debugging/SKILL.md):** state competing hypotheses, gather discriminating evidence,
    and avoid editing code until the failure mechanism is sufficiently supported.
-3. **Test and evaluate:** map acceptance criteria to deterministic tests, run the relevant
+3. **[Test and evaluate](../.agents/skills/test-and-evaluate/SKILL.md):** map acceptance criteria to deterministic tests, run the relevant
    checks, and report failures, skipped checks, and environmental limits.
-4. **PR preparation:** inspect the diff, summarize behavior and risk, verify tests, and leave
+4. **[PR preparation](../.agents/skills/pr-preparation/SKILL.md):** inspect the diff, summarize behavior and risk, verify tests, and leave
    merging/deployment as a separate authorized decision.
 
 ### Safe evaluation checklist
@@ -1302,6 +1330,18 @@ Before enabling any skill, plugin, or MCP server:
 - Run it on a disposable branch or fixture repository before using production code.
 - Measure task success, regression rate, review findings, tool failures, and cost.
 - Keep a human-owned verification gate; never treat the agent's self-reported success as proof.
+
+## Related guides
+
+- [Agent harness](agent-harness.md)
+- [Tools and guardrails](tools-and-guardrails.md)
+- [MCP and external-agent trust boundary](mcp-and-external-agent-trust-boundary.md) — read before enabling MCP servers or plugins
+- [Agent-scale source control](agent-scale-source-control.md) — worktrees and branch ownership for parallel agents
+- [Agent team operating playbook](agent-team-operating-playbook.md)
+- [Lab environments](lab-environments.md)
+- [Earning autonomy](earning-autonomy.md)
+- [Obsidian personal knowledge workflow](obsidian-personal-knowledge-workflow.md)
+- [Whitepaper](whitepaper/README.md)
 
 ## Research queue: computer-use agents
 
