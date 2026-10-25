@@ -204,11 +204,11 @@ to the right owner.
 - **Architecture:** [Agent harness](agent-harness.md) and
   [voice-agent architecture](voice-agent-architecture.md) define the control
   plane and side-effect boundary.
-- **Coordination:** labs 09–12 cover shared context, arbitration, learning, and
+- **Coordination:** labs [09](../labs/09_shared_context.ipynb), [10](../labs/10_coordination_and_arbitration.ipynb), [11](../labs/11_learning_loop.ipynb), and [12](../labs/12_agent_to_agent_booking.ipynb) cover shared context, arbitration, learning, and
   agent-to-agent workflows.
-- **Autonomy:** lab 14 and [Earning autonomy](earning-autonomy.md) cover
+- **Autonomy:** [lab 14](../labs/14_earning_autonomy.ipynb) and [Earning autonomy](earning-autonomy.md) cover
   evidence-based promotion and demotion.
-- **Evaluation:** lab 15 and [Design by evaluation](design-by-evaluation.md)
+- **Evaluation:** [lab 15](../labs/15_llm_judge.ipynb) and [Design by evaluation](design-by-evaluation.md)
   turn failures into regression tests and staged releases.
 - **External tools:** [MCP and external-agent trust boundary](mcp-and-external-agent-trust-boundary.md)
   covers authorization, consent, idempotency, injection, and audit.
