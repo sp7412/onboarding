@@ -5,7 +5,7 @@ matplotlib
 jsonschema          # tests: validate the CallFacts contract (lab 13)
 jupyterlab
 websockets>=13
-langchain>=1.4.6
+langchain>=1.4.7
 langchain-openai
 langgraph
 langgraph-sdk>=0.4.7  # Fixes CVE-2026-104873 reported by pip-audit
