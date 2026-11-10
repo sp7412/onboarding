@@ -1,7 +1,7 @@
 {
   "symbol": "TTAN",
   "source": "Yahoo Finance daily Close and Volume; incremental refresh",
-  "updatedThrough": "2026-11-05",
+  "updatedThrough": "2026-11-09",
   "data": [
     {
       "date": "2025-10-13",
@@ -1347,7 +1347,17 @@
       "date": "2026-11-05",
       "close": 82.21,
       "volume": 1576300
+    },
+    {
+      "date": "2026-11-06",
+      "close": 81.77,
+      "volume": 844900
+    },
+    {
+      "date": "2026-11-09",
+      "close": 82.52,
+      "volume": 739800
     }
   ],
-  "updatedAt": "2026-11-07T02:06:00.239108+00:00"
+  "updatedAt": "2026-11-10T04:12:47.387166+00:00"
 }
