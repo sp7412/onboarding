@@ -2,9 +2,9 @@
   "symbol": "TTAN",
   "feed": "yahoo-daily",
   "method": "Daily closing prices and volumes. quarterlyClosingVwap is each fiscal quarter's volume-weighted average of daily closing prices; this is not trade-level VWAP. rollingCloseVwap is a 63-session close-based reference series.",
-  "generatedAt": "2026-11-18T03:45:40.120790+00:00",
-  "firstDate": "2025-11-12",
-  "lastDate": "2026-11-17",
+  "generatedAt": "2026-11-19T03:43:33.721321+00:00",
+  "firstDate": "2025-11-13",
+  "lastDate": "2026-11-18",
   "sessions": 255,
   "quarterlyClosingVwap": [
     {
@@ -83,19 +83,13 @@
       "label": "FY27 Q4",
       "quarter": 4,
       "firstDate": "2026-11-02",
-      "lastDate": "2026-11-17",
-      "sessions": 12,
-      "volume": 12325400,
-      "volumeWeightedClose": 82.7427
+      "lastDate": "2026-11-18",
+      "sessions": 13,
+      "volume": 13345200,
+      "volumeWeightedClose": 82.65
     }
   ],
   "data": [
-    {
-      "date": "2025-11-12",
-      "close": 92.99,
-      "volume": 1579000,
-      "rollingCloseVwap": 106.2596
-    },
     {
       "date": "2025-11-13",
       "close": 88.99,
@@ -1619,6 +1613,12 @@
       "close": 80.64,
       "volume": 676500,
       "rollingCloseVwap": 68.3489
+    },
+    {
+      "date": "2026-11-18",
+      "close": 81.53,
+      "volume": 1019800,
+      "rollingCloseVwap": 68.274
     }
   ]
 }
